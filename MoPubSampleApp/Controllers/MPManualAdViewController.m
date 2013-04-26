@@ -228,7 +228,7 @@
 
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
 {
-    [self.banner rotateToOrientation:MPInterfaceOrientation()];
+    [self.banner rotateToOrientation:[[UIApplication sharedApplication] statusBarOrientation]];
 }
 
 @end

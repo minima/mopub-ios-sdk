@@ -236,7 +236,7 @@
     self.hasTrackedImpression = NO;
     self.hasTrackedClick = NO;
 
-    for (id<MPADBannerViewManagerObserver> observer in [self.observers copy]) {
+    for (id<MPADBannerViewManagerObserver> observer in [[self.observers copy] autorelease]) {
         [observer bannerDidLoad];
     }
 }
@@ -244,7 +244,7 @@
 - (void)bannerView:(ADBannerView *)banner didFailToReceiveAdWithError:(NSError *)error
 {
     MPLogInfo(@"iAd banner did fail with error %@", error.localizedDescription);
-    for (id<MPADBannerViewManagerObserver> observer in [self.observers copy]) {
+    for (id<MPADBannerViewManagerObserver> observer in [[self.observers copy] autorelease]) {
         [observer bannerDidFail];
     }
 }
@@ -252,7 +252,7 @@
 - (BOOL)bannerViewActionShouldBegin:(ADBannerView *)banner willLeaveApplication:(BOOL)willLeave
 {
     MPLogInfo(@"iAd banner action will begin");
-    for (id<MPADBannerViewManagerObserver> observer in [self.observers copy]) {
+    for (id<MPADBannerViewManagerObserver> observer in [[self.observers copy] autorelease]) {
         [observer bannerActionWillBeginAndWillLeaveApplication:willLeave];
     }
     return YES;
@@ -261,7 +261,7 @@
 - (void)bannerViewActionDidFinish:(ADBannerView *)banner
 {
     MPLogInfo(@"iAd banner action did finish");
-    for (id<MPADBannerViewManagerObserver> observer in [self.observers copy]) {
+    for (id<MPADBannerViewManagerObserver> observer in [[self.observers copy] autorelease]) {
         [observer bannerActionDidFinish];
     }
 }

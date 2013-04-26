@@ -36,10 +36,10 @@
                                  configuration.preferredSize.height);
     }
 
-    self.banner = [[MRAdView alloc] initWithFrame:adViewFrame
-                                  allowsExpansion:YES
-                                 closeButtonStyle:MRAdViewCloseButtonStyleAdControlled
-                                    placementType:MRAdViewPlacementTypeInline];
+    self.banner = [[[MRAdView alloc] initWithFrame:adViewFrame
+                                   allowsExpansion:YES
+                                  closeButtonStyle:MRAdViewCloseButtonStyleAdControlled
+                                     placementType:MRAdViewPlacementTypeInline] autorelease];
     self.banner.delegate = self;
     [self.banner loadCreativeWithHTMLString:[configuration adResponseHTMLString]
                                     baseURL:nil];

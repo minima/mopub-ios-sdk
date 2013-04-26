@@ -13,7 +13,7 @@
 
 + (NSMutableDictionary *)defaultBannerHeaders
 {
-    return [@{
+    return [[@{
             kAdTypeHeaderKey: kAdTypeHtml,
             kClickthroughHeaderKey: @"http://ads.mopub.com/m/clickThroughTracker?a=1",
             kFailUrlHeaderKey: @"http://ads.mopub.com/m/failURL",
@@ -23,7 +23,7 @@
             kLaunchpageHeaderKey: @"http://publisher.com",
             kRefreshTimeHeaderKey: @"30",
             kWidthHeaderKey: @"320"
-            } mutableCopy];
+            } mutableCopy] autorelease];
 }
 
 + (MPAdConfiguration *)defaultBannerConfiguration
@@ -62,7 +62,7 @@
 
 + (NSMutableDictionary *)defaultInterstitialHeaders
 {
-    return [@{
+    return [[@{
             kAdTypeHeaderKey: kAdTypeInterstitial,
             kClickthroughHeaderKey: @"http://ads.mopub.com/m/clickThroughTracker?a=1",
             kFailUrlHeaderKey: @"http://ads.mopub.com/m/failURL",
@@ -71,7 +71,7 @@
             kLaunchpageHeaderKey: @"http://publisher.com",
             kInterstitialAdTypeHeaderKey: kAdTypeHtml,
             kOrientationTypeHeaderKey: @"p"
-            } mutableCopy];
+            } mutableCopy] autorelease];
 }
 
 + (MPAdConfiguration *)defaultInterstitialConfiguration
@@ -93,8 +93,8 @@
 + (MPAdConfiguration *)defaultChartboostInterstitialConfigurationWithLocation:(NSString *)location
 {
     MPAdConfiguration *configuration = [MPAdConfigurationFactory defaultInterstitialConfigurationWithCustomEventClassName:@"ChartboostInterstitialCustomEvent"];
-    NSMutableDictionary *data = [@{@"appId": @"myAppId",
-                                 @"appSignature": @"myAppSignature"} mutableCopy];
+    NSMutableDictionary *data = [[@{@"appId": @"myAppId",
+                                 @"appSignature": @"myAppSignature"} mutableCopy] autorelease];
 
     if (location) {
         data[@"location"] = location;

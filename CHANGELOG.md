@@ -24,6 +24,9 @@
   - Added appledoc style [Class Documentation](https://github.com/mopub/mopub-ios-sdk/tree/master/ClassDocumentation)
   - Updated the MoPub Sample Application
 
+### Version 1.12.0.1 (April 26, 2013)
+  - Fixed some leaks reported by the static analyzer
+
 ## Version 1.11 (March 13, 2013)
   - Fixed issue causing a crash for legacy custom event methods
   - Fixed issue causing refresh timer to not be scheduled properly on connection errors
