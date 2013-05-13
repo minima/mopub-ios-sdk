@@ -31,7 +31,8 @@
     MPLogInfo(@"Loading MoPub HTML banner");
     MPLogTrace(@"Loading banner with HTML source: %@", [[self.delegate configuration] adResponseHTMLString]);
 
-    self.bannerAgent = [[MPInstanceProvider sharedProvider] buildMPAdWebViewAgentWithAdWebViewFrame:CGRectMake(0, 0, 1, 1)
+    CGRect adWebViewFrame = CGRectMake(0, 0, size.width, size.height);
+    self.bannerAgent = [[MPInstanceProvider sharedProvider] buildMPAdWebViewAgentWithAdWebViewFrame:adWebViewFrame
                                                                                            delegate:self
                                                                                customMethodDelegate:[self.delegate bannerDelegate]];
     [self.bannerAgent loadConfiguration:[self.delegate configuration]];

@@ -1,6 +1,7 @@
 #import "MPHTMLBannerCustomEvent.h"
 #import "MPBannerCustomEventDelegate.h"
 #import "MPAdConfigurationFactory.h"
+#import "FakeMPAdWebView.h"
 
 using namespace Cedar::Matchers;
 using namespace Cedar::Doubles;
@@ -10,29 +11,53 @@ SPEC_BEGIN(MPHTMLBannerCustomEventSpec)
 describe(@"MPHTMLBannerCustomEvent", ^{
     __block MPHTMLBannerCustomEvent *event;
     __block id<CedarDouble, MPPrivateBannerCustomEventDelegate> delegate;
-    __block MPAdWebViewAgent<CedarDouble> *bannerAgent;
     __block MPAdConfiguration *configuration;
+    __block FakeMPAdWebView *fakeAdWebView;
+    __block CGSize containerSize;
 
     beforeEach(^{
         delegate = nice_fake_for(@protocol(MPPrivateBannerCustomEventDelegate));
-        bannerAgent = nice_fake_for([MPAdWebViewAgent class]);
-        fakeProvider.fakeMPAdWebViewAgent = bannerAgent;
+        fakeAdWebView = [[[FakeMPAdWebView alloc] initWithFrame:CGRectZero] autorelease];
+        fakeProvider.fakeMPAdWebView = fakeAdWebView;
 
         configuration = [MPAdConfigurationFactory defaultBannerConfiguration];
-        delegate stub_method("configuration").and_return(configuration);
+        containerSize = CGSizeMake(300, 250);
 
         event = [[[MPHTMLBannerCustomEvent alloc] init] autorelease];
         event.delegate = delegate;
+    });
 
-        [event requestAdWithSize:CGSizeZero customEventInfo:nil];
+    subjectAction(^{
+        delegate stub_method("configuration").and_return(configuration);
+        [event requestAdWithSize:containerSize customEventInfo:nil];
+    });
+
+    context(@"when the configuration has a preferred ad size", ^{
+        beforeEach(^{
+            configuration.preferredSize = CGSizeMake(320, 50);
+        });
+
+        it(@"should create a banner with that size", ^{
+            fakeAdWebView.frame.size should equal(configuration.preferredSize);
+        });
+    });
+
+    context(@"when the configuration does not have a preferred ad size", ^{
+        beforeEach(^{
+            configuration.preferredSize = CGSizeZero;
+        });
+
+        it(@"should create a banner with the container's size (passed into requestAdWithSize:)", ^{
+            fakeAdWebView.frame.size should equal(containerSize);
+        });
     });
 
     it(@"should disable automatic metrics tracking", ^{
         event.enableAutomaticImpressionAndClickTracking should equal(NO);
     });
 
-    it(@"should properly set up the banner agent", ^{
-        bannerAgent should have_received(@selector(loadConfiguration:)).with(configuration);
+    it(@"should request an ad using the configuration", ^{
+        fakeAdWebView.loadedHTMLString should equal(configuration.adResponseHTMLString);
     });
 
     describe(@"forwarding the view controller along", ^{

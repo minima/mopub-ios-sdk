@@ -24,6 +24,10 @@
   - Added appledoc style [Class Documentation](https://github.com/mopub/mopub-ios-sdk/tree/master/ClassDocumentation)
   - Updated the MoPub Sample Application
 
+### Version 1.12.1.0 (May 13, 2013)
+  - Fixed issue causing banners from custom HTML networks to be improperly sized
+  - Updated the SDK bundle to include the Millennial Media 5.0.1 SDK
+
 ### Version 1.12.0.1 (April 26, 2013)
   - Fixed some leaks reported by the static analyzer
 

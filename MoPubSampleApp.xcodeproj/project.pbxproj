@@ -31,6 +31,7 @@
 		AE23239D16F78A17002C2082 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = AE23239B16F78A17002C2082 /* InfoPlist.strings */; };
 		AE23239F16F78A17002C2082 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = AE23239E16F78A17002C2082 /* main.m */; };
 		AE2323A316F78A17002C2082 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AE2323A216F78A17002C2082 /* AppDelegate.m */; };
+		AE3B67F8173C415400CC13EA /* libMMSDK_5.0.1.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AE3B67F6173C413600CC13EA /* libMMSDK_5.0.1.a */; };
 		AE43413D16F8EEC500B73710 /* MPAdSection.m in Sources */ = {isa = PBXBuildFile; fileRef = AE43413C16F8EEC500B73710 /* MPAdSection.m */; };
 		AE43413E16F8EEC500B73710 /* MPAdSection.m in Sources */ = {isa = PBXBuildFile; fileRef = AE43413C16F8EEC500B73710 /* MPAdSection.m */; };
 		AE43413F16F8EEC500B73710 /* MPAdSection.m in Sources */ = {isa = PBXBuildFile; fileRef = AE43413C16F8EEC500B73710 /* MPAdSection.m */; };
@@ -55,6 +56,7 @@
 		AE8E1D551729B0A30051FA6C /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = AE8E1D481729A7730051FA6C /* Default.png */; };
 		AE8E1D561729B0A50051FA6C /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AE8E1D4A1729A7760051FA6C /* Default@2x.png */; };
 		AE8E1D571729B0A70051FA6C /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AE8E1D4C1729A7790051FA6C /* Default-568h@2x.png */; };
+		AE8E1D82172AF7BF0051FA6C /* ASIdentifierManager+KIF.m in Sources */ = {isa = PBXBuildFile; fileRef = AE8E1D81172AF7BF0051FA6C /* ASIdentifierManager+KIF.m */; };
 		AE902967171F521100991DF9 /* libFoundation+PivotalSpecHelper-StaticLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AE902946171F513300991DF9 /* libFoundation+PivotalSpecHelper-StaticLib.a */; };
 		AE902985171F537200991DF9 /* AppDelegateSpec.mm in Sources */ = {isa = PBXBuildFile; fileRef = AE902969171F537200991DF9 /* AppDelegateSpec.mm */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		AE902986171F537200991DF9 /* MPAdTableViewControllerSpec.mm in Sources */ = {isa = PBXBuildFile; fileRef = AE90296B171F537200991DF9 /* MPAdTableViewControllerSpec.mm */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -312,7 +314,6 @@
 		AE9BC21917208084005E4CFF /* README.markdown in Resources */ = {isa = PBXBuildFile; fileRef = AE9BC1F717208084005E4CFF /* README.markdown */; };
 		AE9BC21A17208084005E4CFF /* README.markdown in Resources */ = {isa = PBXBuildFile; fileRef = AE9BC1F717208084005E4CFF /* README.markdown */; };
 		AE9BC21B17208084005E4CFF /* README.markdown in Resources */ = {isa = PBXBuildFile; fileRef = AE9BC1F717208084005E4CFF /* README.markdown */; };
-		AEBB56FE1721C2EF005DF12B /* libMMSDK_5.0.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AEBB56F91721C2EF005DF12B /* libMMSDK_5.0.0.a */; };
 		AEBE0DF117285FEA0091925C /* libInMobiAdNetwork-3.7.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AEBE0DEF17285FEA0091925C /* libInMobiAdNetwork-3.7.0.a */; };
 		AEBE0DF217285FEA0091925C /* libInMobiCommons-3.7.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AEBE0DF017285FEA0091925C /* libInMobiCommons-3.7.0.a */; };
 		AED9E45A16F78D7300EA71A7 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE23239216F78A17002C2082 /* UIKit.framework */; };
@@ -486,6 +487,7 @@
 		AE2323A416F78A17002C2082 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		AE2323A616F78A17002C2082 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		AE2323A816F78A17002C2082 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		AE3B67F6173C413600CC13EA /* libMMSDK_5.0.1.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libMMSDK_5.0.1.a; sourceTree = "<group>"; };
 		AE43413B16F8EEC400B73710 /* MPAdSection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = MPAdSection.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		AE43413C16F8EEC500B73710 /* MPAdSection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = MPAdSection.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		AE43414416F9068000B73710 /* MPInterstitialAdDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPInterstitialAdDetailViewController.h; sourceTree = "<group>"; };
@@ -498,6 +500,8 @@
 		AE8E1D4A1729A7760051FA6C /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		AE8E1D4C1729A7790051FA6C /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		AE8E1D4F1729AA460051FA6C /* white_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = white_button.png; sourceTree = "<group>"; };
+		AE8E1D80172AF7BF0051FA6C /* ASIdentifierManager+KIF.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ASIdentifierManager+KIF.h"; sourceTree = "<group>"; };
+		AE8E1D81172AF7BF0051FA6C /* ASIdentifierManager+KIF.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ASIdentifierManager+KIF.m"; sourceTree = "<group>"; };
 		AE902929171F512F00991DF9 /* UIKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = UIKit.xcodeproj; path = Specs/Externals/PivotalCoreKit/UIKit/UIKit.xcodeproj; sourceTree = "<group>"; };
 		AE902936171F513300991DF9 /* Foundation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Foundation.xcodeproj; path = Specs/Externals/PivotalCoreKit/Foundation/Foundation.xcodeproj; sourceTree = "<group>"; };
 		AE902969171F537200991DF9 /* AppDelegateSpec.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AppDelegateSpec.mm; sourceTree = "<group>"; };
@@ -569,7 +573,6 @@
 		AE9029E5171F549100991DF9 /* libxml2.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.2.dylib; path = usr/lib/libxml2.2.dylib; sourceTree = SDKROOT; };
 		AE9029EA171F556A00991DF9 /* ChartboostInterstitialCustomEvent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChartboostInterstitialCustomEvent.h; sourceTree = "<group>"; };
 		AE9029EB171F556A00991DF9 /* ChartboostInterstitialCustomEvent.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChartboostInterstitialCustomEvent.m; sourceTree = "<group>"; };
-		AE9029ED171F556A00991DF9 /* CBAnalytics.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CBAnalytics.h; sourceTree = "<group>"; };
 		AE9029EE171F556A00991DF9 /* Chartboost.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Chartboost.h; sourceTree = "<group>"; };
 		AE9029EF171F556A00991DF9 /* libChartboost.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libChartboost.a; sourceTree = "<group>"; };
 		AE9029F1171F556A00991DF9 /* MPGoogleAdMobBannerCustomEvent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MPGoogleAdMobBannerCustomEvent.h; sourceTree = "<group>"; };
@@ -759,7 +762,6 @@
 		AE9BC1F517208084005E4CFF /* JSONRepresentation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONRepresentation.h; sourceTree = "<group>"; };
 		AE9BC1F617208084005E4CFF /* LICENSE.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
 		AE9BC1F717208084005E4CFF /* README.markdown */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.markdown; sourceTree = "<group>"; };
-		AEBB56F91721C2EF005DF12B /* libMMSDK_5.0.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libMMSDK_5.0.0.a; sourceTree = "<group>"; };
 		AEBB56FA1721C2EF005DF12B /* MMAdView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMAdView.h; sourceTree = "<group>"; };
 		AEBB56FB1721C2EF005DF12B /* MMInterstitial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMInterstitial.h; sourceTree = "<group>"; };
 		AEBB56FC1721C2EF005DF12B /* MMRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMRequest.h; sourceTree = "<group>"; };
@@ -868,9 +870,9 @@
 				AE109213170120E700812E6E /* Security.framework in Frameworks */,
 				AE109216170120E700812E6E /* libz.dylib in Frameworks */,
 				AE109219170120E700812E6E /* libsqlite3.dylib in Frameworks */,
-				AEBB56FE1721C2EF005DF12B /* libMMSDK_5.0.0.a in Frameworks */,
 				AEBE0DF117285FEA0091925C /* libInMobiAdNetwork-3.7.0.a in Frameworks */,
 				AEBE0DF217285FEA0091925C /* libInMobiCommons-3.7.0.a in Frameworks */,
+				AE3B67F8173C415400CC13EA /* libMMSDK_5.0.1.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1107,6 +1109,8 @@
 				AE90299F171F537900991DF9 /* UIWebView+KIF.h */,
 				AE9029A0171F537900991DF9 /* UIWebView+KIF.m */,
 				AE8E1D1A1729A4B40051FA6C /* MPAdInfo+KIF.m */,
+				AE8E1D80172AF7BF0051FA6C /* ASIdentifierManager+KIF.h */,
+				AE8E1D81172AF7BF0051FA6C /* ASIdentifierManager+KIF.m */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1182,7 +1186,6 @@
 		AE9029EC171F556A00991DF9 /* SDK */ = {
 			isa = PBXGroup;
 			children = (
-				AE9029ED171F556A00991DF9 /* CBAnalytics.h */,
 				AE9029EE171F556A00991DF9 /* Chartboost.h */,
 				AE9029EF171F556A00991DF9 /* libChartboost.a */,
 			);
@@ -1300,7 +1303,7 @@
 		AE902A28171F556A00991DF9 /* SDK */ = {
 			isa = PBXGroup;
 			children = (
-				AEBB56F91721C2EF005DF12B /* libMMSDK_5.0.0.a */,
+				AE3B67F6173C413600CC13EA /* libMMSDK_5.0.1.a */,
 				AEBB56FA1721C2EF005DF12B /* MMAdView.h */,
 				AEBB56FB1721C2EF005DF12B /* MMInterstitial.h */,
 				AEBB56FC1721C2EF005DF12B /* MMRequest.h */,
@@ -2117,6 +2120,7 @@
 				AE9BC21217208084005E4CFF /* CJSONScanner.m in Sources */,
 				AE9BC21517208084005E4CFF /* CJSONSerializer.m in Sources */,
 				AE8E1D1B1729A4B40051FA6C /* MPAdInfo+KIF.m in Sources */,
+				AE8E1D82172AF7BF0051FA6C /* ASIdentifierManager+KIF.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

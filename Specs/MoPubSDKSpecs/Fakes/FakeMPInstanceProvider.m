@@ -158,14 +158,11 @@
 - (MPAdWebView *)buildMPAdWebViewWithFrame:(CGRect)frame delegate:(id<UIWebViewDelegate>)delegate
 {
     if (self.fakeMPAdWebView) {
+        self.fakeMPAdWebView.frame = frame;
         self.fakeMPAdWebView.delegate = delegate;
         return self.fakeMPAdWebView;
     } else {
-        return [self returnFake:self.fakeMPAdWebView
-                         orCall:^{
-                             return [super buildMPAdWebViewWithFrame:frame
-                                                            delegate:delegate];
-                         }];
+        return [super buildMPAdWebViewWithFrame:frame delegate:delegate];
     }
 }
 
