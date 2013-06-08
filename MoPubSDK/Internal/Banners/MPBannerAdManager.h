@@ -19,6 +19,8 @@
 
 - (void)loadAd;
 - (void)forceRefreshAd;
+- (void)stopAutomaticallyRefreshingContents;
+- (void)startAutomaticallyRefreshingContents;
 - (void)rotateToOrientation:(UIInterfaceOrientation)orientation;
 
 // Deprecated.

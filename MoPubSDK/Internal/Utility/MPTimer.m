@@ -95,7 +95,6 @@
         return NO;
     }
 
-    MPLogDebug(@"Scheduled MPTimer (%p).", self);
     [[NSRunLoop currentRunLoop] addTimer:self.timer forMode:NSDefaultRunLoopMode];
     return YES;
 }

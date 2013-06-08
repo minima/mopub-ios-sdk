@@ -11,6 +11,7 @@ describe(@"MRAdView", ^{
     __block id<CedarDouble, MRAdViewDelegate> delegate;
     __block MPAdDestinationDisplayAgent<CedarDouble> *destinationDisplayAgent;
     __block UIViewController *presentingViewController;
+    __block UIWindow *window;
 
     beforeEach(^{
         destinationDisplayAgent = nice_fake_for([MPAdDestinationDisplayAgent class]);
@@ -22,6 +23,13 @@ describe(@"MRAdView", ^{
         delegate = nice_fake_for(@protocol(MRAdViewDelegate));
         delegate stub_method("viewControllerForPresentingModalView").and_return(presentingViewController);
         view.delegate = delegate;
+
+        window = [[[UIWindow alloc] init] autorelease];
+        [window makeKeyAndVisible];
+    });
+
+    afterEach(^{
+        [window resignKeyWindow];
     });
 
     describe(@"when performing URL navigation", ^{
@@ -96,11 +104,62 @@ describe(@"MRAdView", ^{
         });
     });
 
-    describe(@"handling MRAID open call", ^{
-        it(@"should ask the destination display agent to load the URL", ^{
-            NSURL *URL = [NSURL URLWithString:@"http://www.donuts.com"];
-            [view handleMRAIDOpenCallForURL:URL];
-            destinationDisplayAgent should have_received(@selector(displayDestinationForURL:)).with(URL);
+    describe(@"mraid://open", ^{
+        context(@"when the ad is in the default state", ^{
+            it(@"should ask the destination display agent to load the URL", ^{
+                NSURL *URL = [NSURL URLWithString:@"http://www.donuts.com"];
+                [view handleMRAIDOpenCallForURL:URL];
+                destinationDisplayAgent should have_received(@selector(displayDestinationForURL:)).with(URL);
+            });
+        });
+
+        context(@"when the ad is in the expanded state", ^{
+            __block NSURL *URL;
+
+            beforeEach(^{
+                NSURL *expandCommandURL = [NSURL URLWithString:@"mraid://expand"];
+                NSURLRequest *expandRequest = [NSURLRequest requestWithURL:expandCommandURL];
+                [view webView:nil
+                      shouldStartLoadWithRequest:expandRequest
+                      navigationType:UIWebViewNavigationTypeOther];
+                [[[UIApplication sharedApplication] keyWindow] subviews] should contain(view);
+
+                // XXX: Expansion has some async animation behavior, which we'll have to fix to
+                // avoid this type of ugly hack.
+                [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.8]];
+
+                URL = [NSURL URLWithString:@"http://www.donuts.com"];
+                [view handleMRAIDOpenCallForURL:URL];
+            });
+
+            it(@"should ask the destination display agent to load the URL", ^{
+                destinationDisplayAgent should have_received(@selector(displayDestinationForURL:)).with(URL);
+            });
+
+            context(@"when the destination display agent presents a modal view controller", ^{
+                beforeEach(^{
+                    [view displayAgentWillPresentModal];
+                });
+
+                it(@"should temporarily hide the expanded ad", ^{
+                    [[[UIApplication sharedApplication] keyWindow] subviews] should contain(view);
+                    view.hidden should equal(YES);
+                });
+
+                context(@"when the modal view controller is dismissed", ^{
+                    beforeEach(^{
+                        [view displayAgentDidDismissModal];
+                    });
+
+                    it(@"should un-hide the expanded ad", ^{
+                        view.hidden should equal(NO);
+                    });
+
+                    it(@"should not tell the delegate that the ad has been dismissed", ^{
+                        delegate should_not have_received(@selector(appShouldResumeFromAd:));
+                    });
+                });
+            });
         });
     });
 
@@ -112,16 +171,19 @@ describe(@"MRAdView", ^{
         });
 
         context(@"when a modal is presented", ^{
-            it(@"should tell the delegate", ^{
+            beforeEach(^{
                 [view displayAgentWillPresentModal];
+            });
+
+            it(@"should tell the delegate", ^{
                 delegate should have_received(@selector(appShouldSuspendForAd:)).with(view);
             });
-        });
 
-        context(@"when a modal is dismissed", ^{
-            it(@"should tell the delegate", ^{
-                [view displayAgentDidDismissModal];
-                delegate should have_received(@selector(appShouldResumeFromAd:)).with(view);
+            context(@"when the modal is dismissed", ^{
+                it(@"should tell the delegate", ^{
+                    [view displayAgentDidDismissModal];
+                    delegate should have_received(@selector(appShouldResumeFromAd:)).with(view);
+                });
             });
         });
     });

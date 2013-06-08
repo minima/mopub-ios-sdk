@@ -20,7 +20,9 @@
              [MPAdInfo infoWithTitle:@"Millennial Banner" ID:@"1aa442709c9f11e281c11231392559e4" type:MPAdInfoBanner],
              [MPAdInfo infoWithTitle:@"Google AdMob Banner" ID:@"01535a569c8e11e281c11231392559e4" type:MPAdInfoBanner],
              [MPAdInfo infoWithTitle:@"Greystripe Banner" ID:@"ab654e0ca39411e295fa123138070049" type:MPAdInfoBanner],
-             [MPAdInfo infoWithTitle:@"InMobi Banner" ID:@"f6fc68a8a3a011e295fa123138070049" type:MPAdInfoBanner]
+             [MPAdInfo infoWithTitle:@"InMobi Banner" ID:@"f6fc68a8a3a011e295fa123138070049" type:MPAdInfoBanner],
+             [MPAdInfo infoWithTitle:@"Custom Network Banner" ID:@"76e8c2f4b8f111e281c11231392559e4" type:MPAdInfoBanner],
+             [MPAdInfo infoWithTitle:@"Marketplace Banner" ID:@"f8e21726be6c11e295fa123138070049" type:MPAdInfoBanner]
              ];
 }
 

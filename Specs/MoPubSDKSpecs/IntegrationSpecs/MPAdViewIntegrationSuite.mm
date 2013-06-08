@@ -4,6 +4,8 @@
 using namespace Cedar::Matchers;
 using namespace Cedar::Doubles;
 
+#define FAR_FUTURE_TIME_INTERVAL 10000
+
 typedef FakeBannerCustomEvent *(^FakeBannerCustomEventReturningBlock)();
 
 SPEC_BEGIN(MPAdViewIntegrationSuite)
@@ -491,7 +493,233 @@ describe(@"MPAdViewIntegrationSuite", ^{
         });
     });
 
-    context(@"when told to ignore auto refresh", ^{
+    describe(@"-stopAutomaticallyRefreshingContents", ^{
+        beforeEach(^{
+            requestingEvent = [[[FakeBannerCustomEvent alloc] initWithFrame:CGRectMake(0, 0, 20, 30)] autorelease];
+            fakeProvider.fakeBannerCustomEvent = requestingEvent;
+
+            requestingConfiguration = [MPAdConfigurationFactory defaultBannerConfigurationWithCustomEventClassName:@"FakeBannerCustomEvent"];
+            requestingConfiguration.refreshInterval = 20;
+        });
+
+        it(@"should prevent the ad from refreshing when backgrounding / subsequently foregrounding", ^{
+            [banner stopAutomaticallyRefreshingContents];
+
+            communicator = fakeProvider.lastFakeMPAdServerCommunicator;
+
+            [communicator resetLoadedURL];
+            [[NSNotificationCenter defaultCenter] postNotificationName:UIApplicationWillEnterForegroundNotification
+                                                                object:[UIApplication sharedApplication]];
+            communicator.loadedURL should be_nil;
+        });
+
+        context(@"when called before an ad has been requested", ^{
+            beforeEach(^{
+                [banner stopAutomaticallyRefreshingContents];
+            });
+
+            it(@"should prevent the ad from refreshing if any future request fails", ^{
+                [banner loadAd];
+
+                communicator = fakeProvider.lastFakeMPAdServerCommunicator;
+                communicator.loadedURL.absoluteString should contain(@"custom_event");
+
+                [communicator failWithError:[NSErrorFactory genericError]];
+
+                [communicator resetLoadedURL];
+                [[NSNotificationCenter defaultCenter] postNotificationName:UIApplicationWillEnterForegroundNotification
+                                                                    object:[UIApplication sharedApplication]];
+                communicator.loadedURL should be_nil;
+            });
+
+            it(@"should prevent the ad from refreshing once a request successfully loads", ^{
+                [banner loadAd];
+
+                communicator = fakeProvider.lastFakeMPAdServerCommunicator;
+                communicator.loadedURL.absoluteString should contain(@"custom_event");
+
+                [communicator receiveConfiguration:requestingConfiguration];
+                [requestingEvent simulateLoadingAd];
+
+                [communicator resetLoadedURL];
+                [fakeProvider advanceMPTimers:FAR_FUTURE_TIME_INTERVAL];
+                communicator.loadedURL should be_nil;
+            });
+        });
+
+        context(@"when called after the initial ad server request, but before receiving a response", ^{
+            beforeEach(^{
+                [banner loadAd];
+
+                communicator = fakeProvider.lastFakeMPAdServerCommunicator;
+                communicator.loadedURL.absoluteString should contain(@"custom_event");
+
+                [banner stopAutomaticallyRefreshingContents];
+            });
+
+            it(@"should prevent the ad from refreshing even if the request fails", ^{
+                [communicator failWithError:[NSErrorFactory genericError]];
+
+                [communicator resetLoadedURL];
+                [fakeProvider advanceMPTimers:FAR_FUTURE_TIME_INTERVAL];
+                communicator.loadedURL should be_nil;
+            });
+
+            context(@"when the ad eventually does load", ^{
+                beforeEach(^{
+                    [communicator receiveConfiguration:requestingConfiguration];
+                    [requestingEvent simulateLoadingAd];
+                });
+
+                it(@"should prevent the ad from refreshing", ^{
+                    [communicator resetLoadedURL];
+                    [fakeProvider advanceMPTimers:FAR_FUTURE_TIME_INTERVAL];
+                    communicator.loadedURL should be_nil;
+                });
+            });
+        });
+
+        context(@"when called after an ad has been received, but before its refresh interval has elapsed", ^{
+            beforeEach(^{
+                [banner loadAd];
+
+                requestingConfiguration.refreshInterval = 20;
+
+                communicator = fakeProvider.lastFakeMPAdServerCommunicator;
+                communicator.loadedURL.absoluteString should contain(@"custom_event");
+
+                [communicator receiveConfiguration:requestingConfiguration];
+                [requestingEvent simulateLoadingAd];
+            });
+
+            context(@"but before its refresh interval has elapsed", ^{
+                beforeEach(^{
+                    [banner stopAutomaticallyRefreshingContents];
+                });
+
+                it(@"should prevent the ad from refreshing", ^{
+                    [communicator resetLoadedURL];
+                    [fakeProvider advanceMPTimers:FAR_FUTURE_TIME_INTERVAL];
+                    communicator.loadedURL should be_nil;
+                });
+            });
+
+            context(@"but after its refresh interval has elapsed", ^{
+                beforeEach(^{
+                    [communicator resetLoadedURL];
+                    [fakeProvider advanceMPTimers:30];
+                    communicator.loadedURL should_not be_nil;
+
+                    [banner stopAutomaticallyRefreshingContents];
+                });
+
+                it(@"should prevent the new ad from refreshing once it comes in", ^{
+                    [communicator receiveConfiguration:requestingConfiguration];
+                    [requestingEvent simulateLoadingAd];
+
+                    [communicator resetLoadedURL];
+                    [fakeProvider advanceMPTimers:FAR_FUTURE_TIME_INTERVAL];
+                    communicator.loadedURL should be_nil;
+                });
+            });
+        });
+    });
+
+    describe(@"-startAutomaticallyRefreshingContents", ^{
+        subjectAction(^{ [banner startAutomaticallyRefreshingContents]; });
+
+        context(@"if automatic refreshing has been stopped previously", ^{
+            beforeEach(^{
+                [banner stopAutomaticallyRefreshingContents];
+            });
+
+            context(@"when refreshing is restarted before an ad has been requested", ^{
+                it(@"should not cause an ad to be loaded", ^{
+                    communicator = fakeProvider.lastFakeMPAdServerCommunicator;
+                    [fakeProvider advanceMPTimers:FAR_FUTURE_TIME_INTERVAL];
+                    communicator.loadedURL should be_nil;
+                });
+            });
+
+            context(@"when refreshing is restarted after receiving an ad with a refresh interval of 0 (i.e. disabled)", ^{
+                beforeEach(^{
+                    [banner loadAd];
+
+                    requestingEvent = [[[FakeBannerCustomEvent alloc] initWithFrame:CGRectMake(0, 0, 20, 30)] autorelease];
+                    fakeProvider.fakeBannerCustomEvent = requestingEvent;
+
+                    requestingConfiguration = [MPAdConfigurationFactory defaultBannerConfigurationWithCustomEventClassName:@"FakeBannerCustomEvent"];
+                    requestingConfiguration.refreshInterval = 0;
+
+                    communicator = fakeProvider.lastFakeMPAdServerCommunicator;
+                    communicator.loadedURL.absoluteString should contain(@"custom_event");
+
+                    [communicator receiveConfiguration:requestingConfiguration];
+                    [requestingEvent simulateLoadingAd];
+                });
+
+                it(@"should prevent the ad from refreshing", ^{
+                    [communicator resetLoadedURL];
+                    [fakeProvider advanceMPTimers:FAR_FUTURE_TIME_INTERVAL];
+                    communicator.loadedURL should be_nil;
+                });
+            });
+
+            context(@"when refreshing is restarted after receiving an ad with a non-zero refresh interval", ^{
+                beforeEach(^{
+                    [banner loadAd];
+
+                    requestingEvent = [[[FakeBannerCustomEvent alloc] initWithFrame:CGRectMake(0, 0, 20, 30)] autorelease];
+                    fakeProvider.fakeBannerCustomEvent = requestingEvent;
+
+                    requestingConfiguration = [MPAdConfigurationFactory defaultBannerConfigurationWithCustomEventClassName:@"FakeBannerCustomEvent"];
+                    requestingConfiguration.refreshInterval = 20;
+
+                    communicator = fakeProvider.lastFakeMPAdServerCommunicator;
+                    communicator.loadedURL.absoluteString should contain(@"custom_event");
+
+                    [communicator receiveConfiguration:requestingConfiguration];
+                    [requestingEvent simulateLoadingAd];
+                });
+
+                it(@"should allow the ad to refresh after the refresh interval elapses", ^{
+                    [communicator resetLoadedURL];
+                    [fakeProvider advanceMPTimers:20];
+                    communicator.loadedURL.absoluteString should contain(@"custom_event");
+                });
+            });
+        });
+
+        context(@"if the ad is currently refreshing", ^{
+            beforeEach(^{
+                [banner loadAd];
+
+                requestingEvent = [[[FakeBannerCustomEvent alloc] initWithFrame:CGRectMake(0, 0, 20, 30)] autorelease];
+                fakeProvider.fakeBannerCustomEvent = requestingEvent;
+
+                requestingConfiguration = [MPAdConfigurationFactory defaultBannerConfigurationWithCustomEventClassName:@"FakeBannerCustomEvent"];
+                requestingConfiguration.refreshInterval = 20;
+
+                communicator = fakeProvider.lastFakeMPAdServerCommunicator;
+                communicator.loadedURL.absoluteString should contain(@"custom_event");
+
+                [communicator receiveConfiguration:requestingConfiguration];
+                [requestingEvent simulateLoadingAd];
+
+                [communicator resetLoadedURL];
+                [fakeProvider advanceMPTimers:20];
+                communicator.loadedURL.absoluteString should contain(@"custom_event");
+            });
+
+            it(@"should not cause the ad to refresh again", ^{
+                [communicator resetLoadedURL];
+                [fakeProvider advanceMPTimers:FAR_FUTURE_TIME_INTERVAL];
+                communicator.loadedURL.absoluteString should be_nil;
+            });
+        });
+    });
+
+    describe(@"setting ignoresAutorefresh to YES", ^{
         beforeEach(^{
             banner.ignoresAutorefresh = YES;
 
@@ -501,33 +729,7 @@ describe(@"MPAdViewIntegrationSuite", ^{
             communicator.loadedURL.absoluteString should contain(@"custom_event");
         });
 
-        context(@"when the communicator fails", ^{
-            beforeEach(^{
-                [communicator failWithError:nil];
-            });
-
-            it(@"should nonetheless schedule a refresh timer (with the default time interval)", ^{
-                [communicator resetLoadedURL];
-                [fakeProvider advanceMPTimers:DEFAULT_BANNER_REFRESH_INTERVAL];
-                communicator.loadedURL should_not be_nil;
-            });
-        });
-
-        context(@"when the waterfall eventually fails to load", ^{
-            beforeEach(^{
-                requestingConfiguration = [MPAdConfigurationFactory defaultBannerConfigurationWithNetworkType:kAdTypeClear];
-                requestingConfiguration.refreshInterval = 36;
-                [communicator receiveConfiguration:requestingConfiguration];
-            });
-
-            it(@"should nonetheless schedule a refresh timer (with the configuration's time interval)", ^{
-                [communicator resetLoadedURL];
-                [fakeProvider advanceMPTimers:36];
-                communicator.loadedURL should_not be_nil;
-            });
-        });
-
-        context(@"when the ad succesfully loads", ^{
+        context(@"when the ad successfully loads", ^{
             beforeEach(^{
                 requestingEvent = [[[FakeBannerCustomEvent alloc] initWithFrame:CGRectMake(0, 0, 20, 30)] autorelease];
                 fakeProvider.fakeBannerCustomEvent = requestingEvent;
@@ -544,6 +746,14 @@ describe(@"MPAdViewIntegrationSuite", ^{
                 [communicator resetLoadedURL];
                 [fakeProvider advanceMPTimers:36];
                 communicator.loadedURL should be_nil;
+            });
+
+            it(@"should schedule a refresh timer upon setting ignoresAutorefresh back to NO", ^{
+                banner.ignoresAutorefresh = NO;
+
+                [communicator resetLoadedURL];
+                [fakeProvider advanceMPTimers:36];
+                communicator.loadedURL.absoluteString should contain(@"custom_event");
             });
         });
     });

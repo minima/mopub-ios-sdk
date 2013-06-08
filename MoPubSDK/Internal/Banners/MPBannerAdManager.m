@@ -24,9 +24,11 @@
 @property (nonatomic, retain) MPAdConfiguration *requestingConfiguration;
 @property (nonatomic, retain) MPTimer *refreshTimer;
 @property (nonatomic, assign) BOOL adActionInProgress;
+@property (nonatomic, assign) BOOL automaticallyRefreshesContents;
 @property (nonatomic, assign) UIInterfaceOrientation currentOrientation;
 
 - (void)loadAdWithURL:(NSURL *)URL;
+- (void)applicationWillEnterForeground;
 - (void)scheduleRefreshTimer;
 - (void)refreshTimerDidFire;
 
@@ -51,16 +53,18 @@
         self.communicator = [[MPInstanceProvider sharedProvider] buildMPAdServerCommunicatorWithDelegate:self];
 
         [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(forceRefreshAd)
+                                                 selector:@selector(applicationWillEnterForeground)
                                                      name:UIApplicationWillEnterForegroundNotification
                                                    object:[UIApplication sharedApplication]];
 
+        self.automaticallyRefreshesContents = YES;
         self.currentOrientation = MPInterfaceOrientation();
     }
     return self;
 }
 
-- (void)dealloc {
+- (void)dealloc
+{
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 
     [self.communicator cancel];
@@ -98,6 +102,33 @@
 - (void)forceRefreshAd
 {
     [self loadAdWithURL:nil];
+}
+
+- (void)applicationWillEnterForeground
+{
+    if (self.automaticallyRefreshesContents) {
+        [self loadAdWithURL:nil];
+    }
+}
+
+- (void)stopAutomaticallyRefreshingContents
+{
+    self.automaticallyRefreshesContents = NO;
+
+    if ([self.refreshTimer isValid]) {
+        [self.refreshTimer pause];
+    }
+}
+
+- (void)startAutomaticallyRefreshingContents
+{
+    self.automaticallyRefreshesContents = YES;
+
+    if ([self.refreshTimer isValid]) {
+        [self.refreshTimer resume];
+    } else if (self.refreshTimer) {
+        [self scheduleRefreshTimer];
+    }
 }
 
 - (void)loadAdWithURL:(NSURL *)URL
@@ -141,12 +172,13 @@
                                                                                      selector:@selector(refreshTimerDidFire)
                                                                                       repeats:NO];
         [self.refreshTimer scheduleNow];
+        MPLogDebug(@"Scheduled the autorefresh timer to fire in %.1f seconds (%p).", timeInterval, self.refreshTimer);
     }
 }
 
 - (void)refreshTimerDidFire
 {
-    if (!self.loading) {
+    if (!self.loading && self.automaticallyRefreshesContents) {
         [self loadAd];
     }
 }
@@ -239,9 +271,7 @@
         [self.onscreenAdapter didDisplayAd];
 
         self.requestingAdapterAdContentView = nil;
-        if (![self.delegate ignoresAutorefresh]) {
-            [self scheduleRefreshTimer];
-        }
+        [self scheduleRefreshTimer];
     }
 }
 
@@ -322,9 +352,7 @@
 
     [self.onscreenAdapter didDisplayAd];
 
-    if (![self.delegate ignoresAutorefresh]) {
-        [self scheduleRefreshTimer];
-    }
+    [self scheduleRefreshTimer];
 }
 
 - (void)customEventDidFailToLoadAd

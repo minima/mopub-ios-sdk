@@ -24,6 +24,12 @@
   - Added appledoc style [Class Documentation](https://github.com/mopub/mopub-ios-sdk/tree/master/ClassDocumentation)
   - Updated the MoPub Sample Application
 
+### Version 1.12.2.0 (June 7, 2013)
+  - Fixed issue causing expanded MRAID banner ads to obscure modal content
+  - Fixed issue in which impressions were not tracked properly for MRAID banner ads
+  - Added new API methods on `MPAdView` for managing ad refresh behavior (`-startAutomaticallyRefreshingContent` and `-stopAutomaticallyRefreshingContent`)
+  - Deprecated `ignoresAutorefresh` property on `MPAdView`
+
 ### Version 1.12.1.0 (May 13, 2013)
   - Fixed issue causing banners from custom HTML networks to be improperly sized
   - Updated the SDK bundle to include the Millennial Media 5.0.1 SDK

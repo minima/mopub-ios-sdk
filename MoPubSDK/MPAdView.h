@@ -189,14 +189,33 @@ typedef enum
 /** @name Managing the Automatic Refreshing of Ads */
 
 /**
- * A Boolean value that determines whether the ad view should ignore directions from the MoPub
- * ad server to periodically refresh its contents.
+ * Stops the ad view from periodically loading new advertisements.
  *
- * The default value of this property is NO. Set the property to YES if you want to prevent your ad
- * view from automatically refreshing. *Note:* if you wish to set the property to YES, you should do
- * so before you call `loadAd` for the first time.
+ * By default, an ad view is allowed to automatically load new advertisements if a refresh interval
+ * has been configured on the MoPub website. This method prevents new ads from automatically loading,
+ * even if a refresh interval has been specified.
+ *
+ * As a best practice, you should call this method whenever the ad view will be hidden from the user
+ * for any period of time, in order to avoid unnecessary ad requests. You can then call
+ * `startAutomaticallyRefreshingContents` to re-enable the refresh behavior when the ad view becomes
+ * visible.
+ *
+ * @see startAutomaticallyRefreshingContents
  */
-@property (nonatomic, assign) BOOL ignoresAutorefresh;
+- (void)stopAutomaticallyRefreshingContents;
+
+/**
+ * Causes the ad view to periodically load new advertisements in accordance with user-defined
+ * refresh settings on the MoPub website.
+ *
+ * Calling this method is only necessary if you have previously stopped the ad view's refresh
+ * behavior using `stopAutomaticallyRefreshingContents`. By default, an ad view is allowed to
+ * automatically load new advertisements if a refresh interval has been configured on the MoPub
+ * website. This method has no effect if a refresh interval has not been set.
+ *
+ * @see stopAutomaticallyRefreshingContents
+ */
+- (void)startAutomaticallyRefreshingContents;
 
 #pragma mark - Deprecated
 
@@ -244,6 +263,22 @@ typedef enum
  * @param view A view representing some banner content.
  */
 - (void)setAdContentView:(UIView *)view;
+
+/** @name Managing the Automatic Refreshing of Ads (Deprecated) */
+
+/**
+ * A Boolean value that determines whether the ad view should ignore directions from the MoPub
+ * ad server to periodically refresh its contents.
+ *
+ * The default value of this property is NO. Set the property to YES if you want to prevent your ad
+ * view from automatically refreshing. *Note:* if you wish to set the property to YES, you should do
+ * so before you call `loadAd` for the first time.
+ *
+ * @bug **Warning**: This property has been deprecated. You should instead use
+ * `stopAutomaticallyRefreshingContents` and `startAutomaticallyRefreshingContents` to manage
+ * the ad view's refresh behavior.
+ */
+@property (nonatomic, assign) BOOL ignoresAutorefresh;
 
 @end
 
