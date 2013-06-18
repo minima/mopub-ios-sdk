@@ -126,7 +126,7 @@ describe(@"MRAdView", ^{
 
                 // XXX: Expansion has some async animation behavior, which we'll have to fix to
                 // avoid this type of ugly hack.
-                [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.8]];
+                [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:1.5]];
 
                 URL = [NSURL URLWithString:@"http://www.donuts.com"];
                 [view handleMRAIDOpenCallForURL:URL];

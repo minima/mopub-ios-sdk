@@ -12,15 +12,15 @@ Help is available on the [wiki](https://github.com/mopub/mopub-ios-sdk/wiki/Gett
 
 The MoPub SDK is distributed as source code that you can include in your application.  MoPub provides two prepackaged archives of source code:
 
-- **[MoPub Full SDK.zip](https://s3.amazonaws.com/mopub-ios-sdk/mopub-full.zip)**
+- **[MoPub Full SDK.zip](http://bit.ly/180lUGi)**
 
   Includes everything you need to serve HTML and MRAID MoPub advertisiments *and* built-in support for three major third party ad networks - [iAd](http://advertising.apple.com/), [Google AdMob](http://www.google.com/ads/admob/), and [Millennial Media](http://www.millennialmedia.com/) - including the required third party binaries.
 
-- **[MoPub Base SDK.zip](https://s3.amazonaws.com/mopub-ios-sdk/mopub-base.zip)**
+- **[MoPub Base SDK.zip](http://bit.ly/19pPR1r)**
 
   Includes everything you need to serve HTML and MRAID MoPub advertisements.  No third party ad networks are included.
 
-The current version of the SDK is 1.12.2.0
+The current version of the SDK is 1.12.3.0
 
 ## Integrate
 

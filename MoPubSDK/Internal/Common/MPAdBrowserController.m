@@ -132,7 +132,11 @@
 - (IBAction)done
 {
     [self dismissActionSheet];
-    [self.delegate dismissBrowserController:self animated:MP_ANIMATED];
+    if (self.delegate) {
+        [self.delegate dismissBrowserController:self animated:MP_ANIMATED];
+    } else {
+        [self dismissViewControllerAnimated:MP_ANIMATED completion:nil];
+    }
 }
 
 - (IBAction)back

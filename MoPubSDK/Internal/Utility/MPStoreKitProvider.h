@@ -11,7 +11,6 @@
 #import <StoreKit/StoreKit.h>
 #endif
 
-
 @class SKStoreProductViewController;
 
 @interface MPStoreKitProvider : NSObject

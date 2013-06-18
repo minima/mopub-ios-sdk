@@ -7,25 +7,16 @@
 //
 
 #import "MPProgressOverlayView.h"
+#import "MPGlobal.h"
 #import "MPLogging.h"
 #import <QuartzCore/QuartzCore.h>
 
 @interface MPProgressOverlayView ()
 
-@property (nonatomic, assign) id<MPProgressOverlayViewDelegate> delegate;
-
-+ (BOOL)windowHasExistingOverlay:(UIWindow *)window;
-+ (MPProgressOverlayView *)overlayForWindow:(UIWindow *)window;
 - (void)updateCloseButtonPosition;
 - (void)registerForDeviceOrientationNotifications;
 - (void)unregisterForDeviceOrientationNotifications;
 - (void)deviceOrientationDidChange:(NSNotification *)notification;
-- (void)displayUsingAnimation:(BOOL)animated;
-- (void)displayAnimationDidStop:(NSString *)animationID finished:(NSNumber *)finished
-                        context:(void *)context;
-- (void)hideUsingAnimation:(BOOL)animated;
-- (void)hideAnimationDidStop:(NSString *)animationID finished:(NSNumber *)finished
-                     context:(void *)context;
 - (void)setTransformForCurrentOrientationAnimated:(BOOL)animated;
 - (void)setTransformForAllSubviews:(CGAffineTransform)transform;
 
@@ -45,6 +36,16 @@ static void exponentialDecayInterpolation(void *info, const float *input, float 
 @implementation MPProgressOverlayView
 
 @synthesize delegate = _delegate;
+@synthesize closeButton = _closeButton;
+
+- (id)initWithDelegate:(id<MPProgressOverlayViewDelegate>)delegate
+{
+    self = [self initWithFrame:MPKeyWindow().bounds];
+    if (self) {
+        self.delegate = delegate;
+    }
+    return self;
+}
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -52,22 +53,22 @@ static void exponentialDecayInterpolation(void *info, const float *input, float 
     if (self) {
         self.alpha = 0.0;
         self.opaque = NO;
-        
+
         // Close button.
         _closeButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
         _closeButton.alpha = 0.0;
         _closeButton.hidden = YES;
-        [_closeButton addTarget:self 
-                         action:@selector(closeButtonPressed) 
+        [_closeButton addTarget:self
+                         action:@selector(closeButtonPressed)
                forControlEvents:UIControlEventTouchUpInside];
         UIImage *image = [UIImage imageNamed:@"MPCloseButtonX.png"];
         [_closeButton setImage:image forState:UIControlStateNormal];
         [_closeButton sizeToFit];
-        
-        _closeButtonPortraitCenter = 
+
+        _closeButtonPortraitCenter =
             CGPointMake(self.bounds.size.width - 6.0 - CGRectGetMidX(_closeButton.bounds),
                         6.0 + CGRectGetMidY(_closeButton.bounds));
-		
+
         _closeButton.center = _closeButtonPortraitCenter;
         [self addSubview:_closeButton];
 
@@ -87,7 +88,7 @@ static void exponentialDecayInterpolation(void *info, const float *input, float 
             _outerContainer.layer.shadowRadius = kProgressOverlayShadowRadius;
         }
         [self addSubview:_outerContainer];
-        
+
         CGFloat innerSide = kProgressOverlaySide - 2 * kProgressOverlayBorderWidth;
         CGRect innerFrame = CGRectMake(0, 0, innerSide, innerSide);
         _innerContainer = [[UIView alloc] initWithFrame:innerFrame];
@@ -101,7 +102,7 @@ static void exponentialDecayInterpolation(void *info, const float *input, float 
         [_outerContainer addSubview:_innerContainer];
 
         // Progress indicator.
-        
+
         _activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:
                               UIActivityIndicatorViewStyleWhiteLarge];
         [_activityIndicator sizeToFit];
@@ -109,7 +110,7 @@ static void exponentialDecayInterpolation(void *info, const float *input, float 
         _activityIndicator.center = self.center;
         _activityIndicator.frame = CGRectIntegral(_activityIndicator.frame);
         [self addSubview:_activityIndicator];
-        
+
         [self registerForDeviceOrientationNotifications];
     }
     return self;
@@ -125,45 +126,46 @@ static void exponentialDecayInterpolation(void *info, const float *input, float 
     [super dealloc];
 }
 
-#pragma mark - Public Class Methods
+#pragma mark - Public Methods
 
-+ (void)presentOverlayInWindow:(UIWindow *)window animated:(BOOL)animated
-                      delegate:(id<MPProgressOverlayViewDelegate>)delegate
+- (void)show
 {
-    if ([self windowHasExistingOverlay:window]) {
-        MPLogWarn(@"This window is already displaying a progress overlay view.");
-        return;
-    }
-    
-    MPProgressOverlayView *overlay = [[MPProgressOverlayView alloc] initWithFrame:window.bounds];
-    overlay.delegate = delegate;
-    [overlay setTransformForCurrentOrientationAnimated:NO];
-    [window addSubview:overlay];
-    [overlay displayUsingAnimation:animated];
-}
+    [MPKeyWindow() addSubview:self];
 
-+ (void)dismissOverlayFromWindow:(UIWindow *)window animated:(BOOL)animated
-{
-    MPProgressOverlayView *overlay = [self overlayForWindow:window];
-    [overlay hideUsingAnimation:animated];
-}
+    [self setTransformForCurrentOrientationAnimated:NO];
 
-#pragma mark - Internal Class Methods
-
-+ (BOOL)windowHasExistingOverlay:(UIWindow *)window
-{
-    return !![self overlayForWindow:window];
-}
-
-+ (MPProgressOverlayView *)overlayForWindow:(UIWindow *)window
-{
-    NSArray *subviews = window.subviews;
-    for (UIView *view in subviews) {
-        if ([view isKindOfClass:[MPProgressOverlayView class]]) {
-            return (MPProgressOverlayView *)view;
+    if (MP_ANIMATED) {
+        [UIView animateWithDuration:0.2 animations:^{
+            self.alpha = 1.0;
+        } completion:^(BOOL finished) {
+            if ([self.delegate respondsToSelector:@selector(overlayDidAppear)]) {
+                [self.delegate overlayDidAppear];
+            }
+        }];
+    } else {
+        self.alpha = 1.0;
+        if ([self.delegate respondsToSelector:@selector(overlayDidAppear)]) {
+            [self.delegate overlayDidAppear];
         }
     }
-    return nil;
+
+    [self performSelector:@selector(enableCloseButton)
+               withObject:nil
+               afterDelay:kProgressOverlayCloseButtonDelay];
+}
+
+- (void)hide
+{
+    if (MP_ANIMATED) {
+        [UIView animateWithDuration:0.2 animations:^{
+            self.alpha = 0.0;
+        } completion:^(BOOL finished) {
+            [self removeFromSuperview];
+        }];
+    } else {
+        self.alpha = 0.0;
+        [self removeFromSuperview];
+    }
 }
 
 #pragma mark - Drawing and Layout
@@ -171,27 +173,27 @@ static void exponentialDecayInterpolation(void *info, const float *input, float 
 - (void)drawRect:(CGRect)rect
 {
     CGContextRef context = UIGraphicsGetCurrentContext();
-    
+
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
-    
+
     static const float input_value_range[2] = {0, 1};
     static const float output_value_range[8] = {0, 1, 0, 1, 0, 1, 0, 1};
     CGFunctionCallbacks callbacks = {0, exponentialDecayInterpolation, NULL};
-    
+
     CGFunctionRef shadingFunction = CGFunctionCreate(self, 1, input_value_range, 4,
                                                      output_value_range, &callbacks);
-    
+
     CGPoint startPoint = CGPointMake(CGRectGetMidX(self.bounds), CGRectGetMidY(self.bounds));
     CGFloat startRadius = 0.0;
-    CGPoint endPoint = startPoint; 
+    CGPoint endPoint = startPoint;
     CGFloat endRadius = MAX(CGRectGetWidth(self.bounds), CGRectGetHeight(self.bounds)) / 2;
-    
+
     CGShadingRef shading = CGShadingCreateRadial(colorSpace, startPoint, startRadius, endPoint,
                                                  endRadius, shadingFunction,
                                                  YES,   // extend shading beyond starting circle
-                                                 YES);  // extend shading beyond ending circle 
+                                                 YES);  // extend shading beyond ending circle
     CGContextDrawShading(context, shading);
-    
+
     CGShadingRelease(shading);
     CGFunctionRelease(shadingFunction);
     CGColorSpaceRelease(colorSpace);
@@ -219,12 +221,12 @@ static void exponentialDecayInterpolation(void *info, const float *input, float 
 - (void)updateCloseButtonPosition
 {
     // Ensure that the close button is anchored to the top-right corner of the screen.
-    
+
     CGPoint originalCenter = _closeButtonPortraitCenter;
     CGPoint center = originalCenter;
     BOOL statusBarHidden = [UIApplication sharedApplication].statusBarHidden;
     CGFloat statusBarOffset = (statusBarHidden) ? 0.0 : 20.0;
-    
+
     UIInterfaceOrientation orientation = [[UIApplication sharedApplication] statusBarOrientation];
     switch (orientation) {
         case UIInterfaceOrientationLandscapeLeft:
@@ -243,7 +245,7 @@ static void exponentialDecayInterpolation(void *info, const float *input, float 
             center.y = originalCenter.y + statusBarOffset;
             break;
     }
-    
+
     _closeButton.center = center;
 }
 
@@ -270,35 +272,10 @@ static void exponentialDecayInterpolation(void *info, const float *input, float 
     [self setNeedsLayout];
 }
 
-- (void)displayUsingAnimation:(BOOL)animated
-{
-    if (animated) {
-        [UIView beginAnimations:nil context:nil];
-        [UIView setAnimationDelegate:self];
-        [UIView setAnimationDidStopSelector:@selector(displayAnimationDidStop:finished:context:)];
-        self.alpha = 1.0;
-        [UIView commitAnimations];
-    } else {
-        self.alpha = 1.0;
-    }
-    
-    [self performSelector:@selector(enableCloseButton)
-               withObject:nil
-               afterDelay:kProgressOverlayCloseButtonDelay];
-}
-
-- (void)displayAnimationDidStop:(NSString *)animationID finished:(NSNumber *)finished
-                        context:(void *)context
-{
-    if ([self.delegate respondsToSelector:@selector(overlayDidAppear)]) {
-        [self.delegate overlayDidAppear];
-    }
-}
-
 - (void)enableCloseButton
 {
     _closeButton.hidden = NO;
-    
+
     [UIView beginAnimations:nil context:nil];
     _closeButton.alpha = 1.0;
     [UIView commitAnimations];
@@ -309,26 +286,6 @@ static void exponentialDecayInterpolation(void *info, const float *input, float 
     if ([_delegate respondsToSelector:@selector(overlayCancelButtonPressed)]) {
         [_delegate overlayCancelButtonPressed];
     }
-}
-
-- (void)hideUsingAnimation:(BOOL)animated
-{
-    if (animated) {
-        [UIView beginAnimations:nil context:nil];
-        [UIView setAnimationDelegate:self];
-        [UIView setAnimationDidStopSelector:@selector(hideAnimationDidStop:finished:context:)];
-        self.alpha = 0.0;
-        [UIView commitAnimations];
-    } else {
-        self.alpha = 0.0;
-        [self removeFromSuperview];
-    }
-}
-
-- (void)hideAnimationDidStop:(NSString *)animationID finished:(NSNumber *)finished 
-                     context:(void *)context
-{
-    [self removeFromSuperview];
 }
 
 - (void)setTransformForCurrentOrientationAnimated:(BOOL)animated

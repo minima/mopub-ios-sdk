@@ -56,6 +56,7 @@
 @property (nonatomic, assign) FakeMPReachability *fakeMPReachability;
 @property (nonatomic, assign) FakeCTCarrier *fakeCTCarrier;
 
+- (NSString *)userAgent;
 - (FakeMPAnalyticsTracker *)sharedFakeMPAnalyticsTracker;
 - (void)advanceMPTimers:(NSTimeInterval)timeInterval;
 - (NSMutableArray *)fakeTimers;

@@ -19,9 +19,12 @@
     CGPoint _closeButtonPortraitCenter;
 }
 
-+ (void)presentOverlayInWindow:(UIWindow *)window animated:(BOOL)animated
-                      delegate:(id<MPProgressOverlayViewDelegate>)delegate;
-+ (void)dismissOverlayFromWindow:(UIWindow *)window animated:(BOOL)animated;
+@property (nonatomic, assign) id<MPProgressOverlayViewDelegate> delegate;
+@property (nonatomic, retain) UIButton *closeButton;
+
+- (id)initWithDelegate:(id<MPProgressOverlayViewDelegate>)delegate;
+- (void)show;
+- (void)hide;
 
 @end
 

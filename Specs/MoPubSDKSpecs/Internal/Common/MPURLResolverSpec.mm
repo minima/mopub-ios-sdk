@@ -31,6 +31,11 @@ describe(@"MPURLResolver", ^{
                 delegate.webViewURL.absoluteString should equal(@"http://www.google.com/");
                 delegate.HTMLString should equal(@"This is Google!");
             });
+
+            it(@"should make the request using the right user agent", ^{
+                NSURLConnection *lastConnection = [NSURLConnection lastConnection];
+                [[lastConnection.request allHTTPHeaderFields] objectForKey:@"User-Agent"] should equal([fakeProvider userAgent]);
+            });
         });
 
         context(@"when the scheme is HTTPS", ^{
@@ -46,6 +51,11 @@ describe(@"MPURLResolver", ^{
 
                 delegate.webViewURL.absoluteString should equal(@"https://www.fandango.com/");
                 delegate.HTMLString should equal(@"Secret Movies");
+            });
+
+            it(@"should make the request using the right user agent", ^{
+                NSURLConnection *lastConnection = [NSURLConnection lastConnection];
+                [[lastConnection.request allHTTPHeaderFields] objectForKey:@"User-Agent"] should equal([fakeProvider userAgent]);
             });
         });
 

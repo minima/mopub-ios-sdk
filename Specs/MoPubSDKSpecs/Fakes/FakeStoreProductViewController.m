@@ -15,4 +15,9 @@
     self.completionBlock = block;
 }
 
+- (SKStoreProductViewController *)masquerade
+{
+    return (SKStoreProductViewController *)self;
+}
+
 @end

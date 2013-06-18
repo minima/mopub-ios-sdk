@@ -159,7 +159,7 @@ describe(@"MPAdDestinationDisplayAgent", ^{
 
             context(@"when the person leaves the store", ^{
                 beforeEach(^{
-                    [store.delegate productViewControllerDidFinish:store];
+                    [store.delegate productViewControllerDidFinish:store.masquerade];
                 });
 
                 it(@"should dismiss the store", ^{
@@ -243,6 +243,43 @@ describe(@"MPAdDestinationDisplayAgent", ^{
             URL = [NSURL URLWithString:@"http://maps.google.com"];
             [agent displayDestinationForURL:URL];
             [[UIApplication sharedApplication] lastOpenedURL] should equal(URL);
+        });
+    });
+
+    describe(@"-dealloc", ^{
+        context(@"while the overlay is showing", ^{
+            beforeEach(^{
+                @autoreleasepool {
+                    URL = [NSURL URLWithString:@"http://www.google.com"];
+                    agent = [MPAdDestinationDisplayAgent agentWithDelegate:delegate];
+                    [agent displayDestinationForURL:URL];
+                    window.subviews.lastObject should be_instance_of([MPProgressOverlayView class]);
+                }
+            });
+
+            it(@"should hide the overlay", ^{
+                window.subviews.lastObject should be_nil;
+            });
+        });
+
+        context(@"while the StoreKit controller is showing", ^{
+            __block FakeStoreProductViewController *store;
+
+            beforeEach(^{
+                @autoreleasepool {
+                    URL = [NSURL URLWithString:@"http://itunes.apple.com/something/id1234"];
+                    agent = [MPAdDestinationDisplayAgent agentWithDelegate:delegate];
+                    [agent displayDestinationForURL:URL];
+                    [agent showStoreKitProductWithParameter:@"1234" fallbackURL:URL];
+                    store = [MPStoreKitProvider lastStore];
+                    presentingViewController.presentedViewController should equal(store);
+                }
+            });
+
+            it(@"should still allow the controller to be dismissed later", ^{
+                [store.delegate productViewControllerDidFinish:store.masquerade];
+                presentingViewController.presentedViewController should be_nil;
+            });
         });
     });
 });

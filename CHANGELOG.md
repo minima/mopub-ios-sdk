@@ -24,6 +24,10 @@
   - Added appledoc style [Class Documentation](https://github.com/mopub/mopub-ios-sdk/tree/master/ClassDocumentation)
   - Updated the MoPub Sample Application
 
+### Version 1.12.3.0 (June 18, 2013)
+  - Fixed inconsistency between ad request user agent and click-handling user agent
+  - Fixed crashes that occur when banners are deallocated in the process of displaying modal content
+
 ### Version 1.12.2.0 (June 7, 2013)
   - Fixed issue causing expanded MRAID banner ads to obscure modal content
   - Fixed issue in which impressions were not tracked properly for MRAID banner ads

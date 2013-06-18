@@ -7,11 +7,11 @@
 
 #import "MPURLResolver.h"
 #import "NSURL+MPAdditions.h"
+#import "MPInstanceProvider.h"
 
 @interface MPURLResolver ()
 
 @property (nonatomic, retain) NSURL *URL;
-@property (nonatomic, assign) id<MPURLResolverDelegate> delegate;
 @property (nonatomic, retain) NSURLConnection *connection;
 @property (nonatomic, retain) NSMutableData *responseData;
 
@@ -20,7 +20,6 @@
 - (BOOL)URLShouldOpenInApplication:(NSURL *)URL;
 - (BOOL)URLIsHTTPOrHTTPS:(NSURL *)URL;
 - (BOOL)URLPointsToAMap:(NSURL *)URL;
-
 
 @end
 
@@ -54,7 +53,8 @@
     self.responseData = [NSMutableData data];
 
     if (![self handleURL:self.URL]) {
-        self.connection = [NSURLConnection connectionWithRequest:[NSURLRequest requestWithURL:self.URL] delegate:self];
+        NSURLRequest *request = [[MPInstanceProvider sharedProvider] buildConfiguredURLRequestWithURL:self.URL];
+        self.connection = [NSURLConnection connectionWithRequest:request delegate:self];
     }
 }
 
