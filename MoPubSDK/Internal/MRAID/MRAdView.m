@@ -124,6 +124,8 @@ static NSString * const kMraidURLScheme = @"mraid";
     [_closeButton release];
     [_data release];
     [_displayController release];
+    _destinationDisplayAgent.delegate = nil;
+    [_destinationDisplayAgent release];
     [super dealloc];
 }
 

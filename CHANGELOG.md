@@ -23,7 +23,10 @@
   - Added .zip archive distribution options with bundled third party network SDKs.  Learn more at the updated [wiki](https://github.com/mopub/mopub-ios-sdk/wiki/Getting-Started).
   - Added appledoc style [Class Documentation](https://github.com/mopub/mopub-ios-sdk/tree/master/ClassDocumentation)
   - Updated the MoPub Sample Application
-
+  
+### Version 1.12.4.0 (June 26, 2013)  
+  - Fixed a memory leak when displaying MRAID ads
+  
 ### Version 1.12.3.0 (June 18, 2013)
   - Fixed inconsistency between ad request user agent and click-handling user agent
   - Fixed crashes that occur when banners are deallocated in the process of displaying modal content

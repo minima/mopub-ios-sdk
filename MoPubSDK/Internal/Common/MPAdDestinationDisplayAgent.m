@@ -14,7 +14,6 @@
 @property (nonatomic, retain) MPURLResolver *resolver;
 @property (nonatomic, retain) MPProgressOverlayView *overlayView;
 @property (nonatomic, assign) BOOL inUse;
-@property (nonatomic, assign) id<MPAdDestinationDisplayAgentDelegate> delegate;
 
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= MP_IOS_6_0
 @property (nonatomic, retain) SKStoreProductViewController *storeKitController;
