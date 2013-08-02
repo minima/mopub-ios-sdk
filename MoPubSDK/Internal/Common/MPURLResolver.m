@@ -9,6 +9,9 @@
 #import "NSURL+MPAdditions.h"
 #import "MPInstanceProvider.h"
 
+static NSString * const kMoPubSafariScheme = @"mopubnativebrowser";
+static NSString * const kMoPubSafariNavigateHost = @"navigate";
+
 @interface MPURLResolver ()
 
 @property (nonatomic, retain) NSURL *URL;
@@ -66,10 +69,20 @@
 
 #pragma mark - Handling Application/StoreKit URLs
 
+/*
+ * Parses the provided URL for actions to perform (opening StoreKit, opening Safari, etc.).
+ * If the URL represents an action, this method will inform its delegate of the correct action to
+ * perform.
+ *
+ * Returns YES if the URL contained an action, and NO otherwise.
+ */
 - (BOOL)handleURL:(NSURL *)URL
 {
     if ([self storeItemIdentifierForURL:URL]) {
         [self.delegate showStoreKitProductWithParameter:[self storeItemIdentifierForURL:URL] fallbackURL:URL];
+    } else if ([self safariURLForURL:URL]) {
+        NSURL *safariURL = [NSURL URLWithString:[self safariURLForURL:URL]];
+        [self.delegate openURLInApplication:safariURL];
     } else if ([self URLShouldOpenInApplication:URL]) {
         if ([[UIApplication sharedApplication] canOpenURL:URL]) {
             [self.delegate openURLInApplication:URL];
@@ -100,7 +113,6 @@
     return [URL.host hasSuffix:@"maps.google.com"] || [URL.host hasSuffix:@"maps.apple.com"];
 }
 
-
 #pragma mark Extracting StoreItem Identifiers
 
 - (NSString *)storeItemIdentifierForURL:(NSURL *)URL
@@ -123,6 +135,20 @@
     }
 
     return nil;
+}
+
+#pragma mark - Identifying URLs to open in Safari
+
+- (NSString *)safariURLForURL:(NSURL *)URL
+{
+    NSString *safariURL = nil;
+
+    if ([[URL scheme] isEqualToString:kMoPubSafariScheme] &&
+        [[URL host] isEqualToString:kMoPubSafariNavigateHost]) {
+        safariURL = [URL.mp_queryAsDictionary objectForKey:@"url"];
+    }
+
+    return safariURL;
 }
 
 #pragma mark - <NSURLConnectionDataDelegate>

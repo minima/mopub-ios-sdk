@@ -23,6 +23,11 @@
   - Added .zip archive distribution options with bundled third party network SDKs.  Learn more at the updated [wiki](https://github.com/mopub/mopub-ios-sdk/wiki/Getting-Started).
   - Added appledoc style [Class Documentation](https://github.com/mopub/mopub-ios-sdk/tree/master/ClassDocumentation)
   - Updated the MoPub Sample Application
+
+### Version 1.12.5.0 (August 1, 2013)
+  - Updated to support Millennial SDK 5.1.0
+  - Fixed warnings resulting from duplicate category methods
+  - Fixed a crash occurring when an interstitial was tapped and dismissed immediately afterwards
   
 ### Version 1.12.4.0 (June 26, 2013)  
   - Fixed a memory leak when displaying MRAID ads

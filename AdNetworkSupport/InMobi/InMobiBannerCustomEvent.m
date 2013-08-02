@@ -16,7 +16,7 @@
 @interface MPInstanceProvider (InMobiBanners)
 
 - (IMAdView *)buildIMAdViewWithFrame:(CGRect)frame appId:(NSString *)appId adSize:(int)adSize;
-- (IMAdRequest *)buildIMAdRequest;
+- (IMAdRequest *)buildIMAdBannerRequest;
 
 @end
 
@@ -29,7 +29,7 @@
                                    imAdSize:adSize] autorelease];
 }
 
-- (IMAdRequest *)buildIMAdRequest
+- (IMAdRequest *)buildIMAdBannerRequest
 {
     return [IMAdRequest request];
 }
@@ -66,7 +66,8 @@
     self.inMobiAdView.delegate = self;
     self.inMobiAdView.refreshInterval = REFRESH_INTERVAL_OFF;
 
-    IMAdRequest *request = [[MPInstanceProvider sharedProvider] buildIMAdRequest];
+    IMAdRequest *request = [[MPInstanceProvider sharedProvider] buildIMAdBannerRequest];
+    request.paramsDictionary = [NSDictionary dictionaryWithObject:@"c_mopub" forKey:@"tp"];
     if (self.delegate.location) {
         [request setLocationWithLatitude:self.delegate.location.coordinate.latitude
                                longitude:self.delegate.location.coordinate.longitude

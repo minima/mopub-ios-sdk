@@ -12,6 +12,7 @@
 #import "KIFTestScenario+Chartboost.h"
 #import "KIFTestScenario+Greystripe.h"
 #import "KIFTestScenario+InMobi.h"
+#import "KIFTestScenario+HTML.h"
 
 @implementation MPKIFTestController
 
@@ -26,6 +27,8 @@
 
     [self addScenario:[KIFTestScenario scenarioForBannerAdWithStoreKitLink]];
     [self addScenario:[KIFTestScenario scenarioForBannerAdWithInvalidStoreKitLink]];
+    [self addScenario:[KIFTestScenario scenarioForClickToSafariBannerAd]];
+    [self addScenario:[KIFTestScenario scenarioForClickToSafariMRAIDAd]];
     [self addScenario:[KIFTestScenario scenarioForMillennialBanner]];
     [self addScenario:[KIFTestScenario scenarioForGADBanner]];
     [self addScenario:[KIFTestScenario scenarioForGreystripeBanner]];

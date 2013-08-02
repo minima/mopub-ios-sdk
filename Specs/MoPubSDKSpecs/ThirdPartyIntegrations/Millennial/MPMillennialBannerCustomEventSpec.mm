@@ -69,49 +69,60 @@ describe(@"MPMillennialBannerCustomEvent", ^{
             anotherBanner = [[[FakeMMAdView alloc] initWithFrame:CGRectMake(0,0,32,10)] autorelease];
             anotherBanner.apid = @"mmmmmmm";
         });
-
-        context(@"when tapped", ^{
-            it(@"should track a click just once", ^{
-                [delegate reset_sent_messages];
-                [[NSNotificationCenter defaultCenter] postNotificationName:MillennialMediaAdWasTapped object:nil userInfo:banner.userInfo];
-                verify_fake_received_selectors(delegate, @[@"trackClick"]);
-
-                [[NSNotificationCenter defaultCenter] postNotificationName:MillennialMediaAdWasTapped object:nil userInfo:banner.userInfo];
-                delegate.sent_messages should be_empty;
-            });
-
-            it(@"should ignore other ads", ^{
-                [delegate reset_sent_messages];
-                [[NSNotificationCenter defaultCenter] postNotificationName:MillennialMediaAdWasTapped object:nil userInfo:anotherBanner.userInfo];
-                delegate.sent_messages should be_empty;
-            });
+        
+        it(@"should ignore notifications from other MMAdViews", ^{
+            [delegate reset_sent_messages];
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:MillennialMediaAdWasTapped object:nil userInfo:anotherBanner.userInfo];
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:MillennialMediaAdModalWillAppear object:nil userInfo:anotherBanner.userInfo];
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:MillennialMediaAdModalDidDismiss object:nil userInfo:anotherBanner.userInfo];
+            
+            delegate.sent_messages should be_empty;
         });
 
-        context(@"when a modal will appear", ^{
-            it(@"should tell the delegate", ^{
+        context(@"MillennialMediaAdWasTapped", ^{
+            
+            // XXX: As of Millennial SDK version 5.1.0, a "tapped" notification for an MMAdView is
+            // accompanied by the presentation of a modal loading indicator (spinner). Although this
+            // spinner is modal, the Millennial SDK does not appropriately fire the
+            // MillennialMediaAdModalWillAppear notification until much later. Specifically, the
+            // notification is not fired until other modal content (e.g. browser or StoreKit) is about
+            // to come on-screen and replace the spinner.
+            //
+            // In previous Millennial SDK versions, it was sufficient for MoPub to use the "will appear"
+            // and "did dismiss" notifications to determine whether an MMAdView could be deallocated.
+            // However, in 5.1.0, MMAdView causes crashes if deallocated while its spinner is on-screen.
+            // Thus, we must call [self.delegate bannerCustomEventWillBeginAction:self] as soon as we
+            // detect that the spinner has been presented.
+            
+            it(@"should track a click (only the first time) and tell the delegate that a modal will appear", ^{
                 [delegate reset_sent_messages];
-                [[NSNotificationCenter defaultCenter] postNotificationName:MillennialMediaAdModalWillAppear object:nil userInfo:banner.userInfo];
+                [[NSNotificationCenter defaultCenter] postNotificationName:MillennialMediaAdWasTapped object:nil userInfo:banner.userInfo];
+                verify_fake_received_selectors(delegate, @[@"trackClick", @"bannerCustomEventWillBeginAction:"]);
+
+                [[NSNotificationCenter defaultCenter] postNotificationName:MillennialMediaAdWasTapped object:nil userInfo:banner.userInfo];
                 verify_fake_received_selectors(delegate, @[@"bannerCustomEventWillBeginAction:"]);
             });
+        });
 
-            it(@"should ignore other ads", ^{
+        context(@"MillennialMediaAdModalWillAppear", ^{
+            
+            // XXX: See note above.
+            
+            it(@"should not tell the delegate anything", ^{
                 [delegate reset_sent_messages];
-                [[NSNotificationCenter defaultCenter] postNotificationName:MillennialMediaAdModalWillAppear object:nil userInfo:anotherBanner.userInfo];
+                [[NSNotificationCenter defaultCenter] postNotificationName:MillennialMediaAdModalWillAppear object:nil userInfo:banner.userInfo];
                 delegate.sent_messages should be_empty;
             });
         });
 
-        context(@"when a modal did dismiss", ^{
-            it(@"should tell the delegate", ^{
+        context(@"MillennialMediaAdModalDidDismiss", ^{
+            it(@"should tell the delegate that a modal was dismissed", ^{
                 [delegate reset_sent_messages];
                 [[NSNotificationCenter defaultCenter] postNotificationName:MillennialMediaAdModalDidDismiss object:nil userInfo:banner.userInfo];
                 verify_fake_received_selectors(delegate, @[@"bannerCustomEventDidFinishAction:"]);
-            });
-
-            it(@"should ignore other ads", ^{
-                [delegate reset_sent_messages];
-                [[NSNotificationCenter defaultCenter] postNotificationName:MillennialMediaAdModalDidDismiss object:nil userInfo:anotherBanner.userInfo];
-                delegate.sent_messages should be_empty;
             });
         });
     });

@@ -80,7 +80,6 @@
     self = [super init];
     if (self) {
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(adWasTapped:) name:MillennialMediaAdWasTapped object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(modalWillAppear:) name:MillennialMediaAdModalWillAppear object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(modalDidDismiss:) name:MillennialMediaAdModalDidDismiss object:nil];
         self.mmCompletionBlockProxy = [[[MPMMCompletionBlockProxy alloc] init] autorelease];
         self.mmCompletionBlockProxy.event = self;
@@ -166,19 +165,27 @@
 
 - (void)adWasTapped:(NSNotification *)notification
 {
-   if ([[notification.userInfo objectForKey:MillennialMediaAdObjectKey] isEqual:self.mmAdView]) {
-       MPLogInfo(@"Millennial banner was tapped");
+    if ([[notification.userInfo objectForKey:MillennialMediaAdObjectKey] isEqual:self.mmAdView]) {
+        MPLogInfo(@"Millennial banner was tapped");
+        
         if (!self.didTrackClick) {
             [self.delegate trackClick];
             self.didTrackClick = YES;
         }
-    }
-}
-
-- (void)modalWillAppear:(NSNotification *)notification
-{
-    if ([[notification.userInfo objectForKey:MillennialMediaAdObjectKey] isEqual:self.mmAdView]) {
-        MPLogInfo(@"Millennial banner will present modal");
+        
+        // XXX: As of Millennial SDK version 5.1.0, a "tapped" notification for an MMAdView is
+        // accompanied by the presentation of a modal loading indicator (spinner). Although this
+        // spinner is modal, the Millennial SDK does not appropriately fire the
+        // MillennialMediaAdModalWillAppear notification until much later. Specifically, the
+        // notification is not fired until other modal content (e.g. browser or StoreKit) is about
+        // to come on-screen and replace the spinner.
+        //
+        // In previous Millennial SDK versions, it was sufficient for MoPub to use the "will appear"
+        // and "did dismiss" notifications to determine whether an MMAdView could be deallocated.
+        // However, in 5.1.0, MMAdView causes crashes if deallocated while its spinner is on-screen.
+        // Thus, we must call [self.delegate bannerCustomEventWillBeginAction:self] as soon as we
+        // detect that the spinner has been presented.
+        
         [self.delegate bannerCustomEventWillBeginAction:self];
     }
 }

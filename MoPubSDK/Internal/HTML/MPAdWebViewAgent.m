@@ -101,6 +101,7 @@ NSString * const kMoPubCustomHost = @"custom";
 - (void)stopHandlingRequests
 {
     self.shouldHandleRequests = NO;
+    [self.destinationDisplayAgent cancel];
 }
 
 - (void)continueHandlingRequests

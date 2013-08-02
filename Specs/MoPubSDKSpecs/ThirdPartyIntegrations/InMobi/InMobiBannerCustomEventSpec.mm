@@ -17,7 +17,7 @@ describe(@"InMobiBannerCustomEvent", ^{
         delegate = nice_fake_for(@protocol(MPBannerCustomEventDelegate));
 
         request = nice_fake_for([IMAdRequest class]);
-        fakeProvider.fakeIMAdRequest = request;
+        fakeProvider.fakeIMAdBannerRequest = request;
 
         event = [[[InMobiBannerCustomEvent alloc] init] autorelease];
         event.delegate = delegate;
@@ -53,6 +53,7 @@ describe(@"InMobiBannerCustomEvent", ^{
             [event requestAdWithSize:MOPUB_BANNER_SIZE customEventInfo:nil];
             banner.loadedRequest should equal(request);
 
+            request should have_received(@selector(setParamsDictionary:)).with(@{@"tp": @"c_mopub"});
             request should have_received(@selector(setLocationWithLatitude:longitude:accuracy:)).with(37.1f).and_with(21.2f).and_with(12.3f);
         });
 

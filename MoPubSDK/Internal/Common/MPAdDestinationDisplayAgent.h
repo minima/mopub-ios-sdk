@@ -19,6 +19,7 @@
 
 + (MPAdDestinationDisplayAgent *)agentWithDelegate:(id<MPAdDestinationDisplayAgentDelegate>)delegate;
 - (void)displayDestinationForURL:(NSURL *)URL;
+- (void)cancel;
 
 @end
 

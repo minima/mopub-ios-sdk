@@ -72,8 +72,9 @@
 @property (nonatomic, assign) Chartboost *fakeChartboost;
 
 #pragma mark Google Ad Mob
-@property (nonatomic, assign) GADRequest *fakeGADRequest;
+@property (nonatomic, assign) GADRequest *fakeGADBannerRequest;
 @property (nonatomic, assign) GADBannerView *fakeGADBannerView;
+@property (nonatomic, assign) GADRequest *fakeGADInterstitialRequest;
 @property (nonatomic, assign) GADInterstitial *fakeGADInterstitial;
 
 #pragma mark Greystripe
@@ -81,8 +82,9 @@
 @property (nonatomic, assign) FakeGSFullscreenAd *fakeGSFullscreenAd;
 
 #pragma mark InMobi
-@property (nonatomic, assign) IMAdRequest *fakeIMAdRequest;
+@property (nonatomic, assign) IMAdRequest *fakeIMAdBannerRequest;
 @property (nonatomic, assign) IMAdView *fakeIMAdView;
+@property (nonatomic, assign) IMAdRequest *fakeIMAdInterstitialRequest;
 @property (nonatomic, assign) IMAdInterstitial *fakeIMAdInterstitial;
 
 #pragma mark Millennial

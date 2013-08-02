@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A73AB46617AB16DD00D98ED7 /* libMMSDK_5.1.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A73AB46517AB16DD00D98ED7 /* libMMSDK_5.1.0.a */; };
+		A73AB46717AB16DD00D98ED7 /* libMMSDK_5.1.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A73AB46517AB16DD00D98ED7 /* libMMSDK_5.1.0.a */; };
 		AE1091E417011C8400812E6E /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = AE1091E317011C8300812E6E /* libsqlite3.dylib */; };
 		AE1091E617011C8A00812E6E /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = AE1091E517011C8A00812E6E /* libz.dylib */; };
 		AE1091E817011C9F00812E6E /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE1091E717011C9E00812E6E /* Security.framework */; };
@@ -21,7 +23,6 @@
 		AE341F4F16F0E7060074C859 /* CJSONDeserializer.m in Sources */ = {isa = PBXBuildFile; fileRef = AEA97C9A16EF9E450046D464 /* CJSONDeserializer.m */; };
 		AE341F5016F0E7060074C859 /* CJSONScanner.m in Sources */ = {isa = PBXBuildFile; fileRef = AEA97C9C16EF9E450046D464 /* CJSONScanner.m */; };
 		AE341F5116F0E7060074C859 /* CJSONSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = AEA97C9E16EF9E450046D464 /* CJSONSerializer.m */; };
-		AE3B6813173C651000CC13EA /* libMMSDK_5.0.1.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AE3B6812173C651000CC13EA /* libMMSDK_5.0.1.a */; };
 		AE515F3B171F1B110086B464 /* CDataScanner.m in Sources */ = {isa = PBXBuildFile; fileRef = AEA97C8916EF9E450046D464 /* CDataScanner.m */; };
 		AE515F3C171F1B110086B464 /* CFilteringJSONSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = AEA97C8C16EF9E450046D464 /* CFilteringJSONSerializer.m */; };
 		AE515F3D171F1B110086B464 /* CJSONDeserializer_BlocksExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = AEA97C8E16EF9E450046D464 /* CJSONDeserializer_BlocksExtensions.m */; };
@@ -143,6 +144,7 @@
 		AEE8E95616FBBBD900C41D15 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE4341A316F93E7C00B73710 /* MediaPlayer.framework */; };
 		AEE8E95716FBBBF200C41D15 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE4341A816F93E8F00B73710 /* AVFoundation.framework */; };
 		AEE8E95816FBBBF900C41D15 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE4341A116F93E7600B73710 /* QuartzCore.framework */; };
+		AEF148A91783A1A800C8AF44 /* InMobiInterstitialCustomEventSpec.mm in Sources */ = {isa = PBXBuildFile; fileRef = AEF148A81783A1A800C8AF44 /* InMobiInterstitialCustomEventSpec.mm */; };
 		AEF1E34117270F5700FC49F8 /* FakeCTCarrier.m in Sources */ = {isa = PBXBuildFile; fileRef = AEF1E34017270F5700FC49F8 /* FakeCTCarrier.m */; };
 		AEF9D53F171CA895005AAA5A /* MPBannerAdManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AEF9D4CA171CA895005AAA5A /* MPBannerAdManager.m */; };
 		AEF9D540171CA895005AAA5A /* MPBannerAdManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AEF9D4CA171CA895005AAA5A /* MPBannerAdManager.m */; };
@@ -454,13 +456,13 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		A73AB46517AB16DD00D98ED7 /* libMMSDK_5.1.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libMMSDK_5.1.0.a; path = ../../../../../Downloads/iOS_5.1.0_SDK/MMSDK/libMMSDK_5.1.0.a; sourceTree = "<group>"; };
 		AE1091E317011C8300812E6E /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		AE1091E517011C8A00812E6E /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		AE1091E717011C9E00812E6E /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		AE1091E917011CC900812E6E /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		AE341F2116EFC7790074C859 /* Foundation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Foundation.xcodeproj; path = ../Specs/Externals/PivotalCoreKit/Foundation/Foundation.xcodeproj; sourceTree = "<group>"; };
 		AE341F5216F0E9AD0074C859 /* UIKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = UIKit.xcodeproj; path = ../Specs/Externals/PivotalCoreKit/UIKit/UIKit.xcodeproj; sourceTree = "<group>"; };
-		AE3B6812173C651000CC13EA /* libMMSDK_5.0.1.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libMMSDK_5.0.1.a; sourceTree = "<group>"; };
 		AE43419616F93DEB00B73710 /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
 		AE43419916F93E2300B73710 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		AE43419B16F93E2900B73710 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
@@ -565,6 +567,7 @@
 		AEE3888F171F4F180019601C /* PassKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PassKit.framework; path = System/Library/Frameworks/PassKit.framework; sourceTree = SDKROOT; };
 		AEE38891171F4F200019601C /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		AEE38893171F4F250019601C /* Twitter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Twitter.framework; path = System/Library/Frameworks/Twitter.framework; sourceTree = SDKROOT; };
+		AEF148A81783A1A800C8AF44 /* InMobiInterstitialCustomEventSpec.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = InMobiInterstitialCustomEventSpec.mm; sourceTree = "<group>"; };
 		AEF1E33F17270F5700FC49F8 /* FakeCTCarrier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FakeCTCarrier.h; sourceTree = "<group>"; };
 		AEF1E34017270F5700FC49F8 /* FakeCTCarrier.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FakeCTCarrier.m; sourceTree = "<group>"; };
 		AEF1F32816EF9AD700273462 /* libMoPubSDK+Networks.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libMoPubSDK+Networks.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -823,7 +826,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AE3B6813173C651000CC13EA /* libMMSDK_5.0.1.a in Frameworks */,
 				AEE3889D171F4F920019601C /* libFoundation+PivotalCore-StaticLib.a in Frameworks */,
 				AEE38898171F4F6B0019601C /* libUIKit+PivotalSpecHelper-StaticLib.a in Frameworks */,
 				AEE38895171F4F500019601C /* libFoundation+PivotalSpecHelper-StaticLib.a in Frameworks */,
@@ -859,6 +861,7 @@
 				AEBE0E00172865390091925C /* libInMobiAdNetwork-3.7.0.a in Frameworks */,
 				AEBE0E01172865390091925C /* libInMobiCommons-3.7.0.a in Frameworks */,
 				AEBE0E1B17287F8B0091925C /* libGreystripeSDK.a in Frameworks */,
+				A73AB46717AB16DD00D98ED7 /* libMMSDK_5.1.0.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -866,6 +869,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A73AB46617AB16DD00D98ED7 /* libMMSDK_5.1.0.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1103,7 +1107,7 @@
 		AEE38861171F4D300019601C /* SDK */ = {
 			isa = PBXGroup;
 			children = (
-				AE3B6812173C651000CC13EA /* libMMSDK_5.0.1.a */,
+				A73AB46517AB16DD00D98ED7 /* libMMSDK_5.1.0.a */,
 				AEA762AD172099CB0004B0C5 /* MMAdView.h */,
 				AEA762AE172099CB0004B0C5 /* MMInterstitial.h */,
 				AEA762AF172099CB0004B0C5 /* MMRequest.h */,
@@ -1724,6 +1728,7 @@
 			isa = PBXGroup;
 			children = (
 				AEF9D642171CA8AD005AAA5A /* InMobiBannerCustomEventSpec.mm */,
+				AEF148A81783A1A800C8AF44 /* InMobiInterstitialCustomEventSpec.mm */,
 			);
 			path = InMobi;
 			sourceTree = "<group>";
@@ -2151,6 +2156,7 @@
 				AEE38881171F4D300019601C /* MPMillennialBannerCustomEvent.m in Sources */,
 				AEE38883171F4D300019601C /* MPMillennialInterstitialCustomEvent.m in Sources */,
 				AEF1E34117270F5700FC49F8 /* FakeCTCarrier.m in Sources */,
+				AEF148A91783A1A800C8AF44 /* InMobiInterstitialCustomEventSpec.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

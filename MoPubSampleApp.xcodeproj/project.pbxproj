@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A73AB47817AB235500D98ED7 /* libMMSDK_5.1.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A73AB47717AB235500D98ED7 /* libMMSDK_5.1.0.a */; };
 		AE0021E61704C46400A220F0 /* MPManualAdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AE0021E41704C46400A220F0 /* MPManualAdViewController.m */; };
 		AE0021E71704C46400A220F0 /* MPManualAdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AE0021E41704C46400A220F0 /* MPManualAdViewController.m */; };
 		AE0021E81704C46400A220F0 /* MPManualAdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AE0021E41704C46400A220F0 /* MPManualAdViewController.m */; };
@@ -31,7 +32,6 @@
 		AE23239D16F78A17002C2082 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = AE23239B16F78A17002C2082 /* InfoPlist.strings */; };
 		AE23239F16F78A17002C2082 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = AE23239E16F78A17002C2082 /* main.m */; };
 		AE2323A316F78A17002C2082 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AE2323A216F78A17002C2082 /* AppDelegate.m */; };
-		AE3B67F8173C415400CC13EA /* libMMSDK_5.0.1.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AE3B67F6173C413600CC13EA /* libMMSDK_5.0.1.a */; };
 		AE43413D16F8EEC500B73710 /* MPAdSection.m in Sources */ = {isa = PBXBuildFile; fileRef = AE43413C16F8EEC500B73710 /* MPAdSection.m */; };
 		AE43413E16F8EEC500B73710 /* MPAdSection.m in Sources */ = {isa = PBXBuildFile; fileRef = AE43413C16F8EEC500B73710 /* MPAdSection.m */; };
 		AE43413F16F8EEC500B73710 /* MPAdSection.m in Sources */ = {isa = PBXBuildFile; fileRef = AE43413C16F8EEC500B73710 /* MPAdSection.m */; };
@@ -362,6 +362,7 @@
 		AEEA5E6816F940EC003D48F4 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AEEA5E5116F940EC003D48F4 /* iAd.framework */; };
 		AEEA5E6916F940EC003D48F4 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AEEA5E5116F940EC003D48F4 /* iAd.framework */; };
 		AEF1E33317270AA400FC49F8 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE10920A170120E700812E6E /* CoreTelephony.framework */; };
+		AEFA5A21178DE1290021FD95 /* KIFTestScenario+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = AEFA5A20178DE1290021FD95 /* KIFTestScenario+HTML.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -466,6 +467,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		A73AB47717AB235500D98ED7 /* libMMSDK_5.1.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libMMSDK_5.1.0.a; sourceTree = "<group>"; };
 		AE0021E31704C46300A220F0 /* MPManualAdViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPManualAdViewController.h; sourceTree = "<group>"; };
 		AE0021E41704C46400A220F0 /* MPManualAdViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPManualAdViewController.m; sourceTree = "<group>"; };
 		AE0021E51704C46400A220F0 /* MPManualAdViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MPManualAdViewController.xib; sourceTree = "<group>"; };
@@ -487,7 +489,6 @@
 		AE2323A416F78A17002C2082 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		AE2323A616F78A17002C2082 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		AE2323A816F78A17002C2082 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
-		AE3B67F6173C413600CC13EA /* libMMSDK_5.0.1.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libMMSDK_5.0.1.a; sourceTree = "<group>"; };
 		AE43413B16F8EEC400B73710 /* MPAdSection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = MPAdSection.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		AE43413C16F8EEC500B73710 /* MPAdSection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = MPAdSection.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		AE43414416F9068000B73710 /* MPInterstitialAdDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPInterstitialAdDetailViewController.h; sourceTree = "<group>"; };
@@ -790,6 +791,8 @@
 		AEEA5E4F16F940EC003D48F4 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.1.sdk/System/Library/Frameworks/MessageUI.framework; sourceTree = "<absolute>"; };
 		AEEA5E5016F940EC003D48F4 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.1.sdk/System/Library/Frameworks/AudioToolbox.framework; sourceTree = "<absolute>"; };
 		AEEA5E5116F940EC003D48F4 /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.1.sdk/System/Library/Frameworks/iAd.framework; sourceTree = "<absolute>"; };
+		AEFA5A1F178DE1290021FD95 /* KIFTestScenario+HTML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "KIFTestScenario+HTML.h"; sourceTree = "<group>"; };
+		AEFA5A20178DE1290021FD95 /* KIFTestScenario+HTML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "KIFTestScenario+HTML.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -872,7 +875,7 @@
 				AE109219170120E700812E6E /* libsqlite3.dylib in Frameworks */,
 				AEBE0DF117285FEA0091925C /* libInMobiAdNetwork-3.7.0.a in Frameworks */,
 				AEBE0DF217285FEA0091925C /* libInMobiCommons-3.7.0.a in Frameworks */,
-				AE3B67F8173C415400CC13EA /* libMMSDK_5.0.1.a in Frameworks */,
+				A73AB47817AB235500D98ED7 /* libMMSDK_5.1.0.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1130,6 +1133,8 @@
 				AE9029AF171F537900991DF9 /* KIFTestScenario+Millennial.m */,
 				AE9029B0171F537900991DF9 /* KIFTestScenario+StoreKitScenario.h */,
 				AE9029B1171F537900991DF9 /* KIFTestScenario+StoreKitScenario.m */,
+				AEFA5A1F178DE1290021FD95 /* KIFTestScenario+HTML.h */,
+				AEFA5A20178DE1290021FD95 /* KIFTestScenario+HTML.m */,
 				AE9029B2171F537900991DF9 /* MPSampleAppTestScenario.h */,
 				AE9029B3171F537900991DF9 /* MPSampleAppTestScenario.m */,
 			);
@@ -1303,7 +1308,7 @@
 		AE902A28171F556A00991DF9 /* SDK */ = {
 			isa = PBXGroup;
 			children = (
-				AE3B67F6173C413600CC13EA /* libMMSDK_5.0.1.a */,
+				A73AB47717AB235500D98ED7 /* libMMSDK_5.1.0.a */,
 				AEBB56FA1721C2EF005DF12B /* MMAdView.h */,
 				AEBB56FB1721C2EF005DF12B /* MMInterstitial.h */,
 				AEBB56FC1721C2EF005DF12B /* MMRequest.h */,
@@ -2121,6 +2126,7 @@
 				AE9BC21517208084005E4CFF /* CJSONSerializer.m in Sources */,
 				AE8E1D1B1729A4B40051FA6C /* MPAdInfo+KIF.m in Sources */,
 				AE8E1D82172AF7BF0051FA6C /* ASIdentifierManager+KIF.m in Sources */,
+				AEFA5A21178DE1290021FD95 /* KIFTestScenario+HTML.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

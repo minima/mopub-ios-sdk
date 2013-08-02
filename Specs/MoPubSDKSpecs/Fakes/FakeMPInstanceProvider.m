@@ -20,8 +20,9 @@
 - (Chartboost *)buildChartboost;
 
 #pragma mark Google Ad Mob
-- (GADRequest *)buildGADRequest;
+- (GADRequest *)buildGADBannerRequest;
 - (GADBannerView *)buildGADBannerViewWithFrame:(CGRect)frame;
+- (GADRequest *)buildGADInterstitialRequest;
 - (GADInterstitial *)buildGADInterstitialAd;
 
 #pragma mark Greystripe
@@ -29,8 +30,9 @@
 - (GSFullscreenAd *)buildGSFullscreenAdWithDelegate:(id<GSAdDelegate>)delegate GUID:(NSString *)GUID;
 
 #pragma mark InMobi
-- (IMAdRequest *)buildIMAdRequest;
+- (IMAdRequest *)buildIMAdBannerRequest;
 - (IMAdView *)buildIMAdViewWithFrame:(CGRect)frame appId:(NSString *)appId adSize:(int)adSize;
+- (IMAdRequest *)buildIMAdInterstitialRequest;
 - (IMAdInterstitial *)buildIMAdInterstitialWithDelegate:(id<IMAdInterstitialDelegate>)delegate appId:(NSString *)appID;
 
 #pragma mark Millennial
@@ -288,11 +290,11 @@
 
 #pragma mark Google Ad Mob
 
-- (GADRequest *)buildGADRequest
+- (GADRequest *)buildGADBannerRequest
 {
-    return [self returnFake:self.fakeGADRequest
+    return [self returnFake:self.fakeGADBannerRequest
                      orCall:^{
-                         return [super buildGADRequest];
+                         return [super buildGADBannerRequest];
                      }];
 }
 
@@ -301,6 +303,14 @@
     return [self returnFake:self.fakeGADBannerView
                      orCall:^{
                          return [super buildGADBannerViewWithFrame:frame];
+                     }];
+}
+
+- (GADRequest *)buildGADInterstitialRequest
+{
+    return [self returnFake:self.fakeGADInterstitialRequest
+                     orCall:^{
+                         return [super buildGADInterstitialRequest];
                      }];
 }
 
@@ -338,11 +348,11 @@
 
 #pragma mark InMobi
 
-- (IMAdRequest *)buildIMAdRequest
+- (IMAdRequest *)buildIMAdBannerRequest
 {
-    return [self returnFake:self.fakeIMAdRequest
+    return [self returnFake:self.fakeIMAdBannerRequest
                      orCall:^{
-                         return [super buildIMAdRequest];
+                         return [super buildIMAdBannerRequest];
                      }];
 }
 
@@ -355,6 +365,14 @@
         return self.fakeIMAdView;
     }
     return [super buildIMAdViewWithFrame:frame appId:appId adSize:adSize];
+}
+
+- (IMAdRequest *)buildIMAdInterstitialRequest
+{
+    return [self returnFake:self.fakeIMAdInterstitialRequest
+                     orCall:^{
+                         return [super buildIMAdInterstitialRequest];
+                     }];
 }
 
 - (IMAdInterstitial *)buildIMAdInterstitialWithDelegate:(id<IMAdInterstitialDelegate>)delegate appId:(NSString *)appId;

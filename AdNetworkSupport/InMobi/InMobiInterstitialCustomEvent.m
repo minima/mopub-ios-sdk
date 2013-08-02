@@ -12,7 +12,7 @@
 @interface MPInstanceProvider (InMobiInterstitials)
 
 - (IMAdInterstitial *)buildIMAdInterstitialWithDelegate:(id<IMAdInterstitialDelegate>)delegate appId:(NSString *)appId;
-- (IMAdRequest *)buildIMAdRequest;
+- (IMAdRequest *)buildIMAdInterstitialRequest;
 
 @end
 
@@ -26,7 +26,7 @@
     return inMobiInterstitial;
 }
 
-- (IMAdRequest *)buildIMAdRequest
+- (IMAdRequest *)buildIMAdInterstitialRequest
 {
     return [IMAdRequest request];
 }
@@ -57,7 +57,8 @@
     self.inMobiInterstitial = [[MPInstanceProvider sharedProvider] buildIMAdInterstitialWithDelegate:self
                                                                                                appId:kInMobiAppID];
 
-    IMAdRequest *request = [[MPInstanceProvider sharedProvider] buildIMAdRequest];
+    IMAdRequest *request = [[MPInstanceProvider sharedProvider] buildIMAdInterstitialRequest];
+    request.paramsDictionary = [NSDictionary dictionaryWithObject:@"c_mopub" forKey:@"tp"];
     if (self.delegate.location) {
         [request setLocationWithLatitude:self.delegate.location.coordinate.latitude
                                longitude:self.delegate.location.coordinate.longitude

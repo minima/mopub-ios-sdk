@@ -17,7 +17,7 @@ describe(@"MPGoogleAdMobInterstitialCustomEvent", ^{
         delegate = nice_fake_for(@protocol(MPInterstitialCustomEventDelegate));
 
         request = nice_fake_for([GADRequest class]);
-        fakeProvider.fakeGADRequest = request;
+        fakeProvider.fakeGADInterstitialRequest = request;
 
         interstitial = [[[FakeGADInterstitial alloc] init] autorelease];
         fakeProvider.fakeGADInterstitial = interstitial.masquerade;

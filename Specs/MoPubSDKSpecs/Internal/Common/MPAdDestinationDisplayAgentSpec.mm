@@ -246,6 +246,42 @@ describe(@"MPAdDestinationDisplayAgent", ^{
         });
     });
 
+    describe(@"-cancel", ^{
+        context(@"when the display agent is in use", ^{
+            beforeEach(^{
+                URL = [NSURL URLWithString:@"http://www.google.com"];
+                [agent displayDestinationForURL:URL];
+                [agent cancel];
+            });
+
+            it(@"should cancel the resolver", ^{
+                resolver should have_received(@selector(cancel));
+            });
+
+            it(@"should tell the delegate that an displayAgentDidDismissModal", ^{
+                delegate should have_received(@selector(displayAgentDidDismissModal));
+            });
+
+            it(@"should hide the overlay", ^{
+                window.subviews.lastObject should be_nil;
+            });
+
+            it(@"should allow subsequent displayDestinationForURL: calls", ^{
+                verifyThatDisplayDestinationIsEnabled();
+            });
+        });
+
+        context(@"when the display agent is not in use", ^{
+            beforeEach(^{
+                [agent cancel];
+            });
+
+            it(@"should not tell the delegate that an displayAgentDidDismissModal", ^{
+                delegate should_not have_received(@selector(displayAgentDidDismissModal));
+            });
+        });
+    });
+
     describe(@"-dealloc", ^{
         context(@"while the overlay is showing", ^{
             beforeEach(^{

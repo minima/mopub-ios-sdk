@@ -135,6 +135,10 @@ describe(@"MPAdWebViewAgent", ^{
                 delegate should_not have_received(@selector(adDidClose:)).with(agent.view);
             });
 
+            it(@"should tell its destination display agent to cancel any open url requests", ^{
+                destinationDisplayAgent should have_received(@selector(cancel));
+            });
+
             context(@"when told to continue handling requests", ^{
                 it(@"should load things again", ^{
                     [agent continueHandlingRequests];

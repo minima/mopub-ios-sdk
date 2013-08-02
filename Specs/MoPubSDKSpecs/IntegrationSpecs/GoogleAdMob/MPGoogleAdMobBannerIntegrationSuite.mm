@@ -9,7 +9,7 @@ SPEC_BEGIN(MPGoogleAdMobBannerIntegrationSuite)
 
 describe(@"MPGoogleAdMobBannerIntegrationSuite", ^{
     __block FakeGADBannerView *fakeAd;
-    __block GADRequest<CedarDouble> *fakeGADRequest;
+    __block GADRequest<CedarDouble> *fakeGADBannerRequest;
     __block MPAdConfiguration *configuration;
 
     __block MPAdView *banner;
@@ -33,8 +33,8 @@ describe(@"MPGoogleAdMobBannerIntegrationSuite", ^{
 
         fakeAd = [[[FakeGADBannerView alloc] initWithFrame:CGRectMake(0,0,20,30)] autorelease];
         fakeProvider.fakeGADBannerView = fakeAd.masquerade;
-        fakeGADRequest = nice_fake_for([GADRequest class]);
-        fakeProvider.fakeGADRequest = fakeGADRequest;
+        fakeGADBannerRequest = nice_fake_for([GADRequest class]);
+        fakeProvider.fakeGADBannerRequest = fakeGADBannerRequest;
 
         NSDictionary *headers = @{kAdTypeHeaderKey: @"admob_native",
                                   kNativeSDKParametersHeaderKey:@"{\"adUnitID\":\"g00g1e\",\"adWidth\":728,\"adHeight\":90}"};
@@ -47,7 +47,7 @@ describe(@"MPGoogleAdMobBannerIntegrationSuite", ^{
 
     it(@"should ask the ad to load", ^{
         fakeAd.adUnitID should equal(@"g00g1e");
-        fakeGADRequest should have_received(@selector(setLocationWithLatitude:longitude:accuracy:)).with(37.1f).and_with(21.2f).and_with(12.3f);
+        fakeGADBannerRequest should have_received(@selector(setLocationWithLatitude:longitude:accuracy:)).with(37.1f).and_with(21.2f).and_with(12.3f);
         fakeAd.rootViewController should equal(presentingController);
     });
 

@@ -13,7 +13,7 @@
 
 @property (nonatomic, retain) MPURLResolver *resolver;
 @property (nonatomic, retain) MPProgressOverlayView *overlayView;
-@property (nonatomic, assign) BOOL inUse;
+@property (nonatomic, assign) BOOL isLoadingDestination;
 
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= MP_IOS_6_0
 @property (nonatomic, retain) SKStoreProductViewController *storeKitController;
@@ -63,7 +63,7 @@
 
 @synthesize delegate = _delegate;
 @synthesize resolver = _resolver;
-@synthesize inUse = _inUse;
+@synthesize isLoadingDestination = _inUse;
 
 + (MPAdDestinationDisplayAgent *)agentWithDelegate:(id<MPAdDestinationDisplayAgentDelegate>)delegate
 {
@@ -103,13 +103,23 @@
 
 - (void)displayDestinationForURL:(NSURL *)URL
 {
-    if (self.inUse) return;
-    self.inUse = YES;
+    if (self.isLoadingDestination) return;
+    self.isLoadingDestination = YES;
 
     [self.delegate displayAgentWillPresentModal];
     [self.overlayView show];
 
     [self.resolver startResolvingWithURL:URL delegate:self];
+}
+
+- (void)cancel
+{
+    if (self.isLoadingDestination) {
+        self.isLoadingDestination = NO;
+        [self.resolver cancel];
+        [self hideOverlay];
+        [self.delegate displayAgentDidDismissModal];
+    }
 }
 
 #pragma mark - <MPURLResolverDelegate>
@@ -141,12 +151,12 @@
     [self.delegate displayAgentWillLeaveApplication];
 
     [[UIApplication sharedApplication] openURL:URL];
-    self.inUse = NO;
+    self.isLoadingDestination = NO;
 }
 
 - (void)failedToResolveURLWithError:(NSError *)error
 {
-    self.inUse = NO;
+    self.isLoadingDestination = NO;
     [self hideOverlay];
     [self.delegate displayAgentDidDismissModal];
 }
@@ -170,24 +180,21 @@
 #pragma mark - <MPSKStoreProductViewControllerDelegate>
 - (void)productViewControllerDidFinish:(SKStoreProductViewController *)viewController
 {
-    self.inUse = NO;
+    self.isLoadingDestination = NO;
     [self hideModalAndNotifyDelegate];
 }
 
 #pragma mark - <MPAdBrowserControllerDelegate>
 - (void)dismissBrowserController:(MPAdBrowserController *)browserController animated:(BOOL)animated
 {
-    self.inUse = NO;
+    self.isLoadingDestination = NO;
     [self hideModalAndNotifyDelegate];
 }
 
 #pragma mark - <MPProgressOverlayViewDelegate>
 - (void)overlayCancelButtonPressed
 {
-    self.inUse = NO;
-    [self.resolver cancel];
-    [self hideOverlay];
-    [self.delegate displayAgentDidDismissModal];
+    [self cancel];
 }
 
 #pragma mark - Convenience Methods

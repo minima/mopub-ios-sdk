@@ -18,7 +18,7 @@ describe(@"MPGoogleAdMobBannerCustomEvent", ^{
         delegate = nice_fake_for(@protocol(MPBannerCustomEventDelegate));
 
         request = nice_fake_for([GADRequest class]);
-        fakeProvider.fakeGADRequest = request;
+        fakeProvider.fakeGADBannerRequest = request;
 
         banner = [[[FakeGADBannerView alloc] init] autorelease];
         fakeProvider.fakeGADBannerView = banner.masquerade;

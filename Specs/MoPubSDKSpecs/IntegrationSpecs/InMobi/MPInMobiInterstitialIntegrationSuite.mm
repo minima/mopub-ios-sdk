@@ -42,7 +42,7 @@ describe(@"MPInMobiInterstitialIntegrationSuite", ^{
         fakeProvider.fakeIMAdInterstitial = inMobi;
 
         request = nice_fake_for([IMAdRequest class]);
-        fakeProvider.fakeIMAdRequest = request;
+        fakeProvider.fakeIMAdInterstitialRequest = request;
 
         // receive the configuration -- this will create an adapter which will use our fake interstitial
         configuration = [MPAdConfigurationFactory defaultInterstitialConfigurationWithCustomEventClassName:@"InMobiInterstitialCustomEvent"];

@@ -16,7 +16,7 @@ describe(@"MPURLResolver", ^{
         urlResolver = [MPURLResolver resolver];
     });
 
-    describe(@"when the URL should be opened in a browser", ^{
+    describe(@"when the URL should be opened in an in-app browser", ^{
         context(@"when the scheme is HTTP", ^{
             beforeEach(^{
                 url = [NSURL URLWithString:@"http://www.google.com/"];
@@ -81,7 +81,27 @@ describe(@"MPURLResolver", ^{
 
     describe(@"when the URL should be opened by the application", ^{
         context(@"when the scheme is neither http nor https", ^{
-            context(@"when the URL can be opened by the application", ^{
+            context(@"when the scheme is mopubnativebrowser://", ^{
+                context(@"when the requested URL is well-formed URL", ^{
+                    it(@"should tell the delegate to open the URL in the application", ^{
+                        url = [NSURL URLWithString:@"mopubnativebrowser://navigate?url=https%3A%2F%2Fwww.google.com"];
+                        [urlResolver startResolvingWithURL:url delegate:delegate];
+                        [NSURLConnection lastConnection] should be_nil;
+                        delegate.applicationURL.absoluteString should equal(@"https://www.google.com");
+                    });
+                });
+
+                context(@"when the requested URL is not a well-formed URL", ^{
+                    it(@"should tell the delegate that a failure has occurred", ^{
+                        url = [NSURL URLWithString:@"mopubnativebrowser://navigate?url=åß∂∆"];
+                        [urlResolver startResolvingWithURL:url delegate:delegate];
+                        [NSURLConnection lastConnection] should be_nil;
+                        delegate.error should_not be_nil;
+                    });
+                });
+            });
+
+            context(@"when the URL can otherwise be opened by the application", ^{
                 beforeEach(^{
                     url = [NSURL URLWithString:@"ftp://www.google.com"];
                     [[UIApplication sharedApplication] canOpenURL:url] should be_truthy;

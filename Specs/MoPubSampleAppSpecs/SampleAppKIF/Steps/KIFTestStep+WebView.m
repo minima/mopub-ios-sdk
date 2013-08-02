@@ -11,9 +11,14 @@
 
 + (id)stepToTapLink:(NSString *)link
 {
+    return [self stepToTapLink:link webViewClassName:@"MPAdWebView"];
+}
+
++ (id)stepToTapLink:(NSString *)link webViewClassName:(NSString *)name
+{
     NSString *description = [NSString stringWithFormat:@"Clicking link %@", link];
     return [KIFTestStep stepWithDescription:description executionBlock:^KIFTestStepResult(KIFTestStep *step, NSError *__autoreleasing *error) {
-        UIWebView *webView = [[KIFHelper findViewsWithClassNamePrefix:@"MPAdWebView"] lastObject];
+        UIWebView *webView = [[KIFHelper findViewsWithClassNamePrefix:name] lastObject];
         NSString *JS = [NSString stringWithFormat:
                         @"(function() {var anchors = Array.prototype.slice.call(document.querySelectorAll('a'));"
                         @"var anchorWithLink = null;"

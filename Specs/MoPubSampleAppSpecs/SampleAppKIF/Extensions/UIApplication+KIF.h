@@ -9,4 +9,7 @@
 
 @interface UIApplication (KIF)
 
+- (NSURL *)lastOpenedURL;
+- (void)resetLastOpenedURL;
+
 @end

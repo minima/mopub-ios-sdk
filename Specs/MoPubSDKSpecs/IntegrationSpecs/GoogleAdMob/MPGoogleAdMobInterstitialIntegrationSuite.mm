@@ -16,7 +16,7 @@ describe(@"MPGoogleAdMobIntegrationSuite", ^{
     __block FakeGADInterstitial *fakeGADInterstitial;
     __block FakeMPAdServerCommunicator *communicator;
     __block MPAdConfiguration *configuration;
-    __block GADRequest<CedarDouble> *fakeGADRequest;
+    __block GADRequest<CedarDouble> *fakeGADInterstitialRequest;
 
     beforeEach(^{
         delegate = nice_fake_for(@protocol(MPInterstitialAdControllerDelegate));
@@ -39,8 +39,8 @@ describe(@"MPGoogleAdMobIntegrationSuite", ^{
         // prepare the fake and tell the injector about it
         fakeGADInterstitial = [[[FakeGADInterstitial alloc] init] autorelease];
         fakeProvider.fakeGADInterstitial = fakeGADInterstitial.masquerade;
-        fakeGADRequest = nice_fake_for([GADRequest class]);
-        fakeProvider.fakeGADRequest = fakeGADRequest;
+        fakeGADInterstitialRequest = nice_fake_for([GADRequest class]);
+        fakeProvider.fakeGADInterstitialRequest = fakeGADInterstitialRequest;
 
         // receive the configuration -- this will create an adapter which will use our fake interstitial
         NSDictionary *headers = @{kInterstitialAdTypeHeaderKey: @"admob_full",
@@ -56,7 +56,7 @@ describe(@"MPGoogleAdMobIntegrationSuite", ^{
 
     it(@"should set up the google ad request correctly", ^{
         fakeGADInterstitial.adUnitID should equal(@"g00g1e");
-        fakeGADRequest should have_received(@selector(setLocationWithLatitude:longitude:accuracy:)).with(37.1f).and_with(21.2f).and_with(12.3f);
+        fakeGADInterstitialRequest should have_received(@selector(setLocationWithLatitude:longitude:accuracy:)).with(37.1f).and_with(21.2f).and_with(12.3f);
     });
 
     context(@"while the ad is loading", ^{

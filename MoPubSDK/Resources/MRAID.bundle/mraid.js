@@ -1,5 +1,5 @@
 (function() {
-  var isIOS = (/iphone|ipad|ipod/i).test(window.navigator.userAgent.toLowerCase()); 
+  var isIOS = (/iphone|ipad|ipod/i).test(window.navigator.userAgent.toLowerCase());
   if (isIOS) {
     console = {};
     console.log = function(log) {
@@ -16,26 +16,26 @@
 (function() {
   // Establish the root mraidbridge object.
   var mraidbridge = window.mraidbridge = {};
-  
+
   // Listeners for bridge events.
   var listeners = {};
-  
+
   // Queue to track pending calls to the native SDK.
   var nativeCallQueue = [];
-  
+
   // Whether a native call is currently in progress.
   var nativeCallInFlight = false;
 
   //////////////////////////////////////////////////////////////////////////////////////////////////
-  
+
   mraidbridge.fireReadyEvent = function() {
     mraidbridge.fireEvent('ready');
   };
-  
+
   mraidbridge.fireChangeEvent = function(properties) {
     mraidbridge.fireEvent('change', properties);
   };
-  
+
   mraidbridge.fireErrorEvent = function(message, action) {
     mraidbridge.fireEvent('error', message, action);
   };
@@ -51,36 +51,36 @@
       }
     }
   };
-  
+
   mraidbridge.nativeCallComplete = function(command) {
     if (nativeCallQueue.length === 0) {
       nativeCallInFlight = false;
       return;
     }
-    
+
     var nextCall = nativeCallQueue.pop();
     window.location = nextCall;
   };
-  
+
   mraidbridge.executeNativeCall = function(command) {
     var call = 'mraid://' + command;
-    
+
     var key, value;
     var isFirstArgument = true;
-    
+
     for (var i = 1; i < arguments.length; i += 2) {
       key = arguments[i];
       value = arguments[i + 1];
-      
+
       if (value === null) continue;
-      
+
       if (isFirstArgument) {
         call += '?';
         isFirstArgument = false;
       } else {
         call += '&';
       }
-      
+
       call += key + '=' + escape(value);
     }
 
@@ -91,19 +91,19 @@
       window.location = call;
     }
   };
-  
+
   //////////////////////////////////////////////////////////////////////////////////////////////////
-  
+
   mraidbridge.addEventListener = function(event, listener) {
     var eventListeners;
     listeners[event] = listeners[event] || [];
     eventListeners = listeners[event];
-    
+
     for (var l in eventListeners) {
       // Listener already registered, so no need to add it.
       if (listener === l) return;
     }
-    
+
     eventListeners.push(listener);
   };
 
@@ -123,18 +123,18 @@
 (function() {
   var mraid = window.mraid = {};
   var bridge = window.mraidbridge;
-  
+
   // Constants. ////////////////////////////////////////////////////////////////////////////////////
-  
+
   var VERSION = mraid.VERSION = '1.0';
-  
+
   var STATES = mraid.STATES = {
     LOADING: 'loading',     // Initial state.
     DEFAULT: 'default',
     EXPANDED: 'expanded',
     HIDDEN: 'hidden'
   };
-  
+
   var EVENTS = mraid.EVENTS = {
     ERROR: 'error',
     INFO: 'info',
@@ -142,7 +142,7 @@
     STATECHANGE: 'stateChange',
     VIEWABLECHANGE: 'viewableChange'
   };
-  
+
   var PLACEMENT_TYPES = mraid.PLACEMENT_TYPES = {
     UNKNOWN: 'unknown',
     INLINE: 'inline',
@@ -163,26 +163,26 @@
   var hasSetCustomSize = false;
 
   var hasSetCustomClose = false;
- 
+
   var listeners = {};
 
   // Internal MRAID state. Modified by the native SDK. /////////////////////////////////////////////
-  
+
   var state = STATES.LOADING;
-  
+
   var isViewable = false;
-  
+
   var screenSize = { width: -1, height: -1 };
 
   var placementType = PLACEMENT_TYPES.UNKNOWN;
-  
+
   //////////////////////////////////////////////////////////////////////////////////////////////////
-  
+
   var EventListeners = function(event) {
     this.event = event;
     this.count = 0;
     var listeners = {};
-    
+
     this.add = function(func) {
       var id = String(func);
       if (!listeners[id]) {
@@ -190,7 +190,7 @@
         this.count++;
       }
     };
-    
+
     this.remove = function(func) {
       var id = String(func);
       if (listeners[id]) {
@@ -202,19 +202,19 @@
         return false;
       }
     };
-    
+
     this.removeAll = function() {
       for (var id in listeners) {
         if (listeners.hasOwnProperty(id)) this.remove(listeners[id]);
       }
     };
-    
+
     this.broadcast = function(args) {
       for (var id in listeners) {
         if (listeners.hasOwnProperty(id)) listeners[id].apply({}, args);
       }
     };
-    
+
     this.toString = function() {
       var out = [event, ':'];
       for (var id in listeners) {
@@ -223,7 +223,7 @@
       return out.join('');
     };
   };
-  
+
   var broadcastEvent = function() {
     var args = new Array(arguments.length);
     var l = arguments.length;
@@ -231,21 +231,21 @@
     var event = args.shift();
     if (listeners[event]) listeners[event].broadcast(args);
   };
-  
+
   var contains = function(value, array) {
     for (var i in array) {
       if (array[i] === value) return true;
     }
     return false;
   };
-  
+
   var clone = function(obj) {
     if (obj === null) return null;
     var f = function() {};
     f.prototype = obj;
     return new f();
   };
-  
+
   var stringify = function(obj) {
     if (typeof obj === 'object') {
       var out = [];
@@ -260,11 +260,11 @@
       }
     } else return String(obj);
   };
-  
+
   var trim = function(str) {
     return str.replace(/^\s+|\s+$/g, '');
   };
-  
+
   // Functions that will be invoked by the native SDK whenever a "change" event occurs.
   var changeHandlers = {
     state: function(val) {
@@ -275,13 +275,13 @@
       broadcastEvent(EVENTS.INFO, 'Set state to ' + stringify(val));
       broadcastEvent(EVENTS.STATECHANGE, state);
     },
-    
+
     viewable: function(val) {
       isViewable = val;
       broadcastEvent(EVENTS.INFO, 'Set isViewable to ' + stringify(val));
       broadcastEvent(EVENTS.VIEWABLECHANGE, isViewable);
     },
-    
+
     placementType: function(val) {
       broadcastEvent(EVENTS.INFO, 'Set placementType to ' + stringify(val));
       placementType = val;
@@ -298,7 +298,7 @@
         expandProperties['height'] = screenSize['height'];
       }
     },
-    
+
     expandProperties: function(val) {
       broadcastEvent(EVENTS.INFO, 'Merging expandProperties with ' + stringify(val));
       for (var key in val) {
@@ -306,7 +306,7 @@
       }
     }
   };
-  
+
   var validate = function(obj, validators, action, merge) {
     if (!merge) {
       // Check to see if any required properties are missing.
@@ -322,29 +322,29 @@
         }
       }
     }
-    
+
     for (var prop in obj) {
       var validator = validators[prop];
       var value = obj[prop];
       if (validator && !validator(value)) {
         // Failed validation.
-        broadcastEvent(EVENTS.ERROR, 'Value of property ' + prop + ' is invalid.', 
+        broadcastEvent(EVENTS.ERROR, 'Value of property ' + prop + ' is invalid.',
           action);
         return false;
       }
     }
     return true;
   };
-  
+
   var expandPropertyValidators = {
     width: function(v) { return !isNaN(v) && v >= 0; },
     height: function(v) { return !isNaN(v) && v >= 0; },
     useCustomClose: function(v) { return (typeof v === 'boolean'); },
     lockOrientation: function(v) { return (typeof v === 'boolean'); }
   };
-  
+
   //////////////////////////////////////////////////////////////////////////////////////////////////
-  
+
   bridge.addEventListener('change', function(properties) {
     for (var p in properties) {
       if (properties.hasOwnProperty(p)) {
@@ -353,17 +353,17 @@
       }
     }
   });
-  
+
   bridge.addEventListener('error', function(message, action) {
     broadcastEvent(EVENTS.ERROR, message, action);
   });
-  
+
   bridge.addEventListener('ready', function() {
     broadcastEvent(EVENTS.READY);
   });
 
   //////////////////////////////////////////////////////////////////////////////////////////////////
-  
+
   mraid.addEventListener = function(event, listener) {
     if (!event || !listener) {
       broadcastEvent(EVENTS.ERROR, 'Both event and listener are required.', 'addEventListener');
@@ -374,20 +374,20 @@
       listeners[event].add(listener);
     }
   };
-  
+
   mraid.close = function() {
     if (state === STATES.HIDDEN) {
       broadcastEvent(EVENTS.ERROR, 'Ad cannot be closed when it is already hidden.',
         'close');
     } else bridge.executeNativeCall('close');
   };
-  
+
   mraid.expand = function(URL) {
     if (state !== STATES.DEFAULT) {
       broadcastEvent(EVENTS.ERROR, 'Ad can only be expanded from the default state.', 'expand');
     } else {
       var args = ['expand'];
-      
+
       if (hasSetCustomClose) {
         args = args.concat(['shouldUseCustomClose', expandProperties.useCustomClose ? 'true' : 'false']);
       }
@@ -397,7 +397,7 @@
           args = args.concat(['w', expandProperties.width, 'h', expandProperties.height]);
         }
       }
-      
+
       if (typeof expandProperties.lockOrientation !== 'undefined') {
         args = args.concat(['lockOrientation', expandProperties.lockOrientation]);
       }
@@ -405,11 +405,11 @@
       if (URL) {
         args = args.concat(['url', URL]);
       }
-      
+
       bridge.executeNativeCall.apply(this, args);
     }
   };
-  
+
   mraid.getExpandProperties = function() {
     var properties = {
       width: expandProperties.width,
@@ -419,23 +419,23 @@
     };
     return properties;
   };
-  
+
   mraid.getPlacementType = function() {
     return placementType;
   };
-  
+
   mraid.getState = function() {
     return state;
   };
-  
+
   mraid.getVersion = function() {
     return mraid.VERSION;
   };
-  
+
   mraid.isViewable = function() {
     return isViewable;
   };
-  
+
   mraid.open = function(URL) {
     if (!URL) broadcastEvent(EVENTS.ERROR, 'URL is required.', 'open');
     else bridge.executeNativeCall('open', 'url', URL);
@@ -445,18 +445,22 @@
     if (!event) broadcastEvent(EVENTS.ERROR, 'Event is required.', 'removeEventListener');
     else {
       if (listener && (!listeners[event] || !listeners[event].remove(listener))) {
-        broadcastEvent(EVENTS.ERROR, 'Listener not currently registered for event.', 
+        broadcastEvent(EVENTS.ERROR, 'Listener not currently registered for event.',
           'removeEventListener');
         return;
       } else if (listeners[event]) listeners[event].removeAll();
-      
+
       if (listeners[event] && listeners[event].count === 0) {
         listeners[event] = null;
         delete listeners[event];
       }
     }
   };
-  
+
+  mraid.resize = function() {
+    broadcastEvent(EVENTS.ERROR, 'The resize method will be implemented at a later date.', 'resize');
+  };
+
   mraid.setExpandProperties = function(properties) {
     if (validate(properties, expandPropertyValidators, 'setExpandProperties', true)) {
       if (properties.hasOwnProperty('width') || properties.hasOwnProperty('height')) {
@@ -473,7 +477,7 @@
       }
     }
   };
-  
+
   mraid.useCustomClose = function(shouldUseCustomClose) {
     expandProperties.useCustomClose = shouldUseCustomClose;
     hasSetCustomClose = true;
