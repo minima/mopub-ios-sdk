@@ -14,6 +14,7 @@
 
 @implementation MRCommand
 
+@synthesize delegate = _delegate;
 @synthesize view = _view;
 @synthesize parameters = _parameters;
 
@@ -149,6 +150,7 @@
                     useCustomClose:[self boolFromParametersForKey:@"shouldUseCustomClose"]
                            isModal:NO
              shouldLockOrientation:[self boolFromParametersForKey:@"lockOrientation"]];
+
     return YES;
 }
 

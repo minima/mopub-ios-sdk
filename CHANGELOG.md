@@ -1,3 +1,9 @@
+## Version 1.13 (August 22, 2013)
+
+  - Added support for creating calendar events, storing pictures, and video playback via MRAID APIs
+  - Fixed a rendering issue with HTML interstitials on iOS 5
+  - Fixed crashes resulting from delegate callbacks being executed on deallocated objects
+
 ## Version 1.12 (April 25, 2013)
 
 #### Updates to Third Party Integrations
@@ -39,7 +45,7 @@
 ### Version 1.12.2.0 (June 7, 2013)
   - Fixed issue causing expanded MRAID banner ads to obscure modal content
   - Fixed issue in which impressions were not tracked properly for MRAID banner ads
-  - Added new API methods on `MPAdView` for managing ad refresh behavior (`-startAutomaticallyRefreshingContent` and `-stopAutomaticallyRefreshingContent`)
+  - Added new API methods on `MPAdView` for managing ad refresh behavior (`-startAutomaticallyRefreshingContents` and `-stopAutomaticallyRefreshingContents`)
   - Deprecated `ignoresAutorefresh` property on `MPAdView`
 
 ### Version 1.12.1.0 (May 13, 2013)

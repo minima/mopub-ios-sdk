@@ -60,6 +60,8 @@ NSString * const kMoPubCustomHost = @"custom";
 - (void)dealloc
 {
     self.configuration = nil;
+    [self.destinationDisplayAgent cancel];
+    [self.destinationDisplayAgent setDelegate:nil];
     self.destinationDisplayAgent = nil;
     self.view.delegate = nil;
     self.view = nil;

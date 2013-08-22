@@ -1,3 +1,4 @@
+require 'rubygems'
 require 'tmpdir'
 require 'pp'
 require 'fileutils'
@@ -117,7 +118,8 @@ def available_sdk_versions
   available = []
   `xcodebuild -showsdks | grep simulator`.split("\n").each do |line|
     match = line.match(/simulator([\d\.]+)/)
-    available << match[1] if match
+    # temporarily excluding 7.0 build
+    available << match[1] if match and match[1] != "7.0"
   end
   available
 end
@@ -210,3 +212,24 @@ namespace :mopubsample do
     network_testing.verify_kif_log_lines(File.readlines(kif_log_file))
   end
 end
+
+desc "Remove any focus from specs"
+task :nof do
+  system_or_exit %Q[ grep -l -r -e "\\(fit\\|fdescribe\\|fcontext\\)" Specs | grep -v -e 'Specs/Frameworks' -e 'JasmineSpecs' | xargs -I{} sed -i '' -e 's/fit\(@/it\(@/g;' -e 's/fdescribe\(@/describe\(@/g;' -e 's/fcontext\(@/context\(@/g;' "{}" ]
+end
+
+desc "Run jasmine specs"
+task :run_jasmine do
+  head "Running jasmine"
+  Dir.chdir('Specs/JasmineSpecs/SpecsApp') do
+    # NOTE: for this task to run, you must have already run 'npm install' in the Jasminespecs/SpecsApp dir
+    # test runner is in a node app that requires the mraid.js file to be in a specific path
+    system_or_exit(%Q[cp ../../../MoPubSDK/Resources/MRAID.bundle/mraid.js webapp/static/vendor/mraid.js])
+    begin
+        system_or_exit(%Q[node node_modules/jasmine-phantom-node/bin/jasmine-phantom-node webapp/static/tests])
+    ensure
+        system_or_exit(%Q[rm webapp/static/vendor/mraid.js])
+    end
+  end
+end
+

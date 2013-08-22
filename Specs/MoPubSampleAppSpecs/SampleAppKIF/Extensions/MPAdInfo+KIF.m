@@ -38,7 +38,8 @@
              [MPAdInfo infoWithTitle:@"Google AdMob Interstitial" ID:@"16ae389a932d11e281c11231392559e4" type:MPAdInfoInterstitial],
              [MPAdInfo infoWithTitle:@"Greystripe Interstitial" ID:@"b80aef0c95a911e295fa123138070049" type:MPAdInfoInterstitial],
              [MPAdInfo infoWithTitle:@"InMobi Interstitial" ID:@"f0cbed0095a911e295fa123138070049" type:MPAdInfoInterstitial],
-             [MPAdInfo infoWithTitle:@"Chartboost Interstitial" ID:@"a425ff78959911e295fa123138070049" type:MPAdInfoInterstitial]
+             [MPAdInfo infoWithTitle:@"Chartboost Interstitial" ID:@"a425ff78959911e295fa123138070049" type:MPAdInfoInterstitial],
+             [MPAdInfo infoWithTitle:@"MRAID Interstitial" ID:@"3aba0056add211e281c11231392559e4" type:MPAdInfoInterstitial]
              ];
 }
 

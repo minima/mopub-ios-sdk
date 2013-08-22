@@ -27,6 +27,10 @@
 
 - (void)dealloc
 {
+    self.backingViewAgent.delegate = nil;
+    self.backingViewAgent.customMethodDelegate = nil;
+    self.backingViewAgent = nil;
+
     self.backingView.delegate = nil;
     self.backingView = nil;
     [super dealloc];
@@ -86,6 +90,7 @@
 
 - (void)didDismissInterstitial
 {
+    [self.backingViewAgent invokeJavaScriptForEvent:MPAdWebViewEventAdDidDisappear];
     [self.delegate interstitialDidDisappear:self];
 }
 

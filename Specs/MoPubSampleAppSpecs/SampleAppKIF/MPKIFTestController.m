@@ -13,6 +13,7 @@
 #import "KIFTestScenario+Greystripe.h"
 #import "KIFTestScenario+InMobi.h"
 #import "KIFTestScenario+HTML.h"
+#import "KIFTestScenario+MRAID.h"
 
 @implementation MPKIFTestController
 
@@ -40,6 +41,9 @@
     [self addScenario:[KIFTestScenario scenarioForInMobiInterstitial]];
     [self addScenario:[KIFTestScenario scenarioForChartboostInterstitial]];
     [self addScenario:[KIFTestScenario scenarioForMultipleChartboostInterstitials]];
+
+// TODO: Add this scenario again once the MRAID tag is on the front-end and not just local.
+//    [self addScenario:[KIFTestScenario scenarioForMRAIDInterstitialWithVideo]];
 }
 
 @end

@@ -57,6 +57,7 @@ static NSString * const kCloseButtonXImageName = @"MPCloseButtonX.png";
 
     if (!self.isOnViewControllerStack) {
         self.isOnViewControllerStack = YES;
+        [self didPresentInterstitial];
     }
 }
 
@@ -90,8 +91,6 @@ static NSString * const kCloseButtonXImageName = @"MPCloseButtonX.png";
 
     [self layoutCloseButton];
     [controller mp_presentModalViewController:self animated:MP_ANIMATED];
-
-    [self didPresentInterstitial];
 }
 
 - (void)willPresentInterstitial

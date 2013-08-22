@@ -7,11 +7,12 @@
 //
 
 #import "MRProperty.h"
+#import <EventKit/EventKit.h>
 
 @implementation MRProperty
 
 - (NSString *)description {
-    return @"";  
+    return @"";
 }
 
 - (NSString *)jsonString {
@@ -39,8 +40,8 @@
         case MRAdViewPlacementTypeInterstitial: placementTypeString = @"interstitial"; break;
         default: break;
     }
-    
-    return [NSString stringWithFormat:@"placementType: '%@'", placementTypeString]; 
+
+    return [NSString stringWithFormat:@"placementType: '%@'", placementTypeString];
 }
 
 @end
@@ -83,9 +84,68 @@
 }
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"screenSize: {width: %f, height: %f}", 
-            _screenSize.width, 
-            _screenSize.height];  
+    return [NSString stringWithFormat:@"screenSize: {width: %f, height: %f}",
+            _screenSize.width,
+            _screenSize.height];
+}
+
+@end
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+@implementation MRSupportsProperty : MRProperty
+
++ (NSDictionary *)supportedFeatures
+{
+    BOOL supportsSms = [[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"sms://"]];
+    BOOL supportsTel = [[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"tel://"]];
+    BOOL supportsCal = YES;
+
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 60000
+    if ([EKEventStore respondsToSelector:@selector(authorizationStatusForEntityType:)]) {
+        supportsCal = [EKEventStore authorizationStatusForEntityType:EKEntityTypeEvent] == EKAuthorizationStatusNotDetermined ||
+                [EKEventStore authorizationStatusForEntityType:EKEntityTypeEvent] == EKAuthorizationStatusAuthorized;
+    }
+#endif
+
+    return [NSDictionary dictionaryWithObjectsAndKeys:
+            [NSNumber numberWithBool:supportsSms], @"sms",
+            [NSNumber numberWithBool:supportsTel], @"tel",
+            [NSNumber numberWithBool:supportsCal], @"calendar",
+            [NSNumber numberWithBool:YES], @"storePicture",
+            [NSNumber numberWithBool:YES], @"inlineVideo",
+            nil];
+}
+
++ (MRSupportsProperty *)defaultProperty
+{
+    return [self propertyWithSupportedFeaturesDictionary:[self supportedFeatures]];
+}
+
++ (MRSupportsProperty *)propertyWithSupportedFeaturesDictionary:(NSDictionary *)dictionary
+{
+    MRSupportsProperty *property = [[[self alloc] init] autorelease];
+    property.supportsSms = [[dictionary objectForKey:@"sms"] boolValue];
+    property.supportsTel = [[dictionary objectForKey:@"tel"] boolValue];
+    property.supportsCalendar = [[dictionary objectForKey:@"calendar"] boolValue];
+    property.supportsStorePicture = [[dictionary objectForKey:@"storePicture"] boolValue];
+    property.supportsInlineVideo = [[dictionary objectForKey:@"inlineVideo"] boolValue];
+    return property;
+}
+
+- (NSString *)description
+{
+    return [NSString stringWithFormat:@"supports: {sms: %@, tel: %@, calendar: %@, storePicture: %@, inlineVideo: %@}",
+            [self javascriptBooleanStringFromBoolValue:self.supportsSms],
+            [self javascriptBooleanStringFromBoolValue:self.supportsTel],
+            [self javascriptBooleanStringFromBoolValue:self.supportsCalendar],
+            [self javascriptBooleanStringFromBoolValue:self.supportsStorePicture],
+            [self javascriptBooleanStringFromBoolValue:self.supportsInlineVideo]];
+}
+
+- (NSString *)javascriptBooleanStringFromBoolValue:(BOOL)value
+{
+    return value ? @"true" : @"false";
 }
 
 @end
@@ -103,7 +163,7 @@
 }
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"viewable: '%@'", _isViewable ? @"true" : @"false"];  
+    return [NSString stringWithFormat:@"viewable: '%@'", _isViewable ? @"true" : @"false"];
 }
 
 @end

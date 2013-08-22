@@ -44,12 +44,27 @@
 @class MPAdDestinationDisplayAgent;
 @protocol MPAdDestinationDisplayAgentDelegate;
 
+// MRAID
+@class MRBundleManager;
+@class MRJavaScriptEventEmitter;
+@class MRCalendarManager;
+@protocol MRCalendarManagerDelegate;
+@class EKEventStore;
+@class EKEventEditViewController;
+@protocol EKEventEditViewDelegate;
+@class MRPictureManager;
+@protocol MRPictureManagerDelegate;
+@class MRImageDownloader;
+@protocol MRImageDownloaderDelegate;
+@class MRVideoPlayerManager;
+@protocol MRVideoPlayerManagerDelegate;
+
 // Utilities
 @class MPAnalyticsTracker;
 @class MPReachability;
 @class MPTimer;
 @class CTCarrier;
-
+@class MPMoviePlayerViewController;
 
 typedef id(^MPSingletonProviderBlock)();
 
@@ -92,7 +107,20 @@ typedef id(^MPSingletonProviderBlock)();
 - (MPURLResolver *)buildMPURLResolver;
 - (MPAdDestinationDisplayAgent *)buildMPAdDestinationDisplayAgentWithDelegate:(id<MPAdDestinationDisplayAgentDelegate>)delegate;
 
+#pragma mark - MRAID
+- (MRBundleManager *)buildMRBundleManager;
+- (UIWebView *)buildUIWebViewWithFrame:(CGRect)frame;
+- (MRJavaScriptEventEmitter *)buildMRJavaScriptEventEmitterWithWebView:(UIWebView *)webView;
+- (MRCalendarManager *)buildMRCalendarManagerWithDelegate:(id<MRCalendarManagerDelegate>)delegate;
+- (EKEventEditViewController *)buildEKEventEditViewControllerWithEditViewDelegate:(id<EKEventEditViewDelegate>)editViewDelegate;
+- (EKEventStore *)buildEKEventStore;
+- (MRPictureManager *)buildMRPictureManagerWithDelegate:(id<MRPictureManagerDelegate>)delegate;
+- (MRImageDownloader *)buildMRImageDownloaderWithDelegate:(id<MRImageDownloaderDelegate>)delegate;
+- (MRVideoPlayerManager *)buildMRVideoPlayerManagerWithDelegate:(id<MRVideoPlayerManagerDelegate>)delegate;
+- (MPMoviePlayerViewController *)buildMPMoviePlayerViewControllerWithURL:(NSURL *)URL;
+
 #pragma mark - Utilities
+- (NSOperationQueue *)sharedOperationQueue;
 - (MPAnalyticsTracker *)sharedMPAnalyticsTracker;
 - (MPReachability *)sharedMPReachability;
 - (CTCarrier *)buildCTCarrier;

@@ -68,6 +68,7 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 
     [self.communicator cancel];
+    [self.communicator setDelegate:nil];
     self.communicator = nil;
 
     [self.refreshTimer invalidate];

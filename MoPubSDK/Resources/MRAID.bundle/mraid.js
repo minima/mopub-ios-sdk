@@ -81,7 +81,7 @@
         call += '&';
       }
 
-      call += key + '=' + escape(value);
+      call += encodeURIComponent(key) + '=' + encodeURIComponent(value);
     }
 
     if (nativeCallInFlight) {
@@ -175,6 +175,14 @@
   var screenSize = { width: -1, height: -1 };
 
   var placementType = PLACEMENT_TYPES.UNKNOWN;
+
+  var supports = {
+    sms: false,
+    tel: false,
+    calendar: false,
+    storePicture: false,
+    inlineVideo: false
+  };
 
   //////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -304,7 +312,12 @@
       for (var key in val) {
         if (val.hasOwnProperty(key)) expandProperties[key] = val[key];
       }
-    }
+    },
+
+    supports: function(val) {
+      broadcastEvent(EVENTS.INFO, 'Set supports to ' + stringify(val));
+        supports = val;
+    },
   };
 
   var validate = function(obj, validators, action, merge) {
@@ -383,16 +396,16 @@
   };
 
   mraid.expand = function(URL) {
-    if (state !== STATES.DEFAULT) {
+    if (this.getState() !== STATES.DEFAULT) {
       broadcastEvent(EVENTS.ERROR, 'Ad can only be expanded from the default state.', 'expand');
     } else {
       var args = ['expand'];
 
-      if (hasSetCustomClose) {
+      if (this.getHasSetCustomClose()) {
         args = args.concat(['shouldUseCustomClose', expandProperties.useCustomClose ? 'true' : 'false']);
       }
 
-      if (hasSetCustomSize) {
+      if (this.getHasSetCustomSize()) {
         if (expandProperties.width >= 0 && expandProperties.height >= 0) {
           args = args.concat(['w', expandProperties.width, 'h', expandProperties.height]);
         }
@@ -408,6 +421,14 @@
 
       bridge.executeNativeCall.apply(this, args);
     }
+  };
+
+  mraid.getHasSetCustomClose = function() {
+      return hasSetCustomClose;
+  };
+
+  mraid.getHasSetCustomSize = function() {
+      return hasSetCustomSize;
   };
 
   mraid.getExpandProperties = function() {
@@ -457,10 +478,6 @@
     }
   };
 
-  mraid.resize = function() {
-    broadcastEvent(EVENTS.ERROR, 'The resize method will be implemented at a later date.', 'resize');
-  };
-
   mraid.setExpandProperties = function(properties) {
     if (validate(properties, expandPropertyValidators, 'setExpandProperties', true)) {
       if (properties.hasOwnProperty('width') || properties.hasOwnProperty('height')) {
@@ -482,5 +499,241 @@
     expandProperties.useCustomClose = shouldUseCustomClose;
     hasSetCustomClose = true;
     bridge.executeNativeCall('usecustomclose', 'shouldUseCustomClose', shouldUseCustomClose);
+  };
+
+  // MRAID 2.0 APIs ////////////////////////////////////////////////////////////////////////////////
+
+  mraid.createCalendarEvent = function(parameters) {
+    CalendarEventParser.initialize(parameters);
+    if (CalendarEventParser.parse()) {
+      bridge.executeNativeCall.apply(this, CalendarEventParser.arguments);
+    } else {
+      broadcastEvent(EVENTS.ERROR, CalendarEventParser.errors[0], 'createCalendarEvent');
+    }
+  };
+
+  mraid.supports = function(feature) {
+    return supports[feature];
+  };
+
+  mraid.playVideo = function(uri) {
+    if (!mraid.isViewable()) {
+      broadcastEvent(EVENTS.ERROR, 'playVideo cannot be called until the ad is viewable', 'playVideo');
+      return;
+    }
+
+    if (!uri) {
+      broadcastEvent(EVENTS.ERROR, 'playVideo must be called with a valid URI', 'playVideo');
+    } else {
+      bridge.executeNativeCall.apply(this, ['playVideo', 'uri', uri]);
+    }
+  };
+
+  mraid.storePicture = function(uri) {
+    if (!mraid.isViewable()) {
+      broadcastEvent(EVENTS.ERROR, 'storePicture cannot be called until the ad is viewable', 'storePicture');
+      return;
+    }
+
+    if (!uri) {
+      broadcastEvent(EVENTS.ERROR, 'storePicture must be called with a valid URI', 'storePicture');
+    } else {
+      bridge.executeNativeCall.apply(this, ['storePicture', 'uri', uri]);
+    }
+  };
+
+  mraid.resize = function() {
+    bridge.executeNativeCall('resize');
+  };
+
+  mraid.getResizeProperties = function() {
+    bridge.executeNativeCall('getResizeProperties');
+  };
+
+  mraid.setResizeProperties = function(resizeProperties) {
+    bridge.executeNativeCall('setResizeProperties', 'resizeProperties', resizeProperties);
+  };
+
+  mraid.getCurrentPosition = function() {
+    bridge.executeNativeCall('getCurrentPosition');
+  };
+
+  mraid.getDefaultPosition = function() {
+    bridge.executeNativeCall('getDefaultPosition');
+  };
+
+  mraid.getMaxSize = function() {
+    bridge.executeNativeCall('getMaxSize');
+  };
+
+  mraid.getScreenSize = function() {
+    bridge.executeNativeCall('getScreenSize');
+  };
+
+  var CalendarEventParser = {
+    initialize: function(parameters) {
+      this.parameters = parameters;
+      this.errors = [];
+      this.arguments = ['createCalendarEvent'];
+    },
+
+    parse: function() {
+      if (!this.parameters) {
+        this.errors.push('The object passed to createCalendarEvent cannot be null.');
+      } else {
+        this.parseDescription();
+        this.parseLocation();
+        this.parseSummary();
+        this.parseStartAndEndDates();
+        this.parseReminder();
+        this.parseRecurrence();
+        this.parseTransparency();
+      }
+
+      var errorCount = this.errors.length;
+      if (errorCount) {
+        this.arguments.length = 0;
+      }
+
+      return (errorCount === 0);
+    },
+
+    parseDescription: function() {
+      this._processStringValue('description');
+    },
+
+    parseLocation: function() {
+      this._processStringValue('location');
+    },
+
+    parseSummary: function() {
+      this._processStringValue('summary');
+    },
+
+    parseStartAndEndDates: function() {
+      this._processDateValue('start');
+      this._processDateValue('end');
+    },
+
+    parseReminder: function() {
+      var reminder = this._getParameter('reminder');
+      if (!reminder) {
+        return;
+      }
+
+      if (reminder < 0) {
+        this.arguments.push('relativeReminder');
+        this.arguments.push(parseInt(reminder) / 1000);
+      } else {
+        this.arguments.push('absoluteReminder');
+        this.arguments.push(reminder);
+      }
+    },
+
+    parseRecurrence: function() {
+      var recurrenceDict = this._getParameter('recurrence');
+      if (!recurrenceDict) {
+        return;
+      }
+
+      this.parseRecurrenceInterval(recurrenceDict);
+      this.parseRecurrenceFrequency(recurrenceDict);
+      this.parseRecurrenceEndDate(recurrenceDict);
+      this.parseRecurrenceArrayValue(recurrenceDict, 'daysInWeek');
+      this.parseRecurrenceArrayValue(recurrenceDict, 'daysInMonth');
+      this.parseRecurrenceArrayValue(recurrenceDict, 'daysInYear');
+      this.parseRecurrenceArrayValue(recurrenceDict, 'monthsInYear');
+    },
+
+    parseTransparency: function() {
+      var validValues = ['opaque', 'transparent'];
+
+      if (this.parameters.hasOwnProperty('transparency')) {
+        var transparency = this.parameters['transparency'];
+        if (contains(transparency, validValues)) {
+          this.arguments.push('transparency');
+          this.arguments.push(transparency);
+        } else {
+          this.errors.push('transparency must be opaque or transparent');
+        }
+      }
+    },
+
+    parseRecurrenceArrayValue: function(recurrenceDict, kind) {
+      if (recurrenceDict.hasOwnProperty(kind)) {
+        var array = recurrenceDict[kind];
+        if (!array || !(array instanceof Array)) {
+          this.errors.push(kind + ' must be an array.');
+        } else {
+          var arrayStr = array.join(',');
+          this.arguments.push(kind);
+          this.arguments.push(arrayStr);
+        }
+      }
+    },
+
+    parseRecurrenceInterval: function(recurrenceDict) {
+      if (recurrenceDict.hasOwnProperty('interval')) {
+        var interval = recurrenceDict['interval'];
+        if (!interval) {
+          this.errors.push('Recurrence interval cannot be null.');
+        } else {
+          this.arguments.push('interval');
+          this.arguments.push(interval);
+        }
+      } else {
+        // If a recurrence rule was specified without an interval, use a default value of 1.
+        this.arguments.push('interval');
+        this.arguments.push(1);
+      }
+    },
+
+    parseRecurrenceFrequency: function(recurrenceDict) {
+      if (recurrenceDict.hasOwnProperty('frequency')) {
+        var frequency = recurrenceDict['frequency'];
+        var validFrequencies = ['daily', 'weekly', 'monthly', 'yearly'];
+        if (contains(frequency, validFrequencies)) {
+          this.arguments.push('frequency');
+          this.arguments.push(frequency);
+        } else {
+          this.errors.push('Recurrence frequency must be one of: "daily", "weekly", "monthly", "yearly".');
+        }
+      }
+    },
+
+    parseRecurrenceEndDate: function(recurrenceDict) {
+      var expires = recurrenceDict['expires'];
+
+      if (!expires) {
+        return;
+      }
+
+      this.arguments.push('expires');
+      this.arguments.push(expires);
+    },
+
+    _getParameter: function(key) {
+      if (this.parameters.hasOwnProperty(key)) {
+        return this.parameters[key];
+      }
+
+      return null;
+    },
+
+    _processStringValue: function(kind) {
+      if (this.parameters.hasOwnProperty(kind)) {
+        var value = this.parameters[kind];
+        this.arguments.push(kind);
+        this.arguments.push(value);
+      }
+    },
+
+    _processDateValue: function(kind) {
+      if (this.parameters.hasOwnProperty(kind)) {
+        var dateString = this._getParameter(kind);
+        this.arguments.push(kind);
+        this.arguments.push(dateString);
+      }
+    },
   };
 }());

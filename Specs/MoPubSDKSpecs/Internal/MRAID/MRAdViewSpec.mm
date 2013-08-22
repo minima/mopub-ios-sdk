@@ -1,5 +1,8 @@
 #import "MRAdView.h"
 #import "MPAdDestinationDisplayAgent.h"
+#import "FakeMRJavaScriptEventEmitter.h"
+#import "MRProperty.h"
+#import "MRBundleManager.h"
 
 using namespace Cedar::Matchers;
 using namespace Cedar::Doubles;
@@ -10,12 +13,32 @@ describe(@"MRAdView", ^{
     __block MRAdView *view;
     __block id<CedarDouble, MRAdViewDelegate> delegate;
     __block MPAdDestinationDisplayAgent<CedarDouble> *destinationDisplayAgent;
+    __block FakeMRJavaScriptEventEmitter *jsEventEmitter;
+    __block MRCalendarManager<CedarDouble> *calendarManager;
+    __block MRPictureManager<CedarDouble> *pictureManager;
+    __block MRVideoPlayerManager<CedarDouble> *videoPlayerManager;
+    __block UIWebView *webView;
     __block UIViewController *presentingViewController;
     __block UIWindow *window;
 
     beforeEach(^{
+        webView = [[[UIWebView alloc] init] autorelease];
+        fakeProvider.fakeUIWebView = webView;
+
         destinationDisplayAgent = nice_fake_for([MPAdDestinationDisplayAgent class]);
         fakeProvider.fakeMPAdDestinationDisplayAgent = destinationDisplayAgent;
+
+        jsEventEmitter = [[FakeMRJavaScriptEventEmitter alloc] initWithWebView:nil];
+        fakeProvider.fakeMRJavaScriptEventEmitter = jsEventEmitter;
+
+        calendarManager = nice_fake_for([MRCalendarManager class]);
+        fakeProvider.fakeMRCalendarManager = calendarManager;
+
+        pictureManager = nice_fake_for([MRPictureManager class]);
+        fakeProvider.fakeMRPictureManager = pictureManager;
+
+        videoPlayerManager = nice_fake_for([MRVideoPlayerManager class]);
+        fakeProvider.fakeMRVideoPlayerManager = videoPlayerManager;
 
         presentingViewController = [[[UIViewController alloc] init] autorelease];
 
@@ -30,6 +53,57 @@ describe(@"MRAdView", ^{
 
     afterEach(^{
         [window resignKeyWindow];
+    });
+
+    describe(@"loading an HTML string", ^{
+        __block NSString *HTMLString;
+
+        context(@"when the string is a 'fragment' without <html>, <head>, or MRAID <script> tags", ^{
+            beforeEach(^{
+                HTMLString = @"<script src='ad.js'></script>";
+                [view loadCreativeWithHTMLString:HTMLString baseURL:nil];
+            });
+
+            it(@"should wrap the string with the requisite tags before loading it", ^{
+                NSString *loadedHTMLString = [webView loadedHTMLString];
+                loadedHTMLString should_not be_nil;
+
+                // Must contain the original string.
+                loadedHTMLString should contain(HTMLString);
+
+                // Must be wrapped in an HTML tag.
+                loadedHTMLString should contain(@"<html>");
+                loadedHTMLString should contain(@"</html>");
+
+                // Must have a head tag.
+                loadedHTMLString should contain(@"<head>");
+                loadedHTMLString should contain(@"</head>");
+
+                // Must have an MRAID script tag.
+                loadedHTMLString should contain(@"mraid.js");
+            });
+        });
+
+        context(@"when the MRAID bundle is not available", ^{
+            __block MRBundleManager<CedarDouble> *fakeBundleManager;
+
+            beforeEach(^{
+                fakeBundleManager = fake_for([MRBundleManager class]);
+                fakeBundleManager stub_method("mraidPath").and_return((NSString *)nil);
+                fakeProvider.fakeMRBundleManager = fakeBundleManager;
+
+                NSString *HTMLString = @"<h1>Hi, dudes!</h1>";
+                [view loadCreativeWithHTMLString:HTMLString baseURL:nil];
+            });
+
+            it(@"should not load the string into its webview", ^{
+                [webView loadedHTMLString] should be_nil;
+            });
+
+            it(@"should tell its delegate that the ad failed to load", ^{
+                delegate should have_received(@selector(adDidFailToLoad:));
+            });
+        });
     });
 
     describe(@"when performing URL navigation", ^{
@@ -50,56 +124,220 @@ describe(@"MRAdView", ^{
         });
 
         context(@"when the creative hasn't finished loading", ^{
+            __block NSString *HTMLString;
+
             beforeEach(^{
-                NSString *HTMLString = @"<h1>Hi, dudes!</h1>";
+                HTMLString = @"<h1>Hi, dudes!</h1>";
                 [view loadCreativeWithHTMLString:HTMLString baseURL:nil];
             });
 
-            it(@"should load the URL in the webview", ^{
-                URL = [NSURL URLWithString:@"http://www.donuts.com"];
-                [view webView:nil shouldStartLoadWithRequest:[NSURLRequest requestWithURL:URL] navigationType:UIWebViewNavigationTypeOther] should equal(YES);
+            context(@"when the MRAID bundle is available", ^{
+                it(@"should load the URL in the webview", ^{
+                    URL = [NSURL URLWithString:@"http://www.donuts.com"];
+                    [view webView:nil shouldStartLoadWithRequest:[NSURLRequest requestWithURL:URL] navigationType:UIWebViewNavigationTypeOther] should equal(YES);
+                    [webView loadedHTMLString] should contain(HTMLString);
+                });
+
+                context(@"when the creative finishes loading", ^{
+                    __block NSMutableURLRequest *request;
+                    beforeEach(^{
+                        URL = [NSURL URLWithString:@"http://www.donuts.com"];
+                        request = [NSMutableURLRequest requestWithURL:URL];
+                        request.mainDocumentURL = URL;
+                        [view webViewDidFinishLoad:nil];
+                    });
+
+                    it(@"should initialize some properties on the MRAID JavaScript bridge", ^{
+                        [jsEventEmitter containsProperty:[MRStateProperty propertyWithState:MRAdViewStateDefault]] should equal(YES);
+                        [jsEventEmitter containsProperty:[MRSupportsProperty defaultProperty]] should equal(YES);
+                        [jsEventEmitter containsProperty:[MRScreenSizeProperty propertyWithSize:[[UIScreen mainScreen] applicationFrame].size]] should equal(YES);
+                        jsEventEmitter.didFireReadyEvent should equal(YES);
+                    });
+
+                    context(@"when the navigation type is other", ^{
+                        it(@"should ask the destination display agent to load the URL", ^{
+                            [view webView:nil shouldStartLoadWithRequest:request navigationType:UIWebViewNavigationTypeOther] should equal(NO);
+                            destinationDisplayAgent should have_received(@selector(displayDestinationForURL:)).with(URL);
+                        });
+                    });
+
+                    context(@"when the navigation type is clicked", ^{
+                        it(@"should ask the destination display agent to load the URL", ^{
+                            [view webView:nil shouldStartLoadWithRequest:request navigationType:UIWebViewNavigationTypeLinkClicked] should equal(NO);
+                            destinationDisplayAgent should have_received(@selector(displayDestinationForURL:)).with(URL);
+                        });
+                    });
+
+                    context(@"when the requested URL is an iframe", ^{
+                        it(@"should not ask the destionation display agent to load the URL", ^{
+                            NSURL *documentURL = [NSURL URLWithString:@"http://www.donuts.com"];
+                            NSURL *iframeURL = [NSURL URLWithString:@"http://www.jelly.com"];
+                            NSMutableURLRequest *iframeURLRequest = [NSMutableURLRequest requestWithURL:iframeURL];
+                            iframeURLRequest.mainDocumentURL = documentURL;
+                            [view webView:nil shouldStartLoadWithRequest:iframeURLRequest navigationType:UIWebViewNavigationTypeOther] should equal(YES);
+                            destinationDisplayAgent should_not have_received(@selector(displayDestinationForURL:));
+                        });
+                    });
+
+                    context(@"when the navigation type is anything else", ^{
+                        it(@"should ask the destination display agent to load the URL", ^{
+                            [view webView:nil shouldStartLoadWithRequest:request navigationType:UIWebViewNavigationTypeReload] should equal(YES);
+                            destinationDisplayAgent should_not have_received(@selector(displayDestinationForURL:));
+                        });
+                    });
+                });
+            });
+        });
+    });
+
+    describe(@"handling MRAID commands", ^{
+        __block NSURL *URL;
+
+        context(@"when the command is invalid", ^{
+            it(@"should tell its delegate that the command could not be executed", ^{
+                URL = [NSURL URLWithString:@"mraid://invalid"];
+                [view webView:nil shouldStartLoadWithRequest:[NSURLRequest requestWithURL:URL] navigationType:UIWebViewNavigationTypeOther];
+            });
+        });
+
+        xcontext(@"when the command is 'close'", ^{
+            it(@"should tell its display manager to close the ad", ^{
+
             });
 
-            context(@"when the creative finishes loading", ^{
-                __block NSMutableURLRequest *request;
+            // TODO: what if we can't close?
+        });
+
+        context(@"when the command is 'createCalendarEvent'", ^{
+            beforeEach(^{
+                URL = [NSURL URLWithString:@"mraid://createCalendarEvent?title=Great%20Day"];
+                [view webView:nil shouldStartLoadWithRequest:[NSURLRequest requestWithURL:URL] navigationType:UIWebViewNavigationTypeOther];
+            });
+
+            it(@"should tell its calendar manager to create a calendar event", ^{
+                calendarManager should have_received(@selector(createCalendarEventWithParameters:)).with(@{@"title": @"Great Day"});
+            });
+
+            context(@"when the calendar manager is about to present a calendar editor", ^{
                 beforeEach(^{
-                    URL = [NSURL URLWithString:@"http://www.donuts.com"];
-                    request = [NSMutableURLRequest requestWithURL:URL];
-                    request.mainDocumentURL = URL;
-                    [view webViewDidFinishLoad:nil];
+                    [view calendarManagerWillPresentCalendarEditor:calendarManager];
                 });
 
-                context(@"when the navigation type is other", ^{
-                    it(@"should ask the destination display agent to load the URL", ^{
-                        [view webView:nil shouldStartLoadWithRequest:request navigationType:UIWebViewNavigationTypeOther] should equal(NO);
-                        destinationDisplayAgent should have_received(@selector(displayDestinationForURL:)).with(URL);
-                    });
+                it(@"should tell its delegate that modal content will be presented", ^{
+                    delegate should have_received(@selector(appShouldSuspendForAd:)).with(view);
                 });
 
-                context(@"when the navigation type is clicked", ^{
-                    it(@"should ask the destination display agent to load the URL", ^{
-                        [view webView:nil shouldStartLoadWithRequest:request navigationType:UIWebViewNavigationTypeLinkClicked] should equal(NO);
-                        destinationDisplayAgent should have_received(@selector(displayDestinationForURL:)).with(URL);
-                    });
+                it(@"should present the calendar editor from the proper view controller", ^{
+                    UIViewController *viewController = [view viewControllerForPresentingCalendarEditor];
+                    viewController should_not be_nil;
+                    viewController should be_same_instance_as(presentingViewController);
                 });
 
-                context(@"when the requested URL is an iframe", ^{
-                    it(@"should not ask the destionation display agent to load the URL", ^{
-                        NSURL *documentURL = [NSURL URLWithString:@"http://www.donuts.com"];
-                        NSURL *iframeURL = [NSURL URLWithString:@"http://www.jelly.com"];
-                        NSMutableURLRequest *iframeURLRequest = [NSMutableURLRequest requestWithURL:iframeURL];
-                        iframeURLRequest.mainDocumentURL = documentURL;
-                        [view webView:nil shouldStartLoadWithRequest:iframeURLRequest navigationType:UIWebViewNavigationTypeOther] should equal(YES);
-                        destinationDisplayAgent should_not have_received(@selector(displayDestinationForURL:));
+                context(@"when the calendar editor is dismissed", ^{
+                    beforeEach(^{
+                        [view calendarManagerDidDismissCalendarEditor:calendarManager];
                     });
+
+                    it(@"should tell its delegate that modal content has been dismissed", ^{
+                        delegate should have_received(@selector(appShouldResumeFromAd:)).with(view);
+                    });
+                });
+            });
+
+            context(@"when the event is created successfully", ^{
+                xit(@"should tell its delegate that the command finished", ^{
+
+                });
+            });
+
+            context(@"when the event cannot be created", ^{
+                it(@"should emit a JavaScript error event", ^{
+                    [view calendarManager:calendarManager didFailToCreateCalendarEventWithErrorMessage:@"message"];
+                    jsEventEmitter.errorEvents should contain(@"createCalendarEvent");
+                });
+            });
+        });
+
+        xcontext(@"when the command is 'expand'", ^{
+            it(@"should tell its display manager to expand the ad", ^{
+
+            });
+        });
+
+        xcontext(@"when the command is 'open'", ^{
+            it(@"should tell its ??? to open something", ^{
+
+            });
+        });
+
+        context(@"when the command is 'playVideo'", ^{
+            beforeEach(^{
+                URL = [NSURL URLWithString:@"mraid://playVideo?uri=a_video"];
+                [view webView:nil shouldStartLoadWithRequest:[NSURLRequest requestWithURL:URL] navigationType:UIWebViewNavigationTypeOther];
+            });
+
+            it(@"should tell its video manager to play the video", ^{
+                videoPlayerManager should have_received(@selector(playVideo:)).with(@{@"uri": @"a_video"});
+            });
+
+            context(@"when the video cannot be played", ^{
+                it(@"should emit a JavaScript error event", ^{
+                    [view videoPlayerManager:videoPlayerManager didFailToPlayVideoWithErrorMessage:@"message"];
+                    jsEventEmitter.errorEvents should contain(@"playVideo");
+                });
+            });
+
+            context(@"when the video is about to appear on-screen", ^{
+                beforeEach(^{
+                    [view videoPlayerManagerWillPresentVideo:videoPlayerManager];
                 });
 
-                context(@"when the navigation type is anything else", ^{
-                    it(@"should ask the destination display agent to load the URL", ^{
-                        [view webView:nil shouldStartLoadWithRequest:request navigationType:UIWebViewNavigationTypeReload] should equal(YES);
-                        destinationDisplayAgent should_not have_received(@selector(displayDestinationForURL:));
+                it(@"should tell its delegate that modal content will be presented", ^{
+                    delegate should have_received(@selector(appShouldSuspendForAd:)).with(view);
+                });
+
+                it(@"should present the video player from the proper view controller", ^{
+                    UIViewController *viewController = [view viewControllerForPresentingVideoPlayer];
+                    viewController should_not be_nil;
+                    viewController should be_same_instance_as(presentingViewController);
+                });
+
+                context(@"when the video has finished playing", ^{
+                    it(@"should tell its delegate that modal content has been dismissed", ^{
+                        [view videoPlayerManagerDidDismissVideo:videoPlayerManager];
+                        delegate should have_received(@selector(appShouldResumeFromAd:)).with(view);
                     });
                 });
+            });
+        });
+
+        context(@"when the command is 'storePicture'", ^{
+            beforeEach(^{
+                URL = [NSURL URLWithString:@"mraid://storePicture?uri=an_image"];
+                [view webView:nil shouldStartLoadWithRequest:[NSURLRequest requestWithURL:URL] navigationType:UIWebViewNavigationTypeOther];
+            });
+
+            it(@"should tell its picture manager to store a picture", ^{
+                pictureManager should have_received(@selector(storePicture:)).with(@{@"uri": @"an_image"});
+            });
+
+            context(@"when the picture is stored successfully", ^{
+                xit(@"should tell its delegate that the command finished", ^{
+
+                });
+            });
+
+            context(@"when the picture cannot be stored", ^{
+                it(@"should emit a JavaScript error event", ^{
+                    [view pictureManager:pictureManager didFailToStorePictureWithErrorMessage:@"message"];
+                    jsEventEmitter.errorEvents should contain(@"storePicture");
+                });
+            });
+        });
+
+        xcontext(@"when the command is 'useCustomClose'", ^{
+            it(@"should tell its display manager", ^{
+
             });
         });
     });
@@ -126,7 +364,7 @@ describe(@"MRAdView", ^{
 
                 // XXX: Expansion has some async animation behavior, which we'll have to fix to
                 // avoid this type of ugly hack.
-                [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:1.5]];
+                [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:1.8]];
 
                 URL = [NSURL URLWithString:@"http://www.donuts.com"];
                 [view handleMRAIDOpenCallForURL:URL];

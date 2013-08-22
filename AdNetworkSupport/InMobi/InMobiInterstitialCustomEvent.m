@@ -89,7 +89,7 @@
 
 - (void)interstitial:(IMAdInterstitial *)ad didFailToReceiveAdWithError:(IMAdError *)error
 {
-    MPLogInfo(@"InMobi banner did fail with error: %@", error.localizedDescription);
+    MPLogInfo(@"InMobi interstitial did fail with error: %@", error.localizedDescription);
     [self.delegate interstitialCustomEvent:self didFailToLoadAdWithError:nil];
 }
 

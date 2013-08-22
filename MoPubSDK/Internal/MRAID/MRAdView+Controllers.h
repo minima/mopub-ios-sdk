@@ -10,12 +10,6 @@
 
 @interface MRAdView (Controllers)
 
-- (void)fireChangeEventForProperty:(MRProperty *)property;
-- (void)fireChangeEventsForProperties:(NSArray *)properties;
-- (void)fireErrorEventForAction:(NSString *)action withMessage:(NSString *)message;
-- (void)fireReadyEvent;
-- (void)fireNativeCommandCompleteEvent:(NSString *)command;
-
 // Delegate callback methods wrapped with -respondsToSelector: checks.
 - (void)adDidLoad;
 - (void)adDidFailToLoad;

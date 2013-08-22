@@ -14,6 +14,7 @@
 #import "MPLogging.h"
 #import "MPTimer.h"
 #import "MPInstanceProvider.h"
+#import "MRJavaScriptEventEmitter.h"
 
 static NSString * const kAnimationKeyExpand = @"expand";
 static NSString * const kAnimationKeyCloseExpanded = @"closeExpanded";
@@ -66,46 +67,50 @@ static NSString *const kMovieWillExitNotification42 =
 @synthesize view = _view;
 @synthesize currentState = _currentState;
 @synthesize twoPartExpansionView = _twoPartExpansionView;
+@synthesize jsEventEmitter = _jsEventEmitter;
 
-- (id)initWithAdView:(MRAdView *)adView allowsExpansion:(BOOL)allowsExpansion
+- (id)initWithAdView:(MRAdView *)adView
+     allowsExpansion:(BOOL)allowsExpansion
     closeButtonStyle:(MRAdViewCloseButtonStyle)closeButtonStyle
+     jsEventEmitter:(MRJavaScriptEventEmitter *)jsEventEmitter
 {
     self = [super init];
     if (self) {
+        _jsEventEmitter = [jsEventEmitter retain];
         _view = adView;
         _allowsExpansion = allowsExpansion;
         _closeButtonStyle = closeButtonStyle;
-        
+
         _currentState = MRAdViewStateDefault;
         _defaultFrame = _view.frame;
         _maxSize = _view.frame.size;
-        
+
         _viewabilityTimer = [[[MPInstanceProvider sharedProvider] buildMPTimerWithTimeInterval:kViewabilityTimerInterval
                                                                                         target:self
                                                                                       selector:@selector(checkViewability)
                                                                                        repeats:YES] retain];
         [_viewabilityTimer scheduleNow];
-        
+
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(moviePlayerWillEnterFullscreen:)
                                                      name:kMovieDidEnterNotification43
                                                    object:nil];
-        
+
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(moviePlayerWillEnterFullscreen:)
                                                      name:kMovieDidEnterNotification42
                                                    object:nil];
-        
+
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(moviePlayerDidExitFullscreen:)
                                                      name:kMovieWillExitNotification43
                                                    object:nil];
-        
+
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(moviePlayerDidExitFullscreen:)
                                                      name:kMovieWillExitNotification42
                                                    object:nil];
-        
+
         _dimmingView = [[MRDimmingView alloc] initWithFrame:MPKeyWindow().frame];
         _dimmingView.backgroundColor = [UIColor darkGrayColor];
         _dimmingView.dimmingOpacity = 0.5;
@@ -118,23 +123,26 @@ static NSString *const kMovieWillExitNotification42 =
     [_viewabilityTimer invalidate];
     [_viewabilityTimer release];
     [_dimmingView release];
+    [_jsEventEmitter release];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     [super dealloc];
 }
 
 #pragma mark - Public
 
-- (void)initializeJavascriptState {
-    NSArray *properties = [NSArray arrayWithObjects:
-                           [MRScreenSizeProperty propertyWithSize:MPApplicationFrame().size],
-                           [MRStateProperty propertyWithState:_currentState],
-                           nil];
-    
-    [_view fireChangeEventsForProperties:properties];
+- (void)initializeJavascriptStateWithViewProperties:(NSArray *)viewProperties
+{
+    NSArray *properties = [NSArray arrayWithArray:viewProperties];
+    properties = [properties arrayByAddingObjectsFromArray:[NSArray arrayWithObjects:
+            [MRScreenSizeProperty propertyWithSize:MPApplicationFrame().size],
+            [MRStateProperty propertyWithState:_currentState],
+            nil]];
+    [self.jsEventEmitter fireChangeEventsForProperties:properties];
+    [self.jsEventEmitter fireReadyEvent];
 }
 
 - (void)rotateToOrientation:(UIInterfaceOrientation)newOrientation {
-    [_view fireChangeEventForProperty:
+    [self.jsEventEmitter fireChangeEventForProperty:
      [MRScreenSizeProperty propertyWithSize:MPApplicationFrame().size]];
     [self rotateExpandedWindowsToCurrentOrientation];
 }
@@ -154,18 +162,18 @@ static NSString *const kMovieWillExitNotification42 =
 
 - (void)close {
     [_view adWillClose];
-    
+
     switch (_currentState) {
         case MRAdViewStateDefault:
             _currentState = MRAdViewStateHidden;
-            [_view fireChangeEventForProperty:
+            [self.jsEventEmitter fireChangeEventForProperty:
              [MRStateProperty propertyWithState:_currentState]];
             break;
         case MRAdViewStateExpanded:
             [self closeFromExpandedState];
             break;
     }
-    
+
     [_view adDidClose];
 }
 
@@ -173,12 +181,12 @@ static NSString *const kMovieWillExitNotification42 =
 
 - (void)closeFromExpandedState {
     _expansionContentView.usesCustomCloseButton = YES;
-    
+
     // Calculate the frame of our original parent view in the window coordinate space.
     UIWindow *keyWindow = MPKeyWindow();
     UIView *parentView = [keyWindow viewWithTag:_parentTag];
     _defaultFrameInKeyWindow = [parentView convertRect:_defaultFrame toView:keyWindow];
-    
+
     [self animateFromExpandedStateToDefaultState];
 }
 
@@ -187,14 +195,14 @@ static NSString *const kMovieWillExitNotification42 =
     [UIView beginAnimations:kAnimationKeyCloseExpanded context:nil];
     [UIView setAnimationDuration:0.3];
     [UIView setAnimationDelegate:self];
-    
+
     // Fade out the blocking view.
     _dimmingView.dimmed = NO;
-    
+
     _expansionContentView.frame = _defaultFrameInKeyWindow;
-    
+
     [UIView commitAnimations];
-    
+
     // After the transition animation is complete, animationDidStop:finished:context: will be
     // called, at which point our view will be removed from the key window and placed back within
     // its original parent.
@@ -216,14 +224,14 @@ shouldLockOrientation:(BOOL)shouldLockOrientation {
     // Save our current frame as the default frame.
     _defaultFrame = self.view.frame;
     _expandedFrame = frame;
-    
+
     [_view adWillExpandToFrame:_expandedFrame];
     [_view adWillPresentModalView];
-    
+
     _dimmingView.backgroundColor = blockingColor;
     _dimmingView.dimmingOpacity = blockingOpacity;
     [MPKeyWindow() addSubview:_dimmingView];
-    
+
     if (url) {
         self.twoPartExpansionView = [[[MRAdView alloc] initWithFrame:self.view.frame
                                                      allowsExpansion:NO
@@ -231,15 +239,15 @@ shouldLockOrientation:(BOOL)shouldLockOrientation {
                                                        placementType:MRAdViewPlacementTypeInline] autorelease];
         self.twoPartExpansionView.delegate = self;
         [self.twoPartExpansionView loadCreativeFromURL:url];
-        
+
         _expansionContentView = self.twoPartExpansionView;
-        
+
         [self saveCurrentViewTransform];
         [self applyRotationTransformForCurrentOrientationOnView:_expansionContentView];
         [self assignRandomTagToDefaultSuperview];
-        
+
         UIWindow *keyWindow = MPKeyWindow();
-        
+
         _defaultFrameInKeyWindow = [self.view.superview convertRect:_defaultFrame toView:keyWindow];
         _expansionContentView.frame = _defaultFrameInKeyWindow;
         [keyWindow addSubview:_expansionContentView];
@@ -248,7 +256,7 @@ shouldLockOrientation:(BOOL)shouldLockOrientation {
         _expansionContentView = self.view;
         [self moveViewFromDefaultSuperviewToWindow];
     }
-    
+
     [self animateViewFromDefaultStateToExpandedState:_expansionContentView];
 }
 
@@ -265,7 +273,7 @@ shouldLockOrientation:(BOOL)shouldLockOrientation {
         default:
             break;
     }
-    
+
     [_view adDidRequestCustomCloseEnabled:shouldUseCustomClose];
 }
 
@@ -283,16 +291,16 @@ shouldLockOrientation:(BOOL)shouldLockOrientation {
     // We need to rotate the ad view in the direction opposite that of the device's rotation.
     // For example, if the device is in LandscapeLeft (90 deg. clockwise), we have to rotate
     // the view -90 deg. counterclockwise.
-    
+
     CGFloat angle = 0.0;
-    
+
     switch (MPInterfaceOrientation()) {
         case UIInterfaceOrientationPortraitUpsideDown: angle = M_PI; break;
         case UIInterfaceOrientationLandscapeLeft: angle = -M_PI_2; break;
         case UIInterfaceOrientationLandscapeRight: angle = M_PI_2; break;
         default: break;
     }
-    
+
     view.transform = CGAffineTransformMakeRotation(angle);
 }
 
@@ -301,7 +309,7 @@ shouldLockOrientation:(BOOL)shouldLockOrientation {
     do {
         _parentTag = arc4random() % 25000;
     } while ([MPKeyWindow() viewWithTag:_parentTag]);
-    
+
     self.view.superview.tag = _parentTag;
 }
 
@@ -313,20 +321,20 @@ shouldLockOrientation:(BOOL)shouldLockOrientation {
     [self saveCurrentViewTransform];
     [self applyRotationTransformForCurrentOrientationOnView:self.view];
     [self assignRandomTagToDefaultSuperview];
-    
+
     // Add the ad view as a subview of the window. This requires converting the ad view's frame from
     // its superview's coordinate system to that of the window.
     UIWindow *keyWindow = MPKeyWindow();
     _defaultFrameInKeyWindow = [self.view.superview convertRect:_defaultFrame toView:keyWindow];
     self.view.frame = _defaultFrameInKeyWindow;
-    
+
     [keyWindow addSubview:self.view];
 }
 
 - (void)moveViewFromWindowToDefaultSuperview {
     UIView *defaultSuperview = [MPKeyWindow() viewWithTag:_parentTag];
     [defaultSuperview addSubview:self.view];
-    
+
     [self restoreDefaultSuperviewTag];
     [self restoreOriginalViewTransform];
 }
@@ -334,17 +342,17 @@ shouldLockOrientation:(BOOL)shouldLockOrientation {
 - (void)animateViewFromDefaultStateToExpandedState:(UIView *)view {
     // Calculate the expanded ad's frame in window coordinates.
     CGRect expandedFrameInWindow = [self convertRectToWindowForCurrentOrientation:_expandedFrame];
-    
+
     // Begin animating to the expanded state.
     [UIView beginAnimations:kAnimationKeyExpand context:nil];
     [UIView setAnimationDuration:0.3];
     [UIView setAnimationDelegate:self];
-    
+
     [_dimmingView setDimmed:YES];
     _expansionContentView.frame = expandedFrameInWindow;
-    
+
     [UIView commitAnimations];
-    
+
     // Note: view and JS state changes will be done in animationDidStop:finished:context:.
 }
 
@@ -365,45 +373,45 @@ shouldLockOrientation:(BOOL)shouldLockOrientation {
 - (void)rotateExpandedWindowsToCurrentOrientation {
     // This method must have no effect if our ad isn't expanded.
     if (_currentState != MRAdViewStateExpanded) return;
-    
+
     UIApplication *application = [UIApplication sharedApplication];
-    
+
     // Update the location of our default frame in window coordinates.
     CGRect _defaultFrameWithStatusBarOffset = _defaultFrame;
     if (!application.statusBarHidden) _defaultFrameWithStatusBarOffset.origin.y += 20;
     _defaultFrameInKeyWindow =
     [self convertRectToWindowForCurrentOrientation:_defaultFrameWithStatusBarOffset];
-    
+
     CGRect f = [UIScreen mainScreen].applicationFrame;
     CGPoint centerOfApplicationFrame = CGPointMake(CGRectGetMidX(f), CGRectGetMidY(f));
-    
+
     [UIView beginAnimations:kAnimationKeyRotateExpanded context:nil];
     [UIView setAnimationDuration:0.3];
-    
+
     // Center the view in the application frame.
     _expansionContentView.center = centerOfApplicationFrame;
-    
+
     [self constrainViewBoundsToApplicationFrame];
     [self applyRotationTransformForCurrentOrientationOnView:_expansionContentView];
-    
+
     [UIView commitAnimations];
 }
 
 - (void)constrainViewBoundsToApplicationFrame {
     CGFloat height = _expandedFrame.size.height;
     CGFloat width = _expandedFrame.size.width;
-    
+
     CGRect applicationFrame = MPApplicationFrame();
     if (height > CGRectGetHeight(applicationFrame)) height = CGRectGetHeight(applicationFrame);
     if (width > CGRectGetWidth(applicationFrame)) width = CGRectGetWidth(applicationFrame);
-    
+
     _expansionContentView.bounds = CGRectMake(0, 0, width, height);
 }
 
 - (CGRect)orientationAdjustedRect:(CGRect)rect {
     UIWindow *keyWindow = [[UIApplication sharedApplication] keyWindow];
     UIInterfaceOrientation orientation = MPInterfaceOrientation();
-    
+
     switch (orientation) {
         case UIInterfaceOrientationPortraitUpsideDown:
             rect.origin.y = keyWindow.frame.size.height - rect.origin.y - rect.size.height;
@@ -423,14 +431,14 @@ shouldLockOrientation:(BOOL)shouldLockOrientation {
             break;
         default: break;
     }
-    
+
     return rect;
 }
 
 - (CGRect)convertRectToWindowForCurrentOrientation:(CGRect)rect {
     UIWindow *keyWindow = [[UIApplication sharedApplication] keyWindow];
     UIInterfaceOrientation orientation = MPInterfaceOrientation();
-    
+
     switch (orientation) {
         case UIInterfaceOrientationPortraitUpsideDown:
             rect.origin.y = keyWindow.frame.size.height - rect.origin.y - rect.size.height;
@@ -450,7 +458,7 @@ shouldLockOrientation:(BOOL)shouldLockOrientation {
             break;
         default: break;
     }
-    
+
     return rect;
 }
 
@@ -467,7 +475,7 @@ shouldLockOrientation:(BOOL)shouldLockOrientation {
 
 - (void)expandAnimationDidStop {
     _currentState = MRAdViewStateExpanded;
-    [_view fireChangeEventForProperty:[MRStateProperty propertyWithState:_currentState]];
+    [self.jsEventEmitter fireChangeEventForProperty:[MRStateProperty propertyWithState:_currentState]];
     [_view adDidExpandToFrame:_expansionContentView.frame];
 }
 
@@ -476,10 +484,10 @@ shouldLockOrientation:(BOOL)shouldLockOrientation {
     [_dimmingView removeFromSuperview];
     self.view.frame = _defaultFrame;
     if (_expansionContentView != self.view) [_expansionContentView removeFromSuperview];
-    
+
     _currentState = MRAdViewStateDefault;
-    [_view fireChangeEventForProperty:[MRStateProperty propertyWithState:_currentState]];
-    
+    [self.jsEventEmitter fireChangeEventForProperty:[MRStateProperty propertyWithState:_currentState]];
+
     [_view adDidDismissModalView];
 }
 
@@ -487,7 +495,7 @@ shouldLockOrientation:(BOOL)shouldLockOrientation {
 
 - (void)checkViewability {
     BOOL currentViewability = [_view isViewable];
-    
+
     if (_isViewable != currentViewability) {
         MPLogDebug(@"Viewable changed to: %@", currentViewability ? @"YES" : @"NO");
         _isViewable = currentViewability;
@@ -503,7 +511,7 @@ shouldLockOrientation:(BOOL)shouldLockOrientation {
 
 - (void)revertViewToDefaultState {
     if (_currentState == MRAdViewStateDefault) return;
-    
+
     [self close];
 }
 
@@ -527,12 +535,12 @@ shouldLockOrientation:(BOOL)shouldLockOrientation {
 
 - (void)appShouldSuspendForAd:(MRAdView *)adView
 {
-    
+
 }
 
 - (void)appShouldResumeFromAd:(MRAdView *)adView
 {
-    
+
 }
 
 #pragma mark - Movie Player Notifications

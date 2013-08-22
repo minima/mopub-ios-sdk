@@ -97,6 +97,11 @@ describe(@"MPHTMLInterstitialViewController", ^{
                 [controller didDismissInterstitial];
             });
 
+            it(@"should tell the backing view that it was dismissed", ^{
+                agent should have_received(@selector(stopHandlingRequests));
+                agent should have_received(@selector(invokeJavaScriptForEvent:)).with(MPAdWebViewEventAdDidDisappear);
+            });
+
             it(@"should tell its delegate interstitialDidDisappear:", ^{
                 delegate should have_received(@selector(interstitialDidDisappear:)).with(controller);
             });

@@ -8,6 +8,7 @@
 #import "MPAdDestinationDisplayAgent.h"
 #import "UIViewController+MPAdditions.h"
 #import "MPInstanceProvider.h"
+#import "MPLastResortDelegate.h"
 
 @interface MPAdDestinationDisplayAgent ()
 
@@ -30,40 +31,11 @@
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= MP_IOS_6_0
-
-@interface MPStoreKitLastResortDelegate : NSObject <SKStoreProductViewControllerDelegate>
-
-@end
-
-@implementation MPStoreKitLastResortDelegate
-
-+ (id)sharedDelegate
-{
-    static MPStoreKitLastResortDelegate *lastResortDelegate;
-    static dispatch_once_t once;
-    dispatch_once(&once, ^{
-        lastResortDelegate = [[self alloc] init];
-    });
-    return lastResortDelegate;
-}
-
-- (void)productViewControllerDidFinish:(SKStoreProductViewController *)viewController
-{
-    [viewController mp_dismissModalViewControllerAnimated:MP_ANIMATED];
-}
-
-@end
-
-#endif
-
-////////////////////////////////////////////////////////////////////////////////////////////////////
-
 @implementation MPAdDestinationDisplayAgent
 
 @synthesize delegate = _delegate;
 @synthesize resolver = _resolver;
-@synthesize isLoadingDestination = _inUse;
+@synthesize isLoadingDestination = _isLoadingDestination;
 
 + (MPAdDestinationDisplayAgent *)agentWithDelegate:(id<MPAdDestinationDisplayAgentDelegate>)delegate
 {
@@ -87,7 +59,7 @@
     // nil-ing out the controller's delegate would leave us with no way to dismiss the controller
     // in the future. Therefore, we change the controller's delegate to a singleton object which
     // implements SKStoreProductViewControllerDelegate and is always around.
-    self.storeKitController.delegate = [MPStoreKitLastResortDelegate sharedDelegate];
+    self.storeKitController.delegate = [MPLastResortDelegate sharedDelegate];
     self.storeKitController = nil;
 #endif
     self.browserController.delegate = nil;

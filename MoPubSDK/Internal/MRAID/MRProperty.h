@@ -26,7 +26,7 @@
 
 + (MRPlacementTypeProperty *)propertyWithType:(MRAdViewPlacementType)type;
 
-@end 
+@end
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -49,6 +49,22 @@
 @property (nonatomic, assign) CGSize screenSize;
 
 + (MRScreenSizeProperty *)propertyWithSize:(CGSize)size;
+
+@end
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+@interface MRSupportsProperty : MRProperty
+
+@property (nonatomic, assign) BOOL supportsSms;
+@property (nonatomic, assign) BOOL supportsTel;
+@property (nonatomic, assign) BOOL supportsCalendar;
+@property (nonatomic, assign) BOOL supportsStorePicture;
+@property (nonatomic, assign) BOOL supportsInlineVideo;
+
++ (NSDictionary *)supportedFeatures;
++ (MRSupportsProperty *)defaultProperty;
++ (MRSupportsProperty *)propertyWithSupportedFeaturesDictionary:(NSDictionary *)dictionary;
 
 @end
 

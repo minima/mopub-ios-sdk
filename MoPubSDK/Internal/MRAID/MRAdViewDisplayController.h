@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "MRAdView.h"
 
-@class MRAdView, MPTimer, MRDimmingView;
+@class MRAdView, MPTimer, MRDimmingView, MRJavaScriptEventEmitter;
 
 @interface MRAdViewDisplayController : NSObject <MRAdViewDelegate> {
     MRAdView *_view;
@@ -42,11 +42,13 @@
 
 @property (nonatomic, assign) MRAdView *view;
 @property (nonatomic, readonly) MRAdViewState currentState;
+@property (nonatomic, retain) MRJavaScriptEventEmitter *jsEventEmitter;
 
 - (id)initWithAdView:(MRAdView *)adView
      allowsExpansion:(BOOL)allowsExpansion
-    closeButtonStyle:(MRAdViewCloseButtonStyle)closeButtonStyle;
-- (void)initializeJavascriptState;
+    closeButtonStyle:(MRAdViewCloseButtonStyle)closeButtonStyle
+     jsEventEmitter:(MRJavaScriptEventEmitter *)jsEventEmitter;
+- (void)initializeJavascriptStateWithViewProperties:(NSArray *)viewProperties;
 - (void)rotateToOrientation:(UIInterfaceOrientation)newOrientation;
 - (void)revertViewToDefaultState;
 - (void)close;

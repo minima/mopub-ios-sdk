@@ -41,6 +41,7 @@
 - (void)dealloc
 {
     self.bannerAgent.delegate = nil;
+    self.bannerAgent.customMethodDelegate = nil;
     self.bannerAgent = nil;
 
     [super dealloc];

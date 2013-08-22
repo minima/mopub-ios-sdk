@@ -1,6 +1,7 @@
 #import "MPInterstitialAdController.h"
 #import "MPAdConfigurationFactory.h"
 #import "FakeMPAdWebView.h"
+#import "UIViewController+MPAdditions.h"
 
 using namespace Cedar::Matchers;
 using namespace Cedar::Doubles;
@@ -81,6 +82,9 @@ describe(@"MPHTMLInterstitialIntegrationSuite", ^{
             beforeEach(^{
                 [delegate reset_sent_messages];
                 [interstitial showFromViewController:presentingController];
+                UIViewController *presentedVC = [presentingController mp_presentedViewController];
+                [presentedVC viewWillAppear:MP_ANIMATED];
+                [presentedVC viewDidAppear:MP_ANIMATED];
             });
 
             it(@"should track an impression (only once)", ^{
@@ -88,6 +92,9 @@ describe(@"MPHTMLInterstitialIntegrationSuite", ^{
 
                 [presentingController dismissModalViewControllerAnimated:NO];
                 [interstitial showFromViewController:presentingController];
+                UIViewController *presentedVC = [presentingController mp_presentedViewController];
+                [presentedVC viewWillAppear:MP_ANIMATED];
+                [presentedVC viewDidAppear:MP_ANIMATED];
                 fakeProvider.sharedFakeMPAnalyticsTracker.trackedImpressionConfigurations.count should equal(1);
             });
 
@@ -106,6 +113,28 @@ describe(@"MPHTMLInterstitialIntegrationSuite", ^{
             });
 
             context(@"and the user tries to load again", ^{ itShouldBehaveLike(anInterstitialThatHasAlreadyLoaded); });
+
+            context(@"when a modal viewcontroller is presented over the ad and then dismissed", ^{
+                beforeEach(^{
+                    [delegate reset_sent_messages];
+                    UIViewController *newModalVC = [[[UIViewController alloc] init] autorelease];
+                    UIViewController *interstitialVC = [presentingController mp_presentedViewController];
+                    [interstitialVC mp_presentModalViewController:newModalVC animated:MP_ANIMATED];
+                    [interstitialVC viewWillDisappear:MP_ANIMATED];
+                    [interstitialVC viewDidDisappear:MP_ANIMATED];
+                    [interstitialVC mp_dismissModalViewControllerAnimated:MP_ANIMATED];
+                    [interstitialVC viewWillAppear:MP_ANIMATED];
+                    [interstitialVC viewDidAppear:MP_ANIMATED];
+                });
+
+                it(@"should not track an extra impression", ^{
+                    fakeProvider.sharedFakeMPAnalyticsTracker.trackedImpressionConfigurations.count should equal(1);
+                });
+
+                it(@"should not send any messages to the delegate", ^{
+                    [delegate sent_messages] should be_empty;
+                });
+            });
 
             context(@"when the ad is dismissed", ^{
                 beforeEach(^{

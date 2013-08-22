@@ -27,8 +27,17 @@
 #import "MPBannerCustomEvent.h"
 #import "MPBannerAdManager.h"
 #import "MPLogging.h"
+#import "MRJavaScriptEventEmitter.h"
+#import "MRImageDownloader.h"
+#import "MRBundleManager.h"
+#import "MRCalendarManager.h"
+#import "MRPictureManager.h"
+#import "MRVideoPlayerManager.h"
 #import <CoreTelephony/CTTelephonyNetworkInfo.h>
 #import <CoreTelephony/CTCarrier.h>
+#import <EventKit/EventKit.h>
+#import <EventKitUI/EventKitUI.h>
+#import <MediaPlayer/MediaPlayer.h>
 
 @interface MPInstanceProvider ()
 
@@ -122,6 +131,10 @@ static MPInstanceProvider *sharedProvider = nil;
                                                       delegate:(id<MPBannerCustomEventDelegate>)delegate
 {
     MPBannerCustomEvent *customEvent = [[[customClass alloc] init] autorelease];
+    if (![customEvent isKindOfClass:[MPBannerCustomEvent class]]) {
+        MPLogError(@"**** Custom Event Class: %@ does not extend MPBannerCustomEvent ****", NSStringFromClass(customClass));
+        return nil;
+    }
     customEvent.delegate = delegate;
     return customEvent;
 }
@@ -150,6 +163,10 @@ static MPInstanceProvider *sharedProvider = nil;
                                                                   delegate:(id<MPInterstitialCustomEventDelegate>)delegate
 {
     MPInterstitialCustomEvent *customEvent = [[[customClass alloc] init] autorelease];
+    if (![customEvent isKindOfClass:[MPInterstitialCustomEvent class]]) {
+        MPLogError(@"**** Custom Event Class: %@ does not extend MPInterstitialCustomEvent ****", NSStringFromClass(customClass));
+        return nil;
+    }
     if ([customEvent respondsToSelector:@selector(customEventDidUnload)]) {
         MPLogWarn(@"**** Custom Event Class: %@ implements the deprecated -customEventDidUnload method.  This is no longer called.  Use -dealloc for cleanup instead ****", NSStringFromClass(customClass));
     }
@@ -202,7 +219,80 @@ static MPInstanceProvider *sharedProvider = nil;
     return [MPAdDestinationDisplayAgent agentWithDelegate:delegate];
 }
 
+#pragma mark - MRAID
+
+- (MRBundleManager *)buildMRBundleManager
+{
+    return [MRBundleManager sharedManager];
+}
+
+- (UIWebView *)buildUIWebViewWithFrame:(CGRect)frame
+{
+    return [[[UIWebView alloc] initWithFrame:frame] autorelease];
+}
+
+- (MRJavaScriptEventEmitter *)buildMRJavaScriptEventEmitterWithWebView:(UIWebView *)webView
+{
+    return [[[MRJavaScriptEventEmitter alloc] initWithWebView:webView] autorelease];
+}
+
+- (MRCalendarManager *)buildMRCalendarManagerWithDelegate:(id<MRCalendarManagerDelegate>)delegate
+{
+    return [[[MRCalendarManager alloc] initWithDelegate:delegate] autorelease];
+}
+
+- (EKEventEditViewController *)buildEKEventEditViewControllerWithEditViewDelegate:(id<EKEventEditViewDelegate>)editViewDelegate
+{
+    EKEventEditViewController *controller = [[[EKEventEditViewController alloc] init] autorelease];
+    controller.editViewDelegate = editViewDelegate;
+    controller.eventStore = [self buildEKEventStore];
+    return controller;
+}
+
+- (EKEventStore *)buildEKEventStore
+{
+    return [[[EKEventStore alloc] init] autorelease];
+}
+
+- (MRPictureManager *)buildMRPictureManagerWithDelegate:(id<MRPictureManagerDelegate>)delegate
+{
+    return [[[MRPictureManager alloc] initWithDelegate:delegate] autorelease];
+}
+
+- (MRImageDownloader *)buildMRImageDownloaderWithDelegate:(id<MRImageDownloaderDelegate>)delegate
+{
+    return [[[MRImageDownloader alloc] initWithDelegate:delegate] autorelease];
+}
+
+- (MRVideoPlayerManager *)buildMRVideoPlayerManagerWithDelegate:(id<MRVideoPlayerManagerDelegate>)delegate
+{
+    return [[[MRVideoPlayerManager alloc] initWithDelegate:delegate] autorelease];
+}
+
+- (MPMoviePlayerViewController *)buildMPMoviePlayerViewControllerWithURL:(NSURL *)URL
+{
+    // ImageContext used to avoid CGErrors
+    // http://stackoverflow.com/questions/13203336/iphone-mpmovieplayerviewcontroller-cgcontext-errors/14669166#14669166
+    UIGraphicsBeginImageContext(CGSizeMake(1,1));
+    MPMoviePlayerViewController *playerViewController = [[[MPMoviePlayerViewController alloc] initWithContentURL:URL] autorelease];
+    UIGraphicsEndImageContext();
+
+    return playerViewController;
+}
+
 #pragma mark - Utilities
+
+- (NSOperationQueue *)sharedOperationQueue
+{
+    static NSOperationQueue *sharedOperationQueue = nil;
+    static dispatch_once_t pred;
+
+    dispatch_once(&pred, ^{
+        sharedOperationQueue = [[NSOperationQueue alloc] init];
+    });
+
+    return sharedOperationQueue;
+}
 
 - (MPAnalyticsTracker *)sharedMPAnalyticsTracker
 {
