@@ -1,6 +1,7 @@
 #import "FakeBannerCustomEvent.h"
 #import "MPAdView.h"
 #import "MPAdConfigurationFactory.h"
+
 using namespace Cedar::Matchers;
 using namespace Cedar::Doubles;
 
@@ -22,6 +23,8 @@ describe(@"MPAdViewIntegrationSuite", ^{
     __block UIViewController *presentingController;
     __block UIInterfaceOrientation currentOrientation;
     __block FakeBannerCustomEventReturningBlock moveRequestingToOnscreen;
+
+    __block NSAutoreleasePool *pool;
 
     ///////////////// BEGIN SHARED EXAMPLES //////////////////////
 
@@ -190,6 +193,8 @@ describe(@"MPAdViewIntegrationSuite", ^{
     ///////////////// BEGIN SPECS //////////////////////
 
     beforeEach(^{
+        pool = [[NSAutoreleasePool alloc] init];
+
         currentOrientation = UIInterfaceOrientationLandscapeRight;
         onscreenEvent = nil;
         requestingEvent = nil;
@@ -215,6 +220,11 @@ describe(@"MPAdViewIntegrationSuite", ^{
         } copy];
     });
 
+    afterEach(^{
+        [pool release];
+        pool = nil;
+    });
+
     context(@"when loading an ad", ^{
         beforeEach(^{
             [banner loadAd];
@@ -224,6 +234,31 @@ describe(@"MPAdViewIntegrationSuite", ^{
         });
 
         itShouldBehaveLike(@"a banner that is loading an ad");
+
+        // XXX jren
+        // So...a failure of this test will most likely result in a bad access crash. Is this something we can/should do in a unit test?
+        // Leaving it in for now just so we have coverage and are aware of this particular bug
+        context(@"when communicator fails and the delegate releases all references to the banner causing it to be deallocated", ^{
+            beforeEach(^{
+                delegate stub_method("adViewDidFailToLoadAd:").and_do(^(NSInvocation * inv) {
+                    [banner release];
+                });
+            });
+
+            it(@"should not crash", ^{
+                [presentingController retain];
+                [delegate retain];
+                [banner retain];
+                // drain our pool to clear autoreleases
+                [pool release];
+                pool = nil;
+
+                [communicator failWithError:[NSErrorFactory genericError]];
+
+                [presentingController release];
+                [delegate release];
+            });
+        });
 
         context(@"when the communicator fails", ^{
             beforeEach(^{

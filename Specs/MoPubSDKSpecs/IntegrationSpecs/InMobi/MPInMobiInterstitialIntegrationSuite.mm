@@ -12,12 +12,13 @@ describe(@"MPInMobiInterstitialIntegrationSuite", ^{
     __block MPInterstitialAdController *interstitial = nil;
     __block UIViewController *presentingController;
     __block FakeIMAdInterstitial *inMobi;
-    __block IMAdRequest<CedarDouble> *request;
     __block FakeMPAdServerCommunicator *communicator;
     __block MPAdConfiguration *configuration;
     __block CLLocation *location;
 
     beforeEach(^{
+        [InMobi initialize:@"YOUR_INMOBI_APP_ID"];
+
         delegate = nice_fake_for(@protocol(MPInterstitialAdControllerDelegate));
 
         interstitial = [MPInterstitialAdController interstitialAdControllerForAdUnitId:@"inmobi_interstitial"];
@@ -41,9 +42,6 @@ describe(@"MPInMobiInterstitialIntegrationSuite", ^{
         inMobi = [[[FakeIMAdInterstitial alloc] init] autorelease];
         fakeProvider.fakeIMAdInterstitial = inMobi;
 
-        request = nice_fake_for([IMAdRequest class]);
-        fakeProvider.fakeIMAdInterstitialRequest = request;
-
         // receive the configuration -- this will create an adapter which will use our fake interstitial
         configuration = [MPAdConfigurationFactory defaultInterstitialConfigurationWithCustomEventClassName:@"InMobiInterstitialCustomEvent"];
         [communicator receiveConfiguration:configuration];
@@ -56,10 +54,10 @@ describe(@"MPInMobiInterstitialIntegrationSuite", ^{
 
     context(@"while the ad is loading", ^{
         it(@"should configure InMobi properly and start fetching the interstitial", ^{
-            inMobi.imAppId should equal(@"YOUR_INMOBI_APP_ID");
-            inMobi.request should equal(request);
-            request should have_received(@selector(setLocationWithLatitude:longitude:accuracy:)).with(37.1f).and_with(21.2f).and_with(12.3f);
+            inMobi.appId should equal(@"YOUR_INMOBI_APP_ID");
         });
+
+        it(@"should set the location using the InMobi class method", PENDING);
 
         it(@"should not tell the delegate anything, nor should it be ready", ^{
             delegate.sent_messages should be_empty;

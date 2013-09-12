@@ -5,11 +5,13 @@
 //  Copyright (c) 2013 MoPub. All rights reserved.
 //
 
-#import "IMAdView.h"
+#import "IMBanner.h"
+#import "IMBannerDelegate.h"
+#import "IMInMobiNetworkExtras.h"
 
-@interface FakeIMAdView : IMAdView
+@interface FakeIMAdView : IMBanner
 
-@property (nonatomic, assign) IMAdRequest *loadedRequest;
+@property (nonatomic, retain) IMInMobiNetworkExtras *fakeNetworkExtras;
 
 - (void)simulateLoadingAd;
 - (void)simulateFailingToLoad;

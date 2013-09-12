@@ -29,6 +29,7 @@ extern NSString * const kLaunchpageHeaderKey;
 extern NSString * const kNativeSDKParametersHeaderKey;
 extern NSString * const kNetworkTypeHeaderKey;
 extern NSString * const kRefreshTimeHeaderKey;
+extern NSString * const kAdTimeoutHeaderKey;
 extern NSString * const kScrollableHeaderKey;
 extern NSString * const kWidthHeaderKey;
 
@@ -52,6 +53,7 @@ extern NSString * const kAdTypeClear;
 @property (nonatomic, assign) BOOL shouldInterceptLinks;
 @property (nonatomic, assign) BOOL scrollable;
 @property (nonatomic, assign) NSTimeInterval refreshInterval;
+@property (nonatomic, assign) NSTimeInterval adTimeoutInterval;
 @property (nonatomic, copy) NSData *adResponseData;
 @property (nonatomic, retain) NSDictionary *nativeSDKParameters;
 @property (nonatomic, copy) NSString *customSelectorName;

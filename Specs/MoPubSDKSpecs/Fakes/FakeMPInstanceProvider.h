@@ -16,8 +16,8 @@
 #import "FakeInterstitialCustomEvent.h"
 #import "Chartboost.h"
 #import "FakeGSFullscreenAd.h"
-#import "IMAdInterstitial.h"
-#import "IMAdView.h"
+#import "IMInterstitial.h"
+#import "IMBanner.h"
 #import "MPInterstitialAdManager.h"
 #import "GADRequest.h"
 #import "FakeMMAdView.h"
@@ -26,7 +26,7 @@
 #import "MPBaseBannerAdapter.h"
 #import "FakeBannerCustomEvent.h"
 #import "FakeMPTimer.h"
-#import "FakeCTCarrier.h"
+#import <Foundation/Foundation.h>
 
 @class MRJavaScriptEventEmitter;
 @class MRCalendarManager;
@@ -76,7 +76,7 @@
 #pragma mark - Utilities
 @property (nonatomic, assign) FakeOperationQueue *fakeOperationQueue;
 @property (nonatomic, assign) FakeMPReachability *fakeMPReachability;
-@property (nonatomic, assign) FakeCTCarrier *fakeCTCarrier;
+@property (nonatomic, assign) NSDictionary *fakeCarrierInfo;
 
 - (NSString *)userAgent;
 - (FakeMPAnalyticsTracker *)sharedFakeMPAnalyticsTracker;
@@ -104,10 +104,8 @@
 @property (nonatomic, assign) FakeGSFullscreenAd *fakeGSFullscreenAd;
 
 #pragma mark InMobi
-@property (nonatomic, assign) IMAdRequest *fakeIMAdBannerRequest;
-@property (nonatomic, assign) IMAdView *fakeIMAdView;
-@property (nonatomic, assign) IMAdRequest *fakeIMAdInterstitialRequest;
-@property (nonatomic, assign) IMAdInterstitial *fakeIMAdInterstitial;
+@property (nonatomic, assign) IMBanner *fakeIMAdView;
+@property (nonatomic, assign) IMInterstitial *fakeIMAdInterstitial;
 
 #pragma mark Millennial
 @property (nonatomic, assign) FakeMMAdView *fakeMMAdView;

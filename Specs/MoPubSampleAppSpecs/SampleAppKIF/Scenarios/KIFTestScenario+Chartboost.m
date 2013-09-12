@@ -53,7 +53,7 @@
     [scenario addStep:[KIFTestStep stepToTapViewWithAccessibilityLabel:@"Interstitial Show 1"]];
     [scenario addStep:[KIFTestStep stepToWaitForPresenceOfViewWithClassName:@"CBNativeInterstitialView"]];
     [scenario addStep:[KIFTestStep stepToLogImpressionForAdUnit:noLocationAdUnit]];
-    [scenario addStep:[KIFTestStep stepToTapScreenAtPoint:CGPointMake(285, 100)]]; // Closes the ad
+    [scenario addStep:[KIFTestStep stepToTapScreenAtPoint:CGPointMake(260, 80)]]; // Closes the ad
     [scenario addStep:[KIFTestStep stepToWaitForAbsenceOfViewWithClassName:@"CBNativeInterstitialView"]];
 
     [scenario addStep:[KIFTestStep stepToTapViewWithAccessibilityLabel:@"Interstitial Show 2"]];

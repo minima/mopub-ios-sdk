@@ -9,34 +9,44 @@
 
 @implementation FakeIMAdView
 
-- (void)loadIMAdRequest:(IMAdRequest *)request
+- (void)dealloc
 {
-    self.loadedRequest = request;
+    self.fakeNetworkExtras = nil;
+
+    [super dealloc];
+}
+
+- (void)addAdNetworkExtras:(NSObject<IMNetworkExtras> *)networkExtras
+{
+    [super addAdNetworkExtras:networkExtras];
+
+    self.fakeNetworkExtras = (IMInMobiNetworkExtras *)networkExtras;
 }
 
 - (void)simulateLoadingAd
 {
-    [self.delegate adViewDidFinishRequest:self];
+    [self.delegate bannerDidReceiveAd:self];
 }
 
 - (void)simulateFailingToLoad
 {
-    [self.delegate adView:self didFailRequestWithError:nil];
+    [self.delegate banner:self didFailToReceiveAdWithError:nil];
 }
 
 - (void)simulateUserTap
 {
-    [self.delegate adViewWillPresentScreen:self];
+    [self.delegate bannerDidInteract:self withParams:nil];
+    [self.delegate bannerWillPresentScreen:self];
 }
 
 - (void)simulateUserEndingInteraction
 {
-    [self.delegate adViewDidDismissScreen:self];
+    [self.delegate bannerDidDismissScreen:self];
 }
 
 - (void)simulateUserLeavingApplication
 {
-    [self.delegate adViewWillLeaveApplication:self];
+    [self.delegate bannerWillLeaveApplication:self];
 }
 
 @end

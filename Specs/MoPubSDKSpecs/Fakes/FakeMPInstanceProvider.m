@@ -36,10 +36,8 @@
 - (GSFullscreenAd *)buildGSFullscreenAdWithDelegate:(id<GSAdDelegate>)delegate GUID:(NSString *)GUID;
 
 #pragma mark InMobi
-- (IMAdRequest *)buildIMAdBannerRequest;
-- (IMAdView *)buildIMAdViewWithFrame:(CGRect)frame appId:(NSString *)appId adSize:(int)adSize;
-- (IMAdRequest *)buildIMAdInterstitialRequest;
-- (IMAdInterstitial *)buildIMAdInterstitialWithDelegate:(id<IMAdInterstitialDelegate>)delegate appId:(NSString *)appID;
+- (IMBanner *)buildIMBannerWithFrame:(CGRect)frame appId:(NSString *)appId adSize:(int)adSize;
+- (IMInterstitial *)buildIMInterstitialWithDelegate:(id<IMInterstitialDelegate>)delegate appId:(NSString *)appId;
 
 #pragma mark Millennial
 - (MMAdView *)buildMMAdViewWithFrame:(CGRect)frame apid:(NSString *)apid rootViewController:(UIViewController *)controller;
@@ -305,11 +303,11 @@
                      }];
 }
 
-- (CTCarrier *)buildCTCarrier;
+- (NSDictionary *)sharedCarrierInfo
 {
-    return [self returnFake:self.fakeCTCarrier
+    return [self returnFake:self.fakeCarrierInfo
                      orCall:^id{
-                         return [super buildCTCarrier];
+                         return [super sharedCarrierInfo];
                      }];
 }
 
@@ -447,41 +445,25 @@
 
 #pragma mark InMobi
 
-- (IMAdRequest *)buildIMAdBannerRequest
-{
-    return [self returnFake:self.fakeIMAdBannerRequest
-                     orCall:^{
-                         return [super buildIMAdBannerRequest];
-                     }];
-}
-
-- (IMAdView *)buildIMAdViewWithFrame:(CGRect)frame appId:(NSString *)appId adSize:(int)adSize
+- (IMBanner *)buildIMBannerWithFrame:(CGRect)frame appId:(NSString *)appId adSize:(int)adSize
 {
     if (self.fakeIMAdView) {
         self.fakeIMAdView.frame = frame;
-        self.fakeIMAdView.imAppId = appId;
-        self.fakeIMAdView.imAdSize = adSize;
+        self.fakeIMAdView.appId = appId;
+        self.fakeIMAdView.adSize = adSize;
         return self.fakeIMAdView;
     }
-    return [super buildIMAdViewWithFrame:frame appId:appId adSize:adSize];
+    return [super buildIMBannerWithFrame:frame appId:appId adSize:adSize];
 }
 
-- (IMAdRequest *)buildIMAdInterstitialRequest
-{
-    return [self returnFake:self.fakeIMAdInterstitialRequest
-                     orCall:^{
-                         return [super buildIMAdInterstitialRequest];
-                     }];
-}
-
-- (IMAdInterstitial *)buildIMAdInterstitialWithDelegate:(id<IMAdInterstitialDelegate>)delegate appId:(NSString *)appId;
+- (IMInterstitial *)buildIMInterstitialWithDelegate:(id<IMInterstitialDelegate>)delegate appId:(NSString *)appId
 {
     if (self.fakeIMAdInterstitial) {
-        self.fakeIMAdInterstitial.imAppId = appId;
+        self.fakeIMAdInterstitial.appId = appId;
         self.fakeIMAdInterstitial.delegate = delegate;
         return self.fakeIMAdInterstitial;
     }
-    return [super buildIMAdInterstitialWithDelegate:delegate appId:appId];
+    return [super buildIMInterstitialWithDelegate:delegate appId:appId];
 }
 
 #pragma mark Millennial

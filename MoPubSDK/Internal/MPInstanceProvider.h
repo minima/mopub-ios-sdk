@@ -63,7 +63,6 @@
 @class MPAnalyticsTracker;
 @class MPReachability;
 @class MPTimer;
-@class CTCarrier;
 @class MPMoviePlayerViewController;
 
 typedef id(^MPSingletonProviderBlock)();
@@ -123,7 +122,10 @@ typedef id(^MPSingletonProviderBlock)();
 - (NSOperationQueue *)sharedOperationQueue;
 - (MPAnalyticsTracker *)sharedMPAnalyticsTracker;
 - (MPReachability *)sharedMPReachability;
-- (CTCarrier *)buildCTCarrier;
+
+// This call may return nil and may not update if the user hot-swaps the device's sim card.
+- (NSDictionary *)sharedCarrierInfo;
+
 - (MPTimer *)buildMPTimerWithTimeInterval:(NSTimeInterval)seconds target:(id)target selector:(SEL)selector repeats:(BOOL)repeats;
 
 @end

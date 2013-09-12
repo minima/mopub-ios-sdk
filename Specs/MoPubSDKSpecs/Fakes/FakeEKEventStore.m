@@ -30,6 +30,16 @@
     }
 }
 
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= MP_IOS_7_0
+// XXX jren
+// iOS 7 requires actual permission to access the calendar. Return nil for now
+// and investigate later.
+- (EKCalendar *)defaultCalendarForNewEvents
+{
+    return nil;
+}
+#endif
+
 #pragma mark -
 
 - (void)simulateGrantingAccess

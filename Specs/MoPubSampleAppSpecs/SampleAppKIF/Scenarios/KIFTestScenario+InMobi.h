@@ -6,6 +6,7 @@
 //
 
 #import "KIFTestScenario.h"
+#import "InMobi.h"
 
 @interface KIFTestScenario (InMobi)
 

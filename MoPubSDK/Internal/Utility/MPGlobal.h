@@ -42,6 +42,7 @@ BOOL MPViewIsVisible(UIView *view);
 #define MP_IOS_5_0  50000
 #define MP_IOS_5_1  50100
 #define MP_IOS_6_0  60000
+#define MP_IOS_7_0  70000
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 

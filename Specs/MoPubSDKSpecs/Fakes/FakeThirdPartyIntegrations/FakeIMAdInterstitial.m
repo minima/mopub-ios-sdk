@@ -9,9 +9,11 @@
 
 @implementation FakeIMAdInterstitial
 
-- (void)loadRequest:(IMAdRequest *)request
+- (void)dealloc
 {
-    self.request = request;
+    self.fakeNetworkExtras = nil;
+
+    [super dealloc];
 }
 
 - (UIViewController *)presentingViewController
@@ -29,9 +31,16 @@
     }
 }
 
+- (void)addAdNetworkExtras:(NSObject<IMNetworkExtras> *)networkExtras
+{
+    [super addAdNetworkExtras:networkExtras];
+
+    self.fakeNetworkExtras = (IMInMobiNetworkExtras *)networkExtras;
+}
+
 - (void)simulateLoadingAd
 {
-    [self.delegate interstitialDidFinishRequest:self];
+    [self.delegate interstitialDidReceiveAd:self];
 }
 
 - (void)simulateFailingToLoad
@@ -41,6 +50,7 @@
 
 - (void)simulateUserTap
 {
+    [self.delegate interstitialDidInteract:self withParams:nil];
     [self.delegate interstitialWillLeaveApplication:self];
 }
 

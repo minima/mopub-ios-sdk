@@ -13,7 +13,6 @@
 #import "MPIdentityProvider.h"
 #import "MPInstanceProvider.h"
 #import "MPReachability.h"
-#import <CoreTelephony/CTCarrier.h>
 
 NSString * const kMoPubInterfaceOrientationPortrait = @"p";
 NSString * const kMoPubInterfaceOrientationLandscape = @"l";
@@ -173,26 +172,26 @@ NSString * const kMoPubInterfaceOrientationLandscape = @"l";
 
 + (NSString *)queryParameterForCarrierName
 {
-    NSString *carrierName = [[[MPInstanceProvider sharedProvider] buildCTCarrier] carrierName];
+    NSString *carrierName = [[[MPInstanceProvider sharedProvider] sharedCarrierInfo] objectForKey:@"carrierName"];
     return carrierName ? [NSString stringWithFormat:@"&cn=%@",
                           [carrierName URLEncodedString]] : @"";
 }
 
 + (NSString *)queryParameterForISOCountryCode
 {
-    NSString *code = [[[MPInstanceProvider sharedProvider] buildCTCarrier] isoCountryCode];
+    NSString *code = [[[MPInstanceProvider sharedProvider] sharedCarrierInfo] objectForKey:@"isoCountryCode"];
     return code ? [NSString stringWithFormat:@"&iso=%@", [code URLEncodedString]] : @"";
 }
 
 + (NSString *)queryParameterForMobileNetworkCode
 {
-    NSString *code = [[[MPInstanceProvider sharedProvider] buildCTCarrier] mobileNetworkCode];
+    NSString *code = [[[MPInstanceProvider sharedProvider] sharedCarrierInfo] objectForKey:@"mobileNetworkCode"];
     return code ? [NSString stringWithFormat:@"&mnc=%@", [code URLEncodedString]] : @"";
 }
 
 + (NSString *)queryParameterForMobileCountryCode
 {
-    NSString *code = [[[MPInstanceProvider sharedProvider] buildCTCarrier] mobileCountryCode];
+    NSString *code = [[[MPInstanceProvider sharedProvider] sharedCarrierInfo] objectForKey:@"mobileCountryCode"];
     return code ? [NSString stringWithFormat:@"&mcc=%@", [code URLEncodedString]] : @"";
 }
 

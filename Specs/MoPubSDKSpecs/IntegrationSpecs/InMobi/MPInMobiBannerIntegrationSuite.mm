@@ -16,6 +16,8 @@ describe(@"MPInMobiBannerIntegrationSuite", ^{
     __block FakeMPAdServerCommunicator *communicator;
 
     beforeEach(^{
+        [InMobi initialize:@"YOUR_INMOBI_APP_ID"];
+
         delegate = nice_fake_for(@protocol(MPAdViewDelegate));
 
         configuration = [MPAdConfigurationFactory defaultBannerConfigurationWithCustomEventClassName:@"InMobiBannerCustomEvent"];
@@ -35,7 +37,6 @@ describe(@"MPInMobiBannerIntegrationSuite", ^{
         });
 
         it(@"should ask the ad to load and configure it correctly", ^{
-            fakeAd.loadedRequest should_not be_nil;
             fakeAd.frame.size should equal(MOPUB_BANNER_SIZE);
         });
 
@@ -62,8 +63,10 @@ describe(@"MPInMobiBannerIntegrationSuite", ^{
                     verify_fake_received_selectors(delegate, @[@"willPresentModalViewForAd:"]);
                     fakeProvider.sharedFakeMPAnalyticsTracker.trackedClickConfigurations should equal(@[configuration]);
 
-                    [fakeAd simulateUserTap];
-                    fakeProvider.sharedFakeMPAnalyticsTracker.trackedClickConfigurations should equal(@[configuration]);
+                    // XXX jren
+                    // this test is no longer valid because InMobiBannerCustomEvent now manually tracks impressions and clicks
+//                    [fakeAd simulateUserTap];
+//                    fakeProvider.sharedFakeMPAnalyticsTracker.trackedClickConfigurations should equal(@[configuration]);
                 });
 
                 context(@"when the user dismisses the modal", ^{

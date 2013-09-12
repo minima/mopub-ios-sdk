@@ -9,14 +9,13 @@ SPEC_BEGIN(InMobiInterstitialCustomEventSpec)
 describe(@"InMobiInterstitialCustomEvent", ^{
     __block InMobiInterstitialCustomEvent *event;
     __block FakeIMAdInterstitial *interstitial;
-    __block IMAdRequest<CedarDouble> *request;
 
     beforeEach(^{
+        [InMobi initialize:@"YOUR_INMOBI_APP_ID"];
+
         event = [[[InMobiInterstitialCustomEvent alloc] init] autorelease];
         interstitial = [[[FakeIMAdInterstitial alloc] init] autorelease];
         fakeProvider.fakeIMAdInterstitial = interstitial;
-        request = nice_fake_for([IMAdRequest class]);
-        fakeProvider.fakeIMAdInterstitialRequest = request;
     });
 
     context(@"when requesting an interstitial", ^{
@@ -24,9 +23,10 @@ describe(@"InMobiInterstitialCustomEvent", ^{
             [event requestInterstitialWithCustomEventInfo:nil];
         });
 
-        it(@"should load with a proper request object", ^{
-            interstitial.request should equal(request);
-            request should have_received(@selector(setParamsDictionary:)).with(@{@"tp": @"c_mopub"});
+        it(@"should load with a proper params dictionary", ^{
+            NSDictionary *params = interstitial.fakeNetworkExtras.additionaParameters;
+            NSString *tpValue = [params objectForKey:@"tp"];
+            tpValue should equal(@"c_mopub");
         });
     });
 });

@@ -34,6 +34,7 @@ describe(@"MPAdConfiguration", ^{
             configuration.shouldInterceptLinks should equal(YES);
             configuration.scrollable should equal(NO);
             configuration.refreshInterval should equal(-1);
+            configuration.adTimeoutInterval should equal(-1);
             configuration.nativeSDKParameters should be_nil;
             configuration.customSelectorName should be_nil;
             configuration.orientationType should equal(MPInterstitialOrientationTypeAll);
@@ -212,6 +213,36 @@ describe(@"MPAdConfiguration", ^{
         headers = @{};
         configuration = [[[MPAdConfiguration alloc] initWithHeaders:headers data:nil] autorelease];
         configuration.refreshInterval should equal(-1);
+    });
+
+    it(@"should process the ad timeout interval", ^{
+        headers = @{kAdTimeoutHeaderKey: @"9"};
+        configuration = [[[MPAdConfiguration alloc] initWithHeaders:headers data:nil] autorelease];
+        configuration.adTimeoutInterval should equal(9);
+
+        headers = @{kAdTimeoutHeaderKey: @"0"};
+        configuration = [[[MPAdConfiguration alloc] initWithHeaders:headers data:nil] autorelease];
+        configuration.adTimeoutInterval should equal(0);
+
+        headers = @{kAdTimeoutHeaderKey: @"-100"};
+        configuration = [[[MPAdConfiguration alloc] initWithHeaders:headers data:nil] autorelease];
+        configuration.adTimeoutInterval should equal(-1);
+
+        headers = @{kAdTimeoutHeaderKey: @"5.5"};
+        configuration = [[[MPAdConfiguration alloc] initWithHeaders:headers data:nil] autorelease];
+        configuration.adTimeoutInterval should equal(5);
+
+        headers = @{kAdTimeoutHeaderKey: @"llamas"};
+        configuration = [[[MPAdConfiguration alloc] initWithHeaders:headers data:nil] autorelease];
+        configuration.adTimeoutInterval should equal(-1);
+
+        headers = @{kAdTimeoutHeaderKey: @""};
+        configuration = [[[MPAdConfiguration alloc] initWithHeaders:headers data:nil] autorelease];
+        configuration.adTimeoutInterval should equal(-1);
+
+        headers = @{};
+        configuration = [[[MPAdConfiguration alloc] initWithHeaders:headers data:nil] autorelease];
+        configuration.adTimeoutInterval should equal(-1);
     });
 
     it(@"should process the nativeSDKParameters", ^{

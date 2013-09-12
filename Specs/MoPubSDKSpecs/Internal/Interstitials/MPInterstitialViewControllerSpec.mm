@@ -57,6 +57,10 @@ describe(@"MPInterstitialViewController", ^{
         });
     });
 
+#if __IPHONE_OS_VERSION_MAX_ALLOWED < MP_IOS_7_0
+    // XXX jren
+    // status bar show/hide paradigm is totally changed in ios 7. Now each viewcontroller is asked - (BOOL)prefersStatusBarHidden
+    // to determine status bar visibility instead of setting it globally through UIApplication
     describe(@"showing/hiding the status bar", ^{
         context(@"when originally shown", ^{
             beforeEach(^{
@@ -86,6 +90,7 @@ describe(@"MPInterstitialViewController", ^{
             });
         });
     });
+#endif
 
     describe(@"showing/hiding the close button", ^{
         beforeEach(^{

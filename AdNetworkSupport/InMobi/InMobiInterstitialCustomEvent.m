@@ -9,26 +9,20 @@
 #import "MPInstanceProvider.h"
 #import "MPLogging.h"
 
+#define kInMobiAppID    @"YOUR_INMOBI_APP_ID"
+
 @interface MPInstanceProvider (InMobiInterstitials)
 
-- (IMAdInterstitial *)buildIMAdInterstitialWithDelegate:(id<IMAdInterstitialDelegate>)delegate appId:(NSString *)appId;
-- (IMAdRequest *)buildIMAdInterstitialRequest;
+- (IMInterstitial *)buildIMInterstitialWithDelegate:(id<IMInterstitialDelegate>)delegate appId:(NSString *)appId;
 
 @end
 
 @implementation MPInstanceProvider (InMobiInterstitials)
 
-- (IMAdInterstitial *)buildIMAdInterstitialWithDelegate:(id<IMAdInterstitialDelegate>)delegate appId:(NSString *)appId;
-{
-    IMAdInterstitial *inMobiInterstitial = [[[IMAdInterstitial alloc] init] autorelease];
+- (IMInterstitial *)buildIMInterstitialWithDelegate:(id<IMInterstitialDelegate>)delegate appId:(NSString *)appId {
+    IMInterstitial *inMobiInterstitial = [[[IMInterstitial alloc] initWithAppId:appId] autorelease];
     inMobiInterstitial.delegate = delegate;
-    inMobiInterstitial.imAppId = appId;
     return inMobiInterstitial;
-}
-
-- (IMAdRequest *)buildIMAdInterstitialRequest
-{
-    return [IMAdRequest request];
 }
 
 @end
@@ -36,11 +30,9 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-#define kInMobiAppID    @"YOUR_INMOBI_APP_ID"
-
 @interface InMobiInterstitialCustomEvent ()
 
-@property (nonatomic, retain) IMAdInterstitial *inMobiInterstitial;
+@property (nonatomic, retain) IMInterstitial *inMobiInterstitial;
 
 @end
 
@@ -53,18 +45,19 @@
 - (void)requestInterstitialWithCustomEventInfo:(NSDictionary *)info
 {
     MPLogInfo(@"Requesting InMobi interstitial");
-
-    self.inMobiInterstitial = [[MPInstanceProvider sharedProvider] buildIMAdInterstitialWithDelegate:self
-                                                                                               appId:kInMobiAppID];
-
-    IMAdRequest *request = [[MPInstanceProvider sharedProvider] buildIMAdInterstitialRequest];
-    request.paramsDictionary = [NSDictionary dictionaryWithObject:@"c_mopub" forKey:@"tp"];
+    self.inMobiInterstitial = [[MPInstanceProvider sharedProvider] buildIMInterstitialWithDelegate:self appId:kInMobiAppID];
+    IMInMobiNetworkExtras *inmobiExtras = [[IMInMobiNetworkExtras alloc] init];
+    NSMutableDictionary *paramsDict = [[NSMutableDictionary alloc] init];
+    [paramsDict setObject:@"c_mopub" forKey:@"tp"];
+    [paramsDict setObject:MP_SDK_VERSION forKey:@"tp-ver"];
+    inmobiExtras.additionaParameters = paramsDict; // For supply source identification
     if (self.delegate.location) {
-        [request setLocationWithLatitude:self.delegate.location.coordinate.latitude
+        [InMobi setLocationWithLatitude:self.delegate.location.coordinate.latitude
                                longitude:self.delegate.location.coordinate.longitude
                                 accuracy:self.delegate.location.horizontalAccuracy];
     }
-    [self.inMobiInterstitial loadRequest:request];
+    [self.inMobiInterstitial addAdNetworkExtras:inmobiExtras];
+    [self.inMobiInterstitial loadInterstitial];
 }
 
 - (void)showInterstitialFromRootViewController:(UIViewController *)rootViewController
@@ -81,20 +74,19 @@
 
 #pragma mark - IMAdInterstitialDelegate
 
-- (void)interstitialDidFinishRequest:(IMAdInterstitial *)ad
-{
+
+- (void)interstitialDidReceiveAd:(IMInterstitial *)ad {
     MPLogInfo(@"InMobi interstitial did load");
     [self.delegate interstitialCustomEvent:self didLoadAd:ad];
 }
 
-- (void)interstitial:(IMAdInterstitial *)ad didFailToReceiveAdWithError:(IMAdError *)error
-{
-    MPLogInfo(@"InMobi interstitial did fail with error: %@", error.localizedDescription);
+- (void)interstitial:(IMInterstitial *)ad didFailToReceiveAdWithError:(IMError *)error {
+
+    MPLogInfo(@"InMobi banner did fail with error: %@", error.localizedDescription);
     [self.delegate interstitialCustomEvent:self didFailToLoadAdWithError:nil];
 }
 
-- (void)interstitialWillPresentScreen:(IMAdInterstitial *)ad
-{
+- (void)interstitialWillPresentScreen:(IMInterstitial *)ad {
     MPLogInfo(@"InMobi interstitial will present");
     [self.delegate interstitialCustomEventWillAppear:self];
 
@@ -103,30 +95,28 @@
     [self.delegate interstitialCustomEventDidAppear:self];
 }
 
-- (void)interstitial:(IMAdInterstitial *)ad didFailToPresentScreenWithError:(IMAdError *)error
-{
+- (void)interstitial:(IMInterstitial *)ad didFailToPresentScreenWithError:(IMError *)error {
     MPLogInfo(@"InMobi interstitial failed to present with error: %@", error.localizedDescription);
     [self.delegate interstitialCustomEvent:self didFailToLoadAdWithError:nil];
 }
 
-- (void)interstitialWillDismissScreen:(IMAdInterstitial *)ad
-{
+- (void)interstitialWillDismissScreen:(IMInterstitial *)ad {
     MPLogInfo(@"InMobi interstitial will dismiss");
     [self.delegate interstitialCustomEventWillDisappear:self];
 }
 
-- (void)interstitialDidDismissScreen:(IMAdInterstitial *)ad
-{
+- (void)interstitialDidDismissScreen:(IMInterstitial *)ad {
     MPLogInfo(@"InMobi interstitial did dismiss");
     [self.delegate interstitialCustomEventDidDisappear:self];
 }
 
-- (void)interstitialWillLeaveApplication:(IMAdInterstitial *)ad
-{
+- (void)interstitialWillLeaveApplication:(IMInterstitial *)ad {
     MPLogInfo(@"InMobi interstitial will leave application");
-    // InMobi doesn't seem to have an explicit callback for tap events. However, leaving the
-    // application is generally an indicator of a user tap, so we can use this callback
-    // to signal the tap event.
+    [self.delegate interstitialCustomEventWillLeaveApplication:self];
+}
+
+- (void) interstitialDidInteract:(IMInterstitial *)ad withParams:(NSDictionary *)dictionary {
+    MPLogInfo(@"InMobi interstitial was tapped");
     [self.delegate interstitialCustomEventDidReceiveTapEvent:self];
 }
 

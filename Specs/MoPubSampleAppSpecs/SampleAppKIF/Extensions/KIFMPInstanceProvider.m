@@ -9,9 +9,9 @@
 #import "GSBannerAdView.h"
 #import "GSFullscreenAd.h"
 #import "GSAdDelegate.h"
-#import "IMAdInterstitial.h"
-#import "IMAdView.h"
-#import "IMAdInterstitialDelegate.h"
+#import "IMInterstitial.h"
+#import "IMBanner.h"
+#import "IMInterstitialDelegate.h"
 
 static KIFMPInstanceProvider *sharedProvider = nil;
 
@@ -19,9 +19,8 @@ static KIFMPInstanceProvider *sharedProvider = nil;
 
 - (GSFullscreenAd *)buildGSFullscreenAdWithDelegate:(id<GSAdDelegate>)delegate GUID:(NSString *)GUID;
 - (GSBannerAdView *)buildGreystripeBannerAdViewWithDelegate:(id<GSAdDelegate>)delegate GUID:(NSString *)GUID size:(CGSize)size;
-- (IMAdInterstitial *)buildIMAdInterstitialWithDelegate:(id<IMAdInterstitialDelegate>)delegate appId:(NSString *)appId;
-- (IMAdView *)buildIMAdViewWithFrame:(CGRect)frame appId:(NSString *)appId adSize:(int)adSize;
-- (IMAdRequest *)buildIMAdRequest;
+- (IMInterstitial *)buildIMInterstitialWithDelegate:(id<IMInterstitialDelegate>)delegate appId:(NSString *)appId;
+- (IMBanner *)buildIMBannerWithFrame:(CGRect)frame appId:(NSString *)appId adSize:(int)adSize;
 
 @end
 
@@ -49,19 +48,14 @@ static KIFMPInstanceProvider *sharedProvider = nil;
     return [super buildGreystripeBannerAdViewWithDelegate:delegate GUID:@"1d73efc1-c8c5-44e6-9b02-b6dd29374c1c" size:size];
 }
 
-- (IMAdInterstitial *)buildIMAdInterstitialWithDelegate:(id<IMAdInterstitialDelegate>)delegate appId:(NSString *)appId
+- (IMInterstitial *)buildIMInterstitialWithDelegate:(id<IMInterstitialDelegate>)delegate appId:(NSString *)appId
 {
-    return [super buildIMAdInterstitialWithDelegate:delegate appId:@"5d6694314fbe4ddb804eab8eb4ad6693"];
+    return [super buildIMInterstitialWithDelegate:delegate appId:@"5d6694314fbe4ddb804eab8eb4ad6693"];
 }
 
-- (IMAdView *)buildIMAdViewWithFrame:(CGRect)frame appId:(NSString *)appId adSize:(int)adSize {
-    return [super buildIMAdViewWithFrame:frame appId:@"5d6694314fbe4ddb804eab8eb4ad6693" adSize:adSize];
-}
-
-- (IMAdRequest *)buildIMAdRequest
+- (IMBanner *)buildIMBannerWithFrame:(CGRect)frame appId:(NSString *)appId adSize:(int)adSize
 {
-    IMAdRequest *request = [super buildIMAdRequest];
-    return request;
+    return [super buildIMBannerWithFrame:frame appId:@"5d6694314fbe4ddb804eab8eb4ad6693" adSize:adSize];
 }
 
 @end

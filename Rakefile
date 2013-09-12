@@ -118,8 +118,7 @@ def available_sdk_versions
   available = []
   `xcodebuild -showsdks | grep simulator`.split("\n").each do |line|
     match = line.match(/simulator([\d\.]+)/)
-    # temporarily excluding 7.0 build
-    available << match[1] if match and match[1] != "7.0"
+    available << match[1] if match
   end
   available
 end

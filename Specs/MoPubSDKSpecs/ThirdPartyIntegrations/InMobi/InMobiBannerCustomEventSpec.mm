@@ -11,13 +11,11 @@ describe(@"InMobiBannerCustomEvent", ^{
     __block InMobiBannerCustomEvent *event;
     __block CLLocation *location;
     __block FakeIMAdView *banner;
-    __block IMAdRequest<CedarDouble> *request;
 
     beforeEach(^{
-        delegate = nice_fake_for(@protocol(MPBannerCustomEventDelegate));
+        [InMobi initialize:@"YOUR_INMOBI_APP_ID"];
 
-        request = nice_fake_for([IMAdRequest class]);
-        fakeProvider.fakeIMAdBannerRequest = request;
+        delegate = nice_fake_for(@protocol(MPBannerCustomEventDelegate));
 
         event = [[[InMobiBannerCustomEvent alloc] init] autorelease];
         event.delegate = delegate;
@@ -34,15 +32,14 @@ describe(@"InMobiBannerCustomEvent", ^{
     });
 
     it(@"should allow automatic metrics tracking", ^{
-        event.enableAutomaticImpressionAndClickTracking should equal(YES);
+        event.enableAutomaticImpressionAndClickTracking should equal(NO);
     });
 
     context(@"when requesting an ad with a valid size", ^{
         it(@"should configure the ad correctly, tell it to fech and not tell the delegate anything just yet", ^{
             [event requestAdWithSize:MOPUB_BANNER_SIZE customEventInfo:nil];
-            banner.loadedRequest should_not be_nil;
-            banner.imAppId should equal(@"YOUR_INMOBI_APP_ID");
-            banner.imAdSize should equal(IM_UNIT_320x50);
+            banner.appId should equal(@"YOUR_INMOBI_APP_ID");
+            banner.adSize should equal(IM_UNIT_320x50);
             banner.frame should equal(CGRectMake(0, 0, 320, 50));
             banner.refreshInterval should equal(REFRESH_INTERVAL_OFF);
             delegate should_not have_received(@selector(bannerCustomEvent:didLoadAd:));
@@ -51,22 +48,24 @@ describe(@"InMobiBannerCustomEvent", ^{
 
         it(@"should load the banner with a proper request object", ^{
             [event requestAdWithSize:MOPUB_BANNER_SIZE customEventInfo:nil];
-            banner.loadedRequest should equal(request);
 
-            request should have_received(@selector(setParamsDictionary:)).with(@{@"tp": @"c_mopub"});
-            request should have_received(@selector(setLocationWithLatitude:longitude:accuracy:)).with(37.1f).and_with(21.2f).and_with(12.3f);
+            NSDictionary *params = banner.fakeNetworkExtras.additionaParameters;
+            NSString *tpValue = [params objectForKey:@"tp"];
+            tpValue should equal(@"c_mopub");
         });
+
+        it(@"should set the location using the InMobi class method", PENDING);
 
         it(@"should support the rectangular size", ^{
             [event requestAdWithSize:MOPUB_MEDIUM_RECT_SIZE customEventInfo:nil];
             banner.frame should equal(CGRectMake(0, 0, 300, 250));
-            banner.imAdSize should equal(IM_UNIT_300x250);
+            banner.adSize should equal(IM_UNIT_300x250);
         });
 
         it(@"should support the leaderboard size", ^{
             [event requestAdWithSize:MOPUB_LEADERBOARD_SIZE customEventInfo:nil];
             banner.frame should equal(CGRectMake(0, 0, 728, 90));
-            banner.imAdSize should equal(IM_UNIT_728x90);
+            banner.adSize should equal(IM_UNIT_728x90);
         });
     });
 

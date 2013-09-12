@@ -166,6 +166,40 @@ describe(@"MRCalendarManager", ^{
             event.endDate should be_nil;
         });
 
+        it(@"should create the correct start date for 2013-07-14T17:00-07:00", ^{
+            event = [manager calendarEventWithParameters:@{@"start" : @"2013-07-14T17:00-07:00"}
+                                              eventStore:nil];
+
+            [event.startDate description] should equal(@"2013-07-15 00:00:00 +0000");
+            [event.startDate timeIntervalSince1970] should equal(1373846400);
+            event.endDate should be_nil;
+        });
+
+        it(@"should create the correct start date for 2013-07-15T7:00:00+07:00", ^{
+            event = [manager calendarEventWithParameters:@{@"start" : @"2013-07-15T7:00:00+07:00"}
+                                              eventStore:nil];
+
+            [event.startDate description] should equal(@"2013-07-15 00:00:00 +0000");
+            [event.startDate timeIntervalSince1970] should equal(1373846400);
+            event.endDate should be_nil;
+        });
+
+        it(@"should fail to parse a start date for 2013 07 15T7:00:00+07", ^{
+            event = [manager calendarEventWithParameters:@{@"start" : @"2013 07 15T7:00:00+07"}
+                                              eventStore:nil];
+
+            [event.startDate timeIntervalSinceReferenceDate] should equal(0);
+            event.endDate should be_nil;
+        });
+
+        it(@"should fail to parse a start date for 2013abc0sdfd15T7:00:00+07", ^{
+            event = [manager calendarEventWithParameters:@{@"start" : @"2013abc0sdfd15T7:00:00+07"}
+                                              eventStore:nil];
+
+            [event.startDate timeIntervalSinceReferenceDate] should equal(0);
+            event.endDate should be_nil;
+        });
+
         it(@"should create an event with an attached alarm if 'absoluteReminder' is set", ^{
             event = [manager calendarEventWithParameters:@{@"start" : @"2013-07-14T17:00:00-07:00", @"absoluteReminder": @"2013-07-19T16:50:00-07:00"}
                                               eventStore:nil];

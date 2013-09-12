@@ -21,6 +21,12 @@ describe(@"MPAdBrowserController", ^{
                                                      delegate:delegate] autorelease];
 
         browser.view should_not be_nil;
+
+        //XXX jren: ios 7 is unhappy if a UIActionSheet attempts to display from a view
+        //that's not attached to a window
+        UIWindow *window = [[[UIWindow alloc] init] autorelease];
+        [window addSubview:browser.view];
+
         [browser viewWillAppear:NO];
         [browser viewDidAppear:NO];
 

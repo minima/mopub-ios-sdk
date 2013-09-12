@@ -22,10 +22,13 @@
 
     [scenario addStep:[KIFTestStep stepToWaitForViewWithAccessibilityLabel:@"banner"]];
     [scenario addStep:[KIFTestStep stepToWaitUntilActivityIndicatorIsNotAnimating]];
-    [scenario addStep:[KIFTestStep stepToWaitForViewWithAccessibilityLabel:@"failLabel"]];
-
-    // Trying again.
+    // XXX jren
+    // The Greystripe 4.2.1 bug might be a saved auth token? After the first failure all subsequent runs, even across app launches, of
+    // Greystripe tests succeed and the failLabel never appears. At this point do we really care? Just load it again anyway.
+//    [scenario addStep:[KIFTestStep stepToWaitForViewWithAccessibilityLabel:@"failLabel"]];
     [scenario addStep:[KIFTestStep stepToReturnToBannerAds]];
+
+    // Try again
     [scenario addStep:[KIFTestStep stepToActuallyTapRowInTableViewWithAccessibilityLabel:@"Ad Table View"
                                                                              atIndexPath:indexPath]];
     [scenario addStep:[KIFTestStep stepToWaitForViewWithAccessibilityLabel:@"banner"]];
@@ -46,6 +49,7 @@
 {
     KIFTestScenario *scenario = [MPSampleAppTestScenario scenarioWithDescription:@"Test that a Greystripe interstitial ad works."];
     NSIndexPath *indexPath = [MPAdSection indexPathForAd:@"Greystripe Interstitial" inSection:@"Interstitial Ads"];
+
     [scenario addStep:[KIFTestStep stepToActuallyTapRowInTableViewWithAccessibilityLabel:@"Ad Table View"
                                                                      atIndexPath:indexPath]];
 

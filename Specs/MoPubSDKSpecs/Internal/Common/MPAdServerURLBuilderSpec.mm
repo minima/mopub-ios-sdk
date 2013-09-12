@@ -3,7 +3,6 @@
 #import "MPIdentityProvider.h"
 #import "MPGlobal.h"
 #import <CoreLocation/CoreLocation.h>
-#import "FakeCTCarrier.h"
 
 using namespace Cedar::Matchers;
 using namespace Cedar::Doubles;
@@ -215,12 +214,13 @@ describe(@"MPAdServerURLBuilder", ^{
         URL.absoluteString should_not contain(@"&mnc=");
         URL.absoluteString should_not contain(@"&mcc=");
 
-        FakeCTCarrier *carrier = [[[FakeCTCarrier alloc] init] autorelease];
-        carrier.carrierName = @"AT&T";
-        carrier.isoCountryCode = @"us";
-        carrier.mobileNetworkCode = @"310";
-        carrier.mobileCountryCode = @"410";
-        fakeProvider.fakeCTCarrier = carrier;
+        NSDictionary *fakeCarrierInfo = @{
+            @"carrierName" : @"AT&T",
+            @"isoCountryCode" : @"us",
+            @"mobileNetworkCode" : @"310",
+            @"mobileCountryCode" : @"410"
+        };
+        fakeProvider.fakeCarrierInfo = fakeCarrierInfo;
 
         URL = [MPAdServerURLBuilder URLWithAdUnitID:@"guy"
                                            keywords:nil

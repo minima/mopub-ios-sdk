@@ -11,6 +11,7 @@
 @interface MRCalendarManager ()
 
 @property (nonatomic, retain) EKEventEditViewController *eventEditViewController;
+@property (nonatomic, retain) NSArray *acceptedDateFormatters;
 
 - (EKEvent *)calendarEventWithParameters:(NSDictionary *)parameters
                               eventStore:(EKEventStore *)eventStore;
@@ -25,21 +26,49 @@
 
 @synthesize delegate = _delegate;
 @synthesize eventEditViewController = _eventEditViewController;
+@synthesize acceptedDateFormatters = _acceptedDateFormatters;
 
 - (id)initWithDelegate:(id<MRCalendarManagerDelegate>)delegate
 {
     if (self = [super init]) {
         _delegate = delegate;
+        self.acceptedDateFormatters = @[[self dateFormatterForFormat:@"yyyy-MM-dd'T'HH:mmZZZ"],
+                                        [self dateFormatterForFormat:@"yyyy-MM-dd'T'HH:mm:ssZZZ"]];
     }
     return self;
 }
 
 - (void)dealloc
 {
+    self.acceptedDateFormatters = nil;
     // XXX:
     [_eventEditViewController setEditViewDelegate:[MPLastResortDelegate sharedDelegate]];
     [_eventEditViewController release];
     [super dealloc];
+}
+
+#pragma mark - NSDateFormatterss
+
+- (NSDateFormatter *)dateFormatterForFormat:(NSString *)format
+{
+    NSDateFormatter *formatter = [[[NSDateFormatter alloc] init] autorelease];
+    [formatter setDateFormat:format];
+
+    return formatter;
+}
+
+- (NSDate *)parseDateFromString:(NSString *)dateString
+{
+    NSDate *result = nil;
+
+    for (NSDateFormatter *formatter in self.acceptedDateFormatters) {
+        result = [formatter dateFromString:dateString];
+        if (result != nil) {
+            break;
+        }
+    }
+
+    return result;
 }
 
 #pragma mark - Public
@@ -133,7 +162,7 @@
 {
     NSString *isoDateString = [parameters objectForKey:key];
     NSError *error = nil;
-    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"-\\d\\d:"
+    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"[-+]\\d\\d:"
                                                                            options:NSRegularExpressionCaseInsensitive
                                                                              error:&error];
     NSTextCheckingResult *regexResult = [regex firstMatchInString:isoDateString options:0
@@ -144,9 +173,8 @@
                                                               options:0
                                                                 range:NSMakeRange(0, [isoDateString length])
                                                          withTemplate:reformattedTimeZone];
-    NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
-    [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ssZZZ"];
-    return [dateFormatter dateFromString:rfcDateString];
+    NSDate *result = [self parseDateFromString:rfcDateString];
+    return result;
 }
 
 #pragma mark - Recurrence Rules

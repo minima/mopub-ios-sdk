@@ -5,12 +5,13 @@
 //  Copyright (c) 2013 MoPub. All rights reserved.
 //
 
-#import "IMAdInterstitial.h"
-#import "IMAdInterstitialDelegate.h"
+#import "IMInterstitial.h"
+#import "IMInterstitialDelegate.h"
+#import "IMInMobiNetworkExtras.h"
 
-@interface FakeIMAdInterstitial : IMAdInterstitial <FakeInterstitialAd>
+@interface FakeIMAdInterstitial : IMInterstitial <FakeInterstitialAd>
 
-@property (nonatomic, assign) IMAdRequest *request;
+@property (nonatomic, retain) IMInMobiNetworkExtras *fakeNetworkExtras;
 @property (nonatomic, assign) BOOL willPresentSuccessfully;
 @property (nonatomic, assign) BOOL didPresent;
 

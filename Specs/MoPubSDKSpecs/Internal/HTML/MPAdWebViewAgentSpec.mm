@@ -299,7 +299,7 @@ describe(@"MPAdWebViewAgent", ^{
             [[UIApplication sharedApplication] setStatusBarOrientation:UIInterfaceOrientationLandscapeRight];
             [agent rotateToOrientation:UIInterfaceOrientationLandscapeRight];
             NSString *JS = [agent.view executedJavaScripts][0];
-            JS should contain(@"return 90");
+            JS should contain(@"return -90");
             JS = [agent.view executedJavaScripts][1];
             JS should contain(@"width=320");
         });

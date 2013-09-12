@@ -7,6 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		46B9E8AA17E0D38900B78D11 /* libInMobi-4.0.2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 46B9E8A717E0D38900B78D11 /* libInMobi-4.0.2.a */; };
+		46B9E8AB17E0D7D100B78D11 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = AE10920D170120E700812E6E /* libsqlite3.dylib */; };
+		46B9E8AC17E0D7D800B78D11 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = AE10920C170120E700812E6E /* libz.dylib */; };
+		46B9E8AE17E0D7EE00B78D11 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46B9E8AD17E0D7EE00B78D11 /* AudioToolbox.framework */; };
+		46B9E8B017E0D7F600B78D11 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46B9E8AF17E0D7F600B78D11 /* AVFoundation.framework */; };
+		46B9E8B217E0D80400B78D11 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46B9E8B117E0D80400B78D11 /* MessageUI.framework */; };
+		46B9E8B317E0D81200B78D11 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE10920B170120E700812E6E /* Security.framework */; };
 		A77A78FF17C3817B00AB0DCA /* MRJavaScriptEventEmitter.m in Sources */ = {isa = PBXBuildFile; fileRef = A77A78FE17C3817B00AB0DCA /* MRJavaScriptEventEmitter.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		A77A790017C3817B00AB0DCA /* MRJavaScriptEventEmitter.m in Sources */ = {isa = PBXBuildFile; fileRef = A77A78FE17C3817B00AB0DCA /* MRJavaScriptEventEmitter.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		A77A790117C3817B00AB0DCA /* MRJavaScriptEventEmitter.m in Sources */ = {isa = PBXBuildFile; fileRef = A77A78FE17C3817B00AB0DCA /* MRJavaScriptEventEmitter.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -336,8 +343,6 @@
 		AE9BC21917208084005E4CFF /* README.markdown in Resources */ = {isa = PBXBuildFile; fileRef = AE9BC1F717208084005E4CFF /* README.markdown */; };
 		AE9BC21A17208084005E4CFF /* README.markdown in Resources */ = {isa = PBXBuildFile; fileRef = AE9BC1F717208084005E4CFF /* README.markdown */; };
 		AE9BC21B17208084005E4CFF /* README.markdown in Resources */ = {isa = PBXBuildFile; fileRef = AE9BC1F717208084005E4CFF /* README.markdown */; };
-		AEBE0DF117285FEA0091925C /* libInMobiAdNetwork-3.7.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AEBE0DEF17285FEA0091925C /* libInMobiAdNetwork-3.7.0.a */; };
-		AEBE0DF217285FEA0091925C /* libInMobiCommons-3.7.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AEBE0DF017285FEA0091925C /* libInMobiCommons-3.7.0.a */; };
 		AED7D8E4177CEB2900CC0CEF /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AEEA5E4C16F940EC003D48F4 /* MediaPlayer.framework */; };
 		AED7D8EE177CF68500CC0CEF /* KIFTestScenario+MRAID.m in Sources */ = {isa = PBXBuildFile; fileRef = AED7D8ED177CF68500CC0CEF /* KIFTestScenario+MRAID.m */; };
 		AED9E45A16F78D7300EA71A7 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE23239216F78A17002C2082 /* UIKit.framework */; };
@@ -494,6 +499,19 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		46B9E89E17E0D38900B78D11 /* IMBanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMBanner.h; sourceTree = "<group>"; };
+		46B9E89F17E0D38900B78D11 /* IMBannerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMBannerDelegate.h; sourceTree = "<group>"; };
+		46B9E8A017E0D38900B78D11 /* IMError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMError.h; sourceTree = "<group>"; };
+		46B9E8A117E0D38900B78D11 /* IMInMobiNetworkExtras.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMInMobiNetworkExtras.h; sourceTree = "<group>"; };
+		46B9E8A217E0D38900B78D11 /* IMInterstitial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMInterstitial.h; sourceTree = "<group>"; };
+		46B9E8A317E0D38900B78D11 /* IMInterstitialDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMInterstitialDelegate.h; sourceTree = "<group>"; };
+		46B9E8A417E0D38900B78D11 /* IMNetworkExtras.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMNetworkExtras.h; sourceTree = "<group>"; };
+		46B9E8A517E0D38900B78D11 /* InMobi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InMobi.h; sourceTree = "<group>"; };
+		46B9E8A617E0D38900B78D11 /* InMobiAnalytics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InMobiAnalytics.h; sourceTree = "<group>"; };
+		46B9E8A717E0D38900B78D11 /* libInMobi-4.0.2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libInMobi-4.0.2.a"; sourceTree = "<group>"; };
+		46B9E8AD17E0D7EE00B78D11 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		46B9E8AF17E0D7F600B78D11 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		46B9E8B117E0D80400B78D11 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		A73AB4C917B16F9A00D98ED7 /* libMMSDK_5.0.1.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libMMSDK_5.0.1.a; sourceTree = "<group>"; };
 		A73AB4CA17B16F9A00D98ED7 /* MMAdView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMAdView.h; sourceTree = "<group>"; };
 		A73AB4CB17B16F9A00D98ED7 /* MMInterstitial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMInterstitial.h; sourceTree = "<group>"; };
@@ -763,13 +781,6 @@
 		AE902A16171F556A00991DF9 /* InMobiBannerCustomEvent.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InMobiBannerCustomEvent.m; sourceTree = "<group>"; };
 		AE902A17171F556A00991DF9 /* InMobiInterstitialCustomEvent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InMobiInterstitialCustomEvent.h; sourceTree = "<group>"; };
 		AE902A18171F556A00991DF9 /* InMobiInterstitialCustomEvent.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InMobiInterstitialCustomEvent.m; sourceTree = "<group>"; };
-		AE902A1A171F556A00991DF9 /* IMAdDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IMAdDelegate.h; sourceTree = "<group>"; };
-		AE902A1B171F556A00991DF9 /* IMAdError.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IMAdError.h; sourceTree = "<group>"; };
-		AE902A1C171F556A00991DF9 /* IMAdInterstitial.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IMAdInterstitial.h; sourceTree = "<group>"; };
-		AE902A1D171F556A00991DF9 /* IMAdInterstitialDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IMAdInterstitialDelegate.h; sourceTree = "<group>"; };
-		AE902A1E171F556A00991DF9 /* IMAdRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IMAdRequest.h; sourceTree = "<group>"; };
-		AE902A1F171F556A00991DF9 /* IMAdView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IMAdView.h; sourceTree = "<group>"; };
-		AE902A20171F556A00991DF9 /* IMCommonUtil.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IMCommonUtil.h; sourceTree = "<group>"; };
 		AE902A24171F556A00991DF9 /* MPMillennialBannerCustomEvent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MPMillennialBannerCustomEvent.h; sourceTree = "<group>"; };
 		AE902A25171F556A00991DF9 /* MPMillennialBannerCustomEvent.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MPMillennialBannerCustomEvent.m; sourceTree = "<group>"; };
 		AE902A26171F556A00991DF9 /* MPMillennialInterstitialCustomEvent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MPMillennialInterstitialCustomEvent.h; sourceTree = "<group>"; };
@@ -805,8 +816,6 @@
 		AE9BC1F517208084005E4CFF /* JSONRepresentation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONRepresentation.h; sourceTree = "<group>"; };
 		AE9BC1F617208084005E4CFF /* LICENSE.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
 		AE9BC1F717208084005E4CFF /* README.markdown */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.markdown; sourceTree = "<group>"; };
-		AEBE0DEF17285FEA0091925C /* libInMobiAdNetwork-3.7.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libInMobiAdNetwork-3.7.0.a"; sourceTree = "<group>"; };
-		AEBE0DF017285FEA0091925C /* libInMobiCommons-3.7.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libInMobiCommons-3.7.0.a"; sourceTree = "<group>"; };
 		AED7D8EC177CF68500CC0CEF /* KIFTestScenario+MRAID.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "KIFTestScenario+MRAID.h"; sourceTree = "<group>"; };
 		AED7D8ED177CF68500CC0CEF /* KIFTestScenario+MRAID.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "KIFTestScenario+MRAID.m"; sourceTree = "<group>"; };
 		AED9E45916F78D7300EA71A7 /* SampleAppSpecs.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SampleAppSpecs.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -842,6 +851,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				46B9E8B317E0D81200B78D11 /* Security.framework in Frameworks */,
+				46B9E8B217E0D80400B78D11 /* MessageUI.framework in Frameworks */,
+				46B9E8B017E0D7F600B78D11 /* AVFoundation.framework in Frameworks */,
+				46B9E8AE17E0D7EE00B78D11 /* AudioToolbox.framework in Frameworks */,
+				46B9E8AC17E0D7D800B78D11 /* libz.dylib in Frameworks */,
+				46B9E8AB17E0D7D100B78D11 /* libsqlite3.dylib in Frameworks */,
 				AED7D8E4177CEB2900CC0CEF /* MediaPlayer.framework in Frameworks */,
 				AE14FA461773BA4700ABF744 /* EventKit.framework in Frameworks */,
 				AE14FA471773BA4700ABF744 /* EventKitUI.framework in Frameworks */,
@@ -898,6 +913,7 @@
 				AE902A3E171F55AE00991DF9 /* Social.framework in Frameworks */,
 				AE902A3C171F55A900991DF9 /* Twitter.framework in Frameworks */,
 				AE902A3A171F55A000991DF9 /* PassKit.framework in Frameworks */,
+				46B9E8AA17E0D38900B78D11 /* libInMobi-4.0.2.a in Frameworks */,
 				AE902A33171F559400991DF9 /* AddressBook.framework in Frameworks */,
 				AE902A34171F559400991DF9 /* AddressBookUI.framework in Frameworks */,
 				AE902A2B171F558800991DF9 /* libChartboost.a in Frameworks */,
@@ -920,8 +936,6 @@
 				AE109213170120E700812E6E /* Security.framework in Frameworks */,
 				AE109216170120E700812E6E /* libz.dylib in Frameworks */,
 				AE109219170120E700812E6E /* libsqlite3.dylib in Frameworks */,
-				AEBE0DF117285FEA0091925C /* libInMobiAdNetwork-3.7.0.a in Frameworks */,
-				AEBE0DF217285FEA0091925C /* libInMobiCommons-3.7.0.a in Frameworks */,
 				A79C74D117C5FA9200E8D6F2 /* libMMSDK_5.0.1.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1160,6 +1174,9 @@
 		AE23239116F78A17002C2082 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				46B9E8B117E0D80400B78D11 /* MessageUI.framework */,
+				46B9E8AF17E0D7F600B78D11 /* AVFoundation.framework */,
+				46B9E8AD17E0D7EE00B78D11 /* AudioToolbox.framework */,
 				AE902A3D171F55AE00991DF9 /* Social.framework */,
 				AE902A3B171F55A900991DF9 /* Twitter.framework */,
 				AE902A39171F559F00991DF9 /* PassKit.framework */,
@@ -1532,15 +1549,16 @@
 		AE902A19171F556A00991DF9 /* SDK */ = {
 			isa = PBXGroup;
 			children = (
-				AE902A1A171F556A00991DF9 /* IMAdDelegate.h */,
-				AE902A1B171F556A00991DF9 /* IMAdError.h */,
-				AE902A1C171F556A00991DF9 /* IMAdInterstitial.h */,
-				AE902A1D171F556A00991DF9 /* IMAdInterstitialDelegate.h */,
-				AE902A1E171F556A00991DF9 /* IMAdRequest.h */,
-				AE902A1F171F556A00991DF9 /* IMAdView.h */,
-				AE902A20171F556A00991DF9 /* IMCommonUtil.h */,
-				AEBE0DEF17285FEA0091925C /* libInMobiAdNetwork-3.7.0.a */,
-				AEBE0DF017285FEA0091925C /* libInMobiCommons-3.7.0.a */,
+				46B9E89E17E0D38900B78D11 /* IMBanner.h */,
+				46B9E89F17E0D38900B78D11 /* IMBannerDelegate.h */,
+				46B9E8A017E0D38900B78D11 /* IMError.h */,
+				46B9E8A117E0D38900B78D11 /* IMInMobiNetworkExtras.h */,
+				46B9E8A217E0D38900B78D11 /* IMInterstitial.h */,
+				46B9E8A317E0D38900B78D11 /* IMInterstitialDelegate.h */,
+				46B9E8A417E0D38900B78D11 /* IMNetworkExtras.h */,
+				46B9E8A517E0D38900B78D11 /* InMobi.h */,
+				46B9E8A617E0D38900B78D11 /* InMobiAnalytics.h */,
+				46B9E8A717E0D38900B78D11 /* libInMobi-4.0.2.a */,
 			);
 			path = SDK;
 			sourceTree = "<group>";
@@ -2374,6 +2392,7 @@
 					"$(SRCROOT)/MoPubSDK/**",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/Specs/MoPubSampleAppSpecs/SampleAppSpecs/SampleAppSpecs-Info.plist";
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_CFLAGS = "-Wno-objc-protocol-method-implementation";
 				OTHER_LDFLAGS = (
 					"-ObjC",
@@ -2403,6 +2422,7 @@
 					"$(SRCROOT)/MoPubSDK/**",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/Specs/MoPubSampleAppSpecs/SampleAppSpecs/SampleAppSpecs-Info.plist";
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				OTHER_LDFLAGS = (
 					"-ObjC",

@@ -7,13 +7,14 @@
 
 #import "MPInterstitialCustomEvent.h"
 
-#import "IMAdInterstitial.h"
-#import "IMAdInterstitialDelegate.h"
+#import "IMInterstitial.h"
+#import "IMInterstitialDelegate.h"
+#import "IMInMobiNetworkExtras.h"
 
 /*
- * Compatible with version 3.7.0 of the InMobi SDK.
+ * Compatible with version 4.0.0 of the InMobi SDK.
  */
 
-@interface InMobiInterstitialCustomEvent : MPInterstitialCustomEvent <IMAdInterstitialDelegate>
+@interface InMobiInterstitialCustomEvent : MPInterstitialCustomEvent <IMInterstitialDelegate>
 
 @end

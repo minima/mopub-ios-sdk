@@ -19,7 +19,6 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    NSLog(@"This device's UDID: %@", [[UIDevice currentDevice] uniqueIdentifier]);
     NSLog(@"This device's advertisingIdentifier: %@", [MPIdentityProvider identifier]);
 
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];

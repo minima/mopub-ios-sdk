@@ -234,10 +234,10 @@ NSString * const kMoPubCustomHost = @"custom";
     int angle = -1;
     switch (orientation)
     {
-        case UIDeviceOrientationPortrait: angle = 0; break;
-        case UIDeviceOrientationLandscapeLeft: angle = 90; break;
-        case UIDeviceOrientationLandscapeRight: angle = -90; break;
-        case UIDeviceOrientationPortraitUpsideDown: angle = 180; break;
+        case UIInterfaceOrientationPortrait: angle = 0; break;
+        case UIInterfaceOrientationLandscapeLeft: angle = 90; break;
+        case UIInterfaceOrientationLandscapeRight: angle = -90; break;
+        case UIInterfaceOrientationPortraitUpsideDown: angle = 180; break;
         default: break;
     }
 

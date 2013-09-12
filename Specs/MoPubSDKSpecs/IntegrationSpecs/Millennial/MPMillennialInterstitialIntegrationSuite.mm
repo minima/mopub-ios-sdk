@@ -125,7 +125,9 @@ describe(@"MPMillennialInterstitialIntegrationSuite", ^{
         });
 
         it(@"should request the ad", ^{
-            [fakeInterstitial.requests[@"M1"] location] should equal(interstitial.location);
+            MMRequest *m1Request = fakeInterstitial.requests[@"M1"];
+            [m1Request location] should equal(interstitial.location);
+
             fakeInterstitial.requests[@"M2"] should_not be_nil;
         });
 

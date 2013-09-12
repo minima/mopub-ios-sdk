@@ -6,12 +6,13 @@
 //
 
 #import "MPBannerCustomEvent.h"
-#import "IMAdView.h"
+#import "IMBanner.h"
+#import "IMInMobiNetworkExtras.h"
 
 /*
- * Compatible with version 3.7.0 of the InMobi SDK.
+ * Compatible with version 4.0.0 of the InMobi SDK.
  */
 
-@interface InMobiBannerCustomEvent : MPBannerCustomEvent <IMAdDelegate>
+@interface InMobiBannerCustomEvent : MPBannerCustomEvent <IMBannerDelegate>
 
 @end

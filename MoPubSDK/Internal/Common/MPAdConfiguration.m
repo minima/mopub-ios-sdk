@@ -10,6 +10,7 @@
 #import "MPConstants.h"
 #import "MPGlobal.h"
 #import "MPLogging.h"
+#import "math.h"
 
 #import "CJSONDeserializer.h"
 
@@ -26,6 +27,7 @@ NSString * const kLaunchpageHeaderKey = @"X-Launchpage";
 NSString * const kNativeSDKParametersHeaderKey = @"X-Nativeparams";
 NSString * const kNetworkTypeHeaderKey = @"X-Networktype";
 NSString * const kRefreshTimeHeaderKey = @"X-Refreshtime";
+NSString * const kAdTimeoutHeaderKey = @"X-AdTimeout";
 NSString * const kScrollableHeaderKey = @"X-Scrollable";
 NSString * const kWidthHeaderKey = @"X-Width";
 
@@ -64,6 +66,7 @@ NSString * const kAdTypeClear = @"clear";
 @synthesize shouldInterceptLinks = _shouldInterceptLinks;
 @synthesize scrollable = _scrollable;
 @synthesize refreshInterval = _refreshInterval;
+@synthesize adTimeoutInterval = _adTimeoutInterval;
 @synthesize adResponseData = _adResponseData;
 @synthesize adResponseHTMLString = _adResponseHTMLString;
 @synthesize nativeSDKParameters = _nativeSDKParameters;
@@ -99,6 +102,7 @@ NSString * const kAdTypeClear = @"clear";
         self.shouldInterceptLinks = shouldInterceptLinks ? [shouldInterceptLinks boolValue] : YES;
         self.scrollable = [[headers objectForKey:kScrollableHeaderKey] boolValue];
         self.refreshInterval = [self refreshIntervalFromHeaders:headers];
+        self.adTimeoutInterval = [self adTimeoutIntervalFromHeaders:headers];
 
 
         self.nativeSDKParameters = [self dictionaryFromHeaders:headers
@@ -243,6 +247,21 @@ NSString * const kAdTypeClear = @"clear";
             interval = MINIMUM_REFRESH_INTERVAL;
         }
     }
+    return interval;
+}
+
+- (NSTimeInterval)adTimeoutIntervalFromHeaders:(NSDictionary *)headers
+{
+    NSString *intervalString = [headers objectForKey:kAdTimeoutHeaderKey];
+    NSTimeInterval interval = -1;
+    if (intervalString) {
+        int parsedInt = -1;
+        BOOL isNumber = [[NSScanner scannerWithString:intervalString] scanInt:&parsedInt];
+        if (isNumber && parsedInt >= 0) {
+            interval = parsedInt;
+        }
+    }
+
     return interval;
 }
 

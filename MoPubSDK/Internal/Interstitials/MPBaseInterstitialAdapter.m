@@ -73,11 +73,17 @@
 
 - (void)startTimeoutTimer
 {
-    self.timeoutTimer = [[MPInstanceProvider sharedProvider] buildMPTimerWithTimeInterval:INTERSTITIAL_TIMEOUT_INTERVAL
-                                                                                   target:self
-                                                                                 selector:@selector(timeout)
-                                                                                  repeats:NO];
-    [self.timeoutTimer scheduleNow];
+    NSTimeInterval timeInterval = (self.configuration && self.configuration.adTimeoutInterval >= 0) ?
+            self.configuration.adTimeoutInterval : INTERSTITIAL_TIMEOUT_INTERVAL;
+
+    if (timeInterval > 0) {
+        self.timeoutTimer = [[MPInstanceProvider sharedProvider] buildMPTimerWithTimeInterval:timeInterval
+                                                                                       target:self
+                                                                                     selector:@selector(timeout)
+                                                                                      repeats:NO];
+
+        [self.timeoutTimer scheduleNow];
+    }
 }
 
 - (void)didStopLoading
