@@ -22,4 +22,5 @@ Scripts/*.mov
 tmp_sdk
 AdNetworkSupport/**/SDK/*.h
 AdNetworkSupport/**/SDK/*.a
+AdNetworkSupport/Millennial/SDK/SpeechKit/*
 node_modules

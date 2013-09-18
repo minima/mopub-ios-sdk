@@ -8,8 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		462C730A17E0DFEC00620488 /* libInMobi-4.0.2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 462C730717E0DFEC00620488 /* libInMobi-4.0.2.a */; };
+		464EEC5A17E26E97006414ED /* libMMSDK_5.1.1.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 464EEC5917E26E97006414ED /* libMMSDK_5.1.1.a */; };
+		468BD67F17E8CDA200F8849B /* SpeechKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 468BD67E17E8CDA200F8849B /* SpeechKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		468BD68817E8CE4100F8849B /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 468BD68717E8CE4100F8849B /* CFNetwork.framework */; };
 		A73AB4B117AB379500D98ED7 /* LICENSE.txt in Resources */ = {isa = PBXBuildFile; fileRef = A73AB4A917AB379500D98ED7 /* LICENSE.txt */; };
-		A73AB4E117B1D3AC00D98ED7 /* libMMSDK_5.0.1.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A73AB4BA17B168E300D98ED7 /* libMMSDK_5.0.1.a */; };
 		A77A76CE17C1FEDA00AB0DCA /* MRCalendarManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A77A76CD17C1FED900AB0DCA /* MRCalendarManager.m */; };
 		A77A76CF17C1FEDA00AB0DCA /* MRCalendarManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A77A76CD17C1FED900AB0DCA /* MRCalendarManager.m */; };
 		A77A76D017C1FEDA00AB0DCA /* MRCalendarManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A77A76CD17C1FED900AB0DCA /* MRCalendarManager.m */; };
@@ -493,12 +495,14 @@
 		462C730517E0DFEC00620488 /* InMobi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InMobi.h; sourceTree = "<group>"; };
 		462C730617E0DFEC00620488 /* InMobiAnalytics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InMobiAnalytics.h; sourceTree = "<group>"; };
 		462C730717E0DFEC00620488 /* libInMobi-4.0.2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libInMobi-4.0.2.a"; sourceTree = "<group>"; };
+		464EEC5917E26E97006414ED /* libMMSDK_5.1.1.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libMMSDK_5.1.1.a; sourceTree = "<group>"; };
+		468BD67E17E8CDA200F8849B /* SpeechKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SpeechKit.framework; sourceTree = "<group>"; };
+		468BD68717E8CE4100F8849B /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		A73AB4A917AB379500D98ED7 /* LICENSE.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
 		A73AB4AA17AB379500D98ED7 /* MMAdView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMAdView.h; sourceTree = "<group>"; };
 		A73AB4AB17AB379500D98ED7 /* MMInterstitial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMInterstitial.h; sourceTree = "<group>"; };
 		A73AB4AC17AB379500D98ED7 /* MMRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMRequest.h; sourceTree = "<group>"; };
 		A73AB4AD17AB379500D98ED7 /* MMSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMSDK.h; sourceTree = "<group>"; };
-		A73AB4BA17B168E300D98ED7 /* libMMSDK_5.0.1.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libMMSDK_5.0.1.a; sourceTree = "<group>"; };
 		A77A76CC17C1FED900AB0DCA /* MRCalendarManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MRCalendarManager.h; sourceTree = "<group>"; };
 		A77A76CD17C1FED900AB0DCA /* MRCalendarManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MRCalendarManager.m; sourceTree = "<group>"; };
 		A77A76D117C1FF0F00AB0DCA /* MRCalendarManagerSpec.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MRCalendarManagerSpec.mm; sourceTree = "<group>"; };
@@ -880,6 +884,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				468BD68817E8CE4100F8849B /* CFNetwork.framework in Frameworks */,
 				AEE3889D171F4F920019601C /* libFoundation+PivotalCore-StaticLib.a in Frameworks */,
 				AEE38898171F4F6B0019601C /* libUIKit+PivotalSpecHelper-StaticLib.a in Frameworks */,
 				AEE38895171F4F500019601C /* libFoundation+PivotalSpecHelper-StaticLib.a in Frameworks */,
@@ -913,8 +918,9 @@
 				AEE38867171F4D300019601C /* libChartboost.a in Frameworks */,
 				AE17D043177B95A90016C422 /* libGoogleAdMobAds.a in Frameworks */,
 				AEBE0E1B17287F8B0091925C /* libGreystripeSDK.a in Frameworks */,
-				A73AB4E117B1D3AC00D98ED7 /* libMMSDK_5.0.1.a in Frameworks */,
 				462C730A17E0DFEC00620488 /* libInMobi-4.0.2.a in Frameworks */,
+				464EEC5A17E26E97006414ED /* libMMSDK_5.1.1.a in Frameworks */,
+				468BD67F17E8CDA200F8849B /* SpeechKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -928,10 +934,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		468BD67D17E8CDA200F8849B /* SpeechKit */ = {
+			isa = PBXGroup;
+			children = (
+				468BD67E17E8CDA200F8849B /* SpeechKit.framework */,
+			);
+			path = SpeechKit;
+			sourceTree = "<group>";
+		};
 		A73AB4A717AB379500D98ED7 /* SDK */ = {
 			isa = PBXGroup;
 			children = (
-				A73AB4BA17B168E300D98ED7 /* libMMSDK_5.0.1.a */,
+				468BD67D17E8CDA200F8849B /* SpeechKit */,
+				464EEC5917E26E97006414ED /* libMMSDK_5.1.1.a */,
 				A73AB4A917AB379500D98ED7 /* LICENSE.txt */,
 				A73AB4AA17AB379500D98ED7 /* MMAdView.h */,
 				A73AB4AB17AB379500D98ED7 /* MMInterstitial.h */,
@@ -1173,6 +1188,7 @@
 		AEF1F31F16EF9AD700273462 = {
 			isa = PBXGroup;
 			children = (
+				468BD68717E8CE4100F8849B /* CFNetwork.framework */,
 				AEF9D4C6171CA895005AAA5A /* MoPubSDK */,
 				AEF9D5A4171CA8AD005AAA5A /* MoPubSDKSpecs */,
 				AEE38821171F4D300019601C /* AdNetworkSupport */,
@@ -2419,6 +2435,7 @@
 					"\"$(SRCROOT)/Specs/MoPubSDKSpecs/Frameworks\"",
 					"\"$(SRCROOT)/Externals\"",
 					"\"$(SRCROOT)/Specs/Externals/PivotalCoreKit/Foundation/DerivedData/Foundation/Build/Products/Debug\"",
+					"\"$(SRCROOT)/AdNetworkSupport/Millennial/SDK/SpeechKit\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Specs/MoPubSDKSpecs/Specs-Prefix.pch";
@@ -2467,6 +2484,7 @@
 					"\"$(SRCROOT)/Specs/MoPubSDKSpecs/Frameworks\"",
 					"\"$(SRCROOT)/Externals\"",
 					"\"$(SRCROOT)/Specs/Externals/PivotalCoreKit/Foundation/DerivedData/Foundation/Build/Products/Debug\"",
+					"\"$(SRCROOT)/AdNetworkSupport/Millennial/SDK/SpeechKit\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Specs/MoPubSDKSpecs/Specs-Prefix.pch";

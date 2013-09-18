@@ -74,11 +74,16 @@ NSString * const kMoPubCustomHost = @"custom";
 {
     self.configuration = configuration;
 
-    if ([configuration hasPreferredSize]) {
-        CGRect frame = self.view.frame;
-        frame.size.width = configuration.preferredSize.width;
-        frame.size.height = configuration.preferredSize.height;
-        self.view.frame = frame;
+    // Ignore server configuration size for interstitials. At this point our web view
+    // is sized correctly for the device's screen. Currently the server sends down values for a 3.5in
+    // screen, and they do not size correctly on a 4in screen.
+    if (configuration.adType != MPAdTypeInterstitial) {
+        if ([configuration hasPreferredSize]) {
+            CGRect frame = self.view.frame;
+            frame.size.width = configuration.preferredSize.width;
+            frame.size.height = configuration.preferredSize.height;
+            self.view.frame = frame;
+        }
     }
 
     [self.view mp_setScrollable:configuration.scrollable];

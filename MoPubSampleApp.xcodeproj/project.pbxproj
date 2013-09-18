@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4614B3F517E8D01E00812D2C /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4614B3F417E8D01D00812D2C /* CFNetwork.framework */; };
 		46B9E8AA17E0D38900B78D11 /* libInMobi-4.0.2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 46B9E8A717E0D38900B78D11 /* libInMobi-4.0.2.a */; };
 		46B9E8AB17E0D7D100B78D11 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = AE10920D170120E700812E6E /* libsqlite3.dylib */; };
 		46B9E8AC17E0D7D800B78D11 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = AE10920C170120E700812E6E /* libz.dylib */; };
@@ -14,6 +15,8 @@
 		46B9E8B017E0D7F600B78D11 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46B9E8AF17E0D7F600B78D11 /* AVFoundation.framework */; };
 		46B9E8B217E0D80400B78D11 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46B9E8B117E0D80400B78D11 /* MessageUI.framework */; };
 		46B9E8B317E0D81200B78D11 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE10920B170120E700812E6E /* Security.framework */; };
+		46CFCC0817E26CBB0048647D /* libMMSDK_5.1.1.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 46CFCC0717E26CBB0048647D /* libMMSDK_5.1.1.a */; };
+		46D3141B17E8CFE600F30509 /* SpeechKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46D3141A17E8CFE600F30509 /* SpeechKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		A77A78FF17C3817B00AB0DCA /* MRJavaScriptEventEmitter.m in Sources */ = {isa = PBXBuildFile; fileRef = A77A78FE17C3817B00AB0DCA /* MRJavaScriptEventEmitter.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		A77A790017C3817B00AB0DCA /* MRJavaScriptEventEmitter.m in Sources */ = {isa = PBXBuildFile; fileRef = A77A78FE17C3817B00AB0DCA /* MRJavaScriptEventEmitter.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		A77A790117C3817B00AB0DCA /* MRJavaScriptEventEmitter.m in Sources */ = {isa = PBXBuildFile; fileRef = A77A78FE17C3817B00AB0DCA /* MRJavaScriptEventEmitter.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -26,7 +29,6 @@
 		A77A792C17C3993F00AB0DCA /* MRVideoPlayerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A77A792817C3993F00AB0DCA /* MRVideoPlayerManager.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		A77A792D17C3993F00AB0DCA /* MRVideoPlayerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A77A792817C3993F00AB0DCA /* MRVideoPlayerManager.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		A77A792E17C3993F00AB0DCA /* MRVideoPlayerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A77A792817C3993F00AB0DCA /* MRVideoPlayerManager.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		A79C74D117C5FA9200E8D6F2 /* libMMSDK_5.0.1.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A73AB4C917B16F9A00D98ED7 /* libMMSDK_5.0.1.a */; };
 		A7F7F68F17C198E900C0DF61 /* MRBundleManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F7F68E17C198E900C0DF61 /* MRBundleManager.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		A7F7F69017C198E900C0DF61 /* MRBundleManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F7F68E17C198E900C0DF61 /* MRBundleManager.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		A7F7F69117C198E900C0DF61 /* MRBundleManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F7F68E17C198E900C0DF61 /* MRBundleManager.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -499,6 +501,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4614B3F417E8D01D00812D2C /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		46B9E89E17E0D38900B78D11 /* IMBanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMBanner.h; sourceTree = "<group>"; };
 		46B9E89F17E0D38900B78D11 /* IMBannerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMBannerDelegate.h; sourceTree = "<group>"; };
 		46B9E8A017E0D38900B78D11 /* IMError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMError.h; sourceTree = "<group>"; };
@@ -512,7 +515,8 @@
 		46B9E8AD17E0D7EE00B78D11 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		46B9E8AF17E0D7F600B78D11 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		46B9E8B117E0D80400B78D11 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
-		A73AB4C917B16F9A00D98ED7 /* libMMSDK_5.0.1.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libMMSDK_5.0.1.a; sourceTree = "<group>"; };
+		46CFCC0717E26CBB0048647D /* libMMSDK_5.1.1.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libMMSDK_5.1.1.a; sourceTree = "<group>"; };
+		46D3141A17E8CFE600F30509 /* SpeechKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SpeechKit.framework; sourceTree = "<group>"; };
 		A73AB4CA17B16F9A00D98ED7 /* MMAdView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMAdView.h; sourceTree = "<group>"; };
 		A73AB4CB17B16F9A00D98ED7 /* MMInterstitial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMInterstitial.h; sourceTree = "<group>"; };
 		A73AB4CC17B16F9A00D98ED7 /* MMRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMRequest.h; sourceTree = "<group>"; };
@@ -907,11 +911,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4614B3F517E8D01E00812D2C /* CFNetwork.framework in Frameworks */,
 				AE902A37171F559B00991DF9 /* EventKit.framework in Frameworks */,
 				AE902A38171F559B00991DF9 /* EventKitUI.framework in Frameworks */,
 				AE902A3F171F55B800991DF9 /* libKIF.a in Frameworks */,
 				AE902A3E171F55AE00991DF9 /* Social.framework in Frameworks */,
 				AE902A3C171F55A900991DF9 /* Twitter.framework in Frameworks */,
+				46D3141B17E8CFE600F30509 /* SpeechKit.framework in Frameworks */,
 				AE902A3A171F55A000991DF9 /* PassKit.framework in Frameworks */,
 				46B9E8AA17E0D38900B78D11 /* libInMobi-4.0.2.a in Frameworks */,
 				AE902A33171F559400991DF9 /* AddressBook.framework in Frameworks */,
@@ -936,13 +942,21 @@
 				AE109213170120E700812E6E /* Security.framework in Frameworks */,
 				AE109216170120E700812E6E /* libz.dylib in Frameworks */,
 				AE109219170120E700812E6E /* libsqlite3.dylib in Frameworks */,
-				A79C74D117C5FA9200E8D6F2 /* libMMSDK_5.0.1.a in Frameworks */,
+				46CFCC0817E26CBB0048647D /* libMMSDK_5.1.1.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		46D3141917E8CFE600F30509 /* SpeechKit */ = {
+			isa = PBXGroup;
+			children = (
+				46D3141A17E8CFE600F30509 /* SpeechKit.framework */,
+			);
+			path = SpeechKit;
+			sourceTree = "<group>";
+		};
 		AE14F9251773BA1100ABF744 /* MoPubSDK */ = {
 			isa = PBXGroup;
 			children = (
@@ -1174,6 +1188,7 @@
 		AE23239116F78A17002C2082 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4614B3F417E8D01D00812D2C /* CFNetwork.framework */,
 				46B9E8B117E0D80400B78D11 /* MessageUI.framework */,
 				46B9E8AF17E0D7F600B78D11 /* AVFoundation.framework */,
 				46B9E8AD17E0D7EE00B78D11 /* AudioToolbox.framework */,
@@ -1578,7 +1593,8 @@
 		AE902A28171F556A00991DF9 /* SDK */ = {
 			isa = PBXGroup;
 			children = (
-				A73AB4C917B16F9A00D98ED7 /* libMMSDK_5.0.1.a */,
+				46D3141917E8CFE600F30509 /* SpeechKit */,
+				46CFCC0717E26CBB0048647D /* libMMSDK_5.1.1.a */,
 				A73AB4CA17B16F9A00D98ED7 /* MMAdView.h */,
 				A73AB4CB17B16F9A00D98ED7 /* MMInterstitial.h */,
 				A73AB4CC17B16F9A00D98ED7 /* MMRequest.h */,
@@ -2437,6 +2453,10 @@
 		AED9E50B16F7B8A600EA71A7 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/AdNetworkSupport/Millennial/SDK/SpeechKit\"",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Specs/MoPubSampleAppSpecs/SampleAppKIF/SampleAppKIF-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -2474,6 +2494,10 @@
 		AED9E50C16F7B8A600EA71A7 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/AdNetworkSupport/Millennial/SDK/SpeechKit\"",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Specs/MoPubSampleAppSpecs/SampleAppKIF/SampleAppKIF-Prefix.pch";
 				HEADER_SEARCH_PATHS = (

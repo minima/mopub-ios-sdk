@@ -8,6 +8,10 @@
 #### Updates to InMobi Integrations
   - **Important**: As of version 1.14.0.0, the InMobi custom events packaged with the MoPub SDK only support InMobi version 4.00 and up. Follow the instructions [here](http://www.inmobi.com/support/art/25856216/22465648/integrating-mopub-with-inmobi-ios-sdk-4-0/) to integrate InMobi version 4.00 and up. If you would like to continue to use a prior version of the InMobi SDK, do not update the custom event files and follow the instructions [here](http://developer.inmobi.com/wiki/index.php?title=MoPub_InMobi_iOS) to integrate.
 
+### Version 1.14.1.0 (September 18, 2013)
+  - Fixed an issue causing certain interstitials to be incorrectly centered or sized
+  - Updated the SDK bundle to include the Millennial Media 5.1.1 SDK
+
 ## Version 1.13 (August 22, 2013)
 
   - Added support for creating calendar events, storing pictures, and video playback via MRAID APIs
