@@ -11,6 +11,9 @@
 #import "MPBannerAdDetailViewController.h"
 #import "MPInterstitialAdDetailViewController.h"
 #import "MPManualAdViewController.h"
+#import "MPMRectBannerAdDetailViewController.h"
+#import "MPLeaderboardBannerAdDetailViewController.h"
+#import "MPGlobal.h"
 
 @interface MPAdTableViewController ()
 
@@ -31,6 +34,12 @@
     self = [super initWithStyle:UITableViewStylePlain];
     if (self) {
         self.sections = sections;
+
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= MP_IOS_7_0
+        if ([self respondsToSelector:@selector(setEdgesForExtendedLayout:)]) {
+            self.edgesForExtendedLayout = UIRectEdgeNone;
+        }
+#endif
     }
     return self;
 }
@@ -103,10 +112,22 @@
 {
     MPAdInfo *info = [self infoAtIndexPath:indexPath];
     UIViewController *detailViewController = nil;
-    if (info.type == MPAdInfoBanner) {
-        detailViewController = [[MPBannerAdDetailViewController alloc] initWithAdInfo:info];
-    } else if (info.type == MPAdInfoInterstitial) {
-        detailViewController = [[MPInterstitialAdDetailViewController alloc] initWithAdInfo:info];
+
+    switch (info.type) {
+        case MPAdInfoBanner:
+            detailViewController = [[MPBannerAdDetailViewController alloc] initWithAdInfo:info];
+            break;
+        case MPAdInfoMRectBanner:
+            detailViewController = [[MPMRectBannerAdDetailViewController alloc] initWithAdInfo:info];
+            break;
+        case MPAdInfoLeaderboardBanner:
+            detailViewController = [[MPLeaderboardBannerAdDetailViewController alloc] initWithAdInfo:info];
+            break;
+        case MPAdInfoInterstitial:
+            detailViewController = [[MPInterstitialAdDetailViewController alloc] initWithAdInfo:info];
+            break;
+        default:
+            break;
     }
 
     if (detailViewController) {

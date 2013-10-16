@@ -78,3 +78,22 @@ typedef NSUInteger MPInterstitialOrientationType;
 - (NSString *)URLEncodedString;
 
 @end
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+// Optional Class Forward Def Protocols
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+@class MPAdConfiguration, CLLocation;
+
+@protocol MPAdAlertManagerProtocol <NSObject>
+
+@property (nonatomic, retain) MPAdConfiguration *adConfiguration;
+@property (nonatomic, copy) NSString *adUnitId;
+@property (nonatomic, copy) CLLocation *location;
+@property (nonatomic, assign) UIView *targetAdView;
+@property (nonatomic, assign) id delegate;
+
+- (void)beginMonitoringAlerts;
+- (void)processAdAlertOnce;
+
+@end

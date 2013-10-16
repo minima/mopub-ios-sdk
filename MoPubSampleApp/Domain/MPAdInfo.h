@@ -9,7 +9,9 @@
 
 typedef enum {
     MPAdInfoBanner,
-    MPAdInfoInterstitial
+    MPAdInfoInterstitial,
+    MPAdInfoMRectBanner,
+    MPAdInfoLeaderboardBanner
 } MPAdInfoType;
 
 @interface MPAdInfo : NSObject

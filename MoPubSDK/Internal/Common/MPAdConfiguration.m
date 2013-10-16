@@ -30,6 +30,8 @@ NSString * const kRefreshTimeHeaderKey = @"X-Refreshtime";
 NSString * const kAdTimeoutHeaderKey = @"X-AdTimeout";
 NSString * const kScrollableHeaderKey = @"X-Scrollable";
 NSString * const kWidthHeaderKey = @"X-Width";
+NSString * const kDspCreativeIdKey = @"X-DspCreativeid";
+NSString * const kPrecacheRequiredKey = @"X-PrecacheRequired";
 
 NSString * const kInterstitialAdTypeHeaderKey = @"X-Fulladtype";
 NSString * const kOrientationTypeHeaderKey = @"X-Orientation";
@@ -74,6 +76,9 @@ NSString * const kAdTypeClear = @"clear";
 @synthesize customEventClass = _customEventClass;
 @synthesize customEventClassData = _customEventClassData;
 @synthesize customSelectorName = _customSelectorName;
+@synthesize dspCreativeId = _dspCreativeId;
+@synthesize precacheRequired = _precacheRequired;
+@synthesize creationTimestamp = _creationTimestamp;
 
 - (id)initWithHeaders:(NSDictionary *)headers data:(NSData *)data
 {
@@ -114,6 +119,12 @@ NSString * const kAdTypeClear = @"clear";
         self.customEventClass = [self setUpCustomEventClassFromHeaders:headers];
 
         self.customEventClassData = [self customEventClassDataFromHeaders:headers];
+
+        self.dspCreativeId = [headers objectForKey:kDspCreativeIdKey];
+
+        self.precacheRequired = [[headers objectForKey:kPrecacheRequiredKey] boolValue];
+
+        self.creationTimestamp = [NSDate date];
     }
     return self;
 }
@@ -172,6 +183,8 @@ NSString * const kAdTypeClear = @"clear";
     self.nativeSDKParameters = nil;
     self.customSelectorName = nil;
     self.customEventClassData = nil;
+    self.dspCreativeId = nil;
+    self.creationTimestamp = nil;
 
     [super dealloc];
 }

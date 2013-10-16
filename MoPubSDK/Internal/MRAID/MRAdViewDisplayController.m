@@ -525,6 +525,21 @@ shouldLockOrientation:(BOOL)shouldLockOrientation {
 
 #pragma mark - MRAdViewDelegate for two-part expansion view
 
+- (CLLocation *)location
+{
+    return [_view.delegate location];
+}
+
+- (NSString *)adUnitId
+{
+    return [_view.delegate adUnitId];
+}
+
+- (MPAdConfiguration *)adConfiguration
+{
+    return [_view.delegate adConfiguration];
+}
+
 - (UIViewController *)viewControllerForPresentingModalView {
     return [_view.delegate viewControllerForPresentingModalView];
 }

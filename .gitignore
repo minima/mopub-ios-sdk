@@ -23,4 +23,6 @@ tmp_sdk
 AdNetworkSupport/**/SDK/*.h
 AdNetworkSupport/**/SDK/*.a
 AdNetworkSupport/Millennial/SDK/SpeechKit/*
+AdNetworkSupport/Vungle/SDK/resources/*
+AdNetworkSupport/Vungle/SDK/headers/*
 node_modules

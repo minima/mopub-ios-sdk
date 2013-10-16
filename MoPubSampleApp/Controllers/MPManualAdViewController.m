@@ -7,12 +7,14 @@
 
 #import "MPManualAdViewController.h"
 #import "MPSampleAppInstanceProvider.h"
+#import "MPGlobal.h"
 
 @interface MPManualAdViewController ()
 
 @property (nonatomic, strong) MPInterstitialAdController *firstInterstitial;
 @property (nonatomic, strong) MPInterstitialAdController *secondInterstitial;
 @property (nonatomic, strong) MPAdView *banner;
+@property (nonatomic, strong) MPAdView *mRectBanner;
 @property (nonatomic, strong) UITextField *activeField;
 
 @end
@@ -23,15 +25,17 @@
 {
     [super viewDidLoad];
 
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= MP_IOS_7_0
+    if ([self respondsToSelector:@selector(setEdgesForExtendedLayout:)]) {
+        self.edgesForExtendedLayout = UIRectEdgeNone;
+    }
+#endif
+
     self.title = @"Manual";
     self.firstInterstitialShowButton.hidden = YES;
     self.secondInterstitialShowButton.hidden = YES;
 
     [self registerForKeyboardNotifications];
-
-    self.banner = [[MPSampleAppInstanceProvider sharedProvider] buildMPAdViewWithAdUnitID:@"" size:MOPUB_BANNER_SIZE];
-    self.banner.delegate = self;
-    [self.bannerContainer addSubview:self.banner];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -82,11 +86,55 @@
 
 - (IBAction)didTapBannerLoadButton:(id)sender
 {
+    [self updateForBannerAdLoad];
+
     [self.view endEditing:YES];
     [self.bannerActivityIndicator startAnimating];
     self.bannerStatusLabel.text = @"";
     self.banner.adUnitId = self.bannerTextField.text;
     [self.banner loadAd];
+}
+
+- (IBAction)didTapBannerMRectLoadButton:(id)sender
+{
+    [self updateForBannerMRectAdLoad];
+
+    [self.view endEditing:YES];
+    [self.bannerActivityIndicator startAnimating];
+    self.bannerStatusLabel.text = @"";
+    self.mRectBanner.adUnitId = self.bannerTextField.text;
+    [self.mRectBanner loadAd];
+}
+
+- (void)updateForBannerAdLoad
+{
+    [self.banner removeFromSuperview];
+    [self.mRectBanner removeFromSuperview];
+
+    self.scrollView.contentSize = self.scrollView.bounds.size;
+
+    self.bannerContainer.frame = CGRectMake(0, self.bannerContainer.frame.origin.y, MOPUB_BANNER_SIZE.width, MOPUB_BANNER_SIZE.height);
+
+    self.banner.delegate = nil;
+    self.banner = [[MPSampleAppInstanceProvider sharedProvider] buildMPAdViewWithAdUnitID:@"" size:MOPUB_BANNER_SIZE];
+    self.banner.delegate = self;
+    [self.bannerContainer addSubview:self.banner];
+}
+
+- (void)updateForBannerMRectAdLoad
+{
+    [self.banner removeFromSuperview];
+    [self.mRectBanner removeFromSuperview];
+
+    self.scrollView.contentSize = CGSizeMake(self.scrollView.bounds.size.width, self.bannerContainer.frame.origin.y + MOPUB_MEDIUM_RECT_SIZE.width);
+
+    CGFloat sideBuffer = (self.view.bounds.size.width - MOPUB_MEDIUM_RECT_SIZE.width) / 2;
+    self.bannerContainer.frame = CGRectMake(sideBuffer, self.bannerContainer.frame.origin.y, MOPUB_MEDIUM_RECT_SIZE.width, MOPUB_MEDIUM_RECT_SIZE.height);
+
+    self.mRectBanner.delegate = nil;
+    self.mRectBanner = [[MPSampleAppInstanceProvider sharedProvider] buildMPAdViewWithAdUnitID:@"" size:MOPUB_MEDIUM_RECT_SIZE];
+    self.mRectBanner.delegate = self;
+    [self.bannerContainer addSubview:self.mRectBanner];
 }
 
 #pragma mark - <MPInterstitialAdControllerDelegate>

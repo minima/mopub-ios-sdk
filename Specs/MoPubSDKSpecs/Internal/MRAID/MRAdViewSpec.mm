@@ -3,6 +3,8 @@
 #import "FakeMRJavaScriptEventEmitter.h"
 #import "MRProperty.h"
 #import "MRBundleManager.h"
+#import "UIWebView+MPAdditions.h"
+#import "MRAdView_MPSpecs.h"
 
 using namespace Cedar::Matchers;
 using namespace Cedar::Doubles;
@@ -82,6 +84,16 @@ describe(@"MRAdView", ^{
                 // Must have an MRAID script tag.
                 loadedHTMLString should contain(@"mraid.js");
             });
+
+            describe(@"javascript dialog disabled", ^{
+                it(@"should have executed the dialog disabling javascript", ^{
+                    NSArray *executedJS = [webView executedJavaScripts];
+                    executedJS.count should equal(1);
+
+                    NSString *dialogDisableJS = [executedJS objectAtIndex:0];
+                    dialogDisableJS should equal(kJavaScriptDisableDialogSnippet);
+                });
+            });
         });
 
         context(@"when the MRAID bundle is not available", ^{
@@ -102,6 +114,31 @@ describe(@"MRAdView", ^{
 
             it(@"should tell its delegate that the ad failed to load", ^{
                 delegate should have_received(@selector(adDidFailToLoad:));
+            });
+        });
+    });
+
+    describe(@"Pre-caching", ^{
+        __block NSString *HTMLString;
+
+        context(@"when loading an ad that requires precaching", ^{
+            beforeEach(^{
+                view.adType = MRAdViewAdTypePreCached;
+
+                HTMLString = @"<script src='ad.js'></script>";
+                [view loadCreativeWithHTMLString:HTMLString baseURL:nil];
+            });
+
+            it(@"should not notify the delegate when the webview finishes loading", ^{
+                [view webViewDidFinishLoad:nil];
+
+                delegate should_not have_received(@selector(adDidLoad:));
+            });
+
+            it(@"should notify the delegate when the pre-cache complete URL is sent", ^{
+                [view performActionForMoPubSpecificURL:[NSURL URLWithString:@"mopub://precacheComplete"]];
+
+                delegate should have_received(@selector(adDidLoad:));
             });
         });
     });

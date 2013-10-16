@@ -8,6 +8,8 @@
 
 #import "UIWebView+MPAdditions.h"
 
+NSString *const kJavaScriptDisableDialogSnippet = @"window.alert = function() { }; window.prompt = function() { }; window.confirm = function() { };";
+
 @implementation UIWebView (MPAdditions)
 
 /*
@@ -15,13 +17,13 @@
  */
 - (void)mp_setScrollable:(BOOL)scrollable {
     #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 50000 // iOS 5.0+
-    if ([self respondsToSelector:@selector(scrollView)]) 
+    if ([self respondsToSelector:@selector(scrollView)])
     {
         UIScrollView *scrollView = self.scrollView;
         scrollView.scrollEnabled = scrollable;
         scrollView.bounces = scrollable;
-    } 
-    else 
+    }
+    else
     #endif
     {
         UIScrollView *scrollView = nil;
@@ -36,6 +38,14 @@
         scrollView.scrollEnabled = scrollable;
         scrollView.bounces = scrollable;
     }
+}
+
+/*
+ * Redefine alert, prompt, and confirm to do nothing
+ */
+- (void)disableJavaScriptDialogs
+{
+    [self stringByEvaluatingJavaScriptFromString:kJavaScriptDisableDialogSnippet];
 }
 
 @end

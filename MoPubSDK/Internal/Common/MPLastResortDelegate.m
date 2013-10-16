@@ -9,6 +9,8 @@
 #import "MPGlobal.h"
 #import "UIViewController+MPAdditions.h"
 
+@class MFMailComposeViewController;
+
 @implementation MPLastResortDelegate
 
 + (id)sharedDelegate
@@ -22,6 +24,11 @@
 }
 
 - (void)eventEditViewController:(EKEventEditViewController *)controller didCompleteWithAction:(EKEventEditViewAction)action
+{
+    [controller mp_dismissModalViewControllerAnimated:MP_ANIMATED];
+}
+
+- (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(NSInteger)result error:(NSError*)error
 {
     [controller mp_dismissModalViewControllerAnimated:MP_ANIMATED];
 }

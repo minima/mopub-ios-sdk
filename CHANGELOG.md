@@ -1,3 +1,27 @@
+## Version 1.16 (October 15, 2013)
+
+  - Creative Controls
+    - Creative Flagging 
+      - **Important**: ```MPAdAlertGestureRecognizer``` and ```MPAdAlertManager``` classes as well as ```MessageUI.framework``` must be added to your project to enable flagging functionality.
+      - Allows users to report certain inappropriate ad experiences directly to MoPub with a special gesture.
+      - User must swipe back and forth at least four times within the ad view to flag a creative.
+      - Swipes must cover more than ⅓ of the ad width and must be completely horizontal.
+      - Only works for direct sold, Marketplace, and server to server ad network ads.
+    - Blocked Popups
+      - Javascript alert, confirm, and prompt dialogs are blocked.
+    - Blocked Auto-redirects
+      - Ads that automatically redirect users to another page without user interaction are automatically blocked.
+  - MoPub Video Pre-caching
+    - Video ads from the Marketplace will be pre-cached automatically and videos will not be shown until they can play without additional buffering.
+  - Simple Ads Demo Improvements
+    - 300x250 and 728x90 test spots added to the demo app.
+  - Vungle Custom Event
+    - Supports Vungle as a custom native ad network for interstitial videos.
+  - SKStoreProductViewController iOS 7 Orientation Crash Fix
+    - Fixes iOS 7 bug that causes SKStoreProductViewController to crash if the app does not list portrait as a supported orientation.
+  - Log more readable message in response to the "no ads available" server error.
+  - Updated mraid.getVersion() to return 2.0
+
 ## Version 1.14 (September 12, 2013)
 
   - iOS 7 Gold Master support

@@ -12,6 +12,7 @@
 + (NSArray *)bannerAds
 {
     return @[
+             [MPAdInfo infoWithTitle:@"JS Popups" ID:@"c24cd4648f7b4ba79e4498686ed509e6" type:MPAdInfoBanner],
              [MPAdInfo infoWithTitle:@"Valid StoreKit Link" ID:@"b086a37c8fe911e295fa123138070049" type:MPAdInfoBanner],
              [MPAdInfo infoWithTitle:@"Invalid StoreKit Link" ID:@"4ebfdd8a90ba11e295fa123138070049" type:MPAdInfoBanner],
              [MPAdInfo infoWithTitle:@"MRAID Banner" ID:@"agltb3B1Yi1pbmNyDQsSBFNpdGUYzejGEgw" type:MPAdInfoBanner],
@@ -24,7 +25,8 @@
              [MPAdInfo infoWithTitle:@"Custom Network Banner" ID:@"76e8c2f4b8f111e281c11231392559e4" type:MPAdInfoBanner],
              [MPAdInfo infoWithTitle:@"Marketplace Banner" ID:@"f8e21726be6c11e295fa123138070049" type:MPAdInfoBanner],
              [MPAdInfo infoWithTitle:@"Click-to-Safari Link" ID:@"d79b3a4ee64248e3a9beadcb51caab57" type:MPAdInfoBanner],
-             [MPAdInfo infoWithTitle:@"Click-to-Safari Link MRAID" ID:@"d133d07aa80a4bf7a77d3a306b6dd3b3" type:MPAdInfoBanner]
+             [MPAdInfo infoWithTitle:@"Click-to-Safari Link MRAID" ID:@"d133d07aa80a4bf7a77d3a306b6dd3b3" type:MPAdInfoBanner],
+             [MPAdInfo infoWithTitle:@"HTML MRECT Banner Ad" ID:@"agltb3B1Yi1pbmNyDQsSBFNpdGUYqKO5CAw" type:MPAdInfoMRectBanner]
              ];
 }
 
@@ -39,7 +41,8 @@
              [MPAdInfo infoWithTitle:@"Greystripe Interstitial" ID:@"b80aef0c95a911e295fa123138070049" type:MPAdInfoInterstitial],
              [MPAdInfo infoWithTitle:@"InMobi Interstitial" ID:@"f0cbed0095a911e295fa123138070049" type:MPAdInfoInterstitial],
              [MPAdInfo infoWithTitle:@"Chartboost Interstitial" ID:@"a425ff78959911e295fa123138070049" type:MPAdInfoInterstitial],
-             [MPAdInfo infoWithTitle:@"MRAID Interstitial" ID:@"3aba0056add211e281c11231392559e4" type:MPAdInfoInterstitial]
+             [MPAdInfo infoWithTitle:@"MRAID Interstitial" ID:@"3aba0056add211e281c11231392559e4" type:MPAdInfoInterstitial],
+             [MPAdInfo infoWithTitle:@"Vungle Interstitial" ID:@"20e01fce81f611e295fa123138070049" type:MPAdInfoInterstitial]
              ];
 }
 

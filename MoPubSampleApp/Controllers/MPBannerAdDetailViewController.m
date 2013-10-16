@@ -8,6 +8,7 @@
 #import "MPBannerAdDetailViewController.h"
 #import "MPAdInfo.h"
 #import "MPSampleAppInstanceProvider.h"
+#import "MPGlobal.h"
 
 @interface MPBannerAdDetailViewController ()
 
@@ -21,9 +22,15 @@
 
 - (id)initWithAdInfo:(MPAdInfo *)info
 {
-    self = [super initWithNibName:nil bundle:nil];
+    self = [super initWithNibName:@"MPBannerAdDetailViewController" bundle:nil];
     if (self) {
         self.info = info;
+
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= MP_IOS_7_0
+        if ([self respondsToSelector:@selector(setEdgesForExtendedLayout:)]) {
+            self.edgesForExtendedLayout = UIRectEdgeNone;
+        }
+#endif
     }
     return self;
 }
@@ -36,14 +43,19 @@
     self.titleLabel.text = self.info.title;
     self.IDLabel.text = self.info.ID;
 
+    [self configureAd];
+
+    [self.spinner startAnimating];
+}
+
+- (void)configureAd
+{
     self.adView = [[MPSampleAppInstanceProvider sharedProvider] buildMPAdViewWithAdUnitID:self.info.ID
                                                                                      size:MOPUB_BANNER_SIZE];
     self.adView.delegate = self;
     self.adView.accessibilityLabel = @"banner";
     self.adView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     [self.adViewContainer addSubview:self.adView];
-
-    [self.spinner startAnimating];
 }
 
 - (void)viewDidAppear:(BOOL)animated

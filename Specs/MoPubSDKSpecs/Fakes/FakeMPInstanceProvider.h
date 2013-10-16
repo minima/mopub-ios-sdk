@@ -26,6 +26,8 @@
 #import "MPBaseBannerAdapter.h"
 #import "FakeBannerCustomEvent.h"
 #import "FakeMPTimer.h"
+#import "FakeMPAdAlertManager.h"
+#import "FakeMPAdAlertGestureRecognizer.h"
 #import <Foundation/Foundation.h>
 
 @class MRJavaScriptEventEmitter;
@@ -74,6 +76,8 @@
 @property (nonatomic, assign) MPMoviePlayerViewController *fakeMoviePlayerViewController;
 
 #pragma mark - Utilities
+@property (nonatomic, assign) FakeMPAdAlertManager *fakeAdAlertManager;
+@property (nonatomic, assign) FakeMPAdAlertGestureRecognizer *fakeAdAlertGestureRecognizer;
 @property (nonatomic, assign) FakeOperationQueue *fakeOperationQueue;
 @property (nonatomic, assign) FakeMPReachability *fakeMPReachability;
 @property (nonatomic, assign) NSDictionary *fakeCarrierInfo;

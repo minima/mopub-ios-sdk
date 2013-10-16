@@ -128,7 +128,7 @@
 {
     self.configuration = configuration;
 
-    MPLogInfo(@"Ad view is fetching ad network type: %@", self.configuration.networkType);
+    MPLogInfo(@"Interstatial ad view is fetching ad network type: %@", self.configuration.networkType);
 
     if ([self.configuration.networkType isEqualToString:@"clear"]) {
         MPLogInfo(@"Ad server response indicated no ad available.");

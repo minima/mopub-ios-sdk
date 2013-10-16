@@ -1,6 +1,7 @@
 #import "MPAdView.h"
 #import "MPAdConfigurationFactory.h"
 #import "FakeMPAdWebView.h"
+#import "FakeMPAdAlertManager.h"
 
 using namespace Cedar::Matchers;
 using namespace Cedar::Doubles;
@@ -21,8 +22,15 @@ describe(@"MPHTMLBannerIntegrationSuite", ^{
     __block id<CedarDouble, MPAdViewDelegate> delegate;
     __block UIViewController *presentingController;
     __block FakeMPAdServerCommunicator *communicator;
+    __block FakeMPAdAlertManager *fakeAdAlertManager;
 
     beforeEach(^{
+        FakeMPAdAlertGestureRecognizer *fakeGestureRecognizer = [[FakeMPAdAlertGestureRecognizer alloc] init];
+        fakeProvider.fakeAdAlertGestureRecognizer = fakeGestureRecognizer;
+
+        fakeAdAlertManager = [[[FakeMPAdAlertManager alloc] init] autorelease];
+        fakeProvider.fakeAdAlertManager = fakeAdAlertManager;
+
         presentingController = [[[UIViewController alloc] init] autorelease];
         delegate = nice_fake_for(@protocol(ChocolateMPAdViewDelegate));
         delegate stub_method(@selector(viewControllerForPresentingModalView)).and_return(presentingController);
@@ -33,6 +41,7 @@ describe(@"MPHTMLBannerIntegrationSuite", ^{
         fakeProvider.fakeMPAdWebView = fakeAd;
 
         banner = [[[MPAdView alloc] initWithAdUnitId:@"html_banner" size:MOPUB_BANNER_SIZE] autorelease];
+        banner.location = [[[CLLocation alloc] initWithLatitude:1337 longitude:1337] autorelease];
         banner.delegate = delegate;
         [banner loadAd];
 
@@ -66,6 +75,27 @@ describe(@"MPHTMLBannerIntegrationSuite", ^{
             banner.subviews should equal(@[fakeAd]);
             banner.adContentViewSize should equal(fakeAd.frame.size);
             fakeProvider.sharedFakeMPAnalyticsTracker.trackedImpressionConfigurations should be_empty;
+        });
+
+        describe(@"MPAdAlertManager", ^{
+            context(@"when the user alerts on the ad", ^{
+                beforeEach(^{
+                    [fakeAdAlertManager simulateGestureRecognized];
+                });
+
+                it(@"should have the correct ad unit id", ^{
+                    fakeAdAlertManager.adUnitId should equal(banner.adUnitId);
+                });
+
+                it(@"should have the correct location", ^{
+                    fakeAdAlertManager.location.coordinate.latitude should equal(banner.location.coordinate.latitude);
+                    fakeAdAlertManager.location.coordinate.longitude should equal(banner.location.coordinate.longitude);
+                });
+
+                it(@"should have the correct ad configuration", ^{
+                    fakeAdAlertManager.adConfiguration should equal(configuration);
+                });
+            });
         });
 
         context(@"when the user taps the ad", ^{

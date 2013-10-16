@@ -2,6 +2,7 @@
 #import "MPAdConfigurationFactory.h"
 #import "FakeMPAdWebView.h"
 #import "UIViewController+MPAdditions.h"
+#import "FakeMPAdAlertManager.h"
 
 using namespace Cedar::Matchers;
 using namespace Cedar::Doubles;
@@ -21,11 +22,19 @@ describe(@"MPHTMLInterstitialIntegrationSuite", ^{
     __block FakeMPAdWebView *webview;
     __block FakeMPAdServerCommunicator *communicator;
     __block MPAdConfiguration *configuration;
+    __block FakeMPAdAlertManager *fakeAdAlertManager;
 
     beforeEach(^{
+        FakeMPAdAlertGestureRecognizer *fakeGestureRecognizer = [[FakeMPAdAlertGestureRecognizer alloc] init];
+        fakeProvider.fakeAdAlertGestureRecognizer = fakeGestureRecognizer;
+
+        fakeAdAlertManager = [[[FakeMPAdAlertManager alloc] init] autorelease];
+        fakeProvider.fakeAdAlertManager = fakeAdAlertManager;
+
         delegate = nice_fake_for(@protocol(MethodicalDelegate));
 
         interstitial = [MPInterstitialAdController interstitialAdControllerForAdUnitId:@"html_interstitial"];
+        interstitial.location = [[[CLLocation alloc] initWithLatitude:1337 longitude:1337] autorelease];
         interstitial.delegate = delegate;
 
         presentingController = [[[UIViewController alloc] init] autorelease];
@@ -109,6 +118,27 @@ describe(@"MPHTMLInterstitialIntegrationSuite", ^{
                     NSURL *URL = [NSURL URLWithString:@"mopub://custom?fnc=beMethodical&data=%7B%22foo%22%3A3%7D"];
                     [webview sendClickRequest:[NSURLRequest requestWithURL:URL]];
                     delegate should have_received(@selector(beMethodical:)).with(@{@"foo":@3});
+                });
+            });
+
+            describe(@"MPAdAlertManager", ^{
+                context(@"when the user alerts on the ad", ^{
+                    beforeEach(^{
+                        [fakeAdAlertManager simulateGestureRecognized];
+                    });
+
+                    it(@"should have the correct ad unit id", ^{
+                        fakeAdAlertManager.adUnitId should equal(interstitial.adUnitId);
+                    });
+
+                    it(@"should have the correct location", ^{
+                        fakeAdAlertManager.location.coordinate.latitude should equal(interstitial.location.coordinate.latitude);
+                        fakeAdAlertManager.location.coordinate.longitude should equal(interstitial.location.coordinate.longitude);
+                    });
+
+                    it(@"should have the correct ad configuration", ^{
+                        fakeAdAlertManager.adConfiguration should equal(configuration);
+                    });
                 });
             });
 

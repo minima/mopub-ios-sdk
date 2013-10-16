@@ -8,6 +8,8 @@
 #import <UIKit/UIKit.h>
 #import "MPGlobal.h"
 
+@class CLLocation;
+
 @protocol MPInterstitialViewControllerDelegate;
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -34,6 +36,8 @@
 
 @protocol MPInterstitialViewControllerDelegate <NSObject>
 
+- (NSString *)adUnitId;
+- (CLLocation *)location;
 - (void)interstitialDidLoadAd:(MPInterstitialViewController *)interstitial;
 - (void)interstitialDidFailToLoadAd:(MPInterstitialViewController *)interstitial;
 - (void)interstitialWillAppear:(MPInterstitialViewController *)interstitial;

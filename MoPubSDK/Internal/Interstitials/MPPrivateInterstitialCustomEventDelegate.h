@@ -9,9 +9,11 @@
 #import "MPInterstitialCustomEventDelegate.h"
 
 @class MPAdConfiguration;
+@class CLLocation;
 
 @protocol MPPrivateInterstitialCustomEventDelegate <MPInterstitialCustomEventDelegate>
 
+- (NSString *)adUnitId;
 - (MPAdConfiguration *)configuration;
 - (id)interstitialDelegate;
 

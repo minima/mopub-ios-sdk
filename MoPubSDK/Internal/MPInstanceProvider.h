@@ -60,6 +60,7 @@
 @protocol MRVideoPlayerManagerDelegate;
 
 // Utilities
+@class MPAdAlertManager, MPAdAlertGestureRecognizer;
 @class MPAnalyticsTracker;
 @class MPReachability;
 @class MPTimer;
@@ -119,6 +120,8 @@ typedef id(^MPSingletonProviderBlock)();
 - (MPMoviePlayerViewController *)buildMPMoviePlayerViewControllerWithURL:(NSURL *)URL;
 
 #pragma mark - Utilities
+- (id<MPAdAlertManagerProtocol>)buildMPAdAlertManagerWithDelegate:(id)delegate;
+- (MPAdAlertGestureRecognizer *)buildMPAdAlertGestureRecognizerWithTarget:(id)target action:(SEL)action;
 - (NSOperationQueue *)sharedOperationQueue;
 - (MPAnalyticsTracker *)sharedMPAnalyticsTracker;
 - (MPReachability *)sharedMPReachability;

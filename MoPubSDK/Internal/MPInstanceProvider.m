@@ -323,6 +323,33 @@ static MPInstanceProvider *sharedProvider = nil;
 
 #pragma mark - Utilities
 
+- (id<MPAdAlertManagerProtocol>)buildMPAdAlertManagerWithDelegate:(id)delegate
+{
+    id<MPAdAlertManagerProtocol> adAlertManager = nil;
+
+    Class adAlertManagerClass = NSClassFromString(@"MPAdAlertManager");
+    if(adAlertManagerClass != nil)
+    {
+        adAlertManager = [[[adAlertManagerClass alloc] init] autorelease];
+        [adAlertManager performSelector:@selector(setDelegate:) withObject:delegate];
+    }
+
+    return adAlertManager;
+}
+
+- (MPAdAlertGestureRecognizer *)buildMPAdAlertGestureRecognizerWithTarget:(id)target action:(SEL)action
+{
+    MPAdAlertGestureRecognizer *gestureRecognizer = nil;
+
+    Class gestureRecognizerClass = NSClassFromString(@"MPAdAlertGestureRecognizer");
+    if(gestureRecognizerClass != nil)
+    {
+        gestureRecognizer = [[[gestureRecognizerClass alloc] initWithTarget:target action:action] autorelease];
+    }
+
+    return gestureRecognizer;
+}
+
 - (NSOperationQueue *)sharedOperationQueue
 {
     static NSOperationQueue *sharedOperationQueue = nil;

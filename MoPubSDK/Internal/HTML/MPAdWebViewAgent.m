@@ -27,6 +27,7 @@ NSString * const kMoPubCustomHost = @"custom";
 @property (nonatomic, retain) MPAdConfiguration *configuration;
 @property (nonatomic, retain) MPAdDestinationDisplayAgent *destinationDisplayAgent;
 @property (nonatomic, assign) BOOL shouldHandleRequests;
+@property (nonatomic, retain) id<MPAdAlertManagerProtocol> adAlertManager;
 
 - (void)performActionForMoPubSpecificURL:(NSURL *)URL;
 - (BOOL)shouldIntercept:(NSURL *)URL navigationType:(UIWebViewNavigationType)navigationType;
@@ -43,6 +44,7 @@ NSString * const kMoPubCustomHost = @"custom";
 @synthesize customMethodDelegate = _customMethodDelegate;
 @synthesize shouldHandleRequests = _shouldHandleRequests;
 @synthesize view = _view;
+@synthesize adAlertManager = _adAlertManager;
 
 - (id)initWithAdWebViewFrame:(CGRect)frame delegate:(id<MPAdWebViewAgentDelegate>)delegate customMethodDelegate:(id)customMethodDelegate;
 {
@@ -53,12 +55,16 @@ NSString * const kMoPubCustomHost = @"custom";
         self.delegate = delegate;
         self.customMethodDelegate = customMethodDelegate;
         self.shouldHandleRequests = YES;
+        self.adAlertManager = [[MPInstanceProvider sharedProvider] buildMPAdAlertManagerWithDelegate:self];
     }
     return self;
 }
 
 - (void)dealloc
 {
+    self.adAlertManager.targetAdView = nil;
+    self.adAlertManager.delegate = nil;
+    self.adAlertManager = nil;
     self.configuration = nil;
     [self.destinationDisplayAgent cancel];
     [self.destinationDisplayAgent setDelegate:nil];
@@ -66,6 +72,18 @@ NSString * const kMoPubCustomHost = @"custom";
     self.view.delegate = nil;
     self.view = nil;
     [super dealloc];
+}
+
+#pragma mark - <MPAdAlertManagerDelegate>
+
+- (UIViewController *)viewControllerForPresentingMailVC
+{
+    return [self.delegate viewControllerForPresentingModalView];
+}
+
+- (void)adAlertManagerDidTriggerAlert:(MPAdAlertManager *)manager
+{
+    [self.adAlertManager processAdAlertOnce];
 }
 
 #pragma mark - Public
@@ -87,8 +105,11 @@ NSString * const kMoPubCustomHost = @"custom";
     }
 
     [self.view mp_setScrollable:configuration.scrollable];
+    [self.view disableJavaScriptDialogs];
     [self.view loadHTMLString:[configuration adResponseHTMLString]
                          baseURL:nil];
+
+    [self initAdAlertManager];
 }
 
 - (void)invokeJavaScriptForEvent:(MPAdWebViewEvent)event
@@ -157,6 +178,11 @@ NSString * const kMoPubCustomHost = @"custom";
     } else {
         return YES;
     }
+}
+
+- (void)webViewDidStartLoad:(UIWebView *)webView
+{
+    [self.view disableJavaScriptDialogs];
 }
 
 #pragma mark - MoPub-specific URL handlers
@@ -228,6 +254,16 @@ NSString * const kMoPubCustomHost = @"custom";
 }
 
 #pragma mark - Utility
+
+- (void)initAdAlertManager
+{
+    self.adAlertManager.adConfiguration = self.configuration;
+    self.adAlertManager.adUnitId = [self.delegate adUnitId];
+    self.adAlertManager.targetAdView = self.view;
+    self.adAlertManager.location = [self.delegate location];
+    [self.adAlertManager beginMonitoringAlerts];
+}
+
 - (void)rotateToOrientation:(UIInterfaceOrientation)orientation
 {
     [self forceRedraw];

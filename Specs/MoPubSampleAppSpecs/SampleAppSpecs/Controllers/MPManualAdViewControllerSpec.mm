@@ -161,12 +161,6 @@ describe(@"MPManualAdViewController", ^{
             textField = controller.bannerTextField;
             spinner = controller.bannerActivityIndicator;
             statusLabel = controller.bannerStatusLabel;
-
-            adView = fakeProvider.lastFakeAdView;
-        });
-
-        it(@"should put the adView in the view hierarchy", ^{
-            controller.bannerContainer.subviews.lastObject should equal(adView);
         });
 
         context(@"when the load button is tapped", ^{
@@ -174,6 +168,12 @@ describe(@"MPManualAdViewController", ^{
                 statusLabel.text = @"something";
                 textField.text = @"fluffy bears";
                 [loadButton tap];
+
+                adView = fakeProvider.lastFakeAdView;
+            });
+
+            it(@"should put the adView in the view hierarchy", ^{
+                controller.bannerContainer.subviews.lastObject should equal(adView);
             });
 
             it(@"should tell the banner to load", ^{

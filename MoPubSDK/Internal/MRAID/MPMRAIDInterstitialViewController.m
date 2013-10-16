@@ -31,6 +31,7 @@
                                            closeButtonStyle:MRAdViewCloseButtonStyleAdControlled
                                               placementType:MRAdViewPlacementTypeInterstitial];
         _interstitialView.delegate = self;
+        _interstitialView.adType = configuration.precacheRequired ? MRAdViewAdTypePreCached : MRAdViewAdTypeDefault;
         _configuration = [configuration retain];
         self.orientationType = [_configuration orientationType];
         _advertisementHasCustomCloseButton = NO;
@@ -97,6 +98,21 @@
 }
 
 #pragma mark - MRAdViewDelegate
+
+- (CLLocation *)location
+{
+    return [self.delegate location];
+}
+
+- (NSString *)adUnitId
+{
+    return [self.delegate adUnitId];
+}
+
+- (MPAdConfiguration *)adConfiguration
+{
+    return _configuration;
+}
 
 - (UIViewController *)viewControllerForPresentingModalView
 {

@@ -12,6 +12,7 @@
 
 @protocol MPPrivateBannerCustomEventDelegate <MPBannerCustomEventDelegate>
 
+- (NSString *)adUnitId;
 - (MPAdConfiguration *)configuration;
 - (id)bannerDelegate;
 

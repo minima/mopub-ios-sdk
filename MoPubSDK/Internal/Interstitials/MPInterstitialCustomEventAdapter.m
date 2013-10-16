@@ -11,6 +11,7 @@
 #import "MPLogging.h"
 #import "MPInstanceProvider.h"
 #import "MPInterstitialCustomEvent.h"
+#import "MPInterstitialAdController.h"
 
 @interface MPInterstitialCustomEventAdapter ()
 
@@ -62,6 +63,11 @@
 }
 
 #pragma mark - MPInterstitialCustomEventDelegate
+
+- (NSString *)adUnitId
+{
+    return [self.delegate interstitialAdController].adUnitId;
+}
 
 - (CLLocation *)location
 {

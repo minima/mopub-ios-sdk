@@ -2,6 +2,8 @@
 #import "MPAdDestinationDisplayAgent.h"
 #import "MPAdWebView.h"
 #import "MPAdConfigurationFactory.h"
+#import "FakeMPAdAlertManager.h"
+#import "UIWebView+MPAdditions.h"
 
 using namespace Cedar::Matchers;
 using namespace Cedar::Doubles;
@@ -23,8 +25,12 @@ describe(@"MPAdWebViewAgent", ^{
     __block MPAdConfiguration *interstitialConfiguration;
     __block MPAdWebView *webView;
     __block MPAdDestinationDisplayAgent *destinationDisplayAgent;
+    __block FakeMPAdAlertManager *fakeAdAlertManager;
 
     beforeEach(^{
+        fakeAdAlertManager = [[[FakeMPAdAlertManager alloc] init] autorelease];
+        fakeProvider.fakeAdAlertManager = fakeAdAlertManager;
+
         delegate = nice_fake_for(@protocol(MPAdWebViewAgentDelegate));
 
         destinationDisplayAgent = nice_fake_for([MPAdDestinationDisplayAgent class]);
@@ -100,6 +106,22 @@ describe(@"MPAdWebViewAgent", ^{
         describe(@"loading webview data", ^{
             it(@"should load the ad's HTML data into the webview", ^{
                 agent.view.loadedHTMLString should equal(@"Publisher's Ad");
+            });
+        });
+
+        describe(@"initializing the ad alert manager", ^{
+            it(@"should be the delegate of the ad alert manager", ^{
+                fakeAdAlertManager.delegate should equal((id<MPAdAlertManagerDelegate>)agent);
+            });
+        });
+
+        describe(@"javascript dialog disabled", ^{
+            it(@"should have executed the dialog disabling javascript", ^{
+                NSArray *executedJS = [agent.view executedJavaScripts];
+                executedJS.count should equal(1);
+
+                NSString *dialogDisableJS = [executedJS objectAtIndex:0];
+                dialogDisableJS should equal(kJavaScriptDisableDialogSnippet);
             });
         });
     });
@@ -314,9 +336,9 @@ describe(@"MPAdWebViewAgent", ^{
         it(@"should tell the web view via javascript", ^{
             [[UIApplication sharedApplication] setStatusBarOrientation:UIInterfaceOrientationLandscapeRight];
             [agent rotateToOrientation:UIInterfaceOrientationLandscapeRight];
-            NSString *JS = [agent.view executedJavaScripts][0];
+            NSString *JS = [agent.view executedJavaScripts][1];
             JS should contain(@"return -90");
-            JS = [agent.view executedJavaScripts][1];
+            JS = [agent.view executedJavaScripts][2];
             JS should contain(@"width=320");
         });
     });
@@ -326,12 +348,12 @@ describe(@"MPAdWebViewAgent", ^{
 
         it(@"should support MPAdWebViewEventAdDidAppear", ^{
             [agent invokeJavaScriptForEvent:MPAdWebViewEventAdDidAppear];
-            [agent.view executedJavaScripts][0] should equal(@"webviewDidAppear();");
+            [agent.view executedJavaScripts][1] should equal(@"webviewDidAppear();");
         });
 
         it(@"should support MPAdWebViewEventAdDidDisappear", ^{
             [agent invokeJavaScriptForEvent:MPAdWebViewEventAdDidDisappear];
-            [agent.view executedJavaScripts][0] should equal(@"webviewDidClose();");
+            [agent.view executedJavaScripts][1] should equal(@"webviewDidClose();");
         });
     });
 });

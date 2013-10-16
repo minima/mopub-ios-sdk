@@ -14,6 +14,7 @@
 #import "KIFTestScenario+InMobi.h"
 #import "KIFTestScenario+HTML.h"
 #import "KIFTestScenario+MRAID.h"
+#import "KIFTestScenario+Vungle.h"
 
 @implementation MPKIFTestController
 
@@ -26,6 +27,8 @@
 {
     [KIFTestStep setDefaultTimeout:20];
 
+    // banners
+    [self addScenario:[KIFTestScenario scenarioForCreativeThatTriesToOpenJavaScriptDialogs]];
     [self addScenario:[KIFTestScenario scenarioForBannerAdWithStoreKitLink]];
     [self addScenario:[KIFTestScenario scenarioForBannerAdWithInvalidStoreKitLink]];
     [self addScenario:[KIFTestScenario scenarioForClickToSafariBannerAd]];
@@ -34,6 +37,9 @@
     [self addScenario:[KIFTestScenario scenarioForGADBanner]];
     [self addScenario:[KIFTestScenario scenarioForGreystripeBanner]];
     [self addScenario:[KIFTestScenario scenarioForInMobiBanner]];
+    [self addScenario:[KIFTestScenario scenarioForHTMLMRectBanner]];
+
+    // interstitials
     [self addScenario:[KIFTestScenario scenarioForInterstitialAdWithStoreKitLink]];
     [self addScenario:[KIFTestScenario scenarioForMillennialInterstitial]];
     [self addScenario:[KIFTestScenario scenarioForGADInterstitial]];
@@ -41,6 +47,7 @@
     [self addScenario:[KIFTestScenario scenarioForInMobiInterstitial]];
     [self addScenario:[KIFTestScenario scenarioForChartboostInterstitial]];
     [self addScenario:[KIFTestScenario scenarioForMultipleChartboostInterstitials]];
+    [self addScenario:[KIFTestScenario scenarioForVungleInterstitial]];
 
 // TODO: Add this scenario again once the MRAID tag is on the front-end and not just local.
 //    [self addScenario:[KIFTestScenario scenarioForMRAIDInterstitialWithVideo]];

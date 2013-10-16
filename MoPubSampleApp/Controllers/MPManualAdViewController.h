@@ -26,6 +26,7 @@
 
 @property (weak, nonatomic) IBOutlet UITextField *bannerTextField;
 @property (weak, nonatomic) IBOutlet UIButton *bannerLoadButton;
+@property (weak, nonatomic) IBOutlet UIButton *bannerMRectLoadButton;
 @property (weak, nonatomic) IBOutlet UILabel *bannerStatusLabel;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *bannerActivityIndicator;
 @property (weak, nonatomic) IBOutlet UIView *bannerContainer;

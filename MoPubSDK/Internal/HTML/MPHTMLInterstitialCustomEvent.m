@@ -47,6 +47,16 @@
 
 #pragma mark - MPInterstitialViewControllerDelegate
 
+- (CLLocation *)location
+{
+    return [self.delegate location];
+}
+
+- (NSString *)adUnitId
+{
+    return [self.delegate adUnitId];
+}
+
 - (void)interstitialDidLoadAd:(MPInterstitialViewController *)interstitial
 {
     MPLogInfo(@"MoPub HTML interstitial did load");

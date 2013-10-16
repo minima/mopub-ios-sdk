@@ -11,5 +11,7 @@
 
 + (id)scenarioForClickToSafariBannerAd;
 + (id)scenarioForClickToSafariMRAIDAd;
++ (id)scenarioForHTMLMRectBanner;
++ (id)scenarioForCreativeThatTriesToOpenJavaScriptDialogs;
 
 @end

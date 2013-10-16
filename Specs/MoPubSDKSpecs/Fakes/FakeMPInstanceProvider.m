@@ -287,6 +287,26 @@
 
 #pragma mark - Utilities
 
+- (MPAdAlertManager *)buildMPAdAlertManagerWithDelegate:(id<MPAdAlertManagerDelegate>)delegate
+{
+    if (self.fakeAdAlertManager != nil) {
+        self.fakeAdAlertManager.delegate = delegate;
+        return self.fakeAdAlertManager;
+    } else {
+        return [super buildMPAdAlertManagerWithDelegate:delegate];
+    }
+}
+
+- (MPAdAlertGestureRecognizer *)buildMPAdAlertGestureRecognizerWithTarget:(id)target action:(SEL)action
+{
+    if (self.fakeAdAlertGestureRecognizer != nil) {
+        [self.fakeAdAlertGestureRecognizer addTarget:target action:action];
+        return self.fakeAdAlertGestureRecognizer;
+    } else {
+        return [super buildMPAdAlertGestureRecognizerWithTarget:target action:action];
+    }
+}
+
 - (NSOperationQueue *)sharedOperationQueue
 {
     return [self returnFake:self.fakeOperationQueue

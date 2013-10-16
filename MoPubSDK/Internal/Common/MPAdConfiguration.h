@@ -32,6 +32,8 @@ extern NSString * const kRefreshTimeHeaderKey;
 extern NSString * const kAdTimeoutHeaderKey;
 extern NSString * const kScrollableHeaderKey;
 extern NSString * const kWidthHeaderKey;
+extern NSString * const kDspCreativeIdKey;
+extern NSString * const kPrecacheRequiredKey;
 
 extern NSString * const kInterstitialAdTypeHeaderKey;
 extern NSString * const kOrientationTypeHeaderKey;
@@ -60,6 +62,9 @@ extern NSString * const kAdTypeClear;
 @property (nonatomic, assign) Class customEventClass;
 @property (nonatomic, retain) NSDictionary *customEventClassData;
 @property (nonatomic, assign) MPInterstitialOrientationType orientationType;
+@property (nonatomic, copy) NSString *dspCreativeId;
+@property (nonatomic, assign) BOOL precacheRequired;
+@property (nonatomic, retain) NSDate *creationTimestamp;
 
 - (id)initWithHeaders:(NSDictionary *)headers data:(NSData *)data;
 
