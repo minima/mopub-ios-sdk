@@ -22,6 +22,10 @@
   - Log more readable message in response to the "no ads available" server error.
   - Updated mraid.getVersion() to return 2.0
 
+### Version 1.16.0.1 (October 24, 2013)
+
+  - MRAID commands now properly handle encoded URLs.
+
 ## Version 1.14 (September 12, 2013)
 
   - iOS 7 Gold Master support

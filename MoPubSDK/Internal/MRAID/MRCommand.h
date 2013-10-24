@@ -48,6 +48,7 @@
 - (BOOL)boolFromParametersForKey:(NSString *)key;
 - (int)intFromParametersForKey:(NSString *)key;
 - (NSString *)stringFromParametersForKey:(NSString *)key;
+- (NSURL *)urlFromParametersForKey:(NSString *)key;
 
 @end
 

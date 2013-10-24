@@ -20,7 +20,7 @@ The MoPub SDK is distributed as source code that you can include in your applica
 
   Includes everything you need to serve HTML and MRAID MoPub advertisements.  No third party ad networks are included.
 
-The current version of the SDK is 1.16.0.0
+The current version of the SDK is 1.16.0.1
 
 ## Integrate
 
@@ -52,6 +52,7 @@ Please view the [changelog](https://github.com/mopub/mopub-ios-sdk/blob/master/C
 	- Supports Vungle as a custom native ad network for interstitial videos.
 - SKStoreProductViewController iOS 7 Orientation Crash Fix
 	- Fixes iOS 7 bug that causes SKStoreProductViewController to crash if the app does not list portrait as a supported orientation.
+- MRAID commands now properly handle encoded URLs.
 
 ### Changes to InMobi Custom Event Integrations
 **Important**: As of version 1.14.0.0, the InMobi custom events packaged with the MoPub SDK only support InMobi version 4.00 and up. Follow the instructions [here](http://www.inmobi.com/support/art/25856216/22465648/integrating-mopub-with-inmobi-ios-sdk-4-0/) to integrate InMobi version 4.00 and up. If you would like to continue to use a prior version of the InMobi SDK, do not update the custom event files and follow the instructions [here](http://developer.inmobi.com/wiki/index.php?title=MoPub_InMobi_iOS) to integrate.   

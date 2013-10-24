@@ -18,13 +18,13 @@ describe(@"MRPictureManager", ^{
     describe(@"-storePicture:", ^{
         __block FakeMRImageDownloader *imageDownloader;
 
-        context(@"with an invalid URI parameter", ^{
+        context(@"if the provided URL contains illegal characters", ^{
             beforeEach(^{
-                [manager storePicture:@{@"uri" : @"••••••"}];
+                [manager storePicture:@{@"uri" : @"••••••||||"}];
             });
 
-            it(@"should inform its delegate that an error occurred", ^{
-                delegate should have_received(@selector(pictureManager:didFailToStorePictureWithErrorMessage:)).with(manager).and_with(Arguments::anything);
+            it(@"should properly encode the characters and not inform the delegate that an error occurred", ^{
+                delegate should_not have_received(@selector(pictureManager:didFailToStorePictureWithErrorMessage:)).with(manager).and_with(Arguments::anything);
             });
         });
 

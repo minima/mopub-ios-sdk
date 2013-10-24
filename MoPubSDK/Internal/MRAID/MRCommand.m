@@ -88,6 +88,11 @@
     return value;
 }
 
+- (NSURL *)urlFromParametersForKey:(NSString *)key {
+    NSString *value = [[self stringFromParametersForKey:key] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    return [NSURL URLWithString:value];
+}
+
 @end
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -189,8 +194,7 @@
 }
 
 - (BOOL)execute {
-    NSString *URLString = [self stringFromParametersForKey:@"url"];
-    [self.view handleMRAIDOpenCallForURL:[NSURL URLWithString:URLString]];
+    [self.view handleMRAIDOpenCallForURL:[self urlFromParametersForKey:@"url"]];
     return YES;
 }
 

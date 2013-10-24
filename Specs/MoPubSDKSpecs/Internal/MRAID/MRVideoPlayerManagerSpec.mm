@@ -49,17 +49,17 @@ describe(@"MRVideoPlayerManager", ^{
             });
         });
 
-        context(@"if the provided URL is malformed", ^{
+        context(@"if the provided URL contains illegal characters", ^{
             beforeEach(^{
-                [manager playVideo:@{@"uri": @"••••••"}];
+                [manager playVideo:@{@"uri": @"••••••||||"}];
             });
 
-            it(@"should inform the delegate that an error occurred", ^{
-                delegate should have_received(@selector(videoPlayerManager:didFailToPlayVideoWithErrorMessage:)).with(manager).and_with(Arguments::anything);
+            it(@"should properly encode the characters and not inform the delegate that an error occurred", ^{
+                delegate should_not have_received(@selector(videoPlayerManager:didFailToPlayVideoWithErrorMessage:)).with(manager).and_with(Arguments::anything);
             });
 
-            it(@"should not present a video player", ^{
-                presentingViewController.presentedViewController should be_nil;
+            it(@"should present a video player", ^{
+                presentingViewController.presentedViewController should be_same_instance_as(moviePlayerViewController);
             });
         });
     });

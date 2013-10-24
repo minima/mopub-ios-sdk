@@ -31,7 +31,7 @@
 
 - (void)playVideo:(NSDictionary *)parameters
 {
-    NSString *URLString = [parameters objectForKey:@"uri"];
+    NSString *URLString = [[parameters objectForKey:@"uri"] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     NSURL *URL = [NSURL URLWithString:URLString];
 
     if (!URL) {

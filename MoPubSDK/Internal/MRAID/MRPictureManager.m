@@ -38,7 +38,7 @@
 
 - (void)storePicture:(NSDictionary *)parameters
 {
-    self.imageURL = [NSURL URLWithString:[parameters objectForKey:@"uri"]];
+    self.imageURL = [NSURL URLWithString:[[parameters objectForKey:@"uri"] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
 
     if (!self.imageURL) {
         [self.delegate pictureManager:self
