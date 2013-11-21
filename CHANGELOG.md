@@ -1,3 +1,10 @@
+## Version 1.17 (November 20, 2013)
+
+  - AdColony Custom Event
+    - Supports AdColony as a custom native ad network for interstitial videos. Note that V4VC (virtual currency reward) is currently not supported. 
+  - Handle ISO Latin-1 site encoding in addition to UTF-8
+  - Bug fixes
+
 ## Version 1.16 (October 15, 2013)
 
   - Creative Controls

@@ -34,6 +34,7 @@ static NSString *const kMovieWillExitNotification42 =
 @interface MRAdViewDisplayController ()
 
 @property (nonatomic, retain) MRAdView *twoPartExpansionView;
+@property (nonatomic, assign) MRAdViewState currentState;
 
 - (CGRect)defaultPosition;
 - (void)checkViewability;
@@ -233,11 +234,11 @@ shouldLockOrientation:(BOOL)shouldLockOrientation {
     [MPKeyWindow() addSubview:_dimmingView];
 
     if (url) {
-        self.twoPartExpansionView = [[[MRAdView alloc] initWithFrame:self.view.frame
-                                                     allowsExpansion:NO
-                                                    closeButtonStyle:MRAdViewCloseButtonStyleAdControlled
-                                                       placementType:MRAdViewPlacementTypeInline] autorelease];
-        self.twoPartExpansionView.delegate = self;
+        self.twoPartExpansionView = [[MPInstanceProvider sharedProvider] buildMRAdViewWithFrame:self.view.frame
+                                                                                allowsExpansion:NO
+                                                                               closeButtonStyle:MRAdViewCloseButtonStyleAdControlled
+                                                                                  placementType:MRAdViewPlacementTypeInline
+                                                                                       delegate:self];
         [self.twoPartExpansionView loadCreativeFromURL:url];
 
         _expansionContentView = self.twoPartExpansionView;

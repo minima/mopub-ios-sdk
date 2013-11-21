@@ -4,6 +4,12 @@
 using namespace Cedar::Matchers;
 using namespace Cedar::Doubles;
 
+@interface MPURLResolver ()
+
+@property (nonatomic, retain) NSMutableData *responseData;
+
+@end
+
 SPEC_BEGIN(MPURLResolverSpec)
 
 describe(@"MPURLResolver", ^{
@@ -310,6 +316,48 @@ describe(@"MPURLResolver", ^{
 
         it(@"should cancel the connection", ^{
             [NSURLConnection lastConnection] should be_nil;
+        });
+    });
+
+    describe(@"websites that use different encodings", ^{
+        __block NSString *markup;
+
+        beforeEach(^{
+            urlResolver.delegate = delegate;
+        });
+
+        context(@"when a site uses UTF8 encoding", ^{
+            it(@"should pass the correct site markup to the delegate", ^{
+                markup = @"this is the test string ïÇ";
+                urlResolver.responseData = [[markup dataUsingEncoding:NSUTF8StringEncoding] mutableCopy];
+
+                [urlResolver connectionDidFinishLoading:nil];
+
+                delegate.HTMLString should equal(markup);
+            });
+        });
+
+        context(@"when a site uses Latin iso 1 encoding", ^{
+            it(@"should pass the correct site markup to the delegate", ^{
+                markup = @"this is the test string ïÇ";
+                urlResolver.responseData = [[markup dataUsingEncoding:NSISOLatin1StringEncoding] mutableCopy];
+
+                [urlResolver connectionDidFinishLoading:nil];
+
+                delegate.HTMLString should equal(markup);
+            });
+        });
+
+        context(@"when a site uses Shift JIS encoding", ^{
+            // incorrectly decoded instead of nil because these multi-byte characters DO have mappings in iso latin 1
+            it(@"should pass an incorrectly decoded string to the delegate", ^{
+                markup = @"this is the test string ｵﾏ";
+                urlResolver.responseData = [[markup dataUsingEncoding:NSShiftJISStringEncoding] mutableCopy];
+
+                [urlResolver connectionDidFinishLoading:nil];
+
+                delegate.HTMLString should_not equal(markup);
+            });
         });
     });
 });

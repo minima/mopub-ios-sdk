@@ -28,6 +28,7 @@
 #import "FakeMPTimer.h"
 #import "FakeMPAdAlertManager.h"
 #import "FakeMPAdAlertGestureRecognizer.h"
+#import "FakeMRAdView.h"
 #import <Foundation/Foundation.h>
 
 @class MRJavaScriptEventEmitter;
@@ -38,6 +39,7 @@
 @class MRVideoPlayerManager;
 @class MPMoviePlayerViewController;
 @class MRBundleManager;
+@class MRAdView;
 
 @interface FakeMPInstanceProvider : MPInstanceProvider
 
@@ -64,6 +66,7 @@
 @property (nonatomic, assign) MPAdDestinationDisplayAgent *fakeMPAdDestinationDisplayAgent;
 
 #pragma mark - MRAID
+@property (nonatomic, assign) MRAdView *fakeMRAdView;
 @property (nonatomic, assign) MRBundleManager *fakeMRBundleManager;
 @property (nonatomic, assign) UIWebView *fakeUIWebView;
 @property (nonatomic, assign) MRJavaScriptEventEmitter *fakeMRJavaScriptEventEmitter;

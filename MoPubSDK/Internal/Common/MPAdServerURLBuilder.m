@@ -67,6 +67,7 @@ NSString * const kMoPubInterfaceOrientationLandscape = @"l";
     URLString = [URLString stringByAppendingString:[self queryParameterForISOCountryCode]];
     URLString = [URLString stringByAppendingString:[self queryParameterForMobileNetworkCode]];
     URLString = [URLString stringByAppendingString:[self queryParameterForMobileCountryCode]];
+    URLString = [URLString stringByAppendingString:[self queryParameterForDeviceName]];
 
     return [NSURL URLWithString:URLString];
 }
@@ -193,6 +194,12 @@ NSString * const kMoPubInterfaceOrientationLandscape = @"l";
 {
     NSString *code = [[[MPInstanceProvider sharedProvider] sharedCarrierInfo] objectForKey:@"mobileCountryCode"];
     return code ? [NSString stringWithFormat:@"&mcc=%@", [code URLEncodedString]] : @"";
+}
+
++ (NSString *)queryParameterForDeviceName
+{
+    NSString *deviceName = [[UIDevice currentDevice] hardwareDeviceName];
+    return deviceName ? [NSString stringWithFormat:@"&dn=%@", [deviceName URLEncodedString]] : @"";
 }
 
 + (BOOL)advertisingTrackingEnabled

@@ -61,7 +61,12 @@ describe(@"MPAdView", ^{
 
         context(@"when the content view is an MRAID view", ^{
             it(@"should return the original size of the ad view (don't ask)", ^{
-                [adView setAdContentView:[[[MRAdView alloc] initWithFrame:CGRectMake(0, 0, 40, 50)] autorelease]];
+                MRAdView *mrAdView = [[MPInstanceProvider sharedProvider] buildMRAdViewWithFrame:CGRectMake(0, 0, 40, 50)
+                                                                                 allowsExpansion:YES
+                                                                                closeButtonStyle:MRAdViewCloseButtonStyleAdControlled
+                                                                                   placementType:MRAdViewPlacementTypeInline
+                                                                                        delegate:nil];
+                [adView setAdContentView:mrAdView];
                 [adView adContentViewSize] should equal(MOPUB_BANNER_SIZE);
             });
         });

@@ -38,7 +38,7 @@
 
 - (void)fireNativeCommandCompleteEvent:(NSString *)command
 {
-    // TODO
+    self.lastCompletedCommand = command;
 }
 
 - (void)fireReadyEvent

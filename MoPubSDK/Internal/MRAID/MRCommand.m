@@ -54,6 +54,11 @@
     [super dealloc];
 }
 
+// return YES by default for user safety
+- (BOOL)requiresUserInteraction {
+    return YES;
+}
+
 - (BOOL)execute {
     return YES;
 }
@@ -167,6 +172,10 @@
 
 + (void)load {
     [MRCommand registerCommand:self];
+}
+
+- (BOOL)requiresUserInteraction {
+    return NO;
 }
 
 + (NSString *)commandType {

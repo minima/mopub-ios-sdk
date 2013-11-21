@@ -45,6 +45,8 @@
 @protocol MPAdDestinationDisplayAgentDelegate;
 
 // MRAID
+@class MRAdView;
+@protocol MRAdViewDelegate;
 @class MRBundleManager;
 @class MRJavaScriptEventEmitter;
 @class MRCalendarManager;
@@ -108,6 +110,11 @@ typedef id(^MPSingletonProviderBlock)();
 - (MPAdDestinationDisplayAgent *)buildMPAdDestinationDisplayAgentWithDelegate:(id<MPAdDestinationDisplayAgentDelegate>)delegate;
 
 #pragma mark - MRAID
+- (MRAdView *)buildMRAdViewWithFrame:(CGRect)frame
+                     allowsExpansion:(BOOL)allowsExpansion
+                    closeButtonStyle:(NSUInteger)style
+                       placementType:(NSUInteger)type
+                            delegate:(id<MRAdViewDelegate>)delegate;
 - (MRBundleManager *)buildMRBundleManager;
 - (UIWebView *)buildUIWebViewWithFrame:(CGRect)frame;
 - (MRJavaScriptEventEmitter *)buildMRJavaScriptEventEmitterWithWebView:(UIWebView *)webView;

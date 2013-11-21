@@ -201,6 +201,21 @@
 }
 
 #pragma mark - MRAID
+
+- (MRAdView *)buildMRAdViewWithFrame:(CGRect)frame
+                     allowsExpansion:(BOOL)allowsExpansion
+                    closeButtonStyle:(MRAdViewCloseButtonStyle)style
+                       placementType:(MRAdViewPlacementType)type
+                            delegate:(id<MRAdViewDelegate>)delegate
+{
+    if (self.fakeMRAdView != nil) {
+        self.fakeMRAdView.delegate = delegate;
+        return self.fakeMRAdView;
+    } else {
+        return [super buildMRAdViewWithFrame:frame allowsExpansion:allowsExpansion closeButtonStyle:style placementType:type delegate:delegate];
+    }
+}
+
 - (MRBundleManager *)buildMRBundleManager
 {
     return [self returnFake:self.fakeMRBundleManager

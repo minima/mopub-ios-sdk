@@ -231,6 +231,14 @@ describe(@"MPAdServerURLBuilder", ^{
         URL.absoluteString should contain(@"&mnc=310");
         URL.absoluteString should contain(@"&mcc=410");
     });
+
+    it(@"should provide the device name identifier", ^{
+        URL = [MPAdServerURLBuilder URLWithAdUnitID:@"guy"
+                                           keywords:nil
+                                           location:nil
+                                            testing:YES];
+        URL.absoluteString should contain([NSString stringWithFormat:@"&dn=%@", [[[UIDevice currentDevice] hardwareDeviceName] URLEncodedString]]);
+    });
 });
 
 SPEC_END

@@ -22,4 +22,19 @@
     }];
 }
 
++ (id)stepToVerifyAbsenceOfViewControllerClass:(Class)klass
+{
+    NSString *description = [NSString stringWithFormat:@"Verify %@ is not on-screen", NSStringFromClass(klass)];
+    return [KIFTestStep stepWithDescription:description executionBlock:^KIFTestStepResult(KIFTestStep *step, NSError *__autoreleasing *error) {
+
+        UIViewController *topViewController = [KIFHelper topMostViewController];
+
+        if ([topViewController isKindOfClass:klass]) {
+            KIFTestCondition(NO, error, @"%@ is on screen", NSStringFromClass(klass));
+        }
+
+        return KIFTestStepResultSuccess;
+    }];
+}
+
 @end

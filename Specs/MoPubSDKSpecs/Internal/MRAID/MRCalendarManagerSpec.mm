@@ -226,18 +226,19 @@ describe(@"MRCalendarManager", ^{
         });
 
         // XXX: These tests can't pass in the simulator because its calendar doesn't support any availability settings.
-
-        xit(@"should create an event with a busy availability setting if 'transparency' is set to 'opaque'", ^{
+#if !TARGET_IPHONE_SIMULATOR
+        it(@"should create an event with a busy availability setting if 'transparency' is set to 'opaque'", ^{
             event = [manager calendarEventWithParameters:@{@"transparency": @"opaque"}
                                               eventStore:nil];
             event.availability should equal(EKEventAvailabilityBusy);
         });
 
-        xit(@"should create an event with a free availability setting if 'transparency' is set to 'transparent'", ^{
+        it(@"should create an event with a free availability setting if 'transparency' is set to 'transparent'", ^{
             event = [manager calendarEventWithParameters:@{@"transparency": @"transparent"}
                                               eventStore:nil];
             event.availability should equal(EKEventAvailabilityFree);
         });
+#endif
     });
 
     describe(@"-createRecurrenceRuleWithParameters:", ^{

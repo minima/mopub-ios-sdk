@@ -6,10 +6,14 @@
 //
 
 #import "MPMRAIDInterstitialViewController.h"
-
+#import "MPInstanceProvider.h"
 #import "MPAdConfiguration.h"
 
 @interface MPMRAIDInterstitialViewController ()
+
+@property (nonatomic, retain) MRAdView *interstitialView;
+@property (nonatomic, retain) MPAdConfiguration *configuration;
+@property (nonatomic, assign) BOOL advertisementHasCustomCloseButton;
 
 @end
 
@@ -18,6 +22,9 @@
 @implementation MPMRAIDInterstitialViewController
 
 @synthesize delegate = _delegate;
+@synthesize interstitialView = _interstitialView;
+@synthesize configuration = _configuration;
+@synthesize advertisementHasCustomCloseButton = _advertisementHasCustomCloseButton;
 
 - (id)initWithAdConfiguration:(MPAdConfiguration *)configuration
 {
@@ -26,24 +33,25 @@
         CGFloat width = MAX(configuration.preferredSize.width, 1);
         CGFloat height = MAX(configuration.preferredSize.height, 1);
         CGRect frame = CGRectMake(0, 0, width, height);
-        _interstitialView = [[MRAdView alloc] initWithFrame:frame
-                                            allowsExpansion:NO
-                                           closeButtonStyle:MRAdViewCloseButtonStyleAdControlled
-                                              placementType:MRAdViewPlacementTypeInterstitial];
-        _interstitialView.delegate = self;
-        _interstitialView.adType = configuration.precacheRequired ? MRAdViewAdTypePreCached : MRAdViewAdTypeDefault;
-        _configuration = [configuration retain];
-        self.orientationType = [_configuration orientationType];
-        _advertisementHasCustomCloseButton = NO;
+        self.interstitialView = [[MPInstanceProvider sharedProvider] buildMRAdViewWithFrame:frame
+                                                                            allowsExpansion:NO
+                                                                           closeButtonStyle:MRAdViewCloseButtonStyleAdControlled
+                                                                              placementType:MRAdViewPlacementTypeInterstitial
+                                                                                   delegate:self];
+
+        self.interstitialView.adType = configuration.precacheRequired ? MRAdViewAdTypePreCached : MRAdViewAdTypeDefault;
+        self.configuration = configuration;
+        self.orientationType = [self.configuration orientationType];
+        self.advertisementHasCustomCloseButton = NO;
     }
     return self;
 }
 
 - (void)dealloc
 {
-    _interstitialView.delegate = nil;
-    [_interstitialView release];
-    [_configuration release];
+    self.interstitialView.delegate = nil;
+    self.interstitialView = nil;
+    self.configuration = nil;
     [super dealloc];
 }
 
@@ -51,22 +59,22 @@
 {
     [super viewDidLoad];
 
-    _interstitialView.frame = self.view.bounds;
-    _interstitialView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    [self.view addSubview:_interstitialView];
+    self.interstitialView.frame = self.view.bounds;
+    self.interstitialView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    [self.view addSubview:self.interstitialView];
 }
 
 #pragma mark - Public
 
 - (void)startLoading
 {
-    [_interstitialView loadCreativeWithHTMLString:[_configuration adResponseHTMLString]
-                                          baseURL:nil];
+    [self.interstitialView loadCreativeWithHTMLString:[self.configuration adResponseHTMLString]
+                                              baseURL:nil];
 }
 
 - (BOOL)shouldDisplayCloseButton
 {
-    return !_advertisementHasCustomCloseButton;
+    return !self.advertisementHasCustomCloseButton;
 }
 
 - (void)willPresentInterstitial
@@ -111,7 +119,7 @@
 
 - (MPAdConfiguration *)adConfiguration
 {
-    return _configuration;
+    return self.configuration;
 }
 
 - (UIViewController *)viewControllerForPresentingModalView
@@ -145,7 +153,7 @@
 
 - (void)ad:(MRAdView *)adView didRequestCustomCloseEnabled:(BOOL)enabled
 {
-    _advertisementHasCustomCloseButton = enabled;
+    self.advertisementHasCustomCloseButton = enabled;
     [self layoutCloseButton];
 }
 

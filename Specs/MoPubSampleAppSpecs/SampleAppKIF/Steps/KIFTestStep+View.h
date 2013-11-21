@@ -11,5 +11,7 @@
 
 + (KIFTestStep *)stepToWaitForPresenceOfViewWithClassName:(NSString *)className;
 + (KIFTestStep *)stepToWaitForAbsenceOfViewWithClassName:(NSString *)className;
++ (KIFTestStep *)stepToEnsureAbsenceOfViewWithClassName:(NSString *)className;
++ (KIFTestStep *)stepToEnsureAbsenceOfUIAlertView;
 
 @end

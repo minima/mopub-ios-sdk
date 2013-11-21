@@ -15,6 +15,7 @@
 #import "KIFTestScenario+HTML.h"
 #import "KIFTestScenario+MRAID.h"
 #import "KIFTestScenario+Vungle.h"
+#import "KIFTestScenario+AdColony.h"
 
 @implementation MPKIFTestController
 
@@ -38,6 +39,8 @@
     [self addScenario:[KIFTestScenario scenarioForGreystripeBanner]];
     [self addScenario:[KIFTestScenario scenarioForInMobiBanner]];
     [self addScenario:[KIFTestScenario scenarioForHTMLMRectBanner]];
+    [self addScenario:[KIFTestScenario scenarioForMRAIDAdThatTriesToStoreAPictureWithoutUserInteraction]];
+    [self addScenario:[KIFTestScenario scenarioForMRAIDAdThatTriesToPlayAVideoWithoutUserInteraction]];
 
     // interstitials
     [self addScenario:[KIFTestScenario scenarioForInterstitialAdWithStoreKitLink]];
@@ -48,6 +51,9 @@
     [self addScenario:[KIFTestScenario scenarioForChartboostInterstitial]];
     [self addScenario:[KIFTestScenario scenarioForMultipleChartboostInterstitials]];
     [self addScenario:[KIFTestScenario scenarioForVungleInterstitial]];
+    [self addScenario:[KIFTestScenario scenarioForAdColonyInterstitial]];
+    [self addScenario:[KIFTestScenario scenarioForMultipleAdColonyInterstitials]];
+    [self addScenario:[KIFTestScenario scenarioForMRAIDInterstitialWithAutoPlayVideo]];
 
 // TODO: Add this scenario again once the MRAID tag is on the front-end and not just local.
 //    [self addScenario:[KIFTestScenario scenarioForMRAIDInterstitialWithVideo]];

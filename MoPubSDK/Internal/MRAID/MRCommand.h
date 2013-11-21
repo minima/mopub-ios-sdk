@@ -41,6 +41,9 @@
 + (NSString *)commandType;
 + (id)commandForString:(NSString *)string;
 
+// returns YES by default for user safety
+- (BOOL)requiresUserInteraction;
+
 - (BOOL)execute;
 
 - (CGFloat)floatFromParametersForKey:(NSString *)key;

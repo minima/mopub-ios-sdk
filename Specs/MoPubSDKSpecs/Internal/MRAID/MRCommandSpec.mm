@@ -8,6 +8,7 @@ using namespace Cedar::Doubles;
 
 @interface MRAdView ()
 
+@property (nonatomic, assign) BOOL userTappedWebView;
 @property (nonatomic, retain) MPAdDestinationDisplayAgent *destinationDisplayAgent;
 
 @end
@@ -15,7 +16,19 @@ using namespace Cedar::Doubles;
 SPEC_BEGIN(MRCommandSpec)
 
 describe(@"MRCommand", ^{
-    xit(@"should have its mapping logic tested", ^{});
+    it(@"should return the right Class for each command type", ^{
+        MRCommand *command = [MRCommand commandForString:[MRExpandCommand commandType]];
+        [command class] should equal([MRExpandCommand class]);
+
+        command = [MRCommand commandForString:[MRCloseCommand commandType]];
+        [command class] should equal([MRCloseCommand class]);
+
+        command = [MRCommand commandForString:[MRUseCustomCloseCommand commandType]];
+        [command class] should equal([MRUseCustomCloseCommand class]);
+
+        command = [MRCommand commandForString:[MROpenCommand commandType]];
+        [command class] should equal([MROpenCommand class]);
+    });
 });
 
 describe(@"MRExpandCommand", ^{
@@ -24,7 +37,11 @@ describe(@"MRExpandCommand", ^{
     __block MRAdViewDisplayController<CedarDouble> *mrAdViewDisplayController;
 
     beforeEach(^{
-        mrAdView = [[[MRAdView alloc] init] autorelease];
+        mrAdView = [[MPInstanceProvider sharedProvider] buildMRAdViewWithFrame:CGRectZero
+                                                               allowsExpansion:YES
+                                                              closeButtonStyle:MRAdViewCloseButtonStyleAdControlled
+                                                                 placementType:MRAdViewPlacementTypeInline
+                                                                      delegate:nil];
         mrAdViewDisplayController = nice_fake_for([MRAdViewDisplayController class]);
         mrAdView.displayController = mrAdViewDisplayController;
         command = [[[MRExpandCommand alloc] init] autorelease];
@@ -54,6 +71,7 @@ describe(@"MROpenCommand", ^{
         mrAdView = [[[MRAdView alloc] init] autorelease];
         displayAgent = nice_fake_for([MPAdDestinationDisplayAgent class]);
         mrAdView.destinationDisplayAgent = displayAgent;
+        mrAdView.userTappedWebView = YES;
         command = [[[MROpenCommand alloc] init] autorelease];
         command.view = mrAdView;
     });

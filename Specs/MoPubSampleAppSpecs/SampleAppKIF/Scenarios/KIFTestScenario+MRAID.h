@@ -10,5 +10,8 @@
 @interface KIFTestScenario (MRAID)
 
 + (id)scenarioForMRAIDInterstitialWithVideo;
++ (id)scenarioForMRAIDInterstitialWithAutoPlayVideo;
++ (id)scenarioForMRAIDAdThatTriesToStoreAPictureWithoutUserInteraction;
++ (id)scenarioForMRAIDAdThatTriesToPlayAVideoWithoutUserInteraction;
 
 @end

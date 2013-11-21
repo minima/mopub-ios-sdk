@@ -262,6 +262,17 @@ static MPInstanceProvider *sharedProvider = nil;
 
 #pragma mark - MRAID
 
+- (MRAdView *)buildMRAdViewWithFrame:(CGRect)frame
+                     allowsExpansion:(BOOL)allowsExpansion
+                    closeButtonStyle:(MRAdViewCloseButtonStyle)style
+                       placementType:(MRAdViewPlacementType)type
+                            delegate:(id<MRAdViewDelegate>)delegate
+{
+    MRAdView *mrAdView = [[[MRAdView alloc] initWithFrame:frame allowsExpansion:allowsExpansion closeButtonStyle:style placementType:type] autorelease];
+    mrAdView.delegate = delegate;
+    return mrAdView;
+}
+
 - (MRBundleManager *)buildMRBundleManager
 {
     return [MRBundleManager sharedManager];

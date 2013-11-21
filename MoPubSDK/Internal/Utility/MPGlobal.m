@@ -10,6 +10,9 @@
 #import "MPConstants.h"
 #import <CommonCrypto/CommonDigest.h>
 
+#import <sys/types.h>
+#import <sys/sysctl.h>
+
 BOOL MPViewHasHiddenAncestor(UIView *view);
 BOOL MPViewIsDescendantOfKeyWindow(UIView *view);
 BOOL MPViewIntersectsKeyWindow(UIView *view);
@@ -169,6 +172,23 @@ BOOL MPViewIntersectsKeyWindow(UIView *view)
                                                                            (CFStringRef)@"!*'();:@&=+$,/?%#[]<>",
                                                                            kCFStringEncodingUTF8);
     return [result autorelease];
+}
+
+@end
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+@implementation UIDevice (MPAdditions)
+
+- (NSString *)hardwareDeviceName
+{
+    size_t size;
+    sysctlbyname("hw.machine", NULL, &size, NULL, 0);
+    char *machine = malloc(size);
+    sysctlbyname("hw.machine", machine, &size, NULL, 0);
+    NSString *platform = [NSString stringWithCString:machine encoding:NSUTF8StringEncoding];
+    free(machine);
+    return platform;
 }
 
 @end

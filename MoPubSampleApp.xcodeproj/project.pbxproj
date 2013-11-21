@@ -17,6 +17,9 @@
 		462E156F17F0F5D100408E17 /* MPMRectBannerAdDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 462E156E17F0F5D100408E17 /* MPMRectBannerAdDetailViewController.m */; };
 		462E157017F0F5D100408E17 /* MPMRectBannerAdDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 462E156E17F0F5D100408E17 /* MPMRectBannerAdDetailViewController.m */; };
 		462E157117F0F5D100408E17 /* MPMRectBannerAdDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 462E156E17F0F5D100408E17 /* MPMRectBannerAdDetailViewController.m */; };
+		467F1DAF18187FA0006E94E3 /* KIFTestScenario+AdColony.m in Sources */ = {isa = PBXBuildFile; fileRef = 467F1DAE18187FA0006E94E3 /* KIFTestScenario+AdColony.m */; };
+		468F65D11816EB2300B3B8AA /* AdColony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 468F65CF1816EB2300B3B8AA /* AdColony.framework */; };
+		468F65D21816EB2300B3B8AA /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 468F65D01816EB2300B3B8AA /* README.md */; };
 		46B9E8AA17E0D38900B78D11 /* libInMobi-4.0.2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 46B9E8A717E0D38900B78D11 /* libInMobi-4.0.2.a */; };
 		46B9E8AB17E0D7D100B78D11 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = AE10920D170120E700812E6E /* libsqlite3.dylib */; };
 		46B9E8AC17E0D7D800B78D11 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = AE10920C170120E700812E6E /* libz.dylib */; };
@@ -35,6 +38,7 @@
 		46E5043E18035A19006A2FC3 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE0F1FB1171F1D2800FA3BE6 /* CoreLocation.framework */; };
 		46E5044018035A26006A2FC3 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46E5043F18035A26006A2FC3 /* CoreMedia.framework */; };
 		46E5B4AE18047FB60002ED66 /* KIFTestScenario+Vungle.m in Sources */ = {isa = PBXBuildFile; fileRef = 46E5B4AD18047FB60002ED66 /* KIFTestScenario+Vungle.m */; };
+		46EC22CE1816EFC1001D5364 /* AdColonyInterstitialCustomEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 46EC22CD1816EFC1001D5364 /* AdColonyInterstitialCustomEvent.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		46F883C917FB7AC5004CE563 /* MPLeaderboardBannerAdDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46F883C817FB7AC5004CE563 /* MPLeaderboardBannerAdDetailViewController.m */; };
 		46F883CA17FB7AC5004CE563 /* MPLeaderboardBannerAdDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46F883C817FB7AC5004CE563 /* MPLeaderboardBannerAdDetailViewController.m */; };
 		46F883CB17FB7AC5004CE563 /* MPLeaderboardBannerAdDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46F883C817FB7AC5004CE563 /* MPLeaderboardBannerAdDetailViewController.m */; };
@@ -529,6 +533,10 @@
 		4614B3F417E8D01D00812D2C /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		462E156D17F0F5D100408E17 /* MPMRectBannerAdDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPMRectBannerAdDetailViewController.h; sourceTree = "<group>"; };
 		462E156E17F0F5D100408E17 /* MPMRectBannerAdDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPMRectBannerAdDetailViewController.m; sourceTree = "<group>"; };
+		467F1DAD18187FA0006E94E3 /* KIFTestScenario+AdColony.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "KIFTestScenario+AdColony.h"; sourceTree = "<group>"; };
+		467F1DAE18187FA0006E94E3 /* KIFTestScenario+AdColony.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "KIFTestScenario+AdColony.m"; sourceTree = "<group>"; };
+		468F65CF1816EB2300B3B8AA /* AdColony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AdColony.framework; sourceTree = "<group>"; };
+		468F65D01816EB2300B3B8AA /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
 		46B9E89E17E0D38900B78D11 /* IMBanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMBanner.h; sourceTree = "<group>"; };
 		46B9E89F17E0D38900B78D11 /* IMBannerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMBannerDelegate.h; sourceTree = "<group>"; };
 		46B9E8A017E0D38900B78D11 /* IMError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMError.h; sourceTree = "<group>"; };
@@ -562,6 +570,8 @@
 		46E5043F18035A26006A2FC3 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		46E5B4AC18047FB60002ED66 /* KIFTestScenario+Vungle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "KIFTestScenario+Vungle.h"; sourceTree = "<group>"; };
 		46E5B4AD18047FB60002ED66 /* KIFTestScenario+Vungle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "KIFTestScenario+Vungle.m"; sourceTree = "<group>"; };
+		46EC22CC1816EFC1001D5364 /* AdColonyInterstitialCustomEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdColonyInterstitialCustomEvent.h; sourceTree = "<group>"; };
+		46EC22CD1816EFC1001D5364 /* AdColonyInterstitialCustomEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AdColonyInterstitialCustomEvent.m; sourceTree = "<group>"; };
 		46F883C717FB7AC5004CE563 /* MPLeaderboardBannerAdDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPLeaderboardBannerAdDetailViewController.h; sourceTree = "<group>"; };
 		46F883C817FB7AC5004CE563 /* MPLeaderboardBannerAdDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPLeaderboardBannerAdDetailViewController.m; sourceTree = "<group>"; };
 		A73AB4CA17B16F9A00D98ED7 /* MMAdView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMAdView.h; sourceTree = "<group>"; };
@@ -965,6 +975,7 @@
 				AE902A38171F559B00991DF9 /* EventKitUI.framework in Frameworks */,
 				AE902A3F171F55B800991DF9 /* libKIF.a in Frameworks */,
 				AE902A3E171F55AE00991DF9 /* Social.framework in Frameworks */,
+				468F65D11816EB2300B3B8AA /* AdColony.framework in Frameworks */,
 				AE902A3C171F55A900991DF9 /* Twitter.framework in Frameworks */,
 				46D3141B17E8CFE600F30509 /* SpeechKit.framework in Frameworks */,
 				AE902A3A171F55A000991DF9 /* PassKit.framework in Frameworks */,
@@ -1008,6 +1019,25 @@
 				46137BF517E37B6C00A4B9AC /* MPAdAlertManager.m */,
 			);
 			path = AdAlerts;
+			sourceTree = "<group>";
+		};
+		468F65CD1816EB2300B3B8AA /* AdColony */ = {
+			isa = PBXGroup;
+			children = (
+				46EC22CC1816EFC1001D5364 /* AdColonyInterstitialCustomEvent.h */,
+				46EC22CD1816EFC1001D5364 /* AdColonyInterstitialCustomEvent.m */,
+				468F65CE1816EB2300B3B8AA /* SDK */,
+			);
+			path = AdColony;
+			sourceTree = "<group>";
+		};
+		468F65CE1816EB2300B3B8AA /* SDK */ = {
+			isa = PBXGroup;
+			children = (
+				468F65CF1816EB2300B3B8AA /* AdColony.framework */,
+				468F65D01816EB2300B3B8AA /* README.md */,
+			);
+			path = SDK;
 			sourceTree = "<group>";
 		};
 		46D3141917E8CFE600F30509 /* SpeechKit */ = {
@@ -1532,6 +1562,8 @@
 				AED7D8ED177CF68500CC0CEF /* KIFTestScenario+MRAID.m */,
 				46E5B4AC18047FB60002ED66 /* KIFTestScenario+Vungle.h */,
 				46E5B4AD18047FB60002ED66 /* KIFTestScenario+Vungle.m */,
+				467F1DAD18187FA0006E94E3 /* KIFTestScenario+AdColony.h */,
+				467F1DAE18187FA0006E94E3 /* KIFTestScenario+AdColony.m */,
 			);
 			path = Scenarios;
 			sourceTree = "<group>";
@@ -1563,6 +1595,7 @@
 		AE9029E8171F556A00991DF9 /* AdNetworkSupport */ = {
 			isa = PBXGroup;
 			children = (
+				468F65CD1816EB2300B3B8AA /* AdColony */,
 				46E5041E18035989006A2FC3 /* Vungle */,
 				AE9029E9171F556A00991DF9 /* Chartboost */,
 				AE9029F0171F556A00991DF9 /* GoogleAdMob */,
@@ -2070,6 +2103,7 @@
 				AE14FA3F1773BA1100ABF744 /* MPCloseButtonX.png in Resources */,
 				AE14FA421773BA1100ABF744 /* MPCloseButtonX@2x.png in Resources */,
 				46E5043318035989006A2FC3 /* vg_button_close.png in Resources */,
+				468F65D21816EB2300B3B8AA /* README.md in Resources */,
 				AE14FA451773BA1100ABF744 /* MRAID.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2310,6 +2344,7 @@
 				AE9BC20017208084005E4CFF /* CJSONDeserializer_BlocksExtensions.m in Sources */,
 				AE9BC20317208084005E4CFF /* CJSONSerialization.m in Sources */,
 				AE9BC20617208084005E4CFF /* CJSONSerializedData.m in Sources */,
+				46EC22CE1816EFC1001D5364 /* AdColonyInterstitialCustomEvent.m in Sources */,
 				AE9BC20917208084005E4CFF /* CDataScanner_Extensions.m in Sources */,
 				AE9BC20C17208084005E4CFF /* NSDictionary_JSONExtensions.m in Sources */,
 				AE9BC20F17208084005E4CFF /* CJSONDeserializer.m in Sources */,
@@ -2327,6 +2362,7 @@
 				AE14F9B51773BA1100ABF744 /* MPAdConfiguration.m in Sources */,
 				AE14F9B81773BA1100ABF744 /* MPAdDestinationDisplayAgent.m in Sources */,
 				AE14F9BB1773BA1100ABF744 /* MPAdServerCommunicator.m in Sources */,
+				467F1DAF18187FA0006E94E3 /* KIFTestScenario+AdColony.m in Sources */,
 				AE14F9BE1773BA1100ABF744 /* MPAdServerURLBuilder.m in Sources */,
 				AE14F9C11773BA1100ABF744 /* MPFacebookKeywordProvider.m in Sources */,
 				AE14F9C41773BA1100ABF744 /* MPProgressOverlayView.m in Sources */,
@@ -2590,6 +2626,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/AdNetworkSupport/Millennial/SDK/SpeechKit\"",
+					"\"$(SRCROOT)/AdNetworkSupport/AdColony/SDK\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Specs/MoPubSampleAppSpecs/SampleAppKIF/SampleAppKIF-Prefix.pch";
@@ -2632,6 +2669,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/AdNetworkSupport/Millennial/SDK/SpeechKit\"",
+					"\"$(SRCROOT)/AdNetworkSupport/AdColony/SDK\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Specs/MoPubSampleAppSpecs/SampleAppKIF/SampleAppKIF-Prefix.pch";

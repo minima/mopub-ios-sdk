@@ -89,7 +89,6 @@ typedef NSUInteger MRAdViewAdType;
 @property (nonatomic, retain) MRAdViewDisplayController *displayController;
 @property (nonatomic, assign) MRAdViewAdType adType;
 
-- (id)initWithFrame:(CGRect)frame;
 - (id)initWithFrame:(CGRect)frame allowsExpansion:(BOOL)expansion
    closeButtonStyle:(MRAdViewCloseButtonStyle)style placementType:(MRAdViewPlacementType)type;
 - (void)loadCreativeFromURL:(NSURL *)url;

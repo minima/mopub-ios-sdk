@@ -63,6 +63,7 @@
     [scenario addStep:[KIFTestStep stepToWaitUntilActivityIndicatorIsNotAnimating]];
     [scenario addStep:[KIFTestStep stepToLogImpressionForAdUnit:[MPAdSection adInfoAtIndexPath:indexPath].ID]];
 
+    [scenario addStep:[KIFTestStep stepToTapViewWithAccessibilityLabel:@"banner"]]; // tap the banner to pass MRAdView's user interaction check
     [scenario addStep:[KIFTestStep stepToTapLink:@"MRAID open" webViewClassName:@"UIWebView"]];
     [scenario addStep:[KIFTestStep stepToLogClickForAdUnit:[MPAdSection adInfoAtIndexPath:indexPath].ID]];
     [scenario addStep:[KIFTestStep stepToVerifyThatApplicationOpenedURL:[NSURL URLWithString:@"https://www.mopub.com"]]];

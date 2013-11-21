@@ -12,6 +12,9 @@
 static NSString * const kMoPubSafariScheme = @"mopubnativebrowser";
 static NSString * const kMoPubSafariNavigateHost = @"navigate";
 
+#define kNumEncodingsToTry 2
+static NSStringEncoding gEncodingWaterfall[kNumEncodingsToTry] = {NSUTF8StringEncoding, NSISOLatin1StringEncoding};
+
 @interface MPURLResolver ()
 
 @property (nonatomic, retain) NSURL *URL;
@@ -65,6 +68,22 @@ static NSString * const kMoPubSafariNavigateHost = @"navigate";
 {
     [self.connection cancel];
     self.connection = nil;
+}
+
+- (NSString *)htmlStringForData:(NSData *)data
+{
+    NSString *htmlString = nil;
+
+    for(int i = 0; i < kNumEncodingsToTry; i++)
+    {
+        htmlString = [[NSString alloc] initWithData:data encoding:gEncodingWaterfall[i]];
+        if(htmlString != nil)
+        {
+            break;
+        }
+    }
+
+    return [htmlString autorelease];
 }
 
 #pragma mark - Handling Application/StoreKit URLs
@@ -171,8 +190,7 @@ static NSString * const kMoPubSafariNavigateHost = @"navigate";
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection
 {
-    NSString *HTMLString = [[[NSString alloc] initWithData:self.responseData encoding:NSUTF8StringEncoding] autorelease];
-    [self.delegate showWebViewWithHTMLString:HTMLString
+    [self.delegate showWebViewWithHTMLString:[self htmlStringForData:self.responseData]
                                      baseURL:self.URL];
 }
 

@@ -17,11 +17,6 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
 @interface MPMRAIDInterstitialViewController : MPInterstitialViewController <MRAdViewDelegate>
-{
-    MRAdView *_interstitialView;
-    MPAdConfiguration *_configuration;
-    BOOL _advertisementHasCustomCloseButton;
-}
 
 - (id)initWithAdConfiguration:(MPAdConfiguration *)configuration;
 - (void)startLoading;

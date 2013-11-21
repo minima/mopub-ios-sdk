@@ -6,7 +6,7 @@ using namespace Cedar::Doubles;
 SPEC_BEGIN(MPGlobalSpec)
 
 describe(@"MPGlobal", ^{
-    xit(@"should be tested someday", ^{});
+    it(@"should be tested someday", PENDING);
 });
 
 SPEC_END
