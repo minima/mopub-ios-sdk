@@ -20,7 +20,7 @@ The MoPub SDK is distributed as source code that you can include in your applica
 
   Includes everything you need to serve HTML and MRAID MoPub advertisements.  No third party ad networks are included.
 
-The current version of the SDK is VERSION_PLACEHOLDER
+The current version of the SDK is 1.17.0.0
 
 ## Integrate
 
