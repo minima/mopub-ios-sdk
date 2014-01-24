@@ -10,5 +10,7 @@
 @interface KIFTestStep (Navigation)
 
 + (id)stepToReturnToBannerAds;
++ (id)stepToDismissModalViewController;
++ (id)stepToPushManualAdViewController;
 
 @end

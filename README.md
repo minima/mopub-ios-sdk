@@ -20,7 +20,7 @@ The MoPub SDK is distributed as source code that you can include in your applica
 
   Includes everything you need to serve HTML and MRAID MoPub advertisements.  No third party ad networks are included.
 
-The current version of the SDK is 1.17.0.0
+The current version of the SDK is 1.17.1.0
 
 ## Integrate
 
@@ -33,8 +33,11 @@ More detailed class documentation is available in the repo under the `ClassDocum
 
 Please view the [changelog](https://github.com/mopub/mopub-ios-sdk/blob/master/CHANGELOG.md) for details.
 
-- AdColony Custom Event
-    - Supports AdColony as a custom native ad network for interstitial videos. Note that V4VC (virtual currency reward) is not supported. 
+- Sample app improvements
+  - Improved manual ad unit entry view
+  - Save manually entered ad unit ids
+  - Ability to enter keywords for each ad unit
+- Bug fixes
 
 ### Changes to InMobi Custom Event Integrations
 **Important**: As of version 1.14.0.0, the InMobi custom events packaged with the MoPub SDK only support InMobi version 4.00 and up. Follow the instructions [here](http://www.inmobi.com/support/art/25856216/22465648/integrating-mopub-with-inmobi-ios-sdk-4-0/) to integrate InMobi version 4.00 and up. If you would like to continue to use a prior version of the InMobi SDK, do not update the custom event files and follow the instructions [here](http://developer.inmobi.com/wiki/index.php?title=MoPub_InMobi_iOS) to integrate.   

@@ -8,82 +8,89 @@
 
 #import "MRCommand.h"
 #import "MRAdView.h"
-#import "MRAdViewDisplayController.h"
 #import "MPGlobal.h"
 #import "MPLogging.h"
 
 @implementation MRCommand
 
 @synthesize delegate = _delegate;
-@synthesize view = _view;
-@synthesize parameters = _parameters;
 
-+ (NSMutableDictionary *)sharedCommandClassMap {
++ (NSMutableDictionary *)sharedCommandClassMap
+{
     static NSMutableDictionary *sharedMap = nil;
-    @synchronized(self) {
-        if (!sharedMap) sharedMap = [[NSMutableDictionary alloc] init];
-    }
+
+    static dispatch_once_t once;
+    dispatch_once(&once, ^{
+        sharedMap = [[NSMutableDictionary alloc] init];
+    });
+
     return sharedMap;
 }
 
-+ (void)registerCommand:(Class)commandClass {
++ (void)registerCommand:(Class)commandClass
+{
     NSMutableDictionary *map = [self sharedCommandClassMap];
     @synchronized(self) {
         [map setValue:commandClass forKey:[commandClass commandType]];
     }
 }
 
-+ (NSString *)commandType {
++ (NSString *)commandType
+{
     return @"BASE_CMD_TYPE";
 }
 
-+ (Class)commandClassForString:(NSString *)string {
++ (Class)commandClassForString:(NSString *)string
+{
     NSMutableDictionary *map = [self sharedCommandClassMap];
     @synchronized(self) {
         return [map objectForKey:string];
     }
 }
 
-+ (id)commandForString:(NSString *)string {
++ (id)commandForString:(NSString *)string
+{
     Class commandClass = [self commandClassForString:string];
     return [[[commandClass alloc] init] autorelease];
 }
 
-- (void)dealloc {
-    [_parameters release];
-    [super dealloc];
-}
-
 // return YES by default for user safety
-- (BOOL)requiresUserInteraction {
+- (BOOL)requiresUserInteractionForPlacementType:(NSUInteger)placementType
+{
     return YES;
 }
 
-- (BOOL)execute {
+- (BOOL)executeWithParams:(NSDictionary *)params
+{
     return YES;
 }
 
-- (CGFloat)floatFromParametersForKey:(NSString *)key {
-    return [self floatFromParametersForKey:key withDefault:0.0];
+- (CGFloat)floatFromParameters:(NSDictionary *)parameters forKey:(NSString *)key
+{
+    return [self floatFromParameters:parameters forKey:key withDefault:0.0];
 }
 
-- (CGFloat)floatFromParametersForKey:(NSString *)key withDefault:(CGFloat)defaultValue {
-    NSString *stringValue = [self.parameters valueForKey:key];
+- (CGFloat)floatFromParameters:(NSDictionary *)parameters forKey:(NSString *)key withDefault:(CGFloat)defaultValue
+{
+    NSString *stringValue = [parameters valueForKey:key];
     return stringValue ? [stringValue floatValue] : defaultValue;
 }
 
-- (BOOL)boolFromParametersForKey:(NSString *)key {
-    NSString *stringValue = [self.parameters valueForKey:key];
-    return [stringValue isEqualToString:@"true"];
+- (BOOL)boolFromParameters:(NSDictionary *)parameters forKey:(NSString *)key
+{
+    NSString *stringValue = [parameters valueForKey:key];
+    return [stringValue isEqualToString:@"true"] || [stringValue isEqualToString:@"1"];
 }
 
-- (int)intFromParametersForKey:(NSString *)key {
-    NSString *stringValue = [self.parameters valueForKey:key];
+- (int)intFromParameters:(NSDictionary *)parameters forKey:(NSString *)key
+{
+    NSString *stringValue = [parameters valueForKey:key];
     return stringValue ? [stringValue intValue] : -1;
 }
 
-- (NSString *)stringFromParametersForKey:(NSString *)key {
-    NSString *value = [self.parameters objectForKey:key];
+- (NSString *)stringFromParameters:(NSDictionary *)parameters forKey:(NSString *)key
+{
+    NSString *value = [parameters objectForKey:key];
     if (!value || [value isEqual:[NSNull null]]) return nil;
 
     value = [value stringByTrimmingCharactersInSet:
@@ -93,8 +100,9 @@
     return value;
 }
 
-- (NSURL *)urlFromParametersForKey:(NSString *)key {
-    NSString *value = [[self stringFromParametersForKey:key] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+- (NSURL *)urlFromParameters:(NSDictionary *)parameters forKey:(NSString *)key
+{
+    NSString *value = [[self stringFromParameters:parameters forKey:key] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     return [NSURL URLWithString:value];
 }
 
@@ -104,16 +112,19 @@
 
 @implementation MRCloseCommand
 
-+ (void)load {
++ (void)load
+{
     [MRCommand registerCommand:self];
 }
 
-+ (NSString *)commandType {
++ (NSString *)commandType
+{
     return @"close";
 }
 
-- (BOOL)execute {
-    [self.view.displayController close];
+- (BOOL)executeWithParams:(NSDictionary *)params
+{
+    [self.delegate mrCommandClose:self];
     return YES;
 }
 
@@ -123,22 +134,25 @@
 
 @implementation MRExpandCommand
 
-+ (void)load {
++ (void)load
+{
     [MRCommand registerCommand:self];
 }
 
-+ (NSString *)commandType {
++ (NSString *)commandType
+{
     return @"expand";
 }
 
-- (BOOL)execute {
+- (BOOL)executeWithParams:(NSDictionary *)params
+{
     CGRect applicationFrame = MPApplicationFrame();
     CGFloat afWidth = CGRectGetWidth(applicationFrame);
     CGFloat afHeight = CGRectGetHeight(applicationFrame);
 
     // If the ad has expandProperties, we should use the width and height values specified there.
-    CGFloat w = [self floatFromParametersForKey:@"w" withDefault:afWidth];
-    CGFloat h = [self floatFromParametersForKey:@"h" withDefault:afHeight];
+    CGFloat w = [self floatFromParameters:params forKey:@"w" withDefault:afWidth];
+    CGFloat h = [self floatFromParameters:params forKey:@"h" withDefault:afHeight];
 
     // Constrain the ad to the application frame size.
     if (w > afWidth) w = afWidth;
@@ -148,18 +162,21 @@
     CGFloat x = applicationFrame.origin.x + floor((afWidth - w) / 2);
     CGFloat y = applicationFrame.origin.y + floor((afHeight - h) / 2);
 
-    NSString *urlString = [self stringFromParametersForKey:@"url"];
-    NSURL *url = [NSURL URLWithString:urlString];
+    NSURL *url = [self urlFromParameters:params forKey:@"url"];
 
     MPLogDebug(@"Expanding to (%.1f, %.1f, %.1f, %.1f); displaying %@.", x, y, w, h, url);
 
     CGRect newFrame = CGRectMake(x, y, w, h);
 
-    [self.view.displayController expandToFrame:newFrame
-                           withURL:url
-                    useCustomClose:[self boolFromParametersForKey:@"shouldUseCustomClose"]
-                           isModal:NO
-             shouldLockOrientation:[self boolFromParametersForKey:@"lockOrientation"]];
+    NSDictionary *expandParams = [NSDictionary dictionaryWithObjectsAndKeys:
+                                  NSStringFromCGRect(newFrame), @"expandToFrame",
+                                  (url == nil) ? [NSNull null] : url , @"url",
+                                  [NSNumber numberWithBool:[self boolFromParameters:params forKey:@"shouldUseCustomClose"]], @"useCustomClose",
+                                  [NSNumber numberWithBool:NO], @"isModal",
+                                  [NSNumber numberWithBool:[self boolFromParameters:params forKey:@"lockOrientation"]], @"shouldLockOrientation",
+                                  nil];
+
+    [self.delegate mrCommand:self expandWithParams:expandParams];
 
     return YES;
 }
@@ -170,21 +187,25 @@
 
 @implementation MRUseCustomCloseCommand
 
-+ (void)load {
++ (void)load
+{
     [MRCommand registerCommand:self];
 }
 
-- (BOOL)requiresUserInteraction {
+- (BOOL)requiresUserInteractionForPlacementType:(NSUInteger)placementType
+{
     return NO;
 }
 
-+ (NSString *)commandType {
++ (NSString *)commandType
+{
     return @"usecustomclose";
 }
 
-- (BOOL)execute {
-    BOOL shouldUseCustomClose = [[self.parameters valueForKey:@"shouldUseCustomClose"] boolValue];
-    [self.view.displayController useCustomClose:shouldUseCustomClose];
+- (BOOL)executeWithParams:(NSDictionary *)params
+{
+    [self.delegate mrCommand:self shouldUseCustomClose:[self boolFromParameters:params forKey:@"shouldUseCustomClose"]];
+
     return YES;
 }
 
@@ -194,16 +215,95 @@
 
 @implementation MROpenCommand
 
-+ (void)load {
++ (void)load
+{
     [MRCommand registerCommand:self];
 }
 
-+ (NSString *)commandType {
++ (NSString *)commandType
+{
     return @"open";
 }
 
-- (BOOL)execute {
-    [self.view handleMRAIDOpenCallForURL:[self urlFromParametersForKey:@"url"]];
+- (BOOL)executeWithParams:(NSDictionary *)params
+{
+    [self.delegate mrCommand:self openURL:[self urlFromParameters:params forKey:@"url"]];
+
+    return YES;
+}
+
+@end
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+@implementation MRCreateCalendarEventCommand
+
++ (void)load
+{
+    [MRCommand registerCommand:self];
+}
+
++ (NSString *)commandType
+{
+    return @"createCalendarEvent";
+}
+
+- (BOOL)executeWithParams:(NSDictionary *)params
+{
+    [self.delegate mrCommand:self createCalendarEventWithParams:params];
+
+    return YES;
+}
+
+@end
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+@implementation MRPlayVideoCommand
+
++ (void)load
+{
+    [MRCommand registerCommand:self];
+}
+
++ (NSString *)commandType
+{
+    return @"playVideo";
+}
+
+- (BOOL)requiresUserInteractionForPlacementType:(NSUInteger)placementType
+{
+    // allow interstitials to auto-play video
+    return placementType != MRAdViewPlacementTypeInterstitial;
+}
+
+- (BOOL)executeWithParams:(NSDictionary *)params
+{
+    [self.delegate mrCommand:self playVideoWithURL:[self urlFromParameters:params forKey:@"uri"]];
+
+    return YES;
+}
+
+@end
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+@implementation MRStorePictureCommand
+
++ (void)load
+{
+    [MRCommand registerCommand:self];
+}
+
++ (NSString *)commandType
+{
+    return @"storePicture";
+}
+
+- (BOOL)executeWithParams:(NSDictionary *)params
+{
+    [self.delegate mrCommand:self storePictureWithURL:[self urlFromParameters:params forKey:@"uri"]];
+
     return YES;
 }
 

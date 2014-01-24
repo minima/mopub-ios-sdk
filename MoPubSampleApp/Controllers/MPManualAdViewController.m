@@ -8,6 +8,7 @@
 #import "MPManualAdViewController.h"
 #import "MPSampleAppInstanceProvider.h"
 #import "MPGlobal.h"
+#import "MPAdInfo.h"
 
 @interface MPManualAdViewController ()
 

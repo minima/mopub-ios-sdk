@@ -7,6 +7,7 @@
 
 #import "MPAdSection.h"
 #import "MPAdInfo.h"
+#import "MPAdPersistenceManager.h"
 
 @interface MPAdSection ()
 
@@ -21,6 +22,7 @@
     return @[
              [MPAdSection sectionWithTitle:@"Banner Ads" ads:[MPAdInfo bannerAds]],
              [MPAdSection sectionWithTitle:@"Interstitial Ads" ads:[MPAdInfo interstitialAds]],
+             [MPAdSection sectionWithTitle:@"Saved Ads" ads:[MPAdPersistenceManager sharedManager].savedAds]
              ];
 }
 

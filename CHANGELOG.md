@@ -5,6 +5,15 @@
   - Handle ISO Latin-1 site encoding in addition to UTF-8
   - Bug fixes
 
+### Version 1.17.1.0 (January 23rd, 2014)
+
+  - Sample app improvements
+    - Improved manual ad unit entry view
+    - Save manually entered ad unit ids
+    - Ability to enter keywords for each ad unit
+  - Bug fixes
+    - MRAID `isViewable` command now correctly returns a boolean value
+
 ## Version 1.16 (October 15, 2013)
 
   - Creative Controls

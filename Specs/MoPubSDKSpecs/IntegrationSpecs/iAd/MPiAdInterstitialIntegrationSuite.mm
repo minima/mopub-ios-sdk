@@ -128,7 +128,8 @@ describe(@"MPiAdInterstitialIntegrationSuite", ^{
                 });
 
                 it(@"should tell the delegate and should no longer be ready", ^{
-                    verify_fake_received_selectors(delegate, @[@"interstitialWillDisappear:", @"interstitialDidDisappear:", @"interstitialDidExpire:"]);
+                    delegate should have_received(@selector(interstitialWillDisappear:));
+                    delegate should have_received(@selector(interstitialDidDisappear:));
                     interstitial.ready should equal(NO);
                 });
 

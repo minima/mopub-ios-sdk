@@ -35,7 +35,7 @@
 {
     KIFTestScenario *scenario = [MPSampleAppTestScenario scenarioWithDescription:@"Test that simultaneously loading multiple Chartboost interstitials works."];
 
-    [scenario addStep:[KIFTestStep stepToTapViewWithAccessibilityLabel:@"Manual"]];
+    [scenario addStep:[KIFTestStep stepToPushManualAdViewController]];
 
     NSString *noLocationAdUnit = @"a425ff78959911e295fa123138070049";
     NSString *somewhereLocationAdUnit = @"201597ec97e811e295fa123138070049";

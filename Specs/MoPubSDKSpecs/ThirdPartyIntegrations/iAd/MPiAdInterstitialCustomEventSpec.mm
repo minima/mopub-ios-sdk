@@ -73,6 +73,34 @@ describe(@"MPiAdInterstitialCustomEvent", ^{
         });
     });
 
+    context(@"when the interstitial has been dismissed", ^{
+        beforeEach(^{
+            interstitial.loaded = YES;
+            [event showInterstitialFromRootViewController:[[[UIViewController alloc] init] autorelease]];
+            [interstitial simulateUserDismissingAd];
+        });
+
+        it(@"should tell its delegate", ^{
+            delegate should have_received(@selector(interstitialCustomEventWillDisappear:)).with(event);
+            delegate should have_received(@selector(interstitialCustomEventDidDisappear:)).with(event);
+        });
+    });
+
+    context(@"when the interstitial is dismissed and unloaded", ^{
+        beforeEach(^{
+            interstitial.loaded = YES;
+            [event showInterstitialFromRootViewController:[[[UIViewController alloc] init] autorelease]];
+            [interstitial simulateUserDismissingAd];
+            [delegate reset_sent_messages];
+            [interstitial simulateUnloadingAd];
+        });
+
+        it(@"should not send duplicate disappear events", ^{
+            delegate should_not have_received(@selector(interstitialCustomEventWillDisappear:)).with(event);
+            delegate should_not have_received(@selector(interstitialCustomEventDidDisappear:)).with(event);
+        });
+    });
+
     context(@"when the interstitial has unloaded", ^{
         context(@"after having been displayed", ^{
             beforeEach(^{

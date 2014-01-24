@@ -9,4 +9,6 @@
 
 @interface MPSampleAppTestScenario : KIFTestScenario
 
++ (id)scenarioToWarmUpAdUnits;
+
 @end

@@ -7,70 +7,74 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "MRAdView.h"
 
-@protocol MRCommandDelegate<NSObject>
+@class MRCommand;
 
-@optional
+@protocol MRCommandDelegate <NSObject>
 
-- (void)didCreateCalendarEvent:(NSDictionary *)parameters;
-- (void)playVideo:(NSDictionary *)parameters;
-- (void)storePicture:(NSDictionary *)parameters;
-
-@end
-
-@interface MRAdView (MRCommand)
-
-@property (nonatomic, retain, readonly) MRAdViewDisplayController *displayController;
+- (void)mrCommand:(MRCommand *)command createCalendarEventWithParams:(NSDictionary *)params;
+- (void)mrCommand:(MRCommand *)command playVideoWithURL:(NSURL *)url;
+- (void)mrCommand:(MRCommand *)command storePictureWithURL:(NSURL *)url;
+- (void)mrCommand:(MRCommand *)command shouldUseCustomClose:(BOOL)useCustomClose;
+- (void)mrCommand:(MRCommand *)command openURL:(NSURL *)url;
+- (void)mrCommand:(MRCommand *)command expandWithParams:(NSDictionary *)params;
+- (void)mrCommandClose:(MRCommand *)command;
 
 @end
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-@interface MRCommand : NSObject {
-    MRAdView *_view;
-    NSDictionary *_parameters;
-}
+@interface MRCommand : NSObject
 
 @property (nonatomic, assign) id<MRCommandDelegate> delegate;
-@property (nonatomic, assign) MRAdView *view;
-@property (nonatomic, retain) NSDictionary *parameters;
 
-+ (NSMutableDictionary *)sharedCommandClassMap;
-+ (void)registerCommand:(Class)commandClass;
-+ (NSString *)commandType;
 + (id)commandForString:(NSString *)string;
 
 // returns YES by default for user safety
-- (BOOL)requiresUserInteraction;
+- (BOOL)requiresUserInteractionForPlacementType:(NSUInteger)placementType;
 
-- (BOOL)execute;
-
-- (CGFloat)floatFromParametersForKey:(NSString *)key;
-- (CGFloat)floatFromParametersForKey:(NSString *)key withDefault:(CGFloat)defaultValue;
-- (BOOL)boolFromParametersForKey:(NSString *)key;
-- (int)intFromParametersForKey:(NSString *)key;
-- (NSString *)stringFromParametersForKey:(NSString *)key;
-- (NSURL *)urlFromParametersForKey:(NSString *)key;
+- (BOOL)executeWithParams:(NSDictionary *)params;
 
 @end
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
 @interface MRCloseCommand : MRCommand
+
 @end
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
 @interface MRExpandCommand : MRCommand
+
 @end
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
 @interface MRUseCustomCloseCommand : MRCommand
+
 @end
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
 @interface MROpenCommand : MRCommand
+
+@end
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+@interface MRCreateCalendarEventCommand : MRCommand
+
+@end
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+@interface MRPlayVideoCommand : MRCommand
+
+@end
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+@interface MRStorePictureCommand : MRCommand
+
 @end

@@ -17,9 +17,13 @@
 		462E156F17F0F5D100408E17 /* MPMRectBannerAdDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 462E156E17F0F5D100408E17 /* MPMRectBannerAdDetailViewController.m */; };
 		462E157017F0F5D100408E17 /* MPMRectBannerAdDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 462E156E17F0F5D100408E17 /* MPMRectBannerAdDetailViewController.m */; };
 		462E157117F0F5D100408E17 /* MPMRectBannerAdDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 462E156E17F0F5D100408E17 /* MPMRectBannerAdDetailViewController.m */; };
+		467343F017FE3D6900D68BB6 /* MPAdPersistenceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 467343EF17FE3D6900D68BB6 /* MPAdPersistenceManager.m */; };
+		467343F117FE3D6900D68BB6 /* MPAdPersistenceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 467343EF17FE3D6900D68BB6 /* MPAdPersistenceManager.m */; };
+		467343F217FE3D6900D68BB6 /* MPAdPersistenceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 467343EF17FE3D6900D68BB6 /* MPAdPersistenceManager.m */; };
 		467F1DAF18187FA0006E94E3 /* KIFTestScenario+AdColony.m in Sources */ = {isa = PBXBuildFile; fileRef = 467F1DAE18187FA0006E94E3 /* KIFTestScenario+AdColony.m */; };
 		468F65D11816EB2300B3B8AA /* AdColony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 468F65CF1816EB2300B3B8AA /* AdColony.framework */; };
 		468F65D21816EB2300B3B8AA /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 468F65D01816EB2300B3B8AA /* README.md */; };
+		46A20178184D324C008B6E97 /* KIFTestScenario+iAd.m in Sources */ = {isa = PBXBuildFile; fileRef = 46A20177184D324C008B6E97 /* KIFTestScenario+iAd.m */; };
 		46B9E8AA17E0D38900B78D11 /* libInMobi-4.0.2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 46B9E8A717E0D38900B78D11 /* libInMobi-4.0.2.a */; };
 		46B9E8AB17E0D7D100B78D11 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = AE10920D170120E700812E6E /* libsqlite3.dylib */; };
 		46B9E8AC17E0D7D800B78D11 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = AE10920C170120E700812E6E /* libz.dylib */; };
@@ -29,6 +33,12 @@
 		46B9E8B317E0D81200B78D11 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE10920B170120E700812E6E /* Security.framework */; };
 		46CFCC0817E26CBB0048647D /* libMMSDK_5.1.1.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 46CFCC0717E26CBB0048647D /* libMMSDK_5.1.1.a */; };
 		46D3141B17E8CFE600F30509 /* SpeechKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46D3141A17E8CFE600F30509 /* SpeechKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		46DA87B1185010DD00F34858 /* MPAdEntryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46DA87AF185010DD00F34858 /* MPAdEntryViewController.m */; };
+		46DA87B2185010DD00F34858 /* MPAdEntryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46DA87AF185010DD00F34858 /* MPAdEntryViewController.m */; };
+		46DA87B3185010DD00F34858 /* MPAdEntryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46DA87AF185010DD00F34858 /* MPAdEntryViewController.m */; };
+		46DA87B4185010DD00F34858 /* MPAdEntryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 46DA87B0185010DD00F34858 /* MPAdEntryViewController.xib */; };
+		46DA87B5185010DD00F34858 /* MPAdEntryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 46DA87B0185010DD00F34858 /* MPAdEntryViewController.xib */; };
+		46DA87B6185010DD00F34858 /* MPAdEntryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 46DA87B0185010DD00F34858 /* MPAdEntryViewController.xib */; };
 		46E5043118035989006A2FC3 /* libvunglepub.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 46E5042818035989006A2FC3 /* libvunglepub.a */; };
 		46E5043218035989006A2FC3 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 46E5042918035989006A2FC3 /* README.md */; };
 		46E5043318035989006A2FC3 /* vg_button_close.png in Resources */ = {isa = PBXBuildFile; fileRef = 46E5042B18035989006A2FC3 /* vg_button_close.png */; };
@@ -533,10 +543,14 @@
 		4614B3F417E8D01D00812D2C /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		462E156D17F0F5D100408E17 /* MPMRectBannerAdDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPMRectBannerAdDetailViewController.h; sourceTree = "<group>"; };
 		462E156E17F0F5D100408E17 /* MPMRectBannerAdDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPMRectBannerAdDetailViewController.m; sourceTree = "<group>"; };
+		467343EE17FE3D6900D68BB6 /* MPAdPersistenceManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPAdPersistenceManager.h; sourceTree = "<group>"; };
+		467343EF17FE3D6900D68BB6 /* MPAdPersistenceManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPAdPersistenceManager.m; sourceTree = "<group>"; };
 		467F1DAD18187FA0006E94E3 /* KIFTestScenario+AdColony.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "KIFTestScenario+AdColony.h"; sourceTree = "<group>"; };
 		467F1DAE18187FA0006E94E3 /* KIFTestScenario+AdColony.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "KIFTestScenario+AdColony.m"; sourceTree = "<group>"; };
 		468F65CF1816EB2300B3B8AA /* AdColony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AdColony.framework; sourceTree = "<group>"; };
 		468F65D01816EB2300B3B8AA /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
+		46A20176184D324C008B6E97 /* KIFTestScenario+iAd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "KIFTestScenario+iAd.h"; sourceTree = "<group>"; };
+		46A20177184D324C008B6E97 /* KIFTestScenario+iAd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "KIFTestScenario+iAd.m"; sourceTree = "<group>"; };
 		46B9E89E17E0D38900B78D11 /* IMBanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMBanner.h; sourceTree = "<group>"; };
 		46B9E89F17E0D38900B78D11 /* IMBannerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMBannerDelegate.h; sourceTree = "<group>"; };
 		46B9E8A017E0D38900B78D11 /* IMError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMError.h; sourceTree = "<group>"; };
@@ -552,6 +566,9 @@
 		46B9E8B117E0D80400B78D11 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		46CFCC0717E26CBB0048647D /* libMMSDK_5.1.1.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libMMSDK_5.1.1.a; sourceTree = "<group>"; };
 		46D3141A17E8CFE600F30509 /* SpeechKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SpeechKit.framework; sourceTree = "<group>"; };
+		46DA87AE185010DD00F34858 /* MPAdEntryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPAdEntryViewController.h; sourceTree = "<group>"; };
+		46DA87AF185010DD00F34858 /* MPAdEntryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPAdEntryViewController.m; sourceTree = "<group>"; };
+		46DA87B0185010DD00F34858 /* MPAdEntryViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MPAdEntryViewController.xib; sourceTree = "<group>"; };
 		46E5042118035989006A2FC3 /* VGAdType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VGAdType.h; sourceTree = "<group>"; };
 		46E5042218035989006A2FC3 /* VGAssertMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VGAssertMacros.h; sourceTree = "<group>"; };
 		46E5042318035989006A2FC3 /* VGConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VGConstants.h; sourceTree = "<group>"; };
@@ -1371,6 +1388,8 @@
 				AE2323A216F78A17002C2082 /* AppDelegate.m */,
 				AED9E4DC16F7B00100EA71A7 /* MPSampleAppInstanceProvider.h */,
 				AED9E4DD16F7B00100EA71A7 /* MPSampleAppInstanceProvider.m */,
+				467343EE17FE3D6900D68BB6 /* MPAdPersistenceManager.h */,
+				467343EF17FE3D6900D68BB6 /* MPAdPersistenceManager.m */,
 				AE23239916F78A17002C2082 /* Supporting Files */,
 			);
 			path = MoPubSampleApp;
@@ -1564,6 +1583,8 @@
 				46E5B4AD18047FB60002ED66 /* KIFTestScenario+Vungle.m */,
 				467F1DAD18187FA0006E94E3 /* KIFTestScenario+AdColony.h */,
 				467F1DAE18187FA0006E94E3 /* KIFTestScenario+AdColony.m */,
+				46A20176184D324C008B6E97 /* KIFTestScenario+iAd.h */,
+				46A20177184D324C008B6E97 /* KIFTestScenario+iAd.m */,
 			);
 			path = Scenarios;
 			sourceTree = "<group>";
@@ -1821,6 +1842,9 @@
 				AE0021E31704C46300A220F0 /* MPManualAdViewController.h */,
 				AE0021E41704C46400A220F0 /* MPManualAdViewController.m */,
 				AE0021E51704C46400A220F0 /* MPManualAdViewController.xib */,
+				46DA87AE185010DD00F34858 /* MPAdEntryViewController.h */,
+				46DA87AF185010DD00F34858 /* MPAdEntryViewController.m */,
+				46DA87B0185010DD00F34858 /* MPAdEntryViewController.xib */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -2047,6 +2071,7 @@
 				AE9BC21617208084005E4CFF /* LICENSE.txt in Resources */,
 				AE9BC21917208084005E4CFF /* README.markdown in Resources */,
 				AE8E1D451729A76C0051FA6C /* icon.png in Resources */,
+				46DA87B4185010DD00F34858 /* MPAdEntryViewController.xib in Resources */,
 				AE8E1D471729A76F0051FA6C /* icon@2x.png in Resources */,
 				AE8E1D491729A7730051FA6C /* Default.png in Resources */,
 				AE8E1D4B1729A7760051FA6C /* Default@2x.png in Resources */,
@@ -2071,6 +2096,7 @@
 				AE9BC21717208084005E4CFF /* LICENSE.txt in Resources */,
 				AE9BC21A17208084005E4CFF /* README.markdown in Resources */,
 				AE8E1D511729AA460051FA6C /* white_button.png in Resources */,
+				46DA87B5185010DD00F34858 /* MPAdEntryViewController.xib in Resources */,
 				AE14F9B11773BA1100ABF744 /* MPAdBrowserController.xib in Resources */,
 				AE14F9EA1773BA1100ABF744 /* LICENSE in Resources */,
 				AE14FA3E1773BA1100ABF744 /* MPCloseButtonX.png in Resources */,
@@ -2092,6 +2118,7 @@
 				AE9BC21817208084005E4CFF /* LICENSE.txt in Resources */,
 				AE9BC21B17208084005E4CFF /* README.markdown in Resources */,
 				46E5043218035989006A2FC3 /* README.md in Resources */,
+				46DA87B6185010DD00F34858 /* MPAdEntryViewController.xib in Resources */,
 				AE8E1D521729AA460051FA6C /* white_button.png in Resources */,
 				AE8E1D531729B0A00051FA6C /* icon.png in Resources */,
 				AE8E1D541729B0A20051FA6C /* icon@2x.png in Resources */,
@@ -2139,6 +2166,7 @@
 				AE14F9A71773BA1100ABF744 /* MPBaseBannerAdapter.m in Sources */,
 				AE14F9AA1773BA1100ABF744 /* MPLegacyBannerCustomEventAdapter.m in Sources */,
 				AE14F9AD1773BA1100ABF744 /* MPAdBrowserController.m in Sources */,
+				467343F017FE3D6900D68BB6 /* MPAdPersistenceManager.m in Sources */,
 				AE14F9B31773BA1100ABF744 /* MPAdConfiguration.m in Sources */,
 				AE14F9B61773BA1100ABF744 /* MPAdDestinationDisplayAgent.m in Sources */,
 				AE14F9B91773BA1100ABF744 /* MPAdServerCommunicator.m in Sources */,
@@ -2169,6 +2197,7 @@
 				AE14FA071773BA1100ABF744 /* MRProperty.m in Sources */,
 				AE14FA0A1773BA1100ABF744 /* NSURL+MPAdditions.m in Sources */,
 				AE14FA0D1773BA1100ABF744 /* UIViewController+MPAdditions.m in Sources */,
+				46DA87B1185010DD00F34858 /* MPAdEntryViewController.m in Sources */,
 				AE14FA101773BA1100ABF744 /* UIWebView+MPAdditions.m in Sources */,
 				AE14FA131773BA1100ABF744 /* MPAnalyticsTracker.m in Sources */,
 				AE14FA161773BA1100ABF744 /* MPError.m in Sources */,
@@ -2207,6 +2236,7 @@
 				AED9E4DF16F7B00100EA71A7 /* MPSampleAppInstanceProvider.m in Sources */,
 				AE43413E16F8EEC500B73710 /* MPAdSection.m in Sources */,
 				AE43414816F9068000B73710 /* MPInterstitialAdDetailViewController.m in Sources */,
+				46DA87B2185010DD00F34858 /* MPAdEntryViewController.m in Sources */,
 				AE0021E71704C46400A220F0 /* MPManualAdViewController.m in Sources */,
 				AE90298D171F537200991DF9 /* MPSampleAppInstanceProvider+Spec.m in Sources */,
 				AE90298E171F537200991DF9 /* FakeMPAdView.m in Sources */,
@@ -2272,6 +2302,7 @@
 				AE14FA1D1773BA1100ABF744 /* MPIdentityProvider.m in Sources */,
 				AE14FA201773BA1100ABF744 /* MPLogging.m in Sources */,
 				AE14FA231773BA1100ABF744 /* MPReachability.m in Sources */,
+				467343F117FE3D6900D68BB6 /* MPAdPersistenceManager.m in Sources */,
 				AE14FA261773BA1100ABF744 /* MPSessionTracker.m in Sources */,
 				AE14FA291773BA1100ABF744 /* MPStoreKitProvider.m in Sources */,
 				AE14FA2C1773BA1100ABF744 /* MPTimer.m in Sources */,
@@ -2335,6 +2366,7 @@
 				AE9BC1D61720803A005E4CFF /* GreystripeInterstitialCustomEvent.m in Sources */,
 				AE9BC1D71720803A005E4CFF /* MPiAdBannerCustomEvent.m in Sources */,
 				AE9BC1D81720803A005E4CFF /* MPiAdInterstitialCustomEvent.m in Sources */,
+				467343F217FE3D6900D68BB6 /* MPAdPersistenceManager.m in Sources */,
 				AE9BC1D91720803A005E4CFF /* InMobiBannerCustomEvent.m in Sources */,
 				AE9BC1DA1720803A005E4CFF /* InMobiInterstitialCustomEvent.m in Sources */,
 				AE9BC1DB1720803A005E4CFF /* MPMillennialBannerCustomEvent.m in Sources */,
@@ -2346,6 +2378,7 @@
 				AE9BC20617208084005E4CFF /* CJSONSerializedData.m in Sources */,
 				46EC22CE1816EFC1001D5364 /* AdColonyInterstitialCustomEvent.m in Sources */,
 				AE9BC20917208084005E4CFF /* CDataScanner_Extensions.m in Sources */,
+				46DA87B3185010DD00F34858 /* MPAdEntryViewController.m in Sources */,
 				AE9BC20C17208084005E4CFF /* NSDictionary_JSONExtensions.m in Sources */,
 				AE9BC20F17208084005E4CFF /* CJSONDeserializer.m in Sources */,
 				462E157117F0F5D100408E17 /* MPMRectBannerAdDetailViewController.m in Sources */,
@@ -2375,6 +2408,7 @@
 				AE14F9D61773BA1100ABF744 /* MPHTMLInterstitialViewController.m in Sources */,
 				AE14F9D91773BA1100ABF744 /* MPBaseInterstitialAdapter.m in Sources */,
 				AE14F9DC1773BA1100ABF744 /* MPInterstitialAdManager.m in Sources */,
+				46A20178184D324C008B6E97 /* KIFTestScenario+iAd.m in Sources */,
 				AE14F9DF1773BA1100ABF744 /* MPInterstitialCustomEventAdapter.m in Sources */,
 				AE14F9E21773BA1100ABF744 /* MPInterstitialViewController.m in Sources */,
 				AE14F9E51773BA1100ABF744 /* MPLegacyInterstitialCustomEventAdapter.m in Sources */,

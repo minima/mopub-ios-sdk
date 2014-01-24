@@ -12,7 +12,7 @@
 @property (nonatomic, assign) id<MRPictureManagerDelegate> delegate;
 
 - (id)initWithDelegate:(id<MRPictureManagerDelegate>)delegate;
-- (void)storePicture:(NSDictionary *)parameters;
+- (void)storePicture:(NSURL *)url;
 
 @end
 

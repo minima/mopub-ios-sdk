@@ -379,7 +379,7 @@ describe(@"MRAdView", ^{
             });
 
             it(@"should tell its video manager to play the video", ^{
-                videoPlayerManager should have_received(@selector(playVideo:)).with(@{@"uri": @"a_video"});
+                videoPlayerManager should have_received(@selector(playVideo:)).with([NSURL URLWithString:@"a_video"]);
             });
 
             context(@"when the video cannot be played", ^{
@@ -466,7 +466,7 @@ describe(@"MRAdView", ^{
             });
 
             it(@"should tell its picture manager to store a picture", ^{
-                pictureManager should have_received(@selector(storePicture:)).with(@{@"uri": @"an_image"});
+                pictureManager should have_received(@selector(storePicture:)).with([NSURL URLWithString:@"an_image"]);
             });
 
             context(@"when the picture is stored successfully", ^{

@@ -11,7 +11,7 @@
 @property (nonatomic, assign) id<MRVideoPlayerManagerDelegate> delegate;
 
 - (id)initWithDelegate:(id<MRVideoPlayerManagerDelegate>)delegate;
-- (void)playVideo:(NSDictionary *)parameters;
+- (void)playVideo:(NSURL *)url;
 
 @end
 

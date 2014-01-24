@@ -10,7 +10,7 @@
 #import "IMInMobiNetworkExtras.h"
 
 /*
- * Compatible with version 4.0.0 of the InMobi SDK.
+ * Certified with version 4.0.2 of the InMobi SDK.
  */
 
 @interface InMobiBannerCustomEvent : MPBannerCustomEvent <IMBannerDelegate>

@@ -11,7 +11,7 @@ if File.exists?('./Scripts/private/private.rb')
 end
 
 CONFIGURATION = "Debug"
-SDK_VERSION = "6.1"
+SDK_VERSION = "7.0"
 BUILD_DIR = File.join(File.dirname(__FILE__), "build")
 
 def head(text)
@@ -193,6 +193,37 @@ namespace :mopubsample do
 
     head "Running Sample App Cedar Specs"
     run_in_simulator(:project => "MoPubSampleApp", :target => "SampleAppSpecs", :environment => cedar_env, :success_condition => ", 0 failures")
+  end
+
+  desc "Build Mopub Sample App with Crashlytics"
+  task :crashlytics do
+    current_branch = `git rev-parse --abbrev-ref HEAD`
+
+    current_branch = current_branch.strip()
+
+    should_switch_git_branch = current_branch != "crashlytics-integration"
+
+    if should_switch_git_branch
+      system_or_exit(%Q[git co crashlytics-integration])
+      sleep 2
+    end
+
+    head "Launching Crashlytics App"
+    system_or_exit(%Q[open /Applications/Crashlytics.app])
+
+    head "Giving Crashlytics time to update"
+    sleep 5
+
+    head "Building MoPub Sample App with Crashlytics"
+    build :project => "MoPubSampleApp", :target => "MoPubSampleApp"
+
+    if should_switch_git_branch
+      system_or_exit(%Q[git co #{current_branch}])
+      sleep 2
+
+      head "Cleaning up"
+      system_or_exit(%Q[rm -rf Crashlytics.framework/])
+    end
   end
 
   desc "Run MoPub Sample App Integration Specs"

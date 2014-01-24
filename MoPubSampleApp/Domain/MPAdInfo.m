@@ -7,7 +7,21 @@
 
 #import "MPAdInfo.h"
 
+#import <Foundation/Foundation.h>
+
 @implementation MPAdInfo
+
++ (NSArray *)supportedAdTypeNames
+{
+    static NSArray *adTypeNames = nil;
+
+    static dispatch_once_t once;
+    dispatch_once(&once, ^{
+        adTypeNames = [NSArray arrayWithObjects:@"Banner", @"Interstitial", @"MRect", @"Leaderboard", nil];
+    });
+
+    return adTypeNames;
+}
 
 + (NSArray *)bannerAds
 {
@@ -42,6 +56,27 @@
     info.ID = ID;
     info.type = type;
     return info;
+}
+
+- (id)initWithCoder:(NSCoder *)aDecoder
+{
+    self = [super init];
+    if(self != nil)
+    {
+        self.title = [aDecoder decodeObjectForKey:@"title"];
+        self.ID = [aDecoder decodeObjectForKey:@"ID"];
+        self.type = [aDecoder decodeIntegerForKey:@"type"];
+        self.keywords = [aDecoder decodeObjectForKey:@"keywords"];
+    }
+    return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)aCoder
+{
+    [aCoder encodeObject:self.title forKey:@"title"];
+    [aCoder encodeObject:self.ID forKey:@"ID"];
+    [aCoder encodeInteger:self.type forKey:@"type"];
+    [aCoder encodeObject:((self.keywords != nil) ? self.keywords : @"") forKey:@"keywords"];
 }
 
 @end

@@ -163,7 +163,7 @@
 }
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"viewable: '%@'", _isViewable ? @"true" : @"false"];
+    return [NSString stringWithFormat:@"viewable: %@", _isViewable ? @"true" : @"false"];
 }
 
 @end

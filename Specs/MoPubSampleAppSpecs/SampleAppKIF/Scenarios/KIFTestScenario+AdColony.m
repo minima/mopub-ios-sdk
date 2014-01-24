@@ -49,7 +49,7 @@
 {
     KIFTestScenario *scenario = [MPSampleAppTestScenario scenarioWithDescription:@"Test that simultaneously loading multiple AdColony interstitials works."];
 
-    [scenario addStep:[KIFTestStep stepToTapViewWithAccessibilityLabel:@"Manual"]];
+    [scenario addStep:[KIFTestStep stepToPushManualAdViewController]];
 
     NSString *aLocationAdUnit = @"e4b75cdda0544e59b668afe6b764c0a1";
     NSString *somewhereLocationAdUnit = @"c7ddfa7d91804c20a833d2a84016973d";
