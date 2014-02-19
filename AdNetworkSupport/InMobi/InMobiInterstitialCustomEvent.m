@@ -2,7 +2,7 @@
 //  InMobiInterstitialCustomEvent.m
 //  MoPub
 //
-//  Copyright (c) 2012 MoPub, Inc. All rights reserved.
+//  Copyright (c) 2013 MoPub, Inc. All rights reserved.
 //
 
 #import "InMobiInterstitialCustomEvent.h"
@@ -46,17 +46,15 @@
 {
     MPLogInfo(@"Requesting InMobi interstitial");
     self.inMobiInterstitial = [[MPInstanceProvider sharedProvider] buildIMInterstitialWithDelegate:self appId:kInMobiAppID];
-    IMInMobiNetworkExtras *inmobiExtras = [[IMInMobiNetworkExtras alloc] init];
     NSMutableDictionary *paramsDict = [[NSMutableDictionary alloc] init];
     [paramsDict setObject:@"c_mopub" forKey:@"tp"];
     [paramsDict setObject:MP_SDK_VERSION forKey:@"tp-ver"];
-    inmobiExtras.additionaParameters = paramsDict; // For supply source identification
+    self.inMobiInterstitial.additionaParameters = paramsDict; // For supply source identification
     if (self.delegate.location) {
         [InMobi setLocationWithLatitude:self.delegate.location.coordinate.latitude
                                longitude:self.delegate.location.coordinate.longitude
                                 accuracy:self.delegate.location.horizontalAccuracy];
     }
-    [self.inMobiInterstitial addAdNetworkExtras:inmobiExtras];
     [self.inMobiInterstitial loadInterstitial];
 }
 

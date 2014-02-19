@@ -7,11 +7,9 @@
 
 #import "IMInterstitial.h"
 #import "IMInterstitialDelegate.h"
-#import "IMInMobiNetworkExtras.h"
 
 @interface FakeIMAdInterstitial : IMInterstitial <FakeInterstitialAd>
 
-@property (nonatomic, retain) IMInMobiNetworkExtras *fakeNetworkExtras;
 @property (nonatomic, assign) BOOL willPresentSuccessfully;
 @property (nonatomic, assign) BOOL didPresent;
 

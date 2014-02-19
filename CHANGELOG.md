@@ -5,6 +5,13 @@
   - Handle ISO Latin-1 site encoding in addition to UTF-8
   - Bug fixes
 
+### Version 1.17.2.0 (February 20th, 2014)
+
+  - Updated InMobi custom events (InMobi SDK 4.0.3+ only)
+  - Bug fixes
+    - MRAID viewable property now correctly updates on app background and resume
+    - MRAID command urls are no longer re-encoded for processing
+
 ### Version 1.17.1.0 (January 23rd, 2014)
 
   - Sample app improvements

@@ -2,7 +2,7 @@
 //  InMobiBannerCustomEvent.m
 //  MoPub
 //
-//  Copyright (c) 2012 MoPub, Inc. All rights reserved.
+//  Copyright (c) 2013 MoPub, Inc. All rights reserved.
 //
 
 #import "InMobiBannerCustomEvent.h"
@@ -55,18 +55,16 @@
     self.inMobiBanner = [[MPInstanceProvider sharedProvider] buildIMBannerWithFrame:CGRectMake(0, 0, size.width, size.height) appId:kInMobiAppID adSize:imAdSizeConstant];
     self.inMobiBanner.delegate = self;
     self.inMobiBanner.refreshInterval = REFRESH_INTERVAL_OFF;
-    IMInMobiNetworkExtras *inmobiExtras = [[IMInMobiNetworkExtras alloc] init];
     NSMutableDictionary *paramsDict = [[NSMutableDictionary alloc] init];
     [paramsDict setObject:@"c_mopub" forKey:@"tp"];
     [paramsDict setObject:MP_SDK_VERSION forKey:@"tp-ver"];
-    inmobiExtras.additionaParameters = paramsDict; // For supply source identification
+    self.inMobiBanner.additionaParameters = paramsDict; // For supply source identification
 
     if (self.delegate.location) {
         [InMobi setLocationWithLatitude:self.delegate.location.coordinate.latitude
                                longitude:self.delegate.location.coordinate.longitude
                                 accuracy:self.delegate.location.horizontalAccuracy];
     }
-    [self.inMobiBanner addAdNetworkExtras:inmobiExtras];
     [self.inMobiBanner loadBanner];
 
 }

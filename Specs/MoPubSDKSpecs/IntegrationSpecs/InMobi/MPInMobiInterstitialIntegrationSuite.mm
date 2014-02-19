@@ -57,8 +57,6 @@ describe(@"MPInMobiInterstitialIntegrationSuite", ^{
             inMobi.appId should equal(@"YOUR_INMOBI_APP_ID");
         });
 
-        it(@"should set the location using the InMobi class method", PENDING);
-
         it(@"should not tell the delegate anything, nor should it be ready", ^{
             delegate.sent_messages should be_empty;
             interstitial.ready should equal(NO);

@@ -7,7 +7,6 @@
 #define ParamValidURL() [NSURL URLWithString:kParamValidURLString]
 
 #define kParamInvalidURLString @"http://www.google.com|||$$$++"
-#define ParamInvalidURL() [NSURL URLWithString:[kParamInvalidURLString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]
 
 using namespace Cedar::Matchers;
 using namespace Cedar::Doubles;
@@ -147,8 +146,8 @@ describe(@"MRCommand", ^{
                 result = [command executeWithParams:@{@"url":kParamInvalidURLString}];
             });
 
-            it(@"should call the delegate with a valid NSURL and return true", ^{
-                mrAdView should have_received(@selector(mrCommand:openURL:)).with(command).and_with(ParamInvalidURL());
+            it(@"should call the delegate with a nil NSURL and return true", ^{
+                mrAdView should have_received(@selector(mrCommand:openURL:)).with(command).and_with(nil);
                 result should be_truthy();
             });
         });
@@ -176,8 +175,8 @@ describe(@"MRCommand", ^{
                 result = [command executeWithParams:@{@"uri":kParamInvalidURLString}];
             });
 
-            it(@"should tell the delegate to play the video with a valid NSURL and return true", ^{
-                mrAdView should have_received(@selector(mrCommand:playVideoWithURL:)).with(command).and_with(ParamInvalidURL());
+            it(@"should tell the delegate to play the video with a nil NSURL and return true", ^{
+                mrAdView should have_received(@selector(mrCommand:playVideoWithURL:)).with(command).and_with(nil);
                 result should be_truthy();
             });
         });
@@ -205,8 +204,8 @@ describe(@"MRCommand", ^{
                 result = [command executeWithParams:@{@"uri":kParamInvalidURLString}];
             });
 
-            it(@"should tell the delegate to store the picture with a valid NSURL and return true", ^{
-                mrAdView should have_received(@selector(mrCommand:storePictureWithURL:)).with(command).and_with(ParamInvalidURL());
+            it(@"should tell the delegate to store the picture with a nil NSURL and return true", ^{
+                mrAdView should have_received(@selector(mrCommand:storePictureWithURL:)).with(command).and_with(nil);
                 result should be_truthy();
             });
         });

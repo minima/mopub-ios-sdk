@@ -11,8 +11,6 @@
 
 - (void)dealloc
 {
-    self.fakeNetworkExtras = nil;
-
     [super dealloc];
 }
 
@@ -29,13 +27,6 @@
     } else {
         [self.delegate interstitial:self didFailToPresentScreenWithError:nil];
     }
-}
-
-- (void)addAdNetworkExtras:(NSObject<IMNetworkExtras> *)networkExtras
-{
-    [super addAdNetworkExtras:networkExtras];
-
-    self.fakeNetworkExtras = (IMInMobiNetworkExtras *)networkExtras;
 }
 
 - (void)simulateLoadingAd

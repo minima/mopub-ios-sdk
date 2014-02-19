@@ -11,16 +11,7 @@
 
 - (void)dealloc
 {
-    self.fakeNetworkExtras = nil;
-
     [super dealloc];
-}
-
-- (void)addAdNetworkExtras:(NSObject<IMNetworkExtras> *)networkExtras
-{
-    [super addAdNetworkExtras:networkExtras];
-
-    self.fakeNetworkExtras = (IMInMobiNetworkExtras *)networkExtras;
 }
 
 - (void)simulateLoadingAd

@@ -7,11 +7,8 @@
 
 #import "IMBanner.h"
 #import "IMBannerDelegate.h"
-#import "IMInMobiNetworkExtras.h"
 
 @interface FakeIMAdView : IMBanner
-
-@property (nonatomic, retain) IMInMobiNetworkExtras *fakeNetworkExtras;
 
 - (void)simulateLoadingAd;
 - (void)simulateFailingToLoad;

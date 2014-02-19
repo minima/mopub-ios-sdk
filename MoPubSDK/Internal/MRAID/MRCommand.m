@@ -102,7 +102,7 @@
 
 - (NSURL *)urlFromParameters:(NSDictionary *)parameters forKey:(NSString *)key
 {
-    NSString *value = [[self stringFromParameters:parameters forKey:key] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    NSString *value = [self stringFromParameters:parameters forKey:key];
     return [NSURL URLWithString:value];
 }
 

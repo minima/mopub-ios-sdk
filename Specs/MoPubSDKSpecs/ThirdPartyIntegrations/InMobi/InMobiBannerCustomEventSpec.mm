@@ -1,5 +1,6 @@
 #import "InMobiBannerCustomEvent.h"
 #import "FakeIMAdView.h"
+#import "InMobi+Specs.h"
 
 using namespace Cedar::Matchers;
 using namespace Cedar::Doubles;
@@ -49,12 +50,19 @@ describe(@"InMobiBannerCustomEvent", ^{
         it(@"should load the banner with a proper request object", ^{
             [event requestAdWithSize:MOPUB_BANNER_SIZE customEventInfo:nil];
 
-            NSDictionary *params = banner.fakeNetworkExtras.additionaParameters;
+            NSDictionary *params = banner.additionaParameters;
             NSString *tpValue = [params objectForKey:@"tp"];
             tpValue should equal(@"c_mopub");
         });
 
-        it(@"should set the location using the InMobi class method", PENDING);
+        it(@"should set the location using the InMobi class method", ^{
+            [InMobi mp_swizzleSetLocationMethod];
+            [event requestAdWithSize:MOPUB_BANNER_SIZE customEventInfo:nil];
+
+            [InMobi mp_getLatitude] should equal((CGFloat)37.1);
+            [InMobi mp_getLongitude] should equal((CGFloat)21.2);
+            [InMobi mp_getAccuracy] should equal((CGFloat)12.3);
+        });
 
         it(@"should support the rectangular size", ^{
             [event requestAdWithSize:MOPUB_MEDIUM_RECT_SIZE customEventInfo:nil];

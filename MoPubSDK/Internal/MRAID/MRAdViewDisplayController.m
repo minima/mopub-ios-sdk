@@ -38,6 +38,8 @@ static NSString *const kMovieWillExitNotification42 =
 
 - (CGRect)defaultPosition;
 - (void)checkViewability;
+- (void)viewEnteredBackground;
+- (void)updateViewabilityWithBool:(BOOL)currentViewability;
 
 // Helpers for close() API.
 - (void)closeFromExpandedState;
@@ -91,6 +93,12 @@ static NSString *const kMovieWillExitNotification42 =
                                                                                       selector:@selector(checkViewability)
                                                                                        repeats:YES] retain];
         [_viewabilityTimer scheduleNow];
+
+
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(viewEnteredBackground)
+                                                     name:UIApplicationDidEnterBackgroundNotification
+                                                   object:nil];
 
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(moviePlayerWillEnterFullscreen:)
@@ -492,11 +500,17 @@ shouldLockOrientation:(BOOL)shouldLockOrientation {
     [_view adDidDismissModalView];
 }
 
-#pragma mark - Viewability Timer
+#pragma mark - Viewability Helpers
 
 - (void)checkViewability {
-    BOOL currentViewability = [_view isViewable];
+    [self updateViewabilityWithBool:[_view isViewable]];
+}
 
+- (void)viewEnteredBackground {
+    [self updateViewabilityWithBool:NO];
+}
+
+- (void)updateViewabilityWithBool:(BOOL)currentViewability {
     if (_isViewable != currentViewability) {
         MPLogDebug(@"Viewable changed to: %@", currentViewability ? @"YES" : @"NO");
         _isViewable = currentViewability;
