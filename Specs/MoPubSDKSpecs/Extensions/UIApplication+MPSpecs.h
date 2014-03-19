@@ -14,4 +14,6 @@
 - (void)setSupportedInterfaceOrientations:(UIInterfaceOrientationMask)orientationMask;
 - (NSUInteger)supportedInterfaceOrientationsForWindow:(UIWindow *)window;
 
+- (void)setTwitterInstalled:(BOOL)installed;
+
 @end

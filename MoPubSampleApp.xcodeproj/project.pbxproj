@@ -2683,10 +2683,7 @@
 					"\"$(SRCROOT)/AdNetworkSupport/Vungle/SDK\"",
 				);
 				OTHER_CFLAGS = "-Wno-objc-protocol-method-implementation";
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-all_load",
-				);
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = SampleAppKIF;
 				USER_HEADER_SEARCH_PATHS = "";
 				WRAPPER_EXTENSION = app;
@@ -2720,10 +2717,7 @@
 					"\"$(SRCROOT)/AdNetworkSupport/Millennial/SDK\"",
 					"\"$(SRCROOT)/AdNetworkSupport/Vungle/SDK\"",
 				);
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-all_load",
-				);
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = SampleAppKIF;
 				USER_HEADER_SEARCH_PATHS = "";
 				WRAPPER_EXTENSION = app;

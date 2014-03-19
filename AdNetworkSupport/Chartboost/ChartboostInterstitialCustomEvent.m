@@ -125,7 +125,7 @@ forChartboostInterstitialCustomEvent:(ChartboostInterstitialCustomEvent *)event;
     [self.delegate interstitialCustomEvent:self didLoadAd:nil];
 }
 
-- (void)didFailToLoadInterstitial:(NSString *)location
+- (void)didFailToLoadInterstitial:(NSString *)location withError:(CBLoadError)error
 {
     MPLogInfo(@"Failed to load Chartboost interstitial. Location: %@", location);
 
@@ -213,7 +213,7 @@ forChartboostInterstitialCustomEvent:(ChartboostInterstitialCustomEvent *)event
 {
     if ([self.activeLocations containsObject:location]) {
         MPLogInfo(@"Failed to load Chartboost interstitial: this location is already in use.");
-        [event didFailToLoadInterstitial:location];
+        [event didFailToLoadInterstitial:location withError:CBLoadErrorInternal];
         return;
     }
 
@@ -227,7 +227,7 @@ forChartboostInterstitialCustomEvent:(ChartboostInterstitialCustomEvent *)event
         [self.chartboost cacheInterstitial:location];
     } else {
         MPLogInfo(@"Failed to load Chartboost interstitial: missing either appId or appSignature.");
-        [event didFailToLoadInterstitial:location];
+        [event didFailToLoadInterstitial:location withError:CBLoadErrorInternal];
     }
 }
 
@@ -269,9 +269,9 @@ forChartboostInterstitialCustomEvent:(ChartboostInterstitialCustomEvent *)event
     [[self eventForLocation:location] didCacheInterstitial:location];
 }
 
-- (void)didFailToLoadInterstitial:(NSString *)location
+- (void)didFailToLoadInterstitial:(NSString *)location withError:(CBLoadError)error
 {
-    [[self eventForLocation:location] didFailToLoadInterstitial:location];
+    [[self eventForLocation:location] didFailToLoadInterstitial:location withError:CBLoadErrorInternal];
     [self unregisterEventForLocation:location];
 }
 

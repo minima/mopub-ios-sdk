@@ -48,7 +48,7 @@
 
 - (void)simulateFailingToLoadLocation:(NSString *)location
 {
-    [self.delegate didFailToLoadInterstitial:location];
+    [self.delegate didFailToLoadInterstitial:location withError:CBLoadErrorInternal];
 }
 
 - (void)simulateUserTap:(NSString *)location

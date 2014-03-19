@@ -9,7 +9,7 @@
 #import "GSAdDelegate.h"
 
 /*
- * Certified with version 4.2.2 of the Greystripe SDK.
+ * Certified with version 4.2.3 of the Greystripe SDK.
  */
 
 @interface GreystripeBannerCustomEvent : MPBannerCustomEvent <GSAdDelegate>

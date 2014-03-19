@@ -46,6 +46,7 @@
 		46ECD6EA17E7A29500442BCA /* MPAdAlertManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 46ECD6E417E7A29500442BCA /* MPAdAlertManager.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		46F6E75318AD64E00002347F /* libInMobi-4.1.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 46F6E75218AD64E00002347F /* libInMobi-4.1.0.a */; };
 		46F6E75418AD64E00002347F /* libInMobi-4.1.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 46F6E75218AD64E00002347F /* libInMobi-4.1.0.a */; };
+		4AB3DA9318C0306000F9563F /* TWTweetComposeViewController+MPSpecs.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB3DA9118C02AB800F9563F /* TWTweetComposeViewController+MPSpecs.m */; };
 		A73AB4B117AB379500D98ED7 /* LICENSE.txt in Resources */ = {isa = PBXBuildFile; fileRef = A73AB4A917AB379500D98ED7 /* LICENSE.txt */; };
 		A77A76CE17C1FEDA00AB0DCA /* MRCalendarManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A77A76CD17C1FED900AB0DCA /* MRCalendarManager.m */; };
 		A77A76CF17C1FEDA00AB0DCA /* MRCalendarManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A77A76CD17C1FED900AB0DCA /* MRCalendarManager.m */; };
@@ -580,6 +581,8 @@
 		46F6E75018AD64E00002347F /* InMobi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InMobi.h; sourceTree = "<group>"; };
 		46F6E75118AD64E00002347F /* InMobiAnalytics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InMobiAnalytics.h; sourceTree = "<group>"; };
 		46F6E75218AD64E00002347F /* libInMobi-4.1.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libInMobi-4.1.0.a"; sourceTree = "<group>"; };
+		4AB3DA9018C02AB800F9563F /* TWTweetComposeViewController+MPSpecs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TWTweetComposeViewController+MPSpecs.h"; sourceTree = "<group>"; };
+		4AB3DA9118C02AB800F9563F /* TWTweetComposeViewController+MPSpecs.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "TWTweetComposeViewController+MPSpecs.m"; sourceTree = "<group>"; };
 		A73AB4A917AB379500D98ED7 /* LICENSE.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
 		A73AB4AA17AB379500D98ED7 /* MMAdView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMAdView.h; sourceTree = "<group>"; };
 		A73AB4AB17AB379500D98ED7 /* MMInterstitial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMInterstitial.h; sourceTree = "<group>"; };
@@ -1683,6 +1686,8 @@
 				46255BEC1811E4E800B5CAD2 /* MRAdViewDisplayController+Specs.m */,
 				46C2107218AD6F9900E9789A /* InMobi+Specs.h */,
 				46C2107318AD6F9900E9789A /* InMobi+Specs.m */,
+				4AB3DA9018C02AB800F9563F /* TWTweetComposeViewController+MPSpecs.h */,
+				4AB3DA9118C02AB800F9563F /* TWTweetComposeViewController+MPSpecs.m */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -2314,6 +2319,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4AB3DA9318C0306000F9563F /* TWTweetComposeViewController+MPSpecs.m in Sources */,
 				AE341F4816F0E7060074C859 /* CDataScanner.m in Sources */,
 				AE341F4916F0E7060074C859 /* CFilteringJSONSerializer.m in Sources */,
 				AE341F4A16F0E7060074C859 /* CJSONDeserializer_BlocksExtensions.m in Sources */,
@@ -2711,7 +2717,6 @@
 				OTHER_CFLAGS = "-Wno-objc-protocol-method-implementation";
 				OTHER_LDFLAGS = (
 					"-ObjC",
-					"-all_load",
 					"-lstdc++",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2756,7 +2761,6 @@
 				"OTHER_CFLAGS[arch=*]" = "-DNS_BLOCK_ASSERTIONS=1";
 				OTHER_LDFLAGS = (
 					"-ObjC",
-					"-all_load",
 					"-lstdc++",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";

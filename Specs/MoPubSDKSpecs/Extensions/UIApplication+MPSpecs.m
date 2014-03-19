@@ -12,6 +12,8 @@ static char LAST_OPENED_URL_KEY;
 static char STATUS_BAR_ORIENTATION;
 static char SUPPORTED_INTERFACE_ORIENTATIONS;
 
+static BOOL gTwitterInstalled;
+
 @implementation UIApplication (MPSpecs)
 
 + (void)beforeEach
@@ -53,6 +55,54 @@ static char SUPPORTED_INTERFACE_ORIENTATIONS;
 - (NSUInteger)supportedInterfaceOrientationsForWindow:(UIWindow *)window
 {
     return [objc_getAssociatedObject(self, &SUPPORTED_INTERFACE_ORIENTATIONS) unsignedIntegerValue];
+}
+
+#pragma mark - Swizzling
+
++ (void)load {
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        Class class = [self class];
+
+        //swizzling canOpenURL:
+        SEL originalCanOpenURLSelector = @selector(canOpenURL:);
+        SEL swizzledCanOpenURLSelector = @selector(test_CanOpenURL:);
+
+        Method originalCanOpenURLMethod = class_getInstanceMethod(class, originalCanOpenURLSelector);
+        Method swizzledCanOpenURLMethod = class_getInstanceMethod(class, swizzledCanOpenURLSelector);
+
+        BOOL didAddCanOpenURLMethod =
+        class_addMethod(class, originalCanOpenURLSelector, method_getImplementation(swizzledCanOpenURLMethod), method_getTypeEncoding(swizzledCanOpenURLMethod));
+
+        if (didAddCanOpenURLMethod) {
+            class_replaceMethod(class, swizzledCanOpenURLSelector, method_getImplementation(originalCanOpenURLMethod), method_getTypeEncoding(originalCanOpenURLMethod));
+        } else {
+            method_exchangeImplementations(originalCanOpenURLMethod, swizzledCanOpenURLMethod);
+        }
+    });
+}
+
+#pragma mark - Test Twitter App Installation
+
+- (void)setTwitterInstalled:(BOOL)installed
+{
+    gTwitterInstalled = installed;
+}
+
+- (BOOL)test_CanOpenURL:(NSURL *)url
+{
+    BOOL canOpenURL = NO;
+
+    if ([url.absoluteString isEqualToString:@"twitter://timeline"])
+    {
+        canOpenURL = gTwitterInstalled;
+    }
+    else
+    {
+        canOpenURL = [self test_CanOpenURL:url];
+    }
+
+    return canOpenURL;
 }
 
 @end

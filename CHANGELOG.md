@@ -5,6 +5,12 @@
   - Handle ISO Latin-1 site encoding in addition to UTF-8
   - Bug fixes
 
+### Version 1.17.3.0 (March 20th, 2014)
+
+  - Updated Chartboost custom event (Chartboost SDK 4.0+ only)
+  - Bug fixes
+    - Fixed iOS 7 bug where certain interstitial images may fail to load
+
 ### Version 1.17.2.0 (February 20th, 2014)
 
   - Updated InMobi custom events (InMobi SDK 4.0.3+ only)

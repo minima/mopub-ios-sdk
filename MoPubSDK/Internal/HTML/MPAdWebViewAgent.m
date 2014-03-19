@@ -16,6 +16,12 @@
 #import "MPAdWebView.h"
 #import "MPInstanceProvider.h"
 
+#ifndef NSFoundationVersionNumber_iOS_6_1
+#define NSFoundationVersionNumber_iOS_6_1 993.00
+#endif
+
+#define MPOffscreenWebViewNeedsRenderingWorkaround() (floor(NSFoundationVersionNumber) > NSFoundationVersionNumber_iOS_6_1)
+
 NSString * const kMoPubURLScheme = @"mopub";
 NSString * const kMoPubCloseHost = @"close";
 NSString * const kMoPubFinishLoadHost = @"finishLoad";
@@ -300,6 +306,23 @@ NSString * const kMoPubCustomHost = @"custom";
                                       @".setAttribute('content', 'width=%f;', false);",
                                       self.view.frame.size.width];
     [self.view stringByEvaluatingJavaScriptFromString:viewportUpdateScript];
+
+    // XXX: In iOS 7, off-screen UIWebViews will fail to render certain image creatives.
+    // Specifically, creatives that only contain an <img> tag whose src attribute uses a 302
+    // redirect will not be rendered at all. One workaround is to temporarily change the web view's
+    // internal contentInset property; this seems to force the web view to re-draw.
+    if (MPOffscreenWebViewNeedsRenderingWorkaround()) {
+        if ([self.view respondsToSelector:@selector(scrollView)]) {
+            UIScrollView *scrollView = self.view.scrollView;
+            UIEdgeInsets originalInsets = scrollView.contentInset;
+            UIEdgeInsets newInsets = UIEdgeInsetsMake(originalInsets.top + 1,
+                                                      originalInsets.left,
+                                                      originalInsets.bottom,
+                                                      originalInsets.right);
+            scrollView.contentInset = newInsets;
+            scrollView.contentInset = originalInsets;
+        }
+    }
 }
 
 @end
