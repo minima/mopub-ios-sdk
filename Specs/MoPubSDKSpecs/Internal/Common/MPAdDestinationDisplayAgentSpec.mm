@@ -22,7 +22,7 @@ describe(@"MPAdDestinationDisplayAgent", ^{
 
     beforeEach(^{
         resolver = nice_fake_for([MPURLResolver class]);
-        fakeProvider.fakeMPURLResolver = resolver;
+        fakeCoreProvider.fakeMPURLResolver = resolver;
 
         delegate = nice_fake_for(@protocol(MPAdDestinationDisplayAgentDelegate));
         presentingViewController = [[[UIViewController alloc] init] autorelease];
@@ -235,7 +235,7 @@ describe(@"MPAdDestinationDisplayAgent", ^{
 
     describe(@"verifying that the resolver and display agent play nice", ^{
         beforeEach(^{
-            fakeProvider.fakeMPURLResolver = nil;
+            fakeCoreProvider.fakeMPURLResolver = nil;
             agent = [MPAdDestinationDisplayAgent agentWithDelegate:delegate];
         });
 

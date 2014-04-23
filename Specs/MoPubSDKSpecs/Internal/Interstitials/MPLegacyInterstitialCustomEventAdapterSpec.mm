@@ -87,10 +87,10 @@ describe(@"MPLegacyInterstitialCustomEventAdapter", ^{
             });
 
             it(@"should log an impression (only once)", ^{
-                fakeProvider.sharedFakeMPAnalyticsTracker.trackedImpressionConfigurations should contain(configuration);
+                fakeCoreProvider.sharedFakeMPAnalyticsTracker.trackedImpressionConfigurations should contain(configuration);
 
                 [adapter customEventDidLoadAd];
-                fakeProvider.sharedFakeMPAnalyticsTracker.trackedImpressionConfigurations.count should equal(1);
+                fakeCoreProvider.sharedFakeMPAnalyticsTracker.trackedImpressionConfigurations.count should equal(1);
             });
 
             it(@"should not tell its delegate anything", ^{
@@ -111,10 +111,10 @@ describe(@"MPLegacyInterstitialCustomEventAdapter", ^{
         context(@"when told that the legacy custom event ad was clicked", ^{
             it(@"should track a click (only once)", ^{
                 [adapter customEventActionWillBegin];
-                fakeProvider.sharedFakeMPAnalyticsTracker.trackedClickConfigurations should contain(configuration);
+                fakeCoreProvider.sharedFakeMPAnalyticsTracker.trackedClickConfigurations should contain(configuration);
 
                 [adapter customEventActionWillBegin];
-                fakeProvider.sharedFakeMPAnalyticsTracker.trackedClickConfigurations.count should equal(1);
+                fakeCoreProvider.sharedFakeMPAnalyticsTracker.trackedClickConfigurations.count should equal(1);
             });
         });
     });
@@ -130,7 +130,7 @@ describe(@"MPLegacyInterstitialCustomEventAdapter", ^{
             it(@"should no longer trigger a timeout", ^{
                 [adapter customEventDidLoadAd];
                 [delegate reset_sent_messages];
-                [fakeProvider advanceMPTimers:INTERSTITIAL_TIMEOUT_INTERVAL];
+                [fakeCoreProvider advanceMPTimers:INTERSTITIAL_TIMEOUT_INTERVAL];
                 delegate.sent_messages should be_empty;
             });
         });
@@ -139,7 +139,7 @@ describe(@"MPLegacyInterstitialCustomEventAdapter", ^{
             it(@"should invalidate the timer", ^{
                 [adapter customEventDidFailToLoadAd];
                 [delegate reset_sent_messages];
-                [fakeProvider advanceMPTimers:INTERSTITIAL_TIMEOUT_INTERVAL];
+                [fakeCoreProvider advanceMPTimers:INTERSTITIAL_TIMEOUT_INTERVAL];
                 delegate.sent_messages should be_empty;
             });
         });

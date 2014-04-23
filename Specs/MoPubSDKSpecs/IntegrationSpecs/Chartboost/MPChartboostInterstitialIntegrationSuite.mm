@@ -25,7 +25,7 @@ describe(@"MPChartboostInterstitialIntegrationSuite", ^{
 
         // request an Ad
         [interstitial loadAd];
-        communicator = fakeProvider.lastFakeMPAdServerCommunicator;
+        communicator = fakeCoreProvider.lastFakeMPAdServerCommunicator;
         communicator.loadedURL.absoluteString should contain(@"chartboost_interstitial");
 
         // prepare the fake and tell the injector about it
@@ -78,14 +78,14 @@ describe(@"MPChartboostInterstitialIntegrationSuite", ^{
             beforeEach(^{
                 [chartboost.cachedInterstitials setObject:@YES forKey:@"Boston"];
                 [delegate reset_sent_messages];
-                fakeProvider.sharedFakeMPAnalyticsTracker.trackedImpressionConfigurations.count should equal(0);
+                fakeCoreProvider.sharedFakeMPAnalyticsTracker.trackedImpressionConfigurations.count should equal(0);
                 [interstitial showFromViewController:presentingController];
             });
 
             it(@"should track an impression and tell the custom event to show", ^{
                 verify_fake_received_selectors(delegate, @[@"interstitialWillAppear:", @"interstitialDidAppear:"]);
                 chartboost.presentingViewController should_not be_nil;
-                fakeProvider.sharedFakeMPAnalyticsTracker.trackedImpressionConfigurations.count should equal(1);
+                fakeCoreProvider.sharedFakeMPAnalyticsTracker.trackedImpressionConfigurations.count should equal(1);
             });
 
             context(@"when the user interacts with the ad", ^{
@@ -96,7 +96,7 @@ describe(@"MPChartboostInterstitialIntegrationSuite", ^{
                 it(@"should track a click and should tell the delegate that it was dismissed", ^{
                     [chartboost simulateUserTap:@"Boston"];
                     verify_fake_received_selectors(delegate, @[@"interstitialWillDisappear:", @"interstitialDidDisappear:"]);
-                    fakeProvider.sharedFakeMPAnalyticsTracker.trackedClickConfigurations.count should equal(1);
+                    fakeCoreProvider.sharedFakeMPAnalyticsTracker.trackedClickConfigurations.count should equal(1);
                 });
             });
 
@@ -126,7 +126,7 @@ describe(@"MPChartboostInterstitialIntegrationSuite", ^{
             });
 
             it(@"should not track any impressions", ^{
-                fakeProvider.sharedFakeMPAnalyticsTracker.trackedImpressionConfigurations should be_empty;
+                fakeCoreProvider.sharedFakeMPAnalyticsTracker.trackedImpressionConfigurations should be_empty;
             });
 
             it(@"should not tell Chartboost to show", ^{
@@ -169,7 +169,7 @@ describe(@"handling multiple Chartboost requests (and locations)", ^{
             nullInterstitial = [MPInterstitialAdController interstitialAdControllerForAdUnitId:@"the_null_guy"];
             nullInterstitial.delegate = delegate;
             [nullInterstitial loadAd];
-            nullCommunicator = fakeProvider.lastFakeMPAdServerCommunicator;
+            nullCommunicator = fakeCoreProvider.lastFakeMPAdServerCommunicator;
             configuration = [MPAdConfigurationFactory defaultChartboostInterstitialConfigurationWithLocation:nil];
             configuration.failoverURL = [NSURL URLWithString:@"http://null.com"];
             [nullCommunicator receiveConfiguration:configuration];
@@ -177,14 +177,14 @@ describe(@"handling multiple Chartboost requests (and locations)", ^{
             fooInterstitial = [MPInterstitialAdController interstitialAdControllerForAdUnitId:@"the_foo_guy"];
             fooInterstitial.delegate = delegate;
             [fooInterstitial loadAd];
-            fooCommunicator = fakeProvider.lastFakeMPAdServerCommunicator;
+            fooCommunicator = fakeCoreProvider.lastFakeMPAdServerCommunicator;
             configuration = [MPAdConfigurationFactory defaultChartboostInterstitialConfigurationWithLocation:@"foo"];
             [fooCommunicator receiveConfiguration:configuration];
 
             barInterstitial = [MPInterstitialAdController interstitialAdControllerForAdUnitId:@"the_bar_guy"];
             barInterstitial.delegate = delegate;
             [barInterstitial loadAd];
-            barCommunicator = fakeProvider.lastFakeMPAdServerCommunicator;
+            barCommunicator = fakeCoreProvider.lastFakeMPAdServerCommunicator;
             configuration = [MPAdConfigurationFactory defaultChartboostInterstitialConfigurationWithLocation:@"bar"];
             [barCommunicator receiveConfiguration:configuration];
         });
@@ -213,7 +213,7 @@ describe(@"handling multiple Chartboost requests (and locations)", ^{
                     MPInterstitialAdController *interstitial = [MPInterstitialAdController interstitialAdControllerForAdUnitId:@"another_null_guy"];
                     interstitial.delegate = delegate;
                     [interstitial loadAd];
-                    FakeMPAdServerCommunicator *communicator = fakeProvider.lastFakeMPAdServerCommunicator;
+                    FakeMPAdServerCommunicator *communicator = fakeCoreProvider.lastFakeMPAdServerCommunicator;
                     configuration = [MPAdConfigurationFactory defaultChartboostInterstitialConfigurationWithLocation:nil];
                     configuration.failoverURL = [NSURL URLWithString:@"http://null.com/null"];
                     [communicator receiveConfiguration:configuration];
@@ -228,7 +228,7 @@ describe(@"handling multiple Chartboost requests (and locations)", ^{
                     MPInterstitialAdController *interstitial = [MPInterstitialAdController interstitialAdControllerForAdUnitId:@"another_bar_guy"];
                     interstitial.delegate = delegate;
                     [interstitial loadAd];
-                    FakeMPAdServerCommunicator *communicator = fakeProvider.lastFakeMPAdServerCommunicator;
+                    FakeMPAdServerCommunicator *communicator = fakeCoreProvider.lastFakeMPAdServerCommunicator;
                     configuration = [MPAdConfigurationFactory defaultChartboostInterstitialConfigurationWithLocation:@"bar"];
                     configuration.failoverURL = [NSURL URLWithString:@"http://bar.com/bar"];
                     [communicator receiveConfiguration:configuration];
@@ -248,7 +248,7 @@ describe(@"handling multiple Chartboost requests (and locations)", ^{
                 MPInterstitialAdController *interstitial = [MPInterstitialAdController interstitialAdControllerForAdUnitId:@"another_null_guy"];
                 interstitial.delegate = delegate;
                 [interstitial loadAd];
-                FakeMPAdServerCommunicator *communicator = fakeProvider.lastFakeMPAdServerCommunicator;
+                FakeMPAdServerCommunicator *communicator = fakeCoreProvider.lastFakeMPAdServerCommunicator;
                 configuration = [MPAdConfigurationFactory defaultChartboostInterstitialConfigurationWithLocation:nil];
                 configuration.failoverURL = [NSURL URLWithString:@"http://null.com/null"];
                 [communicator receiveConfiguration:configuration];
@@ -267,7 +267,7 @@ describe(@"handling multiple Chartboost requests (and locations)", ^{
                 MPInterstitialAdController *interstitial = [MPInterstitialAdController interstitialAdControllerForAdUnitId:@"another_null_guy"];
                 interstitial.delegate = delegate;
                 [interstitial loadAd];
-                FakeMPAdServerCommunicator *communicator = fakeProvider.lastFakeMPAdServerCommunicator;
+                FakeMPAdServerCommunicator *communicator = fakeCoreProvider.lastFakeMPAdServerCommunicator;
                 configuration = [MPAdConfigurationFactory defaultChartboostInterstitialConfigurationWithLocation:nil];
                 configuration.failoverURL = [NSURL URLWithString:@"http://null.com/null"];
                 [communicator receiveConfiguration:configuration];
@@ -291,7 +291,7 @@ describe(@"handling multiple Chartboost requests (and locations)", ^{
             MPInterstitialAdController *interstitialA = [MPInterstitialAdController interstitialAdControllerForAdUnitId:@"A"];
             interstitialA.delegate = delegate;
             [interstitialA loadAd];
-            [fakeProvider.lastFakeMPAdServerCommunicator receiveConfiguration:configuration];
+            [fakeCoreProvider.lastFakeMPAdServerCommunicator receiveConfiguration:configuration];
 
             @autoreleasepool {
                 // make interstiatial B (and give it the configuration
@@ -299,10 +299,10 @@ describe(@"handling multiple Chartboost requests (and locations)", ^{
                 interstitialB.delegate = delegate;
                 [interstitialB loadAd];
                 configuration.failoverURL = [NSURL URLWithString:@"http://b.com/b"];
-                [fakeProvider.lastFakeMPAdServerCommunicator receiveConfiguration:configuration];
+                [fakeCoreProvider.lastFakeMPAdServerCommunicator receiveConfiguration:configuration];
 
                 // assert that B failed, and that A didn't get any messages
-                fakeProvider.lastFakeMPAdServerCommunicator.loadedURL.absoluteString should equal(@"http://b.com/b");
+                fakeCoreProvider.lastFakeMPAdServerCommunicator.loadedURL.absoluteString should equal(@"http://b.com/b");
                 delegate.sent_messages should be_empty;
 
                 // kill off B (like, really deallocate it)
@@ -314,10 +314,10 @@ describe(@"handling multiple Chartboost requests (and locations)", ^{
             interstitialC.delegate = delegate;
             [interstitialC loadAd];
             configuration.failoverURL = [NSURL URLWithString:@"http://c.com/c"];
-            [fakeProvider.lastFakeMPAdServerCommunicator receiveConfiguration:configuration];
+            [fakeCoreProvider.lastFakeMPAdServerCommunicator receiveConfiguration:configuration];
 
             // assert that C failed <--
-            fakeProvider.lastFakeMPAdServerCommunicator.loadedURL.absoluteString should equal(@"http://c.com/c");
+            fakeCoreProvider.lastFakeMPAdServerCommunicator.loadedURL.absoluteString should equal(@"http://c.com/c");
 
             // let chartboost finish loading
             [chartboost simulateLoadingLocation:@"foo"];
@@ -343,7 +343,7 @@ describe(@"handling multiple Chartboost requests (and locations)", ^{
                     MPInterstitialAdController *interstitial = [MPInterstitialAdController interstitialAdControllerForAdUnitId:@"the_shortlived_guy"];
                     interstitial.delegate = delegate;
                     [interstitial loadAd];
-                    FakeMPAdServerCommunicator *communicator = fakeProvider.lastFakeMPAdServerCommunicator;
+                    FakeMPAdServerCommunicator *communicator = fakeCoreProvider.lastFakeMPAdServerCommunicator;
                     [communicator receiveConfiguration:configuration];
                     [MPInterstitialAdController removeSharedInterstitialAdController:interstitial];
                 }
@@ -361,7 +361,7 @@ describe(@"handling multiple Chartboost requests (and locations)", ^{
                     MPInterstitialAdController *another = [MPInterstitialAdController interstitialAdControllerForAdUnitId:@"anything"];
                     another.delegate = delegate;
                     [another loadAd];
-                    FakeMPAdServerCommunicator *communicator = fakeProvider.lastFakeMPAdServerCommunicator;
+                    FakeMPAdServerCommunicator *communicator = fakeCoreProvider.lastFakeMPAdServerCommunicator;
                     [communicator receiveConfiguration:configuration];
                     communicator.loadedURL should_not equal(configuration.failoverURL);
                     [chartboost simulateLoadingLocation:@"foo"];
@@ -377,7 +377,7 @@ describe(@"handling multiple Chartboost requests (and locations)", ^{
                         MPInterstitialAdController *interstitial = [MPInterstitialAdController interstitialAdControllerForAdUnitId:@"the_shortlived_guy"];
                         interstitial.delegate = delegate;
                         [interstitial loadAd];
-                        FakeMPAdServerCommunicator *communicator = fakeProvider.lastFakeMPAdServerCommunicator;
+                        FakeMPAdServerCommunicator *communicator = fakeCoreProvider.lastFakeMPAdServerCommunicator;
                         [communicator receiveConfiguration:configuration];
                         [chartboost simulateLoadingLocation:@"foo"];
                         [MPInterstitialAdController removeSharedInterstitialAdController:interstitial];
@@ -389,7 +389,7 @@ describe(@"handling multiple Chartboost requests (and locations)", ^{
                     MPInterstitialAdController *another = [MPInterstitialAdController interstitialAdControllerForAdUnitId:@"anything"];
                     another.delegate = delegate;
                     [another loadAd];
-                    FakeMPAdServerCommunicator *communicator = fakeProvider.lastFakeMPAdServerCommunicator;
+                    FakeMPAdServerCommunicator *communicator = fakeCoreProvider.lastFakeMPAdServerCommunicator;
                     [communicator receiveConfiguration:configuration];
                     communicator.loadedURL should_not equal(configuration.failoverURL);
                     [chartboost simulateLoadingLocation:@"foo"];

@@ -6,7 +6,7 @@
 #import <EventKit/EventKit.h>
 #import "MPInstanceProvider.h"
 #import "UIViewController+MPAdditions.h"
-#import "MPLastResortDelegate.h"
+#import "MPLastResortDelegate+EventKit.h"
 
 @interface MRCalendarManager ()
 

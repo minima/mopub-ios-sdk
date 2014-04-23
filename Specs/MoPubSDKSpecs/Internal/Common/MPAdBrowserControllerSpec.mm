@@ -51,6 +51,15 @@ describe(@"MPAdBrowserController", ^{
     describe(@"tapping toolbar buttons", ^{
         __block UIBarButtonItem *buttonUnderTest;
 
+        beforeEach(^{
+            // HACK: PivotalCoreKit's spec helpers for UIBarButtonItem now prohibit tapping on
+            // disabled buttons. Just enable all our buttons to avoid exceptions.
+            browser.backButton.enabled = YES;
+            browser.forwardButton.enabled = YES;
+            browser.refreshButton.enabled = YES;
+            browser.safariButton.enabled = YES;
+        });
+
         sharedExamplesFor(@"an MPAdBrowser toolbar button that hides the action sheet", ^(NSDictionary *sharedContext) {
             beforeEach(^{
                 [browser.safariButton tap];

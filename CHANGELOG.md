@@ -1,3 +1,9 @@
+## Version 2.0 (April 23rd, 2014)
+
+  - Added support for MoPub Native Ads. Please view the integration wiki [here](https://github.com/mopub/mopub-ios-sdk/wiki/Native-Ads-Integration).
+  - Updated the minimum required iOS version to iOS 5.0
+    - Removed `TouchJSON` dependency. `TouchJSON` files may be removed from your project.
+
 ## Version 1.17 (November 20, 2013)
 
   - AdColony Custom Event

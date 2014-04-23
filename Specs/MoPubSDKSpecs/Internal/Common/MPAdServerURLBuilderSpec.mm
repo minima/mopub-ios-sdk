@@ -178,8 +178,8 @@ describe(@"MPAdServerURLBuilder", ^{
     });
 
     it(@"should provide connectivity information", ^{
-        fakeProvider.fakeMPReachability = [[[FakeMPReachability alloc] init] autorelease];
-        FakeMPReachability *fakeMPReachability = fakeProvider.fakeMPReachability;
+        fakeCoreProvider.fakeMPReachability = [[[FakeMPReachability alloc] init] autorelease];
+        FakeMPReachability *fakeMPReachability = fakeCoreProvider.fakeMPReachability;
         fakeMPReachability.hasWifi = YES;
 
         URL = [MPAdServerURLBuilder URLWithAdUnitID:@"guy"
@@ -221,7 +221,7 @@ describe(@"MPAdServerURLBuilder", ^{
             @"mobileNetworkCode" : @"310",
             @"mobileCountryCode" : @"410"
         };
-        fakeProvider.fakeCarrierInfo = fakeCarrierInfo;
+        fakeCoreProvider.fakeCarrierInfo = fakeCarrierInfo;
 
         URL = [MPAdServerURLBuilder URLWithAdUnitID:@"guy"
                                            keywords:nil
@@ -243,7 +243,7 @@ describe(@"MPAdServerURLBuilder", ^{
 
     describe(@"Twitter Availability", ^{
         beforeEach(^{
-            [fakeProvider resetTwitterAppInstallCheck];
+            [fakeCoreProvider resetTwitterAppInstallCheck];
             [[UIApplication sharedApplication] setTwitterInstalled:NO];
             [TWTweetComposeViewController setNativeTwitterAvailable:NO];
         });

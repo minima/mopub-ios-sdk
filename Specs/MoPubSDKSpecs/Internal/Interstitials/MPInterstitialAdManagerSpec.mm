@@ -19,7 +19,7 @@ describe(@"MPInterstitialAdManager", ^{
     beforeEach(^{
         delegate = nice_fake_for(@protocol(MPInterstitialAdManagerDelegate));
         manager = [[MPInterstitialAdManager alloc] initWithDelegate:delegate];
-        communicator = fakeProvider.lastFakeMPAdServerCommunicator;
+        communicator = fakeCoreProvider.lastFakeMPAdServerCommunicator;
     });
 
     sharedExamplesFor(@"a manager that is in the midst of loading an interstitial", ^(NSDictionary *sharedContext) {

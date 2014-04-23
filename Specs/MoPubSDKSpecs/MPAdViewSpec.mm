@@ -24,7 +24,7 @@ describe(@"MPAdView", ^{
             adView.testing = YES;
             [adView loadAd];
 
-            NSString *requestedPath = fakeProvider.lastFakeMPAdServerCommunicator.loadedURL.absoluteString;
+            NSString *requestedPath = fakeCoreProvider.lastFakeMPAdServerCommunicator.loadedURL.absoluteString;
             requestedPath should contain(@"id=foo");
             requestedPath should contain(@"&q=hi=4");
             requestedPath should contain(@"&ll=20,20");

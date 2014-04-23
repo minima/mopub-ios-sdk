@@ -26,10 +26,10 @@ describe(@"MPHTMLInterstitialIntegrationSuite", ^{
 
     beforeEach(^{
         FakeMPAdAlertGestureRecognizer *fakeGestureRecognizer = [[FakeMPAdAlertGestureRecognizer alloc] init];
-        fakeProvider.fakeAdAlertGestureRecognizer = fakeGestureRecognizer;
+        fakeCoreProvider.fakeAdAlertGestureRecognizer = fakeGestureRecognizer;
 
         fakeAdAlertManager = [[[FakeMPAdAlertManager alloc] init] autorelease];
-        fakeProvider.fakeAdAlertManager = fakeAdAlertManager;
+        fakeCoreProvider.fakeAdAlertManager = fakeAdAlertManager;
 
         delegate = nice_fake_for(@protocol(MethodicalDelegate));
 
@@ -41,7 +41,7 @@ describe(@"MPHTMLInterstitialIntegrationSuite", ^{
 
         // request an Ad
         [interstitial loadAd];
-        communicator = fakeProvider.lastFakeMPAdServerCommunicator;
+        communicator = fakeCoreProvider.lastFakeMPAdServerCommunicator;
         communicator.loadedURL.absoluteString should contain(@"html_interstitial");
 
         // prepare the fake and tell the injector about it
@@ -97,14 +97,14 @@ describe(@"MPHTMLInterstitialIntegrationSuite", ^{
             });
 
             it(@"should track an impression (only once)", ^{
-                fakeProvider.sharedFakeMPAnalyticsTracker.trackedImpressionConfigurations should contain(configuration);
+                fakeCoreProvider.sharedFakeMPAnalyticsTracker.trackedImpressionConfigurations should contain(configuration);
 
                 [presentingController dismissModalViewControllerAnimated:NO];
                 [interstitial showFromViewController:presentingController];
                 UIViewController *presentedVC = [presentingController mp_presentedViewController];
                 [presentedVC viewWillAppear:MP_ANIMATED];
                 [presentedVC viewDidAppear:MP_ANIMATED];
-                fakeProvider.sharedFakeMPAnalyticsTracker.trackedImpressionConfigurations.count should equal(1);
+                fakeCoreProvider.sharedFakeMPAnalyticsTracker.trackedImpressionConfigurations.count should equal(1);
             });
 
             it(@"should tell the webview that it has been shown", ^{
@@ -158,7 +158,7 @@ describe(@"MPHTMLInterstitialIntegrationSuite", ^{
                 });
 
                 it(@"should not track an extra impression", ^{
-                    fakeProvider.sharedFakeMPAnalyticsTracker.trackedImpressionConfigurations.count should equal(1);
+                    fakeCoreProvider.sharedFakeMPAnalyticsTracker.trackedImpressionConfigurations.count should equal(1);
                 });
 
                 it(@"should not send any messages to the delegate", ^{

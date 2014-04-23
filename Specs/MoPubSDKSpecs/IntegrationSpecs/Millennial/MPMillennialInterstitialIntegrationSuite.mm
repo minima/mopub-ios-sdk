@@ -40,7 +40,7 @@ describe(@"MPMillennialInterstitialIntegrationSuite", ^{
 
         // request an Ad
         [interstitial loadAd];
-        communicator = fakeProvider.lastFakeMPAdServerCommunicator;
+        communicator = fakeCoreProvider.lastFakeMPAdServerCommunicator;
         communicator.loadedURL.absoluteString should contain(@"MM_interstitial");
 
         // prepare the fake and tell the injector about it
@@ -52,7 +52,7 @@ describe(@"MPMillennialInterstitialIntegrationSuite", ^{
         anotherIntersitital = [MPInterstitialAdController interstitialAdControllerForAdUnitId:@"MM_interstitial2"];
         anotherIntersitital.delegate = anotherDelegate;
         [anotherIntersitital loadAd];
-        anotherCommunicator = fakeProvider.lastFakeMPAdServerCommunicator;
+        anotherCommunicator = fakeCoreProvider.lastFakeMPAdServerCommunicator;
         anotherCommunicator.loadedURL.absoluteString should contain(@"MM_interstitial2");
     });
 
@@ -70,8 +70,8 @@ describe(@"MPMillennialInterstitialIntegrationSuite", ^{
                                       };
             MPAdConfiguration *configuration = [MPAdConfigurationFactory defaultInterstitialConfigurationWithHeaders:headers
                                                                                                           HTMLString:nil];
-            [fakeProvider.lastFakeMPAdServerCommunicator receiveConfiguration:configuration];
-            fakeProvider.lastFakeMPAdServerCommunicator.loadedURL should be_nil;
+            [fakeCoreProvider.lastFakeMPAdServerCommunicator receiveConfiguration:configuration];
+            fakeCoreProvider.lastFakeMPAdServerCommunicator.loadedURL should be_nil;
 
             [fakeInterstitial fetchCompletionBlock:@"M1"](YES, 0);
 
@@ -96,8 +96,8 @@ describe(@"MPMillennialInterstitialIntegrationSuite", ^{
                                                                                                           HTMLString:nil];
             configuration.failoverURL = [NSURL URLWithString:@"http://le/fail"];
 
-            [fakeProvider.lastFakeMPAdServerCommunicator receiveConfiguration:configuration];
-            fakeProvider.lastFakeMPAdServerCommunicator.loadedURL should equal(configuration.failoverURL);
+            [fakeCoreProvider.lastFakeMPAdServerCommunicator receiveConfiguration:configuration];
+            fakeCoreProvider.lastFakeMPAdServerCommunicator.loadedURL should equal(configuration.failoverURL);
             fakeInterstitial.requests[@"M1"] should be_nil;
         });
     });
@@ -165,7 +165,7 @@ describe(@"MPMillennialInterstitialIntegrationSuite", ^{
                 beforeEach(^{
                     [delegate reset_sent_messages];
                     [anotherDelegate reset_sent_messages];
-                    [fakeProvider.sharedFakeMPAnalyticsTracker reset];
+                    [fakeCoreProvider.sharedFakeMPAnalyticsTracker reset];
                     [fakeInterstitial setAvailabilityOfApid:@"M1" to:YES];
                     [fakeInterstitial setAvailabilityOfApid:@"M2" to:YES];
 
@@ -179,11 +179,11 @@ describe(@"MPMillennialInterstitialIntegrationSuite", ^{
 
                 sharedExamplesFor(@"a Millennial ad that prevents showing", ^(NSDictionary *sharedContext) {
                     it(@"should not show the interstitial", ^{
-                        [fakeProvider.sharedFakeMPAnalyticsTracker reset];
+                        [fakeCoreProvider.sharedFakeMPAnalyticsTracker reset];
                         [fakeInterstitial reset];
                         [interstitial showFromViewController:presentingController];
                         fakeInterstitial.viewControllers[@"M1"] should be_nil;
-                        fakeProvider.sharedFakeMPAnalyticsTracker.trackedImpressionConfigurations should be_empty;
+                        fakeCoreProvider.sharedFakeMPAnalyticsTracker.trackedImpressionConfigurations should be_empty;
                     });
                 });
 
@@ -198,11 +198,11 @@ describe(@"MPMillennialInterstitialIntegrationSuite", ^{
 
                     it(@"should tell the delegate that the ad will and did appear, and it should track an impression", ^{
                         verify_fake_received_selectors(delegate, @[@"interstitialWillAppear:", @"interstitialDidAppear:"]);
-                        fakeProvider.sharedFakeMPAnalyticsTracker.trackedImpressionConfigurations.count should equal(1);
+                        fakeCoreProvider.sharedFakeMPAnalyticsTracker.trackedImpressionConfigurations.count should equal(1);
                         interstitial.ready should equal(YES);
 
                         [fakeInterstitial simulateSuccesfulPresentation:@"M1"];
-                        fakeProvider.sharedFakeMPAnalyticsTracker.trackedImpressionConfigurations.count should equal(1);
+                        fakeCoreProvider.sharedFakeMPAnalyticsTracker.trackedImpressionConfigurations.count should equal(1);
 
                         anotherDelegate.sent_messages should be_empty;
                     });
@@ -214,10 +214,10 @@ describe(@"MPMillennialInterstitialIntegrationSuite", ^{
                     context(@"and the user taps on the ad", ^{
                         it(@"should track a click (just once)", ^{
                             [fakeInterstitial simulateInterstitialTap];
-                            fakeProvider.sharedFakeMPAnalyticsTracker.trackedClickConfigurations should equal(@[configuration]);
+                            fakeCoreProvider.sharedFakeMPAnalyticsTracker.trackedClickConfigurations should equal(@[configuration]);
 
                             [fakeInterstitial simulateInterstitialTap];
-                            fakeProvider.sharedFakeMPAnalyticsTracker.trackedClickConfigurations should equal(@[configuration]);
+                            fakeCoreProvider.sharedFakeMPAnalyticsTracker.trackedClickConfigurations should equal(@[configuration]);
                         });
                     });
 
@@ -249,7 +249,7 @@ describe(@"MPMillennialInterstitialIntegrationSuite", ^{
                     it(@"should expire the ad, not track an impression, and should not be ready", ^{
                         verify_fake_received_selectors(delegate, @[@"interstitialDidExpire:"]);
                         interstitial.ready should equal(NO);
-                        fakeProvider.sharedFakeMPAnalyticsTracker.trackedImpressionConfigurations should be_empty;
+                        fakeCoreProvider.sharedFakeMPAnalyticsTracker.trackedImpressionConfigurations should be_empty;
 
                         anotherDelegate.sent_messages should be_empty;
                     });
@@ -283,7 +283,7 @@ describe(@"MPMillennialInterstitialIntegrationSuite", ^{
                         fakeInterstitial.viewControllers should be_empty;
                         verify_fake_received_selectors(delegate, @[@"interstitialDidExpire:"]);
                         interstitial.ready should equal(NO);
-                        fakeProvider.sharedFakeMPAnalyticsTracker.trackedImpressionConfigurations should be_empty;
+                        fakeCoreProvider.sharedFakeMPAnalyticsTracker.trackedImpressionConfigurations should be_empty;
                     });
 
                     itShouldBehaveLike(@"an available ad unit");

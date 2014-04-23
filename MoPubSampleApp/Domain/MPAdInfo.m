@@ -17,7 +17,7 @@
 
     static dispatch_once_t once;
     dispatch_once(&once, ^{
-        adTypeNames = [NSArray arrayWithObjects:@"Banner", @"Interstitial", @"MRect", @"Leaderboard", nil];
+        adTypeNames = @[@"Banner", @"Interstitial", @"MRect", @"Leaderboard", @"Native"];
     });
 
     return adTypeNames;
@@ -46,6 +46,14 @@
     return @[
              [MPAdInfo infoWithTitle:@"HTML Interstitial Ad" ID:@"13260008add211e295fa123138070049" type:MPAdInfoInterstitial],
              [MPAdInfo infoWithTitle:@"MRAID Interstitial Ad" ID:@"3aba0056add211e281c11231392559e4" type:MPAdInfoInterstitial],
+             ];
+}
+
++ (NSArray *)nativeAds
+{
+    return @[
+             [MPAdInfo infoWithTitle:@"Native Ad" ID:@"8ce943e5b65a4689b434d72736dbed02" type:MPAdInfoNative],
+             [MPAdInfo infoWithTitle:@"Native Ad (TableView Example)" ID:@"8ce943e5b65a4689b434d72736dbed02" type:MPAdInfoNativeInTableView]
              ];
 }
 

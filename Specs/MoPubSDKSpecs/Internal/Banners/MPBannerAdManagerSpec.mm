@@ -17,7 +17,7 @@ describe(@"MPBannerAdManager", ^{
     beforeEach(^{
         delegate = nice_fake_for(@protocol(MPBannerAdManagerDelegate));
         manager = [[[MPBannerAdManager alloc] initWithDelegate:delegate] autorelease];
-        communicator = fakeProvider.lastFakeMPAdServerCommunicator;
+        communicator = fakeCoreProvider.lastFakeMPAdServerCommunicator;
     });
 
     describe(@"loading requests", ^{
@@ -52,7 +52,7 @@ describe(@"MPBannerAdManager", ^{
                 [event simulateLoadingAd];
 
                 [communicator resetLoadedURL];
-                [fakeProvider advanceMPTimers:20];
+                [fakeCoreProvider advanceMPTimers:20];
                 communicator.loadedURL should_not be_nil;
             });
         });
@@ -66,24 +66,24 @@ describe(@"MPBannerAdManager", ^{
 
                 MPAdConfiguration *configuration = [MPAdConfigurationFactory defaultBannerConfigurationWithCustomEventClassName:@"FakeBannerCustomEvent"];
                 configuration.refreshInterval = -1;
-                [fakeProvider.lastFakeMPAdServerCommunicator receiveConfiguration:configuration];
+                [fakeCoreProvider.lastFakeMPAdServerCommunicator receiveConfiguration:configuration];
 
-                int numberOfTimers = fakeProvider.fakeTimers.count;
+                int numberOfTimers = fakeCoreProvider.fakeTimers.count;
 
                 [event simulateLoadingAd];
 
-                fakeProvider.fakeTimers.count should equal(numberOfTimers);
+                fakeCoreProvider.fakeTimers.count should equal(numberOfTimers);
             });
         });
 
         context(@"when the initial ad server request fails", ^{
             it(@"should schedule the default autorefresh timer", ^{
                 [manager loadAd];
-                FakeMPAdServerCommunicator *communicator = fakeProvider.lastFakeMPAdServerCommunicator;
+                FakeMPAdServerCommunicator *communicator = fakeCoreProvider.lastFakeMPAdServerCommunicator;
                 [communicator failWithError:nil];
 
                 [communicator resetLoadedURL];
-                [fakeProvider advanceMPTimers:DEFAULT_BANNER_REFRESH_INTERVAL];
+                [fakeCoreProvider advanceMPTimers:DEFAULT_BANNER_REFRESH_INTERVAL];
                 communicator.loadedURL should_not be_nil;
             });
         });
@@ -101,7 +101,7 @@ describe(@"MPBannerAdManager", ^{
                 delegate should have_received(@selector(managerDidFailToLoadAd));
 
                 [communicator resetLoadedURL];
-                [fakeProvider advanceMPTimers:configuration.refreshInterval];
+                [fakeCoreProvider advanceMPTimers:configuration.refreshInterval];
                 communicator.loadedURL should_not be_nil;
             });
         });
@@ -117,7 +117,7 @@ describe(@"MPBannerAdManager", ^{
                 delegate should have_received(@selector(managerDidFailToLoadAd));
 
                 [communicator resetLoadedURL];
-                [fakeProvider advanceMPTimers:configuration.refreshInterval];
+                [fakeCoreProvider advanceMPTimers:configuration.refreshInterval];
                 communicator.loadedURL should_not be_nil;
             });
         });
@@ -132,7 +132,7 @@ describe(@"MPBannerAdManager", ^{
                 delegate should have_received(@selector(managerDidFailToLoadAd));
 
                 [communicator resetLoadedURL];
-                [fakeProvider advanceMPTimers:configuration.refreshInterval];
+                [fakeCoreProvider advanceMPTimers:configuration.refreshInterval];
                 communicator.loadedURL should_not be_nil;
             });
         });

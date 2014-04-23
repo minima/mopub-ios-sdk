@@ -44,7 +44,7 @@ describe(@"MPLegacyCustomEventBannerIntegrationSuite", ^{
         banner.delegate = delegate;
         [banner loadAd];
 
-        communicator = fakeProvider.lastFakeMPAdServerCommunicator;
+        communicator = fakeCoreProvider.lastFakeMPAdServerCommunicator;
         communicator.loadedURL.absoluteString should contain(@"legacy_custom_event_banner");
 
         [communicator receiveConfiguration:admobConfiguration];
@@ -62,8 +62,8 @@ describe(@"MPLegacyCustomEventBannerIntegrationSuite", ^{
 
                 communicator.loadedURL should be_nil;
                 delegate.sent_messages should be_empty;
-                fakeProvider.sharedFakeMPAnalyticsTracker.trackedImpressionConfigurations should be_empty;
-                fakeProvider.sharedFakeMPAnalyticsTracker.trackedClickConfigurations should be_empty;
+                fakeCoreProvider.sharedFakeMPAnalyticsTracker.trackedImpressionConfigurations should be_empty;
+                fakeCoreProvider.sharedFakeMPAnalyticsTracker.trackedClickConfigurations should be_empty;
             });
         });
     });
@@ -77,7 +77,7 @@ describe(@"MPLegacyCustomEventBannerIntegrationSuite", ^{
             it(@"should ignore the call", ^{
                 [communicator resetLoadedURL];
                 [delegate reset_sent_messages];
-                [fakeProvider.sharedFakeMPAnalyticsTracker reset];
+                [fakeCoreProvider.sharedFakeMPAnalyticsTracker reset];
 
                 [banner customEventDidLoadAd];
                 [banner customEventDidFailToLoadAd];
@@ -86,8 +86,8 @@ describe(@"MPLegacyCustomEventBannerIntegrationSuite", ^{
 
                 communicator.loadedURL should be_nil;
                 delegate.sent_messages should be_empty;
-                fakeProvider.sharedFakeMPAnalyticsTracker.trackedImpressionConfigurations should be_empty;
-                fakeProvider.sharedFakeMPAnalyticsTracker.trackedClickConfigurations should be_empty;
+                fakeCoreProvider.sharedFakeMPAnalyticsTracker.trackedImpressionConfigurations should be_empty;
+                fakeCoreProvider.sharedFakeMPAnalyticsTracker.trackedClickConfigurations should be_empty;
             });
         });
 
@@ -118,7 +118,7 @@ describe(@"MPLegacyCustomEventBannerIntegrationSuite", ^{
                 });
 
                 it(@"should not have a timeout timer", ^{
-                    [fakeProvider lastFakeMPTimerWithSelector:@selector(timeout)] should be_nil;
+                    [fakeCoreProvider lastFakeMPTimerWithSelector:@selector(timeout)] should be_nil;
                 });
 
                 it(@"should allow subsequent loads", ^{
@@ -128,12 +128,12 @@ describe(@"MPLegacyCustomEventBannerIntegrationSuite", ^{
                 });
 
                 it(@"should track an impression", ^{
-                    fakeProvider.sharedFakeMPAnalyticsTracker.trackedImpressionConfigurations should contain(configuration);
+                    fakeCoreProvider.sharedFakeMPAnalyticsTracker.trackedImpressionConfigurations should contain(configuration);
                 });
 
                 it(@"should schedule a refresh timer", ^{
                     [communicator resetLoadedURL];
-                    [fakeProvider advanceMPTimers:30];
+                    [fakeCoreProvider advanceMPTimers:30];
                     communicator.loadedURL.absoluteString should contain(@"legacy_custom_event_banner");
                 });
 
@@ -152,13 +152,13 @@ describe(@"MPLegacyCustomEventBannerIntegrationSuite", ^{
                         [banner customEventActionWillBegin];
 
                         //imagine, now, that a background ad loads
-                        [fakeProvider advanceMPTimers:30];
+                        [fakeCoreProvider advanceMPTimers:30];
                         [communicator receiveConfiguration:admobConfiguration];
                         [admob simulateLoadingAd];
                     });
 
                     it(@"should track a click", ^{
-                        fakeProvider.sharedFakeMPAnalyticsTracker.trackedClickConfigurations should contain(configuration);
+                        fakeCoreProvider.sharedFakeMPAnalyticsTracker.trackedClickConfigurations should contain(configuration);
                     });
 
                     it(@"should tell the delegate", ^{

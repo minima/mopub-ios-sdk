@@ -49,7 +49,7 @@ describe(@"MPInterstitialAdController", ^{
             controller.testing = YES;
             [controller loadAd];
 
-            NSString *requestedPath = fakeProvider.lastFakeMPAdServerCommunicator.loadedURL.absoluteString;
+            NSString *requestedPath = fakeCoreProvider.lastFakeMPAdServerCommunicator.loadedURL.absoluteString;
             requestedPath should contain(@"id=guy1");
             requestedPath should contain(@"&q=hi=4");
             requestedPath should contain(@"&ll=20,20");

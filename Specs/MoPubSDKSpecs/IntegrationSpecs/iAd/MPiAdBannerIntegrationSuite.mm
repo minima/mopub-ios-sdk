@@ -26,13 +26,13 @@ describe(@"iAdBannerIntegrationSuite", ^{
 
         configuration = [MPAdConfigurationFactory defaultBannerConfigurationWithNetworkType:@"iAd"];
         configuration.refreshInterval = 20;
-        communicator = fakeProvider.lastFakeMPAdServerCommunicator;
+        communicator = fakeCoreProvider.lastFakeMPAdServerCommunicator;
         [communicator receiveConfiguration:configuration];
     });
 
     it(@"should show nothing, track no impression, and tell no one", ^{
         banner.subviews should be_empty;
-        fakeProvider.sharedFakeMPAnalyticsTracker.trackedImpressionConfigurations should be_empty;
+        fakeCoreProvider.sharedFakeMPAnalyticsTracker.trackedImpressionConfigurations should be_empty;
         delegate.sent_messages should be_empty;
     });
 
@@ -52,7 +52,7 @@ describe(@"iAdBannerIntegrationSuite", ^{
 
             it(@"should show nothing, track no impression, and tell no one", ^{
                 banner.subviews should be_empty;
-                fakeProvider.sharedFakeMPAnalyticsTracker.trackedImpressionConfigurations should be_empty;
+                fakeCoreProvider.sharedFakeMPAnalyticsTracker.trackedImpressionConfigurations should be_empty;
                 delegate.sent_messages should be_empty;
             });
         });
@@ -63,13 +63,13 @@ describe(@"iAdBannerIntegrationSuite", ^{
 
         beforeEach(^{
             [fakeADBannerView simulateLoadingAd];
-            refreshTimer = [fakeProvider lastFakeMPTimerWithSelector:@selector(refreshTimerDidFire)];
+            refreshTimer = [fakeCoreProvider lastFakeMPTimerWithSelector:@selector(refreshTimerDidFire)];
         });
 
         it(@"should show the ad, track an impression, tell the delegate, and start the refresh timer", ^{
             banner.subviews.lastObject should equal(fakeADBannerView);
-            fakeProvider.sharedFakeMPAnalyticsTracker.trackedImpressionConfigurations should contain(configuration);
-            fakeProvider.sharedFakeMPAnalyticsTracker.trackedImpressionConfigurations.count should equal(1);
+            fakeCoreProvider.sharedFakeMPAnalyticsTracker.trackedImpressionConfigurations should contain(configuration);
+            fakeCoreProvider.sharedFakeMPAnalyticsTracker.trackedImpressionConfigurations.count should equal(1);
             delegate should have_received(@selector(adViewDidLoadAd:)).with(banner);
             refreshTimer.isScheduled should equal(YES);
         });
@@ -96,11 +96,11 @@ describe(@"iAdBannerIntegrationSuite", ^{
             });
 
             it(@"should track a click and tell the delegate (just once)", ^{
-                fakeProvider.sharedFakeMPAnalyticsTracker.trackedClickConfigurations should contain(configuration);
+                fakeCoreProvider.sharedFakeMPAnalyticsTracker.trackedClickConfigurations should contain(configuration);
                 delegate should have_received(@selector(willPresentModalViewForAd:)).with(banner);
 
                 [fakeADBannerView simulateUserInteraction];
-                fakeProvider.sharedFakeMPAnalyticsTracker.trackedClickConfigurations.count should equal(1);
+                fakeCoreProvider.sharedFakeMPAnalyticsTracker.trackedClickConfigurations.count should equal(1);
             });
 
             context(@"when the user then dismisses the ad", ^{
@@ -120,7 +120,7 @@ describe(@"iAdBannerIntegrationSuite", ^{
                     });
 
                     it(@"should track the new click", ^{
-                        fakeProvider.sharedFakeMPAnalyticsTracker.trackedClickConfigurations.count should equal(2);
+                        fakeCoreProvider.sharedFakeMPAnalyticsTracker.trackedClickConfigurations.count should equal(2);
                     });
                 });
             });
@@ -130,7 +130,7 @@ describe(@"iAdBannerIntegrationSuite", ^{
             it(@"should track a click and tell the delegate", ^{
                 [delegate reset_sent_messages];
                 [fakeADBannerView simulateUserLeavingApplication];
-                fakeProvider.sharedFakeMPAnalyticsTracker.trackedClickConfigurations should contain(configuration);
+                fakeCoreProvider.sharedFakeMPAnalyticsTracker.trackedClickConfigurations should contain(configuration);
                 verify_fake_received_selectors(delegate, @[@"willLeaveApplicationFromAd:"]);
             });
         });
@@ -139,13 +139,13 @@ describe(@"iAdBannerIntegrationSuite", ^{
             context(@"and succeeds", ^{
                 beforeEach(^{
                     [delegate reset_sent_messages];
-                    [fakeProvider.sharedFakeMPAnalyticsTracker reset];
+                    [fakeCoreProvider.sharedFakeMPAnalyticsTracker reset];
                     [fakeADBannerView simulateLoadingAd];
                 });
 
                 it(@"should still be visible, track an impression, and *not* tell the delegate, and not restart the refresh timer", ^{
                     banner.subviews.lastObject should equal(fakeADBannerView);
-                    fakeProvider.sharedFakeMPAnalyticsTracker.trackedImpressionConfigurations should contain(configuration);
+                    fakeCoreProvider.sharedFakeMPAnalyticsTracker.trackedImpressionConfigurations should contain(configuration);
                     delegate should_not have_received(@selector(adViewDidLoadAd:));
                     refreshTimer.isValid should equal(YES);
                 });
@@ -167,13 +167,13 @@ describe(@"iAdBannerIntegrationSuite", ^{
                 context(@"and subsequently succeeds", ^{
                     beforeEach(^{
                         [delegate reset_sent_messages];
-                        [fakeProvider.sharedFakeMPAnalyticsTracker reset];
+                        [fakeCoreProvider.sharedFakeMPAnalyticsTracker reset];
                         [fakeADBannerView simulateLoadingAd];
                     });
 
                     it(@"should show nothing, track no impression, and tell no one", ^{
                         banner.subviews should be_empty;
-                        fakeProvider.sharedFakeMPAnalyticsTracker.trackedImpressionConfigurations should be_empty;
+                        fakeCoreProvider.sharedFakeMPAnalyticsTracker.trackedImpressionConfigurations should be_empty;
                         delegate.sent_messages should be_empty;
                     });
                 });
@@ -183,7 +183,7 @@ describe(@"iAdBannerIntegrationSuite", ^{
         context(@"(regression test) when the refresh timer fires while the user is playing with the ad", ^{
             beforeEach(^{
                 [fakeADBannerView simulateUserInteraction];
-                [fakeProvider advanceMPTimers:configuration.refreshInterval];
+                [fakeCoreProvider advanceMPTimers:configuration.refreshInterval];
                 [communicator receiveConfiguration:configuration];
             });
 
@@ -200,7 +200,7 @@ describe(@"iAdBannerIntegrationSuite", ^{
         context(@"(regression test) when iAd indicates failure immediately upon dismissing its modal content", ^{
             beforeEach(^{
                 [fakeADBannerView simulateUserInteraction];
-                [fakeProvider advanceMPTimers:configuration.refreshInterval];
+                [fakeCoreProvider advanceMPTimers:configuration.refreshInterval];
                 [communicator receiveConfiguration:configuration];
                 [delegate reset_sent_messages];
                 [fakeADBannerView simulateFailingToLoad];
@@ -224,11 +224,11 @@ describe(@"iAdBannerIntegrationSuite", ^{
 
             beforeEach(^{
                 [delegate reset_sent_messages];
-                [fakeProvider.sharedFakeMPAnalyticsTracker reset];
+                [fakeCoreProvider.sharedFakeMPAnalyticsTracker reset];
                 anotherConfiguration = [MPAdConfigurationFactory defaultBannerConfigurationWithNetworkType:@"iAd"];
                 anotherConfiguration.failoverURL = [NSURL URLWithString:@"http://failover2"];
 
-                [fakeProvider advanceMPTimers:configuration.refreshInterval];
+                [fakeCoreProvider advanceMPTimers:configuration.refreshInterval];
             });
 
             context(@"and then the iAd configuration arrives", ^{
@@ -238,9 +238,9 @@ describe(@"iAdBannerIntegrationSuite", ^{
 
                 it(@"should immediately be visible, *not* track an impression, and tell the delegate, and start the refresh timer", ^{
                     banner.subviews.lastObject should equal(fakeADBannerView);
-                    fakeProvider.sharedFakeMPAnalyticsTracker.trackedImpressionConfigurations should be_empty;
+                    fakeCoreProvider.sharedFakeMPAnalyticsTracker.trackedImpressionConfigurations should be_empty;
                     delegate should have_received(@selector(adViewDidLoadAd:)).with(banner);
-                    [fakeProvider lastFakeMPTimerWithSelector:@selector(refreshTimerDidFire)].isValid should equal(YES);
+                    [fakeCoreProvider lastFakeMPTimerWithSelector:@selector(refreshTimerDidFire)].isValid should equal(YES);
                 });
             });
 
@@ -252,9 +252,9 @@ describe(@"iAdBannerIntegrationSuite", ^{
 
                     it(@"should track an impression, *not* tell the delegate, not start the refresh timer, and leave the communicator alone", ^{
                         banner.subviews.lastObject should equal(fakeADBannerView);
-                        fakeProvider.sharedFakeMPAnalyticsTracker.trackedImpressionConfigurations should contain(configuration);
+                        fakeCoreProvider.sharedFakeMPAnalyticsTracker.trackedImpressionConfigurations should contain(configuration);
                         delegate should_not have_received(@selector(adViewDidLoadAd:));
-                        [fakeProvider lastFakeMPTimerWithSelector:@selector(refreshTimerDidFire)].isValid should equal(NO);
+                        [fakeCoreProvider lastFakeMPTimerWithSelector:@selector(refreshTimerDidFire)].isValid should equal(NO);
                     });
 
                     context(@"and then the iAd configuration arrives", ^{
@@ -264,9 +264,9 @@ describe(@"iAdBannerIntegrationSuite", ^{
 
                         it(@"should immediately be visible, should *not* track an impression, should tell the delegate, and should start the timer again", ^{
                             banner.subviews.lastObject should equal(fakeADBannerView);
-                            fakeProvider.sharedFakeMPAnalyticsTracker.trackedImpressionConfigurations should_not contain(anotherConfiguration);
+                            fakeCoreProvider.sharedFakeMPAnalyticsTracker.trackedImpressionConfigurations should_not contain(anotherConfiguration);
                             delegate should have_received(@selector(adViewDidLoadAd:)).with(banner);
-                            [fakeProvider lastFakeMPTimerWithSelector:@selector(refreshTimerDidFire)].isValid should equal(YES);
+                            [fakeCoreProvider lastFakeMPTimerWithSelector:@selector(refreshTimerDidFire)].isValid should equal(YES);
                         });
                     });
                 });
@@ -293,13 +293,13 @@ describe(@"iAdBannerIntegrationSuite", ^{
                             beforeEach(^{
                                 [delegate reset_sent_messages];
                                 [fakeADBannerView simulateLoadingAd];
-                                refreshTimer = [fakeProvider lastFakeMPTimerWithSelector:@selector(refreshTimerDidFire)];
+                                refreshTimer = [fakeCoreProvider lastFakeMPTimerWithSelector:@selector(refreshTimerDidFire)];
                             });
 
 
                             it(@"should show the ad, track an impression, tell the delegate, and start the refresh timer", ^{
                                 banner.subviews.lastObject should equal(fakeADBannerView);
-                                fakeProvider.sharedFakeMPAnalyticsTracker.trackedImpressionConfigurations should contain(anotherConfiguration);
+                                fakeCoreProvider.sharedFakeMPAnalyticsTracker.trackedImpressionConfigurations should contain(anotherConfiguration);
                                 delegate should have_received(@selector(adViewDidLoadAd:)).with(banner);
                                 refreshTimer.isScheduled should equal(YES);
                             });
@@ -320,7 +320,7 @@ describe(@"iAdBannerIntegrationSuite", ^{
                     context(@"and subsequently succeeds", ^{
                         beforeEach(^{
                             [delegate reset_sent_messages];
-                            [fakeProvider.sharedFakeMPAnalyticsTracker reset];
+                            [fakeCoreProvider.sharedFakeMPAnalyticsTracker reset];
                             [fakeADBannerView simulateLoadingAd];
                         });
 
@@ -331,9 +331,9 @@ describe(@"iAdBannerIntegrationSuite", ^{
 
                             it(@"should immediately be visible, should track an impression, should tell the delegate, and should start the timer again", ^{
                                 banner.subviews.lastObject should equal(fakeADBannerView);
-                                fakeProvider.sharedFakeMPAnalyticsTracker.trackedImpressionConfigurations should contain(anotherConfiguration);
+                                fakeCoreProvider.sharedFakeMPAnalyticsTracker.trackedImpressionConfigurations should contain(anotherConfiguration);
                                 delegate should have_received(@selector(adViewDidLoadAd:)).with(banner);
-                                [fakeProvider lastFakeMPTimerWithSelector:@selector(refreshTimerDidFire)].isValid should equal(YES);
+                                [fakeCoreProvider lastFakeMPTimerWithSelector:@selector(refreshTimerDidFire)].isValid should equal(YES);
                             });
                         });
                     });

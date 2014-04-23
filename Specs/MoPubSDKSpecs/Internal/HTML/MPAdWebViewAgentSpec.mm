@@ -29,12 +29,12 @@ describe(@"MPAdWebViewAgent", ^{
 
     beforeEach(^{
         fakeAdAlertManager = [[[FakeMPAdAlertManager alloc] init] autorelease];
-        fakeProvider.fakeAdAlertManager = fakeAdAlertManager;
+        fakeCoreProvider.fakeAdAlertManager = fakeAdAlertManager;
 
         delegate = nice_fake_for(@protocol(MPAdWebViewAgentDelegate));
 
         destinationDisplayAgent = nice_fake_for([MPAdDestinationDisplayAgent class]);
-        fakeProvider.fakeMPAdDestinationDisplayAgent = destinationDisplayAgent;
+        fakeCoreProvider.fakeMPAdDestinationDisplayAgent = destinationDisplayAgent;
 
         agent = [[[MPAdWebViewAgent alloc] initWithAdWebViewFrame:CGRectMake(0,0,30,20)
                                                          delegate:delegate

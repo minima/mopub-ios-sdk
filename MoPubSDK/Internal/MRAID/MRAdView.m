@@ -14,6 +14,7 @@
 #import "MRCommand.h"
 #import "MRProperty.h"
 #import "MPInstanceProvider.h"
+#import "MPCoreInstanceProvider.h"
 #import "MRCalendarManager.h"
 #import "MRJavaScriptEventEmitter.h"
 #import "UIViewController+MPAdditions.h"
@@ -121,7 +122,7 @@ static NSString *const kMoPubPrecacheCompleteHost = @"precacheComplete";
 
         [_closeButton addTarget:_displayController action:@selector(closeButtonPressed) forControlEvents:UIControlEventTouchUpInside];
 
-        _destinationDisplayAgent = [[[MPInstanceProvider sharedProvider]
+        _destinationDisplayAgent = [[[MPCoreInstanceProvider sharedProvider]
                                     buildMPAdDestinationDisplayAgentWithDelegate:self] retain];
         _calendarManager = [[[MPInstanceProvider sharedProvider]
                              buildMRCalendarManagerWithDelegate:self] retain];
@@ -132,7 +133,7 @@ static NSString *const kMoPubPrecacheCompleteHost = @"precacheComplete";
         _jsEventEmitter = [[[MPInstanceProvider sharedProvider]
                              buildMRJavaScriptEventEmitterWithWebView:_webView] retain];
 
-        self.adAlertManager = [[MPInstanceProvider sharedProvider] buildMPAdAlertManagerWithDelegate:self];
+        self.adAlertManager = [[MPCoreInstanceProvider sharedProvider] buildMPAdAlertManagerWithDelegate:self];
 
         self.adType = MRAdViewAdTypeDefault;
 

@@ -10,5 +10,6 @@
 @interface KIFTestStep (ActivityIndicator)
 
 + (id)stepToWaitUntilActivityIndicatorIsNotAnimating;
++ (id)stepToWaitUntilNetworkActivityIndicatorIsNotAnimating;
 
 @end

@@ -25,7 +25,7 @@ describe(@"MPGreystripeInterstitialIntegrationSuite", ^{
 
         // request an Ad
         [interstitial loadAd];
-        communicator = fakeProvider.lastFakeMPAdServerCommunicator;
+        communicator = fakeCoreProvider.lastFakeMPAdServerCommunicator;
         communicator.loadedURL.absoluteString should contain(@"greystripe_interstitial");
 
         // prepare the fake and tell the injector about it
@@ -76,14 +76,14 @@ describe(@"MPGreystripeInterstitialIntegrationSuite", ^{
             beforeEach(^{
                 greystripeAd.isAdReady = YES;
                 [delegate reset_sent_messages];
-                fakeProvider.sharedFakeMPAnalyticsTracker.trackedImpressionConfigurations.count should equal(0);
+                fakeCoreProvider.sharedFakeMPAnalyticsTracker.trackedImpressionConfigurations.count should equal(0);
                 [interstitial showFromViewController:presentingController];
             });
 
             it(@"should track an impression and tell the custom event to show", ^{
                 verify_fake_received_selectors(delegate, @[@"interstitialWillAppear:", @"interstitialDidAppear:"]);
                 greystripeAd.presentingViewController should equal(presentingController);
-                fakeProvider.sharedFakeMPAnalyticsTracker.trackedImpressionConfigurations.count should equal(1);
+                fakeCoreProvider.sharedFakeMPAnalyticsTracker.trackedImpressionConfigurations.count should equal(1);
             });
 
             context(@"when the user interacts with the ad", ^{
@@ -93,10 +93,10 @@ describe(@"MPGreystripeInterstitialIntegrationSuite", ^{
 
                 it(@"should track only one click, no matter how many interactions there are, and shouldn't tell the delegate anything", ^{
                     [greystripeAd simulateUserTap];
-                    fakeProvider.sharedFakeMPAnalyticsTracker.trackedClickConfigurations.count should equal(1);
+                    fakeCoreProvider.sharedFakeMPAnalyticsTracker.trackedClickConfigurations.count should equal(1);
 
                     [greystripeAd simulateUserTap];
-                    fakeProvider.sharedFakeMPAnalyticsTracker.trackedClickConfigurations.count should equal(1);
+                    fakeCoreProvider.sharedFakeMPAnalyticsTracker.trackedClickConfigurations.count should equal(1);
 
                     delegate.sent_messages.count should equal(0);
                 });
@@ -130,7 +130,7 @@ describe(@"MPGreystripeInterstitialIntegrationSuite", ^{
             });
 
             it(@"should not track any impressions", ^{
-                fakeProvider.sharedFakeMPAnalyticsTracker.trackedImpressionConfigurations should be_empty;
+                fakeCoreProvider.sharedFakeMPAnalyticsTracker.trackedImpressionConfigurations should be_empty;
             });
 
             it(@"should not tell Greystripe to show", ^{

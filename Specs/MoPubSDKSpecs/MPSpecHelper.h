@@ -10,10 +10,12 @@
 #import "InterstitialIntegrationSharedBehaviors.h"
 #import "Foundation+PivotalSpecHelper.h"
 #import "UIKit+PivotalSpecHelper.h"
+#import "UIKit+PivotalSpecHelperStubs.h"
 #import "NSURLConnection+MPSpecs.h"
 #import "UIApplication+MPSpecs.h"
 #import "MPStoreKitProvider+MPSpecs.h"
 #import "FakeMPInstanceProvider.h"
+#import "FakeMPCoreInstanceProvider.h"
 #import "NSErrorFactory.h"
 
 #define SYSTEM_VERSION_EQUAL_TO(v)                  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedSame)
@@ -31,6 +33,7 @@ void verify_fake_received_selectors(id<CedarDouble> fake, NSArray *selectors);
 void log_sent_messages(id<CedarDouble> fake);
 
 extern FakeMPInstanceProvider *fakeProvider;
+extern FakeMPCoreInstanceProvider *fakeCoreProvider;
 
 @interface MPSpecHelper : NSObject
 

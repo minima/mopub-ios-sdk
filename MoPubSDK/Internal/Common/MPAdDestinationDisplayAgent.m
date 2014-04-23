@@ -7,7 +7,7 @@
 
 #import "MPAdDestinationDisplayAgent.h"
 #import "UIViewController+MPAdditions.h"
-#import "MPInstanceProvider.h"
+#import "MPCoreInstanceProvider.h"
 #import "MPLastResortDelegate.h"
 
 @interface MPAdDestinationDisplayAgent ()
@@ -41,7 +41,7 @@
 {
     MPAdDestinationDisplayAgent *agent = [[[MPAdDestinationDisplayAgent alloc] init] autorelease];
     agent.delegate = delegate;
-    agent.resolver = [[MPInstanceProvider sharedProvider] buildMPURLResolver];
+    agent.resolver = [[MPCoreInstanceProvider sharedProvider] buildMPURLResolver];
     agent.overlayView = [[[MPProgressOverlayView alloc] initWithDelegate:agent] autorelease];
     return agent;
 }

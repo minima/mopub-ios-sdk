@@ -26,10 +26,10 @@ describe(@"MPHTMLBannerIntegrationSuite", ^{
 
     beforeEach(^{
         FakeMPAdAlertGestureRecognizer *fakeGestureRecognizer = [[FakeMPAdAlertGestureRecognizer alloc] init];
-        fakeProvider.fakeAdAlertGestureRecognizer = fakeGestureRecognizer;
+        fakeCoreProvider.fakeAdAlertGestureRecognizer = fakeGestureRecognizer;
 
         fakeAdAlertManager = [[[FakeMPAdAlertManager alloc] init] autorelease];
-        fakeProvider.fakeAdAlertManager = fakeAdAlertManager;
+        fakeCoreProvider.fakeAdAlertManager = fakeAdAlertManager;
 
         presentingController = [[[UIViewController alloc] init] autorelease];
         delegate = nice_fake_for(@protocol(ChocolateMPAdViewDelegate));
@@ -45,7 +45,7 @@ describe(@"MPHTMLBannerIntegrationSuite", ^{
         banner.delegate = delegate;
         [banner loadAd];
 
-        communicator = fakeProvider.lastFakeMPAdServerCommunicator;
+        communicator = fakeCoreProvider.lastFakeMPAdServerCommunicator;
         [communicator receiveConfiguration:configuration];
     });
 
@@ -74,7 +74,7 @@ describe(@"MPHTMLBannerIntegrationSuite", ^{
             verify_fake_received_selectors(delegate, @[@"adViewDidLoadAd:"]);
             banner.subviews should equal(@[fakeAd]);
             banner.adContentViewSize should equal(fakeAd.frame.size);
-            fakeProvider.sharedFakeMPAnalyticsTracker.trackedImpressionConfigurations should be_empty;
+            fakeCoreProvider.sharedFakeMPAnalyticsTracker.trackedImpressionConfigurations should be_empty;
         });
 
         describe(@"MPAdAlertManager", ^{
@@ -106,7 +106,7 @@ describe(@"MPHTMLBannerIntegrationSuite", ^{
 
             it(@"should tell the delegate, but *not* track a click", ^{
                 verify_fake_received_selectors(delegate, @[@"willPresentModalViewForAd:"]);
-                fakeProvider.sharedFakeMPAnalyticsTracker.trackedClickConfigurations should be_empty;
+                fakeCoreProvider.sharedFakeMPAnalyticsTracker.trackedClickConfigurations should be_empty;
             });
 
             context(@"when the user dismisses the modal", ^{

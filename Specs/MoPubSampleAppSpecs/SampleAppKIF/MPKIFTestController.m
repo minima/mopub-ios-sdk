@@ -17,6 +17,7 @@
 #import "KIFTestScenario+Vungle.h"
 #import "KIFTestScenario+AdColony.h"
 #import "KIFTestScenario+iAd.h"
+#import "KIFTestScenario+Native.h"
 #import "MPSampleAppTestScenario.h"
 
 @implementation MPKIFTestController
@@ -46,6 +47,10 @@
     [self addScenario:[KIFTestScenario scenarioForMRAIDAdThatTriesToStoreAPictureWithoutUserInteraction]];
     [self addScenario:[KIFTestScenario scenarioForMRAIDAdThatTriesToPlayAVideoWithoutUserInteraction]];
     [self addScenario:[KIFTestScenario scenarioForIAdBanner]];
+    [self addScenario:[KIFTestScenario scenarioForNativeAd]];
+
+    //automated tap on ad tableviewcell not working
+//    [self addScenario:[KIFTestScenario scenarioForNativeAdInTableView]];
 
     // interstitials
     [self addScenario:[KIFTestScenario scenarioForInterstitialAdWithStoreKitLink]];

@@ -6,6 +6,7 @@
 //
 
 #import "MPInstanceProvider.h"
+#import "MPCoreInstanceProvider.h"
 
 @implementation MPInstanceProvider (Spec)
 

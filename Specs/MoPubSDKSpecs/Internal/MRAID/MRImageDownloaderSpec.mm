@@ -18,7 +18,7 @@ describe(@"MRImageDownloader", ^{
 
     beforeEach(^{
         fakeOperationQueue = [[[FakeOperationQueue alloc] init] autorelease];
-        fakeProvider.fakeOperationQueue = fakeOperationQueue;
+        fakeCoreProvider.fakeOperationQueue = fakeOperationQueue;
         fakeDelegate = nice_fake_for(@protocol(MRImageDownloaderDelegate));
         downloader = [[[MRImageDownloader alloc] initWithDelegate:fakeDelegate] autorelease];
     });

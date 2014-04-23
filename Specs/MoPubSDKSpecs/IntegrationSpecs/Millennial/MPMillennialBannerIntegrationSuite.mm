@@ -38,7 +38,7 @@ describe(@"MPMillennialBannerIntegrationSuite", ^{
         configuration = [MPAdConfigurationFactory defaultBannerConfigurationWithHeaders:headers
                                                                              HTMLString:nil];
 
-        communicator = fakeProvider.lastFakeMPAdServerCommunicator;
+        communicator = fakeCoreProvider.lastFakeMPAdServerCommunicator;
         [communicator receiveConfiguration:configuration];
     });
 
@@ -60,10 +60,10 @@ describe(@"MPMillennialBannerIntegrationSuite", ^{
             verify_fake_received_selectors(delegate, @[@"adViewDidLoadAd:"]);
             banner.subviews should equal(@[fakeAd]);
             banner.adContentViewSize should equal(CGSizeMake(300, 250));
-            fakeProvider.sharedFakeMPAnalyticsTracker.trackedImpressionConfigurations should equal(@[configuration]);
+            fakeCoreProvider.sharedFakeMPAnalyticsTracker.trackedImpressionConfigurations should equal(@[configuration]);
 
             [fakeAd simulateLoadingAd];
-            fakeProvider.sharedFakeMPAnalyticsTracker.trackedImpressionConfigurations should equal(@[configuration]);
+            fakeCoreProvider.sharedFakeMPAnalyticsTracker.trackedImpressionConfigurations should equal(@[configuration]);
         });
 
         context(@"when the user taps the ad", ^{
@@ -74,10 +74,10 @@ describe(@"MPMillennialBannerIntegrationSuite", ^{
 
             it(@"should tell the delegate and track a click (just once)", ^{
                 verify_fake_received_selectors(delegate, @[@"willPresentModalViewForAd:"]);
-                fakeProvider.sharedFakeMPAnalyticsTracker.trackedClickConfigurations should equal(@[configuration]);
+                fakeCoreProvider.sharedFakeMPAnalyticsTracker.trackedClickConfigurations should equal(@[configuration]);
 
                 [fakeAd simulateUserTap];
-                fakeProvider.sharedFakeMPAnalyticsTracker.trackedClickConfigurations should equal(@[configuration]);
+                fakeCoreProvider.sharedFakeMPAnalyticsTracker.trackedClickConfigurations should equal(@[configuration]);
             });
 
             context(@"when the user dismisses the modal", ^{

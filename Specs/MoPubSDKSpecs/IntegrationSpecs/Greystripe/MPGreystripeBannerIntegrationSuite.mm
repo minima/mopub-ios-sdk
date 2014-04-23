@@ -33,7 +33,7 @@ describe(@"MPGreystripeBannerIntegrationSuite", ^{
             banner.delegate = delegate;
             [banner loadAd];
 
-            communicator = fakeProvider.lastFakeMPAdServerCommunicator;
+            communicator = fakeCoreProvider.lastFakeMPAdServerCommunicator;
             [communicator receiveConfiguration:configuration];
         });
 
@@ -55,7 +55,7 @@ describe(@"MPGreystripeBannerIntegrationSuite", ^{
                 verify_fake_received_selectors(delegate, @[@"adViewDidLoadAd:"]);
                 banner.subviews should equal(@[fakeAd]);
                 banner.adContentViewSize should equal(fakeAd.frame.size);
-                fakeProvider.sharedFakeMPAnalyticsTracker.trackedImpressionConfigurations should equal(@[configuration]);
+                fakeCoreProvider.sharedFakeMPAnalyticsTracker.trackedImpressionConfigurations should equal(@[configuration]);
             });
 
             context(@"when the user taps the ad", ^{
@@ -66,10 +66,10 @@ describe(@"MPGreystripeBannerIntegrationSuite", ^{
 
                 it(@"should tell the delegate and track a click (just once)", ^{
                     verify_fake_received_selectors(delegate, @[@"willPresentModalViewForAd:"]);
-                    fakeProvider.sharedFakeMPAnalyticsTracker.trackedClickConfigurations should equal(@[configuration]);
+                    fakeCoreProvider.sharedFakeMPAnalyticsTracker.trackedClickConfigurations should equal(@[configuration]);
 
                     [fakeAd simulateUserTap];
-                    fakeProvider.sharedFakeMPAnalyticsTracker.trackedClickConfigurations should equal(@[configuration]);
+                    fakeCoreProvider.sharedFakeMPAnalyticsTracker.trackedClickConfigurations should equal(@[configuration]);
                 });
 
                 context(@"when the user dismisses the modal", ^{
@@ -102,7 +102,7 @@ describe(@"MPGreystripeBannerIntegrationSuite", ^{
             banner.delegate = delegate;
             [banner loadAd];
 
-            communicator = fakeProvider.lastFakeMPAdServerCommunicator;
+            communicator = fakeCoreProvider.lastFakeMPAdServerCommunicator;
             [communicator receiveConfiguration:configuration];
         });
 

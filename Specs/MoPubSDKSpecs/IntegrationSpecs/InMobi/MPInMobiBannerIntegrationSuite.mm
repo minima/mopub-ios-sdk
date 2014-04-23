@@ -32,7 +32,7 @@ describe(@"MPInMobiBannerIntegrationSuite", ^{
             banner.delegate = delegate;
             [banner loadAd];
 
-            communicator = fakeProvider.lastFakeMPAdServerCommunicator;
+            communicator = fakeCoreProvider.lastFakeMPAdServerCommunicator;
             [communicator receiveConfiguration:configuration];
         });
 
@@ -50,7 +50,7 @@ describe(@"MPInMobiBannerIntegrationSuite", ^{
                 verify_fake_received_selectors(delegate, @[@"adViewDidLoadAd:"]);
                 banner.subviews should equal(@[fakeAd]);
                 banner.adContentViewSize should equal(fakeAd.frame.size);
-                fakeProvider.sharedFakeMPAnalyticsTracker.trackedImpressionConfigurations should equal(@[configuration]);
+                fakeCoreProvider.sharedFakeMPAnalyticsTracker.trackedImpressionConfigurations should equal(@[configuration]);
             });
 
             context(@"when the user taps the ad", ^{
@@ -61,7 +61,7 @@ describe(@"MPInMobiBannerIntegrationSuite", ^{
 
                 it(@"should tell the delegate and track a click (just once)", ^{
                     verify_fake_received_selectors(delegate, @[@"willPresentModalViewForAd:"]);
-                    fakeProvider.sharedFakeMPAnalyticsTracker.trackedClickConfigurations should equal(@[configuration]);
+                    fakeCoreProvider.sharedFakeMPAnalyticsTracker.trackedClickConfigurations should equal(@[configuration]);
 
                     // XXX jren
                     // this test is no longer valid because InMobiBannerCustomEvent now manually tracks impressions and clicks
@@ -110,7 +110,7 @@ describe(@"MPInMobiBannerIntegrationSuite", ^{
             banner.delegate = delegate;
             [banner loadAd];
 
-            communicator = fakeProvider.lastFakeMPAdServerCommunicator;
+            communicator = fakeCoreProvider.lastFakeMPAdServerCommunicator;
             [communicator receiveConfiguration:configuration];
         });
 

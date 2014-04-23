@@ -4,9 +4,11 @@
 using namespace Cedar::Matchers;
 using namespace Cedar::Doubles;
 
-@interface MPURLResolver ()
+@interface MPURLResolver (Spec)
 
 @property (nonatomic, retain) NSMutableData *responseData;
+
+- (NSStringEncoding)stringEncodingFromContentType:(NSString *)contentType;
 
 @end
 
@@ -40,7 +42,7 @@ describe(@"MPURLResolver", ^{
 
             it(@"should make the request using the right user agent", ^{
                 NSURLConnection *lastConnection = [NSURLConnection lastConnection];
-                [[lastConnection.request allHTTPHeaderFields] objectForKey:@"User-Agent"] should equal([fakeProvider userAgent]);
+                [[lastConnection.request allHTTPHeaderFields] objectForKey:@"User-Agent"] should equal([fakeCoreProvider userAgent]);
             });
         });
 
@@ -61,7 +63,7 @@ describe(@"MPURLResolver", ^{
 
             it(@"should make the request using the right user agent", ^{
                 NSURLConnection *lastConnection = [NSURLConnection lastConnection];
-                [[lastConnection.request allHTTPHeaderFields] objectForKey:@"User-Agent"] should equal([fakeProvider userAgent]);
+                [[lastConnection.request allHTTPHeaderFields] objectForKey:@"User-Agent"] should equal([fakeCoreProvider userAgent]);
             });
         });
 
@@ -81,6 +83,51 @@ describe(@"MPURLResolver", ^{
 
                 delegate.webViewURL.absoluteString should equal(@"http://www.bing.com/");
                 delegate.HTMLString should equal(@"Bing it.");
+            });
+        });
+
+        context(@"different results for a response's Content-Type charset", ^{
+            it (@"should return the correct encoding", ^{
+                NSString *contentType = @"type=sdlkfjsl; charset=utf-8;";
+                NSStringEncoding encoding = [urlResolver stringEncodingFromContentType:contentType];
+                encoding should equal(NSUTF8StringEncoding);
+
+                contentType = @"type=sdlkfjsl; charset=UTF-8;";
+                encoding = [urlResolver stringEncodingFromContentType:contentType];
+                encoding should equal(NSUTF8StringEncoding);
+
+                contentType = @"type=sdlkfjsl; charset=iso-8859-1;";
+                encoding = [urlResolver stringEncodingFromContentType:contentType];
+                encoding should equal(NSISOLatin1StringEncoding);
+
+                contentType = @"type=sdlkfjsl; charset=windows-1251;";
+                encoding = [urlResolver stringEncodingFromContentType:contentType];
+                encoding should equal(NSWindowsCP1251StringEncoding);
+
+                contentType = @"type=sdlkfjsl; charset=iso-8859-2;";
+                encoding = [urlResolver stringEncodingFromContentType:contentType];
+                encoding should equal(NSISOLatin2StringEncoding);
+
+                contentType = @"type=sdlkfjsl; charset=iso-8859-15;";
+                encoding = [urlResolver stringEncodingFromContentType:contentType];
+                //no constant available for iso-8859-15
+                encoding should equal(2147484175);
+
+                contentType = @"type=sdlkfjsl; charset=windows-1252;";
+                encoding = [urlResolver stringEncodingFromContentType:contentType];
+                encoding should equal(NSWindowsCP1252StringEncoding);
+
+                contentType = @"type=sdlkfjsl; charset=us-ascii;";
+                encoding = [urlResolver stringEncodingFromContentType:contentType];
+                encoding should equal(NSASCIIStringEncoding);
+
+                contentType = @"type=sdlkfjsl;";
+                encoding = [urlResolver stringEncodingFromContentType:contentType];
+                encoding should equal(NSUTF8StringEncoding);
+
+                contentType = @"";
+                encoding = [urlResolver stringEncodingFromContentType:contentType];
+                encoding should equal(NSUTF8StringEncoding);
             });
         });
     });
@@ -319,47 +366,7 @@ describe(@"MPURLResolver", ^{
         });
     });
 
-    describe(@"websites that use different encodings", ^{
-        __block NSString *markup;
-
-        beforeEach(^{
-            urlResolver.delegate = delegate;
-        });
-
-        context(@"when a site uses UTF8 encoding", ^{
-            it(@"should pass the correct site markup to the delegate", ^{
-                markup = @"this is the test string ïÇ";
-                urlResolver.responseData = [[markup dataUsingEncoding:NSUTF8StringEncoding] mutableCopy];
-
-                [urlResolver connectionDidFinishLoading:nil];
-
-                delegate.HTMLString should equal(markup);
-            });
-        });
-
-        context(@"when a site uses Latin iso 1 encoding", ^{
-            it(@"should pass the correct site markup to the delegate", ^{
-                markup = @"this is the test string ïÇ";
-                urlResolver.responseData = [[markup dataUsingEncoding:NSISOLatin1StringEncoding] mutableCopy];
-
-                [urlResolver connectionDidFinishLoading:nil];
-
-                delegate.HTMLString should equal(markup);
-            });
-        });
-
-        context(@"when a site uses Shift JIS encoding", ^{
-            // incorrectly decoded instead of nil because these multi-byte characters DO have mappings in iso latin 1
-            it(@"should pass an incorrectly decoded string to the delegate", ^{
-                markup = @"this is the test string ｵﾏ";
-                urlResolver.responseData = [[markup dataUsingEncoding:NSShiftJISStringEncoding] mutableCopy];
-
-                [urlResolver connectionDidFinishLoading:nil];
-
-                delegate.HTMLString should_not equal(markup);
-            });
-        });
-    });
+    describe(@"tests for proper string encoding/decoding", PENDING);
 });
 
 SPEC_END

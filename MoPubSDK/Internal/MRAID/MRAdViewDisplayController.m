@@ -14,6 +14,7 @@
 #import "MPLogging.h"
 #import "MPTimer.h"
 #import "MPInstanceProvider.h"
+#import "MPCoreInstanceProvider.h"
 #import "MRJavaScriptEventEmitter.h"
 
 static NSString * const kAnimationKeyExpand = @"expand";
@@ -88,7 +89,7 @@ static NSString *const kMovieWillExitNotification42 =
         _defaultFrame = _view.frame;
         _maxSize = _view.frame.size;
 
-        _viewabilityTimer = [[[MPInstanceProvider sharedProvider] buildMPTimerWithTimeInterval:kViewabilityTimerInterval
+        _viewabilityTimer = [[[MPCoreInstanceProvider sharedProvider] buildMPTimerWithTimeInterval:kViewabilityTimerInterval
                                                                                         target:self
                                                                                       selector:@selector(checkViewability)
                                                                                        repeats:YES] retain];

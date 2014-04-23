@@ -12,6 +12,8 @@ typedef enum {
     MPAdInfoInterstitial,
     MPAdInfoMRectBanner,
     MPAdInfoLeaderboardBanner,
+    MPAdInfoNative,
+    MPAdInfoNativeInTableView
 } MPAdInfoType;
 
 @interface MPAdInfo : NSObject <NSCoding>
@@ -23,6 +25,7 @@ typedef enum {
 
 + (NSArray *)bannerAds;
 + (NSArray *)interstitialAds;
++ (NSArray *)nativeAds;
 + (MPAdInfo *)infoWithTitle:(NSString *)title ID:(NSString *)ID type:(MPAdInfoType)type;
 + (NSArray *)supportedAdTypeNames;
 

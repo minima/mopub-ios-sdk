@@ -35,7 +35,7 @@ describe(@"MRAdView", ^{
         fakeProvider.fakeUIWebView = webView;
 
         destinationDisplayAgent = nice_fake_for([MPAdDestinationDisplayAgent class]);
-        fakeProvider.fakeMPAdDestinationDisplayAgent = destinationDisplayAgent;
+        fakeCoreProvider.fakeMPAdDestinationDisplayAgent = destinationDisplayAgent;
 
         jsEventEmitter = [[FakeMRJavaScriptEventEmitter alloc] initWithWebView:nil];
         fakeProvider.fakeMRJavaScriptEventEmitter = jsEventEmitter;

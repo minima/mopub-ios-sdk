@@ -13,14 +13,17 @@
 #import "MPManualAdViewController.h"
 #import "MPMRectBannerAdDetailViewController.h"
 #import "MPLeaderboardBannerAdDetailViewController.h"
+#import "MPNativeAdDetailViewController.h"
 #import "MPGlobal.h"
 #import "MPAdPersistenceManager.h"
 #import "MPAdEntryViewController.h"
+#import "MPNativeAdTableViewController.h"
 
 typedef enum
 {
     MPAdTableSection_Banner,
     MPAdTableSection_Interstitital,
+    MPAdTableSection_Native,
     MPAdTableSection_Saved
 } MPAdTableSection;
 
@@ -163,6 +166,12 @@ typedef enum
             break;
         case MPAdInfoInterstitial:
             detailViewController = [[MPInterstitialAdDetailViewController alloc] initWithAdInfo:info];
+            break;
+        case MPAdInfoNative:
+            detailViewController = [[MPNativeAdDetailViewController alloc] initWithAdInfo:info];
+            break;
+        case MPAdInfoNativeInTableView:
+            detailViewController = [[MPNativeAdTableViewController alloc] initWithAdInfo:info];
             break;
         default:
             break;

@@ -23,7 +23,7 @@ describe(@"MPLegacyCustomEventInterstitialIntegrationSuite", ^{
         interstitial.delegate = delegate;
 
         [interstitial loadAd];
-        communicator = fakeProvider.lastFakeMPAdServerCommunicator;
+        communicator = fakeCoreProvider.lastFakeMPAdServerCommunicator;
         communicator.loadedURL.absoluteString should contain(@"legacy_custom_event_interstitial");
 
         NSDictionary *headers = @{
@@ -53,7 +53,7 @@ describe(@"MPLegacyCustomEventInterstitialIntegrationSuite", ^{
         });
 
         it(@"should not schedule a timeout timer", ^{
-            [fakeProvider lastFakeMPTimerWithSelector:@selector(timeout)] should be_nil;
+            [fakeCoreProvider lastFakeMPTimerWithSelector:@selector(timeout)] should be_nil;
         });
 
         context(@"and the user tries to load again", ^{ itShouldBehaveLike(anInterstitialThatPreventsLoading); });
@@ -74,15 +74,15 @@ describe(@"MPLegacyCustomEventInterstitialIntegrationSuite", ^{
     context(@"when the ad successfully loads", ^{
         beforeEach(^{
             [delegate reset_sent_messages];
-            fakeProvider.sharedFakeMPAnalyticsTracker.trackedImpressionConfigurations.count should equal(0);
+            fakeCoreProvider.sharedFakeMPAnalyticsTracker.trackedImpressionConfigurations.count should equal(0);
             [interstitial customEventDidLoadAd];
         });
 
         it(@"should track an impression (just once)", ^{
-            fakeProvider.sharedFakeMPAnalyticsTracker.trackedImpressionConfigurations.count should equal(1);
+            fakeCoreProvider.sharedFakeMPAnalyticsTracker.trackedImpressionConfigurations.count should equal(1);
 
             [interstitial customEventDidLoadAd];
-            fakeProvider.sharedFakeMPAnalyticsTracker.trackedImpressionConfigurations.count should equal(1);
+            fakeCoreProvider.sharedFakeMPAnalyticsTracker.trackedImpressionConfigurations.count should equal(1);
         });
 
         it(@"should not tell the delegate anything and should not be ready", ^{
@@ -127,15 +127,15 @@ describe(@"MPLegacyCustomEventInterstitialIntegrationSuite", ^{
     context(@"when a custom event action begins", ^{
         beforeEach(^{
             [delegate reset_sent_messages];
-            fakeProvider.sharedFakeMPAnalyticsTracker.trackedClickConfigurations.count should equal(0);
+            fakeCoreProvider.sharedFakeMPAnalyticsTracker.trackedClickConfigurations.count should equal(0);
             [interstitial customEventActionWillBegin];
         });
 
         it(@"should track a click (just once)", ^{
-            fakeProvider.sharedFakeMPAnalyticsTracker.trackedClickConfigurations.count should equal(1);
+            fakeCoreProvider.sharedFakeMPAnalyticsTracker.trackedClickConfigurations.count should equal(1);
 
             [interstitial customEventActionWillBegin];
-            fakeProvider.sharedFakeMPAnalyticsTracker.trackedClickConfigurations.count should equal(1);
+            fakeCoreProvider.sharedFakeMPAnalyticsTracker.trackedClickConfigurations.count should equal(1);
         });
 
         it(@"should not tell the delegate anything", ^{

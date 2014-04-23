@@ -25,4 +25,16 @@
     }];
 }
 
++ (id)stepToWaitUntilNetworkActivityIndicatorIsNotAnimating
+{
+    return [KIFTestStep stepWithDescription:@"Verify Status Bar Network Activity Indicator has stopped spinning." executionBlock:^KIFTestStepResult(KIFTestStep *step, NSError *__autoreleasing *error) {
+        BOOL isSpinning = [UIApplication sharedApplication].networkActivityIndicatorVisible;
+        if (isSpinning) {
+            KIFTestWaitCondition(NO, error, @"Spinner is still animating");
+        }
+        return KIFTestStepResultSuccess;
+    }];
+
+}
+
 @end

@@ -99,10 +99,10 @@ describe(@"MPInterstitialCustomEventAdapter", ^{
             it(@"should track an impression (only once) and forward the message to its custom event", ^{
                 event.enableAutomaticImpressionAndClickTracking = YES;
                 [event simulateInterstitialFinishedAppearing];
-                fakeProvider.sharedFakeMPAnalyticsTracker.trackedImpressionConfigurations should contain(configuration);
+                fakeCoreProvider.sharedFakeMPAnalyticsTracker.trackedImpressionConfigurations should contain(configuration);
 
                 [event simulateInterstitialFinishedAppearing];
-                fakeProvider.sharedFakeMPAnalyticsTracker.trackedImpressionConfigurations.count should equal(1);
+                fakeCoreProvider.sharedFakeMPAnalyticsTracker.trackedImpressionConfigurations.count should equal(1);
             });
         });
 
@@ -110,7 +110,7 @@ describe(@"MPInterstitialCustomEventAdapter", ^{
             it(@"should forward the message to its custom event but *not* track an impression", ^{
                 event.enableAutomaticImpressionAndClickTracking = NO;
                 [event simulateInterstitialFinishedAppearing];
-                fakeProvider.sharedFakeMPAnalyticsTracker.trackedImpressionConfigurations should be_empty;
+                fakeCoreProvider.sharedFakeMPAnalyticsTracker.trackedImpressionConfigurations should be_empty;
             });
         });
     });
@@ -124,10 +124,10 @@ describe(@"MPInterstitialCustomEventAdapter", ^{
             it(@"should track a click (only once)", ^{
                 event.enableAutomaticImpressionAndClickTracking = YES;
                 [event simulateUserTap];
-                fakeProvider.sharedFakeMPAnalyticsTracker.trackedClickConfigurations should contain(configuration);
+                fakeCoreProvider.sharedFakeMPAnalyticsTracker.trackedClickConfigurations should contain(configuration);
 
                 [event simulateUserTap];
-                fakeProvider.sharedFakeMPAnalyticsTracker.trackedClickConfigurations.count should equal(1);
+                fakeCoreProvider.sharedFakeMPAnalyticsTracker.trackedClickConfigurations.count should equal(1);
             });
         });
 
@@ -135,7 +135,7 @@ describe(@"MPInterstitialCustomEventAdapter", ^{
             it(@"should *not* track a click", ^{
                 event.enableAutomaticImpressionAndClickTracking = NO;
                 [event simulateUserTap];
-                fakeProvider.sharedFakeMPAnalyticsTracker.trackedClickConfigurations should be_empty;
+                fakeCoreProvider.sharedFakeMPAnalyticsTracker.trackedClickConfigurations should be_empty;
             });
         });
     });
@@ -149,7 +149,7 @@ describe(@"MPInterstitialCustomEventAdapter", ^{
             it(@"should no longer trigger a timeout", ^{
                 [event simulateLoadingAd];
                 [delegate reset_sent_messages];
-                [fakeProvider advanceMPTimers:INTERSTITIAL_TIMEOUT_INTERVAL];
+                [fakeCoreProvider advanceMPTimers:INTERSTITIAL_TIMEOUT_INTERVAL];
                 delegate.sent_messages should be_empty;
             });
         });
@@ -158,7 +158,7 @@ describe(@"MPInterstitialCustomEventAdapter", ^{
             it(@"should invalidate the timer", ^{
                 [event simulateLoadingAd];
                 [delegate reset_sent_messages];
-                [fakeProvider advanceMPTimers:INTERSTITIAL_TIMEOUT_INTERVAL];
+                [fakeCoreProvider advanceMPTimers:INTERSTITIAL_TIMEOUT_INTERVAL];
                 delegate.sent_messages should be_empty;
             });
         });

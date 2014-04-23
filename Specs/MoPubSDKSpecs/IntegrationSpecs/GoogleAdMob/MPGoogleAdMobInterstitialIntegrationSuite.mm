@@ -33,7 +33,7 @@ describe(@"MPGoogleAdMobIntegrationSuite", ^{
 
         // request an Ad
         [interstitial loadAd];
-        communicator = fakeProvider.lastFakeMPAdServerCommunicator;
+        communicator = fakeCoreProvider.lastFakeMPAdServerCommunicator;
         communicator.loadedURL.absoluteString should contain(@"admob_interstitial");
 
         // prepare the fake and tell the injector about it
@@ -91,14 +91,14 @@ describe(@"MPGoogleAdMobIntegrationSuite", ^{
         context(@"and the user shows the ad", ^{
             beforeEach(^{
                 [delegate reset_sent_messages];
-                fakeProvider.sharedFakeMPAnalyticsTracker.trackedImpressionConfigurations.count should equal(0);
+                fakeCoreProvider.sharedFakeMPAnalyticsTracker.trackedImpressionConfigurations.count should equal(0);
                 [interstitial showFromViewController:presentingController];
             });
 
             it(@"should track an impression and tell AdMob to show", ^{
                 verify_fake_received_selectors(delegate, @[@"interstitialWillAppear:", @"interstitialDidAppear:"]);
                 fakeGADInterstitial.presentingViewController should equal(presentingController);
-                fakeProvider.sharedFakeMPAnalyticsTracker.trackedImpressionConfigurations.count should equal(1);
+                fakeCoreProvider.sharedFakeMPAnalyticsTracker.trackedImpressionConfigurations.count should equal(1);
             });
 
             context(@"when the user interacts with the ad", ^{
@@ -108,9 +108,9 @@ describe(@"MPGoogleAdMobIntegrationSuite", ^{
 
                 it(@"should track only one click, no matter how many interactions there are, and shouldn't tell the delegate anything", ^{
                     [fakeGADInterstitial simulateUserInteraction];
-                    fakeProvider.sharedFakeMPAnalyticsTracker.trackedClickConfigurations.count should equal(1);
+                    fakeCoreProvider.sharedFakeMPAnalyticsTracker.trackedClickConfigurations.count should equal(1);
                     [fakeGADInterstitial simulateUserInteraction];
-                    fakeProvider.sharedFakeMPAnalyticsTracker.trackedClickConfigurations.count should equal(1);
+                    fakeCoreProvider.sharedFakeMPAnalyticsTracker.trackedClickConfigurations.count should equal(1);
 
                     delegate.sent_messages should be_empty;
                 });
@@ -123,7 +123,7 @@ describe(@"MPGoogleAdMobIntegrationSuite", ^{
 
                 beforeEach(^{
                     [delegate reset_sent_messages];
-                    [fakeProvider.sharedFakeMPAnalyticsTracker reset];
+                    [fakeCoreProvider.sharedFakeMPAnalyticsTracker reset];
 
                     newPresentingController = [[[UIViewController alloc] init] autorelease];
                     [interstitial showFromViewController:newPresentingController];
@@ -137,7 +137,7 @@ describe(@"MPGoogleAdMobIntegrationSuite", ^{
 
                     fakeGADInterstitial.presentingViewController should equal(newPresentingController);
                     verify_fake_received_selectors(delegate, @[@"interstitialWillAppear:", @"interstitialDidAppear:"]);
-                    fakeProvider.sharedFakeMPAnalyticsTracker.trackedImpressionConfigurations.count should equal(0);
+                    fakeCoreProvider.sharedFakeMPAnalyticsTracker.trackedImpressionConfigurations.count should equal(0);
                 });
             });
 

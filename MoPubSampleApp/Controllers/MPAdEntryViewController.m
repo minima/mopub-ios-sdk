@@ -12,6 +12,7 @@
 #import "MPLeaderboardBannerAdDetailViewController.h"
 #import "MPInterstitialAdDetailViewController.h"
 #import "MPAdPersistenceManager.h"
+#import "MPNativeAdDetailViewController.h"
 
 #import <QuartzCore/QuartzCore.h>
 
@@ -87,6 +88,9 @@
             break;
         case MPAdInfoInterstitial:
             detailViewController = [[MPInterstitialAdDetailViewController alloc] initWithAdInfo:info];
+            break;
+        case MPAdInfoNative:
+            detailViewController = [[MPNativeAdDetailViewController alloc] initWithAdInfo:info];
             break;
         default:
             break;

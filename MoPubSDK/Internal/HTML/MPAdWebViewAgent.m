@@ -9,12 +9,13 @@
 #import "MPAdConfiguration.h"
 #import "MPGlobal.h"
 #import "MPLogging.h"
-#import "CJSONDeserializer.h"
 #import "MPAdDestinationDisplayAgent.h"
 #import "NSURL+MPAdditions.h"
 #import "UIWebView+MPAdditions.h"
 #import "MPAdWebView.h"
 #import "MPInstanceProvider.h"
+#import "MPCoreInstanceProvider.h"
+#import "NSJSONSerialization+MPAdditions.h"
 
 #ifndef NSFoundationVersionNumber_iOS_6_1
 #define NSFoundationVersionNumber_iOS_6_1 993.00
@@ -57,11 +58,11 @@ NSString * const kMoPubCustomHost = @"custom";
     self = [super init];
     if (self) {
         self.view = [[MPInstanceProvider sharedProvider] buildMPAdWebViewWithFrame:frame delegate:self];
-        self.destinationDisplayAgent = [[MPInstanceProvider sharedProvider] buildMPAdDestinationDisplayAgentWithDelegate:self];
+        self.destinationDisplayAgent = [[MPCoreInstanceProvider sharedProvider] buildMPAdDestinationDisplayAgentWithDelegate:self];
         self.delegate = delegate;
         self.customMethodDelegate = customMethodDelegate;
         self.shouldHandleRequests = YES;
-        self.adAlertManager = [[MPInstanceProvider sharedProvider] buildMPAdAlertManagerWithDelegate:self];
+        self.adAlertManager = [[MPCoreInstanceProvider sharedProvider] buildMPAdAlertManagerWithDelegate:self];
     }
     return self;
 }
@@ -220,9 +221,11 @@ NSString * const kMoPubCustomHost = @"custom";
     if ([self.customMethodDelegate respondsToSelector:zeroArgumentSelector]) {
         [self.customMethodDelegate performSelector:zeroArgumentSelector];
     } else if ([self.customMethodDelegate respondsToSelector:oneArgumentSelector]) {
-        CJSONDeserializer *deserializer = [CJSONDeserializer deserializerWithNullObject:NULL];
         NSData *data = [[queryParameters objectForKey:@"data"] dataUsingEncoding:NSUTF8StringEncoding];
-        NSDictionary *dataDictionary = [deserializer deserializeAsDictionary:data error:NULL];
+        NSDictionary *dataDictionary = nil;
+        if (data) {
+            dataDictionary = [NSJSONSerialization mp_JSONObjectWithData:data options:NSJSONReadingMutableContainers clearNullObjects:YES error:nil];
+        }
 
         [self.customMethodDelegate performSelector:oneArgumentSelector
                                         withObject:dataDictionary];

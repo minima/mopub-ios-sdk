@@ -49,7 +49,7 @@ sharedExamplesFor(anInterstitialThatTimesOut, ^(NSDictionary *sharedContext) {
     });
 
     it(@"should time out", ^{
-        [fakeProvider advanceMPTimers:INTERSTITIAL_TIMEOUT_INTERVAL];
+        [fakeCoreProvider advanceMPTimers:INTERSTITIAL_TIMEOUT_INTERVAL];
         communicator.loadedURL should equal(failoverURL);
     });
 });
@@ -63,7 +63,7 @@ sharedExamplesFor(anInterstitialThatDoesNotTimeOut, ^(NSDictionary *sharedContex
     });
 
     it(@"should not time out", ^{
-        [fakeProvider advanceMPTimers:INTERSTITIAL_TIMEOUT_INTERVAL];
+        [fakeCoreProvider advanceMPTimers:INTERSTITIAL_TIMEOUT_INTERVAL];
         communicator.loadedURL should be_nil;
     });
 });
@@ -131,14 +131,14 @@ sharedExamplesFor(anInterstitialThatPreventsShowing, ^(NSDictionary *sharedConte
 
         [communicator resetLoadedURL];
         [delegate reset_sent_messages];
-        [fakeProvider.sharedFakeMPAnalyticsTracker reset];
+        [fakeCoreProvider.sharedFakeMPAnalyticsTracker reset];
     });
 
     it(@"should not show the interstitial, or tell the delegate anything, or log an impression", ^{
         [interstitial showFromViewController:presentingController];
         fakeInterstitialAd.presentingViewController should be_nil;
         delegate.sent_messages should be_empty;
-        fakeProvider.sharedFakeMPAnalyticsTracker.trackedImpressionConfigurations should be_empty;
+        fakeCoreProvider.sharedFakeMPAnalyticsTracker.trackedImpressionConfigurations should be_empty;
     });
 });
 
