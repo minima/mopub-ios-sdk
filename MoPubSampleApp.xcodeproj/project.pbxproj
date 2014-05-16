@@ -95,7 +95,6 @@
 		4AE953CF18C93CA500E12720 /* MPNativeAdTableHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A8DD10318C90620005E9389 /* MPNativeAdTableHeaderView.m */; };
 		4AFB4C131919836800894CF6 /* FacebookBannerCustomEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AFB4C0D1919836800894CF6 /* FacebookBannerCustomEvent.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		4AFB4C151919836800894CF6 /* FacebookInterstitialCustomEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AFB4C0F1919836800894CF6 /* FacebookInterstitialCustomEvent.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		4AFB4C161919836800894CF6 /* FBAudienceNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AFB4C111919836800894CF6 /* FBAudienceNetwork.framework */; };
 		4AFB4C171919836800894CF6 /* FBAudienceNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AFB4C111919836800894CF6 /* FBAudienceNetwork.framework */; };
 		4AFB4C261919841A00894CF6 /* KIFTestScenario+Facebook.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AFB4C251919841A00894CF6 /* KIFTestScenario+Facebook.m */; };
 		571C34CC191D9B3300B0BE9C /* vg_button_close.png in Resources */ = {isa = PBXBuildFile; fileRef = 571C34C8191D9B3300B0BE9C /* vg_button_close.png */; };
@@ -994,7 +993,6 @@
 				46B9E8AE17E0D7EE00B78D11 /* AudioToolbox.framework in Frameworks */,
 				46B9E8AC17E0D7D800B78D11 /* libz.dylib in Frameworks */,
 				46B9E8AB17E0D7D100B78D11 /* libsqlite3.dylib in Frameworks */,
-				4AFB4C161919836800894CF6 /* FBAudienceNetwork.framework in Frameworks */,
 				AED7D8E4177CEB2900CC0CEF /* MediaPlayer.framework in Frameworks */,
 				AE14FA461773BA4700ABF744 /* EventKit.framework in Frameworks */,
 				AE14FA471773BA4700ABF744 /* EventKitUI.framework in Frameworks */,
