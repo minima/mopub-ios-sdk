@@ -93,9 +93,7 @@
 		4AE953CD18C93CA500E12720 /* MPNativeAdTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A169E0118C7E6AF00553657 /* MPNativeAdTableViewController.m */; };
 		4AE953CE18C93CA500E12720 /* MPNativeAdCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A8DD10018C90542005E9389 /* MPNativeAdCell.m */; };
 		4AE953CF18C93CA500E12720 /* MPNativeAdTableHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A8DD10318C90620005E9389 /* MPNativeAdTableHeaderView.m */; };
-		4AFB4C121919836800894CF6 /* FacebookBannerCustomEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AFB4C0D1919836800894CF6 /* FacebookBannerCustomEvent.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		4AFB4C131919836800894CF6 /* FacebookBannerCustomEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AFB4C0D1919836800894CF6 /* FacebookBannerCustomEvent.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		4AFB4C141919836800894CF6 /* FacebookInterstitialCustomEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AFB4C0F1919836800894CF6 /* FacebookInterstitialCustomEvent.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		4AFB4C151919836800894CF6 /* FacebookInterstitialCustomEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AFB4C0F1919836800894CF6 /* FacebookInterstitialCustomEvent.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		4AFB4C161919836800894CF6 /* FBAudienceNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AFB4C111919836800894CF6 /* FBAudienceNetwork.framework */; };
 		4AFB4C171919836800894CF6 /* FBAudienceNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AFB4C111919836800894CF6 /* FBAudienceNetwork.framework */; };
@@ -675,10 +673,6 @@
 		4AFB4C111919836800894CF6 /* FBAudienceNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBAudienceNetwork.framework; sourceTree = "<group>"; };
 		4AFB4C241919841A00894CF6 /* KIFTestScenario+Facebook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "KIFTestScenario+Facebook.h"; sourceTree = "<group>"; };
 		4AFB4C251919841A00894CF6 /* KIFTestScenario+Facebook.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "KIFTestScenario+Facebook.m"; sourceTree = "<group>"; };
-		A73AB4CA17B16F9A00D98ED7 /* MMAdView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMAdView.h; sourceTree = "<group>"; };
-		A73AB4CB17B16F9A00D98ED7 /* MMInterstitial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMInterstitial.h; sourceTree = "<group>"; };
-		A73AB4CC17B16F9A00D98ED7 /* MMRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMRequest.h; sourceTree = "<group>"; };
-		A73AB4CD17B16F9A00D98ED7 /* MMSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMSDK.h; sourceTree = "<group>"; };
 		571C34C8191D9B3300B0BE9C /* vg_button_close.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = vg_button_close.png; sourceTree = "<group>"; };
 		571C34C9191D9B3300B0BE9C /* vg_button_mute_plain.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = vg_button_mute_plain.png; sourceTree = "<group>"; };
 		571C34CA191D9B3300B0BE9C /* vg_button_mute_selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = vg_button_mute_selected.png; sourceTree = "<group>"; };
@@ -2287,7 +2281,6 @@
 				AE14F9E01773BA1100ABF744 /* MPInterstitialViewController.m in Sources */,
 				4A97545918FC8C6400C19F10 /* MPNativeAdError.m in Sources */,
 				AE14F9E31773BA1100ABF744 /* MPLegacyInterstitialCustomEventAdapter.m in Sources */,
-				4AFB4C121919836800894CF6 /* FacebookBannerCustomEvent.m in Sources */,
 				AE14F9E61773BA1100ABF744 /* MPInstanceProvider.m in Sources */,
 				AE14F9EC1773BA1100ABF744 /* MPMRAIDBannerCustomEvent.m in Sources */,
 				4A6FC1F718C561B3007A1197 /* MPNativeAdDetailViewController.m in Sources */,
@@ -2295,7 +2288,6 @@
 				AE14F9F21773BA1100ABF744 /* MPMRAIDInterstitialViewController.m in Sources */,
 				AE14F9F51773BA1100ABF744 /* MRAdView.m in Sources */,
 				AE14F9F81773BA1100ABF744 /* MRAdViewDisplayController.m in Sources */,
-				4AFB4C141919836800894CF6 /* FacebookInterstitialCustomEvent.m in Sources */,
 				4A71897718D26C700056F068 /* NSJSONSerialization+MPAdditions.m in Sources */,
 				AE14F9FB1773BA1100ABF744 /* MRCommand.m in Sources */,
 				AE14FA011773BA1100ABF744 /* MRDimmingView.m in Sources */,
@@ -2798,7 +2790,7 @@
 					"\"$(SRCROOT)/AdNetworkSupport/Millennial/SDK\"",
 					"\"$(SRCROOT)/AdNetworkSupport/AdColony/SDK\"",
 					"$(PROJECT_DIR)/AdNetworkSupport/Facebook/SDK",
-					"\"$(SRCROOT)/AdNetworkSupport/Vungle/SDK/vunglepub.embeddedframework\""
+					"\"$(SRCROOT)/AdNetworkSupport/Vungle/SDK/vunglepub.embeddedframework\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Specs/MoPubSampleAppSpecs/SampleAppKIF/SampleAppKIF-Prefix.pch";
@@ -2838,7 +2830,7 @@
 					"\"$(SRCROOT)/AdNetworkSupport/Millennial/SDK\"",
 					"\"$(SRCROOT)/AdNetworkSupport/AdColony/SDK\"",
 					"$(PROJECT_DIR)/AdNetworkSupport/Facebook/SDK",
-					"\"$(SRCROOT)/AdNetworkSupport/Vungle/SDK/vunglepub.embeddedframework\""
+					"\"$(SRCROOT)/AdNetworkSupport/Vungle/SDK/vunglepub.embeddedframework\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Specs/MoPubSampleAppSpecs/SampleAppKIF/SampleAppKIF-Prefix.pch";
