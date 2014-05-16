@@ -5,10 +5,11 @@
 //  Copyright (c) 2013 MoPub. All rights reserved.
 //
 
-#import "MMInterstitial.h"
 #import "MPMillennialInterstitialCustomEvent.h"
 #import "MPInstanceProvider.h"
 #import "MPLogging.h"
+
+#import <MillennialMedia/MMInterstitial.h>
 
 @interface MPMillennialInterstitialRouter : NSObject
 

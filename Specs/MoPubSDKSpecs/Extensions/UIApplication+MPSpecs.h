@@ -16,4 +16,6 @@
 
 - (void)setTwitterInstalled:(BOOL)installed;
 
+- (void)mp_setCanOpenTelephoneSchemes:(BOOL)canOpen;
+
 @end

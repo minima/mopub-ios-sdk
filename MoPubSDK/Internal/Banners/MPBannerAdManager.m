@@ -192,7 +192,7 @@
     self.requestingConfiguration = configuration;
 
     MPLogInfo(@"Banner ad view is fetching ad network type: %@", self.requestingConfiguration.networkType);
-
+    
     if (configuration.adType == MPAdTypeUnknown) {
         [self didFailToLoadAdapterWithError:[MPError errorWithCode:MPErrorServerError]];
         return;
@@ -200,14 +200,14 @@
 
     if (configuration.adType == MPAdTypeInterstitial) {
         MPLogWarn(@"Could not load ad: banner object received an interstitial ad unit ID.");
-
+        
         [self didFailToLoadAdapterWithError:[MPError errorWithCode:MPErrorAdapterInvalid]];
         return;
     }
 
     if ([configuration.networkType isEqualToString:kAdTypeClear]) {
         MPLogInfo(@"Ad server response indicated no ad available.");
-
+        
         [self didFailToLoadAdapterWithError:[MPError errorWithCode:MPErrorNoInventory]];
         return;
     }

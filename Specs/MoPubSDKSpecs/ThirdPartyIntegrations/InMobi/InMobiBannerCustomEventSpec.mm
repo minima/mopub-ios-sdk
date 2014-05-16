@@ -15,7 +15,7 @@ describe(@"InMobiBannerCustomEvent", ^{
 
     beforeEach(^{
         [InMobi initialize:@"YOUR_INMOBI_APP_ID"];
-
+        
         delegate = nice_fake_for(@protocol(MPBannerCustomEventDelegate));
 
         event = [[[InMobiBannerCustomEvent alloc] init] autorelease];
@@ -49,16 +49,16 @@ describe(@"InMobiBannerCustomEvent", ^{
 
         it(@"should load the banner with a proper request object", ^{
             [event requestAdWithSize:MOPUB_BANNER_SIZE customEventInfo:nil];
-
+            
             NSDictionary *params = banner.additionaParameters;
             NSString *tpValue = [params objectForKey:@"tp"];
             tpValue should equal(@"c_mopub");
         });
-
+        
         it(@"should set the location using the InMobi class method", ^{
             [InMobi mp_swizzleSetLocationMethod];
             [event requestAdWithSize:MOPUB_BANNER_SIZE customEventInfo:nil];
-
+            
             [InMobi mp_getLatitude] should equal((CGFloat)37.1);
             [InMobi mp_getLongitude] should equal((CGFloat)21.2);
             [InMobi mp_getAccuracy] should equal((CGFloat)12.3);

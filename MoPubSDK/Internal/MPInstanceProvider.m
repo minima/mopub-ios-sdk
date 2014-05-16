@@ -49,7 +49,7 @@ static MPInstanceProvider *sharedAdProvider = nil;
     dispatch_once(&once, ^{
         sharedAdProvider = [[self alloc] init];
     });
-
+    
     return sharedAdProvider;
 }
 

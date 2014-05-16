@@ -20,7 +20,7 @@ The MoPub SDK is distributed as source code that you can include in your applica
 
   Includes everything you need to serve HTML and MRAID MoPub advertisements.  No third party ad networks are included.
 
-The current version of the SDK is 2.0.0
+The current version of the SDK is 2.1.0
 
 ## Integrate
 
@@ -28,20 +28,14 @@ Integration instructions are available on the [wiki](https://github.com/mopub/mo
 
 More detailed class documentation is available in the repo under the `ClassDocumentation` folder.  This can be viewed [online too](http://htmlpreview.github.com/?https://github.com/mopub/mopub-ios-sdk/blob/master/ClassDocumentation/index.html).
 
-
 ## New in this Version
 
 Please view the [changelog](https://github.com/mopub/mopub-ios-sdk/blob/master/CHANGELOG.md) for details.
 
-- Added support for MoPub Native Ads. Please view the integration wiki [here](https://github.com/mopub/mopub-ios-sdk/wiki/Native-Ads-Integration).
-- Updated the minimum required iOS version to iOS 5.0
-
-### Changes to Chartboost Custom Event Integrations
-**Important**: As of version 1.17.3.0, the Chartboost custom event packaged with the MoPub SDK only supports Chartboost version 4.0 and up. If you would like to continue to use a prior version of the Chartboost SDK, do not update the custom event files.
-
-### Changes to InMobi Custom Event Integrations
-**Important**: As of version 1.17.2.0, the InMobi custom events packaged with the MoPub SDK only support InMobi version 4.0.3 and up. Follow the instructions [here](https://www.inmobi.com/support/integration/23692016/22051163/ios-sdk-integration-guide/) to integrate InMobi version 4.0.3 and up. If you would like to continue to use a prior version of the InMobi SDK, do not update the custom event files and follow the instructions [here](https://www.inmobi.com/support/art/23835946/22095493/mopub-adaptor-ios-sdk-integration-guide/) to integrate.   
-
+- Improved user privacy protection
+- Improved user protection against auto-dialing ads
+- Updated Millennial Media custom events (Millennial Media SDK 5.2+ only)
+- Updated Vungle custom event (Vungle SDK 2.0+ only)
 
 ## Requirements
 

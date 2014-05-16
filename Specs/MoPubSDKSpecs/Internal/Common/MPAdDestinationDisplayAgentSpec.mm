@@ -136,6 +136,80 @@ describe(@"MPAdDestinationDisplayAgent", ^{
         });
     });
 
+    describe(@"when dealing with telephone URLs", ^{
+        __block UIAlertView *currentAlert;
+
+        it(@"should call show on the confirmation controller for tel", ^{
+            URL = [NSURL URLWithString:@"tel:5555555555"];
+            [UIAlertView currentAlertView] should be_nil;
+            [agent openURLInApplication:URL];
+            UIAlertView *currentAlert = [UIAlertView currentAlertView];
+            currentAlert.numberOfButtons should equal(2);
+            currentAlert.title should_not be_nil;
+            currentAlert.message should_not be_nil;
+        });
+
+        it(@"should call show on the confirmation controller for telPrompt", ^{
+            URL = [NSURL URLWithString:@"telPrompt:5555555555"];
+            [UIAlertView currentAlertView] should be_nil;
+            [agent openURLInApplication:URL];
+            UIAlertView *currentAlert = [UIAlertView currentAlertView];
+            currentAlert.numberOfButtons should equal(2);
+            currentAlert.title should_not be_nil;
+            currentAlert.message should_not be_nil;
+        });
+
+        it(@"should not call show on non-telephone URLs", ^{
+            URL = [NSURL URLWithString:@"teletubby:5555555555"];
+            [agent openURLInApplication:URL];
+            [UIAlertView currentAlertView] should be_nil;
+
+            URL = [NSURL URLWithString:@"http://www.teletubby.com:55555"];
+            [agent openURLInApplication:URL];
+            [UIAlertView currentAlertView] should be_nil;
+
+            URL = [NSURL URLWithString:@"twitter://55555"];
+            [agent openURLInApplication:URL];
+            [UIAlertView currentAlertView] should be_nil;
+        });
+
+        context(@"when telephone alert button cancel is tapped", ^{
+            beforeEach(^{
+                URL = [NSURL URLWithString:@"tel:5555555555"];
+                [agent openURLInApplication:URL];
+                currentAlert = [UIAlertView currentAlertView];
+                [currentAlert dismissWithCancelButton];
+            });
+
+            it(@"should not notify the delegate that the agent will leave application", ^{
+                delegate should_not have_received(@selector(displayAgentWillLeaveApplication));
+            });
+
+            // We call didDismissModal to match the displayAgentWillPresentModal that is called earlier in the flow.
+            it(@"should notify delegate that modal did dismiss", ^{
+                delegate should have_received(@selector(displayAgentDidDismissModal));
+            });
+        });
+
+        context(@"when telephone alert button call is tapped", ^{
+            beforeEach(^{
+                URL = [NSURL URLWithString:@"tel:5555555555"];
+                [agent openURLInApplication:URL];
+                currentAlert = [UIAlertView currentAlertView];
+                [currentAlert dismissWithOkButton];
+            });
+
+            it(@"should notify the delegate that the agent will leave application", ^{
+                delegate should have_received(@selector(displayAgentWillLeaveApplication));
+            });
+
+            // We call didDismissModal to match the displayAgentWillPresentModal that is called earlier in the flow.
+            it(@"should notify delegate that modal did dismiss", ^{
+                delegate should have_received(@selector(displayAgentDidDismissModal));
+            });
+        });
+    });
+
     describe(@"when told to show a store kit item", ^{
         beforeEach(^{
             URL = [NSURL URLWithString:@"http://itunes.apple.com/something/id1234"];
@@ -285,6 +359,17 @@ describe(@"MPAdDestinationDisplayAgent", ^{
     describe(@"-dealloc", ^{
         context(@"while the overlay is showing", ^{
             beforeEach(^{
+                
+                
+                // XXX: When creating a display agent, we typically substitute a Cedar double
+                // wherever a URL resolver is needed, but we don't want to do that here. The reason
+                // is that doubles retain all arguments on method calls until the end of a test run,
+                // preventing those arguments from being deallocated. The display agent invokes
+                // the resolver's -setDelegate: method (passing itself) which means that it won't
+                // be released during this test. This is the exact behavior we're trying to test,
+                // so we need to avoid using a URL resolver double.
+                fakeCoreProvider.fakeMPURLResolver = nil;
+                
                 @autoreleasepool {
                     URL = [NSURL URLWithString:@"http://www.google.com"];
                     agent = [MPAdDestinationDisplayAgent agentWithDelegate:delegate];
@@ -292,7 +377,7 @@ describe(@"MPAdDestinationDisplayAgent", ^{
                     window.subviews.lastObject should be_instance_of([MPProgressOverlayView class]);
                 }
             });
-
+            
             it(@"should hide the overlay", ^{
                 window.subviews.lastObject should be_nil;
             });

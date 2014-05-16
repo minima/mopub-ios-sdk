@@ -14,7 +14,6 @@
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        
         self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(75, 10, 212, 60)];
         [self.titleLabel setFont:[UIFont boldSystemFontOfSize:17.0f]];
         [self.titleLabel setText:@"Title"];
@@ -39,7 +38,6 @@
         [self.ctaLabel setTextColor:[UIColor greenColor]];
         [self.ctaLabel setTextAlignment:NSTextAlignmentRight];
         [self addSubview:self.ctaLabel];
-
         
         self.backgroundColor = [UIColor colorWithWhite:0.21 alpha:1.0f];
         self.titleLabel.textColor = [UIColor colorWithWhite:0.86 alpha:1.0f];

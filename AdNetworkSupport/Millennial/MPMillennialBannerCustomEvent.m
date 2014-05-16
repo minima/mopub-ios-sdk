@@ -6,11 +6,12 @@
 //
 
 #import "MPMillennialBannerCustomEvent.h"
-#import "MMAdView.h"
 #import "MPLogging.h"
 #import "MPAdConfiguration.h"
 #import "MPInstanceProvider.h"
-#import "MMRequest.h"
+
+#import <MillennialMedia/MMAdView.h>
+#import <MillennialMedia/MMRequest.h>
 
 #define MM_SIZE_320x50    CGSizeMake(320, 50)
 #define MM_SIZE_300x250 CGSizeMake(300, 250)

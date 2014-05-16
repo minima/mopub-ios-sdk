@@ -25,6 +25,13 @@
 #pragma mark Chartboost
 - (Chartboost *)buildChartboost;
 
+#pragma mark Facebook
+- (FBAdView *)buildFBAdViewWithPlacementID:(NSString *)placementID
+                        rootViewController:(UIViewController *)controller
+                                  delegate:(id<FBAdViewDelegate>)delegate;
+- (FBInterstitialAd *)buildFBInterstitialAdWithPlacementID:(NSString *)placementID
+                                                  delegate:(id<FBInterstitialAdDelegate>)delegate;
+
 #pragma mark Google Ad Mob
 - (GADRequest *)buildGADBannerRequest;
 - (GADBannerView *)buildGADBannerViewWithFrame:(CGRect)frame;
@@ -281,6 +288,29 @@
                      orCall:^{
                          return [super buildChartboost];
                      }];
+}
+
+#pragma mark - Facebook
+
+- (FBAdView *)buildFBAdViewWithPlacementID:(NSString *)placementID rootViewController:(UIViewController *)controller delegate:(id<FBAdViewDelegate>)delegate
+{
+    if (self.fakeFBAdView) {
+        self.fakeFBAdView.delegate = delegate;
+        return self.fakeFBAdView;
+    } else {
+        return [super buildFBAdViewWithPlacementID:placementID rootViewController:controller delegate:delegate];
+    }
+}
+
+- (FBInterstitialAd *)buildFBInterstitialAdWithPlacementID:(NSString *)placementID
+                                                  delegate:(id<FBInterstitialAdDelegate>)delegate
+{
+    if (self.fakeFBInterstitialAd) {
+        self.fakeFBInterstitialAd.delegate = delegate;
+        return self.fakeFBInterstitialAd;
+    } else {
+        return [super buildFBInterstitialAdWithPlacementID:placementID delegate:delegate];
+    }
 }
 
 #pragma mark Google Ad Mob

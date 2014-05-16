@@ -88,7 +88,7 @@
 - (IBAction)didTapBannerLoadButton:(id)sender
 {
     [self updateForBannerAdLoad];
-
+    
     [self.view endEditing:YES];
     [self.bannerActivityIndicator startAnimating];
     self.bannerStatusLabel.text = @"";
@@ -99,7 +99,7 @@
 - (IBAction)didTapBannerMRectLoadButton:(id)sender
 {
     [self updateForBannerMRectAdLoad];
-
+    
     [self.view endEditing:YES];
     [self.bannerActivityIndicator startAnimating];
     self.bannerStatusLabel.text = @"";
@@ -111,11 +111,11 @@
 {
     [self.banner removeFromSuperview];
     [self.mRectBanner removeFromSuperview];
-
+    
     self.scrollView.contentSize = self.scrollView.bounds.size;
-
+    
     self.bannerContainer.frame = CGRectMake(0, self.bannerContainer.frame.origin.y, MOPUB_BANNER_SIZE.width, MOPUB_BANNER_SIZE.height);
-
+    
     self.banner.delegate = nil;
     self.banner = [[MPSampleAppInstanceProvider sharedProvider] buildMPAdViewWithAdUnitID:@"" size:MOPUB_BANNER_SIZE];
     self.banner.delegate = self;
@@ -126,12 +126,12 @@
 {
     [self.banner removeFromSuperview];
     [self.mRectBanner removeFromSuperview];
-
+    
     self.scrollView.contentSize = CGSizeMake(self.scrollView.bounds.size.width, self.bannerContainer.frame.origin.y + MOPUB_MEDIUM_RECT_SIZE.width);
-
+    
     CGFloat sideBuffer = (self.view.bounds.size.width - MOPUB_MEDIUM_RECT_SIZE.width) / 2;
     self.bannerContainer.frame = CGRectMake(sideBuffer, self.bannerContainer.frame.origin.y, MOPUB_MEDIUM_RECT_SIZE.width, MOPUB_MEDIUM_RECT_SIZE.height);
-
+    
     self.mRectBanner.delegate = nil;
     self.mRectBanner = [[MPSampleAppInstanceProvider sharedProvider] buildMPAdViewWithAdUnitID:@"" size:MOPUB_MEDIUM_RECT_SIZE];
     self.mRectBanner.delegate = self;

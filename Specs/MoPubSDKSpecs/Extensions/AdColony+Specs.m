@@ -20,7 +20,7 @@ static NSInteger gZoneStatus;
 + (void)mp_swizzleStartMethod
 {
     Method original, swizzled;
-
+    
     original = class_getClassMethod(self, @selector(configureWithAppID:zoneIDs:delegate:logging:));
     swizzled = class_getClassMethod(self, @selector(mp_configureWithAppID:zoneIDs:delegate:logging:));
     method_exchangeImplementations(original, swizzled);
@@ -31,14 +31,14 @@ static NSInteger gZoneStatus;
     gAppId = [appID copy];
     gZoneIds = [zoneIDs copy];
     gDelegate = [del retain];
-
+    
     [self mp_configureWithAppID:appID zoneIDs:zoneIDs delegate:del logging:log];
 }
 
 + (void)mp_swizzleZoneStatusMethod
 {
     Method original, swizzled;
-
+    
     original = class_getClassMethod(self, @selector(zoneStatusForZone:));
     swizzled = class_getClassMethod(self, @selector(mp_zoneStatusForZone:));
     method_exchangeImplementations(original, swizzled);

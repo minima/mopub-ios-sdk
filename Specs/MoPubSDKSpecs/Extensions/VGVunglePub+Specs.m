@@ -17,7 +17,7 @@ static VGUserData *gUserData;
 + (void)mp_swizzleStartMethod
 {
     Method original, swizzled;
-
+    
     original = class_getClassMethod(self, @selector(startWithPubAppID:userData:));
     swizzled = class_getClassMethod(self, @selector(mp_swizzledStartWithPubAppID:userData:));
     method_exchangeImplementations(original, swizzled);
@@ -27,7 +27,7 @@ static VGUserData *gUserData;
 {
     gAppId = [appId copy];
     gUserData = [userData retain];
-
+    
     [self mp_swizzledStartWithPubAppID:appId userData:userData];
 }
 
@@ -47,7 +47,7 @@ static VGUserData *gUserData;
     data.status = VGStatusOkay;
     data.videoAdsCached = 1;
     data.videoAdsUnviewed = 1;
-
+    
     [[VGVunglePub delegate] vungleStatusUpdate:data];
 }
 
@@ -57,7 +57,7 @@ static VGUserData *gUserData;
     data.status = VGStatusOkay;
     data.videoAdsCached = 0;
     data.videoAdsUnviewed = 1;
-
+    
     [[VGVunglePub delegate] vungleStatusUpdate:data];
 }
 
@@ -67,7 +67,7 @@ static VGUserData *gUserData;
     data.status = VGStatusOkay;
     data.videoAdsCached = 1;
     data.videoAdsUnviewed = 0;
-
+    
     [[VGVunglePub delegate] vungleStatusUpdate:data];
 }
 
@@ -77,7 +77,7 @@ static VGUserData *gUserData;
     data.status = VGStatusNetworkError;
     data.videoAdsCached = 1;
     data.videoAdsUnviewed = 1;
-
+    
     [[VGVunglePub delegate] vungleStatusUpdate:data];
 }
 

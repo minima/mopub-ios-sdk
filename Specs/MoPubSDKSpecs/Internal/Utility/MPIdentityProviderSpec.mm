@@ -1,5 +1,6 @@
 #import "MPIdentityProvider.h"
 #import <AdSupport/AdSupport.h>
+#import "ASIdentifierManager+MPSpecs.h"
 
 using namespace Cedar::Matchers;
 using namespace Cedar::Doubles;
@@ -40,14 +41,79 @@ describe(@"MPIdentityProvider", ^{
             [MPIdentityProvider setASIdentifierManagerExists:YES];
         });
 
-        it(@"should provide the identity provided by the ASIdentifierManager", ^{
-            NSString *identifier = [NSString stringWithFormat:@"ifa:%@", [[[[ASIdentifierManager sharedManager] advertisingIdentifier] UUIDString] uppercaseString]];
-            [MPIdentityProvider identifier] should equal(identifier);
+        context(@"when advertisingIdentifier is not nil", ^{
+            beforeEach(^{
+                [ASIdentifierManager useNilForAdvertisingIdentifier:NO];
+            });
+
+            it(@"should provide the identity provided by the ASIdentifierManager", ^{
+                NSString *identifier = [NSString stringWithFormat:@"ifa:%@", [[[[ASIdentifierManager sharedManager] advertisingIdentifier] UUIDString] uppercaseString]];
+                [MPIdentityProvider identifier] should equal(identifier);
+            });
+
+            it(@"should return whatever the ASIdentifierManager returns for advertisingTrackingEnabled", ^{
+                [MPIdentityProvider advertisingTrackingEnabled] should equal([[ASIdentifierManager sharedManager] isAdvertisingTrackingEnabled]);
+            });
+
+            context(@"when retrieving obfuscatedIdentifier", ^{
+                __block NSString *identifier;
+                __block NSString *obfuscatedIdentifier;
+
+                beforeEach(^{
+                    identifier = [MPIdentityProvider identifier];
+                    obfuscatedIdentifier = [MPIdentityProvider obfuscatedIdentifier];
+                });
+
+                it(@"should equal ifa:XXXX", ^{
+                    obfuscatedIdentifier should equal(@"ifa:XXXX");
+                });
+
+                it(@"should not affect the non-obfuscated identifier", ^{
+                    identifier should_not equal(obfuscatedIdentifier);
+                    // We already retrieved in the following order: identifier, obfuscatedIdentifier.  So we get identifier again to make sure obfuscatedIdentifier
+                    // didn't screw up the real token.
+                    [MPIdentityProvider identifier] should equal(identifier);
+                });
+            });
         });
 
-        it(@"should return whatever the ASIdentifierManager returns for advertisingTrackingEnabled", ^{
-            [MPIdentityProvider advertisingTrackingEnabled] should equal([[ASIdentifierManager sharedManager] isAdvertisingTrackingEnabled]);
+        context(@"when advertisingIdentifier is nil", ^{
+            beforeEach(^{
+                [ASIdentifierManager useNilForAdvertisingIdentifier:YES];
+            });
+
+            it(@"should provide an identifier that is ifa:(null)", ^{
+                [MPIdentityProvider identifier] should equal(@"ifa:(null)");
+            });
+
+            it(@"should provide the identity provided by the ASIdentifierManager", ^{
+                NSString *identifier = [NSString stringWithFormat:@"ifa:%@", [[[[ASIdentifierManager sharedManager] advertisingIdentifier] UUIDString] uppercaseString]];
+                [MPIdentityProvider identifier] should equal(identifier);
+            });
+
+            context(@"when retrieving obfuscatedIdentifier", ^{
+                __block NSString *identifier;
+                __block NSString *obfuscatedIdentifier;
+
+                beforeEach(^{
+                    identifier = [MPIdentityProvider identifier];
+                    obfuscatedIdentifier = [MPIdentityProvider obfuscatedIdentifier];
+                });
+
+                it(@"should equal ifa:XXXX", ^{
+                    obfuscatedIdentifier should equal(@"ifa:XXXX");
+                });
+
+                it(@"should not affect the non-obfuscated identifier", ^{
+                    identifier should_not equal(obfuscatedIdentifier);
+                    // We already retrieved in the following order: identifier, obfuscatedIdentifier.  So we get identifier again to make sure obfuscatedIdentifier
+                    // didn't screw up the real token.
+                    [MPIdentityProvider identifier] should equal(identifier);
+                });
+            });
         });
+
+
     });
 
     context(@"when ASIdentifierManager does not exist", ^{
@@ -88,6 +154,27 @@ describe(@"MPIdentityProvider", ^{
 
         it(@"should return YES for advertisingTrackingEnabled", ^{
             [MPIdentityProvider advertisingTrackingEnabled] should equal(YES);
+        });
+
+        context(@"when retrieving obfuscatedIdentifier", ^{
+            __block NSString *identifier;
+            __block NSString *obfuscatedIdentifier;
+
+            beforeEach(^{
+                identifier = [MPIdentityProvider identifier];
+                obfuscatedIdentifier = [MPIdentityProvider obfuscatedIdentifier];
+            });
+
+            it(@"should equal mopub:XXXX", ^{
+                obfuscatedIdentifier should equal(@"mopub:XXXX");
+            });
+
+            it(@"should not affect the non-obfuscated identifier", ^{
+                identifier should_not equal(obfuscatedIdentifier);
+                // We already retrieved in the following order: identifier, obfuscatedIdentifier.  So we get identifier again to make sure obfuscatedIdentifier
+                // didn't screw up the real token.
+                [MPIdentityProvider identifier] should equal(identifier);
+            });
         });
     });
 });

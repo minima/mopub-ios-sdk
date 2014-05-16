@@ -44,7 +44,7 @@
     NSString *description = [NSString stringWithFormat:@"Ensuring view with class name %@ doesn't exist", className];
     return [KIFTestStep stepWithDescription:description executionBlock:^KIFTestStepResult(KIFTestStep *step, NSError *__autoreleasing *error) {
         NSArray *views = [[[UIApplication sharedApplication] keyWindow] subviewsWithClassNamePrefix:className];
-
+        
         if(views.count != 0) {
             KIFTestCondition(NO, error, @"View with classname %@ currently shown", className);
         }
@@ -63,7 +63,7 @@
 
         Class UIAlertManager = objc_getClass("_UIAlertManager");
         UIAlertView *topMostAlert = [UIAlertManager performSelector:@selector(topMostAlert)];
-
+        
         if(topMostAlert != nil) {
             KIFTestCondition(NO, error, @"UIAlertView currently shown");
             [topMostAlert dismissWithClickedButtonIndex:0 animated:MP_ANIMATED];

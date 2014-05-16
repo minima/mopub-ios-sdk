@@ -4,6 +4,7 @@
 #import "MPAdConfigurationFactory.h"
 #import "FakeMPAdAlertManager.h"
 #import "UIWebView+MPAdditions.h"
+#import "UIApplication+MPSpecs.h"
 
 using namespace Cedar::Matchers;
 using namespace Cedar::Doubles;
@@ -26,11 +27,11 @@ describe(@"MPAdWebViewAgent", ^{
     __block MPAdWebView *webView;
     __block MPAdDestinationDisplayAgent *destinationDisplayAgent;
     __block FakeMPAdAlertManager *fakeAdAlertManager;
-
+    
     beforeEach(^{
         fakeAdAlertManager = [[[FakeMPAdAlertManager alloc] init] autorelease];
         fakeCoreProvider.fakeAdAlertManager = fakeAdAlertManager;
-
+        
         delegate = nice_fake_for(@protocol(MPAdWebViewAgentDelegate));
 
         destinationDisplayAgent = nice_fake_for([MPAdDestinationDisplayAgent class]);
@@ -50,14 +51,14 @@ describe(@"MPAdWebViewAgent", ^{
                 interstitialConfiguration.preferredSize = CGSizeMake(123, 123);
                 [agent loadConfiguration:interstitialConfiguration];
             });
-
+            
             it(@"should ignore the frame size", ^{
                 agent.view.frame.size.width should equal(30);
                 agent.view.frame.size.height should equal(20);
             });
         });
     });
-
+    
     describe(@"when the configuration is loaded", ^{
         subjectAction(^{ [agent loadConfiguration:bannerConfiguration]; });
 
@@ -108,18 +109,18 @@ describe(@"MPAdWebViewAgent", ^{
                 agent.view.loadedHTMLString should equal(@"Publisher's Ad");
             });
         });
-
+        
         describe(@"initializing the ad alert manager", ^{
             it(@"should be the delegate of the ad alert manager", ^{
                 fakeAdAlertManager.delegate should equal((id<MPAdAlertManagerDelegate>)agent);
             });
         });
-
+        
         describe(@"javascript dialog disabled", ^{
             it(@"should have executed the dialog disabling javascript", ^{
                 NSArray *executedJS = [agent.view executedJavaScripts];
                 executedJS.count should equal(1);
-
+                
                 NSString *dialogDisableJS = [executedJS objectAtIndex:0];
                 dialogDisableJS should equal(kJavaScriptDisableDialogSnippet);
             });
@@ -326,6 +327,85 @@ describe(@"MPAdWebViewAgent", ^{
                         destinationDisplayAgent should have_received(@selector(displayDestinationForURL:)).with(URL);
                     });
                 });
+            });
+        });
+    });
+
+    describe(@"when working with telephone schemes", ^{
+        __block NSURL *URL;
+
+        context(@"when the scheme isn't tel or telprompt", ^{
+            it(@"should not show a telephone prompt", ^{
+                fakeCoreProvider.fakeMPAdDestinationDisplayAgent = nil;
+
+                agent = [[[MPAdWebViewAgent alloc] initWithAdWebViewFrame:CGRectMake(0,0,30,20)
+                                                                 delegate:delegate
+                                                     customMethodDelegate:nil] autorelease];
+
+                URL = [NSURL URLWithString:@"twitter://food"];
+                [agent webView:nil shouldStartLoadWithRequest:[NSURLRequest requestWithURL:URL] navigationType:UIWebViewNavigationTypeLinkClicked];
+                [UIAlertView currentAlertView] should be_nil;
+
+                URL = [NSURL URLWithString:@"http://www.ddf.com"];
+                [agent webView:nil shouldStartLoadWithRequest:[NSURLRequest requestWithURL:URL] navigationType:UIWebViewNavigationTypeLinkClicked];
+                [UIAlertView currentAlertView] should be_nil;
+
+                URL = [NSURL URLWithString:@"apple://pear"];
+                [agent webView:nil shouldStartLoadWithRequest:[NSURLRequest requestWithURL:URL] navigationType:UIWebViewNavigationTypeLinkClicked];
+                [UIAlertView currentAlertView] should be_nil;
+            });
+        });
+
+        context(@"when the scheme is tel://", ^{
+
+            beforeEach(^{
+                URL = [NSURL URLWithString:@"tel://5555555555"];
+                fakeCoreProvider.fakeMPAdDestinationDisplayAgent = nil;
+
+                agent = [[[MPAdWebViewAgent alloc] initWithAdWebViewFrame:CGRectMake(0,0,30,20)
+                                                                 delegate:delegate
+                                                     customMethodDelegate:nil] autorelease];
+            });
+
+            it(@"should not load anything", ^{
+                [agent webView:nil shouldStartLoadWithRequest:[NSURLRequest requestWithURL:URL] navigationType:UIWebViewNavigationTypeLinkClicked] should equal(NO);
+            });
+
+            it(@"should attempt to display the alert view (by calling show on the MPTelephoneConfirmationController) with a tel scheme", ^{
+                [[UIApplication sharedApplication] mp_setCanOpenTelephoneSchemes:YES];
+                [UIAlertView currentAlertView] should be_nil;
+                [agent webView:nil shouldStartLoadWithRequest:[NSURLRequest requestWithURL:URL] navigationType:UIWebViewNavigationTypeLinkClicked];
+                UIAlertView *currentAlert = [UIAlertView currentAlertView];
+                currentAlert.numberOfButtons should equal(2);
+                currentAlert.title should_not be_nil;
+                currentAlert.message should_not be_nil;
+            });
+        });
+
+        context(@"when the scheme is telPrompt://", ^{
+
+            beforeEach(^{
+                URL = [NSURL URLWithString:@"telPrompt://5555555555"];
+                fakeCoreProvider.fakeMPAdDestinationDisplayAgent = nil;
+
+                agent = [[[MPAdWebViewAgent alloc] initWithAdWebViewFrame:CGRectMake(0,0,30,20)
+                                                                 delegate:delegate
+                                                     customMethodDelegate:nil] autorelease];
+                webView = agent.view;
+            });
+
+            it(@"should not load anything", ^{
+                [agent webView:nil shouldStartLoadWithRequest:[NSURLRequest requestWithURL:URL] navigationType:UIWebViewNavigationTypeLinkClicked] should equal(NO);
+            });
+
+            it(@"should attempt to display the alert view (by calling show on the MPTelephoneConfirmationController) with a tel scheme", ^{
+                [[UIApplication sharedApplication] mp_setCanOpenTelephoneSchemes:YES];
+                [UIAlertView currentAlertView] should be_nil;
+                [agent webView:nil shouldStartLoadWithRequest:[NSURLRequest requestWithURL:URL] navigationType:UIWebViewNavigationTypeLinkClicked];
+                UIAlertView *currentAlert = [UIAlertView currentAlertView];
+                currentAlert.numberOfButtons should equal(2);
+                currentAlert.title should_not be_nil;
+                currentAlert.message should_not be_nil;
             });
         });
     });

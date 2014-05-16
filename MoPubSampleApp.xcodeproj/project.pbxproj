@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4605ECE8191968A500FC87DC /* MillennialMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4605ECE6191968A500FC87DC /* MillennialMedia.framework */; };
+		4605ECE9191968A500FC87DC /* SpeechKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4605ECE7191968A500FC87DC /* SpeechKit.framework */; };
 		46137BF117E375B500A4B9AC /* MPAdAlertGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 46137BF017E375B500A4B9AC /* MPAdAlertGestureRecognizer.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		46137BF217E375B500A4B9AC /* MPAdAlertGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 46137BF017E375B500A4B9AC /* MPAdAlertGestureRecognizer.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		46137BF317E375B500A4B9AC /* MPAdAlertGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 46137BF017E375B500A4B9AC /* MPAdAlertGestureRecognizer.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -34,19 +36,13 @@
 		46B9E8B017E0D7F600B78D11 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46B9E8AF17E0D7F600B78D11 /* AVFoundation.framework */; };
 		46B9E8B217E0D80400B78D11 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46B9E8B117E0D80400B78D11 /* MessageUI.framework */; };
 		46B9E8B317E0D81200B78D11 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE10920B170120E700812E6E /* Security.framework */; };
-		46CFCC0817E26CBB0048647D /* libMMSDK_5.1.1.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 46CFCC0717E26CBB0048647D /* libMMSDK_5.1.1.a */; };
-		46D3141B17E8CFE600F30509 /* SpeechKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46D3141A17E8CFE600F30509 /* SpeechKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		46DA87B1185010DD00F34858 /* MPAdEntryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46DA87AF185010DD00F34858 /* MPAdEntryViewController.m */; };
 		46DA87B2185010DD00F34858 /* MPAdEntryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46DA87AF185010DD00F34858 /* MPAdEntryViewController.m */; };
 		46DA87B3185010DD00F34858 /* MPAdEntryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46DA87AF185010DD00F34858 /* MPAdEntryViewController.m */; };
 		46DA87B4185010DD00F34858 /* MPAdEntryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 46DA87B0185010DD00F34858 /* MPAdEntryViewController.xib */; };
 		46DA87B5185010DD00F34858 /* MPAdEntryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 46DA87B0185010DD00F34858 /* MPAdEntryViewController.xib */; };
 		46DA87B6185010DD00F34858 /* MPAdEntryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 46DA87B0185010DD00F34858 /* MPAdEntryViewController.xib */; };
-		46E5043118035989006A2FC3 /* libvunglepub.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 46E5042818035989006A2FC3 /* libvunglepub.a */; };
 		46E5043218035989006A2FC3 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 46E5042918035989006A2FC3 /* README.md */; };
-		46E5043318035989006A2FC3 /* vg_button_close.png in Resources */ = {isa = PBXBuildFile; fileRef = 46E5042B18035989006A2FC3 /* vg_button_close.png */; };
-		46E5043418035989006A2FC3 /* vg_button_mute_plain.png in Resources */ = {isa = PBXBuildFile; fileRef = 46E5042C18035989006A2FC3 /* vg_button_mute_plain.png */; };
-		46E5043518035989006A2FC3 /* vg_button_mute_selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 46E5042D18035989006A2FC3 /* vg_button_mute_selected.png */; };
 		46E5043618035989006A2FC3 /* VungleInterstitialCustomEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 46E5043018035989006A2FC3 /* VungleInterstitialCustomEvent.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		46E5043E18035A19006A2FC3 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE0F1FB1171F1D2800FA3BE6 /* CoreLocation.framework */; };
 		46E5044018035A26006A2FC3 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46E5043F18035A26006A2FC3 /* CoreMedia.framework */; };
@@ -97,6 +93,17 @@
 		4AE953CD18C93CA500E12720 /* MPNativeAdTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A169E0118C7E6AF00553657 /* MPNativeAdTableViewController.m */; };
 		4AE953CE18C93CA500E12720 /* MPNativeAdCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A8DD10018C90542005E9389 /* MPNativeAdCell.m */; };
 		4AE953CF18C93CA500E12720 /* MPNativeAdTableHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A8DD10318C90620005E9389 /* MPNativeAdTableHeaderView.m */; };
+		4AFB4C121919836800894CF6 /* FacebookBannerCustomEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AFB4C0D1919836800894CF6 /* FacebookBannerCustomEvent.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		4AFB4C131919836800894CF6 /* FacebookBannerCustomEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AFB4C0D1919836800894CF6 /* FacebookBannerCustomEvent.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		4AFB4C141919836800894CF6 /* FacebookInterstitialCustomEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AFB4C0F1919836800894CF6 /* FacebookInterstitialCustomEvent.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		4AFB4C151919836800894CF6 /* FacebookInterstitialCustomEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AFB4C0F1919836800894CF6 /* FacebookInterstitialCustomEvent.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		4AFB4C161919836800894CF6 /* FBAudienceNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AFB4C111919836800894CF6 /* FBAudienceNetwork.framework */; };
+		4AFB4C171919836800894CF6 /* FBAudienceNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AFB4C111919836800894CF6 /* FBAudienceNetwork.framework */; };
+		4AFB4C261919841A00894CF6 /* KIFTestScenario+Facebook.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AFB4C251919841A00894CF6 /* KIFTestScenario+Facebook.m */; };
+		571C34CC191D9B3300B0BE9C /* vg_button_close.png in Resources */ = {isa = PBXBuildFile; fileRef = 571C34C8191D9B3300B0BE9C /* vg_button_close.png */; };
+		571C34CD191D9B3300B0BE9C /* vg_button_mute_plain.png in Resources */ = {isa = PBXBuildFile; fileRef = 571C34C9191D9B3300B0BE9C /* vg_button_mute_plain.png */; };
+		571C34CE191D9B3300B0BE9C /* vg_button_mute_selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 571C34CA191D9B3300B0BE9C /* vg_button_mute_selected.png */; };
+		571C34CF191D9B3300B0BE9C /* vunglepub.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 571C34CB191D9B3300B0BE9C /* vunglepub.framework */; };
 		A756755E18F5F356006821CC /* MPDiskLRUCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A31AAB418C55AF60073CB40 /* MPDiskLRUCache.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		A756755F18F5F356006821CC /* MPNativeCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AE42FA518D90CA800DE4BF6 /* MPNativeCache.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		A756756018F5F356006821CC /* MPImageDownloadQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A31AAB618C55AF60073CB40 /* MPImageDownloadQueue.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -576,6 +583,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4605ECE6191968A500FC87DC /* MillennialMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MillennialMedia.framework; sourceTree = "<group>"; };
+		4605ECE7191968A500FC87DC /* SpeechKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SpeechKit.framework; sourceTree = "<group>"; };
 		46137BEF17E375B500A4B9AC /* MPAdAlertGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPAdAlertGestureRecognizer.h; sourceTree = "<group>"; };
 		46137BF017E375B500A4B9AC /* MPAdAlertGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPAdAlertGestureRecognizer.m; sourceTree = "<group>"; };
 		46137BF417E37B6C00A4B9AC /* MPAdAlertManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPAdAlertManager.h; sourceTree = "<group>"; };
@@ -604,24 +613,10 @@
 		46B9E8AD17E0D7EE00B78D11 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		46B9E8AF17E0D7F600B78D11 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		46B9E8B117E0D80400B78D11 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
-		46CFCC0717E26CBB0048647D /* libMMSDK_5.1.1.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libMMSDK_5.1.1.a; sourceTree = "<group>"; };
-		46D3141A17E8CFE600F30509 /* SpeechKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SpeechKit.framework; sourceTree = "<group>"; };
 		46DA87AE185010DD00F34858 /* MPAdEntryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPAdEntryViewController.h; sourceTree = "<group>"; };
 		46DA87AF185010DD00F34858 /* MPAdEntryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPAdEntryViewController.m; sourceTree = "<group>"; };
 		46DA87B0185010DD00F34858 /* MPAdEntryViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MPAdEntryViewController.xib; sourceTree = "<group>"; };
-		46E5042118035989006A2FC3 /* VGAdType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VGAdType.h; sourceTree = "<group>"; };
-		46E5042218035989006A2FC3 /* VGAssertMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VGAssertMacros.h; sourceTree = "<group>"; };
-		46E5042318035989006A2FC3 /* VGConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VGConstants.h; sourceTree = "<group>"; };
-		46E5042418035989006A2FC3 /* VGPlayData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VGPlayData.h; sourceTree = "<group>"; };
-		46E5042518035989006A2FC3 /* VGStatusData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VGStatusData.h; sourceTree = "<group>"; };
-		46E5042618035989006A2FC3 /* VGUserData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VGUserData.h; sourceTree = "<group>"; };
-		46E5042718035989006A2FC3 /* VGVunglePub.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VGVunglePub.h; sourceTree = "<group>"; };
-		46E5042818035989006A2FC3 /* libvunglepub.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libvunglepub.a; sourceTree = "<group>"; };
 		46E5042918035989006A2FC3 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
-		46E5042B18035989006A2FC3 /* vg_button_close.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = vg_button_close.png; sourceTree = "<group>"; };
-		46E5042C18035989006A2FC3 /* vg_button_mute_plain.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = vg_button_mute_plain.png; sourceTree = "<group>"; };
-		46E5042D18035989006A2FC3 /* vg_button_mute_selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = vg_button_mute_selected.png; sourceTree = "<group>"; };
-		46E5042E18035989006A2FC3 /* vunglepub.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vunglepub.h; sourceTree = "<group>"; };
 		46E5042F18035989006A2FC3 /* VungleInterstitialCustomEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VungleInterstitialCustomEvent.h; sourceTree = "<group>"; };
 		46E5043018035989006A2FC3 /* VungleInterstitialCustomEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VungleInterstitialCustomEvent.m; sourceTree = "<group>"; };
 		46E5043F18035A26006A2FC3 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
@@ -673,10 +668,21 @@
 		4AD1E8AF18F36D39000D1753 /* MPNativeAdView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPNativeAdView.m; sourceTree = "<group>"; };
 		4AE42FA418D90CA800DE4BF6 /* MPNativeCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPNativeCache.h; sourceTree = "<group>"; };
 		4AE42FA518D90CA800DE4BF6 /* MPNativeCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPNativeCache.m; sourceTree = "<group>"; };
+		4AFB4C0C1919836800894CF6 /* FacebookBannerCustomEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FacebookBannerCustomEvent.h; sourceTree = "<group>"; };
+		4AFB4C0D1919836800894CF6 /* FacebookBannerCustomEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FacebookBannerCustomEvent.m; sourceTree = "<group>"; };
+		4AFB4C0E1919836800894CF6 /* FacebookInterstitialCustomEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FacebookInterstitialCustomEvent.h; sourceTree = "<group>"; };
+		4AFB4C0F1919836800894CF6 /* FacebookInterstitialCustomEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FacebookInterstitialCustomEvent.m; sourceTree = "<group>"; };
+		4AFB4C111919836800894CF6 /* FBAudienceNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBAudienceNetwork.framework; sourceTree = "<group>"; };
+		4AFB4C241919841A00894CF6 /* KIFTestScenario+Facebook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "KIFTestScenario+Facebook.h"; sourceTree = "<group>"; };
+		4AFB4C251919841A00894CF6 /* KIFTestScenario+Facebook.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "KIFTestScenario+Facebook.m"; sourceTree = "<group>"; };
 		A73AB4CA17B16F9A00D98ED7 /* MMAdView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMAdView.h; sourceTree = "<group>"; };
 		A73AB4CB17B16F9A00D98ED7 /* MMInterstitial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMInterstitial.h; sourceTree = "<group>"; };
 		A73AB4CC17B16F9A00D98ED7 /* MMRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMRequest.h; sourceTree = "<group>"; };
 		A73AB4CD17B16F9A00D98ED7 /* MMSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMSDK.h; sourceTree = "<group>"; };
+		571C34C8191D9B3300B0BE9C /* vg_button_close.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = vg_button_close.png; sourceTree = "<group>"; };
+		571C34C9191D9B3300B0BE9C /* vg_button_mute_plain.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = vg_button_mute_plain.png; sourceTree = "<group>"; };
+		571C34CA191D9B3300B0BE9C /* vg_button_mute_selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = vg_button_mute_selected.png; sourceTree = "<group>"; };
+		571C34CB191D9B3300B0BE9C /* vunglepub.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = vunglepub.framework; sourceTree = "<group>"; };
 		A77A78FD17C3817B00AB0DCA /* MRJavaScriptEventEmitter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MRJavaScriptEventEmitter.h; sourceTree = "<group>"; };
 		A77A78FE17C3817B00AB0DCA /* MRJavaScriptEventEmitter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MRJavaScriptEventEmitter.m; sourceTree = "<group>"; };
 		A77A790217C381E400AB0DCA /* MRCalendarManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MRCalendarManager.h; sourceTree = "<group>"; };
@@ -994,6 +1000,7 @@
 				46B9E8AE17E0D7EE00B78D11 /* AudioToolbox.framework in Frameworks */,
 				46B9E8AC17E0D7D800B78D11 /* libz.dylib in Frameworks */,
 				46B9E8AB17E0D7D100B78D11 /* libsqlite3.dylib in Frameworks */,
+				4AFB4C161919836800894CF6 /* FBAudienceNetwork.framework in Frameworks */,
 				AED7D8E4177CEB2900CC0CEF /* MediaPlayer.framework in Frameworks */,
 				AE14FA461773BA4700ABF744 /* EventKit.framework in Frameworks */,
 				AE14FA471773BA4700ABF744 /* EventKitUI.framework in Frameworks */,
@@ -1047,17 +1054,18 @@
 				46E5044018035A26006A2FC3 /* CoreMedia.framework in Frameworks */,
 				46E5043E18035A19006A2FC3 /* CoreLocation.framework in Frameworks */,
 				4614B3F517E8D01E00812D2C /* CFNetwork.framework in Frameworks */,
+				4605ECE9191968A500FC87DC /* SpeechKit.framework in Frameworks */,
 				AE902A37171F559B00991DF9 /* EventKit.framework in Frameworks */,
 				AE902A38171F559B00991DF9 /* EventKitUI.framework in Frameworks */,
 				AE902A3F171F55B800991DF9 /* libKIF.a in Frameworks */,
 				AE902A3E171F55AE00991DF9 /* Social.framework in Frameworks */,
 				468F65D11816EB2300B3B8AA /* AdColony.framework in Frameworks */,
 				AE902A3C171F55A900991DF9 /* Twitter.framework in Frameworks */,
-				46D3141B17E8CFE600F30509 /* SpeechKit.framework in Frameworks */,
 				AE902A3A171F55A000991DF9 /* PassKit.framework in Frameworks */,
 				AE902A33171F559400991DF9 /* AddressBook.framework in Frameworks */,
 				AE902A34171F559400991DF9 /* AddressBookUI.framework in Frameworks */,
 				AE902A2B171F558800991DF9 /* libChartboost.a in Frameworks */,
+				4605ECE8191968A500FC87DC /* MillennialMedia.framework in Frameworks */,
 				AE902A2C171F558800991DF9 /* libGoogleAdMobAds.a in Frameworks */,
 				AE902A2D171F558800991DF9 /* libGreystripeSDK.a in Frameworks */,
 				AED9E4FA16F7B8A600EA71A7 /* StoreKit.framework in Frameworks */,
@@ -1066,12 +1074,13 @@
 				AED9E4FE16F7B8A600EA71A7 /* Foundation.framework in Frameworks */,
 				AED9E4FF16F7B8A600EA71A7 /* CoreGraphics.framework in Frameworks */,
 				AEEA5E5416F940EC003D48F4 /* AVFoundation.framework in Frameworks */,
-				46E5043118035989006A2FC3 /* libvunglepub.a in Frameworks */,
+				571C34CF191D9B3300B0BE9C /* vunglepub.framework in Frameworks */,
 				AEEA5E5716F940EC003D48F4 /* MobileCoreServices.framework in Frameworks */,
 				AEEA5E5A16F940EC003D48F4 /* MediaPlayer.framework in Frameworks */,
 				AEEA5E5D16F940EC003D48F4 /* QuartzCore.framework in Frameworks */,
 				AEEA5E6016F940EC003D48F4 /* SystemConfiguration.framework in Frameworks */,
 				461D039518AD60BF000F36C9 /* libInMobi-4.1.0.a in Frameworks */,
+				4AFB4C171919836800894CF6 /* FBAudienceNetwork.framework in Frameworks */,
 				AEEA5E6316F940EC003D48F4 /* MessageUI.framework in Frameworks */,
 				AEEA5E6616F940EC003D48F4 /* AudioToolbox.framework in Frameworks */,
 				AEEA5E6916F940EC003D48F4 /* iAd.framework in Frameworks */,
@@ -1079,7 +1088,6 @@
 				AE109213170120E700812E6E /* Security.framework in Frameworks */,
 				AE109216170120E700812E6E /* libz.dylib in Frameworks */,
 				AE109219170120E700812E6E /* libsqlite3.dylib in Frameworks */,
-				46CFCC0817E26CBB0048647D /* libMMSDK_5.1.1.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1116,14 +1124,6 @@
 			path = SDK;
 			sourceTree = "<group>";
 		};
-		46D3141917E8CFE600F30509 /* SpeechKit */ = {
-			isa = PBXGroup;
-			children = (
-				46D3141A17E8CFE600F30509 /* SpeechKit.framework */,
-			);
-			path = SpeechKit;
-			sourceTree = "<group>";
-		};
 		46E5041E18035989006A2FC3 /* Vungle */ = {
 			isa = PBXGroup;
 			children = (
@@ -1137,37 +1137,10 @@
 		46E5041F18035989006A2FC3 /* SDK */ = {
 			isa = PBXGroup;
 			children = (
-				46E5042818035989006A2FC3 /* libvunglepub.a */,
+				571C34C6191D9B3300B0BE9C /* vunglepub.embeddedframework */,
 				46E5042918035989006A2FC3 /* README.md */,
-				46E5042E18035989006A2FC3 /* vunglepub.h */,
-				46E5042018035989006A2FC3 /* headers */,
-				46E5042A18035989006A2FC3 /* resources */,
 			);
 			path = SDK;
-			sourceTree = "<group>";
-		};
-		46E5042018035989006A2FC3 /* headers */ = {
-			isa = PBXGroup;
-			children = (
-				46E5042118035989006A2FC3 /* VGAdType.h */,
-				46E5042218035989006A2FC3 /* VGAssertMacros.h */,
-				46E5042318035989006A2FC3 /* VGConstants.h */,
-				46E5042418035989006A2FC3 /* VGPlayData.h */,
-				46E5042518035989006A2FC3 /* VGStatusData.h */,
-				46E5042618035989006A2FC3 /* VGUserData.h */,
-				46E5042718035989006A2FC3 /* VGVunglePub.h */,
-			);
-			path = headers;
-			sourceTree = "<group>";
-		};
-		46E5042A18035989006A2FC3 /* resources */ = {
-			isa = PBXGroup;
-			children = (
-				46E5042B18035989006A2FC3 /* vg_button_close.png */,
-				46E5042C18035989006A2FC3 /* vg_button_mute_plain.png */,
-				46E5042D18035989006A2FC3 /* vg_button_mute_selected.png */,
-			);
-			path = resources;
 			sourceTree = "<group>";
 		};
 		4A31AAAA18C55AF60073CB40 /* Native Ads */ = {
@@ -1229,6 +1202,45 @@
 				4AD1E8AF18F36D39000D1753 /* MPNativeAdView.m */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		4AFB4C0B1919836800894CF6 /* Facebook */ = {
+			isa = PBXGroup;
+			children = (
+				4AFB4C0C1919836800894CF6 /* FacebookBannerCustomEvent.h */,
+				4AFB4C0D1919836800894CF6 /* FacebookBannerCustomEvent.m */,
+				4AFB4C0E1919836800894CF6 /* FacebookInterstitialCustomEvent.h */,
+				4AFB4C0F1919836800894CF6 /* FacebookInterstitialCustomEvent.m */,
+				4AFB4C101919836800894CF6 /* SDK */,
+			);
+			path = Facebook;
+			sourceTree = "<group>";
+		};
+		4AFB4C101919836800894CF6 /* SDK */ = {
+			isa = PBXGroup;
+			children = (
+				4AFB4C111919836800894CF6 /* FBAudienceNetwork.framework */,
+			);
+			path = SDK;
+			sourceTree = "<group>";
+		};
+		571C34C6191D9B3300B0BE9C /* vunglepub.embeddedframework */ = {
+			isa = PBXGroup;
+			children = (
+				571C34C7191D9B3300B0BE9C /* Resources */,
+				571C34CB191D9B3300B0BE9C /* vunglepub.framework */,
+			);
+			path = vunglepub.embeddedframework;
+			sourceTree = "<group>";
+		};
+		571C34C7191D9B3300B0BE9C /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				571C34C8191D9B3300B0BE9C /* vg_button_close.png */,
+				571C34C9191D9B3300B0BE9C /* vg_button_mute_plain.png */,
+				571C34CA191D9B3300B0BE9C /* vg_button_mute_selected.png */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 		AE14F9251773BA1100ABF744 /* MoPubSDK */ = {
@@ -1717,6 +1729,8 @@
 				46A20177184D324C008B6E97 /* KIFTestScenario+iAd.m */,
 				4AB3DBAC18C68E3100FBBE10 /* KIFTestScenario+Native.h */,
 				4AB3DBAD18C68E3100FBBE10 /* KIFTestScenario+Native.m */,
+				4AFB4C241919841A00894CF6 /* KIFTestScenario+Facebook.h */,
+				4AFB4C251919841A00894CF6 /* KIFTestScenario+Facebook.m */,
 			);
 			path = Scenarios;
 			sourceTree = "<group>";
@@ -1748,6 +1762,7 @@
 		AE9029E8171F556A00991DF9 /* AdNetworkSupport */ = {
 			isa = PBXGroup;
 			children = (
+				4AFB4C0B1919836800894CF6 /* Facebook */,
 				468F65CD1816EB2300B3B8AA /* AdColony */,
 				46E5041E18035989006A2FC3 /* Vungle */,
 				AE9029E9171F556A00991DF9 /* Chartboost */,
@@ -1889,12 +1904,8 @@
 		AE902A28171F556A00991DF9 /* SDK */ = {
 			isa = PBXGroup;
 			children = (
-				46D3141917E8CFE600F30509 /* SpeechKit */,
-				46CFCC0717E26CBB0048647D /* libMMSDK_5.1.1.a */,
-				A73AB4CA17B16F9A00D98ED7 /* MMAdView.h */,
-				A73AB4CB17B16F9A00D98ED7 /* MMInterstitial.h */,
-				A73AB4CC17B16F9A00D98ED7 /* MMRequest.h */,
-				A73AB4CD17B16F9A00D98ED7 /* MMSDK.h */,
+				4605ECE6191968A500FC87DC /* MillennialMedia.framework */,
+				4605ECE7191968A500FC87DC /* SpeechKit.framework */,
 			);
 			path = SDK;
 			sourceTree = "<group>";
@@ -2204,13 +2215,13 @@
 				AED9E50916F7B8A600EA71A7 /* MPBannerAdDetailViewController.xib in Resources */,
 				AE43414C16F9068000B73710 /* MPInterstitialAdDetailViewController.xib in Resources */,
 				AE0021EB1704C46400A220F0 /* MPManualAdViewController.xib in Resources */,
-				46E5043518035989006A2FC3 /* vg_button_mute_selected.png in Resources */,
-				46E5043418035989006A2FC3 /* vg_button_mute_plain.png in Resources */,
 				4A6FC1FA18C561B3007A1197 /* MPNativeAdDetailViewController.xib in Resources */,
+				571C34CE191D9B3300B0BE9C /* vg_button_mute_selected.png in Resources */,
 				46E5043218035989006A2FC3 /* README.md in Resources */,
 				46DA87B6185010DD00F34858 /* MPAdEntryViewController.xib in Resources */,
 				AE8E1D521729AA460051FA6C /* white_button.png in Resources */,
 				AE8E1D531729B0A00051FA6C /* icon.png in Resources */,
+				571C34CC191D9B3300B0BE9C /* vg_button_close.png in Resources */,
 				AE8E1D541729B0A20051FA6C /* icon@2x.png in Resources */,
 				4A8DD10718C90636005E9389 /* MPNativeAdTableHeaderView.xib in Resources */,
 				AE8E1D551729B0A30051FA6C /* Default.png in Resources */,
@@ -2220,8 +2231,8 @@
 				AE14F9EB1773BA1100ABF744 /* LICENSE in Resources */,
 				AE14FA3F1773BA1100ABF744 /* MPCloseButtonX.png in Resources */,
 				AE14FA421773BA1100ABF744 /* MPCloseButtonX@2x.png in Resources */,
-				46E5043318035989006A2FC3 /* vg_button_close.png in Resources */,
 				468F65D21816EB2300B3B8AA /* README.md in Resources */,
+				571C34CD191D9B3300B0BE9C /* vg_button_mute_plain.png in Resources */,
 				AE14FA451773BA1100ABF744 /* MRAID.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2276,6 +2287,7 @@
 				AE14F9E01773BA1100ABF744 /* MPInterstitialViewController.m in Sources */,
 				4A97545918FC8C6400C19F10 /* MPNativeAdError.m in Sources */,
 				AE14F9E31773BA1100ABF744 /* MPLegacyInterstitialCustomEventAdapter.m in Sources */,
+				4AFB4C121919836800894CF6 /* FacebookBannerCustomEvent.m in Sources */,
 				AE14F9E61773BA1100ABF744 /* MPInstanceProvider.m in Sources */,
 				AE14F9EC1773BA1100ABF744 /* MPMRAIDBannerCustomEvent.m in Sources */,
 				4A6FC1F718C561B3007A1197 /* MPNativeAdDetailViewController.m in Sources */,
@@ -2283,6 +2295,7 @@
 				AE14F9F21773BA1100ABF744 /* MPMRAIDInterstitialViewController.m in Sources */,
 				AE14F9F51773BA1100ABF744 /* MRAdView.m in Sources */,
 				AE14F9F81773BA1100ABF744 /* MRAdViewDisplayController.m in Sources */,
+				4AFB4C141919836800894CF6 /* FacebookInterstitialCustomEvent.m in Sources */,
 				4A71897718D26C700056F068 /* NSJSONSerialization+MPAdditions.m in Sources */,
 				AE14F9FB1773BA1100ABF744 /* MRCommand.m in Sources */,
 				AE14FA011773BA1100ABF744 /* MRDimmingView.m in Sources */,
@@ -2490,6 +2503,7 @@
 				462E157117F0F5D100408E17 /* MPMRectBannerAdDetailViewController.m in Sources */,
 				4A6FC1F818C561B3007A1197 /* MPNativeAdDetailViewController.m in Sources */,
 				AE8E1D1B1729A4B40051FA6C /* MPAdInfo+KIF.m in Sources */,
+				4AFB4C261919841A00894CF6 /* KIFTestScenario+Facebook.m in Sources */,
 				AE8E1D82172AF7BF0051FA6C /* ASIdentifierManager+KIF.m in Sources */,
 				AEFA5A21178DE1290021FD95 /* KIFTestScenario+HTML.m in Sources */,
 				AE14F9A31773BA1100ABF744 /* MPBannerAdManager.m in Sources */,
@@ -2521,7 +2535,9 @@
 				AE14F9DF1773BA1100ABF744 /* MPInterstitialCustomEventAdapter.m in Sources */,
 				AE14F9E21773BA1100ABF744 /* MPInterstitialViewController.m in Sources */,
 				AE14F9E51773BA1100ABF744 /* MPLegacyInterstitialCustomEventAdapter.m in Sources */,
+				4AFB4C131919836800894CF6 /* FacebookBannerCustomEvent.m in Sources */,
 				AE14F9E81773BA1100ABF744 /* MPInstanceProvider.m in Sources */,
+				4AFB4C151919836800894CF6 /* FacebookInterstitialCustomEvent.m in Sources */,
 				AE14F9EE1773BA1100ABF744 /* MPMRAIDBannerCustomEvent.m in Sources */,
 				AE14F9F11773BA1100ABF744 /* MPMRAIDInterstitialCustomEvent.m in Sources */,
 				4A97544618FC8C2600C19F10 /* UIImageView+MPNativeAd.m in Sources */,
@@ -2671,6 +2687,10 @@
 		AE2323AD16F78A17002C2082 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/AdNetworkSupport/Facebook/SDK",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MoPubSampleApp/MoPubSampleApp-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
@@ -2690,6 +2710,10 @@
 		AE2323AE16F78A17002C2082 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/AdNetworkSupport/Facebook/SDK",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MoPubSampleApp/MoPubSampleApp-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
@@ -2771,8 +2795,10 @@
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/AdNetworkSupport/Millennial/SDK/SpeechKit\"",
+					"\"$(SRCROOT)/AdNetworkSupport/Millennial/SDK\"",
 					"\"$(SRCROOT)/AdNetworkSupport/AdColony/SDK\"",
+					"$(PROJECT_DIR)/AdNetworkSupport/Facebook/SDK",
+					"\"$(SRCROOT)/AdNetworkSupport/Vungle/SDK/vunglepub.embeddedframework\""
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Specs/MoPubSampleAppSpecs/SampleAppKIF/SampleAppKIF-Prefix.pch";
@@ -2795,8 +2821,6 @@
 					"\"$(SRCROOT)/AdNetworkSupport/GoogleAdMob/SDK\"",
 					"\"$(SRCROOT)/AdNetworkSupport/Greystripe/SDK\"",
 					"\"$(SRCROOT)/AdNetworkSupport/InMobi/SDK\"",
-					"\"$(SRCROOT)/AdNetworkSupport/Millennial/SDK\"",
-					"\"$(SRCROOT)/AdNetworkSupport/Vungle/SDK\"",
 				);
 				OTHER_CFLAGS = "-Wno-objc-protocol-method-implementation";
 				OTHER_LDFLAGS = "-ObjC";
@@ -2811,8 +2835,10 @@
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/AdNetworkSupport/Millennial/SDK/SpeechKit\"",
+					"\"$(SRCROOT)/AdNetworkSupport/Millennial/SDK\"",
 					"\"$(SRCROOT)/AdNetworkSupport/AdColony/SDK\"",
+					"$(PROJECT_DIR)/AdNetworkSupport/Facebook/SDK",
+					"\"$(SRCROOT)/AdNetworkSupport/Vungle/SDK/vunglepub.embeddedframework\""
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Specs/MoPubSampleAppSpecs/SampleAppKIF/SampleAppKIF-Prefix.pch";
@@ -2830,8 +2856,6 @@
 					"\"$(SRCROOT)/AdNetworkSupport/GoogleAdMob/SDK\"",
 					"\"$(SRCROOT)/AdNetworkSupport/Greystripe/SDK\"",
 					"\"$(SRCROOT)/AdNetworkSupport/InMobi/SDK\"",
-					"\"$(SRCROOT)/AdNetworkSupport/Millennial/SDK\"",
-					"\"$(SRCROOT)/AdNetworkSupport/Vungle/SDK\"",
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = SampleAppKIF;

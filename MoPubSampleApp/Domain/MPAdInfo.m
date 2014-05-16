@@ -14,30 +14,30 @@
 + (NSArray *)supportedAdTypeNames
 {
     static NSArray *adTypeNames = nil;
-
+    
     static dispatch_once_t once;
     dispatch_once(&once, ^{
         adTypeNames = @[@"Banner", @"Interstitial", @"MRect", @"Leaderboard", @"Native"];
     });
-
+    
     return adTypeNames;
 }
 
 + (NSArray *)bannerAds
 {
     NSMutableArray *ads = [NSMutableArray array];
-
+    
     [ads addObjectsFromArray:@[
                                [MPAdInfo infoWithTitle:@"HTML Banner Ad" ID:@"3e3ba6c2add111e281c11231392559e4" type:MPAdInfoBanner],
                                [MPAdInfo infoWithTitle:@"MRAID Banner Ad" ID:@"23b49916add211e281c11231392559e4" type:MPAdInfoBanner],
                                [MPAdInfo infoWithTitle:@"HTML MRECT Banner Ad" ID:@"agltb3B1Yi1pbmNyDQsSBFNpdGUYqKO5CAw" type:MPAdInfoMRectBanner],
                                ]];
-
+    
     if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
     {
         [ads addObject:[MPAdInfo infoWithTitle:@"HTML Leaderboard Banner Ad" ID:@"d456ea115eec497ab33e02531a5efcbc" type:MPAdInfoLeaderboardBanner]];
     }
-
+    
     return ads;
 }
 

@@ -117,9 +117,9 @@ NSString * const kAdTypeClear = @"clear";
         self.customEventClass = [self setUpCustomEventClassFromHeaders:headers];
 
         self.customEventClassData = [self customEventClassDataFromHeaders:headers];
-
+        
         self.dspCreativeId = [headers objectForKey:kDspCreativeIdKey];
-
+        
         self.precacheRequired = [[headers objectForKey:kPrecacheRequiredKey] boolValue];
 
         self.creationTimestamp = [NSDate date];
@@ -183,7 +183,7 @@ NSString * const kAdTypeClear = @"clear";
     self.customEventClassData = nil;
     self.dspCreativeId = nil;
     self.creationTimestamp = nil;
-
+    
     [super dealloc];
 }
 
@@ -275,7 +275,7 @@ NSString * const kAdTypeClear = @"clear";
             interval = parsedInt;
         }
     }
-
+    
     return interval;
 }
 

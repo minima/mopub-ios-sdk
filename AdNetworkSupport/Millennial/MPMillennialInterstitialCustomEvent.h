@@ -8,7 +8,7 @@
 #import "MPInterstitialCustomEvent.h"
 
 /*
- * Certified with version 5.1.1 of the Millennial Media SDK.
+ * Certified with version 5.2 of the Millennial Media SDK.
  */
 
 @interface MPMillennialInterstitialCustomEvent : MPInterstitialCustomEvent

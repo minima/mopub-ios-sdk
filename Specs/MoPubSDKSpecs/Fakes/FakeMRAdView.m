@@ -19,14 +19,14 @@
 - (void)rotateToOrientation:(UIInterfaceOrientation)newOrientation
 {
     self.currentInterfaceOrientation = newOrientation;
-
+    
     [super rotateToOrientation:newOrientation];
 }
 
 - (void)loadHTMLString:(NSString *)string baseURL:(NSURL *)baseURL
 {
     self.loadedHTMLString = string;
-
+    
     [super loadHTMLString:string baseURL:baseURL];
 }
 

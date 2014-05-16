@@ -48,14 +48,14 @@
     self.interstitial.delegate = self;
 
     self.keywordsTextField.text = self.info.keywords;
-
+    
     [super viewDidLoad];
 }
 
 - (IBAction)didTapLoadButton:(id)sender
 {
     [self.keywordsTextField endEditing:YES];
-
+    
     [self.spinner startAnimating];
     self.showButton.hidden = YES;
     self.loadButton.enabled = NO;
@@ -65,15 +65,15 @@
     self.didAppearLabel.alpha = 0.1;
     self.willDisappearLabel.alpha = 0.1;
     self.didDisappearLabel.alpha = 0.1;
-
+    
     self.interstitial.keywords = self.keywordsTextField.text;
-
+    
     self.info.keywords = self.interstitial.keywords;
     // persist last used keywords if this is a saved ad
     if ([[MPAdPersistenceManager sharedManager] savedAdForID:self.info.ID] != nil) {
         [[MPAdPersistenceManager sharedManager] addSavedAd:self.info];
     }
-
+    
     [self.interstitial loadAd];
 }
 
@@ -90,7 +90,7 @@
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
     [textField endEditing:YES];
-
+    
     return YES;
 }
 

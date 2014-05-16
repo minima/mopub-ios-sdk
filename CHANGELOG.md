@@ -1,3 +1,12 @@
+## Version 2.1 (May 15th, 2014)
+
+  - Improved user privacy protection
+    - Device identifiers are removed from logging output
+  - Improved user protection against auto-dialing ads
+    - Prompt user for confirmation when a `tel` URL is encountered
+  - Updated Millennial Media custom events (Millennial Media SDK 5.2+ only)
+  - Updated Vungle custom event (Vungle SDK 2.0+ only)
+
 ## Version 2.0 (April 23rd, 2014)
 
   - Added support for MoPub Native Ads. Please view the integration wiki [here](https://github.com/mopub/mopub-ios-sdk/wiki/Native-Ads-Integration).

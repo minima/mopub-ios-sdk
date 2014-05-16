@@ -6,7 +6,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "MMAdView.h"
+#import <MillennialMedia/MMAdView.h>
 
 @interface FakeMMAdView : UIView
 

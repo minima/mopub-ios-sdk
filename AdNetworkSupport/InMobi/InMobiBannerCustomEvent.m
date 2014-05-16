@@ -51,13 +51,13 @@
         [self.delegate bannerCustomEvent:self didFailToLoadAdWithError:nil];
         return;
     }
-
+    
     self.inMobiBanner = [[MPInstanceProvider sharedProvider] buildIMBannerWithFrame:CGRectMake(0, 0, size.width, size.height) appId:kInMobiAppID adSize:imAdSizeConstant];
     self.inMobiBanner.delegate = self;
     self.inMobiBanner.refreshInterval = REFRESH_INTERVAL_OFF;
     NSMutableDictionary *paramsDict = [[NSMutableDictionary alloc] init];
     [paramsDict setObject:@"c_mopub" forKey:@"tp"];
-    [paramsDict setObject:MP_SDK_VERSION forKey:@"tp-ver"];
+	[paramsDict setObject:MP_SDK_VERSION forKey:@"tp-ver"];
     self.inMobiBanner.additionaParameters = paramsDict; // For supply source identification
 
     if (self.delegate.location) {
@@ -66,7 +66,7 @@
                                 accuracy:self.delegate.location.horizontalAccuracy];
     }
     [self.inMobiBanner loadBanner];
-
+    
 }
 
 - (int)imAdSizeConstantForCGSize:(CGSize)size
@@ -85,7 +85,7 @@
 - (BOOL)enableAutomaticImpressionAndClickTracking
 {
     // Override this method to return NO to perform impression and click tracking manually.
-
+    
     return NO;
 }
 

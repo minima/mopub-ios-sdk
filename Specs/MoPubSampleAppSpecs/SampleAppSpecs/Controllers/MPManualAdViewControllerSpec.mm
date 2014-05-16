@@ -168,14 +168,14 @@ describe(@"MPManualAdViewController", ^{
                 statusLabel.text = @"something";
                 textField.text = @"fluffy bears";
                 [loadButton tap];
-
+                
                 adView = fakeProvider.lastFakeAdView;
             });
 
             it(@"should put the adView in the view hierarchy", ^{
                 controller.bannerContainer.subviews.lastObject should equal(adView);
             });
-
+            
             it(@"should tell the banner to load", ^{
                 adView.adUnitId should equal(textField.text);
                 adView.wasLoaded should equal(YES);

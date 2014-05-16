@@ -224,12 +224,12 @@ NSString * const kMoPubInterfaceOrientationLandscape = @"l";
 {
     MPTwitterAvailability twitterAvailability = [[MPCoreInstanceProvider sharedProvider] twitterAvailabilityOnDevice];
     NSString *queryString = @"";
-
+    
     if (twitterAvailability)
     {
         queryString = [NSString stringWithFormat:@"&ts=%u", twitterAvailability];
     }
-
+    
     return queryString;
 }
 

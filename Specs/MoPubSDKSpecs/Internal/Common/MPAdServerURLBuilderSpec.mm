@@ -222,7 +222,7 @@ describe(@"MPAdServerURLBuilder", ^{
             @"mobileCountryCode" : @"410"
         };
         fakeCoreProvider.fakeCarrierInfo = fakeCarrierInfo;
-
+        
         URL = [MPAdServerURLBuilder URLWithAdUnitID:@"guy"
                                            keywords:nil
                                            location:nil
@@ -232,7 +232,7 @@ describe(@"MPAdServerURLBuilder", ^{
         URL.absoluteString should contain(@"&mnc=310");
         URL.absoluteString should contain(@"&mcc=410");
     });
-
+    
     it(@"should provide the device name identifier", ^{
         URL = [MPAdServerURLBuilder URLWithAdUnitID:@"guy"
                                            keywords:nil
@@ -240,14 +240,14 @@ describe(@"MPAdServerURLBuilder", ^{
                                             testing:YES];
         URL.absoluteString should contain([NSString stringWithFormat:@"&dn=%@", [[[UIDevice currentDevice] hardwareDeviceName] URLEncodedString]]);
     });
-
+    
     describe(@"Twitter Availability", ^{
         beforeEach(^{
             [fakeCoreProvider resetTwitterAppInstallCheck];
             [[UIApplication sharedApplication] setTwitterInstalled:NO];
             [TWTweetComposeViewController setNativeTwitterAvailable:NO];
         });
-
+        
         it(@"should not pass a query if no twitter is available", ^{
             URL = [MPAdServerURLBuilder URLWithAdUnitID:@"guy"
                                                keywords:nil
@@ -255,7 +255,7 @@ describe(@"MPAdServerURLBuilder", ^{
                                                 testing:YES];
             URL.absoluteString should_not contain([NSString stringWithFormat:@"&ts="]);
         });
-
+        
         it(@"should create query for only having twitter app installed", ^{
             [[UIApplication sharedApplication] setTwitterInstalled:YES];
             URL = [MPAdServerURLBuilder URLWithAdUnitID:@"guy"
@@ -264,7 +264,7 @@ describe(@"MPAdServerURLBuilder", ^{
                                                 testing:YES];
             URL.absoluteString should contain([NSString stringWithFormat:@"&ts=1"]);
         });
-
+        
         it(@"should create query for only having native twitter account(s)", ^{
             [TWTweetComposeViewController setNativeTwitterAvailable:YES];
             URL = [MPAdServerURLBuilder URLWithAdUnitID:@"guy"
@@ -274,7 +274,7 @@ describe(@"MPAdServerURLBuilder", ^{
             URL.absoluteString should contain([NSString stringWithFormat:@"&ts=2"]);
 
         });
-
+        
         it(@"should create query for having both twitter app and native account(s)", ^{
             [[UIApplication sharedApplication] setTwitterInstalled:YES];
             [TWTweetComposeViewController setNativeTwitterAvailable:YES];

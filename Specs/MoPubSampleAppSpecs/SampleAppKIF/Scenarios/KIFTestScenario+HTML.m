@@ -81,7 +81,7 @@
 {
     KIFTestScenario *scenario = [MPSampleAppTestScenario scenarioWithDescription:@"Test that an MRECT banner ad can click out to Safari"];
     scenario.stepsToTearDown = @[[KIFTestStep stepToResetApplicationLastOpenedURL]];
-
+    
     NSIndexPath *indexPath = [MPAdSection indexPathForAd:@"HTML MRECT Banner Ad" inSection:@"Banner Ads"];
     [scenario addStep:[KIFTestStep stepToActuallyTapRowInTableViewWithAccessibilityLabel:@"Ad Table View" atIndexPath:indexPath]];
     [scenario addStep:[KIFTestStep stepToWaitForViewWithAccessibilityLabel:@"mrect_banner"]];
@@ -93,21 +93,21 @@
     [scenario addStep:[KIFTestStep stepToTapViewWithAccessibilityLabel:@"Done"]];
     [scenario addStep:[KIFTestStep stepToVerifyPresentationOfViewControllerClass:[MPBannerAdDetailViewController class]]];
     [scenario addStep:[KIFTestStep stepToReturnToBannerAds]];
-
+    
     return scenario;
 }
 
 + (id)scenarioForCreativeThatTriesToOpenJavaScriptDialogs
 {
     KIFTestScenario *scenario = [MPSampleAppTestScenario scenarioWithDescription:@"Test that a banner ad cannot open any JavaScript dialogs"];
-
+    
     NSIndexPath *indexPath = [MPAdSection indexPathForAd:@"JS Popups" inSection:@"Banner Ads"];
     [scenario addStep:[KIFTestStep stepToActuallyTapRowInTableViewWithAccessibilityLabel:@"Ad Table View" atIndexPath:indexPath]];
     [scenario addStep:[KIFTestStep stepToWaitForViewWithAccessibilityLabel:@"banner"]];
     // If this creative did pop up a dialog, this step will not complete and the test will fail due to the step timeout.
     [scenario addStep:[KIFTestStep stepToWaitUntilActivityIndicatorIsNotAnimating]];
     [scenario addStep:[KIFTestStep stepToReturnToBannerAds]];
-
+    
     return scenario;
 }
 

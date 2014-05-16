@@ -18,7 +18,7 @@ describe(@"MPInMobiInterstitialIntegrationSuite", ^{
 
     beforeEach(^{
         [InMobi initialize:@"YOUR_INMOBI_APP_ID"];
-
+        
         delegate = nice_fake_for(@protocol(MPInterstitialAdControllerDelegate));
 
         interstitial = [MPInterstitialAdController interstitialAdControllerForAdUnitId:@"inmobi_interstitial"];
@@ -56,7 +56,7 @@ describe(@"MPInMobiInterstitialIntegrationSuite", ^{
         it(@"should configure InMobi properly and start fetching the interstitial", ^{
             inMobi.appId should equal(@"YOUR_INMOBI_APP_ID");
         });
-
+        
         it(@"should not tell the delegate anything, nor should it be ready", ^{
             delegate.sent_messages should be_empty;
             interstitial.ready should equal(NO);

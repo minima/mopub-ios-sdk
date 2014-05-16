@@ -14,13 +14,13 @@
     UITouchPhase    _phase;
     UITouchPhase    _savedPhase;
     NSUInteger      _tapCount;
-
+    
     UIWindow        *_window;
     UIView          *_view;
     UIView          *_warpedIntoView;
     NSMutableArray  *_gestureRecognizers;
     NSMutableArray  *_forwardingRecord;
-
+    
     CGPoint         _locationInWindow;
     CGPoint         _previousLocationInWindow;
     UInt8           _pathIndex;
@@ -54,11 +54,11 @@
             frameInWindow =
             [view.window convertRect:view.frame fromView:view.superview];
         }
-
+        
         _tapCount = 1;
         _locationInWindow = point;
         _previousLocationInWindow = _locationInWindow;
-
+        
         UIView *target = [view.window hitTest:_locationInWindow withEvent:nil];
         _view = [target retain];
         _window = [view.window retain];
@@ -72,9 +72,9 @@
 
 - (void)setLocationInWindow:(CGPoint)location
 {
-    _previousLocationInWindow = _locationInWindow;
-    _locationInWindow = location;
-    _timestamp = [[NSProcessInfo processInfo] systemUptime];
+	_previousLocationInWindow = _locationInWindow;
+	_locationInWindow = location;
+	_timestamp = [[NSProcessInfo processInfo] systemUptime];
 }
 
 - (void)changeToPhase:(UITouchPhase)phase

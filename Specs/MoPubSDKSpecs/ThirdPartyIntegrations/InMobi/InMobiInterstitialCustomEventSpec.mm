@@ -12,17 +12,17 @@ describe(@"InMobiInterstitialCustomEvent", ^{
     __block FakeIMAdInterstitial *interstitial;
     __block CLLocation *location;
     __block id<CedarDouble, MPInterstitialCustomEventDelegate> delegate;
-
+    
     beforeEach(^{
         [InMobi initialize:@"YOUR_INMOBI_APP_ID"];
 
         delegate = nice_fake_for(@protocol(MPInterstitialCustomEventDelegate));
-
+        
         event = [[[InMobiInterstitialCustomEvent alloc] init] autorelease];
         event.delegate = delegate;
         interstitial = [[[FakeIMAdInterstitial alloc] init] autorelease];
         fakeProvider.fakeIMAdInterstitial = interstitial;
-
+        
         location = [[[CLLocation alloc] initWithCoordinate:CLLocationCoordinate2DMake(37.1, 21.2)
                                                   altitude:11
                                         horizontalAccuracy:12.3
@@ -42,7 +42,7 @@ describe(@"InMobiInterstitialCustomEvent", ^{
             NSString *tpValue = [params objectForKey:@"tp"];
             tpValue should equal(@"c_mopub");
         });
-
+        
         it(@"should set the location using the InMobi class method", ^{
             [InMobi mp_getLatitude] should equal((CGFloat)37.1);
             [InMobi mp_getLongitude] should equal((CGFloat)21.2);

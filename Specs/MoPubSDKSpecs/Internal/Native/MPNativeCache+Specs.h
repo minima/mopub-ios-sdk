@@ -2,7 +2,6 @@
 //  MPNativeCache+Specs.h
 //  MoPubSDK
 //
-//  Created by Evan Davis on 3/19/14.
 //  Copyright (c) 2014 MoPub. All rights reserved.
 //
 

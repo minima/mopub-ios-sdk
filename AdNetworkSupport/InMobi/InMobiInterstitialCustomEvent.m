@@ -48,7 +48,7 @@
     self.inMobiInterstitial = [[MPInstanceProvider sharedProvider] buildIMInterstitialWithDelegate:self appId:kInMobiAppID];
     NSMutableDictionary *paramsDict = [[NSMutableDictionary alloc] init];
     [paramsDict setObject:@"c_mopub" forKey:@"tp"];
-    [paramsDict setObject:MP_SDK_VERSION forKey:@"tp-ver"];
+	[paramsDict setObject:MP_SDK_VERSION forKey:@"tp-ver"];
     self.inMobiInterstitial.additionaParameters = paramsDict; // For supply source identification
     if (self.delegate.location) {
         [InMobi setLocationWithLatitude:self.delegate.location.coordinate.latitude
@@ -79,7 +79,7 @@
 }
 
 - (void)interstitial:(IMInterstitial *)ad didFailToReceiveAdWithError:(IMError *)error {
-
+    
     MPLogInfo(@"InMobi banner did fail with error: %@", error.localizedDescription);
     [self.delegate interstitialCustomEvent:self didFailToLoadAdWithError:nil];
 }

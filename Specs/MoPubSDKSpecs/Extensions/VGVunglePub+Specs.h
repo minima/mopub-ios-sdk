@@ -5,7 +5,7 @@
 //  Copyright (c) 2013 MoPub. All rights reserved.
 //
 
-#import "VGVunglePub.h"
+#import <vunglepub/vunglepub.h>
 
 @interface VGVunglePub (Specs)
 

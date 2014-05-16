@@ -29,6 +29,7 @@
 #import "FakeMPAdAlertManager.h"
 #import "FakeMPAdAlertGestureRecognizer.h"
 #import "FakeMRAdView.h"
+#import <FBAudienceNetwork/FBAudienceNetwork.h>
 #import <Foundation/Foundation.h>
 
 @class MRJavaScriptEventEmitter;
@@ -79,6 +80,10 @@
 
 #pragma mark Chartboost
 @property (nonatomic, assign) Chartboost *fakeChartboost;
+
+#pragma mark Facebook
+@property (nonatomic, assign) FBAdView *fakeFBAdView;
+@property (nonatomic, assign) FBInterstitialAd *fakeFBInterstitialAd;
 
 #pragma mark Google Ad Mob
 @property (nonatomic, assign) GADRequest *fakeGADBannerRequest;

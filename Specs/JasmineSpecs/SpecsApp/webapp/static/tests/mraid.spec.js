@@ -5,7 +5,109 @@ describe('MRAID', function() {
     MRAID = mraid;
     BRIDGE = mraidbridge;
   });
+  
+  describe('.removeEventListener', function() {
+    var funcSpy;
+    var errorSpy;
+    
+    beforeEach(function () {
+      funcSpy = jasmine.createSpy();
+      MRAID.addEventListener(MRAID.EVENTS.VIEWABLECHANGE, funcSpy);
+      
+      errorSpy = jasmine.createSpy();
+      MRAID.addEventListener(MRAID.EVENTS.ERROR, errorSpy);
+    });
+    
+    afterEach(function () {
+      MRAID.removeEventListener(MRAID.EVENTS.VIEWABLECHANGE);
+      MRAID.removeEventListener(MRAID.EVENTS.ERROR, errorSpy);
+    });
+    
+    it('should remove the listener passed in', function() {
+      MRAID.removeEventListener(MRAID.EVENTS.VIEWABLECHANGE, funcSpy);
+      BRIDGE.fireChangeEvent({viewable: true});
+      expect(funcSpy).toHaveNotBeenCalled;    
+    });
+    
+    it("should remove the only listener when we don't specify a listener", function() {
+      MRAID.removeEventListener(MRAID.EVENTS.VIEWABLECHANGE);
+      BRIDGE.fireChangeEvent({viewable: true});
+      expect(funcSpy).toHaveNotBeenCalled;  
+    });
+    
+    it('should not do anything when we remove a listener that was never added', function(){
+      var bogusFunc = function (e) {var huh = "idontknow";};
+      MRAID.removeEventListener(MRAID.EVENTS.VIEWABLECHANGE, bogusFunc);
+      BRIDGE.fireChangeEvent({viewable: true});  
+      expect(funcSpy).toHaveBeenCalled;         
+    });
+    
+    it('should produce an error when no recognizable event is passed in', function() {
+      MRAID.removeEventListener('hotdogsdfasdfasdfsdfsdfsdfsfsf', funcSpy);
+      expect(errorSpy).toHaveBeenCalled
+    });
 
+    it('should produce an error when passing in a listener that does not belong to the event', function() {
+      var bogusFunc = function(e) {var huh = "idontknow";};
+      MRAID.removeEventListener(MRAID.EVENTS.VIEWABLECHANGE, bogusFunc);
+      expect(errorSpy).toHaveBeenCalled
+    });
+
+    it('should produce an error when nothing is passed in', function() {
+      MRAID.removeEventListener();
+      expect(errorSpy).toHaveBeenCalled
+    }); 
+
+    describe('when there are multiple event listeners for one event', function() {
+      var spy1;
+      var spy2;
+      var spy3; 
+        
+      beforeEach(function() {
+        spy1 = jasmine.createSpy();
+        spy2 = jasmine.createSpy();
+        spy3 = jasmine.createSpy();
+        MRAID.addEventListener(MRAID.EVENTS.VIEWABLECHANGE, spy1);
+        MRAID.addEventListener(MRAID.EVENTS.VIEWABLECHANGE, spy2);
+        MRAID.addEventListener(MRAID.EVENTS.VIEWABLECHANGE, spy3);
+      });
+      
+      it('should remove all listeners when no listener is passed in for the event', function() {
+        MRAID.removeEventListener(MRAID.EVENTS.VIEWABLECHANGE);
+        BRIDGE.fireChangeEvent({viewable: true});  
+        expect(spy1).toHaveNotBeenCalled;
+        expect(spy2).toHaveNotBeenCalled;
+        expect(spy3).toHaveNotBeenCalled;     
+      });
+      
+      it('should not do anything when we remove a listener that was never added', function(){
+        var bogusFunc = function (e) {var huh = "idontknow";};
+        MRAID.removeEventListener(MRAID.EVENTS.VIEWABLECHANGE, bogusFunc);
+        BRIDGE.fireChangeEvent({viewable: true});  
+        expect(spy1).toHaveBeenCalled;     
+        expect(spy2).toHaveBeenCalled;
+        expect(spy3).toHaveBeenCalled;     
+      });
+      
+      it('should only remove the listener passed in', function() {
+        // x and z should change, but y should not since we removed the function that modifies y.
+        MRAID.removeEventListener(MRAID.EVENTS.VIEWABLECHANGE, spy2);
+        BRIDGE.fireChangeEvent({viewable: true});
+        expect(spy1).toHaveBeenCalled;     
+        expect(spy2).toHaveNotBeenCalled;
+        expect(spy3).toHaveBeenCalled;
+      });
+      
+      it('should not affect any listeners when nothing is passed in', function() {
+        MRAID.removeEventListener();
+        BRIDGE.fireChangeEvent({viewable: true});  
+        expect(spy1).toHaveBeenCalled;     
+        expect(spy2).toHaveBeenCalled;
+        expect(spy3).toHaveBeenCalled; 
+      });
+    });
+  });
+  
   describe('.supports', function() {
     describe('when called with a feature parameter', function() {
       var result;

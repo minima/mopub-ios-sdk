@@ -8,7 +8,7 @@
 #import "MPSpecHelper.h"
 #import "MPInterstitialAdController.h"
 #import "GSSDKInfo.h"
-#import "MMSDK.h"
+#import <MillennialMedia/MMSDK.h>
 
 using namespace Cedar::Matchers;
 using namespace Cedar::Doubles;

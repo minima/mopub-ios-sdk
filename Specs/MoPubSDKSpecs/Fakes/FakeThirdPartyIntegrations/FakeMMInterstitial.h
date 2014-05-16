@@ -6,7 +6,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "MMSDK.h"
+#import <MillennialMedia/MMSDK.h>
 
 @class MMAdView;
 @protocol MMAdDelegate;

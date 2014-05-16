@@ -6,7 +6,6 @@
 //
 
 #import "FakeMMInterstitial.h"
-#import "MMAdView.h"
 
 @interface FakeMMInterstitial ()
 

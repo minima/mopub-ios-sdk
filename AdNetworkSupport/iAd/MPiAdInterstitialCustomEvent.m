@@ -89,7 +89,7 @@
     // This method may be called whether the ad is on-screen or not. We only want to invoke the
     // "disappear" callbacks if the ad is on-screen.
     MPLogInfo(@"iAd interstitial did unload");
-
+    
     [self interstitialAdDismissed];
 
     // ADInterstitialAd can't be shown again after it has unloaded, so notify the controller.
@@ -106,7 +106,7 @@
 - (void)interstitialAdActionDidFinish:(ADInterstitialAd *)interstitialAd
 {
     MPLogInfo(@"iAd interstitial did finish");
-
+    
     [self interstitialAdDismissed];
 }
 

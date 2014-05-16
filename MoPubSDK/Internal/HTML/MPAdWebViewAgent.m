@@ -16,6 +16,7 @@
 #import "MPInstanceProvider.h"
 #import "MPCoreInstanceProvider.h"
 #import "NSJSONSerialization+MPAdditions.h"
+#import "NSURL+MPAdditions.h"
 
 #ifndef NSFoundationVersionNumber_iOS_6_1
 #define NSFoundationVersionNumber_iOS_6_1 993.00
@@ -238,7 +239,9 @@ NSString * const kMoPubCustomHost = @"custom";
 #pragma mark - URL Interception
 - (BOOL)shouldIntercept:(NSURL *)URL navigationType:(UIWebViewNavigationType)navigationType
 {
-    if (!(self.configuration.shouldInterceptLinks)) {
+    if ([URL mp_hasTelephoneScheme] || [URL mp_hasTelephonePromptScheme]) {
+        return YES;
+    } else if (!(self.configuration.shouldInterceptLinks)) {
         return NO;
     } else if (navigationType == UIWebViewNavigationTypeLinkClicked) {
         return YES;

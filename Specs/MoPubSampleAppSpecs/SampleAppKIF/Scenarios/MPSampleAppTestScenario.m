@@ -25,9 +25,9 @@
 + (id)scenarioToWarmUpAdUnits
 {
     [InMobi initialize:@"5d6694314fbe4ddb804eab8eb4ad6693"];
-
+    
     KIFTestScenario *scenario = [MPSampleAppTestScenario scenarioWithDescription:@"Warm up all ad units"];
-
+    
     NSArray *bannerAds = [MPAdInfo bannerAds];
     for (MPAdInfo *bannerInfo in bannerAds) {
         NSIndexPath *indexPath = [MPAdSection indexPathForAd:bannerInfo.title inSection:@"Banner Ads"];
@@ -36,7 +36,7 @@
         [scenario addStep:[KIFTestStep stepToWaitUntilActivityIndicatorIsNotAnimating]];
         [scenario addStep:[KIFTestStep stepToReturnToBannerAds]];
     }
-
+    
     return scenario;
 }
 

@@ -17,7 +17,7 @@ describe(@"MPInMobiBannerIntegrationSuite", ^{
 
     beforeEach(^{
         [InMobi initialize:@"YOUR_INMOBI_APP_ID"];
-
+        
         delegate = nice_fake_for(@protocol(MPAdViewDelegate));
 
         configuration = [MPAdConfigurationFactory defaultBannerConfigurationWithCustomEventClassName:@"InMobiBannerCustomEvent"];

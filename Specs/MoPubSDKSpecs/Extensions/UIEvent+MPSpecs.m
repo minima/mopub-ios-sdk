@@ -7,7 +7,7 @@
 
 #import "UIEvent+MPSpecs.h"
 
-#import <objc/objc-class.h>
+#import <objc/runtime.h>
 
 @interface GSEventProxy : NSObject
 {
@@ -55,7 +55,7 @@
     gsEventProxy->sizeY = 1.0;
     gsEventProxy->flags = ([touch phase] == UITouchPhaseEnded) ? 0x1010180 : 0x3010180;
     gsEventProxy->type = 3001;
-
+    
     //
     // On SDK versions 3.0 and greater, we need to reallocate as a
     // UITouchesEvent.
@@ -66,7 +66,7 @@
         [self release];
         self = [touchesEventClass alloc];
     }
-
+    
     self = [self _initWithEvent:gsEventProxy touches:[NSSet setWithObject:touch]];
     if (self != nil)
     {

@@ -16,7 +16,7 @@ static CGFloat gLatitude, gLongitude, gAccuracyInMeters;
 + (void)mp_swizzleSetLocationMethod
 {
     Method original, swizzled;
-
+    
     original = class_getClassMethod(self, @selector(setLocationWithLatitude:longitude:accuracy:));
     swizzled = class_getClassMethod(self, @selector(mp_setLocationWithLatitude:longitude:accuracy:));
     method_exchangeImplementations(original, swizzled);
@@ -27,7 +27,7 @@ static CGFloat gLatitude, gLongitude, gAccuracyInMeters;
     gLatitude = latitude;
     gLongitude = longitude;
     gAccuracyInMeters = accuracyInMeters;
-
+    
     [self mp_setLocationWithLatitude:latitude longitude:longitude accuracy:accuracyInMeters];
 }
 
