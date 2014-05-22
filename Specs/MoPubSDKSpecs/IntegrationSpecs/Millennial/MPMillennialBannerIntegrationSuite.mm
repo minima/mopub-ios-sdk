@@ -54,6 +54,7 @@ describe(@"MPMillennialBannerIntegrationSuite", ^{
         beforeEach(^{
             [delegate reset_sent_messages];
             [fakeAd simulateLoadingAd];
+            [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:1.0]];
         });
 
         it(@"should tell the delegate, show the ad, and track an impression (only once)", ^{
@@ -63,6 +64,7 @@ describe(@"MPMillennialBannerIntegrationSuite", ^{
             fakeCoreProvider.sharedFakeMPAnalyticsTracker.trackedImpressionConfigurations should equal(@[configuration]);
 
             [fakeAd simulateLoadingAd];
+            [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:1.0]];
             fakeCoreProvider.sharedFakeMPAnalyticsTracker.trackedImpressionConfigurations should equal(@[configuration]);
         });
 
@@ -96,6 +98,7 @@ describe(@"MPMillennialBannerIntegrationSuite", ^{
     context(@"when the ad fails to load", ^{
         beforeEach(^{
             [fakeAd simulateFailingToLoad];
+            [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:1.0]];
         });
 
         it(@"should start the waterfall", ^{

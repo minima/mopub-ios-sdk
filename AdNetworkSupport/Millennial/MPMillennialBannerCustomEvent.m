@@ -128,7 +128,12 @@
 
     MPMMCompletionBlockProxy *proxy = self.mmCompletionBlockProxy;
     [self.mmAdView getAdWithRequest:request onCompletion:^(BOOL success, NSError *error) {
-        [proxy onRequestCompletion:success];
+        // In Millennial 5.2, request errors invoke the completion block on a background thread. This causes us
+        // to initialize the failover NSURLConnection on the background thread, resulting in the inability to
+        // receive callbacks from the connection.
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [proxy onRequestCompletion:success];
+        });
     }];
 }
 

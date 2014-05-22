@@ -7,6 +7,10 @@
   - Updated Millennial Media custom events (Millennial Media SDK 5.2+ only)
   - Updated Vungle custom event (Vungle SDK 2.0+ only)
 
+### Version 2.1.1 (May 22nd, 2014)
+
+  - Fixed Millennial Media SDK 5.2 banner custom event failover
+
 ## Version 2.0 (April 23rd, 2014)
 
   - Added support for MoPub Native Ads. Please view the integration wiki [here](https://github.com/mopub/mopub-ios-sdk/wiki/Native-Ads-Integration).
