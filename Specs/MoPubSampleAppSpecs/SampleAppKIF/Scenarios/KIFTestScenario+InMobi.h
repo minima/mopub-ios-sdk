@@ -12,5 +12,6 @@
 
 + (KIFTestScenario *)scenarioForInMobiBanner;
 + (KIFTestScenario *)scenarioForInMobiInterstitial;
++ (KIFTestScenario *)scenarioForInMobiNativeAd;
 
 @end

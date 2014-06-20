@@ -10,6 +10,12 @@
 
 @interface MPAdConfigurationFactory : NSObject
 
++ (NSMutableDictionary *)defaultNativeProperties;
++ (MPAdConfiguration *)defaultNativeAdConfiguration;
++ (MPAdConfiguration *)defaultNativeAdConfigurationWithCustomEventClassName:(NSString *)eventClassName;
++ (MPAdConfiguration *)defaultNativeAdConfigurationWithHeaders:(NSDictionary *)dictionary
+                                                    properties:(NSDictionary *)properties;
+
 + (NSMutableDictionary *)defaultBannerHeaders;
 + (MPAdConfiguration *)defaultBannerConfiguration;
 + (MPAdConfiguration *)defaultBannerConfigurationWithNetworkType:(NSString *)type;

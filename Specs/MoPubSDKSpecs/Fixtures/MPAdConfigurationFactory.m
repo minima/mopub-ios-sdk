@@ -6,8 +6,72 @@
 //
 
 #import "MPAdConfigurationFactory.h"
+#import "MPNativeAd.h"
+
+#define kImpressionTrackerURLsKey   @"imptracker"
+#define kClickTrackerURLKey         @"clktracker"
+#define kDefaultActionURLKey        @"clk"
+
 
 @implementation MPAdConfigurationFactory
+
+#pragma mark - Native
+
++ (NSMutableDictionary *)defaultNativeAdHeaders
+{
+    return [[@{
+               kAdTypeHeaderKey: kAdTypeNative,
+               kFailUrlHeaderKey: @"http://ads.mopub.com/m/failURL",
+               kRefreshTimeHeaderKey: @"61",
+               } mutableCopy] autorelease];
+}
+
++ (NSMutableDictionary *)defaultNativeProperties
+{
+    return [[@{@"ctatext":@"Download",
+               @"iconimage":@"image_url",
+               @"mainimage":@"image_url",
+               @"text":@"This is an ad",
+               @"title":@"Sample Ad Title",
+               kClickTrackerURLKey:@"http://ads.mopub.com/m/clickThroughTracker?a=1",
+               kImpressionTrackerURLsKey:@[@"http://ads.mopub.com/m/impressionTracker"],
+               kDefaultActionURLKey:@"http://mopub.com"
+               } mutableCopy] autorelease];
+}
+
++ (MPAdConfiguration *)defaultNativeAdConfiguration
+{
+    return [self defaultNativeAdConfigurationWithHeaders:nil properties:nil];
+}
+
++ (MPAdConfiguration *)defaultNativeAdConfigurationWithNetworkType:(NSString *)type
+{
+    return [self defaultNativeAdConfigurationWithHeaders:@{kAdTypeHeaderKey: type}
+                                            properties:nil];
+}
+
++ (MPAdConfiguration *)defaultNativeAdConfigurationWithCustomEventClassName:(NSString *)eventClassName
+{
+    return [MPAdConfigurationFactory defaultNativeAdConfigurationWithHeaders:@{
+                                                                             kCustomEventClassNameHeaderKey: eventClassName,
+                                                                             kAdTypeHeaderKey: @"custom"}
+                                                                properties:nil];
+}
+
+
++ (MPAdConfiguration *)defaultNativeAdConfigurationWithHeaders:(NSDictionary *)dictionary
+                                                  properties:(NSDictionary *)properties
+{
+    NSMutableDictionary *headers = [self defaultBannerHeaders];
+    [headers addEntriesFromDictionary:dictionary];
+
+    NSMutableDictionary *allProperties = [self defaultNativeProperties];
+    if (properties) {
+        [allProperties addEntriesFromDictionary:properties];
+    }
+
+    return [[[MPAdConfiguration alloc] initWithHeaders:headers data:[NSJSONSerialization dataWithJSONObject:allProperties options:NSJSONWritingPrettyPrinted error:nil]] autorelease];
+}
 
 #pragma mark - Banners
 

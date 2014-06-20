@@ -9,7 +9,7 @@
 
 @interface KIFTestScenario (Native)
 
-+ (id)scenarioForNativeAd;
-+ (id)scenarioForNativeAdInTableView;
++ (KIFTestScenario *)scenarioForNativeAd;
++ (KIFTestScenario *)scenarioForNativeAdInTableView;
 
 @end

@@ -21,6 +21,8 @@
 - (void)simulateLoadingAd;
 - (void)simulateFailingToLoad;
 
+- (void)simulateUserLeavingApplication:(BOOL)modalFirst;
+
 - (void)simulateUserTap;
 - (void)simulateUserEndingInteraction;
 

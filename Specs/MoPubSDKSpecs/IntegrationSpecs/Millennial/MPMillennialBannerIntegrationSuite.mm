@@ -75,7 +75,7 @@ describe(@"MPMillennialBannerIntegrationSuite", ^{
             });
 
             it(@"should tell the delegate and track a click (just once)", ^{
-                verify_fake_received_selectors(delegate, @[@"willPresentModalViewForAd:"]);
+                delegate should have_received(@selector(willPresentModalViewForAd:));
                 fakeCoreProvider.sharedFakeMPAnalyticsTracker.trackedClickConfigurations should equal(@[configuration]);
 
                 [fakeAd simulateUserTap];
@@ -91,6 +91,32 @@ describe(@"MPMillennialBannerIntegrationSuite", ^{
                 it(@"should tell the delegate", ^{
                     verify_fake_received_selectors(delegate, @[@"didDismissModalViewForAd:"]);
                 });
+            });
+        });
+
+        context(@"when the user taps and leaves the application after a modal", ^{
+            beforeEach(^{
+                [delegate reset_sent_messages];
+                [fakeAd simulateUserLeavingApplication:YES];
+            });
+
+            it(@"should tell the delegate", ^{
+                delegate should have_received(@selector(willPresentModalViewForAd:));
+                delegate should have_received(@selector(willLeaveApplicationFromAd:));
+                delegate should have_received(@selector(didDismissModalViewForAd:));
+            });
+        });
+
+        context(@"when the user taps and leaves the application without a modal", ^{
+            beforeEach(^{
+                [delegate reset_sent_messages];
+                [fakeAd simulateUserLeavingApplication:NO];
+            });
+
+            it(@"should tell the delegate", ^{
+                delegate should have_received(@selector(willPresentModalViewForAd:));
+                delegate should have_received(@selector(willLeaveApplicationFromAd:));
+                delegate should have_received(@selector(didDismissModalViewForAd:));
             });
         });
     });

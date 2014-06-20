@@ -20,6 +20,7 @@
 #import "KIFTestScenario+Native.h"
 #import "KIFTestScenario+Facebook.h"
 #import "MPSampleAppTestScenario.h"
+#import "InMobi.h"
 
 @implementation MPKIFTestController
 
@@ -31,9 +32,8 @@
 - (void)initializeScenarios
 {
 //    [self addScenario:[MPSampleAppTestScenario scenarioToWarmUpAdUnits]];
-    
     [KIFTestStep setDefaultTimeout:20];
-    
+
     // banners
     [self addScenario:[KIFTestScenario scenarioForCreativeThatTriesToOpenJavaScriptDialogs]];
     [self addScenario:[KIFTestScenario scenarioForBannerAdWithStoreKitLink]];
@@ -48,7 +48,12 @@
     [self addScenario:[KIFTestScenario scenarioForMRAIDAdThatTriesToStoreAPictureWithoutUserInteraction]];
     [self addScenario:[KIFTestScenario scenarioForMRAIDAdThatTriesToPlayAVideoWithoutUserInteraction]];
     [self addScenario:[KIFTestScenario scenarioForIAdBanner]];
+
+    // native
     [self addScenario:[KIFTestScenario scenarioForNativeAd]];
+    [self addScenario:[KIFTestScenario scenarioForInMobiNativeAd]];
+    [self addScenario:[KIFTestScenario scenarioForFacebookNativeAd]];
+
     //automated tap on ad tableviewcell not working
 //    [self addScenario:[KIFTestScenario scenarioForNativeAdInTableView]];
 
@@ -64,7 +69,7 @@
     [self addScenario:[KIFTestScenario scenarioForAdColonyInterstitial]];
     [self addScenario:[KIFTestScenario scenarioForMultipleAdColonyInterstitials]];
     [self addScenario:[KIFTestScenario scenarioForMRAIDInterstitialWithAutoPlayVideo]];
-    
+
     // XXX jren: this test currently REQUIRES manual action to dismiss the iAd interstitial...uncomment to test
 //    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
 //        [self addScenario:[KIFTestScenario scenarioForIADInterstitial]];

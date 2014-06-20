@@ -23,13 +23,13 @@ describe(@"MPAdViewIntegrationSuite", ^{
     __block UIViewController *presentingController;
     __block UIInterfaceOrientation currentOrientation;
     __block FakeBannerCustomEventReturningBlock moveRequestingToOnscreen;
-    
+
     __block NSAutoreleasePool *pool;
 
     ///////////////// BEGIN SHARED EXAMPLES //////////////////////
 
     sharedExamplesFor(@"a banner that is loading an ad", ^(NSDictionary *sharedContext) {
-        it(@"should ignore the load", ^{
+        it(@"should ignore subsequent calls to -loadAd", ^{
             [communicator resetLoadedURL];
             [banner loadAd];
 
@@ -40,7 +40,7 @@ describe(@"MPAdViewIntegrationSuite", ^{
     });
 
     sharedExamplesFor(@"a banner that is not loading an ad", ^(NSDictionary *sharedContext) {
-        it(@"should allow the ad to load", ^{
+        it(@"should allow calls to -loadAd", ^{
             [communicator resetLoadedURL];
             [banner loadAd];
 
@@ -58,7 +58,7 @@ describe(@"MPAdViewIntegrationSuite", ^{
                                                                 object:[UIApplication sharedApplication]];
         });
 
-        it(@"should forcibly fetch a new ad", ^{
+        it(@"should cancel its current ad request and forcibly fetch a new ad", ^{
             fakeCoreProvider.lastFakeMPAdServerCommunicator.loadedURL.absoluteString should contain(@"custom_event");
         });
 
@@ -194,7 +194,7 @@ describe(@"MPAdViewIntegrationSuite", ^{
 
     beforeEach(^{
         pool = [[NSAutoreleasePool alloc] init];
-        
+
         currentOrientation = UIInterfaceOrientationLandscapeRight;
         onscreenEvent = nil;
         requestingEvent = nil;
@@ -219,12 +219,12 @@ describe(@"MPAdViewIntegrationSuite", ^{
             return originalOnscreenEvent;
         } copy];
     });
-    
+
     afterEach(^{
         [pool release];
         pool = nil;
     });
-    
+
     context(@"when loading an ad", ^{
         beforeEach(^{
             [banner loadAd];
@@ -234,7 +234,7 @@ describe(@"MPAdViewIntegrationSuite", ^{
         });
 
         itShouldBehaveLike(@"a banner that is loading an ad");
-        
+
         // XXX jren
         // So...a failure of this test will most likely result in a bad access crash. Is this something we can/should do in a unit test?
         // Leaving it in for now just so we have coverage and are aware of this particular bug
@@ -244,7 +244,7 @@ describe(@"MPAdViewIntegrationSuite", ^{
                     [banner release];
                 });
             });
-            
+
             it(@"should not crash", ^{
                 [presentingController retain];
                 [delegate retain];
@@ -252,19 +252,19 @@ describe(@"MPAdViewIntegrationSuite", ^{
                 // drain our pool to clear autoreleases
                 [pool release];
                 pool = nil;
-                
+
                 [communicator failWithError:[NSErrorFactory genericError]];
-                
+
                 [presentingController release];
                 [delegate release];
             });
         });
-        
+
         context(@"when the communicator fails", ^{
             beforeEach(^{
                 [communicator failWithError:[NSErrorFactory genericError]];
             });
-            
+
             it(@"should schedule the default refresh timer and make a new request when it fires", ^{
                 [communicator resetLoadedURL];
                 [fakeCoreProvider advanceMPTimers:DEFAULT_BANNER_REFRESH_INTERVAL];
@@ -790,6 +790,20 @@ describe(@"MPAdViewIntegrationSuite", ^{
                 [fakeCoreProvider advanceMPTimers:36];
                 communicator.loadedURL.absoluteString should contain(@"custom_event");
             });
+        });
+    });
+
+    describe(@"multi-tasking before -loadAd has been called", ^{
+        beforeEach(^{
+            [[NSNotificationCenter defaultCenter] postNotificationName:UIApplicationDidEnterBackgroundNotification
+                                                                object:[UIApplication sharedApplication]];
+            [[NSNotificationCenter defaultCenter] postNotificationName:UIApplicationWillEnterForegroundNotification
+                                                                object:[UIApplication sharedApplication]];
+        });
+
+        it(@"should not cause an ad to be loaded", ^{
+            communicator = fakeCoreProvider.lastFakeMPAdServerCommunicator;
+            communicator.loadedURL should be_nil;
         });
     });
 });

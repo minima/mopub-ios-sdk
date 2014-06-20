@@ -1,3 +1,12 @@
+## Version 2.2 (June 19th, 2014)
+
+  - **Native ads mediation**: integration instructions and documentation are available on the [GitHub wiki](https://github.com/mopub/mopub-ios-sdk/wiki/Integrating-Native-Third-Party-Ad-Networks). Facebook and InMobi native ads may be mediated using the MoPub SDK.
+  - **Native ads content filtering**: Added the ability to specify which native ad elements you want to receive from the MoPub Marketplace to optimize bandwidth use and download only required assets, via `MPNativeAdRequestTargeting.desiredAssets`. This feature only works for the six standard Marketplace assets, found in `MPNativeAdConstants.h`. Any additional elements added in direct sold ads will always be sent down in the extras.
+  - Added star rating information to the `MPNativeAd` object, via `MPNativeAd.starRating`. This method returns an `NSNumber` (double value) corresponding to an app's rating on a 5-star scale.
+  - Bug fixes
+    - Handle Millennial Media SDK's `MillennialMediaAdWillTerminateApplication` notification
+    - Ensured that banners never autorefresh until they have been loaded at least once
+
 ## Version 2.1 (May 15th, 2014)
 
   - Improved user privacy protection

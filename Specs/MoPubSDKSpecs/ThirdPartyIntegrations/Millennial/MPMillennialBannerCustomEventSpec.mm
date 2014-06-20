@@ -69,21 +69,21 @@ describe(@"MPMillennialBannerCustomEvent", ^{
             anotherBanner = [[[FakeMMAdView alloc] initWithFrame:CGRectMake(0,0,32,10)] autorelease];
             anotherBanner.apid = @"mmmmmmm";
         });
-        
+
         it(@"should ignore notifications from other MMAdViews", ^{
             [delegate reset_sent_messages];
-            
+
             [[NSNotificationCenter defaultCenter] postNotificationName:MillennialMediaAdWasTapped object:nil userInfo:anotherBanner.userInfo];
-            
+
             [[NSNotificationCenter defaultCenter] postNotificationName:MillennialMediaAdModalWillAppear object:nil userInfo:anotherBanner.userInfo];
-            
+
             [[NSNotificationCenter defaultCenter] postNotificationName:MillennialMediaAdModalDidDismiss object:nil userInfo:anotherBanner.userInfo];
-            
+
             delegate.sent_messages should be_empty;
         });
 
         context(@"MillennialMediaAdWasTapped", ^{
-            
+
             // XXX: As of Millennial SDK version 5.1.0, a "tapped" notification for an MMAdView is
             // accompanied by the presentation of a modal loading indicator (spinner). Although this
             // spinner is modal, the Millennial SDK does not appropriately fire the
@@ -96,7 +96,7 @@ describe(@"MPMillennialBannerCustomEvent", ^{
             // However, in 5.1.0, MMAdView causes crashes if deallocated while its spinner is on-screen.
             // Thus, we must call [self.delegate bannerCustomEventWillBeginAction:self] as soon as we
             // detect that the spinner has been presented.
-            
+
             it(@"should track a click (only the first time) and tell the delegate that a modal will appear", ^{
                 [delegate reset_sent_messages];
                 [[NSNotificationCenter defaultCenter] postNotificationName:MillennialMediaAdWasTapped object:nil userInfo:banner.userInfo];
@@ -108,9 +108,9 @@ describe(@"MPMillennialBannerCustomEvent", ^{
         });
 
         context(@"MillennialMediaAdModalWillAppear", ^{
-            
+
             // XXX: See note above.
-            
+
             it(@"should not tell the delegate anything", ^{
                 [delegate reset_sent_messages];
                 [[NSNotificationCenter defaultCenter] postNotificationName:MillennialMediaAdModalWillAppear object:nil userInfo:banner.userInfo];
@@ -124,6 +124,34 @@ describe(@"MPMillennialBannerCustomEvent", ^{
                 [[NSNotificationCenter defaultCenter] postNotificationName:MillennialMediaAdModalDidDismiss object:nil userInfo:banner.userInfo];
                 verify_fake_received_selectors(delegate, @[@"bannerCustomEventDidFinishAction:"]);
             });
+        });
+
+        context(@"MillennialMediaAdWillTerminateApplication with a modal first", ^{
+            it(@"should tell the delegate that user action has completed", ^{
+                [delegate reset_sent_messages];
+                [[NSNotificationCenter defaultCenter] postNotificationName:MillennialMediaAdWasTapped object:nil userInfo:banner.userInfo];
+                [[NSNotificationCenter defaultCenter] postNotificationName:MillennialMediaAdModalWillAppear object:nil userInfo:banner.userInfo];
+                [[NSNotificationCenter defaultCenter] postNotificationName:MillennialMediaAdWillTerminateApplication object:nil userInfo:banner.userInfo];
+                [[NSNotificationCenter defaultCenter] postNotificationName:MillennialMediaAdModalDidDismiss object:nil userInfo:banner.userInfo];
+                verify_fake_received_selectors(delegate, @[@"trackClick", @"bannerCustomEventWillBeginAction:", @"bannerCustomEventWillLeaveApplication:", @"bannerCustomEventDidFinishAction:"]);
+            });
+        });
+
+        context(@"MillennialMediaAdWillTerminateApplication without a modal first", ^{
+            it(@"should tell the delegate that user action has completed", ^{
+                [delegate reset_sent_messages];
+                [[NSNotificationCenter defaultCenter] postNotificationName:MillennialMediaAdWasTapped object:nil userInfo:banner.userInfo];
+                [[NSNotificationCenter defaultCenter] postNotificationName:MillennialMediaAdWillTerminateApplication object:nil userInfo:banner.userInfo];
+                verify_fake_received_selectors(delegate, @[@"trackClick", @"bannerCustomEventWillBeginAction:", @"bannerCustomEventWillLeaveApplication:", @"bannerCustomEventDidFinishAction:"]);
+            });
+        });
+
+        context(@"MillennialMediaAdWillTerminateApplication received without a click", ^{
+           it(@"should not tell the delegate anything", ^{
+               [delegate reset_sent_messages];
+               [[NSNotificationCenter defaultCenter] postNotificationName:MillennialMediaAdWillTerminateApplication object:nil userInfo:banner.userInfo];
+               delegate.sent_messages should be_empty;
+           });
         });
     });
 

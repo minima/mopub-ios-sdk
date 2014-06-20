@@ -10,7 +10,7 @@
 #import "MPInterstitialCustomEvent.h"
 
 /**
- * Certified with the Facebook Audience Network (Beta) for iOS
+ * Certified with the Facebook iOS SDK version 3.14.1
  */
 
 @interface FacebookInterstitialCustomEvent : MPInterstitialCustomEvent <FBInterstitialAdDelegate>

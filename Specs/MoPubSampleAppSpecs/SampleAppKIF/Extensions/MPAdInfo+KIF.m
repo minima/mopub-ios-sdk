@@ -51,4 +51,14 @@
              ];
 }
 
++ (NSArray *)nativeAds
+{
+    return @[
+             [MPAdInfo infoWithTitle:@"Native Ad" ID:@"8ce943e5b65a4689b434d72736dbed02" type:MPAdInfoNative],
+             [MPAdInfo infoWithTitle:@"InMobi Native Ad" ID:@"7e8c0239e49441a28de13b2b11d5282e" type:MPAdInfoNative],
+             [MPAdInfo infoWithTitle:@"Facebook Native Ad" ID:@"79ca92da81cb4e7c87f697b26c06700d" type:MPAdInfoNative],
+             [MPAdInfo infoWithTitle:@"Native Ad (TableView Example)" ID:@"8ce943e5b65a4689b434d72736dbed02" type:MPAdInfoNativeInTableView]
+             ];
+}
+
 @end

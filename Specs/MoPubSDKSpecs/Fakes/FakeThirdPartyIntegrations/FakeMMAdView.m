@@ -42,6 +42,23 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:MillennialMediaAdModalDidAppear object:nil userInfo:self.userInfo];
 }
 
+- (void)simulateUserLeavingApplication:(BOOL)modalFirst
+{
+    [[NSNotificationCenter defaultCenter] postNotificationName:MillennialMediaAdWasTapped object:nil userInfo:self.userInfo];
+
+    if (modalFirst) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:MillennialMediaAdModalWillAppear object:nil userInfo:self.userInfo];
+        [[NSNotificationCenter defaultCenter] postNotificationName:MillennialMediaAdModalDidAppear object:nil userInfo:self.userInfo];
+    }
+
+    [[NSNotificationCenter defaultCenter] postNotificationName:MillennialMediaAdWillTerminateApplication object:nil userInfo:self.userInfo];
+
+    if (modalFirst) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:MillennialMediaAdModalWillDismiss object:nil userInfo:self.userInfo];
+        [[NSNotificationCenter defaultCenter] postNotificationName:MillennialMediaAdModalDidDismiss object:nil userInfo:self.userInfo];
+    }
+}
+
 - (void)simulateUserEndingInteraction
 {
     [[NSNotificationCenter defaultCenter] postNotificationName:MillennialMediaAdModalWillDismiss object:nil userInfo:self.userInfo];

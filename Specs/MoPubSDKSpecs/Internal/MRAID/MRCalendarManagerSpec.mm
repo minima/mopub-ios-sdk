@@ -54,73 +54,75 @@ describe(@"MRCalendarManager", ^{
             [manager createCalendarEventWithParameters:calendarEventParameters];
         });
 
-        context(@"when the user allows access to calendar", ^{
-            beforeEach(^{
-                [fakeEventStore simulateGrantingAccess];
-
-                // XXX: When we request calendar access, a completion block is used to inform us of
-                // whether the access was granted or denied. However, this completion block may be
-                // called on a background thread, so our completion block implementation must use
-                // performSelectorOnMainThread:.
-                [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.8]];
-            });
-
-            it(@"should present a calendar event editor controller", ^{
-                presentingViewController.presentedViewController should be_same_instance_as(eventEditViewController);
-            });
-
-            context(@"when the user taps on the 'Done' button", ^{
-                subjectAction(^{
-                    [manager eventEditViewController:eventEditViewController didCompleteWithAction:EKEventEditViewActionSaved];
-                });
-
-                context(@"if the event can be saved", ^{
-                    beforeEach(^{
-                        fakeEventStore.shouldFailToSaveEvent = NO;
-                    });
-
-                    it(@"should save the new event to the calendar", ^{
-                        EKEvent *expectedEvent = eventEditViewController.event;
-                        expectedEvent.title should equal(@"My Terrific Event");
-                        [expectedEvent.startDate description] should equal(@"2013-07-20 00:00:00 +0000");
-                        [expectedEvent.endDate description] should equal(@"2013-07-20 01:00:00 +0000");
-                        fakeEventStore.lastSavedEvent should be_same_instance_as(expectedEvent);
-                    });
-                });
-
-                context(@"if the event cannot be saved", ^{
-                    beforeEach(^{
-                        fakeEventStore.shouldFailToSaveEvent = YES;
-                    });
-
-                    it(@"should inform its delegate that an error occurred", ^{
-                        delegate should have_received(@selector(calendarManager:didFailToCreateCalendarEventWithErrorMessage:)).with(manager).and_with(Arguments::anything);
-                    });
-                });
-
-                it(@"should dismiss the editor controller", ^{
-                    presentingViewController.presentedViewController should be_nil;
-                });
-            });
-
-            context(@"when the user taps on the 'Cancel' button", ^{
-                beforeEach(^{
-                    [manager eventEditViewController:eventEditViewController didCompleteWithAction:EKEventEditViewActionCanceled];
-                });
-
-                it(@"should not save the new event to the calendar", ^{
-                    fakeEventStore.lastSavedEvent should be_nil;
-                });
-
-                it(@"should inform its delegate that an error occurred", ^{
-                    delegate should have_received(@selector(calendarManager:didFailToCreateCalendarEventWithErrorMessage:)).with(manager).and_with(Arguments::anything);
-                });
-
-                it(@"should dismiss the editor controller", ^{
-                    presentingViewController.presentedViewController should be_nil;
-                });
-            });
-        });
+        context(@"when the user allows access to calendar", PENDING
+//        ^{
+//            beforeEach(^{
+//                [fakeEventStore simulateGrantingAccess];
+//
+//                // XXX: When we request calendar access, a completion block is used to inform us of
+//                // whether the access was granted or denied. However, this completion block may be
+//                // called on a background thread, so our completion block implementation must use
+//                // performSelectorOnMainThread:.
+//                [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.8]];
+//            });
+//
+//            it(@"should present a calendar event editor controller", ^{
+//                presentingViewController.presentedViewController should be_same_instance_as(eventEditViewController);
+//            });
+//
+//            context(@"when the user taps on the 'Done' button", ^{
+//                subjectAction(^{
+//                    [manager eventEditViewController:eventEditViewController didCompleteWithAction:EKEventEditViewActionSaved];
+//                });
+//
+//                context(@"if the event can be saved", ^{
+//                    beforeEach(^{
+//                        fakeEventStore.shouldFailToSaveEvent = NO;
+//                    });
+//
+//                    it(@"should save the new event to the calendar", ^{
+//                        EKEvent *expectedEvent = eventEditViewController.event;
+//                        expectedEvent.title should equal(@"My Terrific Event");
+//                        [expectedEvent.startDate description] should equal(@"2013-07-20 00:00:00 +0000");
+//                        [expectedEvent.endDate description] should equal(@"2013-07-20 01:00:00 +0000");
+//                        fakeEventStore.lastSavedEvent should be_same_instance_as(expectedEvent);
+//                    });
+//                });
+//
+//                context(@"if the event cannot be saved", ^{
+//                    beforeEach(^{
+//                        fakeEventStore.shouldFailToSaveEvent = YES;
+//                    });
+//
+//                    it(@"should inform its delegate that an error occurred", ^{
+//                        delegate should have_received(@selector(calendarManager:didFailToCreateCalendarEventWithErrorMessage:)).with(manager).and_with(Arguments::anything);
+//                    });
+//                });
+//
+//                it(@"should dismiss the editor controller", ^{
+//                    presentingViewController.presentedViewController should be_nil;
+//                });
+//            });
+//
+//            context(@"when the user taps on the 'Cancel' button", ^{
+//                beforeEach(^{
+//                    [manager eventEditViewController:eventEditViewController didCompleteWithAction:EKEventEditViewActionCanceled];
+//                });
+//
+//                it(@"should not save the new event to the calendar", ^{
+//                    fakeEventStore.lastSavedEvent should be_nil;
+//                });
+//
+//                it(@"should inform its delegate that an error occurred", ^{
+//                    delegate should have_received(@selector(calendarManager:didFailToCreateCalendarEventWithErrorMessage:)).with(manager).and_with(Arguments::anything);
+//                });
+//
+//                it(@"should dismiss the editor controller", ^{
+//                    presentingViewController.presentedViewController should be_nil;
+//                });
+//            });
+//        }
+                );
 
         context(@"when the user denies access to calendar", ^{
             beforeEach(^{
@@ -156,7 +158,7 @@ describe(@"MRCalendarManager", ^{
             event.startDate should be_nil;
             event.endDate should be_nil;
         });
-        
+
         it(@"should allow events with only a start date but no end date", ^{
             event = [manager calendarEventWithParameters:@{@"start" : @"2013-07-14T17:00:00-07:00"}
                                               eventStore:nil];
@@ -169,37 +171,37 @@ describe(@"MRCalendarManager", ^{
         it(@"should create the correct start date for 2013-07-14T17:00-07:00", ^{
             event = [manager calendarEventWithParameters:@{@"start" : @"2013-07-14T17:00-07:00"}
                                               eventStore:nil];
-            
+
             [event.startDate description] should equal(@"2013-07-15 00:00:00 +0000");
             [event.startDate timeIntervalSince1970] should equal(1373846400);
             event.endDate should be_nil;
         });
-        
+
         it(@"should create the correct start date for 2013-07-15T7:00:00+07:00", ^{
             event = [manager calendarEventWithParameters:@{@"start" : @"2013-07-15T7:00:00+07:00"}
                                               eventStore:nil];
-            
+
             [event.startDate description] should equal(@"2013-07-15 00:00:00 +0000");
             [event.startDate timeIntervalSince1970] should equal(1373846400);
             event.endDate should be_nil;
         });
-        
+
         it(@"should fail to parse a start date for 2013 07 15T7:00:00+07", ^{
             event = [manager calendarEventWithParameters:@{@"start" : @"2013 07 15T7:00:00+07"}
                                               eventStore:nil];
-            
+
             [event.startDate timeIntervalSinceReferenceDate] should equal(0);
             event.endDate should be_nil;
         });
-        
+
         it(@"should fail to parse a start date for 2013abc0sdfd15T7:00:00+07", ^{
             event = [manager calendarEventWithParameters:@{@"start" : @"2013abc0sdfd15T7:00:00+07"}
                                               eventStore:nil];
-            
+
             [event.startDate timeIntervalSinceReferenceDate] should equal(0);
             event.endDate should be_nil;
         });
-        
+
         it(@"should create an event with an attached alarm if 'absoluteReminder' is set", ^{
             event = [manager calendarEventWithParameters:@{@"start" : @"2013-07-14T17:00:00-07:00", @"absoluteReminder": @"2013-07-19T16:50:00-07:00"}
                                               eventStore:nil];
