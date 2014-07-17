@@ -9,6 +9,8 @@
 
 @implementation FakeUITouch
 
+@synthesize view;
+
 - (void)dealloc
 {
     self.view = nil;

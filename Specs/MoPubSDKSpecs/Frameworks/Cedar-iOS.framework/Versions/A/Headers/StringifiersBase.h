@@ -15,6 +15,10 @@ namespace Cedar { namespace Matchers { namespace Stringifiers {
         }
     }
 
+    inline NSString * string_for(std::nullptr_t value) {
+        return @"nil";
+    }
+
     inline NSString * string_for(const char value) {
         return string_for(static_cast<const int>(value));
     }
@@ -28,6 +32,9 @@ namespace Cedar { namespace Matchers { namespace Stringifiers {
     }
 
     inline NSString * string_for(NSNumber * const value) {
+        if (!value) {
+            return [NSString stringWithFormat:@"%@", value];
+        }
         return string_for([value floatValue]);
     }
 
@@ -44,5 +51,9 @@ namespace Cedar { namespace Matchers { namespace Stringifiers {
 
     inline NSString * string_for(const char *value) {
         return string_for((char *)value);
+    }
+
+    inline NSString * string_for(NSRange value) {
+        return NSStringFromRange(value);
     }
 }}}

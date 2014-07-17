@@ -25,9 +25,9 @@ describe(@"MPGoogleAdMobInterstitialCustomEvent", ^{
         event = [[[MPGoogleAdMobInterstitialCustomEvent alloc] init] autorelease];
         event.delegate = delegate;
 
-        location = [[[CLLocation alloc] initWithCoordinate:CLLocationCoordinate2DMake(37.1, 21.2)
+        location = [[[CLLocation alloc] initWithCoordinate:CLLocationCoordinate2DMake(37.1f, 21.2f)
                                                   altitude:11
-                                        horizontalAccuracy:12.3
+                                        horizontalAccuracy:12.3f
                                           verticalAccuracy:10
                                                  timestamp:[NSDate date]] autorelease];
         delegate stub_method("location").and_return(location);

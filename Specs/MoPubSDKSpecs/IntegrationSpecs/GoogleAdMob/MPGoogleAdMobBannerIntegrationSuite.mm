@@ -24,9 +24,9 @@ describe(@"MPGoogleAdMobBannerIntegrationSuite", ^{
 
         banner = [[[MPAdView alloc] initWithAdUnitId:@"admob_event" size:MOPUB_BANNER_SIZE] autorelease];
         banner.delegate = delegate;
-        banner.location = [[[CLLocation alloc] initWithCoordinate:CLLocationCoordinate2DMake(37.1, 21.2)
+        banner.location = [[[CLLocation alloc] initWithCoordinate:CLLocationCoordinate2DMake(37.1f, 21.2f)
                                                          altitude:11
-                                               horizontalAccuracy:12.3
+                                               horizontalAccuracy:12.3f
                                                  verticalAccuracy:10
                                                         timestamp:[NSDate date]] autorelease];
         [banner loadAd];

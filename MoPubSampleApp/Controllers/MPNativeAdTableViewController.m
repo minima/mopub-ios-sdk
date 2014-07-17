@@ -42,14 +42,14 @@ static NSInteger const kRowForAdCell = 1;
     if (_contentArray) {
         return _contentArray;
     }
-    
+
     _contentArray = [NSMutableArray array];
-    
+
     for (NSInteger i = 1; i <= 5; i++) {
-        NSString *contentString = [NSString stringWithFormat:@"Normal TableView Cell #%d", i];
+        NSString *contentString = [NSString stringWithFormat:@"Normal TableView Cell #%ld", (long)i];
         [_contentArray addObject:contentString];
     }
-    
+
     return _contentArray;
 }
 
@@ -61,7 +61,7 @@ static NSInteger const kRowForAdCell = 1;
     if (self) {
         self.title = @"Native Ad in TableView";
         self.adInfo = info;
-        
+
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= MP_IOS_7_0
         if ([self respondsToSelector:@selector(setEdgesForExtendedLayout:)]) {
             self.edgesForExtendedLayout = UIRectEdgeNone;
@@ -76,20 +76,20 @@ static NSInteger const kRowForAdCell = 1;
     [super viewDidLoad];
 
     self.tableView.accessibilityLabel = kNativeAdTableViewAccessibilityLabel;
-    
+
     self.adManager = [[MPTableViewAdManager alloc] initWithTableView:self.tableView];
-    
+
     self.tableHeaderView = [[[NSBundle mainBundle] loadNibNamed:@"MPNativeAdTableHeaderView" owner:self options:nil] objectAtIndex:0];
     self.tableHeaderView.frame = CGRectMake(0, 0, CGRectGetWidth(self.tableView.bounds), 128);
     self.tableView.tableHeaderView = self.tableHeaderView;
     [self.tableHeaderView.loadAdButton addTarget:self action:@selector(loadAd) forControlEvents:UIControlEventTouchUpInside];
     self.tableHeaderView.keywordsTextField.delegate = self;
-    
+
     self.tableHeaderView.IDLabel.text = self.adInfo.ID;
     self.tableHeaderView.keywordsTextField.text = self.adInfo.keywords;
 
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:kDefaultCellIdentifier];
-    
+
     [self loadAd];
 }
 
@@ -105,23 +105,23 @@ static NSInteger const kRowForAdCell = 1;
 {
     self.tableHeaderView.loadAdButton.enabled = NO;
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
-    
+
     [self.tableHeaderView.keywordsTextField endEditing:YES];
-    
+
     self.tableHeaderView.failLabel.hidden = YES;
     [self.tableHeaderView.spinner startAnimating];
     if ([[self.contentArray objectAtIndex:kRowForAdCell] isKindOfClass:[MPNativeAd class]]) {
         [self.contentArray removeObjectAtIndex:kRowForAdCell];
     }
     [self.tableView reloadData];
-    
+
     MPNativeAdRequest *adRequest1 = [MPNativeAdRequest requestWithAdUnitIdentifier:self.adInfo.ID];
 
     MPNativeAdRequestTargeting *targeting = [[MPNativeAdRequestTargeting alloc] init];
     targeting.keywords = self.tableHeaderView.keywordsTextField.text;
     adRequest1.targeting = targeting;
     self.adInfo.keywords = adRequest1.targeting.keywords;
-    
+
     [adRequest1 startWithCompletionHandler:^(MPNativeAdRequest *request, MPNativeAd *response, NSError *error) {
         if (error) {
             NSLog(@"================> %@", error);
@@ -137,7 +137,7 @@ static NSInteger const kRowForAdCell = 1;
     }];
 }
 
-#pragma mark - Ad Helpers 
+#pragma mark - Ad Helpers
 
 - (BOOL)shouldShowAdAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -161,7 +161,7 @@ static NSInteger const kRowForAdCell = 1;
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
+
     if([self shouldShowAdAtIndexPath:indexPath])
     {
         MPNativeAd *adObject = (MPNativeAd *)[self.contentArray objectAtIndex:indexPath.row];
@@ -170,9 +170,9 @@ static NSInteger const kRowForAdCell = 1;
     else
     {
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kDefaultCellIdentifier forIndexPath:indexPath];
-        
+
         cell.textLabel.text = [self.contentArray objectAtIndex:indexPath.row];
-        
+
         return cell;
     }
 }
@@ -213,7 +213,7 @@ static NSInteger const kRowForAdCell = 1;
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
     [textField endEditing:YES];
-    
+
     return YES;
 }
 

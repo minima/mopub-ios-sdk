@@ -7,80 +7,86 @@
 
 #import "UITouch+MPSpecs.h"
 
-@interface UITouch () {
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 60000
-    // ivars declarations removed in 6.0
-    NSTimeInterval  _timestamp;
-    UITouchPhase    _phase;
-    UITouchPhase    _savedPhase;
-    NSUInteger      _tapCount;
-    
-    UIWindow        *_window;
-    UIView          *_view;
-    UIView          *_warpedIntoView;
-    NSMutableArray  *_gestureRecognizers;
-    NSMutableArray  *_forwardingRecord;
-    
-    CGPoint         _locationInWindow;
-    CGPoint         _previousLocationInWindow;
-    UInt8           _pathIndex;
-    UInt8           _pathIdentity;
-    float           _pathMajorRadius;
-    struct {
-        unsigned int _firstTouchForView:1;
-        unsigned int _isTap:1;
-        unsigned int _isDelayed:1;
-        unsigned int _sentTouchesEnded:1;
-        unsigned int _abandonForwardingRecord:1;
-    } _touchFlags;
-#endif
-}
+typedef struct {
+    unsigned int _firstTouchForView:1;
+    unsigned int _isTap:1;
+    unsigned int _isDelayed:1;
+    unsigned int _sentTouchesEnded:1;
+    unsigned int _abandonForwardingRecord:1;
+} UITouchFlags;
+
+@interface UITouch ()
+
+@property(assign) BOOL isTap;
+@property(assign) NSUInteger tapCount;
+@property(assign) UITouchPhase phase;
+@property(retain) UIView *view;
+@property(retain) UIWindow *window;
+@property(assign) NSTimeInterval timestamp;
+
+- (void)setGestureView:(UIView *)view;
+- (void)_setLocationInWindow:(CGPoint)location resetPrevious:(BOOL)resetPrevious;
+- (void)_setIsFirstTouchForView:(BOOL)firstTouchForView;
+
 @end
 
 @implementation UITouch (MPSpecs)
 
-- (id)initInView:(UIView *)view atPoint:(CGPoint)point
+- (id)initInView:(UIView *)view;
+{
+    CGRect frame = view.frame;
+    CGPoint centerPoint = CGPointMake(frame.size.width * 0.5f, frame.size.height * 0.5f);
+    return [self initInView:view atPoint:centerPoint];
+}
+
+- (id)initAtPoint:(CGPoint)point inWindow:(UIWindow *)window;
 {
     self = [super init];
-    if(self != nil)
-    {
-        CGRect frameInWindow;
-        if([view isKindOfClass:[UIWindow class]])
-        {
-            frameInWindow = view.frame;
-        }
-        else
-        {
-            frameInWindow =
-            [view.window convertRect:view.frame fromView:view.superview];
-        }
-        
-        _tapCount = 1;
-        _locationInWindow = point;
-        _previousLocationInWindow = _locationInWindow;
-        
-        UIView *target = [view.window hitTest:_locationInWindow withEvent:nil];
-        _view = [target retain];
-        _window = [view.window retain];
-        _phase = UITouchPhaseBegan;
-        _touchFlags._firstTouchForView = 1;
-        _touchFlags._isTap = 1;
-        _timestamp = [NSDate timeIntervalSinceReferenceDate];
+    if (self == nil) {
+        return nil;
     }
+
+    // Create a fake tap touch
+    [self setWindow:window]; // Wipes out some values.  Needs to be first.
+
+    [self setTapCount:1];
+    [self _setLocationInWindow:point resetPrevious:YES];
+
+    UIView *hitTestView = [window hitTest:point withEvent:nil];
+
+    [self setView:hitTestView];
+    [self setPhase:UITouchPhaseBegan];
+    [self _setIsFirstTouchForView:YES];
+    [self setIsTap:YES];
+    [self setTimestamp:[[NSProcessInfo processInfo] systemUptime]];
+
+    if ([self respondsToSelector:@selector(setGestureView:)]) {
+        [self setGestureView:hitTestView];
+    }
+
     return self;
 }
 
+- (id)initInView:(UIView *)view atPoint:(CGPoint)point;
+{
+    return [self initAtPoint:[view.window convertPoint:point fromView:view] inWindow:view.window];
+}
+
+//
+// setLocationInWindow:
+//
+// Setter to allow access to the _locationInWindow member.
+//
 - (void)setLocationInWindow:(CGPoint)location
 {
-	_previousLocationInWindow = _locationInWindow;
-	_locationInWindow = location;
-	_timestamp = [[NSProcessInfo processInfo] systemUptime];
+    [self setTimestamp:[[NSProcessInfo processInfo] systemUptime]];
+    [self _setLocationInWindow:location resetPrevious:NO];
 }
 
 - (void)changeToPhase:(UITouchPhase)phase
 {
-    _phase = phase;
-    _timestamp = [NSDate timeIntervalSinceReferenceDate];
+    [self setTimestamp:[[NSProcessInfo processInfo] systemUptime]];
+    [self setPhase:phase];
 }
 
 @end

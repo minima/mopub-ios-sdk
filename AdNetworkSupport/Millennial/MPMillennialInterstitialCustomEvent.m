@@ -151,7 +151,8 @@
         if ([self.router eventForApid:self.apid] != self) {
             return;
         }
-        if (success) {
+        // Check for success isn't sufficient, because Millennial returns an error with domain "com.millennialmedia.error.alreadyCached" when there is already a pre-cached ad
+        if (success || [[[MPInstanceProvider sharedProvider] MMInterstitial] isAdAvailableForApid:self.apid]) {
             MPLogInfo(@"Millennial interstitial did load");
             [self.delegate interstitialCustomEvent:self didLoadAd:nil];
         } else {

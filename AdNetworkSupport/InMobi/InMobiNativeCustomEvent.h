@@ -8,7 +8,7 @@
 #import "MPNativeCustomEvent.h"
 
 /*
- * Certified with version 4.3.0 of the InMobi SDK.
+ * Certified with version 4.4.1 of the InMobi SDK.
  */
 
 @interface InMobiNativeCustomEvent : MPNativeCustomEvent

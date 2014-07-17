@@ -68,7 +68,7 @@ describe(@"MPHTMLInterstitialViewController", ^{
             });
 
             it(@"should tell the backing view that it was presented", ^{
-                agent should have_received(@selector(continueHandlingRequests));
+                agent should have_received(@selector(enableRequestHandling));
                 agent should have_received(@selector(invokeJavaScriptForEvent:)).with(MPAdWebViewEventAdDidAppear);
                 backingView.alpha should equal(1);
             });
@@ -85,7 +85,7 @@ describe(@"MPHTMLInterstitialViewController", ^{
         });
 
         it(@"should tell its backing view to stop handling requests", ^{
-            agent should have_received(@selector(stopHandlingRequests));
+            agent should have_received(@selector(disableRequestHandling));
         });
 
         it(@"should tell its delegate interstitialWillDisappear:", ^{
@@ -98,7 +98,7 @@ describe(@"MPHTMLInterstitialViewController", ^{
             });
 
             it(@"should tell the backing view that it was dismissed", ^{
-                agent should have_received(@selector(stopHandlingRequests));
+                agent should have_received(@selector(disableRequestHandling));
                 agent should have_received(@selector(invokeJavaScriptForEvent:)).with(MPAdWebViewEventAdDidDisappear);
             });
 

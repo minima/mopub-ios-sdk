@@ -9,7 +9,7 @@
 #import "GADBannerView.h"
 
 /*
- * Certified with version 6.6.1 of the Google AdMob Ads SDK.
+ * Certified with version 6.9.3 of the Google AdMob Ads SDK.
  */
 
 @interface MPGoogleAdMobBannerCustomEvent : MPBannerCustomEvent <GADBannerViewDelegate>

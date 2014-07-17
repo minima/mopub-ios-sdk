@@ -13,7 +13,7 @@ using namespace Cedar::Doubles;
 
 @interface MRAdView ()
 
-@property (nonatomic, assign) BOOL userTappedWebView;
+@property (nonatomic, assign) BOOL userInteractedWithWebView;
 
 @end
 
@@ -57,12 +57,12 @@ describe(@"MRAdView", ^{
                                                           closeButtonStyle:MRAdViewCloseButtonStyleAdControlled
                                                              placementType:MRAdViewPlacementTypeInline
                                                                   delegate:nil];
-        view.userTappedWebView = YES;
-        
+        view.userInteractedWithWebView = YES;
+
         delegate = nice_fake_for(@protocol(MRAdViewDelegate));
         delegate stub_method("viewControllerForPresentingModalView").and_return(presentingViewController);
         view.delegate = delegate;
-        
+
         window = [[[UIWindow alloc] init] autorelease];
         [window makeKeyAndVisible];
     });
@@ -98,12 +98,12 @@ describe(@"MRAdView", ^{
                 // Must have an MRAID script tag.
                 loadedHTMLString should contain(@"mraid.js");
             });
-            
+
             describe(@"javascript dialog disabled", ^{
                 it(@"should have executed the dialog disabling javascript", ^{
                     NSArray *executedJS = [webView executedJavaScripts];
                     executedJS.count should equal(1);
-                    
+
                     NSString *dialogDisableJS = [executedJS objectAtIndex:0];
                     dialogDisableJS should equal(kJavaScriptDisableDialogSnippet);
                 });
@@ -131,27 +131,27 @@ describe(@"MRAdView", ^{
             });
         });
     });
-    
+
     describe(@"Pre-caching", ^{
         __block NSString *HTMLString;
-        
+
         context(@"when loading an ad that requires precaching", ^{
             beforeEach(^{
                 view.adType = MRAdViewAdTypePreCached;
-                
+
                 HTMLString = @"<script src='ad.js'></script>";
                 [view loadCreativeWithHTMLString:HTMLString baseURL:nil];
             });
-            
+
             it(@"should not notify the delegate when the webview finishes loading", ^{
                 [view webViewDidFinishLoad:nil];
-                
+
                 delegate should_not have_received(@selector(adDidLoad:));
             });
-            
+
             it(@"should notify the delegate when the pre-cache complete URL is sent", ^{
                 [view performActionForMoPubSpecificURL:[NSURL URLWithString:@"mopub://precacheComplete"]];
-               
+
                 delegate should have_received(@selector(adDidLoad:));
             });
         });
@@ -183,7 +183,7 @@ describe(@"MRAdView", ^{
                                                                   closeButtonStyle:MRAdViewCloseButtonStyleAdControlled
                                                                      placementType:MRAdViewPlacementTypeInline
                                                                           delegate:nil];
-                view.userTappedWebView = YES;
+                view.userInteractedWithWebView = YES;
 
                 URL = [NSURL URLWithString:@"twitter://food"];
                 [view webView:nil shouldStartLoadWithRequest:[NSURLRequest requestWithURL:URL] navigationType:UIWebViewNavigationTypeLinkClicked];
@@ -208,7 +208,7 @@ describe(@"MRAdView", ^{
                                                                   closeButtonStyle:MRAdViewCloseButtonStyleAdControlled
                                                                      placementType:MRAdViewPlacementTypeInline
                                                                           delegate:nil];
-                view.userTappedWebView = YES;
+                view.userInteractedWithWebView = YES;
             });
 
             it(@"should not load anything", ^{
@@ -235,7 +235,7 @@ describe(@"MRAdView", ^{
                                                                   closeButtonStyle:MRAdViewCloseButtonStyleAdControlled
                                                                      placementType:MRAdViewPlacementTypeInline
                                                                           delegate:nil];
-                view.userTappedWebView = YES;
+                view.userInteractedWithWebView = YES;
             });
 
             it(@"should not load anything", ^{
@@ -250,6 +250,57 @@ describe(@"MRAdView", ^{
                 currentAlert.numberOfButtons should equal(2);
                 currentAlert.title should_not be_nil;
                 currentAlert.message should_not be_nil;
+            });
+        });
+
+        context(@"when told to stop handling requests", ^{
+            beforeEach(^{
+                [view disableRequestHandling];
+                URL = [NSURL URLWithString:@"mraid://close"];
+            });
+
+            it(@"should never load anything", ^{
+                [view webView:webView shouldStartLoadWithRequest:[NSURLRequest requestWithURL:URL] navigationType:UIWebViewNavigationTypeOther] should equal(NO);
+                delegate should_not have_received(@selector(adDidClose:));
+            });
+
+            it(@"should tell its destination display agent to cancel any open url requests", ^{
+                destinationDisplayAgent should have_received(@selector(cancel));
+            });
+
+            context(@"when told to continue handling requests", ^{
+                it(@"should load things again", ^{
+                    [view enableRequestHandling];
+                    [view webView:webView shouldStartLoadWithRequest:[NSURLRequest requestWithURL:URL] navigationType:UIWebViewNavigationTypeOther] should equal(NO);
+                    delegate should have_received(@selector(adDidClose:)).with(view);
+                });
+            });
+        });
+
+        context(@"when loading a deeplink", ^{
+            beforeEach(^{
+                URL = [NSURL URLWithString:@"dontgohere://noway.com"];
+            });
+
+            it(@"should not load the deeplink without user interaction", ^{
+                view.userInteractedWithWebView = NO;
+                [view webView:nil shouldStartLoadWithRequest:[NSURLRequest requestWithURL:URL] navigationType:UIWebViewNavigationTypeOther] should equal(NO);
+            });
+
+            it(@"should load the deeplink if nav type is clicked but our gesture recognizer hasn't responded yet", ^{
+                view.userInteractedWithWebView = NO;
+                [view webView:nil shouldStartLoadWithRequest:[NSURLRequest requestWithURL:URL] navigationType:UIWebViewNavigationTypeLinkClicked] should equal(YES);
+            });
+
+            it(@"should load the deeplink with user interaction", ^{
+                view.userInteractedWithWebView = YES;
+                [view webView:nil shouldStartLoadWithRequest:[NSURLRequest requestWithURL:URL] navigationType:UIWebViewNavigationTypeOther] should equal(YES);
+            });
+
+            it(@"should load about scheme without user interaction", ^{
+                view.userInteractedWithWebView = NO;
+                URL = [NSURL URLWithString:@"about:blahblahblah"];
+                [view webView:nil shouldStartLoadWithRequest:[NSURLRequest requestWithURL:URL] navigationType:UIWebViewNavigationTypeOther] should equal(YES);
             });
         });
 
@@ -307,6 +358,17 @@ describe(@"MRAdView", ^{
                             [view webView:nil shouldStartLoadWithRequest:iframeURLRequest navigationType:UIWebViewNavigationTypeOther] should equal(YES);
                             destinationDisplayAgent should_not have_received(@selector(displayDestinationForURL:));
                         });
+
+                        it(@"should not load a deeplink without user interaction", ^{
+                            view.userInteractedWithWebView = NO;
+
+                            NSURL *documentURL = [NSURL URLWithString:@"http://www.donuts.com"];
+                            NSURL *iframeURL = [NSURL URLWithString:@"dontgohere://www.jelly.com"];
+                            NSMutableURLRequest *iframeURLRequest = [NSMutableURLRequest requestWithURL:iframeURL];
+                            iframeURLRequest.mainDocumentURL = documentURL;
+                            [view webView:nil shouldStartLoadWithRequest:iframeURLRequest navigationType:UIWebViewNavigationTypeOther] should equal(NO);
+                            destinationDisplayAgent should_not have_received(@selector(displayDestinationForURL:));
+                        });
                     });
 
                     context(@"when the navigation type is anything else", ^{
@@ -327,16 +389,16 @@ describe(@"MRAdView", ^{
         beforeEach(^{
             adDisplayController = nice_fake_for([MRAdViewDisplayController class]);
             view.displayController = adDisplayController;
-            
+
             [jsEventEmitter.errorEvents removeAllObjects];
             jsEventEmitter.lastCompletedCommand = nil;
         });
-        
+
         context(@"when the command is invalid", ^{
             it(@"should tell its delegate that the command could not be executed", ^{
                 URL = [NSURL URLWithString:@"mraid://invalid"];
                 [view webView:nil shouldStartLoadWithRequest:[NSURLRequest requestWithURL:URL] navigationType:UIWebViewNavigationTypeOther];
-                
+
                 jsEventEmitter.errorEvents.count should equal(1);
             });
         });
@@ -345,15 +407,15 @@ describe(@"MRAdView", ^{
             it(@"should tell its display manager to close the ad", ^{
                 URL = [NSURL URLWithString:@"mraid://close"];
                 [view webView:nil shouldStartLoadWithRequest:[NSURLRequest requestWithURL:URL] navigationType:UIWebViewNavigationTypeOther];
-                
+
                 adDisplayController should have_received(@selector(close));
             });
-            
+
             it(@"should NOT tell its display manager to close the ad if the user did not tap the webview", ^{
-                view.userTappedWebView = NO;
+                view.userInteractedWithWebView = NO;
                 URL = [NSURL URLWithString:@"mraid://close"];
                 [view webView:nil shouldStartLoadWithRequest:[NSURLRequest requestWithURL:URL] navigationType:UIWebViewNavigationTypeOther];
-                
+
                 adDisplayController should_not have_received(@selector(close));
             });
         });
@@ -410,27 +472,27 @@ describe(@"MRAdView", ^{
 
         context(@"when the command is 'createCalendarEvent' and the user did not tap the webview", ^{
             it(@"should NOT tell its calendar manager to create a calendar event", ^{
-                view.userTappedWebView = NO;
+                view.userInteractedWithWebView = NO;
                 URL = [NSURL URLWithString:@"mraid://createCalendarEvent?title=Great%20Day"];
                 [view webView:nil shouldStartLoadWithRequest:[NSURLRequest requestWithURL:URL] navigationType:UIWebViewNavigationTypeOther];
-                
+
                 calendarManager should_not have_received(@selector(createCalendarEventWithParameters:));
             });
         });
-        
+
         context(@"when the command is 'expand'", ^{
             it(@"should tell its display manager to expand the ad", ^{
                 URL = [NSURL URLWithString:@"mraid://expand"];
                 [view webView:nil shouldStartLoadWithRequest:[NSURLRequest requestWithURL:URL] navigationType:UIWebViewNavigationTypeOther];
-                
+
                 adDisplayController should have_received(@selector(expandToFrame:withURL:useCustomClose:isModal:shouldLockOrientation:));
             });
-            
+
             it(@"should NOT tell its display manager to expand the ad if the user did not tap the webview", ^{
-                view.userTappedWebView = NO;
+                view.userInteractedWithWebView = NO;
                 URL = [NSURL URLWithString:@"mraid://expand"];
                 [view webView:nil shouldStartLoadWithRequest:[NSURLRequest requestWithURL:URL] navigationType:UIWebViewNavigationTypeOther];
-                
+
                 adDisplayController should_not have_received(@selector(expandToFrame:withURL:useCustomClose:isModal:shouldLockOrientation:));
             });
         });
@@ -439,15 +501,15 @@ describe(@"MRAdView", ^{
             it(@"should tell the ad view to open something", ^{
                 URL = [NSURL URLWithString:@"mraid://open?url=http://www.google.com"];
                 [view webView:nil shouldStartLoadWithRequest:[NSURLRequest requestWithURL:URL] navigationType:UIWebViewNavigationTypeOther];
-                
+
                 destinationDisplayAgent should have_received(@selector(displayDestinationForURL:));
             });
-            
+
             it(@"should NOT tell the ad view to open something if the user did not tap the webview", ^{
-                view.userTappedWebView = NO;
+                view.userInteractedWithWebView = NO;
                 URL = [NSURL URLWithString:@"mraid://open?url=http://www.google.com"];
                 [view webView:nil shouldStartLoadWithRequest:[NSURLRequest requestWithURL:URL] navigationType:UIWebViewNavigationTypeOther];
-                
+
                 destinationDisplayAgent should_not have_received(@selector(displayDestinationForURL:));
             });
         });
@@ -495,14 +557,14 @@ describe(@"MRAdView", ^{
 
         context(@"when the command is 'playVideo' and the user did not tap the banner webview", ^{
             it(@"should NOT tell its video manager to play the video", ^{
-                view.userTappedWebView = NO;
+                view.userInteractedWithWebView = NO;
                 URL = [NSURL URLWithString:@"mraid://playVideo?uri=a_video"];
                 [view webView:nil shouldStartLoadWithRequest:[NSURLRequest requestWithURL:URL] navigationType:UIWebViewNavigationTypeOther];
-                
+
                 videoPlayerManager should_not have_received(@selector(playVideo:));
             });
         });
-        
+
         context(@"when the command is 'playVideo' from an interstitial", ^{
             beforeEach(^{
                 view = [[MPInstanceProvider sharedProvider] buildMRAdViewWithFrame:CGRectMake(0, 0, 320, 50)
@@ -511,34 +573,34 @@ describe(@"MRAdView", ^{
                                                                      placementType:MRAdViewPlacementTypeInterstitial
                                                                           delegate:nil];
             });
-            
+
             context(@"when the user did not click the webview", ^{
                 beforeEach(^{
-                    view.userTappedWebView = NO;
+                    view.userInteractedWithWebView = NO;
                 });
-                
+
                 it(@"should tell its video manager to play the video", ^{
                     URL = [NSURL URLWithString:@"mraid://playVideo?uri=a_video"];
                     [view webView:nil shouldStartLoadWithRequest:[NSURLRequest requestWithURL:URL] navigationType:UIWebViewNavigationTypeOther];
-                    
+
                     videoPlayerManager should have_received(@selector(playVideo:));
                 });
             });
-            
+
             context(@"when the user did click the webview", ^{
                 beforeEach(^{
-                    view.userTappedWebView = YES;
+                    view.userInteractedWithWebView = YES;
                 });
-                
+
                 it(@"should tell its video manager to play the video", ^{
                     URL = [NSURL URLWithString:@"mraid://playVideo?uri=a_video"];
                     [view webView:nil shouldStartLoadWithRequest:[NSURLRequest requestWithURL:URL] navigationType:UIWebViewNavigationTypeOther];
-                    
+
                     videoPlayerManager should have_received(@selector(playVideo:));
                 });
             });
         });
-        
+
         context(@"when the command is 'storePicture'", ^{
             beforeEach(^{
                 URL = [NSURL URLWithString:@"mraid://storePicture?uri=an_image"];
@@ -565,27 +627,27 @@ describe(@"MRAdView", ^{
 
         context(@"when the command is 'storePicture' and the user did not tap the webview", ^{
             it(@"should NOT tell its picture manager to store a picture", ^{
-                view.userTappedWebView = NO;
+                view.userInteractedWithWebView = NO;
                 URL = [NSURL URLWithString:@"mraid://storePicture?uri=an_image"];
                 [view webView:nil shouldStartLoadWithRequest:[NSURLRequest requestWithURL:URL] navigationType:UIWebViewNavigationTypeOther];
-                
+
                 pictureManager should_not have_received(@selector(storePicture:));
             });
         });
-        
+
         context(@"when the command is 'useCustomClose'", ^{
             it(@"should tell its display manager", ^{
                 URL = [NSURL URLWithString:@"mraid://usecustomclose?shouldUseCustomClose=1"];
                 [view webView:nil shouldStartLoadWithRequest:[NSURLRequest requestWithURL:URL] navigationType:UIWebViewNavigationTypeOther];
-                
+
                 adDisplayController should have_received(@selector(useCustomClose:)).with(YES);
             });
-            
+
             it(@"should tell its display manager even if the user did not tap the webview", ^{
-                view.userTappedWebView = NO;
+                view.userInteractedWithWebView = NO;
                 URL = [NSURL URLWithString:@"mraid://usecustomclose?shouldUseCustomClose=1"];
                 [view webView:nil shouldStartLoadWithRequest:[NSURLRequest requestWithURL:URL] navigationType:UIWebViewNavigationTypeOther];
-                
+
                 adDisplayController should have_received(@selector(useCustomClose:)).with(YES);
             });
         });

@@ -144,13 +144,13 @@
 
 - (FakeMPTimer *)lastFakeMPTimerWithSelector:(SEL)selector
 {
-    int numTimers = [self.fakeTimers count];
-    for (int i = numTimers - 1; i >= 0; i--) {
+    NSUInteger numTimers = [self.fakeTimers count];
+    for (NSInteger i = numTimers - 1; i >= 0; i--) {
         if ([self.fakeTimers[i] selector] == selector) {
             return self.fakeTimers[i];
         }
     }
-    
+
     return nil;
 }
 

@@ -22,9 +22,9 @@ describe(@"MPGoogleAdMobIntegrationSuite", ^{
         delegate = nice_fake_for(@protocol(MPInterstitialAdControllerDelegate));
 
         interstitial = [MPInterstitialAdController interstitialAdControllerForAdUnitId:@"admob_interstitial"];
-        interstitial.location = [[[CLLocation alloc] initWithCoordinate:CLLocationCoordinate2DMake(37.1, 21.2)
+        interstitial.location = [[[CLLocation alloc] initWithCoordinate:CLLocationCoordinate2DMake(37.1f, 21.2f)
                                                                altitude:11
-                                                     horizontalAccuracy:12.3
+                                                     horizontalAccuracy:12.3f
                                                        verticalAccuracy:10
                                                               timestamp:[NSDate date]] autorelease];
         interstitial.delegate = delegate;

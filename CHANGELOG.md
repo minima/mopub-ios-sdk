@@ -1,3 +1,12 @@
+## Version 2.3 (July 17th, 2014)
+
+  - MoPub base SDK is now 64-bit compatible (Please check mediated networks for 64-bit support)
+  - Certified support for InMobi 4.4.1, Greystripe/Conversant 4.3, and AdMob 6.9.3
+  - Additional measures to prevent autoloading deep-links without user interaction for banners
+  - Bug fixes
+    - A cached Millennial Media interstitial will be correctly loaded
+    - Fixed crash if the close button is quickly tapped after tapping an MRAID interstitial
+
 ## Version 2.2 (June 19th, 2014)
 
   - **Native ads mediation**: integration instructions and documentation are available on the [GitHub wiki](https://github.com/mopub/mopub-ios-sdk/wiki/Integrating-Native-Third-Party-Ad-Networks). Facebook and InMobi native ads may be mediated using the MoPub SDK.

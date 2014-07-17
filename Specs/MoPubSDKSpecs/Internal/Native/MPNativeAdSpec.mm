@@ -77,22 +77,22 @@ describe(@"MPNativeAd", ^{
 
             it(@"should return a nil star rating object if the backing ad does not provide a value", ^{
                 fakeadAdapter stub_method("properties").and_return(@{});
-                starRatingFakeAd.starRating should equal(nil);
+                starRatingFakeAd.starRating should be_nil;
             });
 
             it(@"should return a nil star rating object if the backing ad does not provide an NSNumber as the value", ^{
                 fakeadAdapter stub_method("properties").and_return(@{@"starrating":@[@"hello"]});
-                starRatingFakeAd.starRating should equal(nil);
+                starRatingFakeAd.starRating should be_nil;
             });
 
             it(@"should return a nil star rating object if the backing ad provides a value that's over the maximum", ^{
                 fakeadAdapter stub_method("properties").and_return(@{@"starrating":@6.0f});
-                starRatingFakeAd.starRating should equal(nil);
+                starRatingFakeAd.starRating should be_nil;
             });
 
             it(@"should return a nil star rating object if the backing ad provides a value that's less than the minimum", ^{
                 fakeadAdapter stub_method("properties").and_return(@{@"starrating":@-1.34f});
-                starRatingFakeAd.starRating should equal(nil);
+                starRatingFakeAd.starRating should be_nil;
             });
         });
     });

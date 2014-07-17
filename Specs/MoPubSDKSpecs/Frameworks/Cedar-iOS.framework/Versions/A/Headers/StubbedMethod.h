@@ -10,6 +10,7 @@ namespace Cedar { namespace Doubles {
     class StubbedMethod : private InvocationMatcher {
     private:
         typedef void (^invocation_block_t)(NSInvocation *);
+        typedef id implementation_block_t;
 
     private:
         StubbedMethod & operator=(const StubbedMethod &);
@@ -22,6 +23,7 @@ namespace Cedar { namespace Doubles {
 
         template<typename T>
         StubbedMethod & and_return(const T &);
+        StubbedMethod & and_do_block(implementation_block_t block);
         StubbedMethod & and_do(invocation_block_t);
 
         StubbedMethod & with(const Argument::shared_ptr_t argument);
@@ -39,7 +41,7 @@ namespace Cedar { namespace Doubles {
         StubbedMethod & and_raise_exception();
         StubbedMethod & and_raise_exception(NSObject * exception);
 
-        Argument & return_value() const { return *return_value_argument_; };
+        ReturnValue & return_value() const { return *return_value_; };
 
         struct SelCompare {
             bool operator() (const SEL& lhs, const SEL& rhs) const {
@@ -52,32 +54,40 @@ namespace Cedar { namespace Doubles {
 
         const SEL selector() const;
         bool matches_arguments(const StubbedMethod &) const;
+        bool arguments_equal(const StubbedMethod &) const;
         bool matches(NSInvocation * const invocation) const;
-        bool contains_anything_argument() const;
         bool invoke(NSInvocation * invocation) const;
         void validate_against_instance(id instance) const;
         NSString *arguments_string() const;
+        unsigned int arguments_specificity_ranking() const;
 
     private:
-        bool has_return_value() const { return return_value_argument_.get(); };
+        bool has_return_value() const { return return_value_.get(); };
         bool has_invocation_block() const { return invocation_block_; }
+        bool has_implementation_block() const { return implementation_block_; }
 
+        void verify_return_value_type(id instance) const;
+        void verify_implementation_block_return_type(id instance) const;
+        void verify_implementation_block_arguments(id instance) const;
+
+        void raise_for_multiple_return_values() const;
+        void raise_for_multiple_blocks() const;
     private:
-        Argument::shared_ptr_t return_value_argument_;
+        ReturnValue::shared_ptr_t return_value_;
         invocation_block_t invocation_block_;
+        implementation_block_t implementation_block_;
         NSObject * exception_to_raise_;
     };
 
     template<typename T>
     StubbedMethod & StubbedMethod::and_return(const T & return_value) {
         if (this->has_invocation_block()) {
-            NSString * selectorString = NSStringFromSelector(this->selector());
-            [[NSException exceptionWithName:NSInternalInconsistencyException
-                                     reason:[NSString stringWithFormat:@"Multiple return values specified for <%@>", selectorString]
-                                   userInfo:nil] raise];
+            this->raise_for_multiple_return_values();
+        } else if (this->has_implementation_block()) {
+            this->raise_for_multiple_return_values();
         }
 
-        return_value_argument_ = Argument::shared_ptr_t(new ReturnValue<T>(return_value));
+        return_value_ = ReturnValue::shared_ptr_t(new TypedReturnValue<T>(return_value));
         return *this;
     }
 

@@ -51,7 +51,7 @@ describe(@"MPMillennialBannerCustomEvent", ^{
             aNewEvent.delegate = delegate;
 
             // Shouldn't allow the completion block to retain the custom event...
-            int retainCount = aNewEvent.retainCount;
+            NSUInteger retainCount = aNewEvent.retainCount;
             [aNewEvent requestAdWithSize:CGSizeZero customEventInfo:customEventInfo];
             aNewEvent.retainCount should equal(retainCount);
             [aNewEvent release]; //now it's gone

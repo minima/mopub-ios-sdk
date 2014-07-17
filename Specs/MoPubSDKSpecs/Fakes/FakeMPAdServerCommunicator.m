@@ -9,6 +9,8 @@
 
 @implementation FakeMPAdServerCommunicator
 
+@synthesize loading;
+
 - (void)loadURL:(NSURL *)URL
 {
     self.loading = YES;

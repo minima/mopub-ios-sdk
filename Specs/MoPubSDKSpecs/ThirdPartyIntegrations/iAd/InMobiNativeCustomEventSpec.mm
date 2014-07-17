@@ -10,11 +10,11 @@ using namespace Cedar::Doubles;
 SPEC_BEGIN(InMobiNativeCustomEventSpec)
 
 describe(@"InMobiNativeCustomEvent", ^{
-    NSDictionary *validInfo = @{@"app_id" : @"5d6694314fbe4ddb804eab8eb4ad6693"};
+    NSDictionary *validInfo = @{@"app_id" : @"b15abe4c93a84f59a65faceca30c9591"};
     __block id<CedarDouble, MPNativeCustomEventDelegate> delegate;
     __block InMobiNativeCustomEvent *customEvent;
 
-    [InMobi initialize:@"5d6694314fbe4ddb804eab8eb4ad6693"];
+    [InMobi initialize:@"b15abe4c93a84f59a65faceca30c9591"];
     [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:1.0]];
 
     beforeEach(^{

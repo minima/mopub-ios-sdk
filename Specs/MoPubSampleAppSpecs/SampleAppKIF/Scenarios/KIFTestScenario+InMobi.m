@@ -15,7 +15,7 @@
 
 + (KIFTestScenario *)scenarioForInMobiBanner
 {
-    [InMobi initialize:@"5d6694314fbe4ddb804eab8eb4ad6693"];
+    [InMobi initialize:@"c8e9d75780cd439cad91d5def5200d25"];
 
     KIFTestScenario *scenario = [MPSampleAppTestScenario scenarioWithDescription:@"Test that an InMobi Banner ad works."];
     NSIndexPath *indexPath = [MPAdSection indexPathForAd:@"InMobi Banner" inSection:@"Banner Ads"];
@@ -35,7 +35,7 @@
 
 + (KIFTestScenario *)scenarioForInMobiInterstitial
 {
-    [InMobi initialize:@"5d6694314fbe4ddb804eab8eb4ad6693"];
+    [InMobi initialize:@"c8e9d75780cd439cad91d5def5200d25"];
 
     KIFTestScenario *scenario = [MPSampleAppTestScenario scenarioWithDescription:@"Test that an InMobi interstitial ad works."];
     NSIndexPath *indexPath = [MPAdSection indexPathForAd:@"InMobi Interstitial" inSection:@"Interstitial Ads"];

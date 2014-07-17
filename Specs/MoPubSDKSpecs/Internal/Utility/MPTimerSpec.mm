@@ -40,7 +40,7 @@ describe(@"MPTimer", ^{
     describe(@"memory concerns", ^{
         it(@"should not retain its target when scheduled", ^{
             NSObject *target = [[[NSObject alloc] init] autorelease];
-            int initialRetainCount = target.retainCount;
+            NSUInteger initialRetainCount = target.retainCount;
 
             timer = [MPTimer timerWithTimeInterval:interval target:target selector:@selector(description) repeats:NO];
             [timer scheduleNow];

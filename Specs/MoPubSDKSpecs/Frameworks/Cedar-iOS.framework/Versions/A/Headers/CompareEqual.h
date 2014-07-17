@@ -14,7 +14,7 @@ namespace Cedar { namespace Matchers { namespace Comparators {
 
 #pragma mark NSNumber
     inline bool compare_equal(NSNumber * const actualValue, NSNumber * const expectedValue) {
-        return [actualValue isEqualToNumber:expectedValue];
+        return expectedValue ? [actualValue isEqualToNumber:expectedValue] : false;
     }
 
     inline bool compare_equal(NSNumber * const actualValue, const id expectedValue) {
@@ -146,5 +146,11 @@ namespace Cedar { namespace Matchers { namespace Comparators {
     template<typename U>
     bool compare_equal(const char *actualValue, const U & expectedValue) {
         return strcmp(actualValue, expectedValue) == 0;
+    }
+
+#pragma mark NSRange
+    template<typename U>
+    bool compare_equal(NSRange const actualValue, const U & expectedValue) {
+        return NSEqualRanges(actualValue, expectedValue);
     }
 }}}

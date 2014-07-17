@@ -61,7 +61,14 @@ describe(@"MPProgressOverlayView", ^{
 
         it(@"should rotate its subviews according to the current interface orientation", ^{
             // Don't use animation, since there's already a fade animation occurring as part of the presentation.
-            overlay.closeButton.transform should equal(CGAffineTransformMakeRotation(-M_PI_2));
+            CGAffineTransform transform = CGAffineTransformMakeRotation(-M_PI_2);
+            overlay.closeButton.transform.a should be_close_to(transform.a);
+            overlay.closeButton.transform.b should be_close_to(transform.b);
+            overlay.closeButton.transform.c should be_close_to(transform.c);
+            overlay.closeButton.transform.d should be_close_to(transform.d);
+            overlay.closeButton.transform.tx should be_close_to(transform.tx);
+            overlay.closeButton.transform.ty should be_close_to(transform.ty);
+
         });
     });
 

@@ -17,6 +17,12 @@ using namespace Cedar::Doubles;
 - (void)mySassyMethod;
 @end
 
+@interface MPAdWebViewAgent ()
+
+@property (nonatomic, assign) BOOL userInteractedWithWebView;
+
+@end
+
 SPEC_BEGIN(MPAdWebViewAgentSpec)
 
 describe(@"MPAdWebViewAgent", ^{
@@ -27,11 +33,11 @@ describe(@"MPAdWebViewAgent", ^{
     __block MPAdWebView *webView;
     __block MPAdDestinationDisplayAgent *destinationDisplayAgent;
     __block FakeMPAdAlertManager *fakeAdAlertManager;
-    
+
     beforeEach(^{
         fakeAdAlertManager = [[[FakeMPAdAlertManager alloc] init] autorelease];
         fakeCoreProvider.fakeAdAlertManager = fakeAdAlertManager;
-        
+
         delegate = nice_fake_for(@protocol(MPAdWebViewAgentDelegate));
 
         destinationDisplayAgent = nice_fake_for([MPAdDestinationDisplayAgent class]);
@@ -41,6 +47,7 @@ describe(@"MPAdWebViewAgent", ^{
                                                          delegate:delegate
                                              customMethodDelegate:nil] autorelease];
         webView = agent.view;
+        agent.userInteractedWithWebView = YES;
         bannerConfiguration = [MPAdConfigurationFactory defaultBannerConfiguration];
         interstitialConfiguration = [MPAdConfigurationFactory defaultInterstitialConfiguration];
     });
@@ -51,14 +58,14 @@ describe(@"MPAdWebViewAgent", ^{
                 interstitialConfiguration.preferredSize = CGSizeMake(123, 123);
                 [agent loadConfiguration:interstitialConfiguration];
             });
-            
+
             it(@"should ignore the frame size", ^{
                 agent.view.frame.size.width should equal(30);
                 agent.view.frame.size.height should equal(20);
             });
         });
     });
-    
+
     describe(@"when the configuration is loaded", ^{
         subjectAction(^{ [agent loadConfiguration:bannerConfiguration]; });
 
@@ -109,18 +116,18 @@ describe(@"MPAdWebViewAgent", ^{
                 agent.view.loadedHTMLString should equal(@"Publisher's Ad");
             });
         });
-        
+
         describe(@"initializing the ad alert manager", ^{
             it(@"should be the delegate of the ad alert manager", ^{
                 fakeAdAlertManager.delegate should equal((id<MPAdAlertManagerDelegate>)agent);
             });
         });
-        
+
         describe(@"javascript dialog disabled", ^{
             it(@"should have executed the dialog disabling javascript", ^{
                 NSArray *executedJS = [agent.view executedJavaScripts];
                 executedJS.count should equal(1);
-                
+
                 NSString *dialogDisableJS = [executedJS objectAtIndex:0];
                 dialogDisableJS should equal(kJavaScriptDisableDialogSnippet);
             });
@@ -165,7 +172,7 @@ describe(@"MPAdWebViewAgent", ^{
 
         context(@"when told to stop handling requests", ^{
             beforeEach(^{
-                [agent stopHandlingRequests];
+                [agent disableRequestHandling];
                 URL = [NSURL URLWithString:@"mopub://close"];
             });
 
@@ -180,7 +187,7 @@ describe(@"MPAdWebViewAgent", ^{
 
             context(@"when told to continue handling requests", ^{
                 it(@"should load things again", ^{
-                    [agent continueHandlingRequests];
+                    [agent enableRequestHandling];
                     [agent webView:agent.view shouldStartLoadWithRequest:[NSURLRequest requestWithURL:URL] navigationType:UIWebViewNavigationTypeOther] should equal(NO);
                     delegate should have_received(@selector(adDidClose:)).with(agent.view);
                 });
@@ -254,6 +261,28 @@ describe(@"MPAdWebViewAgent", ^{
                 it(@"should not blow up and prevent the web view from handling the URL", ^{
                     [agent webView:agent.view shouldStartLoadWithRequest:[NSURLRequest requestWithURL:URL] navigationType:UIWebViewNavigationTypeOther] should equal(NO);
                 });
+            });
+        });
+
+        context(@"when loading a deeplink", ^{
+            beforeEach(^{
+                URL = [NSURL URLWithString:@"dontgohere://noway.com"];
+            });
+
+            it(@"should not load the deeplink without user interaction", ^{
+                agent.userInteractedWithWebView = NO;
+                [agent webView:nil shouldStartLoadWithRequest:[NSURLRequest requestWithURL:URL] navigationType:UIWebViewNavigationTypeOther] should equal(NO);
+            });
+
+            it(@"should load the deeplink with user interaction", ^{
+                agent.userInteractedWithWebView = YES;
+                [agent webView:nil shouldStartLoadWithRequest:[NSURLRequest requestWithURL:URL] navigationType:UIWebViewNavigationTypeOther] should equal(YES);
+            });
+
+            it(@"should load about scheme without user interaction", ^{
+                agent.userInteractedWithWebView = NO;
+                URL = [NSURL URLWithString:@"about:blahblahblah"];
+                [agent webView:nil shouldStartLoadWithRequest:[NSURLRequest requestWithURL:URL] navigationType:UIWebViewNavigationTypeOther] should equal(YES);
             });
         });
 

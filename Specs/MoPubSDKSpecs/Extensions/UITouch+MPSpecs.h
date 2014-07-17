@@ -10,7 +10,8 @@
 @interface UITouch (MPSpecs)
 
 - (id)initInView:(UIView *)view atPoint:(CGPoint)point;
-- (void)changeToPhase:(UITouchPhase)phase;
+- (id)initInView:(UIView *)view;
 - (void)setLocationInWindow:(CGPoint)location;
+- (void)changeToPhase:(UITouchPhase)phase;
 
 @end

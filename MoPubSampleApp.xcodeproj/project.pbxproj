@@ -35,6 +35,9 @@
 		46B9E8B017E0D7F600B78D11 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46B9E8AF17E0D7F600B78D11 /* AVFoundation.framework */; };
 		46B9E8B217E0D80400B78D11 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46B9E8B117E0D80400B78D11 /* MessageUI.framework */; };
 		46B9E8B317E0D81200B78D11 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE10920B170120E700812E6E /* Security.framework */; };
+		46BB95A6195B5FEA00DF46B6 /* MPUserInteractionGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 46BB95A5195B5FEA00DF46B6 /* MPUserInteractionGestureRecognizer.m */; };
+		46BB95A7195B5FEA00DF46B6 /* MPUserInteractionGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 46BB95A5195B5FEA00DF46B6 /* MPUserInteractionGestureRecognizer.m */; };
+		46BB95A8195B5FEA00DF46B6 /* MPUserInteractionGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 46BB95A5195B5FEA00DF46B6 /* MPUserInteractionGestureRecognizer.m */; };
 		46DA87B1185010DD00F34858 /* MPAdEntryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46DA87AF185010DD00F34858 /* MPAdEntryViewController.m */; };
 		46DA87B2185010DD00F34858 /* MPAdEntryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46DA87AF185010DD00F34858 /* MPAdEntryViewController.m */; };
 		46DA87B3185010DD00F34858 /* MPAdEntryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46DA87AF185010DD00F34858 /* MPAdEntryViewController.m */; };
@@ -55,7 +58,8 @@
 		4A2E214219368E02004A7899 /* MPNativeCustomEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A2E213D19368E02004A7899 /* MPNativeCustomEvent.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		4A31AAC818C55AF60073CB40 /* MPDiskLRUCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A31AAB418C55AF60073CB40 /* MPDiskLRUCache.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		4A31AAC918C55AF60073CB40 /* MPImageDownloadQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A31AAB618C55AF60073CB40 /* MPImageDownloadQueue.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		4A3E49E01950BD2D0014EEAB /* libInMobi-4.1.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A3E49DF1950BD2D0014EEAB /* libInMobi-4.1.0.a */; };
+		4A3CB2EF19749F3A00160D24 /* libInMobi-4.4.1.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A3CB2EE19749F3A00160D24 /* libInMobi-4.4.1.a */; };
+		4A42528E1959017B00175808 /* libGreystripeSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A42528D1959017B00175808 /* libGreystripeSDK.a */; };
 		4A5D627918D1032D00D10C26 /* MPCoreInstanceProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A5D627818D1032D00D10C26 /* MPCoreInstanceProvider.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		4A5E30F718D3D1CF00662306 /* NSJSONSerialization+MPAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A71897618D26C700056F068 /* NSJSONSerialization+MPAdditions.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		4A6FC1F718C561B3007A1197 /* MPNativeAdDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6FC1F518C561B3007A1197 /* MPNativeAdDetailViewController.m */; };
@@ -398,7 +402,6 @@
 		AE9029E7171F54B200991DF9 /* libUIKit+PivotalSpecHelper-StaticLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AE902933171F512F00991DF9 /* libUIKit+PivotalSpecHelper-StaticLib.a */; };
 		AE902A2B171F558800991DF9 /* libChartboost.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AE9029EF171F556A00991DF9 /* libChartboost.a */; };
 		AE902A2C171F558800991DF9 /* libGoogleAdMobAds.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AE9029FF171F556A00991DF9 /* libGoogleAdMobAds.a */; };
-		AE902A2D171F558800991DF9 /* libGreystripeSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AE902A0E171F556A00991DF9 /* libGreystripeSDK.a */; };
 		AE902A33171F559400991DF9 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE902A31171F559400991DF9 /* AddressBook.framework */; };
 		AE902A34171F559400991DF9 /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE902A32171F559400991DF9 /* AddressBookUI.framework */; };
 		AE902A37171F559B00991DF9 /* EventKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE902A35171F559B00991DF9 /* EventKit.framework */; };
@@ -617,6 +620,8 @@
 		46B9E8AD17E0D7EE00B78D11 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		46B9E8AF17E0D7F600B78D11 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		46B9E8B117E0D80400B78D11 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
+		46BB95A4195B5FEA00DF46B6 /* MPUserInteractionGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPUserInteractionGestureRecognizer.h; sourceTree = "<group>"; };
+		46BB95A5195B5FEA00DF46B6 /* MPUserInteractionGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPUserInteractionGestureRecognizer.m; sourceTree = "<group>"; };
 		46DA87AE185010DD00F34858 /* MPAdEntryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPAdEntryViewController.h; sourceTree = "<group>"; };
 		46DA87AF185010DD00F34858 /* MPAdEntryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPAdEntryViewController.m; sourceTree = "<group>"; };
 		46DA87B0185010DD00F34858 /* MPAdEntryViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MPAdEntryViewController.xib; sourceTree = "<group>"; };
@@ -640,8 +645,16 @@
 		4A31AAB418C55AF60073CB40 /* MPDiskLRUCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPDiskLRUCache.m; sourceTree = "<group>"; };
 		4A31AAB518C55AF60073CB40 /* MPImageDownloadQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPImageDownloadQueue.h; sourceTree = "<group>"; };
 		4A31AAB618C55AF60073CB40 /* MPImageDownloadQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPImageDownloadQueue.m; sourceTree = "<group>"; };
-		4A3E49DF1950BD2D0014EEAB /* libInMobi-4.1.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libInMobi-4.1.0.a"; path = "AdNetworkSupport/InMobi/SDK/libInMobi-4.1.0.a"; sourceTree = "<group>"; };
-		4A3E4A3119538BA10014EEAB /* libInMobi-4.1.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libInMobi-4.1.0.a"; sourceTree = "<group>"; };
+		4A3CB2EE19749F3A00160D24 /* libInMobi-4.4.1.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libInMobi-4.4.1.a"; path = "AdNetworkSupport/InMobi/SDK/libInMobi-4.4.1.a"; sourceTree = "<group>"; };
+		4A4252851959017B00175808 /* GSAd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSAd.h; sourceTree = "<group>"; };
+		4A4252861959017B00175808 /* GSAdDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSAdDelegate.h; sourceTree = "<group>"; };
+		4A4252871959017B00175808 /* GSBannerAdView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSBannerAdView.h; sourceTree = "<group>"; };
+		4A4252881959017B00175808 /* GSFullscreenAd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSFullscreenAd.h; sourceTree = "<group>"; };
+		4A4252891959017B00175808 /* GSLeaderboardAdView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSLeaderboardAdView.h; sourceTree = "<group>"; };
+		4A42528A1959017B00175808 /* GSMediumRectangleAdView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSMediumRectangleAdView.h; sourceTree = "<group>"; };
+		4A42528B1959017B00175808 /* GSMobileBannerAdView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSMobileBannerAdView.h; sourceTree = "<group>"; };
+		4A42528C1959017B00175808 /* GSSDKInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSSDKInfo.h; sourceTree = "<group>"; };
+		4A42528D1959017B00175808 /* libGreystripeSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libGreystripeSDK.a; sourceTree = "<group>"; };
 		4A5D627718D1032D00D10C26 /* MPCoreInstanceProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPCoreInstanceProvider.h; sourceTree = "<group>"; };
 		4A5D627818D1032D00D10C26 /* MPCoreInstanceProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPCoreInstanceProvider.m; sourceTree = "<group>"; };
 		4A6FC1F418C561B3007A1197 /* MPNativeAdDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPNativeAdDetailViewController.h; sourceTree = "<group>"; };
@@ -678,6 +691,9 @@
 		4AA4EDE51946275B00B6F916 /* InMobiNativeCustomEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InMobiNativeCustomEvent.m; sourceTree = "<group>"; };
 		4AB3DBAC18C68E3100FBBE10 /* KIFTestScenario+Native.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "KIFTestScenario+Native.h"; sourceTree = "<group>"; };
 		4AB3DBAD18C68E3100FBBE10 /* KIFTestScenario+Native.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "KIFTestScenario+Native.m"; sourceTree = "<group>"; };
+		4AB4BCE91974BB9000BD9F76 /* libInMobi-4.4.1.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libInMobi-4.4.1.a"; sourceTree = "<group>"; };
+		4AB6637F19638C9100ACDABE /* IMConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMConstants.h; sourceTree = "<group>"; };
+		4AB6638019638C9100ACDABE /* IMIncentivisedDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMIncentivisedDelegate.h; sourceTree = "<group>"; };
 		4AD1E8AE18F36D39000D1753 /* MPNativeAdView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPNativeAdView.h; sourceTree = "<group>"; };
 		4AD1E8AF18F36D39000D1753 /* MPNativeAdView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPNativeAdView.m; sourceTree = "<group>"; };
 		4AE140531947A3BC0064B20F /* KIFTestStep+StoreKitScenario.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "KIFTestStep+StoreKitScenario.h"; sourceTree = "<group>"; };
@@ -962,14 +978,6 @@
 		AE902A02171F556A00991DF9 /* GreystripeBannerCustomEvent.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GreystripeBannerCustomEvent.m; sourceTree = "<group>"; };
 		AE902A03171F556A00991DF9 /* GreystripeInterstitialCustomEvent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GreystripeInterstitialCustomEvent.h; sourceTree = "<group>"; };
 		AE902A04171F556A00991DF9 /* GreystripeInterstitialCustomEvent.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GreystripeInterstitialCustomEvent.m; sourceTree = "<group>"; };
-		AE902A06171F556A00991DF9 /* GSAd.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GSAd.h; sourceTree = "<group>"; };
-		AE902A07171F556A00991DF9 /* GSAdDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GSAdDelegate.h; sourceTree = "<group>"; };
-		AE902A08171F556A00991DF9 /* GSBannerAdView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GSBannerAdView.h; sourceTree = "<group>"; };
-		AE902A09171F556A00991DF9 /* GSFullscreenAd.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GSFullscreenAd.h; sourceTree = "<group>"; };
-		AE902A0A171F556A00991DF9 /* GSLeaderboardAdView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GSLeaderboardAdView.h; sourceTree = "<group>"; };
-		AE902A0B171F556A00991DF9 /* GSMediumRectangleAdView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GSMediumRectangleAdView.h; sourceTree = "<group>"; };
-		AE902A0C171F556A00991DF9 /* GSMobileBannerAdView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GSMobileBannerAdView.h; sourceTree = "<group>"; };
-		AE902A0E171F556A00991DF9 /* libGreystripeSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libGreystripeSDK.a; sourceTree = "<group>"; };
 		AE902A10171F556A00991DF9 /* MPiAdBannerCustomEvent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MPiAdBannerCustomEvent.h; sourceTree = "<group>"; };
 		AE902A11171F556A00991DF9 /* MPiAdBannerCustomEvent.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MPiAdBannerCustomEvent.m; sourceTree = "<group>"; };
 		AE902A12171F556A00991DF9 /* MPiAdInterstitialCustomEvent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MPiAdInterstitialCustomEvent.h; sourceTree = "<group>"; };
@@ -989,7 +997,6 @@
 		AE902A39171F559F00991DF9 /* PassKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PassKit.framework; path = System/Library/Frameworks/PassKit.framework; sourceTree = SDKROOT; };
 		AE902A3B171F55A900991DF9 /* Twitter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Twitter.framework; path = System/Library/Frameworks/Twitter.framework; sourceTree = SDKROOT; };
 		AE902A3D171F55AE00991DF9 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
-		AE902A5F171F645200991DF9 /* GSConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GSConstants.h; sourceTree = "<group>"; };
 		AED7D8EC177CF68500CC0CEF /* KIFTestScenario+MRAID.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "KIFTestScenario+MRAID.h"; sourceTree = "<group>"; };
 		AED7D8ED177CF68500CC0CEF /* KIFTestScenario+MRAID.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "KIFTestScenario+MRAID.m"; sourceTree = "<group>"; };
 		AED9E45916F78D7300EA71A7 /* SampleAppSpecs.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SampleAppSpecs.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1081,7 +1088,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4A3E49E01950BD2D0014EEAB /* libInMobi-4.1.0.a in Frameworks */,
+				4A3CB2EF19749F3A00160D24 /* libInMobi-4.4.1.a in Frameworks */,
 				46E5044018035A26006A2FC3 /* CoreMedia.framework in Frameworks */,
 				46E5043E18035A19006A2FC3 /* CoreLocation.framework in Frameworks */,
 				4614B3F517E8D01E00812D2C /* CFNetwork.framework in Frameworks */,
@@ -1098,7 +1105,6 @@
 				AE902A2B171F558800991DF9 /* libChartboost.a in Frameworks */,
 				4605ECE8191968A500FC87DC /* MillennialMedia.framework in Frameworks */,
 				AE902A2C171F558800991DF9 /* libGoogleAdMobAds.a in Frameworks */,
-				AE902A2D171F558800991DF9 /* libGreystripeSDK.a in Frameworks */,
 				AED9E4FA16F7B8A600EA71A7 /* StoreKit.framework in Frameworks */,
 				AED9E4FB16F7B8A600EA71A7 /* AdSupport.framework in Frameworks */,
 				AED9E4FD16F7B8A600EA71A7 /* UIKit.framework in Frameworks */,
@@ -1116,6 +1122,7 @@
 				AEEA5E6916F940EC003D48F4 /* iAd.framework in Frameworks */,
 				AE109210170120E700812E6E /* CoreTelephony.framework in Frameworks */,
 				AE109213170120E700812E6E /* Security.framework in Frameworks */,
+				4A42528E1959017B00175808 /* libGreystripeSDK.a in Frameworks */,
 				AE109216170120E700812E6E /* libz.dylib in Frameworks */,
 				AE109219170120E700812E6E /* libsqlite3.dylib in Frameworks */,
 			);
@@ -1469,6 +1476,8 @@
 				AE14F98D1773BA1100ABF744 /* MPStoreKitProvider.m */,
 				AE14F98E1773BA1100ABF744 /* MPTimer.h */,
 				AE14F98F1773BA1100ABF744 /* MPTimer.m */,
+				46BB95A4195B5FEA00DF46B6 /* MPUserInteractionGestureRecognizer.h */,
+				46BB95A5195B5FEA00DF46B6 /* MPUserInteractionGestureRecognizer.m */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -1526,7 +1535,7 @@
 		AE23239116F78A17002C2082 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				4A3E49DF1950BD2D0014EEAB /* libInMobi-4.1.0.a */,
+				4A3CB2EE19749F3A00160D24 /* libInMobi-4.4.1.a */,
 				46E5043F18035A26006A2FC3 /* CoreMedia.framework */,
 				4614B3F417E8D01D00812D2C /* CFNetwork.framework */,
 				46B9E8B117E0D80400B78D11 /* MessageUI.framework */,
@@ -1885,15 +1894,15 @@
 		AE902A05171F556A00991DF9 /* SDK */ = {
 			isa = PBXGroup;
 			children = (
-				AE902A06171F556A00991DF9 /* GSAd.h */,
-				AE902A07171F556A00991DF9 /* GSAdDelegate.h */,
-				AE902A08171F556A00991DF9 /* GSBannerAdView.h */,
-				AE902A09171F556A00991DF9 /* GSFullscreenAd.h */,
-				AE902A0A171F556A00991DF9 /* GSLeaderboardAdView.h */,
-				AE902A0B171F556A00991DF9 /* GSMediumRectangleAdView.h */,
-				AE902A0C171F556A00991DF9 /* GSMobileBannerAdView.h */,
-				AE902A5F171F645200991DF9 /* GSConstants.h */,
-				AE902A0E171F556A00991DF9 /* libGreystripeSDK.a */,
+				4A4252851959017B00175808 /* GSAd.h */,
+				4A4252861959017B00175808 /* GSAdDelegate.h */,
+				4A4252871959017B00175808 /* GSBannerAdView.h */,
+				4A4252881959017B00175808 /* GSFullscreenAd.h */,
+				4A4252891959017B00175808 /* GSLeaderboardAdView.h */,
+				4A42528A1959017B00175808 /* GSMediumRectangleAdView.h */,
+				4A42528B1959017B00175808 /* GSMobileBannerAdView.h */,
+				4A42528C1959017B00175808 /* GSSDKInfo.h */,
+				4A42528D1959017B00175808 /* libGreystripeSDK.a */,
 			);
 			path = SDK;
 			sourceTree = "<group>";
@@ -1928,7 +1937,9 @@
 		AE902A19171F556A00991DF9 /* SDK */ = {
 			isa = PBXGroup;
 			children = (
-				4A3E4A3119538BA10014EEAB /* libInMobi-4.1.0.a */,
+				4AB4BCE91974BB9000BD9F76 /* libInMobi-4.4.1.a */,
+				4AB6637F19638C9100ACDABE /* IMConstants.h */,
+				4AB6638019638C9100ACDABE /* IMIncentivisedDelegate.h */,
 				4AF54BA3194B6EDA0093F714 /* IMBanner.h */,
 				4AF54BA4194B6EDA0093F714 /* IMBannerDelegate.h */,
 				4AF54BA6194B6EDA0093F714 /* IMError.h */,
@@ -2369,6 +2380,7 @@
 				4A97544C18FC8C4C00C19F10 /* MPTableViewCellImpressionTracker.m in Sources */,
 				AE14FA281773BA1100ABF744 /* MPStoreKitProvider.m in Sources */,
 				57F8BB23193E3A09006D36F0 /* MPMoPubNativeAdAdapter.m in Sources */,
+				46BB95A6195B5FEA00DF46B6 /* MPUserInteractionGestureRecognizer.m in Sources */,
 				AE14FA2B1773BA1100ABF744 /* MPTimer.m in Sources */,
 				AE14FA2E1773BA1100ABF744 /* MPAdConversionTracker.m in Sources */,
 				AE14FA311773BA1100ABF744 /* MPAdView.m in Sources */,
@@ -2434,6 +2446,7 @@
 				AE14F9A81773BA1100ABF744 /* MPBaseBannerAdapter.m in Sources */,
 				AE14F9AB1773BA1100ABF744 /* MPLegacyBannerCustomEventAdapter.m in Sources */,
 				AE14F9AE1773BA1100ABF744 /* MPAdBrowserController.m in Sources */,
+				46BB95A7195B5FEA00DF46B6 /* MPUserInteractionGestureRecognizer.m in Sources */,
 				AE14F9B41773BA1100ABF744 /* MPAdConfiguration.m in Sources */,
 				AE14F9B71773BA1100ABF744 /* MPAdDestinationDisplayAgent.m in Sources */,
 				AE14F9BA1773BA1100ABF744 /* MPAdServerCommunicator.m in Sources */,
@@ -2550,6 +2563,7 @@
 				57292A121946301A00E6586C /* MPNativeAdConstants.m in Sources */,
 				57F8BB25193E3A17006D36F0 /* MPMoPubNativeAdAdapter.m in Sources */,
 				AE9BC1D51720803A005E4CFF /* GreystripeBannerCustomEvent.m in Sources */,
+				46BB95A8195B5FEA00DF46B6 /* MPUserInteractionGestureRecognizer.m in Sources */,
 				AE9BC1D61720803A005E4CFF /* GreystripeInterstitialCustomEvent.m in Sources */,
 				AE9BC1D71720803A005E4CFF /* MPiAdBannerCustomEvent.m in Sources */,
 				AE9BC1D81720803A005E4CFF /* MPiAdInterstitialCustomEvent.m in Sources */,
@@ -2753,11 +2767,7 @@
 		AE2323AD16F78A17002C2082 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/AdNetworkSupport/Facebook/SDK",
-					"/Users/kelceyc/Documents/mopub-ios/AdNetworkSupport/Facebook/SDK",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MoPubSampleApp/MoPubSampleApp-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
@@ -2777,11 +2787,7 @@
 		AE2323AE16F78A17002C2082 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/AdNetworkSupport/Facebook/SDK",
-					"/Users/kelceyc/Documents/mopub-ios/AdNetworkSupport/Facebook/SDK",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MoPubSampleApp/MoPubSampleApp-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
@@ -2865,7 +2871,7 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/AdNetworkSupport/Millennial/SDK\"",
 					"\"$(SRCROOT)/AdNetworkSupport/AdColony/SDK\"",
-					"$(PROJECT_DIR)/AdNetworkSupport/Facebook/SDK",
+					"\"$(SRCROOT)/AdNetworkSupport/Facebook/SDK\"",
 					"\"$(SRCROOT)/AdNetworkSupport/Vungle/SDK/vunglepub.embeddedframework\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -2905,7 +2911,7 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/AdNetworkSupport/Millennial/SDK\"",
 					"\"$(SRCROOT)/AdNetworkSupport/AdColony/SDK\"",
-					"$(PROJECT_DIR)/AdNetworkSupport/Facebook/SDK",
+					"\"$(SRCROOT)/AdNetworkSupport/Facebook/SDK\"",
 					"\"$(SRCROOT)/AdNetworkSupport/Vungle/SDK/vunglepub.embeddedframework\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;

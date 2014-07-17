@@ -7,14 +7,14 @@
 
 #import <Foundation/Foundation.h>
 
-typedef enum {
+typedef NS_ENUM(NSInteger, MPAdInfoType) {
     MPAdInfoBanner,
     MPAdInfoInterstitial,
     MPAdInfoMRectBanner,
     MPAdInfoLeaderboardBanner,
     MPAdInfoNative,
     MPAdInfoNativeInTableView
-} MPAdInfoType;
+};
 
 @interface MPAdInfo : NSObject <NSCoding>
 

@@ -68,7 +68,7 @@ describe(@"MPBannerAdManager", ^{
                 configuration.refreshInterval = -1;
                 [fakeCoreProvider.lastFakeMPAdServerCommunicator receiveConfiguration:configuration];
 
-                int numberOfTimers = fakeCoreProvider.fakeTimers.count;
+                NSInteger numberOfTimers = fakeCoreProvider.fakeTimers.count;
 
                 [event simulateLoadingAd];
 

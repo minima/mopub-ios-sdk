@@ -118,7 +118,8 @@ def available_sdk_versions
   available = []
   `xcodebuild -showsdks | grep simulator`.split("\n").each do |line|
     match = line.match(/simulator([\d\.]+)/)
-    available << match[1] if match
+    # excluding 5.* SDK versions
+    available << match[1] if match and !match[1].start_with? "5."
   end
   available
 end
