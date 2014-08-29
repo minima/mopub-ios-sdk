@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="4514" systemVersion="12F45" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="5056" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3747"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MPInterstitialAdDetailViewController">
@@ -9,6 +9,7 @@
                 <outlet property="IDLabel" destination="5" id="10"/>
                 <outlet property="didAppearLabel" destination="23" id="29"/>
                 <outlet property="didDisappearLabel" destination="24" id="33"/>
+                <outlet property="didReceiveTapLabel" destination="rLm-6b-XHP" id="9ak-2n-CtX"/>
                 <outlet property="expireLabel" destination="19" id="20"/>
                 <outlet property="failLabel" destination="17" id="27"/>
                 <outlet property="keywordsTextField" destination="75D-mG-xkk" id="Xtd-EF-w0R"/>
@@ -126,6 +127,14 @@
                 </label>
                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.10000000149011612" contentMode="left" text="Interstitial did disappear" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="24">
                     <rect key="frame" x="20" y="257" width="159" height="13"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <accessibility key="accessibilityConfiguration" label="diddisappear"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                    <color key="textColor" red="0.86274509799999999" green="0.86274509799999999" blue="0.86274509799999999" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.10000000149011612" contentMode="left" text="Interstitial did receive tap event" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="rLm-6b-XHP">
+                    <rect key="frame" x="21" y="278" width="200" height="13"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <accessibility key="accessibilityConfiguration" label="diddisappear"/>
                     <fontDescription key="fontDescription" type="system" pointSize="13"/>

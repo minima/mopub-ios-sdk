@@ -22,9 +22,9 @@ describe(@"MPGoogleAdMobIntegrationSuite", ^{
         delegate = nice_fake_for(@protocol(MPInterstitialAdControllerDelegate));
 
         interstitial = [MPInterstitialAdController interstitialAdControllerForAdUnitId:@"admob_interstitial"];
-        interstitial.location = [[[CLLocation alloc] initWithCoordinate:CLLocationCoordinate2DMake(37.1f, 21.2f)
+        interstitial.location = [[[CLLocation alloc] initWithCoordinate:CLLocationCoordinate2DMake(37.1, 21.2)
                                                                altitude:11
-                                                     horizontalAccuracy:12.3f
+                                                     horizontalAccuracy:12.3
                                                        verticalAccuracy:10
                                                               timestamp:[NSDate date]] autorelease];
         interstitial.delegate = delegate;
@@ -56,7 +56,7 @@ describe(@"MPGoogleAdMobIntegrationSuite", ^{
 
     it(@"should set up the google ad request correctly", ^{
         fakeGADInterstitial.adUnitID should equal(@"g00g1e");
-        fakeGADInterstitialRequest should have_received(@selector(setLocationWithLatitude:longitude:accuracy:)).with(37.1f).and_with(21.2f).and_with(12.3f);
+        fakeGADInterstitialRequest should have_received(@selector(setLocationWithLatitude:longitude:accuracy:)).with((CGFloat)37.1).and_with((CGFloat)21.2).and_with((CGFloat)12.3);
     });
 
     context(@"while the ad is loading", ^{
@@ -106,13 +106,13 @@ describe(@"MPGoogleAdMobIntegrationSuite", ^{
                     [delegate reset_sent_messages];
                 });
 
-                it(@"should track only one click, no matter how many interactions there are, and shouldn't tell the delegate anything", ^{
+                it(@"should track only one click, no matter how many interactions there are, and should tell the delegate about each click", ^{
                     [fakeGADInterstitial simulateUserInteraction];
                     fakeCoreProvider.sharedFakeMPAnalyticsTracker.trackedClickConfigurations.count should equal(1);
                     [fakeGADInterstitial simulateUserInteraction];
                     fakeCoreProvider.sharedFakeMPAnalyticsTracker.trackedClickConfigurations.count should equal(1);
 
-                    delegate.sent_messages should be_empty;
+                    delegate.sent_messages.count should equal(2);
                 });
             });
 

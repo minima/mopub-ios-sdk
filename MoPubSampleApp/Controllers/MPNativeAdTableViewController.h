@@ -9,6 +9,8 @@
 @class MPAdInfo;
 
 extern NSString *const kNativeAdTableViewAccessibilityLabel;
+extern NSString *const kDefaultCellIdentifier;
+extern NSInteger const kRowForAdCell;
 
 @interface MPNativeAdTableViewController : UITableViewController
 

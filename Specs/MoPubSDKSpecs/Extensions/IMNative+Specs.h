@@ -9,4 +9,8 @@
 
 @interface IMNative (Specs)
 
++ (void)mp_switchToNormalContent;
++ (void)mp_switchToBadMainImageURLContent;
++ (void)mp_switchToBadIconImageURLContent;
+
 @end

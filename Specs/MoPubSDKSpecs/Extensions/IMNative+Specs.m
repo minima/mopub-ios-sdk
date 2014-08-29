@@ -8,6 +8,8 @@
 #import "IMNative+Specs.h"
 #import "IMNativeDelegate.h"
 
+static NSString *gAdContent = nil;
+
 @implementation IMNative (Specs)
 
 - (void)loadAd
@@ -17,7 +19,22 @@
 
 - (NSString *)content
 {
-    return @"{\"title\":\"Ad Title String\",\"landing_url\":\"https://appstorelink.com\",\"screenshots\":{\"w\":568,\"ar\":1.77,\"url\":\"http://thestartuplegitimizer.com/logos/asfeatured.png\",\"h\":320},\"icon\":{\"w\":568,\"ar\":1.77,\"url\":\"http://thestartuplegitimizer.com/logos/asfeatured.png\",\"h\":320},\"cta\":\"cta text\",\"description\":\"Description body text\"}";
+    return gAdContent;
+}
+
++ (void)mp_switchToNormalContent
+{
+    gAdContent = @"{\"title\":\"Ad Title String\",\"landing_url\":\"https://appstorelink.com\",\"screenshots\":{\"w\":568,\"ar\":1.77,\"url\":\"http://thestartuplegitimizer.com/logos/asfeatured.png\",\"h\":320},\"icon\":{\"w\":568,\"ar\":1.77,\"url\":\"http://thestartuplegitimizer.com/logos/asfeatured.png\",\"h\":320},\"cta\":\"cta text\",\"description\":\"Description body text\"}";
+}
+
++ (void)mp_switchToBadMainImageURLContent
+{
+    gAdContent = @"{\"title\":\"Ad Title String\",\"landing_url\":\"https://appstorelink.com\",\"screenshots\":{\"w\":568,\"ar\":1.77,\"url\":\"||+++http://thestartuplegitimizer.com/logos/asfeatured.png\",\"h\":320},\"icon\":{\"w\":568,\"ar\":1.77,\"url\":\"http://thestartuplegitimizer.com/logos/asfeatured.png\",\"h\":320},\"cta\":\"cta text\",\"description\":\"Description body text\"}";
+}
+
++ (void)mp_switchToBadIconImageURLContent
+{
+    gAdContent = @"{\"title\":\"Ad Title String\",\"landing_url\":\"https://appstorelink.com\",\"screenshots\":{\"w\":568,\"ar\":1.77,\"url\":\"http://thestartuplegitimizer.com/logos/asfeatured.png\",\"h\":320},\"icon\":{\"w\":568,\"ar\":1.77,\"url\":\"||+++http://thestartuplegitimizer.com/logos/asfeatured.png\",\"h\":320},\"cta\":\"cta text\",\"description\":\"Description body text\"}";
 }
 
 @end

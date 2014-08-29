@@ -11,6 +11,8 @@ static NSUInteger gTrackMetricURLCallsCount;
 
 @implementation MPNativeAd (Specs)
 
+@dynamic associatedView;
+
 + (NSUInteger)mp_trackMetricURLCallsCount
 {
     return gTrackMetricURLCallsCount;

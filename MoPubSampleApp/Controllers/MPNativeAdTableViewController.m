@@ -16,9 +16,8 @@
 #import "MPAdInfo.h"
 
 NSString *const kNativeAdTableViewAccessibilityLabel = @"kNativeAdTableViewAccessibilityLabel";
-static NSString *const kDefaultCellIdentifier = @"kDefaultCellIdentifier";
-
-static NSInteger const kRowForAdCell = 1;
+NSString *const kDefaultCellIdentifier = @"kDefaultCellIdentifier";
+NSInteger const kRowForAdCell = 1;
 
 @interface MPNativeAdTableViewController () <UITextFieldDelegate>
 

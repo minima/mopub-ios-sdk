@@ -21,3 +21,10 @@ proxy.log
 Scripts/*.mov
 tmp_sdk
 node_modules
+AdNetworkSupport/**/SDK/*.h
+AdNetworkSupport/**/SDK/*.a
+AdNetworkSupport/**/SDK/*.framework
+AdNetworkSupport/**/SDK/*.embeddedframework
+AdNetworkSupport/Vungle/VungleSDK.embeddedframework/
+mopub-ios-sdk.podspec
+Scripts/

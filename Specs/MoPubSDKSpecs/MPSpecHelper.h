@@ -24,12 +24,15 @@
 #define SYSTEM_VERSION_LESS_THAN(v)                 ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedAscending)
 #define SYSTEM_VERSION_LESS_THAN_OR_EQUAL_TO(v)     ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedDescending)
 
+#define _IP(row, section) [NSIndexPath indexPathForRow:row inSection:section]
+
 @protocol CedarDouble;
 
 typedef void (^NoArgBlock)();
 typedef id (^IDReturningBlock)();
 
 void verify_fake_received_selectors(id<CedarDouble> fake, NSArray *selectors);
+void verify_fake_received_selectors_async(id<CedarDouble> fake, NSArray *selectors);
 void log_sent_messages(id<CedarDouble> fake);
 
 extern FakeMPInstanceProvider *fakeProvider;

@@ -25,9 +25,9 @@ describe(@"MPGoogleAdMobInterstitialCustomEvent", ^{
         event = [[[MPGoogleAdMobInterstitialCustomEvent alloc] init] autorelease];
         event.delegate = delegate;
 
-        location = [[[CLLocation alloc] initWithCoordinate:CLLocationCoordinate2DMake(37.1f, 21.2f)
+        location = [[[CLLocation alloc] initWithCoordinate:CLLocationCoordinate2DMake(37.1, 21.2)
                                                   altitude:11
-                                        horizontalAccuracy:12.3f
+                                        horizontalAccuracy:12.3
                                           verticalAccuracy:10
                                                  timestamp:[NSDate date]] autorelease];
         delegate stub_method("location").and_return(location);
@@ -48,7 +48,7 @@ describe(@"MPGoogleAdMobInterstitialCustomEvent", ^{
         it(@"should load the interstitial with a proper request object", ^{
             interstitial.loadedRequest should equal(request);
 
-            request should have_received(@selector(setLocationWithLatitude:longitude:accuracy:)).with(37.1f).and_with(21.2f).and_with(12.3f);
+            request should have_received(@selector(setLocationWithLatitude:longitude:accuracy:)).with((CGFloat)37.1).and_with((CGFloat)21.2).and_with((CGFloat)12.3);
             request should have_received(@selector(setTestDevices:)).with(@[GAD_SIMULATOR_ID]);
         });
     });

@@ -5,16 +5,30 @@
 #import "NSJSONSerialization+MPAdditions.h"
 #import "MPMoPubNativeAdAdapter.h"
 #import "MPNativeAd+Internal.h"
+#import "UIView+MPNativeAd.h"
 
 using namespace Cedar::Matchers;
 using namespace Cedar::Doubles;
 
+@interface AdView : UIView <MPNativeAdRendering>
+
+@end
+
+@implementation AdView
+
+- (void)layoutAdAssets:(MPNativeAd *)adObject
+{
+
+}
+
+@end
+
 SPEC_BEGIN(MPNativeAdSpec)
 
 describe(@"MPNativeAd", ^{
-    __block MPNativeAd *fakeAd;
+    __block MPNativeAd *nativeAd;
     __block MPAdConfiguration *configuration;
-    __block UIView<CedarDouble, MPNativeAdRendering> *fakeAdView;
+    __block AdView *adView;
     __block MPMoPubNativeAdAdapter *adAdapter;
 
     beforeEach(^{
@@ -22,88 +36,183 @@ describe(@"MPNativeAd", ^{
 
         NSDictionary *properties = [NSJSONSerialization mp_JSONObjectWithData:configuration.adResponseData options:0 clearNullObjects:YES error:nil];
         adAdapter = [[[MPMoPubNativeAdAdapter alloc] initWithAdProperties:[[properties mutableCopy] autorelease]] autorelease];
-        fakeAd = [[[MPNativeAd alloc] initWithAdAdapter:adAdapter] autorelease];
-        fakeAdView = nice_fake_for(@protocol(MPNativeAdRendering));
+        nativeAd = [[[MPNativeAd alloc] initWithAdAdapter:adAdapter] autorelease];
+        adView =  [[[AdView alloc] init] autorelease];
         [MPNativeAd mp_clearTrackMetricURLCallsCount];
     });
 
     context(@"ad configuration", ^{
 
         it(@"should use the default requiredSecondsForImpression", ^{
-            fakeAd.requiredSecondsForImpression should equal(1.0);
+            nativeAd.requiredSecondsForImpression should equal(1.0);
         });
 
         it(@"should configure properties correctly", ^{
-            [fakeAd.properties allKeys] should contain(@"ctatext");
-            [fakeAd.properties allKeys] should contain(@"iconimage");
-            [fakeAd.properties allKeys] should contain(@"mainimage");
-            [fakeAd.properties allKeys] should contain(@"text");
-            [fakeAd.properties allKeys] should contain(@"title");
+            [nativeAd.properties allKeys] should contain(@"ctatext");
+            [nativeAd.properties allKeys] should contain(@"iconimage");
+            [nativeAd.properties allKeys] should contain(@"mainimage");
+            [nativeAd.properties allKeys] should contain(@"text");
+            [nativeAd.properties allKeys] should contain(@"title");
         });
 
         it(@"should have a default action URL", ^{
-            fakeAd.defaultActionURL should equal(adAdapter.defaultActionURL);
+            nativeAd.defaultActionURL should equal(adAdapter.defaultActionURL);
         });
 
         it(@"should not have engagement or impression tracker URLS", ^{
             // It is not the responsibility of the mpnative ad to fill in the URLs.
-            fakeAd.engagementTrackingURL should be_nil;
-            fakeAd.impressionTrackers.count should equal(0);
+            nativeAd.engagementTrackingURL should be_nil;
+            nativeAd.impressionTrackers.count should equal(0);
         });
 
         context(@"star rating", ^{
-            __block id<CedarDouble, MPNativeAdAdapter> fakeadAdapter;
-            __block MPNativeAd *starRatingFakeAd;
+            __block id<CedarDouble, MPNativeAdAdapter> nativeAdAdapter;
+            __block MPNativeAd *starRatingNativeAd;
 
             beforeEach(^{
-                fakeadAdapter = nice_fake_for(@protocol(MPNativeAdAdapter));
-                starRatingFakeAd = [[[MPNativeAd alloc] initWithAdAdapter:fakeadAdapter] autorelease];
+                nativeAdAdapter = nice_fake_for(@protocol(MPNativeAdAdapter));
+                starRatingNativeAd = [[[MPNativeAd alloc] initWithAdAdapter:nativeAdAdapter] autorelease];
             });
 
             it(@"should return a valid star rating object if the backing ad provides a valid value", ^{
-                fakeadAdapter stub_method("properties").and_return(@{@"starrating":@4.5f});
-                starRatingFakeAd.starRating.floatValue should equal(4.5f);
+                nativeAdAdapter stub_method("properties").and_return(@{@"starrating":@4.5f});
+                starRatingNativeAd.starRating.floatValue should equal(4.5f);
             });
 
             it(@"should return a valid star rating object if the backing ad provides the minimum valid value", ^{
-                fakeadAdapter stub_method("properties").and_return(@{@"starrating":@0});
-                starRatingFakeAd.starRating.floatValue should equal(0);
+                nativeAdAdapter stub_method("properties").and_return(@{@"starrating":@0});
+                starRatingNativeAd.starRating.floatValue should equal(0);
             });
 
             it(@"should return a valid star rating object if the backing ad provides the maximum valid value", ^{
-                fakeadAdapter stub_method("properties").and_return(@{@"starrating":@5.0f});
-                starRatingFakeAd.starRating.floatValue should equal(5.0f);
+                nativeAdAdapter stub_method("properties").and_return(@{@"starrating":@5.0f});
+                starRatingNativeAd.starRating.floatValue should equal(5.0f);
             });
 
             it(@"should return a nil star rating object if the backing ad does not provide a value", ^{
-                fakeadAdapter stub_method("properties").and_return(@{});
-                starRatingFakeAd.starRating should be_nil;
+                nativeAdAdapter stub_method("properties").and_return(@{});
+                starRatingNativeAd.starRating should be_nil;
             });
 
             it(@"should return a nil star rating object if the backing ad does not provide an NSNumber as the value", ^{
-                fakeadAdapter stub_method("properties").and_return(@{@"starrating":@[@"hello"]});
-                starRatingFakeAd.starRating should be_nil;
+                nativeAdAdapter stub_method("properties").and_return(@{@"starrating":@[@"hello"]});
+                starRatingNativeAd.starRating should be_nil;
             });
 
             it(@"should return a nil star rating object if the backing ad provides a value that's over the maximum", ^{
-                fakeadAdapter stub_method("properties").and_return(@{@"starrating":@6.0f});
-                starRatingFakeAd.starRating should be_nil;
+                nativeAdAdapter stub_method("properties").and_return(@{@"starrating":@6.0f});
+                starRatingNativeAd.starRating should be_nil;
             });
 
             it(@"should return a nil star rating object if the backing ad provides a value that's less than the minimum", ^{
-                fakeadAdapter stub_method("properties").and_return(@{@"starrating":@-1.34f});
-                starRatingFakeAd.starRating should be_nil;
+                nativeAdAdapter stub_method("properties").and_return(@{@"starrating":@-1.34f});
+                starRatingNativeAd.starRating should be_nil;
             });
         });
     });
 
     context(@"when the ad loads successfully", ^{
         beforeEach(^{
-            [fakeAd prepareForDisplayInView:fakeAdView];
+            spy_on(adView);
+            [nativeAd prepareForDisplayInView:adView];
         });
 
         it(@"should layout the ad's assets into the specified view", ^{
-            fakeAdView should have_received(@selector(layoutAdAssets:));
+            adView should have_received(@selector(layoutAdAssets:));
+        });
+    });
+
+    context(@"associating views", ^{
+        __block MPNativeAd *nativeAd2;
+
+        beforeEach(^{
+            nativeAd2 = [[[MPNativeAd alloc] initWithAdAdapter:adAdapter] autorelease];
+        });
+
+        it(@"should set the native ad as an associated object on the view", ^{
+            [adView mp_nativeAd] should_not equal(nativeAd);
+            [nativeAd prepareForDisplayInView:adView];
+            [adView mp_nativeAd] should equal(nativeAd);
+        });
+
+        it(@"should only associate one native ad with one view at a time", ^{
+            [nativeAd prepareForDisplayInView:adView];
+            [nativeAd2 prepareForDisplayInView:adView];
+
+            [adView mp_nativeAd] should equal(nativeAd2);
+            [adView mp_nativeAd] should_not equal(nativeAd);
+        });
+
+        it(@"should only associate one view with one native ad at a time", ^{
+            [nativeAd prepareForDisplayInView:adView];
+            [nativeAd2 prepareForDisplayInView:adView];
+
+            nativeAd.associatedView should be_nil;
+            nativeAd2.associatedView should equal(adView);
+        });
+    });
+
+    context(@"associating views (table view cell)", ^{
+        __block MPNativeAd *nativeAd2;
+        __block UITableViewCell *tableViewCell;
+
+        beforeEach(^{
+            tableViewCell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"reuseme"] autorelease];
+            nativeAd2 = [[[MPNativeAd alloc] initWithAdAdapter:adAdapter] autorelease];
+        });
+
+        it(@"should set the native ad as an associated object on the cell", ^{
+            [tableViewCell mp_nativeAd] should_not equal(nativeAd);
+            [nativeAd prepareForDisplayInView:tableViewCell];
+            [tableViewCell mp_nativeAd] should equal(nativeAd);
+        });
+
+        it(@"should only associate one native ad with one view at a time", ^{
+            [nativeAd prepareForDisplayInView:tableViewCell];
+            [nativeAd2 prepareForDisplayInView:tableViewCell];
+
+            [tableViewCell mp_nativeAd] should equal(nativeAd2);
+            [tableViewCell mp_nativeAd] should_not equal(nativeAd);
+        });
+
+        it(@"should only associate one view with one native ad at a time", ^{
+            [nativeAd prepareForDisplayInView:tableViewCell];
+            [nativeAd2 prepareForDisplayInView:tableViewCell];
+
+            nativeAd.associatedView should be_nil;
+            nativeAd2.associatedView should equal(tableViewCell);
+        });
+    });
+
+    context(@"associating views (collection view cell)", ^{
+        __block MPNativeAd *nativeAd2;
+        __block UICollectionViewCell *collectionViewCell;
+
+        beforeEach(^{
+            collectionViewCell = [[[UICollectionViewCell alloc] initWithFrame:CGRectMake(0, 0, 10, 10)] autorelease];
+            nativeAd2 = [[[MPNativeAd alloc] initWithAdAdapter:adAdapter] autorelease];
+        });
+
+        it(@"should set the native ad as an associated object on the cell", ^{
+            [collectionViewCell mp_nativeAd] should_not equal(nativeAd);
+            [nativeAd prepareForDisplayInView:collectionViewCell];
+            [collectionViewCell mp_nativeAd] should equal(nativeAd);
+        });
+
+        it(@"should only associate one native ad with one view at a time", ^{
+            [nativeAd prepareForDisplayInView:collectionViewCell];
+            [nativeAd2 prepareForDisplayInView:collectionViewCell];
+
+            [collectionViewCell mp_nativeAd] should equal(nativeAd2);
+            [collectionViewCell mp_nativeAd] should_not equal(nativeAd);
+        });
+
+        it(@"should only associate one view with one native ad at a time", ^{
+            [nativeAd prepareForDisplayInView:collectionViewCell];
+            [nativeAd2 prepareForDisplayInView:collectionViewCell];
+
+            nativeAd.associatedView should be_nil;
+            nativeAd2.associatedView should equal(collectionViewCell);
         });
     });
 
@@ -113,18 +222,18 @@ describe(@"MPNativeAd", ^{
         beforeEach(^{
             rootController = [[[UIViewController alloc] init] autorelease];
             // Make sure it has an engagement tracking url.
-            fakeAd.engagementTrackingURL = [NSURL URLWithString:@"http://www.mopub.com"];
+            nativeAd.engagementTrackingURL = [NSURL URLWithString:@"http://www.mopub.com"];
         });
 
         it(@"should track click when displayContentForURL is called", ^{
             [MPNativeAd mp_trackMetricURLCallsCount] should equal(0);
-            [fakeAd displayContentForURL:nil rootViewController:rootController completion:nil];
+            [nativeAd displayContentForURL:nil rootViewController:rootController completion:nil];
             [MPNativeAd mp_trackMetricURLCallsCount] should equal(1);
         });
 
         it(@"should call completion block with an error when displaying with a nil view controller", ^{
             __block BOOL wasSuccessful = YES;
-            [fakeAd displayContentForURL:[NSURL URLWithString:@"http://www.mopub.com"] rootViewController:nil completion:^(BOOL success, NSError *error) {
+            [nativeAd displayContentForURL:[NSURL URLWithString:@"http://www.mopub.com"] rootViewController:nil completion:^(BOOL success, NSError *error) {
                 wasSuccessful = success;
             }];
 
@@ -133,32 +242,32 @@ describe(@"MPNativeAd", ^{
 
         it(@"should track click when displaying content from the non-URL version", ^{
             [MPNativeAd mp_trackMetricURLCallsCount] should equal(0);
-            [fakeAd displayContentFromRootViewController:nil completion:nil];
+            [nativeAd displayContentFromRootViewController:nil completion:nil];
             [MPNativeAd mp_trackMetricURLCallsCount] should equal(1);
         });
 
         it(@"should not track multiple clicks on the same ad", ^{
             [MPNativeAd mp_trackMetricURLCallsCount] should equal(0);
-            [fakeAd trackClick];
+            [nativeAd trackClick];
             [MPNativeAd mp_trackMetricURLCallsCount] should equal(1);
-            [fakeAd trackClick];
+            [nativeAd trackClick];
             [MPNativeAd mp_trackMetricURLCallsCount] should equal(1);
         });
 
         it(@"should track for all impression URLs", ^{
-            [fakeAd.impressionTrackers addObjectsFromArray:@[@"http://www.mopub.com", @"http://www.mopub.com/t", @"http://www.mopub.com/tt"]];
+            [nativeAd.impressionTrackers addObjectsFromArray:@[@"http://www.mopub.com", @"http://www.mopub.com/t", @"http://www.mopub.com/tt"]];
              [MPNativeAd mp_trackMetricURLCallsCount] should equal(0);
-             [fakeAd trackImpression];
+             [nativeAd trackImpression];
              [MPNativeAd mp_trackMetricURLCallsCount] should equal(3);
         });
 
         it(@"should not track multiple impressions on the same ad", ^{
             // Make sure it has one impression tracker URL.
-            [fakeAd.impressionTrackers addObject:@"http://www.mopub.com"];
+            [nativeAd.impressionTrackers addObject:@"http://www.mopub.com"];
             [MPNativeAd mp_trackMetricURLCallsCount] should equal(0);
-            [fakeAd trackImpression];
+            [nativeAd trackImpression];
             [MPNativeAd mp_trackMetricURLCallsCount] should equal(1);
-            [fakeAd trackImpression];
+            [nativeAd trackImpression];
             [MPNativeAd mp_trackMetricURLCallsCount] should equal(1);
         });
     });
@@ -183,7 +292,7 @@ describe(@"MPNativeAd", ^{
         });
 
         it(@"should forward willAttachToView to backing object", ^{
-            [nativeAd prepareForDisplayInView:nice_fake_for(@protocol(MPNativeAdRendering))];
+            [nativeAd prepareForDisplayInView:adView];
             mockadAdapter should have_received(@selector(willAttachToView:));
         });
 
@@ -233,7 +342,7 @@ describe(@"MPNativeAd", ^{
         });
 
         it(@"should not forward willAttachToView to backing object", ^{
-            [nativeAd prepareForDisplayInView:nice_fake_for(@protocol(MPNativeAdRendering))];
+            [nativeAd prepareForDisplayInView:adView];
             mockadAdapter should_not have_received(@selector(willAttachToView:));
         });
 

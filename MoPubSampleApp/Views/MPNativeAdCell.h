@@ -16,5 +16,4 @@
 @property (strong, nonatomic) UIImageView *mainImageView;
 @property (strong, nonatomic) UILabel *ctaLabel;
 
-
 @end

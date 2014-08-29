@@ -7,6 +7,7 @@
 #import "MRAdView_MPSpecs.h"
 #import "MRAdViewDisplayController.h"
 #import "UIApplication+MPSpecs.h"
+#import "CedarAsync.h"
 
 using namespace Cedar::Matchers;
 using namespace Cedar::Doubles;
@@ -671,11 +672,7 @@ describe(@"MRAdView", ^{
                 [view webView:nil
                       shouldStartLoadWithRequest:expandRequest
                       navigationType:UIWebViewNavigationTypeOther];
-                [[[UIApplication sharedApplication] keyWindow] subviews] should contain(view);
-
-                // XXX: Expansion has some async animation behavior, which we'll have to fix to
-                // avoid this type of ugly hack.
-                [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:1.8]];
+                in_time([[[UIApplication sharedApplication] keyWindow] subviews]) should contain(view);
 
                 URL = [NSURL URLWithString:@"http://www.donuts.com"];
                 [view handleMRAIDOpenCallForURL:URL];

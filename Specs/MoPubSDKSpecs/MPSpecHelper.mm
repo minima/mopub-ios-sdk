@@ -9,6 +9,7 @@
 #import "MPInterstitialAdController.h"
 #import "GSSDKInfo.h"
 #import <MillennialMedia/MMSDK.h>
+#import "CedarAsync.h"
 
 using namespace Cedar::Matchers;
 using namespace Cedar::Doubles;
@@ -17,6 +18,17 @@ static BOOL beforeAllDidRun = NO;
 
 FakeMPInstanceProvider *fakeProvider = nil;
 FakeMPCoreInstanceProvider *fakeCoreProvider = nil;
+
+void verify_fake_received_selectors_async(id<CedarDouble> fake, NSArray *selectors)
+{
+    in_time(fake.sent_messages.count) should equal(selectors.count);
+
+    for (int i = 0; i < [[fake sent_messages] count]; i++) {
+        [[fake sent_messages][i] selector] should equal(NSSelectorFromString(selectors[i]));
+    }
+
+    [fake reset_sent_messages];
+}
 
 void verify_fake_received_selectors(id<CedarDouble> fake, NSArray *selectors)
 {

@@ -31,6 +31,9 @@
 #import "FakeMRAdView.h"
 #import <FBAudienceNetwork/FBAudienceNetwork.h>
 #import <Foundation/Foundation.h>
+#import "MPNativeAdSource.h"
+#import "MPStreamAdPlacer.h"
+#import "FakeMPStreamAdPlacer.h"
 
 @class MRJavaScriptEventEmitter;
 @class MRCalendarManager;
@@ -41,6 +44,7 @@
 @class MPMoviePlayerViewController;
 @class MRBundleManager;
 @class MRAdView;
+@class MPStreamAdPlacementData;
 
 @interface FakeMPInstanceProvider : MPInstanceProvider
 
@@ -71,6 +75,11 @@
 @property (nonatomic, assign) MRImageDownloader *fakeImageDownloader;
 @property (nonatomic, assign) MRVideoPlayerManager *fakeMRVideoPlayerManager;
 @property (nonatomic, assign) MPMoviePlayerViewController *fakeMoviePlayerViewController;
+
+#pragma mark - Native
+@property (nonatomic, assign) MPNativeAdSource *fakeNativeAdSource;
+@property (nonatomic, assign) MPStreamAdPlacementData *fakeStreamAdPlacementData;
+@property (nonatomic, assign) MPStreamAdPlacer *fakeStreamAdPlacer;
 
 #pragma mark - Third Party Integrations
 

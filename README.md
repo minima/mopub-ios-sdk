@@ -20,7 +20,7 @@ The MoPub SDK is distributed as source code that you can include in your applica
 
   Includes everything you need to serve HTML, MRAID, and Native MoPub advertisements.  No third party ad networks are included.
 
-The current version of the SDK is 2.3.0
+The current version of the SDK is 2.4.0
 
 ## Integrate
 
@@ -32,10 +32,10 @@ More detailed class documentation is available in the repo under the `ClassDocum
 
 Please view the [changelog](https://github.com/mopub/mopub-ios-sdk/blob/master/CHANGELOG.md) for details.
 
-- MoPub base SDK is now 64-bit compatible (Please check mediated networks for 64-bit support)
-- Certified support for InMobi 4.4.1, Greystripe/Conversant 4.3, and AdMob 6.9.3
-- Additional measures to prevent autoloading deep-links without user interaction for banners
-- Bug fixes
+- **Simplified native ads integration**: integration instructions and documentation are available on the [GitHub wiki](https://github.com/mopub/mopub-ios-sdk/wiki/Native-Ads-Integration)
+- Updated Vungle custom event (Vungle SDK 3.0.8)
+- Optional method `- (void)interstitialDidReceiveTapEvent:` added to `MPInterstitialAdControllerDelegate`
+- Hardened native ad custom events against invalid image URLs
 
 ## Requirements
 

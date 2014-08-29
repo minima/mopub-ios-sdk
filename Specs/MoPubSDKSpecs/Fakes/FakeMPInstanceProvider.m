@@ -260,6 +260,34 @@
                      }];
 }
 
+#pragma mark - Native
+
+- (MPNativeAdSource *)buildNativeAdSourceWithDelegate:(id<MPNativeAdSourceDelegate>)delegate
+{
+    if (self.fakeNativeAdSource) {
+        self.fakeNativeAdSource.delegate = delegate;
+        return self.fakeNativeAdSource;
+    } else {
+        return [super buildNativeAdSourceWithDelegate:delegate];
+    }
+}
+
+- (MPStreamAdPlacementData *)buildStreamAdPlacementDataWithPositioning:(MPAdPositioning *)positioning
+{
+    return [self returnFake:self.fakeStreamAdPlacementData
+                     orCall:^{
+                         return [super buildStreamAdPlacementDataWithPositioning:positioning];
+                     }];
+}
+
+- (MPStreamAdPlacer *)buildStreamAdPlacerWithViewController:(UIViewController *)controller adPositioning:(MPAdPositioning *)positioning defaultAdRenderingClass:defaultAdRenderingClass
+{
+    return [self returnFake:self.fakeStreamAdPlacer
+                     orCall:^{
+                         return [super buildStreamAdPlacerWithViewController:controller adPositioning:positioning defaultAdRenderingClass:defaultAdRenderingClass];
+                     }];
+}
+
 #pragma mark - Third Party Integrations
 
 #pragma mark iAd

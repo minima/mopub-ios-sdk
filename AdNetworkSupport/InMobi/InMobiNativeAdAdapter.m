@@ -23,11 +23,13 @@ static NSString *const kInMobiCallToAction = @"cta";
 static NSString *const kInMobiRating = @"rating";
 static NSString *const kInMobiScreenshot = @"screenshots";
 static NSString *const kInMobiIcon = @"icon";
+// As of 6-25-2014 this key is editable on InMobi's site
+static NSString *const kInMobiActionURL = @"landing_url";
+
 /*
  * InMobi Keys - Do Not Change.
  */
 static NSString *const kInMobiImageURL = @"url";
-static NSString *const kInMobiActionURL = @"landing_url";
 
 @interface InMobiNativeAdAdapter() <MPAdDestinationDisplayAgentDelegate>
 

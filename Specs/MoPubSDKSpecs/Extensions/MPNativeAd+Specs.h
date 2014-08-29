@@ -10,6 +10,8 @@
 
 @interface MPNativeAd (Specs)
 
+@property (nonatomic, retain) UIView *associatedView;
+
 + (NSUInteger)mp_trackMetricURLCallsCount;
 + (void)mp_clearTrackMetricURLCallsCount;
 

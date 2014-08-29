@@ -14,37 +14,37 @@
 + (NSArray *)supportedAdTypeNames
 {
     static NSArray *adTypeNames = nil;
-    
+
     static dispatch_once_t once;
     dispatch_once(&once, ^{
         adTypeNames = @[@"Banner", @"Interstitial", @"MRect", @"Leaderboard", @"Native"];
     });
-    
+
     return adTypeNames;
 }
 
 + (NSArray *)bannerAds
 {
     NSMutableArray *ads = [NSMutableArray array];
-    
+
     [ads addObjectsFromArray:@[
-                               [MPAdInfo infoWithTitle:@"HTML Banner Ad" ID:@"3e3ba6c2add111e281c11231392559e4" type:MPAdInfoBanner],
+                               [MPAdInfo infoWithTitle:@"HTML Banner Ad" ID:@"c92be421345c4eab964645f6a1818284" type:MPAdInfoBanner],
                                [MPAdInfo infoWithTitle:@"MRAID Banner Ad" ID:@"23b49916add211e281c11231392559e4" type:MPAdInfoBanner],
-                               [MPAdInfo infoWithTitle:@"HTML MRECT Banner Ad" ID:@"agltb3B1Yi1pbmNyDQsSBFNpdGUYqKO5CAw" type:MPAdInfoMRectBanner],
+                               [MPAdInfo infoWithTitle:@"HTML MRECT Banner Ad" ID:@"2aae44d2ab91424d9850870af33e5af7" type:MPAdInfoMRectBanner],
                                ]];
-    
+
     if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
     {
         [ads addObject:[MPAdInfo infoWithTitle:@"HTML Leaderboard Banner Ad" ID:@"d456ea115eec497ab33e02531a5efcbc" type:MPAdInfoLeaderboardBanner]];
     }
-    
+
     return ads;
 }
 
 + (NSArray *)interstitialAds
 {
     return @[
-             [MPAdInfo infoWithTitle:@"HTML Interstitial Ad" ID:@"13260008add211e295fa123138070049" type:MPAdInfoInterstitial],
+             [MPAdInfo infoWithTitle:@"HTML Interstitial Ad" ID:@"4f117153f5c24fa6a3a92b818a5eb630" type:MPAdInfoInterstitial],
              [MPAdInfo infoWithTitle:@"MRAID Interstitial Ad" ID:@"3aba0056add211e281c11231392559e4" type:MPAdInfoInterstitial],
              ];
 }
@@ -52,8 +52,10 @@
 + (NSArray *)nativeAds
 {
     return @[
-             [MPAdInfo infoWithTitle:@"Native Ad" ID:@"8ce943e5b65a4689b434d72736dbed02" type:MPAdInfoNative],
-             [MPAdInfo infoWithTitle:@"Native Ad (TableView Example)" ID:@"8ce943e5b65a4689b434d72736dbed02" type:MPAdInfoNativeInTableView]
+             [MPAdInfo infoWithTitle:@"Native Ad" ID:@"76a3fefaced247959582d2d2df6f4757" type:MPAdInfoNative],
+             [MPAdInfo infoWithTitle:@"Native Ad (TableView Manager)" ID:@"76a3fefaced247959582d2d2df6f4757" type:MPAdInfoNativeInTableView],
+             [MPAdInfo infoWithTitle:@"Native Ad (CollectionView Placer)" ID:@"76a3fefaced247959582d2d2df6f4757" type:MPAdInfoNativeInCollectionView],
+             [MPAdInfo infoWithTitle:@"Native Ad (TableView Placer)" ID:@"76a3fefaced247959582d2d2df6f4757" type:MPAdInfoNativeTableViewPlacer]
              ];
 }
 

@@ -95,7 +95,7 @@ describe(@"MPChartboostInterstitialIntegrationSuite", ^{
 
                 it(@"should track a click and should tell the delegate that it was dismissed", ^{
                     [chartboost simulateUserTap:@"Boston"];
-                    verify_fake_received_selectors(delegate, @[@"interstitialWillDisappear:", @"interstitialDidDisappear:"]);
+                    verify_fake_received_selectors(delegate, @[@"interstitialWillDisappear:", @"interstitialDidDisappear:", @"interstitialDidReceiveTapEvent:"]);
                     fakeCoreProvider.sharedFakeMPAnalyticsTracker.trackedClickConfigurations.count should equal(1);
                 });
             });

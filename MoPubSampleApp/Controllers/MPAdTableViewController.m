@@ -18,6 +18,9 @@
 #import "MPAdPersistenceManager.h"
 #import "MPAdEntryViewController.h"
 #import "MPNativeAdTableViewController.h"
+#import "MPNativeAdPlacerTableViewController.h"
+#import "MPNativeAdPlacerCollectionViewController.h"
+#import "MPNativeAdPlacerPageViewController.h"
 
 typedef enum
 {
@@ -79,7 +82,7 @@ typedef enum
     UIButton* myInfoButton = [UIButton buttonWithType:UIButtonTypeInfoLight];
     [myInfoButton addTarget:self action:@selector(infoButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:myInfoButton];
-    
+
     [super viewDidLoad];
 }
 
@@ -106,7 +109,7 @@ typedef enum
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    
+
     [self.tableView reloadData];
 }
 
@@ -129,16 +132,16 @@ typedef enum
     if (!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
     }
-    
+
     MPAdInfo *info = [self infoAtIndexPath:indexPath];
-    
+
     cell.textLabel.text = info.title;
     cell.detailTextLabel.text = info.ID;
     cell.textLabel.textColor = [UIColor colorWithRed:0.42 green:0.66 blue:0.85 alpha:1];
     cell.detailTextLabel.textColor = [UIColor colorWithRed:0.86 green:0.86 blue:0.86 alpha:1];
 
     cell.accessoryType = indexPath.section == MPAdTableSection_Saved ? UITableViewCellAccessoryDetailDisclosureButton : UITableViewCellAccessoryNone;
-    
+
     return cell;
 }
 
@@ -173,6 +176,14 @@ typedef enum
         case MPAdInfoNativeInTableView:
             detailViewController = [[MPNativeAdTableViewController alloc] initWithAdInfo:info];
             break;
+        case MPAdInfoNativeInCollectionView:
+            detailViewController = [[MPNativeAdPlacerCollectionViewController alloc] initWithAdInfo:info];
+            break;
+        case MPAdInfoNativeTableViewPlacer:
+            detailViewController = [[MPNativeAdPlacerTableViewController alloc] initWithAdInfo:info];
+            break;
+        case MPAdInfoNativePageViewControllerPlacer:
+            detailViewController = [[MPNativeAdPlacerPageViewController alloc] initWithAdInfo:info];
         default:
             break;
     }
@@ -185,22 +196,22 @@ typedef enum
 - (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath
 {
     self.selectedSavedIndexPath = indexPath;
-    
+
     MPAdInfo *info = [self infoAtIndexPath:indexPath];
-    
+
     UIActionSheet *adActionsSheet = [[UIActionSheet alloc] initWithTitle:info.title
                                                     delegate:self
                                            cancelButtonTitle:@"Cancel"
                                       destructiveButtonTitle:@"Delete"
                                            otherButtonTitles:@"Edit", nil];
-    
+
     [adActionsSheet showInView:self.view];
 }
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     MPAdInfo *info = [self infoAtIndexPath:self.selectedSavedIndexPath];
-    
+
     if(buttonIndex == actionSheet.destructiveButtonIndex)
     {
         UIAlertView *deleteConfirmAV = [[UIAlertView alloc] initWithTitle:@"Confirm Delete"
@@ -224,7 +235,7 @@ typedef enum
         {
             [[MPAdPersistenceManager sharedManager] removeSavedAd:[self infoAtIndexPath:self.selectedSavedIndexPath]];
         }
-        
+
         [self.tableView reloadData];
     }
 }

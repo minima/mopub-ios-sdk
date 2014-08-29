@@ -312,6 +312,34 @@ describe(@"MPAdServerURLBuilder", ^{
             URL.absoluteString should_not contain(@"&assets");
         });
     });
+
+    describe(@"ad placer sequence position", ^{
+        it(@"should append desired sequence position to URL", ^{
+            NSArray *assets = [NSArray arrayWithObjects:@"a", @"b", @"c", nil];
+            URL = [MPAdServerURLBuilder URLWithAdUnitID:@"guy"
+                                               keywords:nil
+                                               location:nil
+                                   versionParameterName:@"nsv"
+                                                version:MP_SDK_VERSION
+                                                testing:NO
+                                          desiredAssets:assets
+                                             adSequence:0];
+
+            URL.absoluteString should contain(@"&seq=0");
+        });
+
+        it(@"should append not sequence position as a query parameter if none is set", ^{
+            URL = [MPAdServerURLBuilder URLWithAdUnitID:@"guy"
+                                               keywords:nil
+                                               location:nil
+                                   versionParameterName:@"nsv"
+                                                version:MP_SDK_VERSION
+                                                testing:NO
+                                          desiredAssets:nil];
+
+            URL.absoluteString should_not contain(@"&seq");
+        });
+    });
 });
 
 SPEC_END

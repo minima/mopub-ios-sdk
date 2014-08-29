@@ -91,14 +91,14 @@ describe(@"MPGreystripeInterstitialIntegrationSuite", ^{
                     [delegate reset_sent_messages];
                 });
 
-                it(@"should track only one click, no matter how many interactions there are, and shouldn't tell the delegate anything", ^{
+                it(@"should track only one click, no matter how many interactions there are, and should tell the delegate about each click", ^{
                     [greystripeAd simulateUserTap];
                     fakeCoreProvider.sharedFakeMPAnalyticsTracker.trackedClickConfigurations.count should equal(1);
 
                     [greystripeAd simulateUserTap];
                     fakeCoreProvider.sharedFakeMPAnalyticsTracker.trackedClickConfigurations.count should equal(1);
 
-                    delegate.sent_messages.count should equal(0);
+                    delegate.sent_messages.count should equal(2);
                 });
             });
 

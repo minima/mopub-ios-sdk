@@ -4,6 +4,7 @@
 #import "NSOperationQueue+MPSpecs.h"
 #import "MPNativeAd+Internal.h"
 #import "MPNativeAd+Specs.h"
+#import "CedarAsync.h"
 
 using namespace Cedar::Matchers;
 using namespace Cedar::Doubles;
@@ -16,8 +17,8 @@ describe(@"FacebookNativeCustomEvent", ^{
     __block FacebookNativeCustomEvent *customEvent;
 
     beforeEach(^{
-        delegate = nice_fake_for(@protocol(MPNativeCustomEventDelegate));
-        customEvent = [[[FacebookNativeCustomEvent alloc] init] autorelease];
+        delegate = [nice_fake_for(@protocol(MPNativeCustomEventDelegate)) retain];
+        customEvent = [[FacebookNativeCustomEvent alloc] init];
         customEvent.delegate = delegate;
 
         [NSOperationQueue mp_resetAddOperationWithBlockCount];
@@ -26,28 +27,31 @@ describe(@"FacebookNativeCustomEvent", ^{
         [FBNativeAd useNilForIconImage:NO];
     });
 
+    afterEach(^{
+        customEvent.delegate = nil;
+        [delegate release]; delegate = nil;
+        [customEvent release]; customEvent = nil;
+    });
+
     context(@"when requesting an ad with valid info", ^{
         it(@"should download 2 images if main/icon images exist in the FBNativeAd", ^{
             [NSOperationQueue mp_addOperationWithBlockCount] should equal(0);
             [customEvent requestAdWithCustomEventInfo:validInfo];
-            [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:1.0]];
-            [NSOperationQueue mp_addOperationWithBlockCount] should equal(3);
+            in_time([NSOperationQueue mp_addOperationWithBlockCount]) should equal(3);
         });
 
         it(@"should download 1 image if main image is nil", ^{
             [FBNativeAd useNilForCoverImage:YES];
             [NSOperationQueue mp_addOperationWithBlockCount] should equal(0);
             [customEvent requestAdWithCustomEventInfo:validInfo];
-            [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:1.0]];
-            [NSOperationQueue mp_addOperationWithBlockCount] should equal(2);
+            in_time([NSOperationQueue mp_addOperationWithBlockCount]) should equal(2);
         });
 
         it(@"should download 1 image if icon image is nil", ^{
             [FBNativeAd useNilForIconImage:YES];
             [NSOperationQueue mp_addOperationWithBlockCount] should equal(0);
             [customEvent requestAdWithCustomEventInfo:validInfo];
-            [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:1.0]];
-            [NSOperationQueue mp_addOperationWithBlockCount] should equal(2);
+            in_time([NSOperationQueue mp_addOperationWithBlockCount]) should equal(2);
         });
 
         it(@"should download 0 images if both icon/main image are nil", ^{
@@ -55,14 +59,12 @@ describe(@"FacebookNativeCustomEvent", ^{
             [FBNativeAd useNilForCoverImage:YES];
             [NSOperationQueue mp_addOperationWithBlockCount] should equal(0);
             [customEvent requestAdWithCustomEventInfo:validInfo];
-            [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:1.0]];
-            [NSOperationQueue mp_addOperationWithBlockCount] should equal(0);
+            in_time([NSOperationQueue mp_addOperationWithBlockCount]) should equal(0);
         });
 
         it(@"should call the success callback", ^{
             [customEvent requestAdWithCustomEventInfo:validInfo];
-            [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:1.0]];
-            delegate should have_received("nativeCustomEvent:didLoadAd:");
+            in_time(delegate) should have_received("nativeCustomEvent:didLoadAd:");
         });
     });
 

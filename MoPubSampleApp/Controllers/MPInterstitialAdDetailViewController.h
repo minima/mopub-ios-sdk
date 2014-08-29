@@ -23,6 +23,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *didAppearLabel;
 @property (weak, nonatomic) IBOutlet UILabel *willDisappearLabel;
 @property (weak, nonatomic) IBOutlet UILabel *didDisappearLabel;
+@property (weak, nonatomic) IBOutlet UILabel *didReceiveTapLabel;
 
 - (id)initWithAdInfo:(MPAdInfo *)adInfo;
 

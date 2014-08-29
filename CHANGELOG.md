@@ -1,3 +1,10 @@
+## Version 2.4 (August 28th, 2014)
+
+  - **Simplified native ads integration**: integration instructions and documentation are available on the [GitHub wiki](https://github.com/mopub/mopub-ios-sdk/wiki/Native-Ads-Integration)
+  - Updated Vungle custom event (Vungle SDK 3.0.8)
+  - Optional method `- (void)interstitialDidReceiveTapEvent:` added to `MPInterstitialAdControllerDelegate`
+  - Hardened native ad custom events against invalid image URLs
+
 ## Version 2.3 (July 17th, 2014)
 
   - MoPub base SDK is now 64-bit compatible (Please check mediated networks for 64-bit support)
