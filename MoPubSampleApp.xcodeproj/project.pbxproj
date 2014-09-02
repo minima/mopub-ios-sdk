@@ -138,17 +138,11 @@
 		57292A121946301A00E6586C /* MPNativeAdConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 57292A101946301A00E6586C /* MPNativeAdConstants.m */; };
 		57697F0C1940D8E800E7DF5A /* FacebookNativeCustomEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 57697EFE1940D8D600E7DF5A /* FacebookNativeCustomEvent.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		57697F101940D9DA00E7DF5A /* FacebookNativeAdAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 57697F0E1940D9DA00E7DF5A /* FacebookNativeAdAdapter.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		577503F91978806D003208AE /* __vungle.db in Resources */ = {isa = PBXBuildFile; fileRef = 577503F21978806D003208AE /* __vungle.db */; };
 		577503FA1978806D003208AE /* __vungle.db in Resources */ = {isa = PBXBuildFile; fileRef = 577503F21978806D003208AE /* __vungle.db */; };
-		577503FB1978806D003208AE /* vg_close.png in Resources */ = {isa = PBXBuildFile; fileRef = 577503F31978806D003208AE /* vg_close.png */; };
 		577503FC1978806D003208AE /* vg_close.png in Resources */ = {isa = PBXBuildFile; fileRef = 577503F31978806D003208AE /* vg_close.png */; };
-		577503FD1978806D003208AE /* vg_cta.png in Resources */ = {isa = PBXBuildFile; fileRef = 577503F41978806D003208AE /* vg_cta.png */; };
 		577503FE1978806D003208AE /* vg_cta.png in Resources */ = {isa = PBXBuildFile; fileRef = 577503F41978806D003208AE /* vg_cta.png */; };
-		577503FF1978806D003208AE /* vg_mute_off.png in Resources */ = {isa = PBXBuildFile; fileRef = 577503F51978806D003208AE /* vg_mute_off.png */; };
 		577504001978806D003208AE /* vg_mute_off.png in Resources */ = {isa = PBXBuildFile; fileRef = 577503F51978806D003208AE /* vg_mute_off.png */; };
-		577504011978806D003208AE /* vg_mute_on.png in Resources */ = {isa = PBXBuildFile; fileRef = 577503F61978806D003208AE /* vg_mute_on.png */; };
 		577504021978806D003208AE /* vg_mute_on.png in Resources */ = {isa = PBXBuildFile; fileRef = 577503F61978806D003208AE /* vg_mute_on.png */; };
-		577504031978806D003208AE /* vg_timer.png in Resources */ = {isa = PBXBuildFile; fileRef = 577503F71978806D003208AE /* vg_timer.png */; };
 		577504041978806D003208AE /* vg_timer.png in Resources */ = {isa = PBXBuildFile; fileRef = 577503F71978806D003208AE /* vg_timer.png */; };
 		577504061978806D003208AE /* VungleSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 577503F81978806D003208AE /* VungleSDK.framework */; };
 		577A1FA219AE7EA6006DA28B /* MPNativeAdPageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 577A1FA119AE7EA6006DA28B /* MPNativeAdPageView.m */; };
@@ -2367,24 +2361,18 @@
 				AE0021E91704C46400A220F0 /* MPManualAdViewController.xib in Resources */,
 				4A6FC1F918C561B3007A1197 /* MPNativeAdDetailViewController.xib in Resources */,
 				AE8E1D451729A76C0051FA6C /* icon.png in Resources */,
-				577503FD1978806D003208AE /* vg_cta.png in Resources */,
 				46DA87B4185010DD00F34858 /* MPAdEntryViewController.xib in Resources */,
 				AE8E1D471729A76F0051FA6C /* icon@2x.png in Resources */,
 				AE8E1D491729A7730051FA6C /* Default.png in Resources */,
 				AE8E1D4B1729A7760051FA6C /* Default@2x.png in Resources */,
 				AE8E1D4D1729A7790051FA6C /* Default-568h@2x.png in Resources */,
-				577504031978806D003208AE /* vg_timer.png in Resources */,
 				AE8E1D501729AA460051FA6C /* white_button.png in Resources */,
-				577503F91978806D003208AE /* __vungle.db in Resources */,
-				577503FB1978806D003208AE /* vg_close.png in Resources */,
 				AE14F9B01773BA1100ABF744 /* MPAdBrowserController.xib in Resources */,
 				AE14F9E91773BA1100ABF744 /* LICENSE in Resources */,
 				AE14FA3D1773BA1100ABF744 /* MPCloseButtonX.png in Resources */,
-				577504011978806D003208AE /* vg_mute_on.png in Resources */,
 				AE14FA401773BA1100ABF744 /* MPCloseButtonX@2x.png in Resources */,
 				AE14FA431773BA1100ABF744 /* MRAID.bundle in Resources */,
 				4A8DD10618C90636005E9389 /* MPNativeAdTableHeaderView.xib in Resources */,
-				577503FF1978806D003208AE /* vg_mute_off.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2485,8 +2473,6 @@
 				AE14F9CB1773BA1100ABF744 /* MPAdWebViewAgent.m in Sources */,
 				AE14F9CE1773BA1100ABF744 /* MPHTMLBannerCustomEvent.m in Sources */,
 				AE14F9D11773BA1100ABF744 /* MPHTMLInterstitialCustomEvent.m in Sources */,
-				E060FE6C1994000C00F4F33C /* MPNativeAdPlacerCollectionViewController.m in Sources */,
-				4A97544718FC8C2600C19F10 /* UITableViewCell+MPNativeAd.m in Sources */,
 				46F883C917FB7AC5004CE563 /* MPLeaderboardBannerAdDetailViewController.m in Sources */,
 				AE14F9D41773BA1100ABF744 /* MPHTMLInterstitialViewController.m in Sources */,
 				4A8DD10118C90542005E9389 /* MPNativeAdCell.m in Sources */,
