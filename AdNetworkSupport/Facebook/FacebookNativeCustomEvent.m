@@ -14,7 +14,7 @@
 
 @interface FacebookNativeCustomEvent () <FBNativeAdDelegate>
 
-@property (nonatomic, readwrite, retain) FBNativeAd *fbNativeAd;
+@property (nonatomic, readwrite, strong) FBNativeAd *fbNativeAd;
 
 @end
 
@@ -22,8 +22,7 @@
 
 - (void)dealloc
 {
-    [_fbNativeAd release];
-    [super dealloc];
+    _fbNativeAd.delegate = nil;
 }
 
 - (void)requestAdWithCustomEventInfo:(NSDictionary *)info
@@ -43,8 +42,8 @@
 
 - (void)nativeAdDidLoad:(FBNativeAd *)nativeAd
 {
-    FacebookNativeAdAdapter *adAdapter = [[[FacebookNativeAdAdapter alloc] initWithFBNativeAd:nativeAd] autorelease];
-    MPNativeAd *interfaceAd = [[[MPNativeAd alloc] initWithAdAdapter:adAdapter] autorelease];
+    FacebookNativeAdAdapter *adAdapter = [[FacebookNativeAdAdapter alloc] initWithFBNativeAd:nativeAd];
+    MPNativeAd *interfaceAd = [[MPNativeAd alloc] initWithAdAdapter:adAdapter];
 
     NSMutableArray *imageURLs = [NSMutableArray array];
 

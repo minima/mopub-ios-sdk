@@ -14,11 +14,12 @@ describe(@"MPInterstitialCustomEventAdapter", ^{
     __block FakeInterstitialCustomEvent *event;
 
     beforeEach(^{
-        delegate = nice_fake_for(@protocol(MPInterstitialAdapterDelegate));
-        adapter = [[[MPInterstitialCustomEventAdapter alloc] initWithDelegate:delegate] autorelease];
-        configuration = [MPAdConfigurationFactory defaultInterstitialConfigurationWithCustomEventClassName:@"FakeInterstitialCustomEvent"];
-        event = [[[FakeInterstitialCustomEvent alloc] init] autorelease];
+        event = [[FakeInterstitialCustomEvent alloc] init];
         fakeProvider.fakeInterstitialCustomEvent = event;
+
+        delegate = nice_fake_for(@protocol(MPInterstitialAdapterDelegate));
+        adapter = [[MPInterstitialCustomEventAdapter alloc] initWithDelegate:delegate];
+        configuration = [MPAdConfigurationFactory defaultInterstitialConfigurationWithCustomEventClassName:@"FakeInterstitialCustomEvent"];
     });
 
     context(@"when asked to get an ad for a configuration", ^{
@@ -53,7 +54,7 @@ describe(@"MPInterstitialCustomEventAdapter", ^{
 
         beforeEach(^{
             [adapter _getAdWithConfiguration:configuration];
-            controller = [[[UIViewController alloc] init] autorelease];
+            controller = [[UIViewController alloc] init];
             [adapter showInterstitialFromViewController:controller];
         });
 
@@ -62,35 +63,11 @@ describe(@"MPInterstitialCustomEventAdapter", ^{
         });
     });
 
-    context(@"when deallocated", ^{
-        // There are scenarios where unregisterDelegate could be called synchronously in response to an "adDidFail" or "adDidDismiss" callback.  This can be problematic if unregisterDelegate synchronously deallocates the customEvent (which would deallocate the third party ad network object) as some third party SDKs do work immediately after sending their callbacks.
-
-        it(@"should not deallocate the custom event immediately", ^{
-            FakeInterstitialCustomEvent *event = [[FakeInterstitialCustomEvent alloc] init];
-            fakeProvider.fakeInterstitialCustomEvent = event;
-
-            adapter = [[MPInterstitialCustomEventAdapter alloc] initWithDelegate:delegate];
-
-            [adapter _getAdWithConfiguration:configuration];
-            event.delegate should equal(adapter);
-            [event release]; //the adapter has him now
-
-            [adapter dealloc];
-
-            //previously the event would be deallocated at this point.
-            //not any more!
-            event should be_instance_of([FakeInterstitialCustomEvent class]);
-
-            event.delegate should be_nil;
-            event.invalidated should equal(YES);
-        });
-    });
-
     context(@"when told that the interstitial has appeared", ^{
         beforeEach(^{
             [adapter _getAdWithConfiguration:configuration];
 
-            UIViewController *controller = [[[UIViewController alloc] init] autorelease];
+            UIViewController *controller = [[UIViewController alloc] init];
 
             [adapter showInterstitialFromViewController:controller];
         });

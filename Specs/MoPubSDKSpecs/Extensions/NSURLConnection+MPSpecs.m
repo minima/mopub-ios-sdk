@@ -16,17 +16,17 @@
 
 - (void)receiveSuccessfulResponse:(NSString *)body
 {
-    PSHKFakeHTTPURLResponse *response = [[[PSHKFakeHTTPURLResponse alloc] initWithStatusCode:200
+    PSHKFakeHTTPURLResponse *response = [[PSHKFakeHTTPURLResponse alloc] initWithStatusCode:200
                                                                                   andHeaders:nil
-                                                                                     andBody:body] autorelease];
+                                                                                     andBody:body];
     [self receiveResponse:response];
 }
 
 - (void)receiveResponseWithStatusCode:(int)code body:(NSString *)body
 {
-    PSHKFakeHTTPURLResponse *response = [[[PSHKFakeHTTPURLResponse alloc] initWithStatusCode:code
+    PSHKFakeHTTPURLResponse *response = [[PSHKFakeHTTPURLResponse alloc] initWithStatusCode:code
                                                                                   andHeaders:nil
-                                                                                     andBody:body] autorelease];
+                                                                                     andBody:body];
     [self receiveResponse:response];
 }
 

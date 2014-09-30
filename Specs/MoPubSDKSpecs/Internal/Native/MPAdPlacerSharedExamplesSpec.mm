@@ -61,7 +61,7 @@ NSString *aDelegateOrDataSourceMethodThatContainsASelector = @"a delegate / data
             NSInteger intValue = [arg integerValue];
             [localMethodInvocation setArgument:&intValue atIndex:argIndex];
         } else {
-            [localMethodInvocation setArgument:&(arg) atIndex:argIndex];
+            [localMethodInvocation setArgument:(void *)&(arg) atIndex:argIndex];
         }
 
         ++argIndex;
@@ -115,7 +115,7 @@ sharedExamplesFor(aTwoArgumentDelegateOrDataSourceMethod, ^(NSDictionary *shared
 
             [methodInvocation invoke];
 
-            id arg1;
+            __unsafe_unretained id arg1;
             [methodInvocation getArgument:&arg1 atIndex:2];
 
             fakeOriginalObject should have_received(methodSelector).with(arg1).and_with(testPath);
@@ -154,7 +154,7 @@ sharedExamplesFor(aThreeArgumentDelegateOrDataSourceMethod, ^(NSDictionary *shar
 
             [methodInvocation invoke];
 
-            id arg1;
+            __unsafe_unretained id arg1;
             [methodInvocation getArgument:&arg1 atIndex:2];
 
             const char *actualArgumentEncoding = [methodInvocation.methodSignature getArgumentTypeAtIndex:3];
@@ -165,7 +165,7 @@ sharedExamplesFor(aThreeArgumentDelegateOrDataSourceMethod, ^(NSDictionary *shar
                 [methodInvocation getArgument:&i atIndex:3];
                 fakeOriginalObject should have_received(methodSelector).with(arg1).and_with(i).and_with(testPath);
             } else if (strcmp(actualArgumentEncoding, "@") == 0) {
-                id arg2;
+                __unsafe_unretained id arg2;
                 [methodInvocation getArgument:&arg2 atIndex:3];
 
                 // Check if it's an index path.  Translate it to the original path if it is.
@@ -291,7 +291,7 @@ sharedExamplesFor(aDelegateOrDataSourceMethodThatReturnsAnObject, ^(NSDictionary
             });
 
             it(@"should return default return value", ^{
-                id returnValue;
+                __unsafe_unretained id returnValue;
                 [methodInvocation invoke];
                 [methodInvocation getReturnValue:&returnValue];
                 returnValue should equal(defaultReturnValue);
@@ -304,7 +304,7 @@ sharedExamplesFor(aDelegateOrDataSourceMethodThatReturnsAnObject, ^(NSDictionary
             });
 
             it(@"should return whatever the original object is set up to return", ^{
-                id returnValue;
+                __unsafe_unretained id returnValue;
                 [methodInvocation invoke];
                 [methodInvocation getReturnValue:&returnValue];
                 returnValue should equal(selectorStubReturnValue);
@@ -323,7 +323,7 @@ sharedExamplesFor(aDelegateOrDataSourceMethodThatReturnsAnObject, ^(NSDictionary
             });
 
             it(@"should return default return value", ^{
-                id returnValue;
+                __unsafe_unretained id returnValue;
                 [methodInvocation getReturnValue:&returnValue];
                 returnValue should equal(defaultReturnValue);
             });
@@ -340,7 +340,7 @@ sharedExamplesFor(aDelegateOrDataSourceMethodThatReturnsAnObject, ^(NSDictionary
             });
 
             it(@"should return default return value", ^{
-                id returnValue;
+                __unsafe_unretained id returnValue;
                 [methodInvocation getReturnValue:&returnValue];
                 returnValue should equal(defaultReturnValue);
             });
@@ -532,7 +532,7 @@ sharedExamplesFor(aSelectOrDeselectRowAtIndexPathMethod, ^ (NSDictionary *shared
     __block SEL methodSelector;
     __block NSInvocation *methodInvocation;
     __block id<CedarDouble> fakeOriginalObject; // delegate or data source
-    __block NSIndexPath *returnValue;
+    __unsafe_unretained __block NSIndexPath *returnValue;
     __block NSIndexPath *indexPath;
     __block id uiCollectionAdPlacer;
     __block MPStreamAdPlacer *fakeStreamAdPlacer;
@@ -594,7 +594,7 @@ sharedExamplesFor(aSelectOrDeselectRowAtIndexPathMethod, ^ (NSDictionary *shared
                 fakeOriginalObject stub_method(methodSelector).and_return(delegateStubPath);
                 fakeStreamAdPlacer stub_method(@selector(originalIndexPathForAdjustedIndexPath:)).and_return(placerStubPath);
                 fakeStreamAdPlacer stub_method(@selector(adjustedIndexPathForOriginalIndexPath:)).and_do(^(NSInvocation *invocation) {
-                    NSIndexPath *path;
+                    __unsafe_unretained NSIndexPath *path;
                     [invocation getArgument:&path atIndex:2];
 
                     if (path == delegateStubPath) {
@@ -631,7 +631,7 @@ sharedExamplesFor(aDelegateOrDataSourceMethodThatContainsASelector, ^(NSDictiona
         uiCollectionAdPlacer = sharedContext[@"uiCollectionAdPlacer"];
         fakeStreamAdPlacer = sharedContext[@"fakeStreamAdPlacer"];
         tableView = sharedContext[@"view"];
-        sender = [[[NSObject alloc] init] autorelease];
+        sender = [[NSObject alloc] init];
         indexPath = [NSIndexPath indexPathForRow:2 inSection:1];
         methodName = sharedContext[@"methodName"];
         methodSelector = NSSelectorFromString(methodName);

@@ -6,6 +6,7 @@
 //
 
 #import "FakeMPAdAlertGestureRecognizer.h"
+#import "MPInternalUtils.h"
 
 @implementation FakeMPAdAlertGestureRecognizer
 
@@ -13,20 +14,16 @@
 {
     self.fakeTarget = target;
     self.fakeTargetAction = action;
-    
+
     [super addTarget:target action:action];
 }
 
-- (void)dealloc
-{
-    self.fakeTarget = nil;
-    
-    [super dealloc];
-}
 
 - (void)simulateGestureRecognized
 {
-    [self.fakeTarget performSelector:self.fakeTargetAction];
+    SUPPRESS_PERFORM_SELECTOR_LEAK_WARNING(
+        [self.fakeTarget performSelector:self.fakeTargetAction withObject:nil]
+    );
 }
 
 @end

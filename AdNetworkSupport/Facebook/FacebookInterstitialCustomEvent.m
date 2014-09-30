@@ -22,7 +22,7 @@
 - (FBInterstitialAd *)buildFBInterstitialAdWithPlacementID:(NSString *)placementID
                                                   delegate:(id<FBInterstitialAdDelegate>)delegate
 {
-    FBInterstitialAd *interstitialAd = [[[FBInterstitialAd alloc] initWithPlacementID:placementID] autorelease];
+    FBInterstitialAd *interstitialAd = [[FBInterstitialAd alloc] initWithPlacementID:placementID];
     interstitialAd.delegate = delegate;
     return interstitialAd;
 }
@@ -31,7 +31,7 @@
 
 @interface FacebookInterstitialCustomEvent ()
 
-@property (nonatomic, retain) FBInterstitialAd *fbInterstitialAd;
+@property (nonatomic, strong) FBInterstitialAd *fbInterstitialAd;
 
 @end
 
@@ -69,8 +69,7 @@
 
 - (void)dealloc
 {
-    [_fbInterstitialAd release];
-    [super dealloc];
+    _fbInterstitialAd.delegate = nil;
 }
 
 #pragma mark FBInterstitialAdDelegate methods

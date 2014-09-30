@@ -16,13 +16,13 @@ describe(@"iAdBannerIntegrationSuite", ^{
     __block FakeADBannerView *fakeADBannerView;
 
     beforeEach(^{
+        fakeADBannerView = [[FakeADBannerView alloc] initWithFrame:CGRectMake(0,0,30,50)];
+        fakeProvider.fakeADBannerView = fakeADBannerView.masquerade;
+
         delegate = nice_fake_for(@protocol(MPAdViewDelegate));
-        banner = [[[MPAdView alloc] initWithAdUnitId:@"iAd" size:MOPUB_BANNER_SIZE] autorelease];
+        banner = [[MPAdView alloc] initWithAdUnitId:@"iAd" size:MOPUB_BANNER_SIZE];
         banner.delegate = delegate;
         [banner loadAd];
-
-        fakeADBannerView = [[[FakeADBannerView alloc] initWithFrame:CGRectMake(0,0,30,50)] autorelease];
-        fakeProvider.fakeADBannerView = fakeADBannerView.masquerade;
 
         configuration = [MPAdConfigurationFactory defaultBannerConfigurationWithNetworkType:@"iAd"];
         configuration.refreshInterval = 20;

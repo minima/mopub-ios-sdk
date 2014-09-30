@@ -23,14 +23,14 @@ describe(@"MPMRAIDInterstitialViewController", ^{
     __block UIViewController *presentingViewController;
 
     beforeEach(^{
-        presentingViewController = [[[UIViewController alloc] init] autorelease];
+        presentingViewController = [[UIViewController alloc] init];
         configuration = [MPAdConfigurationFactory defaultMRAIDInterstitialConfiguration];
         delegate = nice_fake_for(@protocol(MPInterstitialViewControllerDelegate));
 
         backingView = nice_fake_for([MRAdView class]);
         fakeProvider.fakeMRAdView = backingView;
 
-        controller = [[[MPMRAIDInterstitialViewController alloc] initWithAdConfiguration:configuration] autorelease];
+        controller = [[MPMRAIDInterstitialViewController alloc] initWithAdConfiguration:configuration];
         controller.delegate = delegate;
 
         [presentingViewController presentViewController:controller animated:NO completion:nil];

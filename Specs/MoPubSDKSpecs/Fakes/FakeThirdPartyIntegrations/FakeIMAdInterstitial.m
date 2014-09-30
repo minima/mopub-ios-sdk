@@ -9,10 +9,6 @@
 
 @implementation FakeIMAdInterstitial
 
-- (void)dealloc
-{
-    [super dealloc];
-}
 
 - (UIViewController *)presentingViewController
 {

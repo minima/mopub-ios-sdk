@@ -14,7 +14,7 @@
 #import "GADBannerView.h"
 #import "FakeMMInterstitial.h"
 #import "FakeInterstitialCustomEvent.h"
-#import "Chartboost.h"
+#import <Chartboost/Chartboost.h>
 #import "FakeGSFullscreenAd.h"
 #import "IMInterstitial.h"
 #import "IMBanner.h"
@@ -32,6 +32,7 @@
 #import <FBAudienceNetwork/FBAudienceNetwork.h>
 #import <Foundation/Foundation.h>
 #import "MPNativeAdSource.h"
+#import "MPNativePositionSource.h"
 #import "MPStreamAdPlacer.h"
 #import "FakeMPStreamAdPlacer.h"
 
@@ -49,67 +50,65 @@
 @interface FakeMPInstanceProvider : MPInstanceProvider
 
 #pragma mark - Banners
-@property (nonatomic, assign) MPBaseBannerAdapter *fakeBannerAdapter;
-@property (nonatomic, assign) FakeBannerCustomEvent *fakeBannerCustomEvent;
+@property (nonatomic, strong) MPBaseBannerAdapter *fakeBannerAdapter;
+@property (nonatomic, strong) FakeBannerCustomEvent *fakeBannerCustomEvent;
 
 #pragma mark - Interstitials
-@property (nonatomic, assign) MPInterstitialAdManager *fakeMPInterstitialAdManager;
-@property (nonatomic, assign) MPBaseInterstitialAdapter *fakeInterstitialAdapter;
-@property (nonatomic, assign) FakeInterstitialCustomEvent *fakeInterstitialCustomEvent;
-@property (nonatomic, assign) MPHTMLInterstitialViewController *fakeMPHTMLInterstitialViewController;
-@property (nonatomic, assign) MPMRAIDInterstitialViewController *fakeMPMRAIDInterstitialViewController;
+@property (nonatomic, strong) MPInterstitialAdManager *fakeMPInterstitialAdManager;
+@property (nonatomic, strong) MPBaseInterstitialAdapter *fakeInterstitialAdapter;
+@property (nonatomic, strong) FakeInterstitialCustomEvent *fakeInterstitialCustomEvent;
+@property (nonatomic, strong) MPHTMLInterstitialViewController *fakeMPHTMLInterstitialViewController;
+@property (nonatomic, strong) MPMRAIDInterstitialViewController *fakeMPMRAIDInterstitialViewController;
 
 #pragma mark - HTML Ads
-@property (nonatomic, assign) MPAdWebView *fakeMPAdWebView;
-@property (nonatomic, assign) MPAdWebViewAgent *fakeMPAdWebViewAgent;
+@property (nonatomic, strong) MPAdWebView *fakeMPAdWebView;
+@property (nonatomic, strong) MPAdWebViewAgent *fakeMPAdWebViewAgent;
 
 #pragma mark - MRAID
-@property (nonatomic, assign) MRAdView *fakeMRAdView;
-@property (nonatomic, assign) MRBundleManager *fakeMRBundleManager;
-@property (nonatomic, assign) UIWebView *fakeUIWebView;
-@property (nonatomic, assign) MRJavaScriptEventEmitter *fakeMRJavaScriptEventEmitter;
-@property (nonatomic, assign) MRCalendarManager *fakeMRCalendarManager;
-@property (nonatomic, assign) EKEventEditViewController *fakeEKEventEditViewController;
-@property (nonatomic, assign) EKEventStore *fakeEKEventStore;
-@property (nonatomic, assign) MRPictureManager *fakeMRPictureManager;
-@property (nonatomic, assign) MRImageDownloader *fakeImageDownloader;
-@property (nonatomic, assign) MRVideoPlayerManager *fakeMRVideoPlayerManager;
-@property (nonatomic, assign) MPMoviePlayerViewController *fakeMoviePlayerViewController;
+@property (nonatomic, strong) MRAdView *fakeMRAdView;
+@property (nonatomic, strong) MRBundleManager *fakeMRBundleManager;
+@property (nonatomic, strong) UIWebView *fakeUIWebView;
+@property (nonatomic, strong) MRJavaScriptEventEmitter *fakeMRJavaScriptEventEmitter;
+@property (nonatomic, strong) MRCalendarManager *fakeMRCalendarManager;
+@property (nonatomic, strong) EKEventEditViewController *fakeEKEventEditViewController;
+@property (nonatomic, strong) EKEventStore *fakeEKEventStore;
+@property (nonatomic, strong) MRPictureManager *fakeMRPictureManager;
+@property (nonatomic, strong) MRImageDownloader *fakeImageDownloader;
+@property (nonatomic, strong) MRVideoPlayerManager *fakeMRVideoPlayerManager;
+@property (nonatomic, strong) MPMoviePlayerViewController *fakeMoviePlayerViewController;
 
 #pragma mark - Native
-@property (nonatomic, assign) MPNativeAdSource *fakeNativeAdSource;
-@property (nonatomic, assign) MPStreamAdPlacementData *fakeStreamAdPlacementData;
-@property (nonatomic, assign) MPStreamAdPlacer *fakeStreamAdPlacer;
+@property (nonatomic, strong) MPNativeAdSource *fakeNativeAdSource;
+@property (nonatomic, strong) MPNativePositionSource *fakeNativePositioningSource;
+@property (nonatomic, strong) MPStreamAdPlacementData *fakeStreamAdPlacementData;
+@property (nonatomic, strong) MPStreamAdPlacer *fakeStreamAdPlacer;
 
 #pragma mark - Third Party Integrations
 
 #pragma mark iAd
-@property (nonatomic, assign) ADBannerView *fakeADBannerView;
-@property (nonatomic, assign) ADInterstitialAd *fakeADInterstitialAd;
-
-#pragma mark Chartboost
-@property (nonatomic, assign) Chartboost *fakeChartboost;
+@property (nonatomic, strong) ADBannerView *fakeADBannerView;
+@property (nonatomic, strong) ADInterstitialAd *fakeADInterstitialAd;
 
 #pragma mark Facebook
-@property (nonatomic, assign) FBAdView *fakeFBAdView;
-@property (nonatomic, assign) FBInterstitialAd *fakeFBInterstitialAd;
+@property (nonatomic, strong) FBAdView *fakeFBAdView;
+@property (nonatomic, strong) FBInterstitialAd *fakeFBInterstitialAd;
 
 #pragma mark Google Ad Mob
-@property (nonatomic, assign) GADRequest *fakeGADBannerRequest;
-@property (nonatomic, assign) GADBannerView *fakeGADBannerView;
-@property (nonatomic, assign) GADRequest *fakeGADInterstitialRequest;
-@property (nonatomic, assign) GADInterstitial *fakeGADInterstitial;
+@property (nonatomic, strong) GADRequest *fakeGADBannerRequest;
+@property (nonatomic, strong) GADBannerView *fakeGADBannerView;
+@property (nonatomic, strong) GADRequest *fakeGADInterstitialRequest;
+@property (nonatomic, strong) GADInterstitial *fakeGADInterstitial;
 
 #pragma mark Greystripe
-@property (nonatomic, assign) FakeGSBannerAdView *fakeGSBannerAdView;
-@property (nonatomic, assign) FakeGSFullscreenAd *fakeGSFullscreenAd;
+@property (nonatomic, strong) FakeGSBannerAdView *fakeGSBannerAdView;
+@property (nonatomic, strong) FakeGSFullscreenAd *fakeGSFullscreenAd;
 
 #pragma mark InMobi
-@property (nonatomic, assign) IMBanner *fakeIMAdView;
-@property (nonatomic, assign) IMInterstitial *fakeIMAdInterstitial;
+@property (nonatomic, strong) IMBanner *fakeIMAdView;
+@property (nonatomic, strong) IMInterstitial *fakeIMAdInterstitial;
 
 #pragma mark Millennial
-@property (nonatomic, assign) FakeMMAdView *fakeMMAdView;
-@property (nonatomic, assign) FakeMMInterstitial *fakeMMInterstitial;
+@property (nonatomic, strong) FakeMMAdView *fakeMMAdView;
+@property (nonatomic, strong) FakeMMInterstitial *fakeMMInterstitial;
 
 @end

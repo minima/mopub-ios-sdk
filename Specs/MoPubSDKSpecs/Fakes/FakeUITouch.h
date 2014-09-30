@@ -9,6 +9,6 @@
 
 @interface FakeUITouch : UITouch
 
-@property (nonatomic, retain) UIView *view;
+@property (nonatomic, strong) UIView *view;
 
 @end

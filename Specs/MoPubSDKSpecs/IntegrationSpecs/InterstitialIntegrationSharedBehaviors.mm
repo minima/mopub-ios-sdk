@@ -126,7 +126,7 @@ sharedExamplesFor(anInterstitialThatPreventsShowing, ^(NSDictionary *sharedConte
     SET_UP_BLOCK_VARIABLES
 
     beforeEach(^{
-        presentingController = [[[UIViewController alloc] init] autorelease];
+        presentingController = [[UIViewController alloc] init];
         INITIALIZE_BLOCK_VARIABLES
 
         [communicator resetLoadedURL];

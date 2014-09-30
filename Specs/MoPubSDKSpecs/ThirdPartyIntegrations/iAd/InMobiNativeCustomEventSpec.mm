@@ -18,7 +18,7 @@ describe(@"InMobiNativeCustomEvent", ^{
     [InMobi initialize:@"b15abe4c93a84f59a65faceca30c9591"];
 
     beforeEach(^{
-        delegate = [nice_fake_for(@protocol(MPNativeCustomEventDelegate)) retain];
+        delegate = nice_fake_for(@protocol(MPNativeCustomEventDelegate));
         customEvent = [[InMobiNativeCustomEvent alloc] init];
         customEvent.delegate = delegate;
 
@@ -30,8 +30,8 @@ describe(@"InMobiNativeCustomEvent", ^{
 
     afterEach(^{
         customEvent.delegate = nil;
-        [delegate release]; delegate = nil;
-        [customEvent release]; customEvent = nil;
+         delegate = nil;
+         customEvent = nil;
     });
 
     context(@"when requesting an ad with valid info", ^{

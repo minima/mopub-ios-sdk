@@ -64,15 +64,15 @@ describe(@"MPAdAlertGestureRecognizer", ^{
 
         model.minTrackedDistanceForZigZag = view.bounds.size.width / 3;
 
-        UIWindow *window = [[[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds] autorelease];
+        UIWindow *window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
         [window makeKeyAndVisible];
 
         [window addSubview:view];
     });
 
     afterEach(^{
-        [model release]; model = nil;
-        [view release]; view = nil;
+         model = nil;
+         view = nil;
     });
 
     context(@"when the user touches the view with one finger", ^{

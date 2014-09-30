@@ -26,12 +26,12 @@ describe(@"MPAdDestinationDisplayAgent", ^{
         fakeCoreProvider.fakeMPURLResolver = resolver;
 
         delegate = nice_fake_for(@protocol(MPAdDestinationDisplayAgentDelegate));
-        presentingViewController = [[[UIViewController alloc] init] autorelease];
+        presentingViewController = [[UIViewController alloc] init];
         delegate stub_method("viewControllerForPresentingModalView").and_return(presentingViewController);
 
         agent = [MPAdDestinationDisplayAgent agentWithDelegate:delegate];
 
-        window = [[[UIWindow alloc] init] autorelease];
+        window = [[UIWindow alloc] init];
         [window makeKeyAndVisible];
 
         verifyThatTheURLWasSentToApplication = [^(NSURL *URL){
@@ -358,10 +358,8 @@ describe(@"MPAdDestinationDisplayAgent", ^{
     });
 
     describe(@"-dealloc", ^{
-        context(@"while the overlay is showing", PENDING/*^{
+        context(@"while the overlay is showing", ^{
             beforeEach(^{
-
-
                 // XXX: When creating a display agent, we typically substitute a Cedar double
                 // wherever a URL resolver is needed, but we don't want to do that here. The reason
                 // is that doubles retain all arguments on method calls until the end of a test run,
@@ -377,12 +375,14 @@ describe(@"MPAdDestinationDisplayAgent", ^{
                     [agent displayDestinationForURL:URL];
                     window.subviews.lastObject should be_instance_of([MPProgressOverlayView class]);
                 }
+
+                agent = nil;
             });
 
             it(@"should hide the overlay", ^{
-                window.subviews.lastObject should be_nil;
+                in_time(window.subviews.lastObject) should be_nil;
             });
-        }*/);
+        });
 
         context(@"while the StoreKit controller is showing", ^{
             __block FakeStoreProductViewController *store;

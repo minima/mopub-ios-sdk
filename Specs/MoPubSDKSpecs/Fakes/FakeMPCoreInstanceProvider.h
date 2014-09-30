@@ -6,22 +6,23 @@
 //
 
 #import "MPCoreInstanceProvider.h"
+#import "FakeOperationQueue.h"
 
 @interface FakeMPCoreInstanceProvider : MPCoreInstanceProvider
 
 #pragma mark - Fetching Ads
-@property (nonatomic, assign) FakeMPAdServerCommunicator *lastFakeMPAdServerCommunicator;
+@property (nonatomic, strong) FakeMPAdServerCommunicator *lastFakeMPAdServerCommunicator;
 
 #pragma mark - URL Handling
-@property (nonatomic, assign) MPURLResolver *fakeMPURLResolver;
-@property (nonatomic, assign) MPAdDestinationDisplayAgent *fakeMPAdDestinationDisplayAgent;
+@property (nonatomic, strong) MPURLResolver *fakeMPURLResolver;
+@property (nonatomic, strong) MPAdDestinationDisplayAgent *fakeMPAdDestinationDisplayAgent;
 
 #pragma mark - Utilities
-@property (nonatomic, assign) FakeMPAdAlertManager *fakeAdAlertManager;
-@property (nonatomic, assign) FakeMPAdAlertGestureRecognizer *fakeAdAlertGestureRecognizer;
-@property (nonatomic, assign) FakeOperationQueue *fakeOperationQueue;
-@property (nonatomic, assign) FakeMPReachability *fakeMPReachability;
-@property (nonatomic, assign) NSDictionary *fakeCarrierInfo;
+@property (nonatomic, strong) FakeMPAdAlertManager *fakeAdAlertManager;
+@property (nonatomic, strong) FakeMPAdAlertGestureRecognizer *fakeAdAlertGestureRecognizer;
+@property (nonatomic, strong) FakeOperationQueue *fakeOperationQueue;
+@property (nonatomic, strong) FakeMPReachability *fakeMPReachability;
+@property (nonatomic, strong) NSDictionary *fakeCarrierInfo;
 
 - (NSString *)userAgent;
 - (FakeMPAnalyticsTracker *)sharedFakeMPAnalyticsTracker;

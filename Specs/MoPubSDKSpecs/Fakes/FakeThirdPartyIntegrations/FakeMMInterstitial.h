@@ -13,12 +13,12 @@
 
 @interface FakeMMInterstitial : NSObject <FakeInterstitialAd>
 
-@property (nonatomic, assign) NSMutableDictionary *requests;
-@property (nonatomic, assign) NSMutableDictionary *fetchCompletionBlocks;
+@property (nonatomic, strong) NSMutableDictionary *requests;
+@property (nonatomic, strong) NSMutableDictionary *fetchCompletionBlocks;
 
-@property (nonatomic, assign) NSMutableDictionary *viewControllers;
-@property (nonatomic, assign) NSMutableDictionary *overlayOrientations;
-@property (nonatomic, assign) NSMutableDictionary *displayCompletionBlocks;
+@property (nonatomic, strong) NSMutableDictionary *viewControllers;
+@property (nonatomic, strong) NSMutableDictionary *overlayOrientations;
+@property (nonatomic, strong) NSMutableDictionary *displayCompletionBlocks;
 
 - (void)reset;
 

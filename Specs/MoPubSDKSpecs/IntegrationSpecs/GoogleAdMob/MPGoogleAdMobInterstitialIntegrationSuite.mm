@@ -22,14 +22,14 @@ describe(@"MPGoogleAdMobIntegrationSuite", ^{
         delegate = nice_fake_for(@protocol(MPInterstitialAdControllerDelegate));
 
         interstitial = [MPInterstitialAdController interstitialAdControllerForAdUnitId:@"admob_interstitial"];
-        interstitial.location = [[[CLLocation alloc] initWithCoordinate:CLLocationCoordinate2DMake(37.1, 21.2)
+        interstitial.location = [[CLLocation alloc] initWithCoordinate:CLLocationCoordinate2DMake(37.1, 21.2)
                                                                altitude:11
                                                      horizontalAccuracy:12.3
                                                        verticalAccuracy:10
-                                                              timestamp:[NSDate date]] autorelease];
+                                                              timestamp:[NSDate date]];
         interstitial.delegate = delegate;
 
-        presentingController = [[[UIViewController alloc] init] autorelease];
+        presentingController = [[UIViewController alloc] init];
 
         // request an Ad
         [interstitial loadAd];
@@ -37,7 +37,7 @@ describe(@"MPGoogleAdMobIntegrationSuite", ^{
         communicator.loadedURL.absoluteString should contain(@"admob_interstitial");
 
         // prepare the fake and tell the injector about it
-        fakeGADInterstitial = [[[FakeGADInterstitial alloc] init] autorelease];
+        fakeGADInterstitial = [[FakeGADInterstitial alloc] init];
         fakeProvider.fakeGADInterstitial = fakeGADInterstitial.masquerade;
         fakeGADInterstitialRequest = nice_fake_for([GADRequest class]);
         fakeProvider.fakeGADInterstitialRequest = fakeGADInterstitialRequest;
@@ -125,7 +125,7 @@ describe(@"MPGoogleAdMobIntegrationSuite", ^{
                     [delegate reset_sent_messages];
                     [fakeCoreProvider.sharedFakeMPAnalyticsTracker reset];
 
-                    newPresentingController = [[[UIViewController alloc] init] autorelease];
+                    newPresentingController = [[UIViewController alloc] init];
                     [interstitial showFromViewController:newPresentingController];
                 });
 

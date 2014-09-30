@@ -10,17 +10,17 @@ describe(@"MPAdView", ^{
     __block MPAdView *adView;
 
     beforeEach(^{
-        adView = [[[MPAdView alloc] initWithAdUnitId:@"foo" size:MOPUB_BANNER_SIZE] autorelease];
+        adView = [[MPAdView alloc] initWithAdUnitId:@"foo" size:MOPUB_BANNER_SIZE];
     });
 
     describe(@"loadAd", ^{
         it(@"should tell its manager to begin loading", ^{
             adView.keywords = @"hi=4";
-            adView.location = [[[CLLocation alloc] initWithCoordinate:CLLocationCoordinate2DMake(20, 20)
+            adView.location = [[CLLocation alloc] initWithCoordinate:CLLocationCoordinate2DMake(20, 20)
                                                              altitude:10
                                                    horizontalAccuracy:100
                                                      verticalAccuracy:200
-                                                            timestamp:[NSDate date]] autorelease];
+                                                            timestamp:[NSDate date]];
             adView.testing = YES;
             [adView loadAd];
 
@@ -54,7 +54,7 @@ describe(@"MPAdView", ^{
 
         context(@"when there is a content view", ^{
             it(@"should return the size of the content view", ^{
-                [adView setAdContentView:[[[UIView alloc] initWithFrame:CGRectMake(0, 0, 40, 50)] autorelease]];
+                [adView setAdContentView:[[UIView alloc] initWithFrame:CGRectMake(0, 0, 40, 50)]];
                 [adView adContentViewSize] should equal(CGSizeMake(40, 50));
             });
         });

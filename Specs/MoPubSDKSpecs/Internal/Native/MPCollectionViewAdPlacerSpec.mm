@@ -4,6 +4,7 @@
 #import "MPNativeAdRequestTargeting.h"
 #import "MPClientAdPositioning.h"
 #import "MPNativeAdRendering.h"
+#import "CedarAsync.h"
 
 using namespace Cedar::Matchers;
 using namespace Cedar::Doubles;
@@ -113,10 +114,10 @@ describe(@"MPCollectionViewAdPlacer", ^{
         adPositioning = [MPClientAdPositioning positioning];
         [adPositioning addFixedIndexPath:[NSIndexPath indexPathForRow:1 inSection:1]];
         [adPositioning enableRepeatingPositionsWithInterval:3];
-        collectionViewLayout = [[[UICollectionViewFlowLayout alloc] init] autorelease];
+        collectionViewLayout = [[UICollectionViewFlowLayout alloc] init];
         collectionViewDelegate = nice_fake_for(@protocol(UICollectionViewDelegate));
         collectionViewDataSource = nice_fake_for(@protocol(UICollectionViewDataSource));
-        collectionView = [[[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:collectionViewLayout] autorelease];
+        collectionView = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:collectionViewLayout];
         collectionView.delegate = collectionViewDelegate;
         collectionView.dataSource = collectionViewDataSource;
         presentingViewController = nice_fake_for([UIViewController class]);
@@ -319,7 +320,7 @@ describe(@"MPCollectionViewAdPlacer", ^{
 
         it(@"should forward loadAdsForAdUnitID:targeting to the stream ad placer", ^{
             fakeStreamAdPlacer should_not have_received(@selector(loadAdsForAdUnitID:targeting:));
-            [collectionViewAdPlacer loadAdsForAdUnitID:@"booger" targeting:[[[MPNativeAdRequestTargeting alloc] init] autorelease]];
+            [collectionViewAdPlacer loadAdsForAdUnitID:@"booger" targeting:[[MPNativeAdRequestTargeting alloc] init]];
             fakeStreamAdPlacer should have_received(@selector(loadAdsForAdUnitID:targeting:));
         });
     });
@@ -329,36 +330,83 @@ describe(@"MPCollectionViewAdPlacer", ^{
     });
 
     describe(@"-updateVisibleCells", ^{
+        __block UICollectionView *collectionView;
+        __block MPStreamAdPlacer *streamAdPlacer;
+
         beforeEach(^{
-            fakeProvider.fakeStreamAdPlacer = fakeStreamAdPlacer;
+            streamAdPlacer = [MPStreamAdPlacer placerWithViewController:presentingViewController adPositioning:adPositioning defaultAdRenderingClass:[FakeMPNativeAdRenderingClassCollectionView class]];
+            spy_on(streamAdPlacer);
+            fakeProvider.fakeStreamAdPlacer = streamAdPlacer;
+            collectionView = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:[[UICollectionViewFlowLayout alloc] init]];
+            spy_on(collectionView);
         });
 
         context(@"when the collection view has no visible cells", ^{
             beforeEach(^{
-                fakeCollectionView stub_method(@selector(indexPathsForVisibleItems)).and_return(@[]);
-                collectionViewAdPlacer = [MPCollectionViewAdPlacer placerWithCollectionView:fakeCollectionView viewController:presentingViewController adPositioning:adPositioning defaultAdRenderingClass:[FakeMPNativeAdRenderingClassCollectionView class]];
+                collectionView stub_method(@selector(indexPathsForVisibleItems)).and_return(@[]);
+                collectionViewAdPlacer = [MPCollectionViewAdPlacer placerWithCollectionView:collectionView viewController:presentingViewController adPositioning:adPositioning defaultAdRenderingClass:[FakeMPNativeAdRenderingClassCollectionView class]];
                 [collectionViewAdPlacer updateVisibleCells];
             });
 
             it(@"should not set visible index paths on the stream ad placer", ^{
-                fakeStreamAdPlacer should_not have_received(@selector(setVisibleIndexPaths:));
+                streamAdPlacer should_not have_received(@selector(setVisibleIndexPaths:));
             });
         });
 
         context(@"when the collection view has visible cells", ^{
             __block NSArray *visiblePaths;
+
             beforeEach(^{
                 visiblePaths = @[
                                  [NSIndexPath indexPathForItem:1 inSection:1],
-                                 [NSIndexPath indexPathForItem:2 inSection:1]
+                                 [NSIndexPath indexPathForItem:2 inSection:1],
+                                 [NSIndexPath indexPathForItem:3 inSection:1]
                                  ];
-                fakeCollectionView stub_method(@selector(indexPathsForVisibleItems)).and_return(visiblePaths);
-                collectionViewAdPlacer = [MPCollectionViewAdPlacer placerWithCollectionView:fakeCollectionView viewController:presentingViewController adPositioning:adPositioning defaultAdRenderingClass:[FakeMPNativeAdRenderingClassCollectionView class]];
-                [collectionViewAdPlacer updateVisibleCells];
+                collectionView stub_method(@selector(indexPathsForVisibleItems)).and_return(visiblePaths);
+                streamAdPlacer stub_method(@selector(originalIndexPathForAdjustedIndexPath:)).and_do_block(^NSIndexPath * (NSIndexPath *adjustedIndexPath) {
+                    if ([streamAdPlacer isAdAtIndexPath:adjustedIndexPath]) {
+                        return nil;
+                    }
+                    return [NSIndexPath indexPathForRow:adjustedIndexPath.row+5 inSection:adjustedIndexPath.section];
+                });
+                collectionViewAdPlacer = [MPCollectionViewAdPlacer placerWithCollectionView:collectionView viewController:presentingViewController adPositioning:adPositioning defaultAdRenderingClass:[FakeMPNativeAdRenderingClassCollectionView class]];
             });
 
-            it(@"should set visible index paths on the stream ad placer", ^{
-                fakeStreamAdPlacer should have_received(@selector(setVisibleIndexPaths:)).with(visiblePaths);
+            it(@"should set visible index paths on the stream ad placer without an explicit updateVisibleCells call", ^{
+                in_time(streamAdPlacer should have_received(@selector(setVisibleIndexPaths:)).with(visiblePaths));
+            });
+
+            it(@"should set visible index paths on the stream ad placer with original index paths", ^{
+                NSArray *originalIndexPaths = [NSMutableArray arrayWithObjects:[NSIndexPath indexPathForRow:6 inSection:1],
+                                               [NSIndexPath indexPathForRow:7 inSection:1],
+                                               [NSIndexPath indexPathForRow:8 inSection:1],
+                                               nil];
+
+                [collectionViewAdPlacer updateVisibleCells];
+                streamAdPlacer should have_received(@selector(setVisibleIndexPaths:)).with(originalIndexPaths);
+            });
+
+            // Not such a great test since we're stubbing out originalIndexPathForAdjustedIndexPath.
+            context(@"when the visible index paths contain an ad", ^{
+                beforeEach(^{
+                    streamAdPlacer stub_method(@selector(isAdAtIndexPath:)).and_do_block(^BOOL(NSIndexPath *indexPath) {
+                        if ([indexPath isEqual:[NSIndexPath indexPathForRow:2 inSection:1]]) {
+                            return YES;
+                        }
+
+                        return NO;
+                    });
+
+                    [collectionViewAdPlacer updateVisibleCells];
+                });
+
+                it(@"should exclude ad cells when setting visible index paths on the stream ad placer", ^{
+                    NSArray *contentIndexPaths = [NSMutableArray arrayWithObjects:[NSIndexPath indexPathForRow:6 inSection:1],
+                                                  [NSIndexPath indexPathForRow:8 inSection:1],
+                                                  nil];
+
+                    streamAdPlacer should have_received(@selector(setVisibleIndexPaths:)).with(contentIndexPaths);
+                });
             });
         });
     });
@@ -467,7 +515,7 @@ describe(@"MPCollectionViewAdPlacer", ^{
                     __block FakeMPNativeAdRenderingClassCollectionView *fakeNativeAdView;
 
                     beforeEach(^{
-                        fakeNativeAdView = [[[FakeMPNativeAdRenderingClassCollectionView alloc] init] autorelease];
+                        fakeNativeAdView = [[FakeMPNativeAdRenderingClassCollectionView alloc] init];
                         fakeCollectionView stub_method(@selector(dequeueReusableCellWithReuseIdentifier:forIndexPath:)).and_return(fakeNativeAdView);
                         indexPath = [NSIndexPath indexPathForRow:3 inSection:1];
                         fakeStreamAdPlacer stub_method(@selector(isAdAtIndexPath:)).and_return(YES);
@@ -508,7 +556,7 @@ describe(@"MPCollectionViewAdPlacer", ^{
                     });
 
                     it(@"should return whatever the original data source returns", ^{
-                        UIView *bogusView = [[[UIView alloc] init] autorelease];
+                        UIView *bogusView = [[UIView alloc] init];
 
                         collectionViewDataSource stub_method(@selector(collectionView:cellForItemAtIndexPath:)).and_return(bogusView);
                         [collectionViewAdPlacer collectionView:collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:1]] should equal(bogusView);
@@ -520,7 +568,7 @@ describe(@"MPCollectionViewAdPlacer", ^{
         describe(@"delegate", ^{
             __block UICollectionViewCell *cell;
             beforeEach(^{
-                cell = [[[UICollectionViewCell alloc] init] autorelease];
+                cell = [[UICollectionViewCell alloc] init];
                 [[CDRSpecHelper specHelper].sharedExampleContext setObject:collectionViewDelegate forKey:@"fakeOriginalObject"];
             });
 

@@ -33,10 +33,10 @@ static NSString *const kInMobiImageURL = @"url";
 
 @interface InMobiNativeAdAdapter() <MPAdDestinationDisplayAgentDelegate>
 
-@property (nonatomic, readonly, retain) IMNative *inMobiNativeAd;
+@property (nonatomic, readonly, strong) IMNative *inMobiNativeAd;
 
-@property (nonatomic, readonly, retain) MPAdDestinationDisplayAgent *destinationDisplayAgent;
-@property (nonatomic, assign) UIViewController *rootViewController;
+@property (nonatomic, readonly, strong) MPAdDestinationDisplayAgent *destinationDisplayAgent;
+@property (nonatomic, weak) UIViewController *rootViewController;
 @property (nonatomic, copy) void (^actionCompletionBlock)(BOOL, NSError *);
 
 @end
@@ -50,7 +50,7 @@ static NSString *const kInMobiImageURL = @"url";
 {
     self = [super init];
     if (self) {
-        _inMobiNativeAd = [nativeAd retain];
+        _inMobiNativeAd = nativeAd;
 
         NSDictionary *inMobiProperties = [self inMobiProperties];
         NSMutableDictionary *properties = [NSMutableDictionary dictionary];
@@ -83,29 +83,21 @@ static NSString *const kInMobiImageURL = @"url";
             [properties setObject:[mainImageDictionary objectForKey:kInMobiImageURL] forKey:kAdMainImageKey];
         }
 
-        _properties = [properties retain];
+        _properties = properties;
 
         if ([[inMobiProperties objectForKey:kInMobiActionURL] length]) {
-            _defaultActionURL = [[NSURL URLWithString:[inMobiProperties objectForKey:kInMobiActionURL]] retain];
+            _defaultActionURL = [NSURL URLWithString:[inMobiProperties objectForKey:kInMobiActionURL]];
         }
 
-        _destinationDisplayAgent = [[[MPCoreInstanceProvider sharedProvider] buildMPAdDestinationDisplayAgentWithDelegate:self] retain];
+        _destinationDisplayAgent = [[MPCoreInstanceProvider sharedProvider] buildMPAdDestinationDisplayAgentWithDelegate:self];
     }
     return self;
 }
 
 - (void)dealloc
 {
-    [_actionCompletionBlock release];
     [_destinationDisplayAgent cancel];
     [_destinationDisplayAgent setDelegate:nil];
-    [_destinationDisplayAgent release];
-
-    [_inMobiNativeAd release];
-    [_defaultActionURL release];
-    [_properties release];
-
-    [super dealloc];
 }
 
 - (NSDictionary *)inMobiProperties

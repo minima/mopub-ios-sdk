@@ -27,21 +27,21 @@ describe(@"MPHTMLBannerIntegrationSuite", ^{
     beforeEach(^{
         FakeMPAdAlertGestureRecognizer *fakeGestureRecognizer = [[FakeMPAdAlertGestureRecognizer alloc] init];
         fakeCoreProvider.fakeAdAlertGestureRecognizer = fakeGestureRecognizer;
-        
-        fakeAdAlertManager = [[[FakeMPAdAlertManager alloc] init] autorelease];
+
+        fakeAdAlertManager = [[FakeMPAdAlertManager alloc] init];
         fakeCoreProvider.fakeAdAlertManager = fakeAdAlertManager;
-        
-        presentingController = [[[UIViewController alloc] init] autorelease];
+
+        presentingController = [[UIViewController alloc] init];
         delegate = nice_fake_for(@protocol(ChocolateMPAdViewDelegate));
         delegate stub_method(@selector(viewControllerForPresentingModalView)).and_return(presentingController);
 
         configuration = [MPAdConfigurationFactory defaultBannerConfiguration];
 
-        fakeAd = [[[FakeMPAdWebView alloc] initWithFrame:CGRectZero] autorelease];
+        fakeAd = [[FakeMPAdWebView alloc] initWithFrame:CGRectZero];
         fakeProvider.fakeMPAdWebView = fakeAd;
 
-        banner = [[[MPAdView alloc] initWithAdUnitId:@"html_banner" size:MOPUB_BANNER_SIZE] autorelease];
-        banner.location = [[[CLLocation alloc] initWithLatitude:1337 longitude:1337] autorelease];
+        banner = [[MPAdView alloc] initWithAdUnitId:@"html_banner" size:MOPUB_BANNER_SIZE];
+        banner.location = [[CLLocation alloc] initWithLatitude:1337 longitude:1337];
         banner.delegate = delegate;
         [banner loadAd];
 
@@ -82,22 +82,22 @@ describe(@"MPHTMLBannerIntegrationSuite", ^{
                 beforeEach(^{
                     [fakeAdAlertManager simulateGestureRecognized];
                 });
-                
+
                 it(@"should have the correct ad unit id", ^{
                     fakeAdAlertManager.adUnitId should equal(banner.adUnitId);
                 });
-                
+
                 it(@"should have the correct location", ^{
                     fakeAdAlertManager.location.coordinate.latitude should equal(banner.location.coordinate.latitude);
                     fakeAdAlertManager.location.coordinate.longitude should equal(banner.location.coordinate.longitude);
                 });
-                
+
                 it(@"should have the correct ad configuration", ^{
                     fakeAdAlertManager.adConfiguration should equal(configuration);
                 });
             });
         });
-        
+
         context(@"when the user taps the ad", ^{
             beforeEach(^{
                 [delegate reset_sent_messages];

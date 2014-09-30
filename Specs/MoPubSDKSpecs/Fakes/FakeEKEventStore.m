@@ -7,11 +7,6 @@
 
 @implementation FakeEKEventStore
 
-- (void)dealloc
-{
-    self.requestAccessCompletionHandler = nil;
-    [super dealloc];
-}
 
 #pragma mark - API Overrides
 

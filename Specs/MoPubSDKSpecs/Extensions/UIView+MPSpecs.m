@@ -10,14 +10,9 @@
 
 @implementation UIView (MPSpecs)
 
-- (BOOL)mp_viewIntersectsKeyWindowWithPercent:(CGFloat)percentVisible
+- (BOOL)mp_viewIntersectsParentWindowWithPercent:(CGFloat)percentVisible
 {
-    return MPViewIntersectsKeyWindowWithPercent(self, percentVisible);
-}
-
-- (BOOL)mp_viewIntersectsApplicationWindowWithPercent:(CGFloat)percentVisible
-{
-    return MPViewIntersectsApplicationWindowWithPercent(self, percentVisible);
+    return MPViewIntersectsParentWindowWithPercent(self, percentVisible);
 }
 
 - (BOOL)mp_viewIsVisible

@@ -10,10 +10,10 @@
 
 @interface FakeMMAdView : UIView
 
-@property (nonatomic, assign) NSString *apid;
-@property (nonatomic, assign) UIViewController *rootViewController;
+@property (nonatomic, copy) NSString *apid;
+@property (nonatomic, strong) UIViewController *rootViewController;
 @property (nonatomic, copy) MMCompletionBlock completionBlock;
-@property (nonatomic, assign) MMRequest *request;
+@property (nonatomic, strong) MMRequest *request;
 
 - (MMAdView *)masquerade;
 - (NSDictionary *)userInfo;

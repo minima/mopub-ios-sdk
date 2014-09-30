@@ -14,7 +14,7 @@
 {
     KIFTestScenario *scenario = [MPSampleAppTestScenario scenarioWithDescription:@"Test that a Greystripe Banner ad works."];
     NSIndexPath *indexPath = [MPAdSection indexPathForAd:@"Greystripe Banner" inSection:@"Banner Ads"];
-    
+
     // Greystripe 4.2.1 has a bug in which the first ad request always fails.
     // We'll wait for it to fail, then try again.
     [scenario addStep:[KIFTestStep stepToActuallyTapRowInTableViewWithAccessibilityLabel:@"Ad Table View"
@@ -22,12 +22,12 @@
 
     [scenario addStep:[KIFTestStep stepToWaitForViewWithAccessibilityLabel:@"banner"]];
     [scenario addStep:[KIFTestStep stepToWaitUntilActivityIndicatorIsNotAnimating]];
-    // XXX jren
+
     // The Greystripe 4.2.1 bug might be a saved auth token? After the first failure all subsequent runs, even across app launches, of
     // Greystripe tests succeed and the failLabel never appears. At this point do we really care? Just load it again anyway.
 //    [scenario addStep:[KIFTestStep stepToWaitForViewWithAccessibilityLabel:@"failLabel"]];
     [scenario addStep:[KIFTestStep stepToReturnToBannerAds]];
-    
+
     // Try again
     [scenario addStep:[KIFTestStep stepToActuallyTapRowInTableViewWithAccessibilityLabel:@"Ad Table View"
                                                                              atIndexPath:indexPath]];
@@ -49,7 +49,7 @@
 {
     KIFTestScenario *scenario = [MPSampleAppTestScenario scenarioWithDescription:@"Test that a Greystripe interstitial ad works."];
     NSIndexPath *indexPath = [MPAdSection indexPathForAd:@"Greystripe Interstitial" inSection:@"Interstitial Ads"];
-    
+
     [scenario addStep:[KIFTestStep stepToActuallyTapRowInTableViewWithAccessibilityLabel:@"Ad Table View"
                                                                      atIndexPath:indexPath]];
 

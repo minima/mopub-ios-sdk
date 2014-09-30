@@ -9,8 +9,8 @@
 
 @interface FakeInterstitialAdapter : MPBaseInterstitialAdapter
 
-@property (nonatomic, assign) MPAdConfiguration *configurationForLastRequest;
-@property (nonatomic, assign) UIViewController *presentingViewController;
+@property (nonatomic, strong) MPAdConfiguration *configurationForLastRequest;
+@property (nonatomic, strong) UIViewController *presentingViewController;
 
 - (void)failToLoad;
 - (void)loadSuccessfully;

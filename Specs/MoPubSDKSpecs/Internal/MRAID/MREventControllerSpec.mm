@@ -11,8 +11,8 @@ describe(@"MRJavaScriptEventEmitter", ^{
     __block UIWebView *webView;
 
     beforeEach(^{
-        webView = [[[UIWebView alloc] init] autorelease];
-        jsEventEmitter = [[[MRJavaScriptEventEmitter alloc] initWithWebView:webView] autorelease];
+        webView = [[UIWebView alloc] init];
+        jsEventEmitter = [[MRJavaScriptEventEmitter alloc] initWithWebView:webView];
     });
 
     describe(@"-fireChangeEventWithProperty:", ^{

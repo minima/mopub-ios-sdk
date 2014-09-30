@@ -20,7 +20,7 @@
 
 - (GSFullscreenAd *)buildGSFullscreenAdWithDelegate:(id<GSAdDelegate>)delegate GUID:(NSString *)GUID
 {
-    return [[[GSFullscreenAd alloc] initWithDelegate:delegate GUID:GUID] autorelease];
+    return [[GSFullscreenAd alloc] initWithDelegate:delegate GUID:GUID];
 }
 
 @end
@@ -32,7 +32,7 @@
 
 @interface GreystripeInterstitialCustomEvent ()
 
-@property (nonatomic, retain) GSFullscreenAd *greystripeFullscreenAd;
+@property (nonatomic, strong) GSFullscreenAd *greystripeFullscreenAd;
 
 @end
 
@@ -67,8 +67,6 @@
 - (void)dealloc
 {
     [self.greystripeFullscreenAd setDelegate:nil];
-    self.greystripeFullscreenAd = nil;
-    [super dealloc];
 }
 
 #pragma mark - GSAdDelegate

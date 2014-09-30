@@ -20,7 +20,7 @@ describe(@"MPMRAIDInterstitialCustomEvent", ^{
         configuration = [MPAdConfigurationFactory defaultMRAIDInterstitialConfiguration];
         delegate stub_method("configuration").and_return(configuration);
 
-        event = [[[MPMRAIDInterstitialCustomEvent alloc] init] autorelease];
+        event = [[MPMRAIDInterstitialCustomEvent alloc] init];
         event.delegate = delegate;
 
         [event requestInterstitialWithCustomEventInfo:nil];
@@ -46,7 +46,7 @@ describe(@"MPMRAIDInterstitialCustomEvent", ^{
         __block UIViewController *presentingController;
 
         beforeEach(^{
-            presentingController = [[[UIViewController alloc] init] autorelease];
+            presentingController = [[UIViewController alloc] init];
             [event showInterstitialFromRootViewController:presentingController];
         });
 

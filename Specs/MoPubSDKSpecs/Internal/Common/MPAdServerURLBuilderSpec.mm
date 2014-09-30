@@ -119,7 +119,7 @@ describe(@"MPAdServerURLBuilder", ^{
                                             testing:YES];
         URL.absoluteString should_not contain(@"&ll=");
 
-        CLLocation *validLocationNoAccuracy = [[[CLLocation alloc] initWithLatitude:10.1 longitude:-40.23] autorelease];
+        CLLocation *validLocationNoAccuracy = [[CLLocation alloc] initWithLatitude:10.1 longitude:-40.23];
         URL = [MPAdServerURLBuilder URLWithAdUnitID:@"guy"
                                            keywords:nil
                                            location:validLocationNoAccuracy
@@ -127,11 +127,11 @@ describe(@"MPAdServerURLBuilder", ^{
         URL.absoluteString should contain(@"&ll=10.1,-40.23");
         URL.absoluteString should_not contain(@"&lla=");
 
-        CLLocation *validLocationWithAccuracy = [[[CLLocation alloc] initWithCoordinate:CLLocationCoordinate2DMake(10.1, -40.23)
+        CLLocation *validLocationWithAccuracy = [[CLLocation alloc] initWithCoordinate:CLLocationCoordinate2DMake(10.1, -40.23)
                                                                                altitude:30.4
                                                                      horizontalAccuracy:500.1
                                                                        verticalAccuracy:60
-                                                                              timestamp:[NSDate date]] autorelease];
+                                                                              timestamp:[NSDate date]];
         URL = [MPAdServerURLBuilder URLWithAdUnitID:@"guy"
                                            keywords:nil
                                            location:validLocationWithAccuracy
@@ -139,11 +139,11 @@ describe(@"MPAdServerURLBuilder", ^{
         URL.absoluteString should contain(@"&ll=10.1,-40.23");
         URL.absoluteString should contain(@"&lla=500.1");
 
-        CLLocation *invalidLocation = [[[CLLocation alloc] initWithCoordinate:CLLocationCoordinate2DMake(10.1, -40.23)
+        CLLocation *invalidLocation = [[CLLocation alloc] initWithCoordinate:CLLocationCoordinate2DMake(10.1, -40.23)
                                                                      altitude:30.4
                                                            horizontalAccuracy:-1
                                                              verticalAccuracy:60
-                                                                    timestamp:[NSDate date]] autorelease];
+                                                                    timestamp:[NSDate date]];
         URL = [MPAdServerURLBuilder URLWithAdUnitID:@"guy"
                                            keywords:nil
                                            location:invalidLocation
@@ -178,7 +178,7 @@ describe(@"MPAdServerURLBuilder", ^{
     });
 
     it(@"should provide connectivity information", ^{
-        fakeCoreProvider.fakeMPReachability = [[[FakeMPReachability alloc] init] autorelease];
+        fakeCoreProvider.fakeMPReachability = [[FakeMPReachability alloc] init];
         FakeMPReachability *fakeMPReachability = fakeCoreProvider.fakeMPReachability;
         fakeMPReachability.hasWifi = YES;
 

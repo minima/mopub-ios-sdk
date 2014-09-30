@@ -17,7 +17,7 @@ describe(@"MPGreystripeBannerIntegrationSuite", ^{
     __block FakeMPAdServerCommunicator *communicator;
 
     beforeEach(^{
-        presentingController = [[[UIViewController alloc] init] autorelease];
+        presentingController = [[UIViewController alloc] init];
         delegate = nice_fake_for(@protocol(MPAdViewDelegate));
         delegate stub_method(@selector(viewControllerForPresentingModalView)).and_return(presentingController);
 
@@ -26,10 +26,10 @@ describe(@"MPGreystripeBannerIntegrationSuite", ^{
 
     describe(@"with a valid size", ^{
         beforeEach(^{
-            fakeAd = [[[FakeGSBannerAdView alloc] init] autorelease];
+            fakeAd = [[FakeGSBannerAdView alloc] init];
             fakeProvider.fakeGSBannerAdView = fakeAd;
 
-            banner = [[[MPAdView alloc] initWithAdUnitId:@"greystripe_banner" size:MOPUB_BANNER_SIZE] autorelease];
+            banner = [[MPAdView alloc] initWithAdUnitId:@"greystripe_banner" size:MOPUB_BANNER_SIZE];
             banner.delegate = delegate;
             [banner loadAd];
 
@@ -98,7 +98,7 @@ describe(@"MPGreystripeBannerIntegrationSuite", ^{
 
     describe(@"with an invalid size", ^{
         beforeEach(^{
-            banner = [[[MPAdView alloc] initWithAdUnitId:@"greystripe_banner" size:CGSizeMake(1,2)] autorelease];
+            banner = [[MPAdView alloc] initWithAdUnitId:@"greystripe_banner" size:CGSizeMake(1,2)];
             banner.delegate = delegate;
             [banner loadAd];
 

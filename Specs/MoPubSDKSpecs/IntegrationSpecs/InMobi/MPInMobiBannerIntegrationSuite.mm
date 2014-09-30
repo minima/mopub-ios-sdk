@@ -17,7 +17,7 @@ describe(@"MPInMobiBannerIntegrationSuite", ^{
 
     beforeEach(^{
         [InMobi initialize:@"YOUR_INMOBI_APP_ID"];
-        
+
         delegate = nice_fake_for(@protocol(MPAdViewDelegate));
 
         configuration = [MPAdConfigurationFactory defaultBannerConfigurationWithCustomEventClassName:@"InMobiBannerCustomEvent"];
@@ -25,10 +25,10 @@ describe(@"MPInMobiBannerIntegrationSuite", ^{
 
     describe(@"with a valid size", ^{
         beforeEach(^{
-            fakeAd = [[[FakeIMAdView alloc] init] autorelease];
+            fakeAd = [[FakeIMAdView alloc] init];
             fakeProvider.fakeIMAdView = fakeAd;
 
-            banner = [[[MPAdView alloc] initWithAdUnitId:@"inmobi_banner" size:MOPUB_BANNER_SIZE] autorelease];
+            banner = [[MPAdView alloc] initWithAdUnitId:@"inmobi_banner" size:MOPUB_BANNER_SIZE];
             banner.delegate = delegate;
             [banner loadAd];
 
@@ -106,7 +106,7 @@ describe(@"MPInMobiBannerIntegrationSuite", ^{
 
     describe(@"with an invalid size", ^{
         beforeEach(^{
-            banner = [[[MPAdView alloc] initWithAdUnitId:@"inmobi_banner" size:CGSizeMake(1,0)] autorelease];
+            banner = [[MPAdView alloc] initWithAdUnitId:@"inmobi_banner" size:CGSizeMake(1,0)];
             banner.delegate = delegate;
             [banner loadAd];
 

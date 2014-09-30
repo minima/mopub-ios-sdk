@@ -9,7 +9,7 @@
 
 @interface FakeMPStreamAdPlacementData ()
 
-@property (nonatomic, retain) NSMutableDictionary *indexPathToAdDataDictionary;
+@property (nonatomic, strong) NSMutableDictionary *indexPathToAdDataDictionary;
 
 @end
 
@@ -24,12 +24,6 @@
     return self;
 }
 
-- (void)dealloc
-{
-    [super dealloc];
-
-    [_indexPathToAdDataDictionary release];
-}
 
 - (MPStreamAdPlacementData *)masquerade
 {

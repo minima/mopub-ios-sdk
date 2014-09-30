@@ -12,7 +12,7 @@ describe(@"MPAdWebView", ^{
     __block MPAdWebView *view;
 
     beforeEach(^{
-        view = [[[MPAdWebView alloc] initWithFrame:CGRectMake(0, 0, 30, 20)] autorelease];
+        view = [[MPAdWebView alloc] initWithFrame:CGRectMake(0, 0, 30, 20)];
     });
 
     describe(@"on init, setting up the webview", ^{

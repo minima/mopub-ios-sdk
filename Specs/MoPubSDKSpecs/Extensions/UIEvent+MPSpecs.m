@@ -55,7 +55,7 @@
     gsEventProxy->sizeY = 1.0;
     gsEventProxy->flags = ([touch phase] == UITouchPhaseEnded) ? 0x1010180 : 0x3010180;
     gsEventProxy->type = 3001;
-    
+
     //
     // On SDK versions 3.0 and greater, we need to reallocate as a
     // UITouchesEvent.
@@ -63,10 +63,9 @@
     Class touchesEventClass = objc_getClass("UITouchesEvent");
     if (touchesEventClass && ![[self class] isEqual:touchesEventClass])
     {
-        [self release];
         self = [touchesEventClass alloc];
     }
-    
+
     self = [self _initWithEvent:gsEventProxy touches:[NSSet setWithObject:touch]];
     if (self != nil)
     {

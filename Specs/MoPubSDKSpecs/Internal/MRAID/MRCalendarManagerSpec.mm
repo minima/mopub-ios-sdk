@@ -28,24 +28,23 @@ describe(@"MRCalendarManager", ^{
     __block EKEventEditViewController *eventEditViewController;
 
     beforeEach(^{
-        fakeEventStore = [[[FakeEKEventStore alloc] init] autorelease];
+        fakeEventStore = [[FakeEKEventStore alloc] init];
         fakeProvider.fakeEKEventStore = fakeEventStore;
 
-        eventEditViewController = [[[EKEventEditViewController alloc] init] autorelease];
+        eventEditViewController = [[EKEventEditViewController alloc] init];
         eventEditViewController.eventStore = fakeEventStore;
         fakeProvider.fakeEKEventEditViewController = eventEditViewController;
 
-        delegate = [nice_fake_for(@protocol(MRCalendarManagerDelegate)) retain];
+        delegate = nice_fake_for(@protocol(MRCalendarManagerDelegate));
 
-        presentingViewController = [[[UIViewController alloc] init] autorelease];
+        presentingViewController = [[UIViewController alloc] init];
         delegate stub_method("viewControllerForPresentingCalendarEditor").and_return(presentingViewController);
 
-        manager = [[[MRCalendarManager alloc] initWithDelegate:delegate] autorelease];
+        manager = [[MRCalendarManager alloc] initWithDelegate:delegate];
     });
 
     afterEach(^{
         manager.delegate = nil;
-        [delegate release];
     });
 
     describe(@"-createCalendarEventWithParameters:", ^{
@@ -403,8 +402,7 @@ describe(@"MRCalendarManager", ^{
 
                 [manager presentCalendarEditor:eventEditViewController];
                 presentingViewController.presentedViewController should equal(eventEditViewController);
-
-                [anotherManager release];
+                anotherManager = nil;
             });
 
             it(@"should still allow the controller to be dismissed later", ^{

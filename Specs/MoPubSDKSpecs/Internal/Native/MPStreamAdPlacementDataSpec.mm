@@ -54,10 +54,10 @@ describe(@"MPStreamAdPlacementData", ^{
 
         MPClientAdPositioning *emptyPositioning = [MPClientAdPositioning positioning];
 
-        dataWithFixedAndRepeating = [[[MPStreamAdPlacementData alloc] initWithPositioning:fixedAndRepeatingPositioning] autorelease];
-        dataWithFixedOnly = [[[MPStreamAdPlacementData alloc] initWithPositioning:fixedOnlyPositioning] autorelease];
-        dataWithRepeatingOnly = [[[MPStreamAdPlacementData alloc] initWithPositioning:repeatingOnlyPositioning] autorelease];
-        dataWithEmptyPositioning = [[[MPStreamAdPlacementData alloc] initWithPositioning:emptyPositioning] autorelease];
+        dataWithFixedAndRepeating = [[MPStreamAdPlacementData alloc] initWithPositioning:fixedAndRepeatingPositioning];
+        dataWithFixedOnly = [[MPStreamAdPlacementData alloc] initWithPositioning:fixedOnlyPositioning];
+        dataWithRepeatingOnly = [[MPStreamAdPlacementData alloc] initWithPositioning:repeatingOnlyPositioning];
+        dataWithEmptyPositioning = [[MPStreamAdPlacementData alloc] initWithPositioning:emptyPositioning];
     });
 
     context(@"upon initialization", ^{
@@ -534,7 +534,7 @@ describe(@"MPStreamAdPlacementData", ^{
             [positioning addFixedIndexPath:_IP(6, 1)];
             [positioning enableRepeatingPositionsWithInterval:6];
 
-            placementData = [[[MPStreamAdPlacementData alloc] initWithPositioning:positioning] autorelease];
+            placementData = [[MPStreamAdPlacementData alloc] initWithPositioning:positioning];
 
             [placementData insertAdData:nice_fake_for([MPNativeAdData class]) atIndexPath:_IP(0, 0)];
             [placementData insertAdData:nice_fake_for([MPNativeAdData class]) atIndexPath:_IP(3, 1)];
@@ -661,7 +661,7 @@ describe(@"MPStreamAdPlacementData", ^{
             [positioning addFixedIndexPath:_IP(3, 1)];
             [positioning addFixedIndexPath:_IP(6, 1)];
 
-            placementData = [[[MPStreamAdPlacementData alloc] initWithPositioning:positioning] autorelease];
+            placementData = [[MPStreamAdPlacementData alloc] initWithPositioning:positioning];
         });
 
         it(@"should have the same placement data before inserting all ads and after clearing all ads.", ^{
@@ -716,7 +716,7 @@ describe(@"MPStreamAdPlacementData", ^{
             [positioning addFixedIndexPath:_IP(3, 1)];
             [positioning addFixedIndexPath:_IP(6, 1)];
 
-            placementData = [[[MPStreamAdPlacementData alloc] initWithPositioning:positioning] autorelease];
+            placementData = [[MPStreamAdPlacementData alloc] initWithPositioning:positioning];
         });
 
         it(@"should return the adjusted index paths of placed ads in range", ^{
@@ -744,7 +744,7 @@ describe(@"MPStreamAdPlacementData", ^{
             [positioning addFixedIndexPath:_IP(6, 1)];
             [positioning enableRepeatingPositionsWithInterval:6];
 
-            placementData = [[[MPStreamAdPlacementData alloc] initWithPositioning:positioning] autorelease];
+            placementData = [[MPStreamAdPlacementData alloc] initWithPositioning:positioning];
 
             // Insert two ads.
 
@@ -919,7 +919,7 @@ describe(@"MPStreamAdPlacementData", ^{
             [positioning addFixedIndexPath:_IP(3, 0)];
             [positioning addFixedIndexPath:_IP(5, 0)];
 
-            placementData = [[[MPStreamAdPlacementData alloc] initWithPositioning:positioning] autorelease];
+            placementData = [[MPStreamAdPlacementData alloc] initWithPositioning:positioning];
 
             /*
              0  Item A
@@ -1314,7 +1314,7 @@ describe(@"MPStreamAdPlacementData", ^{
                 [fixedOnlyPositioning addFixedIndexPath:_IP(0, 3)];
                 [fixedOnlyPositioning addFixedIndexPath:_IP(3, 3)];
 
-                dataWithFixedOnly = [[[MPStreamAdPlacementData alloc] initWithPositioning:fixedOnlyPositioning] autorelease];
+                dataWithFixedOnly = [[MPStreamAdPlacementData alloc] initWithPositioning:fixedOnlyPositioning];
 
                 deletionSet = [NSMutableIndexSet indexSet];
                 [deletionSet addIndex:1];
@@ -1381,7 +1381,7 @@ describe(@"MPStreamAdPlacementData", ^{
                 [fixedOnlyPositioning addFixedIndexPath:_IP(0, 3)];
                 [fixedOnlyPositioning addFixedIndexPath:_IP(3, 3)];
 
-                dataWithFixedOnly = [[[MPStreamAdPlacementData alloc] initWithPositioning:fixedOnlyPositioning] autorelease];
+                dataWithFixedOnly = [[MPStreamAdPlacementData alloc] initWithPositioning:fixedOnlyPositioning];
 
                 deletionSet = [NSMutableIndexSet indexSet];
                 [deletionSet addIndex:2];
@@ -1450,7 +1450,7 @@ describe(@"MPStreamAdPlacementData", ^{
             [fixedOnlyPositioning addFixedIndexPath:_IP(0, 3)];
             [fixedOnlyPositioning addFixedIndexPath:_IP(2, 3)];
 
-            dataWithFixedOnly = [[[MPStreamAdPlacementData alloc] initWithPositioning:fixedOnlyPositioning] autorelease];
+            dataWithFixedOnly = [[MPStreamAdPlacementData alloc] initWithPositioning:fixedOnlyPositioning];
         });
 
         context(@"when moving the first section to a middle section", ^{

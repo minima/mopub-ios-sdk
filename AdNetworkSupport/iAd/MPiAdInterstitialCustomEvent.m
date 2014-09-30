@@ -19,7 +19,7 @@
 
 - (ADInterstitialAd *)buildADInterstitialAd
 {
-    return [[[ADInterstitialAd alloc] init] autorelease];
+    return [[ADInterstitialAd alloc] init];
 }
 
 @end
@@ -28,7 +28,7 @@
 
 @interface MPiAdInterstitialCustomEvent ()
 
-@property (nonatomic, retain) ADInterstitialAd *iAdInterstitial;
+@property (nonatomic, strong) ADInterstitialAd *iAdInterstitial;
 @property (nonatomic, assign) BOOL isOnScreen;
 
 @end
@@ -46,10 +46,9 @@
     self.iAdInterstitial.delegate = self;
 }
 
-- (void)dealloc {
+- (void)dealloc
+{
     self.iAdInterstitial.delegate = nil;
-    self.iAdInterstitial = nil;
-    [super dealloc];
 }
 
 - (void)showInterstitialFromRootViewController:(UIViewController *)controller {
@@ -89,7 +88,7 @@
     // This method may be called whether the ad is on-screen or not. We only want to invoke the
     // "disappear" callbacks if the ad is on-screen.
     MPLogInfo(@"iAd interstitial did unload");
-    
+
     [self interstitialAdDismissed];
 
     // ADInterstitialAd can't be shown again after it has unloaded, so notify the controller.
@@ -106,7 +105,7 @@
 - (void)interstitialAdActionDidFinish:(ADInterstitialAd *)interstitialAd
 {
     MPLogInfo(@"iAd interstitial did finish");
-    
+
     [self interstitialAdDismissed];
 }
 

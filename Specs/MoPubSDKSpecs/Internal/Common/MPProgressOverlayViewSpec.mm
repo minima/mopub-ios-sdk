@@ -11,14 +11,14 @@ describe(@"MPProgressOverlayView", ^{
     __block UIWindow *window;
 
     beforeEach(^{
-        window = [[[UIWindow alloc] initWithFrame:CGRectMake(0, 0, 320, 568)] autorelease];
+        window = [[UIWindow alloc] initWithFrame:CGRectMake(0, 0, 320, 568)];
         [window makeKeyAndVisible];
 
         [[UIApplication sharedApplication] setStatusBarHidden:NO];
 
         delegate = nice_fake_for(@protocol(MPProgressOverlayViewDelegate));
 
-        overlay = [[[MPProgressOverlayView alloc] initWithDelegate:delegate] autorelease];
+        overlay = [[MPProgressOverlayView alloc] initWithDelegate:delegate];
     });
 
     describe(@"-show", ^{

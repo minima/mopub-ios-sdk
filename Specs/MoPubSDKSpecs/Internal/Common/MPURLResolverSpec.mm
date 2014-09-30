@@ -21,7 +21,7 @@ describe(@"MPURLResolver", ^{
     __block FakeMPURLResolverDelegate *delegate;
 
     beforeEach(^{
-        delegate = [[[FakeMPURLResolverDelegate alloc] init] autorelease];
+        delegate = [[FakeMPURLResolverDelegate alloc] init];
         urlResolver = [MPURLResolver resolver];
     });
 
@@ -86,7 +86,7 @@ describe(@"MPURLResolver", ^{
                 delegate.HTMLString should equal(@"Bing it.");
             });
         });
-        
+
         context(@"different results for a response's Content-Type charset", ^{
             it (@"should return the correct encoding", ^{
                 NSString *contentType = @"type=sdlkfjsl; charset=utf-8;";
@@ -96,36 +96,36 @@ describe(@"MPURLResolver", ^{
                 contentType = @"type=sdlkfjsl; charset=UTF-8;";
                 encoding = [urlResolver stringEncodingFromContentType:contentType];
                 encoding should equal(NSUTF8StringEncoding);
-                
+
                 contentType = @"type=sdlkfjsl; charset=iso-8859-1;";
                 encoding = [urlResolver stringEncodingFromContentType:contentType];
                 encoding should equal(NSISOLatin1StringEncoding);
-                
+
                 contentType = @"type=sdlkfjsl; charset=windows-1251;";
                 encoding = [urlResolver stringEncodingFromContentType:contentType];
                 encoding should equal(NSWindowsCP1251StringEncoding);
-                
+
                 contentType = @"type=sdlkfjsl; charset=iso-8859-2;";
                 encoding = [urlResolver stringEncodingFromContentType:contentType];
                 encoding should equal(NSISOLatin2StringEncoding);
-                
+
                 contentType = @"type=sdlkfjsl; charset=iso-8859-15;";
                 encoding = [urlResolver stringEncodingFromContentType:contentType];
                 //no constant available for iso-8859-15
                 encoding should equal(2147484175);
-                
+
                 contentType = @"type=sdlkfjsl; charset=windows-1252;";
                 encoding = [urlResolver stringEncodingFromContentType:contentType];
                 encoding should equal(NSWindowsCP1252StringEncoding);
-                
+
                 contentType = @"type=sdlkfjsl; charset=us-ascii;";
                 encoding = [urlResolver stringEncodingFromContentType:contentType];
                 encoding should equal(NSASCIIStringEncoding);
-                
+
                 contentType = @"type=sdlkfjsl;";
                 encoding = [urlResolver stringEncodingFromContentType:contentType];
                 encoding should equal(NSUTF8StringEncoding);
-                
+
                 contentType = @"";
                 encoding = [urlResolver stringEncodingFromContentType:contentType];
                 encoding should equal(NSUTF8StringEncoding);
@@ -407,7 +407,7 @@ describe(@"MPURLResolver", ^{
             [NSURLConnection lastConnection] should be_nil;
         });
     });
-    
+
     describe(@"tests for proper string encoding/decoding", PENDING);
 });
 

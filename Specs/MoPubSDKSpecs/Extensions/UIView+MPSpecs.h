@@ -9,8 +9,7 @@
 
 @interface UIView (MPSpecs)
 
-- (BOOL)mp_viewIntersectsKeyWindowWithPercent:(CGFloat)percentVisible;
-- (BOOL)mp_viewIntersectsApplicationWindowWithPercent:(CGFloat)percentVisible;
+- (BOOL)mp_viewIntersectsParentWindowWithPercent:(CGFloat)percentVisible;
 - (BOOL)mp_viewIsVisible;
 
 @end

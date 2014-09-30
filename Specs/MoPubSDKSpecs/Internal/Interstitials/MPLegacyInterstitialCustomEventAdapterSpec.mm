@@ -50,7 +50,7 @@ describe(@"MPLegacyInterstitialCustomEventAdapter", ^{
             });
 
             it(@"should perform the selector on the interstitial delegate", ^{
-                NSObject *controllerProxy = [[[NSObject alloc] init] autorelease];
+                NSObject *controllerProxy = [[NSObject alloc] init];
                 delegate stub_method("interstitialAdController").and_return(controllerProxy);
 
                 [adapter _getAdWithConfiguration:configuration];
@@ -61,7 +61,7 @@ describe(@"MPLegacyInterstitialCustomEventAdapter", ^{
 
         context(@"when the interstitial delegate does not implement the selector", ^{
             beforeEach(^{
-                NSObject *cake = [[[NSObject alloc] init] autorelease];
+                NSObject *cake = [[NSObject alloc] init];
 
                 delegate stub_method("interstitialDelegate").and_return(cake);
                 [adapter _getAdWithConfiguration:configuration];

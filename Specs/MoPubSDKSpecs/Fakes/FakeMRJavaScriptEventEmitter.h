@@ -12,8 +12,8 @@
 @interface FakeMRJavaScriptEventEmitter : MRJavaScriptEventEmitter
 
 @property (nonatomic, assign) BOOL didFireReadyEvent;
-@property (nonatomic, assign) NSMutableSet *changedProperties;
-@property (nonatomic, assign) NSMutableArray *errorEvents;
+@property (nonatomic, strong) NSMutableSet *changedProperties;
+@property (nonatomic, strong) NSMutableArray *errorEvents;
 @property (nonatomic, copy) NSString *lastCompletedCommand;
 
 - (BOOL)containsProperty:(MRProperty *)property;

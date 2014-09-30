@@ -9,8 +9,8 @@
 
 @interface FakeStoreProductViewController : UIViewController
 
-@property (nonatomic, assign) id<SKStoreProductViewControllerDelegate> delegate;
-@property (nonatomic, assign) NSString *storeItemIdentifier;
+@property (nonatomic, weak) id<SKStoreProductViewControllerDelegate> delegate;
+@property (nonatomic, copy) NSString *storeItemIdentifier;
 @property (nonatomic, copy) void (^completionBlock)(BOOL result, NSError *error);
 
 - (SKStoreProductViewController *)masquerade;

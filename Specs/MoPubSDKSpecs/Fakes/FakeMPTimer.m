@@ -6,6 +6,7 @@
 //
 
 #import "FakeMPTimer.h"
+#import "MPInternalUtils.h"
 
 @implementation FakeMPTimer
 
@@ -14,7 +15,7 @@
                               selector:(SEL)aSelector
                                repeats:(BOOL)repeats
 {
-    FakeMPTimer *timer = [[[FakeMPTimer alloc] init] autorelease];
+    FakeMPTimer *timer = [[FakeMPTimer alloc] init];
     timer.timeInterval = seconds;
     timer.timeToNextTrigger = seconds;
     timer.target = target;
@@ -73,7 +74,9 @@
 - (void)trigger
 {
     if (self.isValid && self.isScheduled && !self.isPaused) {
-        [self.target performSelector:self.selector];
+        SUPPRESS_PERFORM_SELECTOR_LEAK_WARNING(
+            [self.target performSelector:self.selector withObject:nil]
+        );
         if (!self.repeats) {
             [self invalidate];
         }

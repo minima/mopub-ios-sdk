@@ -60,7 +60,7 @@ describe(@"MPClientAdPositioning", ^{
 
         beforeEach(^{
             [positioning enableRepeatingPositionsWithInterval:5];
-            newPositioning = [[positioning copy] autorelease];
+            newPositioning = [positioning copy];
         });
 
         it(@"should have the same repeating interval", ^{

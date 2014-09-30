@@ -35,7 +35,7 @@ static FakeStoreProductViewController *lastStore;
 
 + (SKStoreProductViewController *)buildController
 {
-    lastStore = [[[FakeStoreProductViewController alloc] init] autorelease];
+    lastStore = [[FakeStoreProductViewController alloc] init];
     return [lastStore masquerade];
 }
 

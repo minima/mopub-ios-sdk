@@ -66,8 +66,6 @@
 - (void)dealloc
 {
     [self clearSelfAsVGDelegate];
-
-    [super dealloc];
 }
 
 - (void)invalidate

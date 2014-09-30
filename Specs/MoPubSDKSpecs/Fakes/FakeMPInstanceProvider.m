@@ -272,6 +272,14 @@
     }
 }
 
+- (MPNativePositionSource *)buildNativePositioningSource
+{
+    return [self returnFake:self.fakeNativePositioningSource
+                     orCall:^{
+                         return [super buildNativePositioningSource];
+                     }];
+}
+
 - (MPStreamAdPlacementData *)buildStreamAdPlacementDataWithPositioning:(MPAdPositioning *)positioning
 {
     return [self returnFake:self.fakeStreamAdPlacementData
@@ -305,16 +313,6 @@
     return [self returnFake:self.fakeADInterstitialAd
                      orCall:^{
                          return [super buildADInterstitialAd];
-                     }];
-}
-
-#pragma mark Chartboost
-
-- (Chartboost *)buildChartboost
-{
-    return [self returnFake:self.fakeChartboost
-                     orCall:^{
-                         return [super buildChartboost];
                      }];
 }
 

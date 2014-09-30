@@ -10,10 +10,10 @@
 @interface FakeBannerCustomEvent : MPBannerCustomEvent
 
 @property (nonatomic, assign) CGSize size;
-@property (nonatomic, assign) NSDictionary *customEventInfo;
+@property (nonatomic, strong) NSDictionary *customEventInfo;
 @property (nonatomic, assign) BOOL invalidated;
-@property (nonatomic, assign) UIView *view;
-@property (nonatomic, assign) UIViewController *presentingViewController;
+@property (nonatomic, strong) UIView *view;
+@property (nonatomic, strong) UIViewController *presentingViewController;
 @property (nonatomic, assign) UIInterfaceOrientation orientation;
 @property (nonatomic, assign) BOOL enableAutomaticImpressionAndClickTracking;
 @property (nonatomic, assign) BOOL didDisplay;

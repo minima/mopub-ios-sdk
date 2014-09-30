@@ -18,7 +18,7 @@
 
 @interface MPAdColonyRouter : NSObject <AdColonyDelegate>
 
-@property (nonatomic, retain) NSMutableDictionary *events;
+@property (nonatomic, strong) NSMutableDictionary *events;
 
 + (MPAdColonyRouter *)sharedRouter;
 
@@ -42,7 +42,7 @@
     return [self singletonForClass:[MPAdColonyRouter class]
                           provider:^id
             {
-                return [[[MPAdColonyRouter alloc] init] autorelease];
+                return [[MPAdColonyRouter alloc] init];
             }];
 }
 
@@ -61,12 +61,6 @@
 
 @synthesize zoneId = _zoneId;
 
-- (void)dealloc
-{
-    self.zoneId = nil;
-    
-    [super dealloc];
-}
 
 #pragma mark - MPInterstitialCustomEvent Subclass Methods
 
@@ -77,7 +71,7 @@
     {
         appId = kAdColonyAppId;
     }
-    
+
     NSArray *allZoneIds = [info objectForKey:@"allZoneIds"];
     if(allZoneIds.count == 0)
     {
@@ -91,27 +85,27 @@
                             delegate:[MPAdColonyRouter sharedRouter]
                              logging:NO];
     });
-    
+
     NSString *zoneId = [info objectForKey:@"zoneId"];
     if(zoneId == nil)
     {
         zoneId = kAdColonyDefaultZoneId;
     }
-    
+
     self.zoneId = zoneId;
     self.zoneAvailable = NO;
-    
+
     if(self.zoneId != nil && appId != nil)
     {
         [[MPAdColonyRouter sharedRouter] addEvent:self forZone:self.zoneId];
     }
-    
+
     if([AdColony zoneStatusForZone:self.zoneId] == ADCOLONY_ZONE_STATUS_ACTIVE)
     {
         MPLogInfo(@"AdColony zone %@ available", self.zoneId);
         [self zoneDidLoad];
     }
-    
+
     // let AdColony inform us when the zone becomes available
 }
 - (void)showInterstitialFromRootViewController:(UIViewController *)rootViewController
@@ -183,12 +177,6 @@
     return self;
 }
 
-- (void)dealloc
-{
-    self.events = nil;
-    
-    [super dealloc];
-}
 
 - (void)addEvent:(AdColonyInterstitialCustomEvent *)event forZone:(NSString *)zone
 {
@@ -208,7 +196,7 @@
 - (void)onAdColonyAdAvailabilityChange:(BOOL)available inZone:(NSString *)zoneID
 {
     AdColonyInterstitialCustomEvent *event = [self.events objectForKey:zoneID];
-    
+
     if(available)
     {
         MPLogInfo(@"AdColony zone %@ just became available", zoneID);

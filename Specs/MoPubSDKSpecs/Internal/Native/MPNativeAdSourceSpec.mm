@@ -65,13 +65,13 @@ describe(@"MPNativeAdSource", ^{
 
             configuration = [MPAdConfigurationFactory defaultNativeAdConfiguration];
 
-            MPNativeAdSourceQueue *newQueue = [[[MPNativeAdSourceQueue alloc] initWithAdUnitIdentifier:@"identifier" andTargeting:nil] autorelease];
+            MPNativeAdSourceQueue *newQueue = [[MPNativeAdSourceQueue alloc] initWithAdUnitIdentifier:@"identifier" andTargeting:nil];
 
             for (NSInteger x = 0; x < 3; x++) {
                 NSMutableDictionary *properties = [NSJSONSerialization mp_JSONObjectWithData:configuration.adResponseData options:NSJSONReadingMutableContainers clearNullObjects:YES error:nil];
                 [properties setObject:[NSString stringWithFormat:@"%ld", (long)x] forKey:@"title"];
-                MPMoPubNativeAdAdapter *adAdapter = [[[MPMoPubNativeAdAdapter alloc] initWithAdProperties:[[properties mutableCopy] autorelease]] autorelease];
-                MPNativeAd *fakeAd = [[[MPNativeAd alloc] initWithAdAdapter:adAdapter] autorelease];
+                MPMoPubNativeAdAdapter *adAdapter = [[MPMoPubNativeAdAdapter alloc] initWithAdProperties:[properties mutableCopy]];
+                MPNativeAd *fakeAd = [[MPNativeAd alloc] initWithAdAdapter:adAdapter];
                 [newQueue addNativeAd:fakeAd];
             }
 

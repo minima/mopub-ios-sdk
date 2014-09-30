@@ -41,11 +41,11 @@ describe(@"MPInterstitialAdController", ^{
         it(@"should tell its manager to begin loading", ^{
             controller = [MPInterstitialAdController interstitialAdControllerForAdUnitId:@"guy1"];
             controller.keywords = @"hi=4";
-            controller.location = [[[CLLocation alloc] initWithCoordinate:CLLocationCoordinate2DMake(20, 20)
+            controller.location = [[CLLocation alloc] initWithCoordinate:CLLocationCoordinate2DMake(20, 20)
                                                                  altitude:10
                                                        horizontalAccuracy:100
                                                          verticalAccuracy:200
-                                                                timestamp:[NSDate date]] autorelease];
+                                                                timestamp:[NSDate date]];
             controller.testing = YES;
             [controller loadAd];
 
@@ -78,7 +78,7 @@ describe(@"MPInterstitialAdController", ^{
             __block UIViewController *presentingViewController;
 
             beforeEach(^{
-                presentingViewController = [[[UIViewController alloc] init] autorelease];
+                presentingViewController = [[UIViewController alloc] init];
             });
 
             it(@"should tell its manager to present an interstitial from that view controller", ^{

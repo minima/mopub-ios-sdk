@@ -21,7 +21,7 @@ describe(@"MPInstanceProvider", ^{
     __block MPAdConfiguration *configuration;
 
     beforeEach(^{
-        provider = [[[MPInstanceProvider alloc] init] autorelease];
+        provider = [[MPInstanceProvider alloc] init];
     });
 
     describe(@"providing interstitial adapters", ^{
@@ -121,7 +121,7 @@ describe(@"MPInstanceProvider", ^{
     describe(@"providing an HTML interstitial view controller", ^{
         it(@"should provide a correctly configured interstitial view controller", ^{
             id<CedarDouble, MPInterstitialViewControllerDelegate> delegate = nice_fake_for(@protocol(MPInterstitialViewControllerDelegate));
-            id customMethodDelegate = [[[NSObject alloc] init] autorelease];
+            id customMethodDelegate = [[NSObject alloc] init];
             MPHTMLInterstitialViewController *controller = [provider buildMPHTMLInterstitialViewControllerWithDelegate:delegate
                                                                                                        orientationType:MPInterstitialOrientationTypePortrait
                                                                                                   customMethodDelegate:customMethodDelegate];

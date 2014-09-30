@@ -9,9 +9,9 @@
 
 @interface FakeFBInterstitialAd : NSObject <FakeInterstitialAd>
 
-@property (nonatomic, assign) id <FBInterstitialAdDelegate> delegate;
+@property (nonatomic, weak) id <FBInterstitialAdDelegate> delegate;
 @property (nonatomic, assign) BOOL isAdValid;
-@property (nonatomic, assign) UIViewController *presentingViewController;
+@property (nonatomic, strong) UIViewController *presentingViewController;
 
 - (FBInterstitialAd *)masquerade;
 - (void)loadAd;

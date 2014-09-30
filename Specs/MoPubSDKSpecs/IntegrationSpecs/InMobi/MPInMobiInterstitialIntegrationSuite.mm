@@ -24,13 +24,13 @@ describe(@"MPInMobiInterstitialIntegrationSuite", ^{
         interstitial = [MPInterstitialAdController interstitialAdControllerForAdUnitId:@"inmobi_interstitial"];
         interstitial.delegate = delegate;
 
-        presentingController = [[[UIViewController alloc] init] autorelease];
+        presentingController = [[UIViewController alloc] init];
 
-        location = [[[CLLocation alloc] initWithCoordinate:CLLocationCoordinate2DMake(37.1, 21.2)
+        location = [[CLLocation alloc] initWithCoordinate:CLLocationCoordinate2DMake(37.1, 21.2)
                                                   altitude:11
                                         horizontalAccuracy:12.3
                                           verticalAccuracy:10
-                                                 timestamp:[NSDate date]] autorelease];
+                                                 timestamp:[NSDate date]];
         interstitial.location = location;
 
         // request an Ad
@@ -39,7 +39,7 @@ describe(@"MPInMobiInterstitialIntegrationSuite", ^{
         communicator.loadedURL.absoluteString should contain(@"inmobi_interstitial");
 
         // prepare the fake and tell the injector about it
-        inMobi = [[[FakeIMAdInterstitial alloc] init] autorelease];
+        inMobi = [[FakeIMAdInterstitial alloc] init];
         fakeProvider.fakeIMAdInterstitial = inMobi;
 
         // receive the configuration -- this will create an adapter which will use our fake interstitial

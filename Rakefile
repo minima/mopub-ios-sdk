@@ -11,7 +11,7 @@ if File.exists?('./Scripts/private/private.rb')
 end
 
 CONFIGURATION = "Debug"
-SDK_VERSION = "7.1"
+SDK_VERSION = "8.0"
 BUILD_DIR = File.join(File.dirname(__FILE__), "build")
 
 def head(text)

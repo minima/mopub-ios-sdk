@@ -1,4 +1,5 @@
 #import "MRImageDownloader.h"
+#import "NSErrorFactory.h"
 
 using namespace Cedar::Matchers;
 using namespace Cedar::Doubles;
@@ -17,10 +18,10 @@ describe(@"MRImageDownloader", ^{
     __block id<CedarDouble, MRImageDownloaderDelegate> fakeDelegate;
 
     beforeEach(^{
-        fakeOperationQueue = [[[FakeOperationQueue alloc] init] autorelease];
+        fakeOperationQueue = [[FakeOperationQueue alloc] init];
         fakeCoreProvider.fakeOperationQueue = fakeOperationQueue;
         fakeDelegate = nice_fake_for(@protocol(MRImageDownloaderDelegate));
-        downloader = [[[MRImageDownloader alloc] initWithDelegate:fakeDelegate] autorelease];
+        downloader = [[MRImageDownloader alloc] initWithDelegate:fakeDelegate];
     });
 
     context(@"when downloadImageWithURL is called", ^{
@@ -38,9 +39,9 @@ describe(@"MRImageDownloader", ^{
                 NSOperation *currentOperation = [[fakeOperationQueue operations] objectAtIndex:0];
                 NSError *error = [NSErrorFactory genericError];
 
-                [downloader image:[[[UIImage alloc] init] autorelease]
+                [downloader image:[[UIImage alloc] init]
          didFinishSavingWithError:error
-                      contextInfo:currentOperation];
+                      contextInfo:(void *)currentOperation];
             });
 
             it(@"tells its delegate that the download failed", ^{

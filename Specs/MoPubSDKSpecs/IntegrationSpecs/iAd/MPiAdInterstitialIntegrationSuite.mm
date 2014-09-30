@@ -22,7 +22,7 @@ describe(@"MPiAdInterstitialIntegrationSuite", ^{
         interstitial = [MPInterstitialAdController interstitialAdControllerForAdUnitId:@"iAd_interstitial"];
         interstitial.delegate = delegate;
 
-        presentingController = [[[UIViewController alloc] init] autorelease];
+        presentingController = [[UIViewController alloc] init];
 
         // request an Ad
         [interstitial loadAd];
@@ -30,7 +30,7 @@ describe(@"MPiAdInterstitialIntegrationSuite", ^{
         communicator.loadedURL.absoluteString should contain(@"iAd_interstitial");
 
         // prepare the fake and tell the injector about it
-        fakeADInterstitialAd = [[[FakeADInterstitialAd alloc] init] autorelease];
+        fakeADInterstitialAd = [[FakeADInterstitialAd alloc] init];
         fakeProvider.fakeADInterstitialAd = fakeADInterstitialAd.masquerade;
 
         // receive the configuration -- this will create an adapter which will use our fake interstitial
@@ -105,7 +105,7 @@ describe(@"MPiAdInterstitialIntegrationSuite", ^{
                     [delegate reset_sent_messages];
                     [fakeCoreProvider.sharedFakeMPAnalyticsTracker reset];
 
-                    newPresentingController = [[[UIViewController alloc] init] autorelease];
+                    newPresentingController = [[UIViewController alloc] init];
                     [interstitial showFromViewController:newPresentingController];
                 });
 

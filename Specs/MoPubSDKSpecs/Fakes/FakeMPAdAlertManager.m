@@ -11,7 +11,7 @@
 @interface FakeMPAdAlertManager ()
 
 @property (nonatomic, assign) BOOL processedAlert;
-@property (nonatomic, retain) FakeMPAdAlertGestureRecognizer *adAlertGestureRecognizer;
+@property (nonatomic, strong) FakeMPAdAlertGestureRecognizer *adAlertGestureRecognizer;
 
 @end
 

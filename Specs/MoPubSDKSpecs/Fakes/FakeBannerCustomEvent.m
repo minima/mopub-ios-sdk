@@ -13,7 +13,7 @@
 {
     self = [super init];
     if (self) {
-        self.view = [[[UIView alloc] initWithFrame:frame] autorelease];
+        self.view = [[UIView alloc] initWithFrame:frame];
         self.enableAutomaticImpressionAndClickTracking = YES;
     }
     return self;

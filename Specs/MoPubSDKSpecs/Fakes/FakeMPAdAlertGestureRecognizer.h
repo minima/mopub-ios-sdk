@@ -9,7 +9,7 @@
 
 @interface FakeMPAdAlertGestureRecognizer : MPAdAlertGestureRecognizer
 
-@property (nonatomic, retain) id fakeTarget;
+@property (nonatomic, strong) id fakeTarget;
 @property (nonatomic, assign) SEL fakeTargetAction;
 
 - (void)simulateGestureRecognized;

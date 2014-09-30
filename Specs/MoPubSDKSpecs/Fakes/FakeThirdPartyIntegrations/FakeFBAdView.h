@@ -9,8 +9,8 @@
 
 @interface FakeFBAdView : UIView
 
-@property (nonatomic, assign) NSString *placementId;
-@property (nonatomic, assign) id<FBAdViewDelegate> delegate;
+@property (nonatomic, copy) NSString *placementId;
+@property (nonatomic, weak) id<FBAdViewDelegate> delegate;
 @property (nonatomic, assign, getter=isBannerLoaded) BOOL bannerLoaded;
 
 - (void)simulateLoadingAd;

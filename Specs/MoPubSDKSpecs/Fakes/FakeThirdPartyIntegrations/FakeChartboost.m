@@ -38,7 +38,7 @@
 {
     // chartboost doesn't actually need a view controller
     // this is here as a proxy
-    self.presentingViewController = [[[UIViewController alloc] init] autorelease];
+    self.presentingViewController = [[UIViewController alloc] init];
 }
 
 - (void)simulateLoadingLocation:(NSString *)location

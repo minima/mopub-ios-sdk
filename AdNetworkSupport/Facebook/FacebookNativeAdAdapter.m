@@ -12,7 +12,7 @@
 
 @interface FacebookNativeAdAdapter ()
 
-@property (nonatomic, readonly, retain) FBNativeAd *fbNativeAd;
+@property (nonatomic, readonly, strong) FBNativeAd *fbNativeAd;
 
 @end
 
@@ -23,7 +23,7 @@
 - (instancetype)initWithFBNativeAd:(FBNativeAd *)fbNativeAd
 {
     if (self = [super init]) {
-        _fbNativeAd = [fbNativeAd retain];
+        _fbNativeAd = fbNativeAd;
 
         NSNumber *starRating = nil;
 
@@ -68,19 +68,12 @@
             [properties setObject:fbNativeAd.socialContext forKey:@"socialContext"];
         }
 
-        _properties = [properties retain];
+        _properties = properties;
     }
 
     return self;
 }
 
-- (void)dealloc
-{
-    [_fbNativeAd release];
-    [_properties release];
-
-    [super dealloc];
-}
 
 #pragma mark - MPNativeAdAdapter
 

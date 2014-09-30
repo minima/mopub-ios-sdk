@@ -12,12 +12,12 @@ describe(@"MPiAdBannerCustomEvent", ^{
     __block FakeADBannerView *banner;
 
     beforeEach(^{
-        banner = [[[FakeADBannerView alloc] init] autorelease];
+        banner = [[FakeADBannerView alloc] init];
         fakeProvider.fakeADBannerView = banner.masquerade;
 
         delegate = nice_fake_for(@protocol(MPBannerCustomEventDelegate));
 
-        event = [[[MPiAdBannerCustomEvent alloc] init] autorelease];
+        event = [[MPiAdBannerCustomEvent alloc] init];
         event.delegate = delegate;
         [event requestAdWithSize:CGSizeZero customEventInfo:nil];
     });

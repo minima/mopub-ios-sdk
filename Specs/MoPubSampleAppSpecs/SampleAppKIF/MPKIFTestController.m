@@ -70,7 +70,7 @@
     [self addScenario:[KIFTestScenario scenarioForMultipleAdColonyInterstitials]];
     [self addScenario:[KIFTestScenario scenarioForMRAIDInterstitialWithAutoPlayVideo]];
 
-    // XXX jren: this test currently REQUIRES manual action to dismiss the iAd interstitial...uncomment to test
+    // this test currently REQUIRES manual action to dismiss the iAd interstitial...uncomment to test
 //    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
 //        [self addScenario:[KIFTestScenario scenarioForIADInterstitial]];
 //    }

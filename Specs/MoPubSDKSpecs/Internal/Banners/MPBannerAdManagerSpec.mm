@@ -7,6 +7,12 @@
 using namespace Cedar::Matchers;
 using namespace Cedar::Doubles;
 
+@interface MPTimer (Specs)
+
+@property (nonatomic, assign) BOOL isPaused;
+
+@end
+
 SPEC_BEGIN(MPBannerAdManagerSpec)
 
 describe(@"MPBannerAdManager", ^{
@@ -16,7 +22,7 @@ describe(@"MPBannerAdManager", ^{
 
     beforeEach(^{
         delegate = nice_fake_for(@protocol(MPBannerAdManagerDelegate));
-        manager = [[[MPBannerAdManager alloc] initWithDelegate:delegate] autorelease];
+        manager = [[MPBannerAdManager alloc] initWithDelegate:delegate];
         communicator = fakeCoreProvider.lastFakeMPAdServerCommunicator;
     });
 
@@ -24,7 +30,7 @@ describe(@"MPBannerAdManager", ^{
         it(@"should request the correct URL", ^{
             delegate stub_method("adUnitId").and_return(@"panther");
             delegate stub_method("keywords").and_return(@"liono");
-            delegate stub_method("location").and_return([[[CLLocation alloc] initWithLatitude:30 longitude:20] autorelease]);
+            delegate stub_method("location").and_return([[CLLocation alloc] initWithLatitude:30 longitude:20]);
             delegate stub_method("isTesting").and_return(YES);
 
             [manager loadAd];
@@ -37,12 +43,80 @@ describe(@"MPBannerAdManager", ^{
         });
     });
 
+    describe(@"responding to application visibility updates", ^{
+        __block MPTimer *refreshTimer;
+        __block FakeBannerCustomEvent *event;
+
+        beforeEach(^{
+            [manager loadAd];
+
+            event = [[FakeBannerCustomEvent alloc] initWithFrame:CGRectZero];
+            fakeProvider.fakeBannerCustomEvent = event;
+
+            MPAdConfiguration *configuration = [MPAdConfigurationFactory defaultBannerConfigurationWithCustomEventClassName:@"FakeBannerCustomEvent"];
+            configuration.refreshInterval = 20;
+            [communicator receiveConfiguration:configuration];
+
+            [event simulateLoadingAd];
+        });
+
+        context(@"when autorefresh is enabled", ^{
+            beforeEach(^{
+                refreshTimer = [fakeCoreProvider lastFakeMPTimerWithSelector:@selector(refreshTimerDidFire)];
+                refreshTimer.isPaused should equal(NO);
+            });
+
+            it(@"should pause the timer when the app enters the background", ^{
+                [[NSNotificationCenter defaultCenter] postNotificationName:UIApplicationDidEnterBackgroundNotification object:[UIApplication sharedApplication]];
+
+                refreshTimer.isPaused should equal(YES);
+            });
+
+            it(@"should make a new ad request when the app comes to the foreground", ^{
+                [[NSNotificationCenter defaultCenter] postNotificationName:UIApplicationDidEnterBackgroundNotification object:[UIApplication sharedApplication]];
+
+                refreshTimer.isPaused should equal(YES);
+
+                spy_on(manager);
+                [[NSNotificationCenter defaultCenter] postNotificationName:UIApplicationWillEnterForegroundNotification object:[UIApplication sharedApplication]];
+
+                manager should have_received(@selector(loadAdWithURL:));
+            });
+        });
+
+        context(@"when autorefresh is disabled", ^{
+            beforeEach(^{
+                [manager stopAutomaticallyRefreshingContents];
+
+                refreshTimer = [fakeCoreProvider lastFakeMPTimerWithSelector:@selector(refreshTimerDidFire)];
+                refreshTimer.isPaused should equal(YES);
+            });
+
+            it(@"should pause the timer when the app enters the background", ^{
+                [[NSNotificationCenter defaultCenter] postNotificationName:UIApplicationDidEnterBackgroundNotification object:[UIApplication sharedApplication]];
+
+                refreshTimer.isPaused should equal(YES);
+            });
+
+            it(@"should not make a new ad request when the app returns to the foreground", ^{
+                [[NSNotificationCenter defaultCenter] postNotificationName:UIApplicationDidEnterBackgroundNotification object:[UIApplication sharedApplication]];
+
+                refreshTimer.isPaused should equal(YES);
+
+                spy_on(manager);
+                [[NSNotificationCenter defaultCenter] postNotificationName:UIApplicationWillEnterForegroundNotification object:[UIApplication sharedApplication]];
+
+                manager should_not have_received(@selector(loadAdWithURL:));
+            });
+        });
+    });
+
     describe(@"refresh timer edge cases", ^{
         context(@"when the requested ad unit loads successfully and it has a refresh interval", ^{
             it(@"should schedule the refresh timer with the given refresh interval", ^{
                 [manager loadAd];
 
-                FakeBannerCustomEvent *event = [[[FakeBannerCustomEvent alloc] initWithFrame:CGRectZero] autorelease];
+                FakeBannerCustomEvent *event = [[FakeBannerCustomEvent alloc] initWithFrame:CGRectZero];
                 fakeProvider.fakeBannerCustomEvent = event;
 
                 MPAdConfiguration *configuration = [MPAdConfigurationFactory defaultBannerConfigurationWithCustomEventClassName:@"FakeBannerCustomEvent"];
@@ -61,7 +135,7 @@ describe(@"MPBannerAdManager", ^{
             it(@"should not schedule the refresh timer", ^{
                 [manager loadAd];
 
-                FakeBannerCustomEvent *event = [[[FakeBannerCustomEvent alloc] initWithFrame:CGRectZero] autorelease];
+                FakeBannerCustomEvent *event = [[FakeBannerCustomEvent alloc] initWithFrame:CGRectZero];
                 fakeProvider.fakeBannerCustomEvent = event;
 
                 MPAdConfiguration *configuration = [MPAdConfigurationFactory defaultBannerConfigurationWithCustomEventClassName:@"FakeBannerCustomEvent"];

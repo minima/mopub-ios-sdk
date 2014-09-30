@@ -11,10 +11,5 @@
 
 @synthesize view;
 
-- (void)dealloc
-{
-    self.view = nil;
-    [super dealloc];
-}
 
 @end

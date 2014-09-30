@@ -12,19 +12,19 @@ describe(@"MPAdBrowserController", ^{
     __block NSURL *URL;
 
     beforeEach(^{
-        presentingViewController = [[[UIViewController alloc] init] autorelease];
+        presentingViewController = [[UIViewController alloc] init];
 
         URL = [NSURL URLWithString:@"http://www.apple.com"];
         delegate = nice_fake_for(@protocol(MPAdBrowserControllerDelegate));
-        browser = [[[MPAdBrowserController alloc] initWithURL:URL
+        browser = [[MPAdBrowserController alloc] initWithURL:URL
                                                    HTMLString:@"<h1>Hello</h1>"
-                                                     delegate:delegate] autorelease];
+                                                     delegate:delegate];
 
         browser.view should_not be_nil;
 
-        //XXX jren: ios 7 is unhappy if a UIActionSheet attempts to display from a view
-        //that's not attached to a window
-        UIWindow *window = [[[UIWindow alloc] init] autorelease];
+        // ios 7 is unhappy if a UIActionSheet attempts to display from a view
+        // that's not attached to a window
+        UIWindow *window = [[UIWindow alloc] init];
         [window addSubview:browser.view];
 
         [browser viewWillAppear:NO];

@@ -17,20 +17,20 @@ describe(@"MPMillennialBannerCustomEvent", ^{
     beforeEach(^{
         delegate = nice_fake_for(@protocol(MPBannerCustomEventDelegate));
 
-        banner = [[[FakeMMAdView alloc] initWithFrame:CGRectMake(0,0,32,10)] autorelease];
+        banner = [[FakeMMAdView alloc] initWithFrame:CGRectMake(0,0,32,10)];
         fakeProvider.fakeMMAdView = banner;
 
-        event = [[[MPMillennialBannerCustomEvent alloc] init] autorelease];
+        event = [[MPMillennialBannerCustomEvent alloc] init];
         event.delegate = delegate;
 
-        location = [[[CLLocation alloc] initWithCoordinate:CLLocationCoordinate2DMake(37.1, 21.2)
+        location = [[CLLocation alloc] initWithCoordinate:CLLocationCoordinate2DMake(37.1, 21.2)
                                                   altitude:11
                                         horizontalAccuracy:12.3
                                           verticalAccuracy:10
-                                                 timestamp:[NSDate date]] autorelease];
+                                                 timestamp:[NSDate date]];
         delegate stub_method("location").and_return(location);
 
-        viewController = [[[UIViewController alloc] init] autorelease];
+        viewController = [[UIViewController alloc] init];
         delegate stub_method("viewControllerForPresentingModalView").and_return(viewController);
 
         customEventInfo = @{@"adUnitID": @"mmmmmmm", @"adWidth":@728, @"adHeight":@90};
@@ -44,29 +44,11 @@ describe(@"MPMillennialBannerCustomEvent", ^{
         event.enableAutomaticImpressionAndClickTracking should equal(NO);
     });
 
-    describe(@"deallocation", ^{
-        it(@"should avoid retain cycles and not cause problems", ^{
-            MPMillennialBannerCustomEvent *aNewEvent = [[MPMillennialBannerCustomEvent alloc] init];
-            delegate = nice_fake_for(@protocol(MPBannerCustomEventDelegate));
-            aNewEvent.delegate = delegate;
-
-            // Shouldn't allow the completion block to retain the custom event...
-            NSUInteger retainCount = aNewEvent.retainCount;
-            [aNewEvent requestAdWithSize:CGSizeZero customEventInfo:customEventInfo];
-            aNewEvent.retainCount should equal(retainCount);
-            [aNewEvent release]; //now it's gone
-
-            [delegate reset_sent_messages];
-            [banner simulateLoadingAd]; //should not crash
-            delegate.sent_messages should be_empty;
-        });
-    });
-
     describe(@"notifications", ^{
         __block FakeMMAdView *anotherBanner;
 
         beforeEach(^{
-            anotherBanner = [[[FakeMMAdView alloc] initWithFrame:CGRectMake(0,0,32,10)] autorelease];
+            anotherBanner = [[FakeMMAdView alloc] initWithFrame:CGRectMake(0,0,32,10)];
             anotherBanner.apid = @"mmmmmmm";
         });
 

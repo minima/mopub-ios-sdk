@@ -10,8 +10,8 @@
 
 @interface FakeGSFullscreenAd : GSFullscreenAd <FakeInterstitialAd>
 
-@property (nonatomic, assign) UIViewController *presentingViewController;
-@property (nonatomic, assign) NSString *GUID;
+@property (nonatomic, strong) UIViewController *presentingViewController;
+@property (nonatomic, copy) NSString *GUID;
 
 @property (nonatomic, assign) BOOL didFetch;
 @property (nonatomic, assign) BOOL isAdReady;

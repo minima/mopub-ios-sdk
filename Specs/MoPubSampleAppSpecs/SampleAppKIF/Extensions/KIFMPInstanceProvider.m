@@ -50,12 +50,12 @@ static KIFMPInstanceProvider *sharedProvider = nil;
 
 - (IMInterstitial *)buildIMInterstitialWithDelegate:(id<IMInterstitialDelegate>)delegate appId:(NSString *)appId
 {
-    return [super buildIMInterstitialWithDelegate:delegate appId:@"c8e9d75780cd439cad91d5def5200d25"];
+    return [super buildIMInterstitialWithDelegate:delegate appId:@"eee4b638927c481cb5053469e209f631"];
 }
 
 - (IMBanner *)buildIMBannerWithFrame:(CGRect)frame appId:(NSString *)appId adSize:(int)adSize
 {
-    return [super buildIMBannerWithFrame:frame appId:@"c8e9d75780cd439cad91d5def5200d25" adSize:adSize];
+    return [super buildIMBannerWithFrame:frame appId:@"eee4b638927c481cb5053469e209f631" adSize:adSize];
 }
 
 @end

@@ -24,7 +24,7 @@ describe(@"MPLegacyCustomEventBannerIntegrationSuite", ^{
     beforeEach(^{
         delegate = nice_fake_for(@protocol(FakeLegacyBannerCustomEvent));
 
-        admob = [[[FakeGADBannerView alloc] initWithFrame:CGRectMake(0,0,20,30)] autorelease];
+        admob = [[FakeGADBannerView alloc] initWithFrame:CGRectMake(0,0,20,30)];
         fakeProvider.fakeGADBannerView = admob.masquerade;
 
         NSDictionary *admobHeaders = @{kAdTypeHeaderKey: @"admob_native",
@@ -40,7 +40,7 @@ describe(@"MPLegacyCustomEventBannerIntegrationSuite", ^{
         configuration = [MPAdConfigurationFactory defaultBannerConfigurationWithHeaders:headers HTMLString:nil];
         configuration.refreshInterval = 30;
 
-        banner = [[[MPAdView alloc] initWithAdUnitId:@"legacy_custom_event_banner" size:CGSizeMake(50, 50)] autorelease];
+        banner = [[MPAdView alloc] initWithAdUnitId:@"legacy_custom_event_banner" size:CGSizeMake(50, 50)];
         banner.delegate = delegate;
         [banner loadAd];
 
@@ -111,7 +111,7 @@ describe(@"MPLegacyCustomEventBannerIntegrationSuite", ^{
             context(@"when the developer calls -customEventDidLoadAd", ^{
                 __block UIView *customEventView;
                 beforeEach(^{
-                    customEventView = [[[UIView alloc] init] autorelease];
+                    customEventView = [[UIView alloc] init];
                     [delegate reset_sent_messages];
                     [banner setAdContentView:customEventView];
                     [banner customEventDidLoadAd];

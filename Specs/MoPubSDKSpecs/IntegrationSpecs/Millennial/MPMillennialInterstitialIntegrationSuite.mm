@@ -29,14 +29,14 @@ describe(@"MPMillennialInterstitialIntegrationSuite", ^{
         anotherDelegate = nice_fake_for(@protocol(MPInterstitialAdControllerDelegate));
 
         interstitial = [MPInterstitialAdController interstitialAdControllerForAdUnitId:@"MM_interstitial"];
-        interstitial.location = [[[CLLocation alloc] initWithCoordinate:CLLocationCoordinate2DMake(37.1, 21.2)
+        interstitial.location = [[CLLocation alloc] initWithCoordinate:CLLocationCoordinate2DMake(37.1, 21.2)
                                                                altitude:11
                                                      horizontalAccuracy:12.3
                                                        verticalAccuracy:10
-                                                              timestamp:[NSDate date]] autorelease];
+                                                              timestamp:[NSDate date]];
         interstitial.delegate = delegate;
 
-        presentingController = [[[UIViewController alloc] init] autorelease];
+        presentingController = [[UIViewController alloc] init];
 
         // request an Ad
         [interstitial loadAd];
@@ -44,7 +44,7 @@ describe(@"MPMillennialInterstitialIntegrationSuite", ^{
         communicator.loadedURL.absoluteString should contain(@"MM_interstitial");
 
         // prepare the fake and tell the injector about it
-        fakeInterstitial = [[[FakeMMInterstitial alloc] init] autorelease];
+        fakeInterstitial = [[FakeMMInterstitial alloc] init];
         fakeProvider.fakeMMInterstitial = fakeInterstitial;
 
         setUpInterstitialSharedContext(communicator, delegate, interstitial, @"MM_interstitial", fakeInterstitial, [NSURL URLWithString:@"http://ads.mopub.com/m/failURL"]);

@@ -20,20 +20,20 @@ describe(@"MPGoogleAdMobBannerCustomEvent", ^{
         request = nice_fake_for([GADRequest class]);
         fakeProvider.fakeGADBannerRequest = request;
 
-        banner = [[[FakeGADBannerView alloc] init] autorelease];
+        banner = [[FakeGADBannerView alloc] init];
         fakeProvider.fakeGADBannerView = banner.masquerade;
 
-        event = [[[MPGoogleAdMobBannerCustomEvent alloc] init] autorelease];
+        event = [[MPGoogleAdMobBannerCustomEvent alloc] init];
         event.delegate = delegate;
 
-        location = [[[CLLocation alloc] initWithCoordinate:CLLocationCoordinate2DMake(37.1, 21.2)
+        location = [[CLLocation alloc] initWithCoordinate:CLLocationCoordinate2DMake(37.1, 21.2)
                                                   altitude:11
                                         horizontalAccuracy:12.3
                                           verticalAccuracy:10
-                                                 timestamp:[NSDate date]] autorelease];
+                                                 timestamp:[NSDate date]];
         delegate stub_method("location").and_return(location);
 
-        viewController = [[[UIViewController alloc] init] autorelease];
+        viewController = [[UIViewController alloc] init];
         delegate stub_method("viewControllerForPresentingModalView").and_return(viewController);
 
         [event requestAdWithSize:CGSizeZero customEventInfo:@{@"adUnitID":@"g00g1e", @"adWidth":@728, @"adHeight":@90}];

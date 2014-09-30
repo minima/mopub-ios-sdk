@@ -7,6 +7,8 @@
 #import "MPNativeAdRequestTargeting.h"
 #import "MPNativeAdData.h"
 #import "MPClientAdPositioning.h"
+#import "MPServerAdPositioning.h"
+#import "MPNativePositionSource.h"
 
 using namespace Cedar::Matchers;
 using namespace Cedar::Doubles;
@@ -77,6 +79,7 @@ describe(@"MPStreamAdPlacer", ^{
     __block MPClientAdPositioning *positioning;
     __block MPStreamAdPlacementData *placementData;
     __block MPNativeAdSource *adSource;
+    __block MPNativePositionSource *positioningSource;
 
     beforeEach(^{
         positioning = [MPClientAdPositioning positioning];
@@ -86,7 +89,9 @@ describe(@"MPStreamAdPlacer", ^{
         placerDelegate = nice_fake_for(@protocol(MPStreamAdPlacerDelegate));
         placementData = nice_fake_for([MPStreamAdPlacementData class]);
         adSource = nice_fake_for([MPNativeAdSource class]);
+        positioningSource = nice_fake_for([MPNativePositionSource class]);
         fakeProvider.fakeNativeAdSource = adSource;
+        fakeProvider.fakeNativePositioningSource = positioningSource;
         fakeProvider.fakeStreamAdPlacementData = placementData;
         placer = [MPStreamAdPlacer placerWithViewController:viewController adPositioning:positioning defaultAdRenderingClass:[FakeMPNativeAdRenderingClassView class]];
         placer.delegate = placerDelegate;
@@ -211,15 +216,14 @@ describe(@"MPStreamAdPlacer", ^{
                 });
             });
 
-            it(@"should retrieve the last item (original item count + 2) in the section", ^{
-                NSIndexPath *indexPath = [NSIndexPath indexPathForItem:2 inSection:0];
-                [placer furthestValidIndexPathAfterIndexPath:indexPath withinDistance:2] should equal([NSIndexPath indexPathForItem:4 inSection:0]);
+            it(@"should retrieve the last item in a section", ^{
+                NSIndexPath *indexPath = [NSIndexPath indexPathForItem:0 inSection:0];
+                [placer furthestValidIndexPathAfterIndexPath:indexPath withinDistance:2] should equal([NSIndexPath indexPathForItem:2 inSection:0]);
             });
 
             it(@"should traverse sections and retrieve the 0th index item in the next section", ^{
-                // This is valid even though we set item count to 0 since the stubbed method adds 2 to the count of every section.
-                NSIndexPath *indexPath = [NSIndexPath indexPathForItem:2 inSection:0];
-                [placer furthestValidIndexPathAfterIndexPath:indexPath withinDistance:3] should equal([NSIndexPath indexPathForItem:0 inSection:1]);
+                NSIndexPath *indexPath = [NSIndexPath indexPathForItem:0 inSection:0];
+                [placer furthestValidIndexPathAfterIndexPath:indexPath withinDistance:3] should equal([NSIndexPath indexPathForItem:0 inSection:2]);
             });
         });
     });
@@ -294,9 +298,9 @@ describe(@"MPStreamAdPlacer", ^{
                 });
             });
 
-            it(@"should traverse sections and retrieve the last index path (where item = itemCount + 2) in the previous section", ^{
+            it(@"should traverse sections and retrieve the last index path in the previous section", ^{
                 NSIndexPath *indexPath = [NSIndexPath indexPathForItem:1 inSection:1];
-                [placer earliestValidIndexPathBeforeIndexPath:indexPath withinDistance:2] should equal([NSIndexPath indexPathForItem:4 inSection:0]);
+                [placer earliestValidIndexPathBeforeIndexPath:indexPath withinDistance:2] should equal([NSIndexPath indexPathForItem:2 inSection:0]);
             });
 
             it(@"should retrieve the correct index path, before an index path that extends beyond the original item count", ^{
@@ -415,7 +419,7 @@ describe(@"MPStreamAdPlacer", ^{
         context(@"when there is no ad data at the index path", ^{
             beforeEach(^{
                 placementData stub_method(@selector(adDataAtAdjustedIndexPath:)).and_return(nil);
-                renderView = [[[FakeMPNativeAdRenderingClassView alloc] init] autorelease];
+                renderView = [[FakeMPNativeAdRenderingClassView alloc] init];
                 [renderView resetLayoutAdAssetsCallCount];
                 [placer renderAdAtIndexPath:indexPath inView:renderView];
             });
@@ -427,12 +431,12 @@ describe(@"MPStreamAdPlacer", ^{
 
         context(@"when there is ad data at the index path", ^{
             beforeEach(^{
-                MPNativeAdData *adData = [[[MPNativeAdData alloc] init] autorelease];
-                MPNativeAd *nativeAd = [[[MPNativeAd alloc] init] autorelease];
+                MPNativeAdData *adData = [[MPNativeAdData alloc] init];
+                MPNativeAd *nativeAd = [[MPNativeAd alloc] init];
                 adData.ad = nativeAd;
                 adData.renderingClass = [FakeMPNativeAdRenderingClassView class];
                 placementData stub_method(@selector(adDataAtAdjustedIndexPath:)).and_return(adData);
-                renderView = [[[FakeMPNativeAdRenderingClassView alloc] init] autorelease];
+                renderView = [[FakeMPNativeAdRenderingClassView alloc] init];
                 [renderView resetLayoutAdAssetsCallCount];
                 [placer renderAdAtIndexPath:indexPath inView:renderView];
             });
@@ -446,7 +450,7 @@ describe(@"MPStreamAdPlacer", ^{
     describe(@"-sizeForAdAtIndexPath:withMaximumWidth:", ^{
         context(@"when the rendering class implements sizeWithMaximumWidth:", ^{
             beforeEach(^{
-                MPNativeAdData *adData = [[[MPNativeAdData alloc] init] autorelease];
+                MPNativeAdData *adData = [[MPNativeAdData alloc] init];
                 adData.renderingClass = [FakeMPNativeAdRenderingClassView class];
                 placementData stub_method(@selector(adDataAtAdjustedIndexPath:)).and_return(adData);
             });
@@ -457,7 +461,7 @@ describe(@"MPStreamAdPlacer", ^{
 
         context(@"when the rendering class doesn't implement sizeWithMaximumWidth:", ^{
             beforeEach(^{
-                MPNativeAdData *adData = [[[MPNativeAdData alloc] init] autorelease];
+                MPNativeAdData *adData = [[MPNativeAdData alloc] init];
                 adData.renderingClass = [FakeMPNativeAdRenderingClassViewNoSize class];
                 placementData stub_method(@selector(adDataAtAdjustedIndexPath:)).and_return(adData);
 
@@ -485,7 +489,7 @@ describe(@"MPStreamAdPlacer", ^{
             placer.delegate = placerDelegate;
         });
 
-        context(@"when trying to load with a nil ad unit id", ^{
+        context(@"when trying to load with a nil ad unit ID", ^{
             it(@"should remove ads if ads exist", ^{
                 [placer loadAdsForAdUnitID:adUnitID targeting:targeting];
                 __block NSArray *section0Ads = @[
@@ -546,8 +550,8 @@ describe(@"MPStreamAdPlacer", ^{
             });
         });
 
-        context(@"when loading with a valid ad unit id", ^{
-            beforeEach(^{
+        context(@"when loading with a valid ad unit ID", ^{
+            subjectAction(^{
                 [placer loadAdsForAdUnitID:adUnitID targeting:targeting];
             });
 
@@ -559,55 +563,102 @@ describe(@"MPStreamAdPlacer", ^{
                 fakeProvider.fakeNativeAdSource should have_received(@selector(loadAdsWithAdUnitIdentifier:andTargeting:)).with(adUnitID).and_with(targeting);
             });
 
-            it(@"should reconstruct placement data", ^{
-                // Don't use a fake and let it construct a real one.
-                fakeProvider.fakeStreamAdPlacementData = nil;
-                [placer loadAdsForAdUnitID:adUnitID targeting:targeting];
-
-                // Track the original one constructed...
-                MPStreamAdPlacementData *original = [[placer.adPlacementData retain] autorelease];
-
-                // Assign a fake one and then reload.  If the new adPlacementData is the fake, we know it reconstructed it.
-                fakeProvider.fakeStreamAdPlacementData = placementData;
-                [placer loadAdsForAdUnitID:adUnitID targeting:targeting];
-
-                original should_not equal(placer.adPlacementData);
-                placementData should equal(placer.adPlacementData);
+            context(@"if ads have never been placed in the stream", ^{
+                it(@"should not notify the delegate that any ads were removed", ^{
+                    placerDelegate should_not have_received(@selector(adPlacer:didRemoveAdsAtIndexPaths:));
+                });
             });
 
-            it(@"should not notify the delegate if no ads were removed", ^{
-                placerDelegate should_not have_received(@selector(adPlacer:didRemoveAdsAtIndexPaths:));
-            });
+            context(@"if ads have previously been placed in the stream", ^{
+                __block NSArray *adjustedIndexPathsOfAds;
 
-            it(@"should notify the delegate of any removed ads", ^{
-                __block NSArray *section0Ads = @[
-                                                 [NSIndexPath indexPathForItem:2 inSection:0],
-                                                 [NSIndexPath indexPathForItem:8 inSection:0]
-                                                 ];
-                __block NSArray *section1Ads = @[
-                                                 [NSIndexPath indexPathForItem:0 inSection:1],
-                                                 [NSIndexPath indexPathForItem:3 inSection:1]
-                                                 ];
+                beforeEach(^{
+                    __block NSArray *section0Ads = @[
+                                                     [NSIndexPath indexPathForItem:2 inSection:0],
+                                                     [NSIndexPath indexPathForItem:8 inSection:0]
+                                                     ];
+                    __block NSArray *section1Ads = @[
+                                                     [NSIndexPath indexPathForItem:0 inSection:1],
+                                                     [NSIndexPath indexPathForItem:3 inSection:1]
+                                                     ];
 
-                NSArray *expectedIndexPaths = [[NSArray arrayWithArray:section0Ads] arrayByAddingObjectsFromArray:section1Ads];
+                    adjustedIndexPathsOfAds = [[NSArray arrayWithArray:section0Ads] arrayByAddingObjectsFromArray:section1Ads];
 
-                [placer setItemCount:10 forSection:0];
-                [placer setItemCount:2 forSection:2];
+                    [placer setItemCount:10 forSection:0];
+                    [placer setItemCount:2 forSection:2];
 
-                placementData stub_method(@selector(adjustedIndexPathsWithAdsInSection:)).and_do(^(NSInvocation *inv) {
-                    NSUInteger section;
-                    [inv getArgument:&section atIndex:2];
+                    placementData stub_method(@selector(adjustedIndexPathsWithAdsInSection:)).and_do(^(NSInvocation *inv) {
+                        NSUInteger section;
+                        [inv getArgument:&section atIndex:2];
 
-                    if (section == 0) {
-                        [inv setReturnValue:&section0Ads];
-                    } else {
-                        [inv setReturnValue:&section1Ads];
-                    }
+                        if (section == 0) {
+                            [inv setReturnValue:&section0Ads];
+                        } else {
+                            [inv setReturnValue:&section1Ads];
+                        }
+                    });
+
+                    placerDelegate should_not have_received(@selector(adPlacer:didRemoveAdsAtIndexPaths:));
                 });
 
-                placerDelegate should_not have_received(@selector(adPlacer:didRemoveAdsAtIndexPaths:));
-                [placer loadAdsForAdUnitID:adUnitID targeting:targeting];
-                placerDelegate should have_received(@selector(adPlacer:didRemoveAdsAtIndexPaths:)).with(placer).and_with(expectedIndexPaths);
+                it(@"should notify the delegate that those ads have been removed", ^{
+                    placerDelegate should have_received(@selector(adPlacer:didRemoveAdsAtIndexPaths:)).with(placer).and_with(adjustedIndexPathsOfAds);
+                });
+            });
+
+            context(@"when using client-side positioning", ^{
+                beforeEach(^{
+                    // Don't use a fake placement data; let it construct a real one.
+                    fakeProvider.fakeStreamAdPlacementData = nil;
+                });
+
+                it(@"should reconstruct placement data", ^{
+                    // Track the original one constructed...
+                    MPStreamAdPlacementData *original = placer.adPlacementData;
+
+                    // Assign a fake one and then reload.  If the new adPlacementData is the fake, we know it reconstructed it.
+                    fakeProvider.fakeStreamAdPlacementData = placementData;
+                    [placer loadAdsForAdUnitID:adUnitID targeting:targeting];
+
+                    original should_not equal(placer.adPlacementData);
+                    placementData should equal(placer.adPlacementData);
+                });
+            });
+
+            context(@"when using server-side positioning", ^{
+                beforeEach(^{
+                    // Don't use a fake placement data; let it construct a real one.
+                    fakeProvider.fakeStreamAdPlacementData = nil;
+
+                    MPServerAdPositioning *serverPositioning = [[MPServerAdPositioning alloc] init];
+                    placer = [MPStreamAdPlacer placerWithViewController:viewController adPositioning:serverPositioning defaultAdRenderingClass:[FakeMPNativeAdRenderingClassView class]];
+                    placer.delegate = placerDelegate;
+                });
+
+                it(@"should reset its placement data to be empty", ^{
+                    // Save off the original placement data.
+                    MPStreamAdPlacementData *original = placer.adPlacementData;
+
+                    fakeProvider.fakeStreamAdPlacementData = placementData;
+                    [placer loadAdsForAdUnitID:adUnitID targeting:targeting];
+
+                    placer.adPlacementData should_not equal(original);
+                    placer.adPlacementData should equal(placementData);
+                });
+
+                it(@"should request positioning information from the server", ^{
+                    positioningSource should have_received(@selector(loadPositionsWithAdUnitIdentifier:completionHandler:)).with(adUnitID).and_with(Arguments::anything);
+                });
+
+                xcontext(@"when the server successfully returns positions", ^{
+                    it(@"should create new placement data using those positions", ^{
+
+                    });
+                });
+
+                xcontext(@"when the server fails to return positions", ^{
+
+                });
             });
         });
     });
@@ -860,7 +911,7 @@ describe(@"MPStreamAdPlacer", ^{
 
             context(@"when inserting multiple sections", ^{
                 it(@"should adjust the section counts", ^{
-                    NSMutableIndexSet *indexSet = [[[NSMutableIndexSet alloc] init] autorelease];
+                    NSMutableIndexSet *indexSet = [[NSMutableIndexSet alloc] init];
                     [indexSet addIndex:1];
                     [indexSet addIndex:2];
 
@@ -914,7 +965,7 @@ describe(@"MPStreamAdPlacer", ^{
 
             context(@"when deleting multiple sections", ^{
                 it(@"should adjust the section counts", ^{
-                    NSMutableIndexSet *indexSet = [[[NSMutableIndexSet alloc] init] autorelease];
+                    NSMutableIndexSet *indexSet = [[NSMutableIndexSet alloc] init];
                     [indexSet addIndex:1];
                     [indexSet addIndex:2];
 
@@ -989,8 +1040,11 @@ describe(@"MPStreamAdPlacer", ^{
             });
         });
 
-        context(@"when the index path is within its section's range", ^{
+        context(@"when there are no ads in the stream", ^{
             beforeEach(^{
+                placementData stub_method(@selector(adjustedIndexPathForOriginalIndexPath:)).and_do_block(^NSIndexPath *(NSIndexPath *adjustedIndexPath) {
+                    return adjustedIndexPath;
+                });
                 placementData stub_method(@selector(adjustedNumberOfItems:inSection:)).and_return((NSUInteger)100);
             });
 
@@ -1102,6 +1156,46 @@ describe(@"MPStreamAdPlacer", ^{
                 });
             });
         });
+
+        context(@"when there are ads in the stream", ^{
+            beforeEach(^{
+                placementData stub_method(@selector(adjustedIndexPathForOriginalIndexPath:)).and_do_block(^NSIndexPath *(NSIndexPath *adjustedIndexPath) {
+                    return [NSIndexPath indexPathForRow:adjustedIndexPath.row+2 inSection:adjustedIndexPath.section];
+                });
+                placementData stub_method(@selector(adjustedNumberOfItems:inSection:)).and_return((NSUInteger)100);
+
+                spy_on(placer);
+
+                // Stub this method out to do nothing to the index path.  This way we know exactly what our adjusted index path bounds are.
+                placer stub_method(@selector(furthestValidIndexPathAfterIndexPath:withinDistance:)).and_do_block(^NSIndexPath *(NSIndexPath *startingPath, NSUInteger distance) {
+                    return startingPath;
+                });
+
+                placer.visibleIndexPaths = @[
+                                             [NSIndexPath indexPathForRow:2 inSection:1],
+                                             [NSIndexPath indexPathForRow:3 inSection:1],
+                                             [NSIndexPath indexPathForRow:1 inSection:2]
+                                             ];
+            });
+
+            it(@"should return NO when index path is before the adjusted visible index paths", ^{
+                NSIndexPath *testPath = [NSIndexPath indexPathForRow:2 inSection:1];
+                [placer shouldPlaceAdAtIndexPath:testPath] should be_falsy;
+            });
+
+            it(@"should return NO when the index path is after the adjusted visible index paths", ^{
+                NSIndexPath *testPath = [NSIndexPath indexPathForRow:4 inSection:2];
+                [placer shouldPlaceAdAtIndexPath:testPath] should be_falsy;
+            });
+
+            it(@"should return YES when the index path is in the adjusted range", ^{
+                NSIndexPath *testPath1 = [NSIndexPath indexPathForRow:4 inSection:1];
+                NSIndexPath *testPath2 = [NSIndexPath indexPathForRow:3 inSection:2];
+
+                [placer shouldPlaceAdAtIndexPath:testPath1] should be_truthy;
+                [placer shouldPlaceAdAtIndexPath:testPath2] should be_truthy;
+            });
+        });
     });
 
     describe(@"-retrieveAdDataForInsertionPath", ^{
@@ -1143,7 +1237,7 @@ describe(@"MPStreamAdPlacer", ^{
         beforeEach(^{
             [placer setItemCount:4 forSection:0];
             [placer setItemCount:6 forSection:1];
-            adSource stub_method(@selector(dequeueAdForAdUnitIdentifier:)).and_return([[[MPNativeAd alloc] init] autorelease]);
+            adSource stub_method(@selector(dequeueAdForAdUnitIdentifier:)).and_return([[MPNativeAd alloc] init]);
         });
 
         xcontext(@"when the index path is not within its section's range", {

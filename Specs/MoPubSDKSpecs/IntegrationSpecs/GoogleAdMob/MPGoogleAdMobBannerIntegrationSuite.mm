@@ -18,20 +18,20 @@ describe(@"MPGoogleAdMobBannerIntegrationSuite", ^{
     __block FakeMPAdServerCommunicator *communicator;
 
     beforeEach(^{
-        presentingController = [[[UIViewController alloc] init] autorelease];
+        presentingController = [[UIViewController alloc] init];
         delegate = nice_fake_for(@protocol(MPAdViewDelegate));
         delegate stub_method(@selector(viewControllerForPresentingModalView)).and_return(presentingController);
 
-        banner = [[[MPAdView alloc] initWithAdUnitId:@"admob_event" size:MOPUB_BANNER_SIZE] autorelease];
+        banner = [[MPAdView alloc] initWithAdUnitId:@"admob_event" size:MOPUB_BANNER_SIZE];
         banner.delegate = delegate;
-        banner.location = [[[CLLocation alloc] initWithCoordinate:CLLocationCoordinate2DMake(37.1, 21.2)
+        banner.location = [[CLLocation alloc] initWithCoordinate:CLLocationCoordinate2DMake(37.1, 21.2)
                                                          altitude:11
                                                horizontalAccuracy:12.3
                                                  verticalAccuracy:10
-                                                        timestamp:[NSDate date]] autorelease];
+                                                        timestamp:[NSDate date]];
         [banner loadAd];
 
-        fakeAd = [[[FakeGADBannerView alloc] initWithFrame:CGRectMake(0,0,20,30)] autorelease];
+        fakeAd = [[FakeGADBannerView alloc] initWithFrame:CGRectMake(0,0,20,30)];
         fakeProvider.fakeGADBannerView = fakeAd.masquerade;
         fakeGADBannerRequest = nice_fake_for([GADRequest class]);
         fakeProvider.fakeGADBannerRequest = fakeGADBannerRequest;

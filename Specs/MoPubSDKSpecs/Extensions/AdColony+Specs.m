@@ -30,7 +30,7 @@ static NSInteger gZoneStatus;
 {
     gAppId = [appID copy];
     gZoneIds = [zoneIDs copy];
-    gDelegate = [del retain];
+    gDelegate = del;
 
     [self mp_configureWithAppID:appID zoneIDs:zoneIDs delegate:del logging:log];
 }
@@ -66,8 +66,7 @@ static NSInteger gZoneStatus;
 
 + (void)mp_setAdColonyDelegate:(id)delegate
 {
-    [gDelegate release];
-    gDelegate = [delegate retain];
+    gDelegate = delegate;
 }
 
 + (void)mp_onAdColonyAdAvailabilityChange:(BOOL)available inZone:(NSString *)zoneID

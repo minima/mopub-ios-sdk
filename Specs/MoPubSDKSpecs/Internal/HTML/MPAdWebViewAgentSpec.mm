@@ -35,7 +35,7 @@ describe(@"MPAdWebViewAgent", ^{
     __block FakeMPAdAlertManager *fakeAdAlertManager;
 
     beforeEach(^{
-        fakeAdAlertManager = [[[FakeMPAdAlertManager alloc] init] autorelease];
+        fakeAdAlertManager = [[FakeMPAdAlertManager alloc] init];
         fakeCoreProvider.fakeAdAlertManager = fakeAdAlertManager;
 
         delegate = nice_fake_for(@protocol(MPAdWebViewAgentDelegate));
@@ -43,9 +43,9 @@ describe(@"MPAdWebViewAgent", ^{
         destinationDisplayAgent = nice_fake_for([MPAdDestinationDisplayAgent class]);
         fakeCoreProvider.fakeMPAdDestinationDisplayAgent = destinationDisplayAgent;
 
-        agent = [[[MPAdWebViewAgent alloc] initWithAdWebViewFrame:CGRectMake(0,0,30,20)
+        agent = [[MPAdWebViewAgent alloc] initWithAdWebViewFrame:CGRectMake(0,0,30,20)
                                                          delegate:delegate
-                                             customMethodDelegate:nil] autorelease];
+                                             customMethodDelegate:nil];
         webView = agent.view;
         agent.userInteractedWithWebView = YES;
         bannerConfiguration = [MPAdConfigurationFactory defaultBannerConfiguration];
@@ -137,7 +137,7 @@ describe(@"MPAdWebViewAgent", ^{
     describe(@"MPAdDestinationDisplayAgentDelegate", ^{
         context(@"when asked for a view controller to present modal views", ^{
             it(@"should ask the MPAdWebViewAgentDelegate for one", ^{
-                UIViewController *presentingViewController = [[[UIViewController alloc] init] autorelease];
+                UIViewController *presentingViewController = [[UIViewController alloc] init];
                 delegate stub_method("viewControllerForPresentingModalView").and_return(presentingViewController);
                 [agent viewControllerForPresentingModalView] should equal(presentingViewController);
             });
@@ -246,7 +246,7 @@ describe(@"MPAdWebViewAgent", ^{
 
                 context(@"when the custom method delegate responds to neither method", ^{
                     it(@"should not blow up", ^{
-                        id customMethodDelegate = [[[NSObject alloc] init] autorelease];
+                        id customMethodDelegate = [[NSObject alloc] init];
                         agent.customMethodDelegate = customMethodDelegate;
                         [agent webView:agent.view shouldStartLoadWithRequest:[NSURLRequest requestWithURL:URL] navigationType:UIWebViewNavigationTypeOther] should equal(NO);
                     });
@@ -367,9 +367,9 @@ describe(@"MPAdWebViewAgent", ^{
             it(@"should not show a telephone prompt", ^{
                 fakeCoreProvider.fakeMPAdDestinationDisplayAgent = nil;
 
-                agent = [[[MPAdWebViewAgent alloc] initWithAdWebViewFrame:CGRectMake(0,0,30,20)
+                agent = [[MPAdWebViewAgent alloc] initWithAdWebViewFrame:CGRectMake(0,0,30,20)
                                                                  delegate:delegate
-                                                     customMethodDelegate:nil] autorelease];
+                                                     customMethodDelegate:nil];
 
                 URL = [NSURL URLWithString:@"twitter://food"];
                 [agent webView:nil shouldStartLoadWithRequest:[NSURLRequest requestWithURL:URL] navigationType:UIWebViewNavigationTypeLinkClicked];
@@ -391,9 +391,9 @@ describe(@"MPAdWebViewAgent", ^{
                 URL = [NSURL URLWithString:@"tel://5555555555"];
                 fakeCoreProvider.fakeMPAdDestinationDisplayAgent = nil;
 
-                agent = [[[MPAdWebViewAgent alloc] initWithAdWebViewFrame:CGRectMake(0,0,30,20)
+                agent = [[MPAdWebViewAgent alloc] initWithAdWebViewFrame:CGRectMake(0,0,30,20)
                                                                  delegate:delegate
-                                                     customMethodDelegate:nil] autorelease];
+                                                     customMethodDelegate:nil];
             });
 
             it(@"should not load anything", ^{
@@ -417,9 +417,9 @@ describe(@"MPAdWebViewAgent", ^{
                 URL = [NSURL URLWithString:@"telPrompt://5555555555"];
                 fakeCoreProvider.fakeMPAdDestinationDisplayAgent = nil;
 
-                agent = [[[MPAdWebViewAgent alloc] initWithAdWebViewFrame:CGRectMake(0,0,30,20)
+                agent = [[MPAdWebViewAgent alloc] initWithAdWebViewFrame:CGRectMake(0,0,30,20)
                                                                  delegate:delegate
-                                                     customMethodDelegate:nil] autorelease];
+                                                     customMethodDelegate:nil];
                 webView = agent.view;
             });
 

@@ -9,7 +9,7 @@
 
 @interface FakeGSBannerAdView : GSMobileBannerAdView
 
-@property (nonatomic, assign) NSString *GUID;
+@property (nonatomic, copy) NSString *GUID;
 @property (nonatomic, assign) BOOL didFetch;
 
 - (void)simulateLoadingAd;

@@ -10,9 +10,9 @@ describe(@"MPInterstitialViewController", ^{
     __block UIViewController *presentingController;
 
     beforeEach(^{
-        presentingController = [[[UIViewController alloc] init] autorelease];
-        controller = [[[MPInterstitialViewController alloc] init] autorelease];
-        [controller.view addSubview:[[[UIView alloc] init] autorelease]];
+        presentingController = [[UIViewController alloc] init];
+        controller = [[MPInterstitialViewController alloc] init];
+        [controller.view addSubview:[[UIView alloc] init]];
     });
 
     describe(@"presenting the view controller", ^{
@@ -32,7 +32,7 @@ describe(@"MPInterstitialViewController", ^{
 
         context(@"when presented again", ^{
             it(@"should not try to present itself", ^{
-                UIViewController *differentPresentingController = [[[UIViewController alloc] init] autorelease];
+                UIViewController *differentPresentingController = [[UIViewController alloc] init];
                 [controller presentInterstitialFromViewController:differentPresentingController];
                 differentPresentingController.presentedViewController should be_nil;
             });
@@ -50,7 +50,7 @@ describe(@"MPInterstitialViewController", ^{
             });
 
             it(@"should allow new presentations", ^{
-                UIViewController *differentPresentingController = [[[UIViewController alloc] init] autorelease];
+                UIViewController *differentPresentingController = [[UIViewController alloc] init];
                 [controller presentInterstitialFromViewController:differentPresentingController];
                 differentPresentingController.presentedViewController should equal(controller);
             });

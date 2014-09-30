@@ -61,7 +61,7 @@ describe(@"MPLegacyCustomEventInterstitialIntegrationSuite", ^{
         context(@"and the user tries to show the ad", ^{
             beforeEach(^{
                 [delegate reset_sent_messages];
-                UIViewController *controller = [[[UIViewController alloc] init] autorelease];
+                UIViewController *controller = [[UIViewController alloc] init];
                 [interstitial showFromViewController:controller];
             });
 
@@ -105,7 +105,7 @@ describe(@"MPLegacyCustomEventInterstitialIntegrationSuite", ^{
         context(@"and the user tries to show the ad", ^{
             beforeEach(^{
                 [delegate reset_sent_messages];
-                UIViewController *controller = [[[UIViewController alloc] init] autorelease];
+                UIViewController *controller = [[UIViewController alloc] init];
                 [interstitial showFromViewController:controller];
             });
 

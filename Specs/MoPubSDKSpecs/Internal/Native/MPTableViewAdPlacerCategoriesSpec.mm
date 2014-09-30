@@ -37,7 +37,7 @@ static NSString *const kReuseIdentifier = @"reuseCell";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return [[[UITableViewCell alloc] initWithFrame:CGRectMake(0, 0, 320, 44)] autorelease];
+    return [[UITableViewCell alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
 }
 
 @end
@@ -54,9 +54,9 @@ describe(@"MPTableViewAdPlacerCategories", ^{
     __block UITableView *placerlessTableView;
 
     beforeEach(^{
-        tableView = [[[UITableView alloc] initWithFrame:CGRectMake(0, 0, 320, 480)] autorelease];
+        tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, 320, 480)];
 
-        TableViewDataSourceDelegateHelper *helper = [[[TableViewDataSourceDelegateHelper alloc] init] autorelease];
+        TableViewDataSourceDelegateHelper *helper = [[TableViewDataSourceDelegateHelper alloc] init];
         delegate = helper;
         dataSource = helper;
 
@@ -65,7 +65,7 @@ describe(@"MPTableViewAdPlacerCategories", ^{
 
         [tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:kReuseIdentifier];
 
-        UIViewController *viewController = [[[UIViewController alloc] init] autorelease];
+        UIViewController *viewController = [[UIViewController alloc] init];
 
         MPAdPositioning *fakePositioning = nice_fake_for([MPAdPositioning class]);
 
@@ -74,7 +74,7 @@ describe(@"MPTableViewAdPlacerCategories", ^{
 
         placer = [MPTableViewAdPlacer placerWithTableView:tableView viewController:viewController adPositioning:fakePositioning defaultAdRenderingClass:[MPNativeAdCell class]];
 
-        placerlessTableView = [[[UITableView alloc] initWithFrame:CGRectMake(0, 0, 320, 480)] autorelease];
+        placerlessTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, 320, 480)];
         placerlessTableView.delegate = delegate;
         placerlessTableView.dataSource = dataSource;
 

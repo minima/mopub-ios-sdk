@@ -130,7 +130,7 @@ describe(@"MPTableViewAdPlacer", ^{
         [adPositioning enableRepeatingPositionsWithInterval:3];
         tableViewDelegate = nice_fake_for(@protocol(UITableViewDelegate));
         tableViewDataSource = nice_fake_for(@protocol(UITableViewDataSource));
-        tableView = [[[UITableView alloc] init] autorelease];
+        tableView = [[UITableView alloc] init];
         tableView.delegate = tableViewDelegate;
         tableView.dataSource = tableViewDataSource;
         presentingViewController = nice_fake_for([UIViewController class]);
@@ -306,7 +306,7 @@ describe(@"MPTableViewAdPlacer", ^{
 
                 context(@"on pre-iOS 6 table views that don't have registerClass:forCellReuseIdentifier:", ^{
                     beforeEach(^{
-                        fakeTableViewiOS5_0 = [[[FakeUITableViewiOS5_0 alloc] init] autorelease];
+                        fakeTableViewiOS5_0 = [[FakeUITableViewiOS5_0 alloc] init];
                         spy_on(fakeTableViewiOS5_0);
                     });
 
@@ -346,7 +346,7 @@ describe(@"MPTableViewAdPlacer", ^{
 
         it(@"should forward loadAdsForAdUnitID:targeting to the stream ad placer", ^{
             fakeStreamAdPlacer should_not have_received(@selector(loadAdsForAdUnitID:targeting:));
-            [tableViewAdPlacer loadAdsForAdUnitID:@"booger" targeting:[[[MPNativeAdRequestTargeting alloc] init] autorelease]];
+            [tableViewAdPlacer loadAdsForAdUnitID:@"booger" targeting:[[MPNativeAdRequestTargeting alloc] init]];
             fakeStreamAdPlacer should have_received(@selector(loadAdsForAdUnitID:targeting:));
         });
     });
@@ -401,19 +401,25 @@ describe(@"MPTableViewAdPlacer", ^{
     });
 
     describe(@"-updateVisibleCells", ^{
+        __block UITableView *tableView;
+        __block MPStreamAdPlacer *streamAdPlacer;
 
         beforeEach(^{
-            fakeProvider.fakeStreamAdPlacer = fakeStreamAdPlacer;
+            streamAdPlacer = [MPStreamAdPlacer placerWithViewController:presentingViewController adPositioning:adPositioning defaultAdRenderingClass:[FakeMPNativeAdRenderingClassTableView class]];
+            spy_on(streamAdPlacer);
+            fakeProvider.fakeStreamAdPlacer = streamAdPlacer;
+            tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
+            spy_on(tableView);
         });
 
         context(@"when the table view has no visible cells", ^{
             beforeEach(^{
-                fakeTableView stub_method(@selector(indexPathsForVisibleRows)).and_return(@[]);
-                tableViewAdPlacer = [MPTableViewAdPlacer placerWithTableView:fakeTableView viewController:presentingViewController adPositioning:adPositioning defaultAdRenderingClass:[FakeMPNativeAdRenderingClassTableView class]];
+                tableView stub_method(@selector(indexPathsForVisibleRows)).and_return(@[]);
+                tableViewAdPlacer = [MPTableViewAdPlacer placerWithTableView:tableView viewController:presentingViewController adPositioning:adPositioning defaultAdRenderingClass:[FakeMPNativeAdRenderingClassTableView class]];
             });
 
             it(@"should not set visible index paths on the stream ad placer", ^{
-                in_time(fakeStreamAdPlacer should_not have_received(@selector(setVisibleIndexPaths:)));
+                in_time(streamAdPlacer should_not have_received(@selector(setVisibleIndexPaths:)));
             });
         });
 
@@ -422,15 +428,55 @@ describe(@"MPTableViewAdPlacer", ^{
             beforeEach(^{
                 visiblePaths = @[
                                  [NSIndexPath indexPathForItem:1 inSection:1],
-                                 [NSIndexPath indexPathForItem:2 inSection:1]
+                                 [NSIndexPath indexPathForItem:2 inSection:1],
+                                 [NSIndexPath indexPathForItem:3 inSection:1]
                                  ];
-                fakeTableView stub_method(@selector(indexPathsForVisibleRows)).and_return(visiblePaths);
-                tableViewAdPlacer = [MPTableViewAdPlacer placerWithTableView:fakeTableView viewController:presentingViewController adPositioning:adPositioning defaultAdRenderingClass:[FakeMPNativeAdRenderingClassTableView class]];
+                tableView stub_method(@selector(indexPathsForVisibleRows)).and_return(visiblePaths);
+                streamAdPlacer stub_method(@selector(originalIndexPathForAdjustedIndexPath:)).and_do_block(^NSIndexPath * (NSIndexPath *adjustedIndexPath) {
+                    if ([streamAdPlacer isAdAtIndexPath:adjustedIndexPath]) {
+                        return nil;
+                    }
+                    return [NSIndexPath indexPathForRow:adjustedIndexPath.row+5 inSection:adjustedIndexPath.section];
+                });
+                tableViewAdPlacer = [MPTableViewAdPlacer placerWithTableView:tableView viewController:presentingViewController adPositioning:adPositioning defaultAdRenderingClass:[FakeMPNativeAdRenderingClassTableView class]];
             });
 
             it(@"should set visible index paths on the stream ad placer", ^{
-                in_time(fakeStreamAdPlacer should have_received(@selector(setVisibleIndexPaths:)).with(visiblePaths));
+                in_time(streamAdPlacer should have_received(@selector(setVisibleIndexPaths:)).with(visiblePaths));
             });
+
+            it(@"should set visible index paths on the stream ad placer with original index paths", ^{
+                NSArray *originalIndexPaths = [NSMutableArray arrayWithObjects:[NSIndexPath indexPathForRow:6 inSection:1],
+                                               [NSIndexPath indexPathForRow:7 inSection:1],
+                                               [NSIndexPath indexPathForRow:8 inSection:1],
+                                               nil];
+                [tableViewAdPlacer updateVisibleCells];
+                streamAdPlacer should have_received(@selector(setVisibleIndexPaths:)).with(originalIndexPaths);
+            });
+
+            // Not such a great test since we're stubbing out originalIndexPathForAdjustedIndexPath.
+            context(@"when the visible index paths contain an ad", ^{
+                beforeEach(^{
+                    streamAdPlacer stub_method(@selector(isAdAtIndexPath:)).and_do_block(^BOOL(NSIndexPath *indexPath) {
+                        if ([indexPath isEqual:[NSIndexPath indexPathForRow:2 inSection:1]]) {
+                            return YES;
+                        }
+
+                        return NO;
+                    });
+
+                    [tableViewAdPlacer updateVisibleCells];
+                });
+
+                it(@"should set visible index paths on the stream ad placer with no ad cells", ^{
+                    NSArray *contentIndexPaths = [NSMutableArray arrayWithObjects:[NSIndexPath indexPathForRow:6 inSection:1],
+                                                  [NSIndexPath indexPathForRow:8 inSection:1],
+                                                  nil];
+
+                    streamAdPlacer should have_received(@selector(setVisibleIndexPaths:)).with(contentIndexPaths);
+                });
+            });
+
         });
     });
 
@@ -439,7 +485,7 @@ describe(@"MPTableViewAdPlacer", ^{
 
         beforeEach(^{
             indexPath = [NSIndexPath indexPathForRow:1 inSection:1];
-            tableView = [[[UITableView alloc] init] autorelease];
+            tableView = [[UITableView alloc] init];
             tableView.delegate = tableViewDelegate;
             tableView.dataSource = tableViewDataSource;
             fakeStreamAdPlacer stub_method(@selector(defaultAdRenderingClass)).and_return([NSObject class]);
@@ -485,7 +531,7 @@ describe(@"MPTableViewAdPlacer", ^{
                     __block FakeMPNativeAdRenderingClassTableView *fakeView;
 
                     beforeEach(^{
-                        fakeView = [[[FakeMPNativeAdRenderingClassTableView alloc] init] autorelease];
+                        fakeView = [[FakeMPNativeAdRenderingClassTableView alloc] init];
                         fakeStreamAdPlacer stub_method(@selector(isAdAtIndexPath:)).and_return(YES);
                         fakeTableView stub_method(@selector(dequeueReusableCellWithIdentifier:forIndexPath:)).and_return(fakeView);
                         cell = [tableViewAdPlacer tableView:fakeTableView cellForRowAtIndexPath:indexPath];
@@ -523,7 +569,7 @@ describe(@"MPTableViewAdPlacer", ^{
                     });
 
                     it(@"should return whatever the original data source returns", ^{
-                        UIView *bogusView = [[[UIView alloc] init] autorelease];
+                        UIView *bogusView = [[UIView alloc] init];
 
                         tableViewDataSource stub_method(@selector(tableView:cellForRowAtIndexPath:)).and_return(bogusView);
                         [tableViewAdPlacer tableView:tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:1]] should equal(bogusView);
@@ -621,7 +667,8 @@ describe(@"MPTableViewAdPlacer", ^{
             });
 
             describe(@"-tableView:moveRowAtIndexPath:toIndexPath:", ^{
-                __block NSIndexPath *origin, *destination;
+                __block NSIndexPath *origin;
+                __block NSIndexPath *destination;
 
                 beforeEach(^{
                     origin = [NSIndexPath indexPathForRow:3 inSection:1];
@@ -664,7 +711,7 @@ describe(@"MPTableViewAdPlacer", ^{
                     SEL selector = @selector(tableView:moveRowAtIndexPath:toIndexPath:);
                     tableViewDataSource stub_method(selector);
                     fakeStreamAdPlacer stub_method(@selector(isAdAtIndexPath:)).and_do(^(NSInvocation *invocation) {
-                        NSIndexPath *indexPath;
+                        __unsafe_unretained NSIndexPath *indexPath;
                         [invocation getArgument:&indexPath atIndex:2];
 
                         BOOL answer = NO;
@@ -685,7 +732,7 @@ describe(@"MPTableViewAdPlacer", ^{
             __block UITableViewCell *cell;
 
             beforeEach(^{
-                cell = [[[UITableViewCell alloc] init] autorelease];
+                cell = [[UITableViewCell alloc] init];
                 [[CDRSpecHelper specHelper].sharedExampleContext setObject:tableViewDelegate forKey:@"fakeOriginalObject"];
             });
 

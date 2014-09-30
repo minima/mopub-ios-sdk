@@ -21,7 +21,7 @@ describe(@"MPHTMLInterstitialCustomEvent", ^{
         configuration = [MPAdConfigurationFactory defaultInterstitialConfigurationWithNetworkType:@"html"];
         delegate stub_method("configuration").and_return(configuration);
 
-        event = [[[MPHTMLInterstitialCustomEvent alloc] init] autorelease];
+        event = [[MPHTMLInterstitialCustomEvent alloc] init];
         event.delegate = delegate;
 
         [event requestInterstitialWithCustomEventInfo:nil];
@@ -43,7 +43,7 @@ describe(@"MPHTMLInterstitialCustomEvent", ^{
         __block UIViewController *presentingController;
 
         beforeEach(^{
-            presentingController = [[[UIViewController alloc] init] autorelease];
+            presentingController = [[UIViewController alloc] init];
             [event showInterstitialFromRootViewController:presentingController];
         });
 

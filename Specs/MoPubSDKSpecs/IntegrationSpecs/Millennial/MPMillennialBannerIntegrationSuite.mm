@@ -19,16 +19,16 @@ describe(@"MPMillennialBannerIntegrationSuite", ^{
 
     beforeEach(^{
         presentingController = [[UIViewController alloc] init];
-        delegate = [nice_fake_for(@protocol(MPAdViewDelegate)) retain];
+        delegate = nice_fake_for(@protocol(MPAdViewDelegate));
         delegate stub_method(@selector(viewControllerForPresentingModalView)).and_return(presentingController);
 
         banner = [[MPAdView alloc] initWithAdUnitId:@"admob_event" size:MOPUB_BANNER_SIZE];
         banner.delegate = delegate;
-        banner.location = [[[CLLocation alloc] initWithCoordinate:CLLocationCoordinate2DMake(37.1, 21.2)
+        banner.location = [[CLLocation alloc] initWithCoordinate:CLLocationCoordinate2DMake(37.1, 21.2)
                                                          altitude:11
                                                horizontalAccuracy:12.3
                                                  verticalAccuracy:10
-                                                        timestamp:[NSDate date]] autorelease];
+                                                        timestamp:[NSDate date]];
         [banner loadAd];
 
         fakeAd = [[FakeMMAdView alloc] initWithFrame:CGRectMake(0,0,20,30)];
@@ -45,10 +45,10 @@ describe(@"MPMillennialBannerIntegrationSuite", ^{
 
     afterEach(^{
         banner.delegate = nil;
-        [delegate release]; delegate = nil;
-        [presentingController release]; presentingController = nil;
-        [banner release]; banner = nil;
-        [fakeAd release]; fakeAd = nil;
+         delegate = nil;
+         presentingController = nil;
+         banner = nil;
+         fakeAd = nil;
     });
 
     it(@"should ask the ad to load", ^{

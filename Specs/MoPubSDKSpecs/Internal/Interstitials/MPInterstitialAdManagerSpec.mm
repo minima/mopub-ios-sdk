@@ -49,7 +49,7 @@ describe(@"MPInterstitialAdManager", ^{
         __block CLLocation *location;
 
         beforeEach(^{
-            location = [[[CLLocation alloc] initWithLatitude:50 longitude:50] autorelease];
+            location = [[CLLocation alloc] initWithLatitude:50 longitude:50];
             [manager loadInterstitialWithAdUnitID:@"1138"
                                          keywords:@"hi=2,ho=3"
                                          location:location
@@ -66,7 +66,7 @@ describe(@"MPInterstitialAdManager", ^{
             __block FakeInterstitialAdapter *adapter;
 
             beforeEach(^{
-                adapter = [[[FakeInterstitialAdapter alloc] init] autorelease];
+                adapter = [[FakeInterstitialAdapter alloc] init];
                 fakeProvider.fakeInterstitialAdapter = adapter;
 
                 configuration = [MPAdConfigurationFactory defaultFakeInterstitialConfiguration];
@@ -127,7 +127,7 @@ describe(@"MPInterstitialAdManager", ^{
         __block FakeInterstitialAdapter *adapter;
         beforeEach(^{
             [manager loadInterstitialWithAdUnitID:@"gimme_adapter" keywords:@"" location:nil testing:YES];
-            adapter = [[[FakeInterstitialAdapter alloc] init] autorelease];
+            adapter = [[FakeInterstitialAdapter alloc] init];
             fakeProvider.fakeInterstitialAdapter = adapter;
 
             configuration = [MPAdConfigurationFactory defaultFakeInterstitialConfiguration];
@@ -217,7 +217,7 @@ describe(@"MPInterstitialAdManager", ^{
         context(@"when told to present an interstitial", ^{
             __block UIViewController *controller;
             beforeEach(^{
-                controller = [[[UIViewController alloc] init] autorelease];
+                controller = [[UIViewController alloc] init];
             });
 
             context(@"and the interstitial is ready to be presented", ^{
@@ -245,7 +245,7 @@ describe(@"MPInterstitialAdManager", ^{
 
     describe(@"-interstitialDelegate", ^{
         it(@"should return its delegate's interstitialDelegate", ^{
-            NSObject *interstitialDelegateProxy = [[[NSObject alloc] init] autorelease];
+            NSObject *interstitialDelegateProxy = [[NSObject alloc] init];
             delegate stub_method("interstitialDelegate").and_return(interstitialDelegateProxy);
             [manager interstitialDelegate] should equal(interstitialDelegateProxy);
         });
@@ -257,7 +257,7 @@ describe(@"MPInterstitialAdManager", ^{
 
             beforeEach(^{
                 [manager loadInterstitialWithAdUnitID:@"gimme_adapter" keywords:@"" location:nil testing:YES];
-                adapter = [[[FakeInterstitialAdapter alloc] init] autorelease];
+                adapter = [[FakeInterstitialAdapter alloc] init];
                 fakeProvider.fakeInterstitialAdapter = adapter;
 
                 configuration = [MPAdConfigurationFactory defaultFakeInterstitialConfiguration];

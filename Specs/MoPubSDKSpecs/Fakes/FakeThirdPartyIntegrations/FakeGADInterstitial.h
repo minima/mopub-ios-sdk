@@ -14,10 +14,10 @@
 
 @interface FakeGADInterstitial : NSObject <FakeInterstitialAd>
 
-@property (nonatomic, assign) NSString *adUnitID;
-@property (nonatomic, assign) id<GADInterstitialDelegate> delegate;
-@property (nonatomic, assign) GADRequest *loadedRequest;
-@property (nonatomic, assign) UIViewController *presentingViewController;
+@property (nonatomic, copy) NSString *adUnitID;
+@property (nonatomic, weak) id<GADInterstitialDelegate> delegate;
+@property (nonatomic, strong) GADRequest *loadedRequest;
+@property (nonatomic, strong) UIViewController *presentingViewController;
 
 - (GADInterstitial *)masquerade;
 - (void)simulateLoadingAd;

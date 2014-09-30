@@ -9,10 +9,6 @@
 
 @implementation FakeIMAdView
 
-- (void)dealloc
-{
-    [super dealloc];
-}
 
 - (void)simulateLoadingAd
 {

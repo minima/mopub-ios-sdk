@@ -9,8 +9,8 @@
 
 @interface FakeMPAnalyticsTracker : MPAnalyticsTracker
 
-@property (nonatomic, retain) NSMutableArray *trackedImpressionConfigurations;
-@property (nonatomic, retain) NSMutableArray *trackedClickConfigurations;
+@property (nonatomic, strong) NSMutableArray *trackedImpressionConfigurations;
+@property (nonatomic, strong) NSMutableArray *trackedClickConfigurations;
 
 - (void)reset;
 

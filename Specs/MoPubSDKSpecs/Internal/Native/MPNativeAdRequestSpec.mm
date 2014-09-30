@@ -22,7 +22,7 @@ describe(@"MPNativeAdRequest", ^{
     __block FakeMPAdServerCommunicator *communicator;
 
     beforeEach(^{
-        targeting = [[[MPNativeAdRequestTargeting alloc] init] autorelease];
+        targeting = [[MPNativeAdRequestTargeting alloc] init];
         targeting.keywords = @"native_ad_request";
 
         request = [MPNativeAdRequest requestWithAdUnitIdentifier:@"native_identifier"];

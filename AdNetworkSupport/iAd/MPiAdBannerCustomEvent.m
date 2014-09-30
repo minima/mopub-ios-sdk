@@ -25,8 +25,8 @@
 
 @interface MPADBannerViewManager : NSObject <ADBannerViewDelegate>
 
-@property (nonatomic, retain) ADBannerView *bannerView;
-@property (nonatomic, retain) NSMutableSet *observers;
+@property (nonatomic, strong) ADBannerView *bannerView;
+@property (nonatomic, strong) NSMutableSet *observers;
 @property (nonatomic, assign) BOOL hasTrackedImpression;
 @property (nonatomic, assign) BOOL hasTrackedClick;
 
@@ -55,14 +55,14 @@
 
 - (ADBannerView *)buildADBannerView
 {
-    return [[[ADBannerView alloc] init] autorelease];
+    return [[ADBannerView alloc] init];
 }
 
 - (MPADBannerViewManager *)sharedMPAdBannerViewManager
 {
     return [self singletonForClass:[MPADBannerViewManager class]
                           provider:^id{
-                              return [[[MPADBannerViewManager alloc] init] autorelease];
+                              return [[MPADBannerViewManager alloc] init];
                           }];
 }
 
@@ -193,9 +193,6 @@
 - (void)dealloc
 {
     self.bannerView.delegate = nil;
-    self.bannerView = nil;
-    self.observers = nil;
-    [super dealloc];
 }
 
 - (void)registerObserver:(id<MPADBannerViewManagerObserver>)observer;
@@ -236,7 +233,7 @@
     self.hasTrackedImpression = NO;
     self.hasTrackedClick = NO;
 
-    for (id<MPADBannerViewManagerObserver> observer in [[self.observers copy] autorelease]) {
+    for (id<MPADBannerViewManagerObserver> observer in [self.observers copy]) {
         [observer bannerDidLoad];
     }
 }
@@ -244,7 +241,7 @@
 - (void)bannerView:(ADBannerView *)banner didFailToReceiveAdWithError:(NSError *)error
 {
     MPLogInfo(@"iAd banner did fail with error %@", error.localizedDescription);
-    for (id<MPADBannerViewManagerObserver> observer in [[self.observers copy] autorelease]) {
+    for (id<MPADBannerViewManagerObserver> observer in [self.observers copy]) {
         [observer bannerDidFail];
     }
 }
@@ -252,7 +249,7 @@
 - (BOOL)bannerViewActionShouldBegin:(ADBannerView *)banner willLeaveApplication:(BOOL)willLeave
 {
     MPLogInfo(@"iAd banner action will begin");
-    for (id<MPADBannerViewManagerObserver> observer in [[self.observers copy] autorelease]) {
+    for (id<MPADBannerViewManagerObserver> observer in [self.observers copy]) {
         [observer bannerActionWillBeginAndWillLeaveApplication:willLeave];
     }
     return YES;
@@ -261,7 +258,7 @@
 - (void)bannerViewActionDidFinish:(ADBannerView *)banner
 {
     MPLogInfo(@"iAd banner action did finish");
-    for (id<MPADBannerViewManagerObserver> observer in [[self.observers copy] autorelease]) {
+    for (id<MPADBannerViewManagerObserver> observer in [self.observers copy]) {
         [observer bannerActionDidFinish];
     }
 }

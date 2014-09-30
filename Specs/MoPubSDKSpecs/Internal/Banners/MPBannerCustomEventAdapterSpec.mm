@@ -15,9 +15,9 @@ describe(@"MPBannerCustomEventAdapter", ^{
 
     beforeEach(^{
         delegate = nice_fake_for(@protocol(MPBannerAdapterDelegate));
-        adapter = [[[MPBannerCustomEventAdapter alloc] initWithDelegate:delegate] autorelease];
+        adapter = [[MPBannerCustomEventAdapter alloc] initWithDelegate:delegate];
         configuration = [MPAdConfigurationFactory defaultBannerConfigurationWithCustomEventClassName:@"FakeBannerCustomEvent"];
-        event = [[[FakeBannerCustomEvent alloc] init] autorelease];
+        event = [[FakeBannerCustomEvent alloc] init];
         fakeProvider.FakeBannerCustomEvent = event;
     });
 
@@ -48,30 +48,6 @@ describe(@"MPBannerCustomEventAdapter", ^{
         });
     });
 
-    context(@"when told to unregisterDelegate", ^{
-        // There are scenarios where unregisterDelegate could be called synchronously in response to an "adDidFail" or "adDidDismiss" callback (basically, there is another banner ad waiting in the wings, it can be swapped in synchronously).  This can be problematic if unregisterDelegate synchronously deallocates the customEvent (which would deallocate the third party ad network object) as some third party SDKs do work immediately after sending their callbacks.
-
-        it(@"should not deallocate the custom event immediately", ^{
-            FakeBannerCustomEvent *event = [[FakeBannerCustomEvent alloc] initWithFrame:CGRectZero];
-            fakeProvider.fakeBannerCustomEvent = event;
-
-            [adapter _getAdWithConfiguration:configuration containerSize:CGSizeZero];
-            event.delegate should equal(adapter);
-            [event release]; //the adapter has him now
-
-            [adapter unregisterDelegate];
-
-            //previously the event would be deallocated at this point.
-            //not any more!
-            event should be_instance_of([FakeBannerCustomEvent class]);
-
-            event.delegate should be_nil;
-            event.invalidated should equal(YES);
-            event.view should_not be_nil;
-        });
-    });
-
-
     context(@"with a valid custom event", ^{
         beforeEach(^{
             [adapter _getAdWithConfiguration:configuration containerSize:CGSizeMake(20, 24)];
@@ -95,7 +71,7 @@ describe(@"MPBannerCustomEventAdapter", ^{
 
             context(@"and passes in a non-nil ad", ^{
                 it(@"should tell the delegate that the adapter finished loading, and pass on the view", ^{
-                    UIView *view = [[[UIView alloc] init] autorelease];
+                    UIView *view = [[UIView alloc] init];
                     [adapter bannerCustomEvent:event didLoadAd:view];
                     delegate should have_received(@selector(adapter:didFinishLoadingAd:)).with(adapter).and_with(view);
                 });

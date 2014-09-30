@@ -10,11 +10,11 @@
 
 @interface FakeMPURLResolverDelegate : NSObject <MPURLResolverDelegate>
 
-@property (nonatomic, assign) NSURL *applicationURL;
-@property (nonatomic, assign) NSURL *webViewURL;
-@property (nonatomic, assign) NSString *HTMLString;
-@property (nonatomic, assign) NSError *error;
-@property (nonatomic, assign) NSString *storeKitParameter;
-@property (nonatomic, assign) NSURL *storeFallbackURL;
+@property (nonatomic, strong) NSURL *applicationURL;
+@property (nonatomic, strong) NSURL *webViewURL;
+@property (nonatomic, copy) NSString *HTMLString;
+@property (nonatomic, strong) NSError *error;
+@property (nonatomic, copy) NSString *storeKitParameter;
+@property (nonatomic, strong) NSURL *storeFallbackURL;
 
 @end

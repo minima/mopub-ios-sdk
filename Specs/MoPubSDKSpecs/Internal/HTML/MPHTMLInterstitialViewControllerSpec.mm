@@ -17,7 +17,7 @@ describe(@"MPHTMLInterstitialViewController", ^{
     __block MPAdWebViewAgent *agent;
 
     beforeEach(^{
-        presentingViewController = [[[UIViewController alloc] init] autorelease];
+        presentingViewController = [[UIViewController alloc] init];
         configuration = [MPAdConfigurationFactory defaultInterstitialConfiguration];
         delegate = nice_fake_for(@protocol(MPInterstitialViewControllerDelegate));
 
@@ -27,7 +27,7 @@ describe(@"MPHTMLInterstitialViewController", ^{
         agent stub_method("view").and_return(backingView);
         fakeProvider.fakeMPAdWebViewAgent = agent;
 
-        controller = [[[MPHTMLInterstitialViewController alloc] init] autorelease];
+        controller = [[MPHTMLInterstitialViewController alloc] init];
         controller.delegate = delegate;
         [controller loadConfiguration:configuration];
 

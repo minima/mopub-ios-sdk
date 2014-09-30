@@ -25,9 +25,9 @@ describe(@"MPMillennialInterstitialCustomEvent", ^{
 
     beforeEach(^{
         delegate = nice_fake_for(@protocol(MPInterstitialCustomEventDelegate));
-        event = [[[MPMillennialInterstitialCustomEvent alloc] init] autorelease];
+        event = [[MPMillennialInterstitialCustomEvent alloc] init];
         event.delegate = delegate;
-        interstitial = [[[FakeMMInterstitial alloc] init] autorelease];
+        interstitial = [[FakeMMInterstitial alloc] init];
         fakeProvider.fakeMMInterstitial = interstitial;
     });
 
@@ -120,7 +120,7 @@ describe(@"MPMillennialInterstitialCustomEvent", ^{
                 MMCompletionBlock completionBlock = [interstitial fetchCompletionBlock:@"foo"];
 
                 id<CedarDouble, MPInterstitialCustomEventDelegate> anotherDelegate = nice_fake_for(@protocol(MPInterstitialCustomEventDelegate));
-                MPMillennialInterstitialCustomEvent *anotherEvent = [[[MPMillennialInterstitialCustomEvent alloc] init] autorelease];
+                MPMillennialInterstitialCustomEvent *anotherEvent = [[MPMillennialInterstitialCustomEvent alloc] init];
                 anotherEvent.delegate = anotherDelegate;
                 [anotherEvent requestInterstitialWithCustomEventInfo:@{@"adUnitID":@"foo"}];
                 [anotherDelegate reset_sent_messages];
@@ -144,7 +144,7 @@ describe(@"MPMillennialInterstitialCustomEvent", ^{
                 [interstitial setAvailabilityOfApid:@"foo" to:YES];
                 [interstitial fetchCompletionBlock:@"foo"](YES, 0);
 
-                [event showInterstitialFromRootViewController:[[[UIViewController alloc] init] autorelease]];
+                [event showInterstitialFromRootViewController:[[UIViewController alloc] init]];
                 [delegate reset_sent_messages];
                 [event invalidate];
                 [interstitial simulateSuccesfulPresentation:@"foo"];

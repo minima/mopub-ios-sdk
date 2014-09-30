@@ -25,7 +25,7 @@ describe(@"MPMoPubNativeAdAdapter", ^{
         __block MPMoPubNativeAdAdapter *adAdapter;
 
         beforeEach(^{
-            adAdapter = [[[MPMoPubNativeAdAdapter alloc] initWithAdProperties:[[validProperties mutableCopy] autorelease]] autorelease];
+            adAdapter = [[MPMoPubNativeAdAdapter alloc] initWithAdProperties:[validProperties mutableCopy]];
         });
 
         it(@"should load the properties correctly", ^{

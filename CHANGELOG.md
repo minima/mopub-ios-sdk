@@ -1,3 +1,16 @@
+## Version 3.0 (September 30th, 2014)
+
+  - **The MoPub SDK now uses Automatic Reference Counting**
+  - **Swift support:** to use the MoPub SDK in your Swift project, simply import `MoPubSDK/MoPub-Bridging-Header.h` to your project and ensure the Objective-C Bridging Header build setting under Swift Compiler - Code Generation has a path to the header.
+  - Updated Chartboost custom event (Chartboost SDK 5.0.1)
+  - Bug fixes
+    - mraid.js will reject mraid calls until the SDK signals it is ready
+    - banner ads will pause autorefresh when the app enters the background and resume autorefresh when the app enters the foreground
+
+### IMPORTANT UPGRADE INSTRUCTIONS
+
+As of version 3.0.0, the MoPub SDK uses Automatic Reference Counting. If you're upgrading from an earlier version (2.4.0 or earlier) that uses Manual Reference Counting, in order to minimize integration errors with the manual removal of the `-fno-objc-arc` compiler flag, our recommendation is to completely remove the existing MoPub SDK from your project and then integrate the latest version. Alternatively, you can manually remove the `-fno-objc-arc` compiler flag from all MoPub SDK files. If your project uses Manual Reference Counting, you must add the `-fobjc-arc` compiler flag to all MoPub SDK files.
+
 ## Version 2.4 (August 28th, 2014)
 
   - **Simplified native ads integration**: integration instructions and documentation are available on the [GitHub wiki](https://github.com/mopub/mopub-ios-sdk/wiki/Native-Ads-Integration)

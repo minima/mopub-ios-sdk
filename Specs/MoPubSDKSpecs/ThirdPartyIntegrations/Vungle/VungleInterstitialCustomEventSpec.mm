@@ -14,7 +14,7 @@ describe(@"VungleInterstitialCustomEvent", ^{
     __block VungleSDK *sharedSDK;
 
     beforeEach(^{
-        model = [[[VungleInterstitialCustomEvent alloc] init] autorelease];
+        model = [[VungleInterstitialCustomEvent alloc] init];
         delegate = nice_fake_for(@protocol(MPInterstitialCustomEventDelegate));
         model.delegate = delegate;
 
@@ -97,7 +97,7 @@ describe(@"VungleInterstitialCustomEvent", ^{
         __block id<CedarDouble, MPInterstitialCustomEventDelegate> secondDelegate;
 
         beforeEach(^{
-            secondModel = [[[VungleInterstitialCustomEvent alloc] init] autorelease];
+            secondModel = [[VungleInterstitialCustomEvent alloc] init];
             secondDelegate = nice_fake_for(@protocol(MPInterstitialCustomEventDelegate));
             secondModel.delegate = secondDelegate;
 

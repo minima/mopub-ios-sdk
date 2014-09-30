@@ -7,9 +7,9 @@
 
 @interface FakeCTCarrier : NSObject
 
-@property (nonatomic, retain) NSString *carrierName;
-@property (nonatomic, retain) NSString *mobileCountryCode;
-@property (nonatomic, retain) NSString *mobileNetworkCode;
-@property (nonatomic, retain) NSString *isoCountryCode;
+@property (nonatomic, strong) NSString *carrierName;
+@property (nonatomic, strong) NSString *mobileCountryCode;
+@property (nonatomic, strong) NSString *mobileNetworkCode;
+@property (nonatomic, strong) NSString *isoCountryCode;
 
 @end

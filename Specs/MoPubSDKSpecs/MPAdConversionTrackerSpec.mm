@@ -12,7 +12,7 @@ describe(@"MPAdConversionTracker", ^{
     __block NSString *applicationID;
 
     beforeEach(^{
-        tracker = [[[MPAdConversionTracker alloc] init] autorelease];
+        tracker = [[MPAdConversionTracker alloc] init];
         applicationID = @"128405";
         [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"com.mopub.conversion"];
     });

@@ -9,7 +9,7 @@
 @interface FakeEKEventStore : EKEventStore
 
 @property (nonatomic, copy) EKEventStoreRequestAccessCompletionHandler requestAccessCompletionHandler;
-@property (nonatomic, assign) EKEvent *lastSavedEvent;
+@property (nonatomic, strong) EKEvent *lastSavedEvent;
 @property (nonatomic, assign) BOOL shouldFailToSaveEvent;
 
 - (void)simulateGrantingAccess;

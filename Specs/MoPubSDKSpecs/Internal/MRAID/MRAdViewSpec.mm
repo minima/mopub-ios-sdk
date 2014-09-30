@@ -33,7 +33,7 @@ describe(@"MRAdView", ^{
     __block UIWindow *window;
 
     beforeEach(^{
-        webView = [[[UIWebView alloc] init] autorelease];
+        webView = [[UIWebView alloc] init];
         fakeProvider.fakeUIWebView = webView;
 
         destinationDisplayAgent = nice_fake_for([MPAdDestinationDisplayAgent class]);
@@ -51,7 +51,7 @@ describe(@"MRAdView", ^{
         videoPlayerManager = nice_fake_for([MRVideoPlayerManager class]);
         fakeProvider.fakeMRVideoPlayerManager = videoPlayerManager;
 
-        presentingViewController = [[[UIViewController alloc] init] autorelease];
+        presentingViewController = [[UIViewController alloc] init];
 
         view = [[MPInstanceProvider sharedProvider] buildMRAdViewWithFrame:CGRectMake(0, 0, 320, 50)
                                                            allowsExpansion:YES
@@ -64,7 +64,7 @@ describe(@"MRAdView", ^{
         delegate stub_method("viewControllerForPresentingModalView").and_return(presentingViewController);
         view.delegate = delegate;
 
-        window = [[[UIWindow alloc] init] autorelease];
+        window = [[UIWindow alloc] init];
         [window makeKeyAndVisible];
     });
 

@@ -16,9 +16,8 @@
 
 @interface MPChartboostRouter : NSObject <ChartboostDelegate>
 
-@property (nonatomic, retain) NSMutableDictionary *events;
-@property (nonatomic, retain) NSMutableSet *activeLocations;
-@property (nonatomic, retain) Chartboost *chartboost;
+@property (nonatomic, strong) NSMutableDictionary *events;
+@property (nonatomic, strong) NSMutableSet *activeLocations;
 
 + (MPChartboostRouter *)sharedRouter;
 
@@ -38,22 +37,18 @@ forChartboostInterstitialCustomEvent:(ChartboostInterstitialCustomEvent *)event;
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
 @interface MPInstanceProvider (ChartboostInterstitials)
-- (Chartboost *)buildChartboost;
+
 - (MPChartboostRouter *)sharedMPCharboostRouter;
+
 @end
 
 @implementation MPInstanceProvider (ChartboostInterstitials)
-
-- (Chartboost *)buildChartboost
-{
-    return [Chartboost sharedChartboost];
-}
 
 - (MPChartboostRouter *)sharedMPCharboostRouter
 {
     return [self singletonForClass:[MPChartboostRouter class]
                           provider:^id{
-                              return [[[MPChartboostRouter alloc] init] autorelease];
+                              return [[MPChartboostRouter alloc] init];
                           }];
 }
 
@@ -63,7 +58,7 @@ forChartboostInterstitialCustomEvent:(ChartboostInterstitialCustomEvent *)event;
 
 @interface ChartboostInterstitialCustomEvent ()
 
-@property (nonatomic, retain) NSString *location;
+@property (nonatomic, strong) NSString *location;
 
 @end
 
@@ -104,14 +99,10 @@ forChartboostInterstitialCustomEvent:(ChartboostInterstitialCustomEvent *)event;
     if ([[MPChartboostRouter sharedRouter] hasCachedInterstitialForLocation:self.location]) {
         MPLogInfo(@"Chartboost interstitial will be shown.");
 
-        // Normally, we call the "will appear" and "did appear" methods in response to
-        // callbacks from Third Party Integrations. Unfortunately, Chartboost doesn't seem to have
-        // such callbacks, so we call the methods manually.
-        [self.delegate interstitialCustomEventWillAppear:self];
         [[MPChartboostRouter sharedRouter] showInterstitialForLocation:self.location];
-        [self.delegate interstitialCustomEventDidAppear:self];
     } else {
         MPLogInfo(@"Failed to show Chartboost interstitial.");
+
         [self.delegate interstitialCustomEvent:self didFailToLoadAdWithError:nil];
     }
 }
@@ -143,6 +134,17 @@ forChartboostInterstitialCustomEvent:(ChartboostInterstitialCustomEvent *)event;
     [self.delegate interstitialCustomEventDidDisappear:self];
 }
 
+- (void)didDisplayInterstitial:(NSString *)location
+{
+    MPLogInfo(@"Chartboost interstitial was displayed. Location: %@", location);
+
+    // Chartboost doesn't seem to have a separate callback for the "will appear" event, so we
+    // signal "will appear" manually.
+
+    [self.delegate interstitialCustomEventWillAppear:self];
+    [self.delegate interstitialCustomEventDidAppear:self];
+}
+
 - (void)didClickInterstitial:(NSString *)location
 {
     MPLogInfo(@"Chartboost interstitial was clicked. Location: %@", location);
@@ -167,7 +169,6 @@ forChartboostInterstitialCustomEvent:(ChartboostInterstitialCustomEvent *)event;
 
 @synthesize events = _events;
 @synthesize activeLocations = _activeLocations;
-@synthesize chartboost = _chartboost;
 
 + (MPChartboostRouter *)sharedRouter
 {
@@ -191,19 +192,8 @@ forChartboostInterstitialCustomEvent:(ChartboostInterstitialCustomEvent *)event;
          * is marked as free to be released.
          */
         self.activeLocations = [NSMutableSet set];
-
-        self.chartboost = [[MPInstanceProvider sharedProvider] buildChartboost];
-        self.chartboost.delegate = self;
     }
     return self;
-}
-
-- (void)dealloc
-{
-    self.chartboost = nil;
-    self.events = nil;
-    self.activeLocations = nil;
-    [super dealloc];
 }
 
 - (void)cacheInterstitialWithAppId:(NSString *)appId
@@ -220,11 +210,12 @@ forChartboostInterstitialCustomEvent:(ChartboostInterstitialCustomEvent *)event
     if ([appId length] > 0 && [appSignature length] > 0) {
         [self setEvent:event forLocation:location];
 
-        self.chartboost.appId = appId;
-        self.chartboost.appSignature = appSignature;
+        static dispatch_once_t once;
+        dispatch_once(&once, ^{
+            [Chartboost startWithAppId:appId appSignature:appSignature delegate:self];
+        });
 
-        [self.chartboost startSession];
-        [self.chartboost cacheInterstitial:location];
+        [Chartboost cacheInterstitial:location];
     } else {
         MPLogInfo(@"Failed to load Chartboost interstitial: missing either appId or appSignature.");
         [event didFailToLoadInterstitial:location withError:CBLoadErrorInternal];
@@ -233,12 +224,12 @@ forChartboostInterstitialCustomEvent:(ChartboostInterstitialCustomEvent *)event
 
 - (BOOL)hasCachedInterstitialForLocation:(NSString *)location
 {
-    return [self.chartboost hasCachedInterstitial:location];
+    return [Chartboost hasInterstitial:location];
 }
 
 - (void)showInterstitialForLocation:(NSString *)location
 {
-    [self.chartboost showInterstitial:location];
+    [Chartboost showInterstitial:location];
 }
 
 - (ChartboostInterstitialCustomEvent *)eventForLocation:(NSString *)location
@@ -273,6 +264,11 @@ forChartboostInterstitialCustomEvent:(ChartboostInterstitialCustomEvent *)event
 {
     [[self eventForLocation:location] didFailToLoadInterstitial:location withError:CBLoadErrorInternal];
     [self unregisterEventForLocation:location];
+}
+
+- (void)didDisplayInterstitial:(NSString *)location
+{
+    [[self eventForLocation:location] didDisplayInterstitial:location];
 }
 
 - (void)didDismissInterstitial:(NSString *)location

@@ -17,7 +17,7 @@ describe(@"FacebookNativeCustomEvent", ^{
     __block FacebookNativeCustomEvent *customEvent;
 
     beforeEach(^{
-        delegate = [nice_fake_for(@protocol(MPNativeCustomEventDelegate)) retain];
+        delegate = nice_fake_for(@protocol(MPNativeCustomEventDelegate));
         customEvent = [[FacebookNativeCustomEvent alloc] init];
         customEvent.delegate = delegate;
 
@@ -29,8 +29,8 @@ describe(@"FacebookNativeCustomEvent", ^{
 
     afterEach(^{
         customEvent.delegate = nil;
-        [delegate release]; delegate = nil;
-        [customEvent release]; customEvent = nil;
+         delegate = nil;
+         customEvent = nil;
     });
 
     context(@"when requesting an ad with valid info", ^{

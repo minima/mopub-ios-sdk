@@ -13,12 +13,12 @@ describe(@"InMobiNativeAdAdapter", ^{
 
     beforeEach(^{
         mockIMAd = nice_fake_for([IMNative class]);
-        adAdapter = [[[InMobiNativeAdAdapter alloc] initWithInMobiNativeAd:mockIMAd] autorelease];
+        adAdapter = [[InMobiNativeAdAdapter alloc] initWithInMobiNativeAd:mockIMAd];
     });
 
     it(@"should not crash if any property is nil", ^{
         ^{
-            InMobiNativeAdAdapter *testAd = [[[InMobiNativeAdAdapter alloc] initWithInMobiNativeAd:mockIMAd] autorelease];
+            InMobiNativeAdAdapter *testAd = [[InMobiNativeAdAdapter alloc] initWithInMobiNativeAd:mockIMAd];
             (void)testAd;  // Make Xcode think we're using the testAd so it'll compile.
         } should_not raise_exception;
     });
@@ -27,7 +27,7 @@ describe(@"InMobiNativeAdAdapter", ^{
 
         beforeEach(^{
             mockIMAd stub_method(@selector(content)).and_return(@"{\"title\":\"Ad Title String\",\"landing_url\":\"https://appstorelink.com\",\"screenshots\":{\"w\":568,\"ar\":1.77,\"url\":\"https://mainimage.jpeg\",\"h\":320},\"icon\":{\"w\":568,\"ar\":1.77,\"url\":\"https://iconimage.jpeg\",\"h\":320},\"cta\":\"cta text\",\"description\":\"Description body text\"}");
-            adAdapter = [[[InMobiNativeAdAdapter alloc] initWithInMobiNativeAd:mockIMAd] autorelease];
+            adAdapter = [[InMobiNativeAdAdapter alloc] initWithInMobiNativeAd:mockIMAd];
         });
 
         it(@"should map its properties correctly", ^{

@@ -10,6 +10,8 @@
 #import "GSSDKInfo.h"
 #import <MillennialMedia/MMSDK.h>
 #import "CedarAsync.h"
+#import "FakeMPInstanceProvider.h"
+#import "FakeMPCoreInstanceProvider.h"
 
 using namespace Cedar::Matchers;
 using namespace Cedar::Doubles;
@@ -52,11 +54,6 @@ void log_sent_messages(id<CedarDouble> fake)
 
 + (void)beforeEach
 {
-    // we do this here to avoid having the fakeProvider die in the autorelease pool cleanup
-    // this is because some objects (as they deallocate) need to access the fakeProvider (to access, say,
-    // singletons that the fake provider provides)
-    [fakeProvider release];
-
     if (!beforeAllDidRun) {
         usleep(200000);
         beforeAllDidRun = YES;

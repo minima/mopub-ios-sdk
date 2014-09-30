@@ -22,13 +22,13 @@ describe(@"MPAdAlertManager", ^{
     __block MPAdConfiguration *configuration;
 
     beforeEach(^{
-        FakeMPAdAlertGestureRecognizer *fakeGestureRecognizer = [[[FakeMPAdAlertGestureRecognizer alloc] init] autorelease];
+        FakeMPAdAlertGestureRecognizer *fakeGestureRecognizer = [[FakeMPAdAlertGestureRecognizer alloc] init];
         fakeCoreProvider.fakeAdAlertGestureRecognizer = fakeGestureRecognizer;
 
-        UIViewController *presentingController = [[[UIViewController alloc] init] autorelease];
+        UIViewController *presentingController = [[UIViewController alloc] init];
 
-        alertManager = [[[MPAdAlertManager alloc] init] autorelease];
-        delegate = [nice_fake_for(@protocol(MPAdAlertManagerDelegate)) retain];
+        alertManager = [[MPAdAlertManager alloc] init];
+        delegate = nice_fake_for(@protocol(MPAdAlertManagerDelegate));
         delegate stub_method(@selector(viewControllerForPresentingMailVC)).and_return(presentingController);
         alertManager.delegate = delegate;
 
@@ -42,8 +42,6 @@ describe(@"MPAdAlertManager", ^{
     afterEach(^{
         alertManager.delegate = nil;
         alertManager.targetAdView = nil;
-        [delegate release];
-        [targetAdView release];
     });
 
     context(@"when the manager starts to monitor gestures", ^{
@@ -101,17 +99,17 @@ describe(@"MPAdAlertManager", ^{
         __block FakeUITouch *fakeTouch;
 
         beforeEach(^{
-            fakeTouch = [[[FakeUITouch alloc] init] autorelease];
+            fakeTouch = [[FakeUITouch alloc] init];
         });
 
         it(@"should handle a touch in our view", ^{
-            fakeTouch.view = [[[UIView alloc] initWithFrame:CGRectZero] autorelease];
+            fakeTouch.view = [[UIView alloc] initWithFrame:CGRectZero];
             BOOL shouldHandle = [alertManager gestureRecognizer:nil shouldReceiveTouch:fakeTouch];
             shouldHandle should equal(YES);
         });
 
         it(@"should not handle a touch on a UIButton", ^{
-            fakeTouch.view = [[[UIButton alloc] initWithFrame:CGRectZero] autorelease];
+            fakeTouch.view = [[UIButton alloc] initWithFrame:CGRectZero];
             BOOL shouldHandle = [alertManager gestureRecognizer:nil shouldReceiveTouch:fakeTouch];
             shouldHandle should equal(NO);
         });

@@ -18,38 +18,38 @@ describe(@"FacebookBannerCustomEvent", ^{
     __block FakeFBAdView *banner;
 
     beforeEach(^{
-        banner = [[[FakeFBAdView alloc] init] autorelease];
+        banner = [[FakeFBAdView alloc] init];
         fakeProvider.fakeFBAdView = banner.masquerade;
-        
+
         delegate = nice_fake_for(@protocol(MPBannerCustomEventDelegate));
-        
-        event = [[[FacebookBannerCustomEvent alloc] init] autorelease];
+
+        event = [[FacebookBannerCustomEvent alloc] init];
         event.delegate = delegate;
         [event requestAdWithSize:kFBAdSize320x50.size customEventInfo:@{@"placement_id":@"fb_placement"}];
         NSLog(@"%@", banner.placementId);
     });
-    
+
     it(@"should not allow automatic metrics tracking", ^{
         event.enableAutomaticImpressionAndClickTracking should equal(NO);
     });
-    
+
     describe(@"tracking interactions", ^{
         context(@"when an ad loads", ^{
             beforeEach(^{
                 [banner simulateLoadingAd];
             });
-            
+
             context(@"when the ad subsequently appears onscreen", ^{
                 beforeEach(^{
                     [delegate reset_sent_messages];
                     [event adViewDidLoad:banner.masquerade];
                 });
-                
+
                 it(@"should track an impression", ^{
                     delegate should have_received(@selector(trackImpression));
                 });
             });
-            
+
             describe(@"tracking clicks", ^{
                 it(@"should track a click", ^{
                     [banner simulateUserInteraction];
@@ -58,7 +58,7 @@ describe(@"FacebookBannerCustomEvent", ^{
             });
         });
     });
-    
+
     context(@"when asked to fetch a banner", ^{
         it(@"should set the banner's delegate", ^{
             banner.delegate should equal(event);

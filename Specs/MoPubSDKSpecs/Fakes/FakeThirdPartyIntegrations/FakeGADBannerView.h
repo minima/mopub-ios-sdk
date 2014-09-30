@@ -14,10 +14,10 @@
 
 @interface FakeGADBannerView : UIView
 
-@property (nonatomic, assign) NSString *adUnitID;
-@property (nonatomic, assign) id<GADBannerViewDelegate> delegate;
-@property (nonatomic, assign) GADRequest *loadedRequest;
-@property (nonatomic, assign) UIViewController *rootViewController;
+@property (nonatomic, copy) NSString *adUnitID;
+@property (nonatomic, weak) id<GADBannerViewDelegate> delegate;
+@property (nonatomic, strong) GADRequest *loadedRequest;
+@property (nonatomic, strong) UIViewController *rootViewController;
 
 - (GADBannerView *)masquerade;
 - (void)simulateLoadingAd;

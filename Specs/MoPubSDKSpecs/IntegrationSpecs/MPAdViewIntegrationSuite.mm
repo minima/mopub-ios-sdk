@@ -1,6 +1,8 @@
 #import "FakeBannerCustomEvent.h"
 #import "MPAdView.h"
 #import "MPAdConfigurationFactory.h"
+#import "FakeMPAdServerCommunicator.h"
+#import "NSErrorFactory.h"
 
 using namespace Cedar::Matchers;
 using namespace Cedar::Doubles;
@@ -23,8 +25,6 @@ describe(@"MPAdViewIntegrationSuite", ^{
     __block UIViewController *presentingController;
     __block UIInterfaceOrientation currentOrientation;
     __block FakeBannerCustomEventReturningBlock moveRequestingToOnscreen;
-
-    __block NSAutoreleasePool *pool;
 
     ///////////////// BEGIN SHARED EXAMPLES //////////////////////
 
@@ -193,19 +193,17 @@ describe(@"MPAdViewIntegrationSuite", ^{
     ///////////////// BEGIN SPECS //////////////////////
 
     beforeEach(^{
-        pool = [[NSAutoreleasePool alloc] init];
-
         currentOrientation = UIInterfaceOrientationLandscapeRight;
         onscreenEvent = nil;
         requestingEvent = nil;
         requestingConfiguration = nil;
         onscreenConfiguration = nil;
 
-        presentingController = [[[UIViewController alloc] init] autorelease];
+        presentingController = [[UIViewController alloc] init];
         delegate = nice_fake_for(@protocol(MPAdViewDelegate));
         delegate stub_method(@selector(viewControllerForPresentingModalView)).and_return(presentingController);
 
-        banner = [[[MPAdView alloc] initWithAdUnitId:@"custom_event" size:MOPUB_BANNER_SIZE] autorelease];
+        banner = [[MPAdView alloc] initWithAdUnitId:@"custom_event" size:MOPUB_BANNER_SIZE];
         banner.delegate = delegate;
         [banner rotateToOrientation:currentOrientation];
 
@@ -220,11 +218,6 @@ describe(@"MPAdViewIntegrationSuite", ^{
         } copy];
     });
 
-    afterEach(^{
-        [pool release];
-        pool = nil;
-    });
-
     context(@"when loading an ad", ^{
         beforeEach(^{
             [banner loadAd];
@@ -234,31 +227,6 @@ describe(@"MPAdViewIntegrationSuite", ^{
         });
 
         itShouldBehaveLike(@"a banner that is loading an ad");
-
-        // XXX jren
-        // So...a failure of this test will most likely result in a bad access crash. Is this something we can/should do in a unit test?
-        // Leaving it in for now just so we have coverage and are aware of this particular bug
-        context(@"when communicator fails and the delegate releases all references to the banner causing it to be deallocated", ^{
-            beforeEach(^{
-                delegate stub_method("adViewDidFailToLoadAd:").and_do(^(NSInvocation * inv) {
-                    [banner release];
-                });
-            });
-
-            it(@"should not crash", ^{
-                [presentingController retain];
-                [delegate retain];
-                [banner retain];
-                // drain our pool to clear autoreleases
-                [pool release];
-                pool = nil;
-
-                [communicator failWithError:[NSErrorFactory genericError]];
-
-                [presentingController release];
-                [delegate release];
-            });
-        });
 
         context(@"when the communicator fails", ^{
             beforeEach(^{
@@ -276,7 +244,7 @@ describe(@"MPAdViewIntegrationSuite", ^{
 
         context(@"when the communicator succeeds", ^{
             beforeEach(^{
-                requestingEvent = [[[FakeBannerCustomEvent alloc] initWithFrame:CGRectMake(0, 0, 20, 30)] autorelease];
+                requestingEvent = [[FakeBannerCustomEvent alloc] initWithFrame:CGRectMake(0, 0, 20, 30)];
                 fakeProvider.fakeBannerCustomEvent = requestingEvent;
 
                 requestingConfiguration = [MPAdConfigurationFactory defaultBannerConfigurationWithCustomEventClassName:@"FakeBannerCustomEvent"];
@@ -359,7 +327,7 @@ describe(@"MPAdViewIntegrationSuite", ^{
                         [fakeCoreProvider advanceMPTimers:onscreenConfiguration.refreshInterval];
                         communicator.loadedURL.absoluteString should contain(@"custom_event");
 
-                        requestingEvent = [[[FakeBannerCustomEvent alloc] initWithFrame:CGRectMake(0, 0, 40, 10)] autorelease];
+                        requestingEvent = [[FakeBannerCustomEvent alloc] initWithFrame:CGRectMake(0, 0, 40, 10)];
                         fakeProvider.fakeBannerCustomEvent = requestingEvent;
                         requestingConfiguration = [MPAdConfigurationFactory defaultBannerConfigurationWithCustomEventClassName:@"FakeBannerCustomEvent"];
                         requestingConfiguration.customEventClassData = @{@"how": @"now"};
@@ -530,7 +498,7 @@ describe(@"MPAdViewIntegrationSuite", ^{
 
     describe(@"-stopAutomaticallyRefreshingContents", ^{
         beforeEach(^{
-            requestingEvent = [[[FakeBannerCustomEvent alloc] initWithFrame:CGRectMake(0, 0, 20, 30)] autorelease];
+            requestingEvent = [[FakeBannerCustomEvent alloc] initWithFrame:CGRectMake(0, 0, 20, 30)];
             fakeProvider.fakeBannerCustomEvent = requestingEvent;
 
             requestingConfiguration = [MPAdConfigurationFactory defaultBannerConfigurationWithCustomEventClassName:@"FakeBannerCustomEvent"];
@@ -680,7 +648,7 @@ describe(@"MPAdViewIntegrationSuite", ^{
                 beforeEach(^{
                     [banner loadAd];
 
-                    requestingEvent = [[[FakeBannerCustomEvent alloc] initWithFrame:CGRectMake(0, 0, 20, 30)] autorelease];
+                    requestingEvent = [[FakeBannerCustomEvent alloc] initWithFrame:CGRectMake(0, 0, 20, 30)];
                     fakeProvider.fakeBannerCustomEvent = requestingEvent;
 
                     requestingConfiguration = [MPAdConfigurationFactory defaultBannerConfigurationWithCustomEventClassName:@"FakeBannerCustomEvent"];
@@ -704,7 +672,7 @@ describe(@"MPAdViewIntegrationSuite", ^{
                 beforeEach(^{
                     [banner loadAd];
 
-                    requestingEvent = [[[FakeBannerCustomEvent alloc] initWithFrame:CGRectMake(0, 0, 20, 30)] autorelease];
+                    requestingEvent = [[FakeBannerCustomEvent alloc] initWithFrame:CGRectMake(0, 0, 20, 30)];
                     fakeProvider.fakeBannerCustomEvent = requestingEvent;
 
                     requestingConfiguration = [MPAdConfigurationFactory defaultBannerConfigurationWithCustomEventClassName:@"FakeBannerCustomEvent"];
@@ -729,7 +697,7 @@ describe(@"MPAdViewIntegrationSuite", ^{
             beforeEach(^{
                 [banner loadAd];
 
-                requestingEvent = [[[FakeBannerCustomEvent alloc] initWithFrame:CGRectMake(0, 0, 20, 30)] autorelease];
+                requestingEvent = [[FakeBannerCustomEvent alloc] initWithFrame:CGRectMake(0, 0, 20, 30)];
                 fakeProvider.fakeBannerCustomEvent = requestingEvent;
 
                 requestingConfiguration = [MPAdConfigurationFactory defaultBannerConfigurationWithCustomEventClassName:@"FakeBannerCustomEvent"];
@@ -766,7 +734,7 @@ describe(@"MPAdViewIntegrationSuite", ^{
 
         context(@"when the ad successfully loads", ^{
             beforeEach(^{
-                requestingEvent = [[[FakeBannerCustomEvent alloc] initWithFrame:CGRectMake(0, 0, 20, 30)] autorelease];
+                requestingEvent = [[FakeBannerCustomEvent alloc] initWithFrame:CGRectMake(0, 0, 20, 30)];
                 fakeProvider.fakeBannerCustomEvent = requestingEvent;
 
                 requestingConfiguration = [MPAdConfigurationFactory defaultBannerConfigurationWithCustomEventClassName:@"FakeBannerCustomEvent"];

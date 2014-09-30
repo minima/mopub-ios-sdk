@@ -7,10 +7,10 @@
 
 #import "MPInterstitialCustomEvent.h"
 
-#import "Chartboost.h"
+#import <Chartboost/Chartboost.h>
 
 /*
- * Certified with version 4.1.0 of the Chartboost SDK.
+ * Certified with version 5.0.1 of the Chartboost SDK.
  */
 
 @interface ChartboostInterstitialCustomEvent : MPInterstitialCustomEvent <ChartboostDelegate>

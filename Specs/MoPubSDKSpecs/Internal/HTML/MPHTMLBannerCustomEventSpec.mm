@@ -17,13 +17,13 @@ describe(@"MPHTMLBannerCustomEvent", ^{
 
     beforeEach(^{
         delegate = nice_fake_for(@protocol(MPPrivateBannerCustomEventDelegate));
-        fakeAdWebView = [[[FakeMPAdWebView alloc] initWithFrame:CGRectZero] autorelease];
+        fakeAdWebView = [[FakeMPAdWebView alloc] initWithFrame:CGRectZero];
         fakeProvider.fakeMPAdWebView = fakeAdWebView;
 
         configuration = [MPAdConfigurationFactory defaultBannerConfiguration];
         containerSize = CGSizeMake(300, 250);
 
-        event = [[[MPHTMLBannerCustomEvent alloc] init] autorelease];
+        event = [[MPHTMLBannerCustomEvent alloc] init];
         event.delegate = delegate;
     });
 
@@ -62,7 +62,7 @@ describe(@"MPHTMLBannerCustomEvent", ^{
 
     describe(@"forwarding the view controller along", ^{
         it(@"should", ^{
-            UIViewController *controller = [[[UIViewController alloc] init] autorelease];
+            UIViewController *controller = [[UIViewController alloc] init];
             delegate stub_method("viewControllerForPresentingModalView").and_return(controller);
             event.viewControllerForPresentingModalView should equal(controller);
         });

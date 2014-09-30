@@ -19,17 +19,17 @@ describe(@"MPGoogleAdMobInterstitialCustomEvent", ^{
         request = nice_fake_for([GADRequest class]);
         fakeProvider.fakeGADInterstitialRequest = request;
 
-        interstitial = [[[FakeGADInterstitial alloc] init] autorelease];
+        interstitial = [[FakeGADInterstitial alloc] init];
         fakeProvider.fakeGADInterstitial = interstitial.masquerade;
 
-        event = [[[MPGoogleAdMobInterstitialCustomEvent alloc] init] autorelease];
+        event = [[MPGoogleAdMobInterstitialCustomEvent alloc] init];
         event.delegate = delegate;
 
-        location = [[[CLLocation alloc] initWithCoordinate:CLLocationCoordinate2DMake(37.1, 21.2)
+        location = [[CLLocation alloc] initWithCoordinate:CLLocationCoordinate2DMake(37.1, 21.2)
                                                   altitude:11
                                         horizontalAccuracy:12.3
                                           verticalAccuracy:10
-                                                 timestamp:[NSDate date]] autorelease];
+                                                 timestamp:[NSDate date]];
         delegate stub_method("location").and_return(location);
 
         [event requestInterstitialWithCustomEventInfo:@{@"adUnitID":@"g00g1e"}];

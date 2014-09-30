@@ -37,18 +37,6 @@ describe(@"MPTimer", ^{
         [timer invalidate];
     });
 
-    describe(@"memory concerns", ^{
-        it(@"should not retain its target when scheduled", ^{
-            NSObject *target = [[[NSObject alloc] init] autorelease];
-            NSUInteger initialRetainCount = target.retainCount;
-
-            timer = [MPTimer timerWithTimeInterval:interval target:target selector:@selector(description) repeats:NO];
-            [timer scheduleNow];
-
-            target.retainCount should equal(initialRetainCount);
-        });
-    });
-
     context(@"creating an unscheduled timer", ^{
         beforeEach(^{
             timer = [MPTimer timerWithTimeInterval:interval

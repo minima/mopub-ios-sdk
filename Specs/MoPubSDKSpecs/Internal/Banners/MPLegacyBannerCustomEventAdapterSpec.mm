@@ -51,7 +51,7 @@ describe(@"MPLegacyBannerCustomEventAdapter", ^{
             });
 
             it(@"should perform the selector on the interstitial delegate", ^{
-                NSObject *adViewProxy = [[[NSObject alloc] init] autorelease];
+                NSObject *adViewProxy = [[NSObject alloc] init];
                 delegate stub_method("banner").and_return(adViewProxy);
 
                 [adapter _getAdWithConfiguration:configuration containerSize:CGSizeZero];
@@ -62,7 +62,7 @@ describe(@"MPLegacyBannerCustomEventAdapter", ^{
 
         context(@"when the banner delegate does not implement the selector", ^{
             beforeEach(^{
-                NSObject *cake = [[[NSObject alloc] init] autorelease];
+                NSObject *cake = [[NSObject alloc] init];
 
                 delegate stub_method("bannerDelegate").and_return(cake);
                 [adapter _getAdWithConfiguration:configuration containerSize:CGSizeZero];

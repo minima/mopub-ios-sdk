@@ -22,23 +22,23 @@
 
 @interface MPNativeAd ()
 
-@property (nonatomic, retain) NSDate *creationDate;
+@property (nonatomic, strong) NSDate *creationDate;
 
-@property (nonatomic, retain) NSURL *engagementTrackingURL;
-@property (nonatomic, retain) NSMutableSet *impressionTrackers;
+@property (nonatomic, strong) NSURL *engagementTrackingURL;
+@property (nonatomic, strong) NSMutableSet *impressionTrackers;
 
-@property (nonatomic, readonly, retain) id<MPNativeAdAdapter> adAdapter;
+@property (nonatomic, readonly, strong) id<MPNativeAdAdapter> adAdapter;
 @property (nonatomic, assign) BOOL hasTrackedImpression;
 @property (nonatomic, assign) BOOL hasTrackedClick;
 
 @property (nonatomic, copy) NSString *adIdentifier;
-@property (nonatomic, retain) UIView *associatedView;
-@property (nonatomic, retain) MPTimer *associatedViewVisibilityTimer;
+@property (nonatomic, strong) UIView *associatedView;
+@property (nonatomic, strong) MPTimer *associatedViewVisibilityTimer;
 @property (nonatomic, assign) NSTimeInterval firstVisibilityTimestamp;
 @property (nonatomic, assign) BOOL visible;
 
-@property (nonatomic, retain) NSMutableSet *managedImageViews;
-@property (nonatomic, retain) MPImageDownloadQueue *imageDownloadQueue;
+@property (nonatomic, strong) NSMutableSet *managedImageViews;
+@property (nonatomic, strong) MPImageDownloadQueue *imageDownloadQueue;
 
 @end
 
@@ -52,34 +52,22 @@
 
     self = [super init];
     if (self) {
-        _adAdapter = [adAdapter retain];
+        _adAdapter = adAdapter;
         _adIdentifier = [[NSString stringWithFormat:@"%d", sequenceNumber++] copy];
         _firstVisibilityTimestamp = -1;
         _impressionTrackers = [[NSMutableSet alloc] init];
         _imageDownloadQueue = [[MPImageDownloadQueue alloc] init];
         _managedImageViews = [[NSMutableSet alloc] init];
-        _creationDate = [[NSDate date] retain];
+        _creationDate = [NSDate date];
     }
     return self;
 }
 
 - (void)dealloc
 {
-    [_adAdapter release];
-    [_impressionTrackers release];
-    [_engagementTrackingURL release];
-    [_adIdentifier release];
     [_associatedView mp_removeNativeAd];
-    [_associatedView release];
     [_associatedViewVisibilityTimer invalidate];
-    [_associatedViewVisibilityTimer release];
-    [_imageDownloadQueue release];
-    [_creationDate release];
-
     [self removeAssociatedObjectsFromManagedImageViews];
-    [_managedImageViews release];
-
-    [super dealloc];
 }
 
 - (void)removeAssociatedObjectsFromManagedImageViews
@@ -213,7 +201,7 @@
         self.associatedViewVisibilityTimer = nil;
     }
 
-    [self setVisible:MPViewIsVisible(self.associatedView) && MPViewIntersectsApplicationWindowWithPercent(self.associatedView, (CGFloat)0.5)];
+    [self setVisible:MPViewIsVisible(self.associatedView) && MPViewIntersectsParentWindowWithPercent(self.associatedView, (CGFloat)0.5)];
 }
 
 #pragma mark - Rendering
@@ -286,14 +274,20 @@
         } else if (imageURL) {
             MPLogDebug(@"Cache miss on %@. Re-downloading...", imageURL);
 
+            __weak MPNativeAd *weakSelf = self;
             [self.imageDownloadQueue addDownloadImageURLs:@[imageURL]
                                           completionBlock:^(NSArray *errors) {
-                                              if (errors.count == 0) {
-                                                  UIImage *image = [UIImage imageWithData:[[MPNativeCache sharedCache] retrieveDataForKey:imageURL.absoluteString]];
+                                              MPNativeAd *strongSelf = weakSelf;
+                                              if (strongSelf) {
+                                                  if (errors.count == 0) {
+                                                      UIImage *image = [UIImage imageWithData:[[MPNativeCache sharedCache] retrieveDataForKey:imageURL.absoluteString]];
 
-                                                  [self safeMainQueueSetImage:image intoImageView:imageView];
+                                                      [strongSelf safeMainQueueSetImage:image intoImageView:imageView];
+                                                  } else {
+                                                      MPLogDebug(@"Failed to download %@ on cache miss. Giving up for now.", imageURL);
+                                                  }
                                               } else {
-                                                  MPLogDebug(@"Failed to download %@ on cache miss. Giving up for now.", imageURL);
+                                                  MPLogInfo(@"MPNativeAd deallocated before loadImageForURL:intoImageView: download completion block was called");
                                               }
                                           }];
         }

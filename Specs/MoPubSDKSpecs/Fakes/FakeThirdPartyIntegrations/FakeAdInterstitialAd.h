@@ -9,9 +9,9 @@
 
 @interface FakeADInterstitialAd : NSObject <FakeInterstitialAd>
 
-@property (nonatomic, assign) id <ADInterstitialAdDelegate> delegate;
+@property (nonatomic, weak) id <ADInterstitialAdDelegate> delegate;
 @property (nonatomic, assign, readwrite, getter=isLoaded) BOOL loaded;
-@property (nonatomic, assign) UIViewController *presentingViewController;
+@property (nonatomic, strong) UIViewController *presentingViewController;
 
 - (ADInterstitialAd *)masquerade;
 

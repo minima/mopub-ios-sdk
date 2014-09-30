@@ -10,7 +10,7 @@ describe(@"MPNativeCustomEvent", ^{
     __block MPNativeCustomEvent *customEvent;
 
     beforeEach(^{
-        customEvent = [[[MPNativeCustomEvent alloc] init] autorelease];
+        customEvent = [[MPNativeCustomEvent alloc] init];
         [NSOperationQueue mp_resetAddOperationWithBlockCount];
     });
 

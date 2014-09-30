@@ -14,7 +14,7 @@
                               selector:(SEL)aSelector
                                repeats:(BOOL)repeats;
 
-@property (nonatomic, assign) id target;
+@property (nonatomic, weak) id target;
 @property (nonatomic, assign) SEL selector;
 @property (nonatomic, assign) BOOL repeats;
 @property (nonatomic, assign) NSTimeInterval timeInterval;

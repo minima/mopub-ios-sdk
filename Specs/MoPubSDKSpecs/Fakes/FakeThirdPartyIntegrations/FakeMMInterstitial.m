@@ -9,7 +9,7 @@
 
 @interface FakeMMInterstitial ()
 
-@property (nonatomic, assign) NSMutableDictionary *availability;
+@property (nonatomic, strong) NSMutableDictionary *availability;
 
 @end
 
@@ -61,7 +61,7 @@
             onCompletion:(MMCompletionBlock)callback
 {
     self.requests[apid] = request;
-    self.fetchCompletionBlocks[apid] = [[callback copy] autorelease];
+    self.fetchCompletionBlocks[apid] = [callback copy];
 }
 
 - (BOOL)isAdAvailableForApid:(NSString *)apid
@@ -76,7 +76,7 @@
 {
     self.viewControllers[apid] = viewController;
     self.overlayOrientations[apid] = @(overlayOrientation);
-    self.displayCompletionBlocks[apid] = [[callback copy] autorelease];
+    self.displayCompletionBlocks[apid] = [callback copy];
 }
 
 - (void)simulateSuccesfulPresentation:(NSString *)apid

@@ -12,7 +12,7 @@ describe(@"MRPictureManager", ^{
 
     beforeEach(^{
         delegate = nice_fake_for(@protocol(MRPictureManagerDelegate));
-        manager = [[[MRPictureManager alloc] initWithDelegate:delegate] autorelease];
+        manager = [[MRPictureManager alloc] initWithDelegate:delegate];
     });
 
     describe(@"-storePicture:", ^{
@@ -53,7 +53,7 @@ describe(@"MRPictureManager", ^{
 
             context(@"when the user chooses to save the picture but the image fails to download", ^{
                 beforeEach(^{
-                    imageDownloader = [[[FakeMRImageDownloader alloc] init] autorelease];
+                    imageDownloader = [[FakeMRImageDownloader alloc] init];
                     imageDownloader.willSucceed = NO;
                     fakeProvider.fakeImageDownloader = imageDownloader;
 

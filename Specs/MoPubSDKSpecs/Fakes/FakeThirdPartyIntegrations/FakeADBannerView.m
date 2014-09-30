@@ -41,4 +41,9 @@
     return (ADBannerView *)self;
 }
 
+- (void)setDelegate:(id<ADBannerViewDelegate>)delegate
+{
+    _delegate = delegate;
+}
+
 @end

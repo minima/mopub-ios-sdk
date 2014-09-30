@@ -80,13 +80,13 @@ describe(@"MPCollectionViewAdPlacerCategories", ^{
     __block UICollectionView *placerlessCollectionView;
 
     beforeEach(^{
-        UICollectionViewFlowLayout *layout = [[[UICollectionViewFlowLayout alloc] init] autorelease];
+        UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
         layout.scrollDirection = UICollectionViewScrollDirectionVertical;
         layout.itemSize = CGSizeMake(320, 44);
 
-        collectionView = [[[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, 320, 480) collectionViewLayout:layout] autorelease];
+        collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, 320, 480) collectionViewLayout:layout];
 
-        helper = [[[CollectionViewDataSourceDelegateHelper alloc] init] autorelease];
+        helper = [[CollectionViewDataSourceDelegateHelper alloc] init];
         delegate = helper;
         dataSource = helper;
 
@@ -95,7 +95,7 @@ describe(@"MPCollectionViewAdPlacerCategories", ^{
 
         [collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:kReuseIdentifier];
 
-        UIViewController *viewController = [[[UIViewController alloc] init] autorelease];
+        UIViewController *viewController = [[UIViewController alloc] init];
 
         MPAdPositioning *fakePositioning = nice_fake_for([MPAdPositioning class]);
 
@@ -108,7 +108,7 @@ describe(@"MPCollectionViewAdPlacerCategories", ^{
         secondLayout.scrollDirection = UICollectionViewScrollDirectionVertical;
         secondLayout.itemSize = CGSizeMake(320, 44);
 
-        placerlessCollectionView = [[[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, 320, 480) collectionViewLayout:secondLayout] autorelease];
+        placerlessCollectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, 320, 480) collectionViewLayout:secondLayout];
         placerlessCollectionView.delegate = delegate;
         placerlessCollectionView.dataSource = dataSource;
 
@@ -436,8 +436,8 @@ describe(@"MPCollectionViewAdPlacerCategories", ^{
             from = 0;
             to = 5;
 
-            id object = [[[helper.content  objectAtIndex:from] retain] autorelease];
-            [helper.content  removeObjectAtIndex:from];
+            id object = [helper.content objectAtIndex:from];
+            [helper.content removeObjectAtIndex:from];
             [helper.content insertObject:object atIndex:to];
         });
 
@@ -535,9 +535,9 @@ describe(@"MPCollectionViewAdPlacerCategories", ^{
                 return numberOfItems + 1;
             });
 
-            id object = [[[helper.content[from.section]   objectAtIndex:from.item] retain] autorelease];
-            [helper.content[from.section]  removeObjectAtIndex:from.item];
-            [helper.content[to.section]  insertObject:object atIndex:to.item];
+            id object = [helper.content[from.section] objectAtIndex:from.item];
+            [helper.content[from.section] removeObjectAtIndex:from.item];
+            [helper.content[to.section] insertObject:object atIndex:to.item];
 
             // calling these so that the counts are updated
             [placerlessCollectionView numberOfItemsInSection:0];

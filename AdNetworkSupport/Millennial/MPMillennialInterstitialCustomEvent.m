@@ -13,7 +13,7 @@
 
 @interface MPMillennialInterstitialRouter : NSObject
 
-@property (nonatomic, retain) NSMutableDictionary *events;
+@property (nonatomic, strong) NSMutableDictionary *events;
 - (MPMillennialInterstitialCustomEvent *)eventForApid:(NSString *)apid;
 - (void)registerEvent:(MPMillennialInterstitialCustomEvent *)event forApid:(NSString *)apid;
 - (void)unregisterEvent:(MPMillennialInterstitialCustomEvent *)event forApid:(NSString *)apid;
@@ -33,7 +33,7 @@
 {
     return [self singletonForClass:[MPMillennialInterstitialRouter class]
                           provider:^id{
-                              return [[[MPMillennialInterstitialRouter alloc] init] autorelease];
+                              return [[MPMillennialInterstitialRouter alloc] init];
                           }];
 }
 
@@ -55,11 +55,6 @@
     return self;
 }
 
-- (void)dealloc
-{
-    self.events = nil;
-    [super dealloc];
-}
 
 - (MPMillennialInterstitialCustomEvent *)eventForApid:(NSString *)apid
 {
@@ -117,8 +112,6 @@
 - (void)dealloc
 {
     [self invalidate];
-    self.apid = nil;
-    [super dealloc];
 }
 
 - (MPMillennialInterstitialRouter *)router

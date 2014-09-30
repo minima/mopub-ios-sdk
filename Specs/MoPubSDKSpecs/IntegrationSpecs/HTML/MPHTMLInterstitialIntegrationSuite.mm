@@ -23,21 +23,21 @@ describe(@"MPHTMLInterstitialIntegrationSuite", ^{
     __block FakeMPAdServerCommunicator *communicator;
     __block MPAdConfiguration *configuration;
     __block FakeMPAdAlertManager *fakeAdAlertManager;
-    
+
     beforeEach(^{
         FakeMPAdAlertGestureRecognizer *fakeGestureRecognizer = [[FakeMPAdAlertGestureRecognizer alloc] init];
         fakeCoreProvider.fakeAdAlertGestureRecognizer = fakeGestureRecognizer;
-        
-        fakeAdAlertManager = [[[FakeMPAdAlertManager alloc] init] autorelease];
+
+        fakeAdAlertManager = [[FakeMPAdAlertManager alloc] init];
         fakeCoreProvider.fakeAdAlertManager = fakeAdAlertManager;
-        
+
         delegate = nice_fake_for(@protocol(MethodicalDelegate));
 
         interstitial = [MPInterstitialAdController interstitialAdControllerForAdUnitId:@"html_interstitial"];
-        interstitial.location = [[[CLLocation alloc] initWithLatitude:1337 longitude:1337] autorelease];
+        interstitial.location = [[CLLocation alloc] initWithLatitude:1337 longitude:1337];
         interstitial.delegate = delegate;
 
-        presentingController = [[[UIViewController alloc] init] autorelease];
+        presentingController = [[UIViewController alloc] init];
 
         // request an Ad
         [interstitial loadAd];
@@ -45,7 +45,7 @@ describe(@"MPHTMLInterstitialIntegrationSuite", ^{
         communicator.loadedURL.absoluteString should contain(@"html_interstitial");
 
         // prepare the fake and tell the injector about it
-        webview = [[[FakeMPAdWebView alloc] init] autorelease];
+        webview = [[FakeMPAdWebView alloc] init];
         fakeProvider.fakeMPAdWebView = webview;
 
         // receive the configuration -- this will create an adapter which will use our fake interstitial
@@ -83,7 +83,7 @@ describe(@"MPHTMLInterstitialIntegrationSuite", ^{
             verify_fake_received_selectors(delegate, @[@"interstitialDidLoadAd:"]);
             interstitial.ready should equal(YES);
         });
-        
+
         context(@"and the user tries to load again", ^{ itShouldBehaveLike(anInterstitialThatHasAlreadyLoaded); });
         context(@"and the timeout interval elapses", ^{ itShouldBehaveLike(anInterstitialThatDoesNotTimeOut); });
 
@@ -126,28 +126,28 @@ describe(@"MPHTMLInterstitialIntegrationSuite", ^{
                     beforeEach(^{
                         [fakeAdAlertManager simulateGestureRecognized];
                     });
-                    
+
                     it(@"should have the correct ad unit id", ^{
                         fakeAdAlertManager.adUnitId should equal(interstitial.adUnitId);
                     });
-                    
+
                     it(@"should have the correct location", ^{
                         fakeAdAlertManager.location.coordinate.latitude should equal(interstitial.location.coordinate.latitude);
                         fakeAdAlertManager.location.coordinate.longitude should equal(interstitial.location.coordinate.longitude);
                     });
-                    
+
                     it(@"should have the correct ad configuration", ^{
                         fakeAdAlertManager.adConfiguration should equal(configuration);
                     });
                 });
             });
-            
+
             context(@"and the user tries to load again", ^{ itShouldBehaveLike(anInterstitialThatHasAlreadyLoaded); });
 
             context(@"when a modal viewcontroller is presented over the ad and then dismissed", ^{
                 beforeEach(^{
                     [delegate reset_sent_messages];
-                    UIViewController *newModalVC = [[[UIViewController alloc] init] autorelease];
+                    UIViewController *newModalVC = [[UIViewController alloc] init];
                     UIViewController *interstitialVC = [presentingController mp_presentedViewController];
                     [interstitialVC mp_presentModalViewController:newModalVC animated:MP_ANIMATED];
                     [interstitialVC viewWillDisappear:MP_ANIMATED];

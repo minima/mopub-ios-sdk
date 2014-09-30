@@ -37,13 +37,12 @@ describe(@"MPMoPubNativeCustomEvent", ^{
 
     beforeEach(^{
         [NSOperationQueue mp_resetAddOperationWithBlockCount];
-        delegate = [nice_fake_for(@protocol(MPNativeCustomEventDelegate)) retain];
+        delegate = nice_fake_for(@protocol(MPNativeCustomEventDelegate));
         customEvent = (MPMoPubNativeCustomEvent *)[[MPInstanceProvider sharedProvider] buildNativeCustomEventFromCustomClass:[MPMoPubNativeCustomEvent class] delegate:delegate];
     });
 
     afterEach(^{
         customEvent.delegate = nil;
-        [delegate release];
     });
 
     context(@"when requesting an ad with valid info", ^{

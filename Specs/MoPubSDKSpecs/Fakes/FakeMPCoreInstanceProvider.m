@@ -9,7 +9,7 @@
 
 @interface FakeMPCoreInstanceProvider ()
 
-@property (nonatomic, assign) NSMutableArray *fakeTimers;
+@property (nonatomic, strong) NSMutableArray *fakeTimers;
 
 @end
 
@@ -42,7 +42,7 @@
 
 - (MPAdServerCommunicator *)buildMPAdServerCommunicatorWithDelegate:(id<MPAdServerCommunicatorDelegate>)delegate
 {
-    self.lastFakeMPAdServerCommunicator = [[[FakeMPAdServerCommunicator alloc] initWithDelegate:delegate] autorelease];
+    self.lastFakeMPAdServerCommunicator = [[FakeMPAdServerCommunicator alloc] initWithDelegate:delegate];
     return self.lastFakeMPAdServerCommunicator;
 }
 
@@ -118,7 +118,7 @@
 - (FakeMPAnalyticsTracker *)sharedFakeMPAnalyticsTracker
 {
     return [self singletonForClass:[MPAnalyticsTracker class] provider:^id{
-        return [[[FakeMPAnalyticsTracker alloc] init] autorelease];
+        return [[FakeMPAnalyticsTracker alloc] init];
     }];
 }
 

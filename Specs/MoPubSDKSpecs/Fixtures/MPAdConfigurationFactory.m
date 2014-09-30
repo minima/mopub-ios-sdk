@@ -19,16 +19,16 @@
 
 + (NSMutableDictionary *)defaultNativeAdHeaders
 {
-    return [[@{
+    return [@{
                kAdTypeHeaderKey: kAdTypeNative,
                kFailUrlHeaderKey: @"http://ads.mopub.com/m/failURL",
                kRefreshTimeHeaderKey: @"61",
-               } mutableCopy] autorelease];
+               } mutableCopy];
 }
 
 + (NSMutableDictionary *)defaultNativeProperties
 {
-    return [[@{@"ctatext":@"Download",
+    return [@{@"ctatext":@"Download",
                @"iconimage":@"image_url",
                @"mainimage":@"image_url",
                @"text":@"This is an ad",
@@ -36,7 +36,7 @@
                kClickTrackerURLKey:@"http://ads.mopub.com/m/clickThroughTracker?a=1",
                kImpressionTrackerURLsKey:@[@"http://ads.mopub.com/m/impressionTracker"],
                kDefaultActionURLKey:@"http://mopub.com"
-               } mutableCopy] autorelease];
+               } mutableCopy];
 }
 
 + (MPAdConfiguration *)defaultNativeAdConfiguration
@@ -70,14 +70,14 @@
         [allProperties addEntriesFromDictionary:properties];
     }
 
-    return [[[MPAdConfiguration alloc] initWithHeaders:headers data:[NSJSONSerialization dataWithJSONObject:allProperties options:NSJSONWritingPrettyPrinted error:nil]] autorelease];
+    return [[MPAdConfiguration alloc] initWithHeaders:headers data:[NSJSONSerialization dataWithJSONObject:allProperties options:NSJSONWritingPrettyPrinted error:nil]];
 }
 
 #pragma mark - Banners
 
 + (NSMutableDictionary *)defaultBannerHeaders
 {
-    return [[@{
+    return [@{
             kAdTypeHeaderKey: kAdTypeHtml,
             kClickthroughHeaderKey: @"http://ads.mopub.com/m/clickThroughTracker?a=1",
             kFailUrlHeaderKey: @"http://ads.mopub.com/m/failURL",
@@ -87,7 +87,7 @@
             kLaunchpageHeaderKey: @"http://publisher.com",
             kRefreshTimeHeaderKey: @"30",
             kWidthHeaderKey: @"320"
-            } mutableCopy] autorelease];
+            } mutableCopy];
 }
 
 + (MPAdConfiguration *)defaultBannerConfiguration
@@ -118,15 +118,15 @@
 
     HTMLString = HTMLString ? HTMLString : @"Publisher's Ad";
 
-    return [[[MPAdConfiguration alloc] initWithHeaders:headers
-                                                  data:[HTMLString dataUsingEncoding:NSUTF8StringEncoding]] autorelease];
+    return [[MPAdConfiguration alloc] initWithHeaders:headers
+                                                  data:[HTMLString dataUsingEncoding:NSUTF8StringEncoding]];
 }
 
 #pragma mark - Interstitials
 
 + (NSMutableDictionary *)defaultInterstitialHeaders
 {
-    return [[@{
+    return [@{
             kAdTypeHeaderKey: kAdTypeInterstitial,
             kClickthroughHeaderKey: @"http://ads.mopub.com/m/clickThroughTracker?a=1",
             kFailUrlHeaderKey: @"http://ads.mopub.com/m/failURL",
@@ -135,7 +135,7 @@
             kLaunchpageHeaderKey: @"http://publisher.com",
             kInterstitialAdTypeHeaderKey: kAdTypeHtml,
             kOrientationTypeHeaderKey: @"p"
-            } mutableCopy] autorelease];
+            } mutableCopy];
 }
 
 + (MPAdConfiguration *)defaultInterstitialConfiguration
@@ -157,8 +157,8 @@
 + (MPAdConfiguration *)defaultChartboostInterstitialConfigurationWithLocation:(NSString *)location
 {
     MPAdConfiguration *configuration = [MPAdConfigurationFactory defaultInterstitialConfigurationWithCustomEventClassName:@"ChartboostInterstitialCustomEvent"];
-    NSMutableDictionary *data = [[@{@"appId": @"myAppId",
-                                 @"appSignature": @"myAppSignature"} mutableCopy] autorelease];
+    NSMutableDictionary *data = [@{@"appId": @"myAppId",
+                                 @"appSignature": @"myAppSignature"} mutableCopy];
 
     if (location) {
         data[@"location"] = location;
@@ -195,8 +195,8 @@
 
     HTMLString = HTMLString ? HTMLString : @"Publisher's Interstitial";
 
-    return [[[MPAdConfiguration alloc] initWithHeaders:headers
-                                                  data:[HTMLString dataUsingEncoding:NSUTF8StringEncoding]] autorelease];
+    return [[MPAdConfiguration alloc] initWithHeaders:headers
+                                                  data:[HTMLString dataUsingEncoding:NSUTF8StringEncoding]];
 }
 
 

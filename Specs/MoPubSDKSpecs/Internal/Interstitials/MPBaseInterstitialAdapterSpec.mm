@@ -32,7 +32,7 @@ describe(@"MPBaseInterstitialAdapter", ^{
 
     beforeEach(^{
         delegate = nice_fake_for(@protocol(MPInterstitialAdapterDelegate));
-        adapter = [[[ConcreteInterstitialAdapter alloc] initWithDelegate:delegate] autorelease];
+        adapter = [[ConcreteInterstitialAdapter alloc] initWithDelegate:delegate];
     });
 
     describe(@"timing out requests", ^{
@@ -40,7 +40,7 @@ describe(@"MPBaseInterstitialAdapter", ^{
             beforeEach(^{
                 [adapter _getAdWithConfiguration:nil];
             });
-            
+
             it(@"should not timeout before the default timeout interval", ^{
                 [fakeCoreProvider advanceMPTimers:29];
                 delegate should_not have_received(@selector(adapter:didFailToLoadAdWithError:));
@@ -50,7 +50,7 @@ describe(@"MPBaseInterstitialAdapter", ^{
                 [fakeCoreProvider advanceMPTimers:30];
                 delegate should have_received(@selector(adapter:didFailToLoadAdWithError:));
             });
-            
+
             context(@"when the request finishes before the timeout", ^{
                 beforeEach(^{
                     [fakeCoreProvider advanceMPTimers:29];
@@ -65,62 +65,62 @@ describe(@"MPBaseInterstitialAdapter", ^{
                 });
             });
         });
-        
+
         context(@"when beginning a request with a 60 second configured timeout", ^{
             __block NSDictionary *headers;
             __block MPAdConfiguration *configuration;
-            
+
             beforeEach(^{
                 headers = @{kAdTimeoutHeaderKey: @"60"};
-                configuration = [[[MPAdConfiguration alloc] initWithHeaders:headers data:nil] autorelease];
+                configuration = [[MPAdConfiguration alloc] initWithHeaders:headers data:nil];
                 [adapter _getAdWithConfiguration:configuration];
             });
-            
+
             it(@"should not timeout before the configurable value", ^{
                 [fakeCoreProvider advanceMPTimers:59];
                 delegate should_not have_received(@selector(adapter:didFailToLoadAdWithError:));
             });
-            
+
             it(@"should timeout and tell the delegate after 60 seconds", ^{
                 [fakeCoreProvider advanceMPTimers:60];
                 delegate should have_received(@selector(adapter:didFailToLoadAdWithError:));
             });
-            
+
             // NOTE: Not testing "when the request finishes" here since that behavior will always be the same
             //       regardless of what timeout value is set
         });
-        
+
         context(@"when beginning a request with a 1 second configured timeout", ^{
             __block NSDictionary *headers;
             __block MPAdConfiguration *configuration;
-            
+
             beforeEach(^{
                 headers = @{kAdTimeoutHeaderKey: @"1"};
-                configuration = [[[MPAdConfiguration alloc] initWithHeaders:headers data:nil] autorelease];
+                configuration = [[MPAdConfiguration alloc] initWithHeaders:headers data:nil];
                 [adapter _getAdWithConfiguration:configuration];
             });
-            
+
             it(@"should not timeout before the configurable value", ^{
                 [fakeCoreProvider advanceMPTimers:0];
                 delegate should_not have_received(@selector(adapter:didFailToLoadAdWithError:));
             });
-            
+
             it(@"should timeout and tell the delegate after 1 second", ^{
                 [fakeCoreProvider advanceMPTimers:1];
                 delegate should have_received(@selector(adapter:didFailToLoadAdWithError:));
             });
         });
-        
+
         context(@"when beginning a request with a 0 second configured timeout", ^{
             __block NSDictionary *headers;
             __block MPAdConfiguration *configuration;
-            
+
             beforeEach(^{
                 headers = @{kAdTimeoutHeaderKey: @"0"};
-                configuration = [[[MPAdConfiguration alloc] initWithHeaders:headers data:nil] autorelease];
+                configuration = [[MPAdConfiguration alloc] initWithHeaders:headers data:nil];
                 [adapter _getAdWithConfiguration:configuration];
             });
-            
+
             it(@"should never time out", ^{
                 // should technically wait forever, not passing MAX val here since the impl of
                 // fakeProvider's fake timer does involve a loop and would slow the test too much
@@ -128,22 +128,22 @@ describe(@"MPBaseInterstitialAdapter", ^{
                 delegate should_not have_received(@selector(adapter:didFailToLoadAdWithError:));
             });
         });
-        
+
         context(@"when beginning a request with an configured timeout that is a negative value", ^{
             __block NSDictionary *headers;
             __block MPAdConfiguration *configuration;
-            
+
             beforeEach(^{
                 headers = @{kAdTimeoutHeaderKey: @"-1"};
-                configuration = [[[MPAdConfiguration alloc] initWithHeaders:headers data:nil] autorelease];
+                configuration = [[MPAdConfiguration alloc] initWithHeaders:headers data:nil];
                 [adapter _getAdWithConfiguration:configuration];
             });
-            
+
             it(@"should not timeout before the default timeout interval", ^{
                 [fakeCoreProvider advanceMPTimers:INTERSTITIAL_TIMEOUT_INTERVAL - 1];
                 delegate should_not have_received(@selector(adapter:didFailToLoadAdWithError:));
             });
-            
+
             it(@"should timeout and tell the delegate using the default timeout interval", ^{
                 [fakeCoreProvider advanceMPTimers:INTERSTITIAL_TIMEOUT_INTERVAL];
                 delegate should have_received(@selector(adapter:didFailToLoadAdWithError:));

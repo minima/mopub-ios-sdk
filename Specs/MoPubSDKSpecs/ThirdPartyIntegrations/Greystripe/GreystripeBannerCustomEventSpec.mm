@@ -23,10 +23,10 @@ describe(@"GreystripeBannerCustomEvent", ^{
     beforeEach(^{
         delegate = nice_fake_for(@protocol(MPBannerCustomEventDelegate));
 
-        event = [[[GreystripeBannerCustomEvent alloc] init] autorelease];
+        event = [[GreystripeBannerCustomEvent alloc] init];
         event.delegate = delegate;
 
-        viewController = [[[UIViewController alloc] init] autorelease];
+        viewController = [[UIViewController alloc] init];
         delegate stub_method("viewControllerForPresentingModalView").and_return(viewController);
     });
 
@@ -41,7 +41,7 @@ describe(@"GreystripeBannerCustomEvent", ^{
     describe(@"the instance provider", ^{
         __block MPInstanceProvider *provider;
         beforeEach(^{
-            provider = [[[MPInstanceProvider alloc] init] autorelease];
+            provider = [[MPInstanceProvider alloc] init];
         });
 
         describe(@"creating the correct Greystripe banner ad, as a function of size", ^{
@@ -65,7 +65,7 @@ describe(@"GreystripeBannerCustomEvent", ^{
 
     describe(@"when requesting an ad with a valid size", ^{
         beforeEach(^{
-            banner = [[[FakeGSBannerAdView alloc] init] autorelease];
+            banner = [[FakeGSBannerAdView alloc] init];
             fakeProvider.fakeGSBannerAdView = banner;
             [event requestAdWithSize:MOPUB_BANNER_SIZE customEventInfo:nil];
         });

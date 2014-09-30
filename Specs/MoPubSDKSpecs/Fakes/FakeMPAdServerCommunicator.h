@@ -10,7 +10,7 @@
 @interface FakeMPAdServerCommunicator : MPAdServerCommunicator
 
 @property (nonatomic, assign) BOOL loading;
-@property (nonatomic, assign) NSURL *loadedURL;
+@property (nonatomic, strong) NSURL *loadedURL;
 @property (nonatomic, assign) BOOL cancelled;
 
 - (void)receiveConfiguration:(MPAdConfiguration *)configuration;

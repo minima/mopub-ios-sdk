@@ -20,7 +20,7 @@ describe(@"MPImageDownloadQueue", ^{
     });
 
     afterEach(^{
-        [downloadQueue release]; downloadQueue = nil;
+         downloadQueue = nil;
     });
 
     context(@"when adding any amount of image URLs", ^{

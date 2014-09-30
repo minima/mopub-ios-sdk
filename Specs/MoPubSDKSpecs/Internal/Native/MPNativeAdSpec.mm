@@ -35,9 +35,9 @@ describe(@"MPNativeAd", ^{
         configuration = [MPAdConfigurationFactory defaultNativeAdConfiguration];
 
         NSDictionary *properties = [NSJSONSerialization mp_JSONObjectWithData:configuration.adResponseData options:0 clearNullObjects:YES error:nil];
-        adAdapter = [[[MPMoPubNativeAdAdapter alloc] initWithAdProperties:[[properties mutableCopy] autorelease]] autorelease];
-        nativeAd = [[[MPNativeAd alloc] initWithAdAdapter:adAdapter] autorelease];
-        adView =  [[[AdView alloc] init] autorelease];
+        adAdapter = [[MPMoPubNativeAdAdapter alloc] initWithAdProperties:[properties mutableCopy]];
+        nativeAd = [[MPNativeAd alloc] initWithAdAdapter:adAdapter];
+        adView =  [[AdView alloc] init];
         [MPNativeAd mp_clearTrackMetricURLCallsCount];
     });
 
@@ -71,7 +71,7 @@ describe(@"MPNativeAd", ^{
 
             beforeEach(^{
                 nativeAdAdapter = nice_fake_for(@protocol(MPNativeAdAdapter));
-                starRatingNativeAd = [[[MPNativeAd alloc] initWithAdAdapter:nativeAdAdapter] autorelease];
+                starRatingNativeAd = [[MPNativeAd alloc] initWithAdAdapter:nativeAdAdapter];
             });
 
             it(@"should return a valid star rating object if the backing ad provides a valid value", ^{
@@ -126,7 +126,7 @@ describe(@"MPNativeAd", ^{
         __block MPNativeAd *nativeAd2;
 
         beforeEach(^{
-            nativeAd2 = [[[MPNativeAd alloc] initWithAdAdapter:adAdapter] autorelease];
+            nativeAd2 = [[MPNativeAd alloc] initWithAdAdapter:adAdapter];
         });
 
         it(@"should set the native ad as an associated object on the view", ^{
@@ -157,8 +157,8 @@ describe(@"MPNativeAd", ^{
         __block UITableViewCell *tableViewCell;
 
         beforeEach(^{
-            tableViewCell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"reuseme"] autorelease];
-            nativeAd2 = [[[MPNativeAd alloc] initWithAdAdapter:adAdapter] autorelease];
+            tableViewCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"reuseme"];
+            nativeAd2 = [[MPNativeAd alloc] initWithAdAdapter:adAdapter];
         });
 
         it(@"should set the native ad as an associated object on the cell", ^{
@@ -189,8 +189,8 @@ describe(@"MPNativeAd", ^{
         __block UICollectionViewCell *collectionViewCell;
 
         beforeEach(^{
-            collectionViewCell = [[[UICollectionViewCell alloc] initWithFrame:CGRectMake(0, 0, 10, 10)] autorelease];
-            nativeAd2 = [[[MPNativeAd alloc] initWithAdAdapter:adAdapter] autorelease];
+            collectionViewCell = [[UICollectionViewCell alloc] initWithFrame:CGRectMake(0, 0, 10, 10)];
+            nativeAd2 = [[MPNativeAd alloc] initWithAdAdapter:adAdapter];
         });
 
         it(@"should set the native ad as an associated object on the cell", ^{
@@ -220,7 +220,7 @@ describe(@"MPNativeAd", ^{
         __block UIViewController *rootController;
 
         beforeEach(^{
-            rootController = [[[UIViewController alloc] init] autorelease];
+            rootController = [[UIViewController alloc] init];
             // Make sure it has an engagement tracking url.
             nativeAd.engagementTrackingURL = [NSURL URLWithString:@"http://www.mopub.com"];
         });
@@ -278,7 +278,7 @@ describe(@"MPNativeAd", ^{
 
         beforeEach(^{
             mockadAdapter = nice_fake_for(@protocol(MPNativeAdAdapter));
-            nativeAd = [[[MPNativeAd alloc] initWithAdAdapter:mockadAdapter] autorelease];
+            nativeAd = [[MPNativeAd alloc] initWithAdAdapter:mockadAdapter];
         });
 
         it(@"should forward track click to backing object", ^{
@@ -302,12 +302,12 @@ describe(@"MPNativeAd", ^{
         });
 
         it(@"should forward displayContentForURL (URL version) to the adAdapter", ^{
-            [nativeAd displayContentForURL:[NSURL URLWithString:@"http://www.mopub.com"] rootViewController:[[[UIViewController alloc] init] autorelease] completion:nil];
+            [nativeAd displayContentForURL:[NSURL URLWithString:@"http://www.mopub.com"] rootViewController:[[UIViewController alloc] init] completion:nil];
             mockadAdapter should have_received(@selector(displayContentForURL:rootViewController:completion:));
         });
 
         it(@"should forward displayContentForURL (no-URL version) to the adAdapter", ^{
-            [nativeAd displayContentFromRootViewController:[[[UIViewController alloc] init] autorelease] completion:nil];
+            [nativeAd displayContentFromRootViewController:[[UIViewController alloc] init] completion:nil];
             mockadAdapter should have_received(@selector(displayContentForURL:rootViewController:completion:));
         });
 
@@ -328,7 +328,7 @@ describe(@"MPNativeAd", ^{
 
         beforeEach(^{
             mockadAdapter = fake_for(@protocol(MPNativeAdAdapter));
-            nativeAd = [[[MPNativeAd alloc] initWithAdAdapter:mockadAdapter] autorelease];
+            nativeAd = [[MPNativeAd alloc] initWithAdAdapter:mockadAdapter];
         });
 
         it(@"should not forward track click to backing object", ^{

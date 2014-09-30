@@ -21,7 +21,7 @@ describe(@"MPGreystripeInterstitialIntegrationSuite", ^{
         interstitial = [MPInterstitialAdController interstitialAdControllerForAdUnitId:@"greystripe_interstitial"];
         interstitial.delegate = delegate;
 
-        presentingController = [[[UIViewController alloc] init] autorelease];
+        presentingController = [[UIViewController alloc] init];
 
         // request an Ad
         [interstitial loadAd];
@@ -29,7 +29,7 @@ describe(@"MPGreystripeInterstitialIntegrationSuite", ^{
         communicator.loadedURL.absoluteString should contain(@"greystripe_interstitial");
 
         // prepare the fake and tell the injector about it
-        greystripeAd = [[[FakeGSFullscreenAd alloc] init] autorelease];
+        greystripeAd = [[FakeGSFullscreenAd alloc] init];
         fakeProvider.fakeGSFullscreenAd = greystripeAd;
 
         // receive the configuration -- this will create an adapter which will use our fake interstitial

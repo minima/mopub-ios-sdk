@@ -16,7 +16,7 @@
 
 @interface InMobiNativeCustomEvent () <IMNativeDelegate>
 
-@property (nonatomic, retain) IMNative *inMobiAd;
+@property (nonatomic, strong) IMNative *inMobiAd;
 
 @end
 
@@ -24,9 +24,7 @@
 
 - (void)dealloc
 {
-    [_inMobiAd release];
-
-    [super dealloc];
+    _inMobiAd.delegate = nil;
 }
 
 - (void)requestAdWithCustomEventInfo:(NSDictionary *)info
@@ -45,8 +43,8 @@
 
 -(void)nativeAdDidFinishLoading:(IMNative*)native
 {
-    InMobiNativeAdAdapter *adAdapter = [[[InMobiNativeAdAdapter alloc] initWithInMobiNativeAd:native] autorelease];
-    MPNativeAd *interfaceAd = [[[MPNativeAd alloc] initWithAdAdapter:adAdapter] autorelease];
+    InMobiNativeAdAdapter *adAdapter = [[InMobiNativeAdAdapter alloc] initWithInMobiNativeAd:native];
+    MPNativeAd *interfaceAd = [[MPNativeAd alloc] initWithAdAdapter:adAdapter];
 
     NSMutableArray *imageURLs = [NSMutableArray array];
 

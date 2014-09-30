@@ -21,13 +21,13 @@ describe(@"MPInterstitialAdControllerIntegrationSuite", ^{
         interstitial = [MPInterstitialAdController interstitialAdControllerForAdUnitId:@"custom_event_interstitial"];
         interstitial.delegate = delegate;
 
-        presentingController = [[[UIViewController alloc] init] autorelease];
+        presentingController = [[UIViewController alloc] init];
 
         [interstitial loadAd];
         communicator = fakeCoreProvider.lastFakeMPAdServerCommunicator;
         communicator.loadedURL.absoluteString should contain(@"custom_event_interstitial");
 
-        fakeInterstitialCustomEvent = [[[FakeInterstitialCustomEvent alloc] init] autorelease];
+        fakeInterstitialCustomEvent = [[FakeInterstitialCustomEvent alloc] init];
         fakeProvider.fakeInterstitialCustomEvent = fakeInterstitialCustomEvent;
 
         configuration = [MPAdConfigurationFactory defaultInterstitialConfigurationWithCustomEventClassName:@"FakeInterstitialCustomEvent"];
@@ -108,7 +108,7 @@ describe(@"MPInterstitialAdControllerIntegrationSuite", ^{
                     [delegate reset_sent_messages];
                     [fakeCoreProvider.sharedFakeMPAnalyticsTracker reset];
 
-                    newPresentingController = [[[UIViewController alloc] init] autorelease];
+                    newPresentingController = [[UIViewController alloc] init];
                     [interstitial showFromViewController:newPresentingController];
                     [fakeInterstitialCustomEvent simulateInterstitialFinishedAppearing];
                 });
