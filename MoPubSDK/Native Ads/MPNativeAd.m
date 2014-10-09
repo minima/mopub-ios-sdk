@@ -17,10 +17,13 @@
 #import "MPNativeAdAdapter.h"
 #import "MPNativeAdConstants.h"
 #import "MPTimer.h"
+#import "MPNativeAdDelegate.h"
+
+static const CGFloat kMoPubImpressionTimerInterval = 0.25;
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-@interface MPNativeAd ()
+@interface MPNativeAd () <MPNativeAdAdapterDelegate>
 
 @property (nonatomic, strong) NSDate *creationDate;
 
@@ -53,6 +56,9 @@
     self = [super init];
     if (self) {
         _adAdapter = adAdapter;
+        if ([_adAdapter respondsToSelector:@selector(setDelegate:)]) {
+            [_adAdapter setDelegate:self];
+        }
         _adIdentifier = [[NSString stringWithFormat:@"%d", sequenceNumber++] copy];
         _firstVisibilityTimestamp = -1;
         _impressionTrackers = [[NSMutableSet alloc] init];
@@ -127,7 +133,7 @@
         }
     }
 
-    if ([self.adAdapter respondsToSelector:@selector(trackImpression)]) {
+    if ([self.adAdapter respondsToSelector:@selector(trackImpression)] && ![self isThirdPartyHandlingImpressions]) {
         [self.adAdapter trackImpression];
     }
 }
@@ -135,16 +141,18 @@
 - (void)trackClick
 {
     if (self.hasTrackedClick) {
+        MPLogDebug(@"Click already tracked.");
         return;
     }
 
     self.hasTrackedClick = YES;
 
+    MPLogDebug(@"Tracking a click for %@.", self.adIdentifier);
     if (self.engagementTrackingURL) {
         [self trackMetricForURL:self.engagementTrackingURL];
     }
 
-    if ([self.adAdapter respondsToSelector:@selector(trackClick)]) {
+    if ([self.adAdapter respondsToSelector:@selector(trackClick)] && ![self isThirdPartyHandlingClicks]) {
         [self.adAdapter trackClick];
     }
 
@@ -165,8 +173,17 @@
 - (void)displayContentForURL:(NSURL *)URL rootViewController:(UIViewController *)controller
        completion:(void (^)(BOOL success, NSError *error))completionBlock
 {
-    [self trackClick];
-    [self.adAdapter displayContentForURL:URL rootViewController:controller completion:completionBlock];
+    [self showContentForURL:URL fromViewController:controller withCompletion:completionBlock];
+}
+
+- (void)displayContentWithCompletion:(void (^)(BOOL, NSError *))completionBlock
+{
+    [self displayContentForURL:self.adAdapter.defaultActionURL completion:completionBlock];
+}
+
+- (void)displayContentForURL:(NSURL *)URL completion:(void (^)(BOOL, NSError *))completionBlock
+{
+    [self showContentForURL:URL fromViewController:[self.delegate viewControllerForPresentingModalView] withCompletion:completionBlock];
 }
 
 - (void)prepareForDisplayInView:(UIView *)view
@@ -183,10 +200,12 @@
         [(id<MPNativeAdRendering>)view layoutAdAssets:self];
     }
 
-    [self.associatedViewVisibilityTimer invalidate];
-    self.associatedViewVisibilityTimer = [MPTimer timerWithTimeInterval:0.25 target:self selector:@selector(tick:) repeats:YES];
-    self.associatedViewVisibilityTimer.runLoopMode = NSRunLoopCommonModes;
-    [self.associatedViewVisibilityTimer scheduleNow];
+    if (![self isThirdPartyHandlingImpressions]) {
+        [self.associatedViewVisibilityTimer invalidate];
+        self.associatedViewVisibilityTimer = [MPTimer timerWithTimeInterval:kMoPubImpressionTimerInterval target:self selector:@selector(tick:) repeats:YES];
+        self.associatedViewVisibilityTimer.runLoopMode = NSRunLoopCommonModes;
+        [self.associatedViewVisibilityTimer scheduleNow];
+    }
 }
 
 - (void)addImpressionTrackers:(NSArray *)trackers
@@ -311,6 +330,9 @@
 
 - (void)detachFromAssociatedView
 {
+    if ([self.adAdapter respondsToSelector:@selector(didDetachFromView:)]) {
+        [self.adAdapter didDetachFromView:self.associatedView];
+    }
     self.associatedView = nil;
 }
 
@@ -342,6 +364,49 @@
     } else {
         self.firstVisibilityTimestamp = -1;
     }
+}
+
+- (BOOL)isThirdPartyHandlingImpressions
+{
+    return [self.adAdapter respondsToSelector:@selector(enableThirdPartyImpressionTracking)] && [self.adAdapter enableThirdPartyImpressionTracking];
+}
+
+- (BOOL)isThirdPartyHandlingClicks
+{
+    return [self.adAdapter respondsToSelector:@selector(enableThirdPartyClickTracking)] && [self.adAdapter enableThirdPartyClickTracking];
+}
+
+- (void)showContentForURL:(NSURL *)URL fromViewController:(UIViewController *)controller withCompletion:(void (^)(BOOL, NSError *))completionBlock
+{
+    BOOL displayedURL = NO;
+    if (![self isThirdPartyHandlingClicks]) {
+        [self trackClick];
+        if ([self.adAdapter respondsToSelector:@selector(displayContentForURL:rootViewController:completion:)]) {
+            displayedURL = YES;
+            [self.adAdapter displayContentForURL:URL rootViewController:controller completion:completionBlock];
+        }
+    }
+
+    if(completionBlock && !displayedURL) {
+        completionBlock(YES, nil);
+    }
+}
+
+#pragma mark - MPNativeAdAdapterDelegate
+
+- (UIViewController *)viewControllerForPresentingModalView
+{
+    return [self.delegate viewControllerForPresentingModalView];
+}
+
+- (void)nativeAdWillLogImpression:(id<MPNativeAdAdapter>)adAdapter
+{
+    [self trackImpression];
+}
+
+- (void)nativeAdDidClick:(id<MPNativeAdAdapter>)adAdapter
+{
+    [self trackClick];
 }
 
 @end

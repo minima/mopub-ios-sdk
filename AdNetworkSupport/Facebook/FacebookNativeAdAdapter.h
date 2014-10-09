@@ -10,10 +10,12 @@
 @class FBNativeAd;
 
 /**
- * Certified with the Facebook iOS SDK version 3.14.1
+ * Certified with the Facebook iOS SDK version 3.18.2
  */
 
 @interface FacebookNativeAdAdapter : NSObject <MPNativeAdAdapter>
+
+@property (nonatomic, weak) id<MPNativeAdAdapterDelegate> delegate;
 
 - (instancetype)initWithFBNativeAd:(FBNativeAd *)fbNativeAd;
 

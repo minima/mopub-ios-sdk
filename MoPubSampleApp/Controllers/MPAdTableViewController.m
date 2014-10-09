@@ -184,6 +184,7 @@ typedef enum
             break;
         case MPAdInfoNativePageViewControllerPlacer:
             detailViewController = [[MPNativeAdPlacerPageViewController alloc] initWithAdInfo:info];
+            break;
         default:
             break;
     }

@@ -1,3 +1,12 @@
+## Version 3.1 (October 9th, 2014)
+
+  - Updated native mediation framework to support Facebook Audience Network SDK 3.18.2
+    - If you're directly using `MPNativeAd`, you should implement the `MPNativeAdDelegate` protocol found in `MPNativeAdDelegate.h` and set the delegate property on your `MPNativeAd` instance.
+  - Added convenience methods to `MPTableViewAdPlacer` and `MPCollectionViewAdPlacer` that default to using server-controlled native ad positioning
+    - `+ (instancetype)placerWithTableView:viewController:defaultAdRenderingClass:(Class)defaultAdRenderingClass;`
+    - `+ (instancetype)placerWithCollectionView:viewController:defaultAdRenderingClass:(Class)defaultAdRenderingClass;`
+  - Fixed compiler error in `MPDiskLRUCache.m` if `OS_OBJECT_USE_OBJC` is false
+
 ## Version 3.0 (September 30th, 2014)
 
   - **The MoPub SDK now uses Automatic Reference Counting**

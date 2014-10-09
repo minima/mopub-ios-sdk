@@ -9,4 +9,9 @@
 
 @implementation MPServerAdPositioning
 
++ (instancetype)positioning
+{
+    return [[[self class] alloc] init];
+}
+
 @end

@@ -267,6 +267,19 @@ describe(@"MPTableViewAdPlacer", ^{
             adPlacer.defaultAdRenderingClass should equal([FakeMPNativeAdRenderingClassTableView class]);
         });
 
+        context(@"when using the server-side positioning convenience method", ^{
+            __block MPTableViewAdPlacer *placerWithServerPositioning;
+
+            beforeEach(^{
+                placerWithServerPositioning = [MPTableViewAdPlacer placerWithTableView:tableView viewController:presentingViewController defaultAdRenderingClass:[FakeMPNativeAdRenderingClassTableView class]];
+            });
+
+            it(@"should ask the server for positions when requesting ads", ^{
+                [placerWithServerPositioning loadAdsForAdUnitID:@"ID_WITH_SERVER_POSITIONING"];
+                [[[[NSURLConnection lastConnection] request] URL] absoluteString] should contain(@"/m/pos");
+            });
+        });
+
         describe(@"registering cells for reuse", ^{
             __block Class renderingClass;
             __block UINib *fakeNib;

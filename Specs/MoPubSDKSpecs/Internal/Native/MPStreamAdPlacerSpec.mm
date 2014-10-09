@@ -408,8 +408,22 @@ describe(@"MPStreamAdPlacer", ^{
         });
     });
 
-    xdescribe(@"-displayContentForAdAtAdjustedIndexPath", ^{
+    describe(@"-displayContentForAdAtAdjustedIndexPath", ^{
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+        __block MPNativeAd *nativeAd;
 
+        beforeEach(^{
+            MPNativeAdData *adData = [[MPNativeAdData alloc] init];
+            nativeAd = nice_fake_for([MPNativeAd class]);
+            adData.ad = nativeAd;
+            adData.renderingClass = [FakeMPNativeAdRenderingClassView class];
+            placementData stub_method(@selector(adDataAtAdjustedIndexPath:)).and_return(adData);
+        });
+
+        it(@"should call -displayContentWithCompletion on the native ad", ^{
+            [placer displayContentForAdAtAdjustedIndexPath:indexPath];
+            nativeAd should have_received(@selector(displayContentWithCompletion:)).with(nil);
+        });
     });
 
     describe(@"-renderAdAtIndexPath:", ^{

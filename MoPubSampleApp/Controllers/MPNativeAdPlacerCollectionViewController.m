@@ -74,18 +74,25 @@ static NSString *const kReuseIdentifier = @"cell";
 
 - (void)setupAdPlacer
 {
-    // Create an ad positioning object and register the index paths where we want ads to be displayed.
-    MPClientAdPositioning *positioning = [MPClientAdPositioning positioning];
-    [positioning addFixedIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]];
-    [positioning enableRepeatingPositionsWithInterval:15];
-
-    // Create a targeting object to serve better ads
+    // Create a targeting object to serve better ads.
     MPNativeAdRequestTargeting *targeting = [MPNativeAdRequestTargeting targeting];
     targeting.desiredAssets = [NSSet setWithObjects:kAdTitleKey, kAdIconImageKey, kAdCTATextKey, nil];
     targeting.location = [[CLLocation alloc] initWithLatitude:37.7793 longitude:-122.4175];
 
-    // Create a collection view ad placer.
+    // Create a collection view ad placer that uses server-side ad positioning.
+    self.placer = [MPCollectionViewAdPlacer placerWithCollectionView:self.collectionView viewController:self defaultAdRenderingClass:[MPNativeCollectionViewAdCollectionViewCell class]];
+
+    // If you wish to use client-side ad positioning rather than configuring your ad unit on the
+    // MoPub website, comment out the line above and use the code below instead.
+
+    /*
+    // Create an ad positioning object and register the index paths where ads should be displayed.
+    MPClientAdPositioning *positioning = [MPClientAdPositioning positioning];
+    [positioning addFixedIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+    [positioning enableRepeatingPositionsWithInterval:15];
+
     self.placer = [MPCollectionViewAdPlacer placerWithCollectionView:self.collectionView viewController:self adPositioning:positioning defaultAdRenderingClass:[MPNativeCollectionViewAdCollectionViewCell class]];
+     */
 
     // Load ads (using a test ad unit ID). Feel free to replace this ad unit ID with your own.
     [self.placer loadAdsForAdUnitID:self.adInfo.ID targeting:targeting];

@@ -16,12 +16,13 @@
 #import "MPLogging.h"
 #import "MPServerAdPositioning.h"
 #import "MPNativePositionSource.h"
+#import "MPNativeAdDelegate.h"
 
 static NSString * const kReuseIdentifierPrefix = @"MoPub";
 static NSInteger const kAdInsertionLookAheadAmount = 3;
 static const NSUInteger kIndexPathItemIndex = 1;
 
-@interface MPStreamAdPlacer () <MPNativeAdSourceDelegate>
+@interface MPStreamAdPlacer () <MPNativeAdSourceDelegate, MPNativeAdDelegate>
 
 @property (nonatomic, strong) MPNativeAdSource *adSource;
 @property (nonatomic, strong) MPNativePositionSource *positioningSource;
@@ -92,7 +93,7 @@ static const NSUInteger kIndexPathItemIndex = 1;
 {
     MPNativeAdData *adData = [self.adPlacementData adDataAtAdjustedIndexPath:indexPath];
 
-    [adData.ad displayContentFromRootViewController:self.viewController completion:nil];
+    [adData.ad displayContentWithCompletion:nil];
 }
 
 - (NSString *)reuseIdentifierForRenderingClassAtIndexPath:(NSIndexPath *)indexPath
@@ -153,9 +154,9 @@ static const NSUInteger kIndexPathItemIndex = 1;
 
         // Get positioning information from the server.
         self.positioningSource = [[MPInstanceProvider sharedProvider] buildNativePositioningSource];
-        __weak typeof(self) weakSelf = self;
+        __typeof__(self) __weak weakSelf = self;
         [self.positioningSource loadPositionsWithAdUnitIdentifier:self.adUnitID completionHandler:^(MPAdPositioning *positioning, NSError *error) {
-            typeof(self) strongSelf = weakSelf;
+            __typeof__(self) strongSelf = weakSelf;
 
             if (!strongSelf) {
                 return;
@@ -500,6 +501,7 @@ static const NSUInteger kIndexPathItemIndex = 1;
 
     while ([self shouldPlaceAdAtIndexPath:insertionPath]) {
         MPNativeAdData *adData = [self retrieveAdDataForInsertionPath:insertionPath];
+        adData.ad.delegate = self;
 
         if (!adData) {
             break;
@@ -517,6 +519,13 @@ static const NSUInteger kIndexPathItemIndex = 1;
 - (void)adSourceDidFinishRequest:(MPNativeAdSource *)source
 {
     [self fillAdsInConsideredRange];
+}
+
+#pragma mark - <MPNativeAdDelegate>
+
+- (UIViewController *)viewControllerForPresentingModalView
+{
+    return self.viewController;
 }
 
 @end

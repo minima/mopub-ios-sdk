@@ -29,6 +29,11 @@
 
 @implementation MPCollectionViewAdPlacer
 
++ (instancetype)placerWithCollectionView:(UICollectionView *)collectionView viewController:(UIViewController *)controller defaultAdRenderingClass:(Class)defaultAdRenderingClass
+{
+    return [[self class] placerWithCollectionView:collectionView viewController:controller adPositioning:[MPServerAdPositioning positioning] defaultAdRenderingClass:defaultAdRenderingClass];
+}
+
 + (instancetype)placerWithCollectionView:(UICollectionView *)collectionView viewController:(UIViewController *)controller adPositioning:(MPAdPositioning *)positioning defaultAdRenderingClass:(Class)defaultAdRenderingClass
 {
     MPCollectionViewAdPlacer *collectionViewAdPlacer = [[MPCollectionViewAdPlacer alloc] initWithCollectionView:collectionView viewController:controller adPositioning:positioning defaultAdRenderingClass:defaultAdRenderingClass];

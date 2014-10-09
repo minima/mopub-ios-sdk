@@ -20,7 +20,7 @@ The MoPub SDK is distributed as source code that you can include in your applica
 
   Includes everything you need to serve HTML, MRAID, and Native MoPub advertisements.  No third party ad networks are included.
 
-The current version of the SDK is 3.0.0
+The current version of the SDK is 3.1.0
 
 ## Integrate
 
@@ -32,10 +32,12 @@ More detailed class documentation is available in the repo under the `ClassDocum
 
 Please view the [changelog](https://github.com/mopub/mopub-ios-sdk/blob/master/CHANGELOG.md) for details.
 
-- **The MoPub SDK now uses Automatic Reference Counting**
-- **Swift support:** to use the MoPub SDK in your Swift project, simply import `MoPubSDK/MoPub-Bridging-Header.h` to your project and ensure the Objective-C Bridging Header build setting under Swift Compiler - Code Generation has a path to the header.
-- Updated Chartboost custom event (Chartboost SDK 5.0.1)
-- Bug fixes
+- Updated native mediation framework to support Facebook Audience Network SDK 3.18.2
+	- If you're directly using `MPNativeAd`, you should implement the `MPNativeAdDelegate` protocol found in `MPNativeAdDelegate.h` and set the delegate property on your `MPNativeAd` instance.
+- Added convenience methods to `MPTableViewAdPlacer` and `MPCollectionViewAdPlacer` that default to using server-controlled native ad positioning
+	- `+ (instancetype)placerWithTableView:viewController:defaultAdRenderingClass:(Class)defaultAdRenderingClass;`
+	- `+ (instancetype)placerWithCollectionView:viewController:defaultAdRenderingClass:(Class)defaultAdRenderingClass;`
+- Fixed compiler error in `MPDiskLRUCache.m` if `OS_OBJECT_USE_OBJC` is false
 
 ### IMPORTANT UPGRADE INSTRUCTIONS
 

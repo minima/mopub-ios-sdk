@@ -14,12 +14,13 @@
 #import "MPTableViewAdManager.h"
 #import "MPNativeAdTableHeaderView.h"
 #import "MPAdInfo.h"
+#import "MPNativeAdDelegate.h"
 
 NSString *const kNativeAdTableViewAccessibilityLabel = @"kNativeAdTableViewAccessibilityLabel";
 NSString *const kDefaultCellIdentifier = @"kDefaultCellIdentifier";
 NSInteger const kRowForAdCell = 1;
 
-@interface MPNativeAdTableViewController () <UITextFieldDelegate>
+@interface MPNativeAdTableViewController () <UITextFieldDelegate, MPNativeAdDelegate>
 
 @property (nonatomic, strong) NSMutableArray *contentArray;
 @property (nonatomic, strong) MPTableViewAdManager *adManager;
@@ -126,6 +127,7 @@ NSInteger const kRowForAdCell = 1;
             NSLog(@"================> %@", error);
             self.tableHeaderView.failLabel.hidden = NO;
         } else {
+            response.delegate = self;
             [self.contentArray insertObject:response atIndex:kRowForAdCell];
             [self.tableView reloadData];
             NSLog(@"Received Native Ad");
@@ -184,7 +186,7 @@ NSInteger const kRowForAdCell = 1;
     if ([self shouldShowAdAtIndexPath:indexPath])
     {
         MPNativeAd *adObject = (MPNativeAd *)[self.contentArray objectAtIndex:indexPath.row];
-        [adObject displayContentForURL:adObject.defaultActionURL rootViewController:self completion:^(BOOL success, NSError *error) {
+        [adObject displayContentWithCompletion:^(BOOL success, NSError *error) {
             if (success) {
                 NSLog(@"Completed display of ad's default action URL");
             } else {
@@ -214,6 +216,13 @@ NSInteger const kRowForAdCell = 1;
     [textField endEditing:YES];
 
     return YES;
+}
+
+#pragma mark - MPNativeAdDelegate
+
+- (UIViewController *)viewControllerForPresentingModalView
+{
+    return self;
 }
 
 @end

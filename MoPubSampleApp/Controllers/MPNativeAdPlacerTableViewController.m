@@ -82,19 +82,26 @@
 
 - (void)setupAdPlacer
 {
-    // Create an ad positioning object and register the index paths where we want ads to be displayed.
-    MPClientAdPositioning *positioning = [MPClientAdPositioning positioning];
-    [positioning addFixedIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
-    [positioning addFixedIndexPath:[NSIndexPath indexPathForRow:5 inSection:0]];
-    [positioning enableRepeatingPositionsWithInterval:10];
-
-    // Create a targeting object to serve better ads
+    // Create a targeting object to serve better ads.
     MPNativeAdRequestTargeting *targeting = [MPNativeAdRequestTargeting targeting];
     targeting.location = [[CLLocation alloc] initWithLatitude:37.7793 longitude:-122.4175];
     targeting.desiredAssets = [NSSet setWithObjects:kAdIconImageKey, kAdMainImageKey, kAdCTATextKey, kAdTextKey, kAdTitleKey, nil];
 
-    // Create a table view ad placer.
+    // Create a table view ad placer that uses server-side ad positioning.
+    self.placer = [MPTableViewAdPlacer placerWithTableView:self.tableView viewController:self defaultAdRenderingClass:[MPNativeAdCell class]];
+
+    // If you wish to use client-side ad positioning rather than configuring your ad unit on the
+    // MoPub website, comment out the line above and use the code below instead.
+
+    /*
+    // Create an ad positioning object and register the index paths where ads should be displayed.
+    MPClientAdPositioning *positioning = [MPClientAdPositioning positioning];
+    [positioning addFixedIndexPath:[NSIndexPath indexPathForRow:2 inSection:0]];
+    [positioning addFixedIndexPath:[NSIndexPath indexPathForRow:10 inSection:0]];
+    [positioning enableRepeatingPositionsWithInterval:10];
+
     self.placer = [MPTableViewAdPlacer placerWithTableView:self.tableView viewController:self adPositioning:positioning defaultAdRenderingClass:[MPNativeAdCell class]];
+     */
 
     // Load ads (using a test ad unit ID). Feel free to replace this ad unit ID with your own.
     [self.placer loadAdsForAdUnitID:self.adInfo.ID targeting:targeting];

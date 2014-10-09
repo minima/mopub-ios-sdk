@@ -12,6 +12,8 @@
 #import "MPNativeAdError.h"
 #import "MPLogging.h"
 
+static const NSInteger FacebookNoFillErrorCode = 1001;
+
 @interface FacebookNativeCustomEvent () <FBNativeAdDelegate>
 
 @property (nonatomic, readwrite, strong) FBNativeAd *fbNativeAd;
@@ -19,11 +21,6 @@
 @end
 
 @implementation FacebookNativeCustomEvent
-
-- (void)dealloc
-{
-    _fbNativeAd.delegate = nil;
-}
 
 - (void)requestAdWithCustomEventInfo:(NSDictionary *)info
 {
@@ -68,7 +65,11 @@
 
 - (void)nativeAd:(FBNativeAd *)nativeAd didFailWithError:(NSError *)error
 {
-    [self.delegate nativeCustomEvent:self didFailToLoadAdWithError:[NSError errorWithDomain:MoPubNativeAdsSDKDomain code:MPNativeAdErrorInvalidServerResponse userInfo:nil]];
+    if (error.code == FacebookNoFillErrorCode) {
+        [self.delegate nativeCustomEvent:self didFailToLoadAdWithError:[NSError errorWithDomain:MoPubNativeAdsSDKDomain code:MPNativeAdErrorNoInventory userInfo:error.userInfo]];
+    } else {
+        [self.delegate nativeCustomEvent:self didFailToLoadAdWithError:[NSError errorWithDomain:MoPubNativeAdsSDKDomain code:MPNativeAdErrorInvalidServerResponse userInfo:error.userInfo]];
+    }
 }
 
 @end

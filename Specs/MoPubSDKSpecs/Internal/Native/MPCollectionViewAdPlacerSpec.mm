@@ -265,6 +265,19 @@ describe(@"MPCollectionViewAdPlacer", ^{
             } should raise_exception;
         });
 
+        context(@"when using the server-side positioning convenience method", ^{
+            __block MPCollectionViewAdPlacer *placerWithServerPositioning;
+
+            beforeEach(^{
+                placerWithServerPositioning = [MPCollectionViewAdPlacer placerWithCollectionView:collectionView viewController:presentingViewController defaultAdRenderingClass:[FakeMPNativeAdRenderingClassCollectionView class]];
+            });
+
+            it(@"should ask the server for positions when requesting ads", ^{
+                [placerWithServerPositioning loadAdsForAdUnitID:@"ID_WITH_SERVER_POSITIONING"];
+                [[[[NSURLConnection lastConnection] request] URL] absoluteString] should contain(@"/m/pos");
+            });
+        });
+
         describe(@"registering cells for reuse", ^{
             __block Class renderingClass;
             __block UINib *fakeNib;

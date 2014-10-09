@@ -12,10 +12,11 @@
 #import "MPAdPersistenceManager.h"
 #import "MPNativeAdRequestTargeting.h"
 #import "MPNativeAdView.h"
+#import "MPNativeAdDelegate.h"
 
 NSString *const kNativeAdDefaultActionViewKey = @"kNativeAdDefaultActionButtonKey";
 
-@interface MPNativeAdDetailViewController () <UITextFieldDelegate>
+@interface MPNativeAdDetailViewController () <UITextFieldDelegate, MPNativeAdDelegate>
 
 @property (nonatomic, strong) MPAdInfo *info;
 @property (nonatomic, strong) MPNativeAd *nativeAd;
@@ -35,7 +36,7 @@ NSString *const kNativeAdDefaultActionViewKey = @"kNativeAdDefaultActionButtonKe
     self = [super initWithNibName:@"MPNativeAdDetailViewController" bundle:nil];
     if (self) {
         self.info = info;
-        
+
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= MP_IOS_7_0
         if ([self respondsToSelector:@selector(setEdgesForExtendedLayout:)]) {
             self.edgesForExtendedLayout = UIRectEdgeNone;
@@ -48,7 +49,7 @@ NSString *const kNativeAdDefaultActionViewKey = @"kNativeAdDefaultActionButtonKe
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+
     self.title = @"Native";
     self.IDLabel.text = self.info.ID;
     self.keywordsTextField.text = self.info.keywords;
@@ -68,13 +69,13 @@ NSString *const kNativeAdDefaultActionViewKey = @"kNativeAdDefaultActionButtonKe
 - (IBAction)loadAd:(id)sender
 {
     [self.keywordsTextField endEditing:YES];
-    
+
     self.loadAdButton.enabled = NO;
     [self.spinner startAnimating];
     [self clearAd];
-    
+
     MPNativeAdRequest *adRequest1 = [MPNativeAdRequest requestWithAdUnitIdentifier:self.info.ID];
-    
+
     MPNativeAdRequestTargeting *targeting = [[MPNativeAdRequestTargeting alloc] init];
     targeting.keywords = self.keywordsTextField.text;
     adRequest1.targeting = targeting;
@@ -83,13 +84,14 @@ NSString *const kNativeAdDefaultActionViewKey = @"kNativeAdDefaultActionButtonKe
     if ([[MPAdPersistenceManager sharedManager] savedAdForID:self.info.ID] != nil) {
         [[MPAdPersistenceManager sharedManager] addSavedAd:self.info];
     }
-    
+
     [adRequest1 startWithCompletionHandler:^(MPNativeAdRequest *request, MPNativeAd *response, NSError *error) {
         if (error) {
             NSLog(@"================> %@", error);
             [self configureAdLoadFail];
         } else {
             self.nativeAd = response;
+            self.nativeAd.delegate = self;
             [self displayAd];
             NSLog(@"Received Native Ad");
         }
@@ -100,7 +102,7 @@ NSString *const kNativeAdDefaultActionViewKey = @"kNativeAdDefaultActionButtonKe
 - (void)clearAd
 {
     [self.adViewContainer clearAd];
-    
+
     self.nativeAd = nil;
     self.failLabel.hidden = YES;
 }
@@ -122,7 +124,7 @@ NSString *const kNativeAdDefaultActionViewKey = @"kNativeAdDefaultActionButtonKe
 
 - (IBAction)launchAdURL:(id)sender
 {
-    [self.nativeAd displayContentForURL:self.nativeAd.defaultActionURL rootViewController:self completion:^(BOOL success, NSError *error) {
+    [self.nativeAd displayContentWithCompletion:^(BOOL success, NSError *error) {
         if (success) {
             NSLog(@"Completed display of ad's default action URL");
         } else {
@@ -137,8 +139,15 @@ NSString *const kNativeAdDefaultActionViewKey = @"kNativeAdDefaultActionButtonKe
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
     [textField endEditing:YES];
-    
+
     return YES;
+}
+
+#pragma mark - MPNativeAdDelegate
+
+- (UIViewController *)viewControllerForPresentingModalView
+{
+    return self;
 }
 
 @end

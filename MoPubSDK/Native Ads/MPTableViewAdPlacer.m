@@ -31,6 +31,11 @@
 
 @implementation MPTableViewAdPlacer
 
++ (instancetype)placerWithTableView:(UITableView *)tableView viewController:(UIViewController *)controller defaultAdRenderingClass:(Class)defaultAdRenderingClass
+{
+    return [[self class] placerWithTableView:tableView viewController:controller adPositioning:[MPServerAdPositioning positioning] defaultAdRenderingClass:defaultAdRenderingClass];
+}
+
 + (instancetype)placerWithTableView:(UITableView *)tableView viewController:(UIViewController *)controller adPositioning:(MPAdPositioning *)positioning defaultAdRenderingClass:(Class)defaultAdRenderingClass
 {
     MPTableViewAdPlacer *tableViewAdPlacer = [[MPTableViewAdPlacer alloc] initWithTableView:tableView viewController:controller adPositioning:positioning defaultAdRenderingClass:defaultAdRenderingClass];

@@ -34,7 +34,7 @@
 
 @interface MPDiskLRUCache ()
 
-#if __IPHONE_OS_VERSION_MIN_REQUIRED < MP_IOS_6_0
+#if !OS_OBJECT_USE_OBJC
 @property (nonatomic, assign) dispatch_queue_t diskIOQueue;
 #else
 @property (nonatomic, strong) dispatch_queue_t diskIOQueue;
@@ -81,7 +81,7 @@
 
 - (void)dealloc
 {
-#if __IPHONE_OS_VERSION_MIN_REQUIRED < MP_IOS_6_0
+#if !OS_OBJECT_USE_OBJC
     dispatch_release(_diskIOQueue);
 #endif
 }

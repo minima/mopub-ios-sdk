@@ -7,6 +7,9 @@
 using namespace Cedar::Matchers;
 using namespace Cedar::Doubles;
 
+@interface FacebookNativeAdAdapter (Specs) <FBNativeAdDelegate>
+@end
+
 SPEC_BEGIN(FacebookNativeAdAdapterSpec)
 
 describe(@"FacebookNativeAdAdapter", ^{
@@ -17,6 +20,7 @@ describe(@"FacebookNativeAdAdapter", ^{
         beforeEach(^{
             mockFBAd = nice_fake_for([FBNativeAd class]);
             adAdapter = [[FacebookNativeAdAdapter alloc] initWithFBNativeAd:mockFBAd];
+            adAdapter.delegate = nice_fake_for(@protocol(MPNativeAdAdapterDelegate));
             [FBNativeAd useZeroScaleInStarRating:NO];
         });
 
@@ -88,23 +92,23 @@ describe(@"FacebookNativeAdAdapter", ^{
             adAdapter.defaultActionURL should be_nil;
         });
 
-        it(@"should call the fbNativeAd's log impression when trackImpression is called", ^{
-            [adAdapter trackImpression];
-            mockFBAd should have_received(@selector(logImpression));
+        it(@"should return YES for enableThirdPartyImpressionTracking", ^{
+            adAdapter.enableThirdPartyImpressionTracking should be_truthy;
         });
 
-        it(@"should call fbNativeAd's handleClick method when displayContentForURL is called", ^{
-            [adAdapter displayContentForURL:nil rootViewController:[[UIViewController alloc] init] completion:nil];
-            mockFBAd should have_received(@selector(handleClickWithViewController:callback:));
+        it(@"should return YES for enableThirdPartyClickTracking", ^{
+            adAdapter.enableThirdPartyClickTracking should be_truthy;
         });
 
-        it(@"should return an error in the completion block when calling displayContentURL with a nil rootViewController", ^{
-            __block BOOL returnedError = NO;
-            [adAdapter displayContentForURL:[NSURL URLWithString:@"http://www.mopub.com"] rootViewController:nil completion:^(BOOL success, NSError *error) {
-                returnedError = !success;
-            }];
+        it(@"should call back to its delegate when an impression is fired", ^{
+            [adAdapter nativeAdWillLogImpression:mockFBAd];
+            adAdapter.delegate should have_received(@selector(nativeAdWillLogImpression:));
+        });
 
-            returnedError should be_truthy;
+        it(@"should call back to its delegate when a click occurs", ^{
+            [adAdapter nativeAdDidClick:mockFBAd];
+            adAdapter.delegate should have_received(@selector(nativeAdDidClick:));
+
         });
     });
 });
