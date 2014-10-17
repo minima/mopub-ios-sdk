@@ -1,3 +1,7 @@
+## Version 3.2 (October 17th, 2014)
+
+  - **We have launched a new license as of version 3.2.0.** To view the full license, visit [http://www.mopub.com/legal/sdk-license-agreement/](http://www.mopub.com/legal/sdk-license-agreement/)
+
 ## Version 3.1 (October 9th, 2014)
 
   - Updated native mediation framework to support Facebook Audience Network SDK 3.18.2
