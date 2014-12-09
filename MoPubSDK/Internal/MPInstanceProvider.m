@@ -20,7 +20,6 @@
 #import "MPBannerCustomEvent.h"
 #import "MPBannerAdManager.h"
 #import "MPLogging.h"
-#import "MRJavaScriptEventEmitter.h"
 #import "MRImageDownloader.h"
 #import "MRBundleManager.h"
 #import "MRCalendarManager.h"
@@ -34,6 +33,10 @@
 #import "MPNativePositionSource.h"
 #import "MPStreamAdPlacementData.h"
 #import "MPStreamAdPlacer.h"
+#import "MRNativeCommandHandler.h"
+#import "MRBridge.h"
+#import "MRController.h"
+#import "MPClosableView.h"
 
 @interface MPInstanceProvider ()
 
@@ -177,15 +180,14 @@ static MPInstanceProvider *sharedAdProvider = nil;
 
 #pragma mark - MRAID
 
-- (MRAdView *)buildMRAdViewWithFrame:(CGRect)frame
-                     allowsExpansion:(BOOL)allowsExpansion
-                    closeButtonStyle:(MRAdViewCloseButtonStyle)style
-                       placementType:(MRAdViewPlacementType)type
-                            delegate:(id<MRAdViewDelegate>)delegate
+- (MPClosableView *)buildMRAIDMPClosableViewWithFrame:(CGRect)frame webView:(UIWebView *)webView delegate:(id<MPClosableViewDelegate>)delegate
 {
-    MRAdView *mrAdView = [[MRAdView alloc] initWithFrame:frame allowsExpansion:allowsExpansion closeButtonStyle:style placementType:type];
-    mrAdView.delegate = delegate;
-    return mrAdView;
+    MPClosableView *adView = [[MPClosableView alloc] initWithFrame:frame closeButtonType:MPClosableViewCloseButtonTypeTappableWithImage];
+    adView.delegate = delegate;
+    adView.clipsToBounds = YES;
+    webView.frame = adView.bounds;
+    [adView addSubview:webView];
+    return adView;
 }
 
 - (MRBundleManager *)buildMRBundleManager
@@ -193,14 +195,34 @@ static MPInstanceProvider *sharedAdProvider = nil;
     return [MRBundleManager sharedManager];
 }
 
+- (MRController *)buildBannerMRControllerWithFrame:(CGRect)frame delegate:(id<MRControllerDelegate>)delegate
+{
+    return [self buildMRControllerWithFrame:frame placementType:MRAdViewPlacementTypeInline delegate:delegate];
+}
+
+- (MRController *)buildInterstitialMRControllerWithFrame:(CGRect)frame delegate:(id<MRControllerDelegate>)delegate
+{
+    return [self buildMRControllerWithFrame:frame placementType:MRAdViewPlacementTypeInterstitial delegate:delegate];
+}
+
+- (MRController *)buildMRControllerWithFrame:(CGRect)frame placementType:(MRAdViewPlacementType)placementType delegate:(id<MRControllerDelegate>)delegate
+{
+    MRController *controller = [[MRController alloc] initWithAdViewFrame:frame adPlacementType:placementType];
+    controller.delegate = delegate;
+    return controller;
+}
+
+- (MRBridge *)buildMRBridgeWithWebView:(UIWebView *)webView delegate:(id<MRBridgeDelegate>)delegate
+{
+    MRBridge *bridge = [[MRBridge alloc] initWithWebView:webView];
+    bridge.delegate = delegate;
+    bridge.shouldHandleRequests = YES;
+    return bridge;
+}
+
 - (UIWebView *)buildUIWebViewWithFrame:(CGRect)frame
 {
     return [[UIWebView alloc] initWithFrame:frame];
-}
-
-- (MRJavaScriptEventEmitter *)buildMRJavaScriptEventEmitterWithWebView:(UIWebView *)webView
-{
-    return [[MRJavaScriptEventEmitter alloc] initWithWebView:webView];
 }
 
 - (MRCalendarManager *)buildMRCalendarManagerWithDelegate:(id<MRCalendarManagerDelegate>)delegate
@@ -245,6 +267,11 @@ static MPInstanceProvider *sharedAdProvider = nil;
     UIGraphicsEndImageContext();
 
     return playerViewController;
+}
+
+- (MRNativeCommandHandler *)buildMRNativeCommandHandlerWithDelegate:(id<MRNativeCommandHandlerDelegate>)delegate
+{
+    return [[MRNativeCommandHandler alloc] initWithDelegate:delegate];
 }
 
 #pragma mark - Native

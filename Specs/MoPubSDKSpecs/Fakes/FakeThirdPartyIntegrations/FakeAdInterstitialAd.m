@@ -28,8 +28,8 @@
 
 - (void)simulateUserDismissingAd
 {
-    self.presentingViewController = nil;
-    
+    self.presentingView = nil;
+
     // in iOS 7, DidUnload is no longer called immediately, instead, ActionDidFinish is called
     if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")) {
         [self.delegate interstitialAdActionDidFinish:self.masquerade];
@@ -41,7 +41,7 @@
 - (void)simulateUnloadingAd
 {
     self.loaded = NO;
-    self.presentingViewController = nil;
+    self.presentingView = nil;
     [self.delegate interstitialAdDidUnload:self.masquerade];
 }
 
@@ -51,9 +51,11 @@
                               willLeaveApplication:NO];
 }
 
-- (void)presentFromViewController:(UIViewController *)controller
+- (BOOL)presentInView:(UIView *)containerView
 {
-    self.presentingViewController = controller;
+    self.presentingView = containerView;
+
+    return YES;
 }
 
 @end

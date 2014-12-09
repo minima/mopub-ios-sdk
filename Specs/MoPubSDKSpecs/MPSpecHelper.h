@@ -37,6 +37,7 @@ void log_sent_messages(id<CedarDouble> fake);
 
 extern FakeMPInstanceProvider *fakeProvider;
 extern FakeMPCoreInstanceProvider *fakeCoreProvider;
+extern NSString *kMPSpecsTestImageURL;
 
 @interface MPSpecHelper : NSObject
 

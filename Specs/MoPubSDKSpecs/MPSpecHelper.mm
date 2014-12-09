@@ -20,6 +20,7 @@ static BOOL beforeAllDidRun = NO;
 
 FakeMPInstanceProvider *fakeProvider = nil;
 FakeMPCoreInstanceProvider *fakeCoreProvider = nil;
+NSString *kMPSpecsTestImageURL = @"http://d30x8mtr3hjnzo.cloudfront.net/creatives/a7b528d5c537426da5e42f418cc35e47";
 
 void verify_fake_received_selectors_async(id<CedarDouble> fake, NSArray *selectors)
 {

@@ -4,6 +4,12 @@
 using namespace Cedar::Matchers;
 using namespace Cedar::Doubles;
 
+@interface MPiAdInterstitialCustomEvent (Specs)
+
+@property (nonatomic, strong) UIViewController *iAdInterstitialViewController;
+
+@end
+
 SPEC_BEGIN(MPiAdInterstitialCustomEventSpec)
 
 describe(@"MPiAdInterstitialCustomEvent", ^{
@@ -42,8 +48,8 @@ describe(@"MPiAdInterstitialCustomEvent", ^{
                 delegate should have_received(@selector(interstitialCustomEventWillAppear:)).with(event);
             });
 
-            it(@"should tell the interstitial view controller to show the interstitial", ^{
-                interstitial.presentingViewController should equal(presentingController);
+            it(@"should show the iAd interstitial in the custom event's own view controller's view", ^{
+                interstitial.presentingView should equal(event.iAdInterstitialViewController.view);
             });
 
             it(@"should tell its delegate that an interstitial did appear", ^{
@@ -57,12 +63,12 @@ describe(@"MPiAdInterstitialCustomEvent", ^{
                 [event showInterstitialFromRootViewController:presentingController];
             });
 
-            it(@"should not tell its delegate anything", ^{
-                [delegate sent_messages] should be_empty;
+            it(@"should tell its delegate that the show attempt failed", ^{
+                delegate should have_received(@selector(interstitialCustomEvent:didFailToLoadAdWithError:));
             });
 
             it(@"should not tell the interstitial view controller to show the interstitial", ^{
-                interstitial.presentingViewController should be_nil;
+                interstitial.presentingView should be_nil;
             });
         });
     });
@@ -73,7 +79,20 @@ describe(@"MPiAdInterstitialCustomEvent", ^{
         });
     });
 
-    context(@"when the interstitial has been dismissed", ^{
+    context(@"when the interstitial has been dismissed using the close button without other user interaction", ^{
+        beforeEach(^{
+            interstitial.loaded = YES;
+            [event showInterstitialFromRootViewController:[[UIViewController alloc] init]];
+            [event.iAdInterstitialViewController performSelector:@selector(closeButtonPressed) withObject:nil];
+        });
+
+        it(@"should tell its delegate", ^{
+            delegate should have_received(@selector(interstitialCustomEventWillDisappear:)).with(event);
+            delegate should have_received(@selector(interstitialCustomEventDidDisappear:)).with(event);
+        });
+    });
+
+    context(@"when the interstitial has been dismissed after user interaction", ^{
         beforeEach(^{
             interstitial.loaded = YES;
             [event showInterstitialFromRootViewController:[[UIViewController alloc] init]];

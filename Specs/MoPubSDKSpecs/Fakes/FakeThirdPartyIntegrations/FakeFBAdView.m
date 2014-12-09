@@ -26,6 +26,11 @@
     [self.delegate adViewDidClick:self.masquerade];
 }
 
+- (void)simulateUserInteractionFinished
+{
+    [self.delegate adViewDidFinishHandlingClick:self.masquerade];
+}
+
 - (FBAdView *)masquerade
 {
     return (FBAdView *)self;

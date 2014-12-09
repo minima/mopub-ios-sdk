@@ -39,7 +39,7 @@ describe(@"MPImageDownloadQueue", ^{
         __block NSArray *urls;
         beforeEach(^{
             // images from our sample native ad
-            NSURL *image = [NSURL URLWithString:@"https://pbs.twimg.com/profile_images/431949550836662272/A6Ck-0Gx_normal.png"];
+            NSURL *image = [NSURL URLWithString:kMPSpecsTestImageURL];
             urls = @[image, image];
 
             [NSOperationQueue mp_resetCancelAllOperationsCalled];

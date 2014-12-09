@@ -16,8 +16,8 @@ SPEC_BEGIN(MPMoPubNativeCustomEventSpec)
 describe(@"MPMoPubNativeCustomEvent", ^{
     NSDictionary *validInfo = @{kAdTitleKey : @"WUT",
                                 kAdTextKey : @"WUT DaWG",
-                                kAdIconImageKey : @"https://pbs.twimg.com/profile_images/431949550836662272/A6Ck-0Gx_normal.png",
-                                kAdMainImageKey : @"https://pbs.twimg.com/profile_images/431949550836662272/A6Ck-0Gx_normal.png",
+                                kAdIconImageKey : kMPSpecsTestImageURL,
+                                kAdMainImageKey : kMPSpecsTestImageURL,
                                 kAdCTATextKey : @"DO IT",
                                 kImpressionTrackerURLsKey: @[@"http://www.mopub.com/tearinupmyheartwhenimwithyou", @"http://www.mopub.com/pop"],
                                 kClickTrackerURLKey : @"http://www.mopub.com/byebyebye",
@@ -25,7 +25,7 @@ describe(@"MPMoPubNativeCustomEvent", ^{
                                 };
     NSDictionary *badImageInfo = @{kAdTitleKey : @"WUT",
                                    kAdTextKey : @"WUT DaWG",
-                                   kAdIconImageKey : @"https://pbs.twimg.com/profile_images/431949550836662272/A6Ck-0Gx_normal.png",
+                                   kAdIconImageKey : kMPSpecsTestImageURL,
                                    kAdMainImageKey : @"||++@@#https://pbs.twimg.com/profile_images/431949550836662272/A6Ck-0Gx_normal.png",
                                    kAdCTATextKey : @"DO IT",
                                    kImpressionTrackerURLsKey: @[@"http://www.mopub.com/tearinupmyheartwhenimwithyou", @"http://www.mopub.com/pop"],

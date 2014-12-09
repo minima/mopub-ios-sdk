@@ -46,6 +46,11 @@ describe(@"MRVideoPlayerManager", ^{
                 it(@"should inform the delegate that it dismissed the video player", ^{
                     delegate should have_received(@selector(videoPlayerManagerDidDismissVideo:)).with(manager);
                 });
+
+                context(@"when playing the video again and dismissing", ^{
+                    xit(@"should only tell the delegate once", ^{
+                    });
+                });
             });
         });
 

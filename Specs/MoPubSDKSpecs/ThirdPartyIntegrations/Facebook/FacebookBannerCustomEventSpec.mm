@@ -59,6 +59,29 @@ describe(@"FacebookBannerCustomEvent", ^{
         });
     });
 
+    describe(@"interacting with the ad", ^{
+        context(@"when the ad is clicked", ^{
+            beforeEach(^{
+                [banner simulateLoadingAd];
+                [banner simulateUserInteraction];
+            });
+
+            it(@"should tell the delegate an action is beginning", ^{
+                delegate should have_received(@selector(bannerCustomEventWillBeginAction:)).with(event);
+            });
+
+            context(@"when the ad has finished handling the click", ^{
+                beforeEach(^{
+                    [banner simulateUserInteractionFinished];
+                });
+
+                it(@"should let the delegate know that the action has finished", ^{
+                    delegate should have_received(@selector(bannerCustomEventDidFinishAction:)).with(event);
+                });
+            });
+        });
+    });
+
     context(@"when asked to fetch a banner", ^{
         it(@"should set the banner's delegate", ^{
             banner.delegate should equal(event);

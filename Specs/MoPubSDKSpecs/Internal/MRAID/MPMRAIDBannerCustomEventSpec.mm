@@ -1,6 +1,6 @@
 #import "MPMRAIDBannerCustomEvent.h"
 #import "MPAdConfigurationFactory.h"
-#import "FakeMRAdView.h"
+#import "FakeMRController.h"
 
 using namespace Cedar::Matchers;
 using namespace Cedar::Doubles;
@@ -11,16 +11,14 @@ describe(@"MPMRAIDBannerCustomEvent", ^{
     __block MPMRAIDBannerCustomEvent *event;
     __block id<CedarDouble, MPPrivateBannerCustomEventDelegate> delegate;
     __block MPAdConfiguration *configuration;
-    __block FakeMRAdView *fakeMRAdView;
+    __block FakeMRController *fakeMRController;
 
     beforeEach(^{
         delegate = nice_fake_for(@protocol(MPPrivateBannerCustomEventDelegate));
 
-        fakeMRAdView = [[FakeMRAdView alloc] initWithFrame:CGRectMake(0, 0, 300, 250)
-                                            allowsExpansion:YES
-                                           closeButtonStyle:MRAdViewCloseButtonStyleAdControlled
-                                              placementType:MRAdViewPlacementTypeInline];
-        fakeProvider.fakeMRAdView = fakeMRAdView;
+        fakeMRController = [[FakeMRController alloc]  initWithAdViewFrame:CGRectMake(0, 0, 300, 250)
+                                                      adPlacementType:MRAdViewPlacementTypeInline];
+        fakeProvider.fakeMRController = fakeMRController;
 
         event = [[MPMRAIDBannerCustomEvent alloc] init];
         event.delegate = delegate;
@@ -36,22 +34,11 @@ describe(@"MPMRAIDBannerCustomEvent", ^{
     });
 
     it(@"should request an ad using the configuration", ^{
-        fakeMRAdView.loadedHTMLString should equal(configuration.adResponseHTMLString);
+        fakeMRController.loadedHTMLString should equal(configuration.adResponseHTMLString);
     });
 
     it(@"should set itself as the banner delegate", ^{
-        fakeMRAdView.delegate should equal(event);
-    });
-
-    context(@"when the event is told to rotate", ^{
-        beforeEach(^{
-            fakeMRAdView.currentInterfaceOrientation = UIInterfaceOrientationPortrait;
-            [event rotateToOrientation:UIInterfaceOrientationLandscapeLeft];
-        });
-
-        it(@"should also tell the banner", ^{
-            fakeMRAdView.currentInterfaceOrientation should equal(UIInterfaceOrientationLandscapeLeft);
-        });
+        fakeMRController.delegate should equal(event);
     });
 });
 

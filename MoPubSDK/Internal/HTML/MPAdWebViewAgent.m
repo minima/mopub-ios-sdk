@@ -83,8 +83,6 @@ NSString * const kMoPubCustomHost = @"custom";
 {
     self.userInteractionRecognizer.delegate = nil;
     [self.userInteractionRecognizer removeTarget:self action:nil];
-    self.adAlertManager.targetAdView = nil;
-    self.adAlertManager.delegate = nil;
     [self.destinationDisplayAgent cancel];
     [self.destinationDisplayAgent setDelegate:nil];
     self.view.delegate = nil;
@@ -316,8 +314,7 @@ NSString * const kMoPubCustomHost = @"custom";
 {
     UIInterfaceOrientation orientation = [[UIApplication sharedApplication] statusBarOrientation];
     int angle = -1;
-    switch (orientation)
-    {
+    switch (orientation) {
         case UIInterfaceOrientationPortrait: angle = 0; break;
         case UIInterfaceOrientationLandscapeLeft: angle = 90; break;
         case UIInterfaceOrientationLandscapeRight: angle = -90; break;

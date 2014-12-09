@@ -30,6 +30,7 @@ NSString * const kScrollableHeaderKey = @"X-Scrollable";
 NSString * const kWidthHeaderKey = @"X-Width";
 NSString * const kDspCreativeIdKey = @"X-DspCreativeid";
 NSString * const kPrecacheRequiredKey = @"X-PrecacheRequired";
+NSString * const kIsVastVideoPlayerKey = @"X-VastVideoPlayer";
 
 NSString * const kInterstitialAdTypeHeaderKey = @"X-Fulladtype";
 NSString * const kOrientationTypeHeaderKey = @"X-Orientation";
@@ -122,6 +123,8 @@ NSString * const kAdTypeNative = @"json";
         self.dspCreativeId = [headers objectForKey:kDspCreativeIdKey];
 
         self.precacheRequired = [[headers objectForKey:kPrecacheRequiredKey] boolValue];
+
+        self.isVastVideoPlayer = [[headers objectForKey:kIsVastVideoPlayerKey] boolValue];
 
         self.creationTimestamp = [NSDate date];
     }

@@ -77,7 +77,7 @@ describe(@"MPiAdInterstitialIntegrationSuite", ^{
 
             it(@"should track an impression and tell iAd to show", ^{
                 verify_fake_received_selectors(delegate, @[@"interstitialWillAppear:", @"interstitialDidAppear:"]);
-                fakeADInterstitialAd.presentingViewController should equal(presentingController);
+                fakeADInterstitialAd.presentingView should_not be_nil;
                 fakeCoreProvider.sharedFakeMPAnalyticsTracker.trackedImpressionConfigurations.count should equal(1);
             });
 
@@ -98,26 +98,16 @@ describe(@"MPiAdInterstitialIntegrationSuite", ^{
 
             context(@"and the user tries to load again", ^{ itShouldBehaveLike(anInterstitialThatHasAlreadyLoaded); });
 
-            context(@"and the user tries to show (again)", ^{
-                __block UIViewController *newPresentingController;
-
+            context(@"and the user tries to show again", ^{
                 beforeEach(^{
                     [delegate reset_sent_messages];
-                    [fakeCoreProvider.sharedFakeMPAnalyticsTracker reset];
-
-                    newPresentingController = [[UIViewController alloc] init];
-                    [interstitial showFromViewController:newPresentingController];
+                    fakeADInterstitialAd.presentingView = nil;
+                    [interstitial showFromViewController:presentingController];
                 });
 
-                it(@"should tell iAd to show and send the delegate messages again", ^{
-                    // XXX: The "ideal" behavior here is to ignore any -show messages after the first one, until the
-                    // underlying ad is dismissed. However, given the risk that some third-party or custom event
-                    // network could give us a silent failure when presenting (and therefore never dismiss), it might
-                    // be best just to allow multiple calls to go through.
-
-                    fakeADInterstitialAd.presentingViewController should equal(newPresentingController);
-                    verify_fake_received_selectors(delegate, @[@"interstitialWillAppear:", @"interstitialDidAppear:"]);
-                    fakeCoreProvider.sharedFakeMPAnalyticsTracker.trackedImpressionConfigurations.count should equal(0);
+                it(@"should not attempt to show the ad again", ^{
+                    delegate.sent_messages.count should equal(0);
+                    fakeADInterstitialAd.presentingView should be_nil;
                 });
             });
 

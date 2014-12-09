@@ -6,10 +6,9 @@
 //
 
 #import "MPBannerCustomEvent.h"
-#import "MRAdView.h"
 #import "MPPrivateBannerCustomEventDelegate.h"
 
-@interface MPMRAIDBannerCustomEvent : MPBannerCustomEvent <MRAdViewDelegate>
+@interface MPMRAIDBannerCustomEvent : MPBannerCustomEvent
 
 @property (nonatomic, weak) id<MPPrivateBannerCustomEventDelegate> delegate;
 

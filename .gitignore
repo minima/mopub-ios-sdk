@@ -27,4 +27,9 @@ AdNetworkSupport/**/SDK/*.framework
 AdNetworkSupport/**/SDK/*.embeddedframework
 AdNetworkSupport/Vungle/VungleSDK.embeddedframework/
 mopub-ios-sdk.podspec
-Scripts/
+Scripts/*
+!Scripts/build_scripts/
+Scripts/build_scripts/*
+!Scripts/build_scripts/mraid_build.sh
+MoPubCanaryApp/
+mopub-sdk-common/

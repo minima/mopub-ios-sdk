@@ -6,6 +6,7 @@
 //
 
 #import "FakeMPCoreInstanceProvider.h"
+#import "MPGeolocationProvider.h"
 
 @interface FakeMPCoreInstanceProvider ()
 
@@ -65,6 +66,22 @@
 }
 
 #pragma mark - Utilities
+
+- (MPGeolocationProvider *)sharedMPGeolocationProvider
+{
+    return [self returnFake:self.fakeGeolocationProvider
+                     orCall:^id{
+                         return [super sharedMPGeolocationProvider];
+                     }];
+}
+
+- (CLLocationManager *)buildCLLocationManager
+{
+    return [self returnFake:self.fakeLocationManager
+                     orCall:^{
+                         return [super buildCLLocationManager];
+                     }];
+}
 
 - (MPAdAlertManager *)buildMPAdAlertManagerWithDelegate:(id<MPAdAlertManagerDelegate>)delegate
 {

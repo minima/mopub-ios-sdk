@@ -61,6 +61,16 @@ describe(@"MPAdAlertManager", ^{
            });
         });
 
+        context(@"when the the ad alert manager stops monitoring alerts", ^{
+            beforeEach(^{
+                [alertManager endMonitoringAlerts];
+            });
+
+            it(@"should remove the gesture recognizer from the target view", ^{
+                targetAdView.gestureRecognizers should_not contain(alertManager.adAlertGestureRecognizer);
+            });
+        });
+
         context(@"when a gesture is recognized", ^{
             it(@"should tell the delegate", ^{
                 FakeMPAdAlertGestureRecognizer *fakeGestureRecognizer = (FakeMPAdAlertGestureRecognizer *)alertManager.adAlertGestureRecognizer;

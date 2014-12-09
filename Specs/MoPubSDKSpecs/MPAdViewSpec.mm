@@ -1,5 +1,5 @@
 #import "MPAdView.h"
-#import "MRAdView.h"
+#import "MPClosableView.h"
 
 using namespace Cedar::Matchers;
 using namespace Cedar::Doubles;
@@ -61,11 +61,8 @@ describe(@"MPAdView", ^{
 
         context(@"when the content view is an MRAID view", ^{
             it(@"should return the original size of the ad view (don't ask)", ^{
-                MRAdView *mrAdView = [[MPInstanceProvider sharedProvider] buildMRAdViewWithFrame:CGRectMake(0, 0, 40, 50)
-                                                                                 allowsExpansion:YES
-                                                                                closeButtonStyle:MRAdViewCloseButtonStyleAdControlled
-                                                                                   placementType:MRAdViewPlacementTypeInline
-                                                                                        delegate:nil];
+                MPClosableView *mrAdView = [[MPInstanceProvider sharedProvider] buildMRAIDMPClosableViewWithFrame:CGRectMake(0, 0, 40, 50) webView:nil delegate:nil];
+
                 [adView setAdContentView:mrAdView];
                 [adView adContentViewSize] should equal(MOPUB_BANNER_SIZE);
             });

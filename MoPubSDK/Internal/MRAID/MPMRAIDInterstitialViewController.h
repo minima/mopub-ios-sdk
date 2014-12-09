@@ -7,8 +7,6 @@
 
 #import "MPInterstitialViewController.h"
 
-#import "MRAdView.h"
-
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
 @protocol MPMRAIDInterstitialViewControllerDelegate;
@@ -16,7 +14,7 @@
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-@interface MPMRAIDInterstitialViewController : MPInterstitialViewController <MRAdViewDelegate>
+@interface MPMRAIDInterstitialViewController : MPInterstitialViewController
 
 - (id)initWithAdConfiguration:(MPAdConfiguration *)configuration;
 - (void)startLoading;

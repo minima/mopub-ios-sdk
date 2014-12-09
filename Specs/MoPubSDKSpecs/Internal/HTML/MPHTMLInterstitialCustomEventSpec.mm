@@ -27,10 +27,11 @@ describe(@"MPHTMLInterstitialCustomEvent", ^{
         [event requestInterstitialWithCustomEventInfo:nil];
     });
 
-    it(@"should enable automatic metrics tracking", ^{
-        //the interstitial does not perform impression tracking itself, so we must have the custom event adapter do it
-        //technically it *does* do click handling itself, but does not expose a click event so we never trigger the interstitialCustomEventDidReceiveTapEvent: callback and don't have to worry about double counting clicks.
-        event.enableAutomaticImpressionAndClickTracking should equal(YES);
+    it(@"should disable automatic metrics tracking", ^{
+        // The webview agent used by HTML interstitials will track clicks
+        // Since 2.4, HTML interstitials invoke the clicked delegate method that causes the base adapter to kick off the click tracker.
+        // Turn off automatic tracking to prevent double counting of clicks
+        event.enableAutomaticImpressionAndClickTracking should equal(NO);
     });
 
     context(@"when asked to get an ad for a configuration", ^{
@@ -49,6 +50,16 @@ describe(@"MPHTMLInterstitialCustomEvent", ^{
 
         it(@"should tell the interstitial view controller to show the interstitial", ^{
             controller should have_received(@selector(presentInterstitialFromViewController:)).with(presentingController);
+        });
+
+        it(@"should tell the delegate to track an impression when it's visible", ^{
+            [event interstitialDidAppear:nil];
+            delegate should have_received(@selector(trackImpression));
+        });
+
+        it(@"should tell the delegate the interstitial was tapped", ^{
+            [event interstitialDidReceiveTapEvent:nil];
+            delegate should have_received(@selector(interstitialCustomEventDidReceiveTapEvent:));
         });
     });
 });

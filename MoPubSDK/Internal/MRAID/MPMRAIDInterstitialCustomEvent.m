@@ -24,7 +24,9 @@
     MPLogInfo(@"Loading MoPub MRAID interstitial");
     self.interstitial = [[MPInstanceProvider sharedProvider] buildMPMRAIDInterstitialViewControllerWithDelegate:self
                                                                                                   configuration:[self.delegate configuration]];
-    [self.interstitial setCloseButtonStyle:MPInterstitialCloseButtonStyleAdControlled];
+
+    // The MRAID ad view will handle the close button so we don't need the MPInterstitialViewController's close button.
+    [self.interstitial setCloseButtonStyle:MPInterstitialCloseButtonStyleAlwaysHidden];
     [self.interstitial startLoading];
 }
 

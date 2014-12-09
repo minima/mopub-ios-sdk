@@ -16,6 +16,7 @@
 - (void)simulateLoadingAd;
 - (void)simulateFailingToLoad;
 - (void)simulateUserInteraction;
+- (void)simulateUserInteractionFinished;
 - (FBAdView *)masquerade;
 
 - (void)loadAd;

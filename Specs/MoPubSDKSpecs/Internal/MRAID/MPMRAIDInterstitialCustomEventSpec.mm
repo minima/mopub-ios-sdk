@@ -10,12 +10,12 @@ describe(@"MPMRAIDInterstitialCustomEvent", ^{
     __block id<CedarDouble, MPPrivateInterstitialCustomEventDelegate> delegate;
     __block MPMRAIDInterstitialCustomEvent *event;
     __block MPAdConfiguration *configuration;
-    __block MPMRAIDInterstitialViewController<CedarDouble> *controller;
+    __block MPMRAIDInterstitialViewController<CedarDouble> *viewController;
 
     beforeEach(^{
         delegate = nice_fake_for(@protocol(MPPrivateInterstitialCustomEventDelegate));
-        controller = nice_fake_for([MPMRAIDInterstitialViewController class]);
-        fakeProvider.fakeMPMRAIDInterstitialViewController = controller;
+        viewController = nice_fake_for([MPMRAIDInterstitialViewController class]);
+        fakeProvider.fakeMPMRAIDInterstitialViewController = viewController;
 
         configuration = [MPAdConfigurationFactory defaultMRAIDInterstitialConfiguration];
         delegate stub_method("configuration").and_return(configuration);
@@ -34,11 +34,11 @@ describe(@"MPMRAIDInterstitialCustomEvent", ^{
 
     context(@"when asked to get an ad for a configuration", ^{
         it(@"should set the close button style", ^{
-            controller should have_received(@selector(setCloseButtonStyle:)).with(MPInterstitialCloseButtonStyleAdControlled);
+            viewController should have_received(@selector(setCloseButtonStyle:)).with(MPInterstitialCloseButtonStyleAlwaysHidden);
         });
 
         it(@"should tell the interstitial view controller to start loading", ^{
-            controller should have_received(@selector(startLoading));
+            viewController should have_received(@selector(startLoading));
         });
     });
 
@@ -51,31 +51,31 @@ describe(@"MPMRAIDInterstitialCustomEvent", ^{
         });
 
         it(@"should tell the interstitial view controller to show the interstitial", ^{
-            controller should have_received(@selector(presentInterstitialFromViewController:)).with(presentingController);
+            viewController should have_received(@selector(presentInterstitialFromViewController:)).with(presentingController);
         });
     });
 
     describe(@"MPMRAIDInterstitialViewControllerDelegate methods", ^{
         it(@"should pass these through to its delegate", ^{
-            [event interstitialDidLoadAd:controller];
-            delegate should have_received(@selector(interstitialCustomEvent:didLoadAd:)).with(event).and_with(controller);
+            [event interstitialDidLoadAd:viewController];
+            delegate should have_received(@selector(interstitialCustomEvent:didLoadAd:)).with(event).and_with(viewController);
 
-            [event interstitialDidFailToLoadAd:controller];
+            [event interstitialDidFailToLoadAd:viewController];
             delegate should have_received(@selector(interstitialCustomEvent:didFailToLoadAdWithError:)).with(event).and_with(nil);
 
-            [event interstitialWillAppear:controller];
+            [event interstitialWillAppear:viewController];
             delegate should have_received(@selector(interstitialCustomEventWillAppear:)).with(event);
 
-            [event interstitialDidAppear:controller];
+            [event interstitialDidAppear:viewController];
             delegate should have_received(@selector(interstitialCustomEventDidAppear:)).with(event);
 
-            [event interstitialWillDisappear:controller];
+            [event interstitialWillDisappear:viewController];
             delegate should have_received(@selector(interstitialCustomEventWillDisappear:)).with(event);
 
-            [event interstitialDidDisappear:controller];
+            [event interstitialDidDisappear:viewController];
             delegate should have_received(@selector(interstitialCustomEventDidDisappear:)).with(event);
 
-            [event interstitialWillLeaveApplication:controller];
+            [event interstitialWillLeaveApplication:viewController];
             delegate should have_received(@selector(interstitialCustomEventWillLeaveApplication:)).with(event);
         });
     });

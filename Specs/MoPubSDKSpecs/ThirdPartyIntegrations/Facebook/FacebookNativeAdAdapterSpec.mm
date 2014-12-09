@@ -44,8 +44,8 @@ describe(@"FacebookNativeAdAdapter", ^{
 
         it(@"should map its properties correctly", ^{
             FBNativeAd<CedarDouble> *mockPropertiesAd = nice_fake_for([FBNativeAd class]);
-            mockPropertiesAd stub_method(@selector(coverImage)).and_return([[FBAdImage alloc] initWithURL:[NSURL URLWithString:@"https://pbs.twimg.com/profile_images/431949550836662272/A6Ck-0Gx_normal.png"] width:50 height:50]);
-            mockPropertiesAd stub_method(@selector(icon)).and_return([[FBAdImage alloc] initWithURL:[NSURL URLWithString:@"https://pbs.twimg.com/profile_images/431949550836662272/A6Ck-0Gx_normal.png"] width:50 height:50]);
+            mockPropertiesAd stub_method(@selector(coverImage)).and_return([[FBAdImage alloc] initWithURL:[NSURL URLWithString:kMPSpecsTestImageURL] width:50 height:50]);
+            mockPropertiesAd stub_method(@selector(icon)).and_return([[FBAdImage alloc] initWithURL:[NSURL URLWithString:kMPSpecsTestImageURL] width:50 height:50]);
             mockPropertiesAd stub_method(@selector(title)).and_return(@"title");
             mockPropertiesAd stub_method(@selector(body)).and_return(@"text");
             mockPropertiesAd stub_method(@selector(callToAction)).and_return(@"cta");
@@ -55,8 +55,8 @@ describe(@"FacebookNativeAdAdapter", ^{
 
             [properties objectForKey:kAdTitleKey] should equal(@"title");
             [properties objectForKey:kAdTextKey] should equal(@"text");
-            [properties objectForKey:kAdIconImageKey] should equal(@"https://pbs.twimg.com/profile_images/431949550836662272/A6Ck-0Gx_normal.png");
-            [properties objectForKey:kAdMainImageKey] should equal(@"https://pbs.twimg.com/profile_images/431949550836662272/A6Ck-0Gx_normal.png");
+            [properties objectForKey:kAdIconImageKey] should equal(kMPSpecsTestImageURL);
+            [properties objectForKey:kAdMainImageKey] should equal(kMPSpecsTestImageURL);
             [properties objectForKey:kAdCTATextKey] should equal(@"cta");
         });
 

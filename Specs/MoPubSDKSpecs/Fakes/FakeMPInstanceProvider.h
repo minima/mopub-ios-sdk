@@ -21,22 +21,21 @@
 #import "MPInterstitialAdManager.h"
 #import "GADRequest.h"
 #import "FakeMMAdView.h"
-#import "FakeMPReachability.h"
 #import "FakeGSBannerAdView.h"
 #import "MPBaseBannerAdapter.h"
 #import "FakeBannerCustomEvent.h"
 #import "FakeMPTimer.h"
 #import "FakeMPAdAlertManager.h"
 #import "FakeMPAdAlertGestureRecognizer.h"
-#import "FakeMRAdView.h"
+#import "FakeMRController.h"
 #import <FBAudienceNetwork/FBAudienceNetwork.h>
 #import <Foundation/Foundation.h>
 #import "MPNativeAdSource.h"
 #import "MPNativePositionSource.h"
 #import "MPStreamAdPlacer.h"
 #import "FakeMPStreamAdPlacer.h"
+#import "MPClosableView.h"
 
-@class MRJavaScriptEventEmitter;
 @class MRCalendarManager;
 @class EKEventStore;
 @class EKEventEditViewController;
@@ -44,8 +43,9 @@
 @class MRVideoPlayerManager;
 @class MPMoviePlayerViewController;
 @class MRBundleManager;
-@class MRAdView;
+@class MRBridge;
 @class MPStreamAdPlacementData;
+@class MRNativeCommandHandler;
 
 @interface FakeMPInstanceProvider : MPInstanceProvider
 
@@ -65,10 +65,11 @@
 @property (nonatomic, strong) MPAdWebViewAgent *fakeMPAdWebViewAgent;
 
 #pragma mark - MRAID
-@property (nonatomic, strong) MRAdView *fakeMRAdView;
+@property (nonatomic, strong) MPClosableView *fakeMRAIDMPClosableView;
+@property (nonatomic, strong) MRController *fakeMRController;
+@property (nonatomic, strong) MRBridge *fakeMRBridge;
 @property (nonatomic, strong) MRBundleManager *fakeMRBundleManager;
 @property (nonatomic, strong) UIWebView *fakeUIWebView;
-@property (nonatomic, strong) MRJavaScriptEventEmitter *fakeMRJavaScriptEventEmitter;
 @property (nonatomic, strong) MRCalendarManager *fakeMRCalendarManager;
 @property (nonatomic, strong) EKEventEditViewController *fakeEKEventEditViewController;
 @property (nonatomic, strong) EKEventStore *fakeEKEventStore;
@@ -76,6 +77,7 @@
 @property (nonatomic, strong) MRImageDownloader *fakeImageDownloader;
 @property (nonatomic, strong) MRVideoPlayerManager *fakeMRVideoPlayerManager;
 @property (nonatomic, strong) MPMoviePlayerViewController *fakeMoviePlayerViewController;
+@property (nonatomic, strong) MRNativeCommandHandler *fakeNativeCommandHandler;
 
 #pragma mark - Native
 @property (nonatomic, strong) MPNativeAdSource *fakeNativeAdSource;

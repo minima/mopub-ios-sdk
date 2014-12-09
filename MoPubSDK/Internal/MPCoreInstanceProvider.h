@@ -26,6 +26,8 @@
 @class MPAnalyticsTracker;
 @class MPReachability;
 @class MPTimer;
+@class MPGeolocationProvider;
+@class CLLocationManager;
 
 typedef id(^MPSingletonProviderBlock)();
 
@@ -51,6 +53,8 @@ typedef enum {
 - (MPAdDestinationDisplayAgent *)buildMPAdDestinationDisplayAgentWithDelegate:(id<MPAdDestinationDisplayAgentDelegate>)delegate;
 
 #pragma mark - Utilities
+- (MPGeolocationProvider *)sharedMPGeolocationProvider;
+- (CLLocationManager *)buildCLLocationManager;
 - (id<MPAdAlertManagerProtocol>)buildMPAdAlertManagerWithDelegate:(id)delegate;
 - (MPAdAlertGestureRecognizer *)buildMPAdAlertGestureRecognizerWithTarget:(id)target action:(SEL)action;
 - (NSOperationQueue *)sharedOperationQueue;

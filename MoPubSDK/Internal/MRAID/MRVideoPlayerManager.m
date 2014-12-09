@@ -40,6 +40,11 @@
     [[self.delegate viewControllerForPresentingVideoPlayer] mp_presentModalViewController:controller
                                                                                  animated:MP_ANIMATED];
 
+    // Avoid subscribing to the notification multiple times in the event the user plays the video more than once.
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:MPMoviePlayerPlaybackDidFinishNotification
+                                                  object:nil];
+
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(moviePlayerPlaybackDidFinish:)
                                                  name:MPMoviePlayerPlaybackDidFinishNotification

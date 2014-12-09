@@ -121,8 +121,7 @@ static CGFloat const kBaseBackoffTimeMultiplier = 1.5;
             if ([self count] == 1) {
                 [self.delegate adSourceQueueAdIsAvailable:self];
             }
-        }
-        else {
+        } else {
             MPLogDebug(@"%@", error);
             //increment in this failure case to prevent retrying a request that wasn't bid on.
             //currently under discussion on whether we do this or not.

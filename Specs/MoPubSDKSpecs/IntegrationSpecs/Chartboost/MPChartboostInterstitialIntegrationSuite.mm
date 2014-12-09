@@ -52,6 +52,31 @@ describe(@"Chartboost Integration", ^{
             setUpInterstitialSharedContext(communicator, delegate, interstitial, @"chartboost_interstitial", nice_fake_for(@protocol(FakeInterstitialAd)), configuration.failoverURL);
         });
 
+        context(@"when Chartboost already has a cached interstitial", ^{
+            beforeEach(^{
+                [Chartboost setHasInterstitial:@YES forLocation:@"HazIt"];
+
+                delegate = nice_fake_for(@protocol(MPInterstitialAdControllerDelegate));
+                interstitial = [MPInterstitialAdController interstitialAdControllerForAdUnitId:@"chartboost_interstitial_cached_test"];
+                interstitial.delegate = delegate;
+
+                presentingController = [[UIViewController alloc] init];
+
+                // request an Ad
+                [interstitial loadAd];
+
+                communicator = fakeCoreProvider.lastFakeMPAdServerCommunicator;
+
+                // receive the configuration -- this will create an adapter which will use our fake interstitial
+                configuration = [MPAdConfigurationFactory defaultChartboostInterstitialConfigurationWithLocation:@"HazIt"];
+                [communicator receiveConfiguration:configuration];
+            });
+
+            it(@"should let the delegate know the interstitial is ready", ^{
+                delegate should have_received(@selector(interstitialDidLoadAd:));
+            });
+        });
+
         context(@"while the ad is loading", ^{
             it(@"should configure Chartboost properly, start the session and start caching the interstitial", ^{
                 [Chartboost appId] should equal(@"myAppId");

@@ -39,7 +39,7 @@ static BOOL gUseNilForIconImage;
         return nil;
     }
 
-    return [[FBAdImage alloc] initWithURL:[NSURL URLWithString:@"https://pbs.twimg.com/profile_images/431949550836662272/A6Ck-0Gx_normal.png"] width:50 height:50];
+    return [[FBAdImage alloc] initWithURL:[NSURL URLWithString:kMPSpecsTestImageURL] width:50 height:50];
 }
 
 - (FBAdImage *)icon
@@ -48,7 +48,7 @@ static BOOL gUseNilForIconImage;
         return nil;
     }
 
-    return [[FBAdImage alloc] initWithURL:[NSURL URLWithString:@"https://pbs.twimg.com/profile_images/431949550836662272/A6Ck-0Gx_normal.png"] width:50 height:50];
+    return [[FBAdImage alloc] initWithURL:[NSURL URLWithString:kMPSpecsTestImageURL] width:50 height:50];
 }
 
 - (struct FBAdStarRating)starRating

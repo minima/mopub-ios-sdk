@@ -215,7 +215,11 @@ forChartboostInterstitialCustomEvent:(ChartboostInterstitialCustomEvent *)event
             [Chartboost startWithAppId:appId appSignature:appSignature delegate:self];
         });
 
-        [Chartboost cacheInterstitial:location];
+        if ([self hasCachedInterstitialForLocation:location]) {
+            [self didCacheInterstitial:location];
+        } else {
+            [Chartboost cacheInterstitial:location];
+        }
     } else {
         MPLogInfo(@"Failed to load Chartboost interstitial: missing either appId or appSignature.");
         [event didFailToLoadInterstitial:location withError:CBLoadErrorInternal];

@@ -30,13 +30,12 @@ UIWindow *MPKeyWindow()
 }
 
 CGFloat MPStatusBarHeight() {
-    if ([UIApplication sharedApplication].statusBarHidden) return 0.0;
+    if ([UIApplication sharedApplication].statusBarHidden) return 0.0f;
 
-    UIInterfaceOrientation orientation = MPInterfaceOrientation();
+    CGFloat width = CGRectGetWidth([UIApplication sharedApplication].statusBarFrame);
+    CGFloat height = CGRectGetHeight([UIApplication sharedApplication].statusBarFrame);
 
-    return UIInterfaceOrientationIsLandscape(orientation) ?
-        CGRectGetWidth([UIApplication sharedApplication].statusBarFrame) :
-        CGRectGetHeight([UIApplication sharedApplication].statusBarFrame);
+    return (width < height) ? width : height;
 }
 
 CGRect MPApplicationFrame()
@@ -53,8 +52,7 @@ CGRect MPScreenBounds()
 {
     CGRect bounds = [UIScreen mainScreen].bounds;
 
-    if (UIInterfaceOrientationIsLandscape(MPInterfaceOrientation()))
-    {
+    if (UIInterfaceOrientationIsLandscape(MPInterfaceOrientation()) && [[UIDevice currentDevice].systemVersion compare:@"8.0"] == NSOrderedAscending) {
         CGFloat width = bounds.size.width;
         bounds.size.width = bounds.size.height;
         bounds.size.height = width;
@@ -66,11 +64,11 @@ CGRect MPScreenBounds()
 CGFloat MPDeviceScaleFactor()
 {
     if ([[UIScreen mainScreen] respondsToSelector:@selector(displayLinkWithTarget:selector:)] &&
-        [[UIScreen mainScreen] respondsToSelector:@selector(scale)])
-    {
+        [[UIScreen mainScreen] respondsToSelector:@selector(scale)]) {
         return [[UIScreen mainScreen] scale];
+    } else {
+        return 1.0;
     }
-    else return 1.0;
 }
 
 NSDictionary *MPDictionaryFromQueryString(NSString *query) {
@@ -93,8 +91,7 @@ NSString *MPSHA1Digest(NSString *string)
     CC_SHA1([data bytes], (CC_LONG)[data length], digest);
 
     NSMutableString *output = [NSMutableString stringWithCapacity:CC_SHA1_DIGEST_LENGTH * 2];
-    for (int i = 0; i < CC_SHA1_DIGEST_LENGTH; i++)
-    {
+    for (int i = 0; i < CC_SHA1_DIGEST_LENGTH; i++) {
         [output appendFormat:@"%02x", digest[i]];
     }
 
@@ -189,6 +186,52 @@ BOOL MPViewIntersectsParentWindowWithPercent(UIView *view, CGFloat percentVisibl
 
 @implementation UIDevice (MPAdditions)
 
+- (BOOL)supportsOrientationMask:(UIInterfaceOrientationMask)orientationMask
+{
+    NSArray *supportedOrientations = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"UISupportedInterfaceOrientations"];
+
+    if (orientationMask & UIInterfaceOrientationMaskLandscape) {
+        if ([supportedOrientations containsObject:@"UIInterfaceOrientationLandscapeLeft"] || [supportedOrientations containsObject:@"UIInterfaceOrientationLandscapeRight"]) {
+            return YES;
+        }
+    }
+
+    if (orientationMask & UIInterfaceOrientationMaskPortrait) {
+        if ([supportedOrientations containsObject:@"UIInterfaceOrientationPortrait"]) {
+            return YES;
+        }
+    }
+
+    if (orientationMask & UIInterfaceOrientationMaskPortraitUpsideDown) {
+        if ([supportedOrientations containsObject:@"UIInterfaceOrientationPortraitUpsideDown"]) {
+            return YES;
+        }
+    }
+
+    return NO;
+}
+
+- (BOOL)doesOrientation:(UIInterfaceOrientation)orientation matchOrientationMask:(UIInterfaceOrientationMask)orientationMask
+{
+    BOOL supportsLandscape = (orientationMask & UIInterfaceOrientationMaskLandscape) > 0;
+    BOOL supportsPortrait = (orientationMask & UIInterfaceOrientationMaskPortrait) > 0;
+    BOOL supportsPortraitUpsideDown = (orientationMask & UIInterfaceOrientationMaskPortraitUpsideDown) > 0;
+
+    if (supportsLandscape && (orientation == UIInterfaceOrientationLandscapeLeft || orientation == UIInterfaceOrientationLandscapeRight)) {
+        return YES;
+    }
+
+    if (supportsPortrait && (orientation == UIInterfaceOrientationPortrait)) {
+        return YES;
+    }
+
+    if (supportsPortraitUpsideDown && (orientation == UIInterfaceOrientationPortraitUpsideDown)) {
+        return YES;
+    }
+
+    return NO;
+}
+
 - (NSString *)hardwareDeviceName
 {
     size_t size;
@@ -202,6 +245,17 @@ BOOL MPViewIntersectsParentWindowWithPercent(UIView *view, CGFloat percentVisibl
 
 @end
 
+@implementation UIApplication (MPAdditions)
+
+- (void)mp_preIOS7setApplicationStatusBarHidden:(BOOL)hidden
+{
+    // Hiding the status bar should use a fade effect.
+    // Displaying the status bar should use no animation.
+    UIStatusBarAnimation animation = hidden ?
+    UIStatusBarAnimationFade : UIStatusBarAnimationNone;
+    [[UIApplication sharedApplication] setStatusBarHidden:hidden withAnimation:animation];
+}
+@end
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
 @interface MPTelephoneConfirmationController ()

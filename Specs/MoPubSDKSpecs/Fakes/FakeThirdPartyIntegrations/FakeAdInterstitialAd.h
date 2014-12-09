@@ -12,6 +12,7 @@
 @property (nonatomic, weak) id <ADInterstitialAdDelegate> delegate;
 @property (nonatomic, assign, readwrite, getter=isLoaded) BOOL loaded;
 @property (nonatomic, strong) UIViewController *presentingViewController;
+@property (nonatomic, strong) UIView *presentingView;
 
 - (ADInterstitialAd *)masquerade;
 
@@ -20,6 +21,6 @@
 - (void)simulateUserDismissingAd;
 - (void)simulateUnloadingAd;
 - (void)simulateUserInteraction;
-- (void)presentFromViewController:(UIViewController *)controller;
+- (BOOL)presentInView:(UIView *)containerView;
 
 @end

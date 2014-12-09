@@ -7,13 +7,13 @@
 
 #import "MPURLResolver.h"
 #import "NSURL+MPAdditions.h"
+#import "NSHTTPURLResponse+MPAdditions.h"
 #import "MPInstanceProvider.h"
 #import "MPLogging.h"
 #import "MPCoreInstanceProvider.h"
 
 static NSString * const kMoPubSafariScheme = @"mopubnativebrowser";
 static NSString * const kMoPubSafariNavigateHost = @"navigate";
-static NSString * const kMoPubHTTPHeaderContentType = @"Content-Type";
 
 @interface MPURLResolver ()
 
@@ -200,9 +200,11 @@ static NSString * const kMoPubHTTPHeaderContentType = @"Content-Type";
 
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
 {
-    NSDictionary *headers = [(NSHTTPURLResponse *)response allHeaderFields];
+    NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
+
+    NSDictionary *headers = [httpResponse allHeaderFields];
     NSString *contentType = [headers objectForKey:kMoPubHTTPHeaderContentType];
-    self.responseEncoding = [self stringEncodingFromContentType:contentType];
+    self.responseEncoding = [httpResponse stringEncodingFromContentType:contentType];
 }
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection

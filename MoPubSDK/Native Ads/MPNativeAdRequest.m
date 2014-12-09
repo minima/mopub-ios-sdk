@@ -63,8 +63,7 @@
 
 - (void)startWithCompletionHandler:(MPNativeAdRequestHandler)handler
 {
-    if (handler)
-    {
+    if (handler) {
         self.URL = [MPAdServerURLBuilder URLWithAdUnitID:self.adUnitIdentifier
                                                 keywords:self.targeting.keywords
                                                 location:self.targeting.location
@@ -76,17 +75,14 @@
         [self assignCompletionHandler:handler];
 
         [self loadAdWithURL:self.URL];
-    }
-    else
-    {
+    } else {
         MPLogWarn(@"Native Ad Request did not start - requires completion handler block.");
     }
 }
 
 - (void)startForAdSequence:(NSInteger)adSequence withCompletionHandler:(MPNativeAdRequestHandler)handler
 {
-    if (handler)
-    {
+    if (handler) {
         self.URL = [MPAdServerURLBuilder URLWithAdUnitID:self.adUnitIdentifier
                                                 keywords:self.targeting.keywords
                                                 location:self.targeting.location
@@ -99,9 +95,7 @@
         [self assignCompletionHandler:handler];
 
         [self loadAdWithURL:self.URL];
-    }
-    else
-    {
+    } else {
         MPLogWarn(@"Native Ad Request did not start - requires completion handler block.");
     }
 }
@@ -186,8 +180,7 @@
         MPLogInfo(kMPClearErrorLogFormatWithAdUnitID, self.adUnitIdentifier);
 
         [self completeAdRequestWithAdObject:nil error:[NSError errorWithDomain:MoPubNativeAdsSDKDomain code:MPNativeAdErrorNoInventory userInfo:nil]];
-    }
-    else {
+    } else {
         MPLogInfo(@"Received data from MoPub to construct native ad.\n");
         [self getAdWithConfiguration:configuration];
     }

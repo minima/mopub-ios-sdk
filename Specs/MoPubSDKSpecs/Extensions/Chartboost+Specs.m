@@ -24,7 +24,14 @@ static NSString *gCurrentVisibleLocation;
     [self setDelegate:delegate];
 
     gRequestedLocations = [NSMutableArray array];
-    gCachedInterstitials = [NSMutableDictionary dictionary];
+    [self initCachedInterstitials];
+}
+
++ (void)initCachedInterstitials
+{
+    if (gCachedInterstitials == nil) {
+        gCachedInterstitials = [NSMutableDictionary dictionary];
+    }
 }
 
 + (void)cacheInterstitial:(CBLocation)location
@@ -34,6 +41,7 @@ static NSString *gCurrentVisibleLocation;
 
 + (void)setHasInterstitial:(NSNumber *)hasInterstitial forLocation:(CBLocation)location
 {
+    [self initCachedInterstitials];
     [gCachedInterstitials setObject:hasInterstitial forKey:location];
 }
 

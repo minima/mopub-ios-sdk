@@ -7,6 +7,8 @@
 
 #import "MPCoreInstanceProvider.h"
 #import "FakeOperationQueue.h"
+#import "FakeMPReachability.h"
+#import "FakeMPGeolocationProvider.h"
 
 @interface FakeMPCoreInstanceProvider : MPCoreInstanceProvider
 
@@ -18,10 +20,12 @@
 @property (nonatomic, strong) MPAdDestinationDisplayAgent *fakeMPAdDestinationDisplayAgent;
 
 #pragma mark - Utilities
+@property (nonatomic, strong) CLLocationManager *fakeLocationManager;
 @property (nonatomic, strong) FakeMPAdAlertManager *fakeAdAlertManager;
 @property (nonatomic, strong) FakeMPAdAlertGestureRecognizer *fakeAdAlertGestureRecognizer;
 @property (nonatomic, strong) FakeOperationQueue *fakeOperationQueue;
 @property (nonatomic, strong) FakeMPReachability *fakeMPReachability;
+@property (nonatomic, strong) MPGeolocationProvider *fakeGeolocationProvider;
 @property (nonatomic, strong) NSDictionary *fakeCarrierInfo;
 
 - (NSString *)userAgent;

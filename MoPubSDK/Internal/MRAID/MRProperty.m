@@ -61,10 +61,21 @@
 - (NSString *)description {
     NSString *stateString;
     switch (_state) {
-        case MRAdViewStateHidden:      stateString = @"hidden"; break;
-        case MRAdViewStateDefault:     stateString = @"default"; break;
-        case MRAdViewStateExpanded:    stateString = @"expanded"; break;
-        default:                       stateString = @"loading"; break;
+        case MRAdViewStateHidden:
+            stateString = @"hidden";
+            break;
+        case MRAdViewStateDefault:
+            stateString = @"default";
+            break;
+        case MRAdViewStateExpanded:
+            stateString = @"expanded";
+            break;
+        case MRAdViewStateResized:
+            stateString = @"resized";
+            break;
+        default:
+            stateString = @"loading";
+            break;
     }
     return [NSString stringWithFormat:@"state: '%@'", stateString];
 }

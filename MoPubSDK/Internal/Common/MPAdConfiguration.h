@@ -33,6 +33,7 @@ extern NSString * const kScrollableHeaderKey;
 extern NSString * const kWidthHeaderKey;
 extern NSString * const kDspCreativeIdKey;
 extern NSString * const kPrecacheRequiredKey;
+extern NSString * const kIsVastVideoPlayerKey;
 
 extern NSString * const kInterstitialAdTypeHeaderKey;
 extern NSString * const kOrientationTypeHeaderKey;
@@ -64,6 +65,7 @@ extern NSString * const kAdTypeNative;
 @property (nonatomic, assign) MPInterstitialOrientationType orientationType;
 @property (nonatomic, copy) NSString *dspCreativeId;
 @property (nonatomic, assign) BOOL precacheRequired;
+@property (nonatomic, assign) BOOL isVastVideoPlayer;
 @property (nonatomic, strong) NSDate *creationTimestamp;
 
 - (id)initWithHeaders:(NSDictionary *)headers data:(NSData *)data;
