@@ -1,5 +1,5 @@
 //
-//  InMobieNativeCustomEvent.m
+//  InMobiNativeCustomEvent.m
 //  MoPub
 //
 //  Copyright (c) 2014 MoPub. All rights reserved.
@@ -14,6 +14,8 @@
 #import "MPNativeAdConstants.h"
 #import "MPNativeAdUtils.h"
 
+static NSString *gAppId = nil;
+
 @interface InMobiNativeCustomEvent () <IMNativeDelegate>
 
 @property (nonatomic, strong) IMNative *inMobiAd;
@@ -22,6 +24,11 @@
 
 @implementation InMobiNativeCustomEvent
 
++ (void)setAppId:(NSString *)appId
+{
+    gAppId = [appId copy];
+}
+
 - (void)dealloc
 {
     _inMobiAd.delegate = nil;
@@ -29,9 +36,14 @@
 
 - (void)requestAdWithCustomEventInfo:(NSDictionary *)info
 {
-    NSString *appID = [info objectForKey:@"app_id"];
-    if ([appID length]) {
-        _inMobiAd = [[IMNative alloc] initWithAppId:appID];
+    NSString *appId = [info objectForKey:@"app_id"];
+
+    if ([appId length] == 0) {
+        appId = gAppId;
+    }
+
+    if ([appId length]) {
+        _inMobiAd = [[IMNative alloc] initWithAppId:appId];
         self.inMobiAd.delegate = self;
         [self.inMobiAd loadAd];
     } else {

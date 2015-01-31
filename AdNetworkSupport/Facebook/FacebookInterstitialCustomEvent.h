@@ -5,14 +5,16 @@
 //  Copyright (c) 2014 MoPub. All rights reserved.
 //
 
-#import <FBAudienceNetwork/FBAudienceNetwork.h>
-
-#import "MPInterstitialCustomEvent.h"
+#if __has_include(<MoPub/MoPub.h>)
+    #import <MoPub/MoPub.h>
+#else
+    #import "MPInterstitialCustomEvent.h"
+#endif
 
 /**
- * Certified with the Facebook iOS SDK version 3.18.2
+ * Certified with the Facebook iOS SDK version 3.21.1
  */
 
-@interface FacebookInterstitialCustomEvent : MPInterstitialCustomEvent <FBInterstitialAdDelegate>
+@interface FacebookInterstitialCustomEvent : MPInterstitialCustomEvent
 
 @end

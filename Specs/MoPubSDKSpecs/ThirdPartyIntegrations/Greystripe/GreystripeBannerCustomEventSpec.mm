@@ -12,6 +12,10 @@ using namespace Cedar::Doubles;
 
 @end
 
+@interface GreystripeBannerCustomEvent (Specs) <GSAdDelegate>
+
+@end
+
 SPEC_BEGIN(GreystripeBannerCustomEventSpec)
 
 describe(@"GreystripeBannerCustomEvent", ^{

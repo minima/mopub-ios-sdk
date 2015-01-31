@@ -29,7 +29,7 @@
     self = [super initWithNibName:@"MPBannerAdDetailViewController" bundle:nil];
     if (self) {
         self.info = info;
-    
+
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= MP_IOS_7_0
         if ([self respondsToSelector:@selector(setEdgesForExtendedLayout:)]) {
             self.edgesForExtendedLayout = UIRectEdgeNone;
@@ -47,10 +47,8 @@
     self.titleLabel.text = self.info.title;
     self.IDLabel.text = self.info.ID;
     self.keywordsTextField.text = self.info.keywords;
-    
+
     self.loadAdButton.enabled = NO;
-    
-    [self configureAd];
 
     [self.spinner startAnimating];
 }
@@ -58,20 +56,20 @@
 - (IBAction)loadAdClicked:(id)sender
 {
     self.adView.keywords = self.keywordsTextField.text;
-    
+
     self.info.keywords = self.adView.keywords;
     // persist last used keywords if this is a saved ad
     if ([[MPAdPersistenceManager sharedManager] savedAdForID:self.info.ID] != nil) {
         [[MPAdPersistenceManager sharedManager] addSavedAd:self.info];
     }
-    
+
     [self loadAd];
 }
 
 - (void)configureAd
 {
     self.adView = [[MPSampleAppInstanceProvider sharedProvider] buildMPAdViewWithAdUnitID:self.info.ID
-                                                                                     size:MOPUB_BANNER_SIZE];
+                                                                                     size:self.adViewContainer.bounds.size];
     self.adView.delegate = self;
     self.adView.accessibilityLabel = @"banner";
     self.adView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
@@ -83,6 +81,7 @@
     [super viewDidAppear:animated];
 
     if (!self.didLoadAd) {
+        [self configureAd];
         [self loadAd];
         self.didLoadAd = YES;
     }
@@ -91,7 +90,7 @@
 - (void)loadAd
 {
     [self.keywordsTextField endEditing:YES];
-    
+
     self.loadAdButton.enabled = NO;
     self.failLabel.hidden = YES;
     [self.spinner startAnimating];
@@ -107,7 +106,7 @@
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
     [textField endEditing:YES];
-    
+
     return YES;
 }
 
@@ -121,14 +120,14 @@
 - (void)adViewDidLoadAd:(MPAdView *)view
 {
     self.loadAdButton.enabled = YES;
-    
+
     [self.spinner stopAnimating];
 }
 
 - (void)adViewDidFailToLoadAd:(MPAdView *)view
 {
     self.loadAdButton.enabled = YES;
-    
+
     [self.spinner stopAnimating];
     self.failLabel.hidden = NO;
 }

@@ -33,3 +33,14 @@ Scripts/build_scripts/*
 !Scripts/build_scripts/mraid_build.sh
 MoPubCanaryApp/
 mopub-sdk-common/
+AdColonyCustomEvent/
+ChartboostCustomEvent/
+FacebookCustomEvent/
+GoogleAdMobCustomEvent/
+GreystripeCustomEvent/
+InMobiCustomEvent/
+MillennialCustomEvent/
+MoPubFabric/
+MoPubResources/
+VungleCustomEvent/
+iAdCustomEvent/

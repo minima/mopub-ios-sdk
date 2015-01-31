@@ -5,12 +5,16 @@
 //  Copyright (c) 2014 MoPub. All rights reserved.
 //
 
-#import "MPNativeAdAdapter.h"
+#if __has_include(<MoPub/MoPub.h>)
+    #import <MoPub/MoPub.h>
+#else
+    #import "MPNativeAdAdapter.h"
+#endif
 
 @class FBNativeAd;
 
 /**
- * Certified with the Facebook iOS SDK version 3.18.2
+ * Certified with the Facebook iOS SDK version 3.21.1
  */
 
 @interface FacebookNativeAdAdapter : NSObject <MPNativeAdAdapter>

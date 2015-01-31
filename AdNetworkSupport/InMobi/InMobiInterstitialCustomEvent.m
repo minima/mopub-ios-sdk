@@ -5,9 +5,13 @@
 //  Copyright (c) 2013 MoPub, Inc. All rights reserved.
 //
 
+#import "IMInterstitial.h"
+#import "IMInterstitialDelegate.h"
 #import "InMobiInterstitialCustomEvent.h"
 #import "MPInstanceProvider.h"
 #import "MPLogging.h"
+
+static NSString *gAppId = nil;
 
 #define kInMobiAppID    @"YOUR_INMOBI_APP_ID"
 
@@ -30,7 +34,7 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-@interface InMobiInterstitialCustomEvent ()
+@interface InMobiInterstitialCustomEvent () <IMInterstitialDelegate>
 
 @property (nonatomic, strong) IMInterstitial *inMobiInterstitial;
 
@@ -40,20 +44,31 @@
 
 @synthesize inMobiInterstitial = _inMobiInterstitial;
 
++ (void)setAppId:(NSString *)appId
+{
+    gAppId = [appId copy];
+}
+
 #pragma mark - MPInterstitialCustomEvent Subclass Methods
 
 - (void)requestInterstitialWithCustomEventInfo:(NSDictionary *)info
 {
     MPLogInfo(@"Requesting InMobi interstitial");
-    self.inMobiInterstitial = [[MPInstanceProvider sharedProvider] buildIMInterstitialWithDelegate:self appId:kInMobiAppID];
+
+    NSString *appId = gAppId;
+    if ([appId length] == 0) {
+        appId = kInMobiAppID;
+    }
+
+    self.inMobiInterstitial = [[MPInstanceProvider sharedProvider] buildIMInterstitialWithDelegate:self appId:appId];
     NSMutableDictionary *paramsDict = [NSMutableDictionary dictionary];
     [paramsDict setObject:@"c_mopub" forKey:@"tp"];
     [paramsDict setObject:MP_SDK_VERSION forKey:@"tp-ver"];
     self.inMobiInterstitial.additionaParameters = paramsDict; // For supply source identification
     if (self.delegate.location) {
         [InMobi setLocationWithLatitude:self.delegate.location.coordinate.latitude
-                               longitude:self.delegate.location.coordinate.longitude
-                                accuracy:self.delegate.location.horizontalAccuracy];
+                              longitude:self.delegate.location.coordinate.longitude
+                               accuracy:self.delegate.location.horizontalAccuracy];
     }
     [self.inMobiInterstitial loadInterstitial];
 }

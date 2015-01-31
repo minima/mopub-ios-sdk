@@ -40,6 +40,7 @@
     [self addScenario:[KIFTestScenario scenarioForBannerAdWithInvalidStoreKitLink]];
     [self addScenario:[KIFTestScenario scenarioForClickToSafariBannerAd]];
     [self addScenario:[KIFTestScenario scenarioForClickToSafariMRAIDAd]];
+    [self addScenario:[KIFTestScenario scenarioForFacebookBanner]];
     [self addScenario:[KIFTestScenario scenarioForMillennialBanner]];
     [self addScenario:[KIFTestScenario scenarioForGADBanner]];
     [self addScenario:[KIFTestScenario scenarioForGreystripeBanner]];
@@ -59,8 +60,9 @@
 
     // interstitials
     [self addScenario:[KIFTestScenario scenarioForInterstitialAdWithStoreKitLink]];
-    [self addScenario:[KIFTestScenario scenarioForMillennialInterstitial]];
+    [self addScenario:[KIFTestScenario scenarioForFacebookInterstitial]];
     [self addScenario:[KIFTestScenario scenarioForGADInterstitial]];
+    [self addScenario:[KIFTestScenario scenarioForMillennialInterstitial]];
     [self addScenario:[KIFTestScenario scenarioForGreystripeInterstitial]];
     [self addScenario:[KIFTestScenario scenarioForInMobiInterstitial]];
     [self addScenario:[KIFTestScenario scenarioForChartboostInterstitial]];

@@ -4,6 +4,12 @@
 using namespace Cedar::Matchers;
 using namespace Cedar::Doubles;
 
+@interface MPMRAIDInterstitialCustomEvent ()
+
+@property (nonatomic, readonly) MPMRAIDInterstitialViewController *interstitial;
+
+@end
+
 SPEC_BEGIN(MPMRAIDInterstitialCustomEventSpec)
 
 describe(@"MPMRAIDInterstitialCustomEvent", ^{
@@ -52,6 +58,16 @@ describe(@"MPMRAIDInterstitialCustomEvent", ^{
 
         it(@"should tell the interstitial view controller to show the interstitial", ^{
             viewController should have_received(@selector(presentInterstitialFromViewController:)).with(presentingController);
+        });
+
+        context(@"when asked to dismiss the interstitial", ^{
+            beforeEach(^{
+                [event interstitialDidDisappear:viewController];
+            });
+
+            it(@"should nil out the interstitial view controller", ^{
+                event.interstitial should be_nil;
+            });
         });
     });
 

@@ -6,8 +6,12 @@
 //
 
 #import "ChartboostInterstitialCustomEvent.h"
+#import <Chartboost/Chartboost.h>
 #import "MPInstanceProvider.h"
 #import "MPLogging.h"
+
+static NSString *gAppId = nil;
+static NSString *gAppSignature = nil;
 
 #define kChartboostAppID        @"YOUR_CHARTBOOST_APP_ID"
 #define kChartboostAppSignature @"YOUR_CHARTBOOST_APP_SIGNATURE"
@@ -56,7 +60,7 @@ forChartboostInterstitialCustomEvent:(ChartboostInterstitialCustomEvent *)event;
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-@interface ChartboostInterstitialCustomEvent ()
+@interface ChartboostInterstitialCustomEvent () <ChartboostDelegate>
 
 @property (nonatomic, strong) NSString *location;
 
@@ -65,6 +69,16 @@ forChartboostInterstitialCustomEvent:(ChartboostInterstitialCustomEvent *)event;
 @implementation ChartboostInterstitialCustomEvent
 
 @synthesize location = _location;
+
++ (void)setAppId:(NSString *)appId
+{
+    gAppId = [appId copy];
+}
+
++ (void)setAppSignature:(NSString *)appSignature
+{
+    gAppSignature = [appSignature copy];
+}
 
 - (void)invalidate
 {
@@ -78,11 +92,19 @@ forChartboostInterstitialCustomEvent:(ChartboostInterstitialCustomEvent *)event;
 {
     NSString *appId = [info objectForKey:@"appId"];
     if (!appId) {
-        appId = kChartboostAppID;
+        appId = gAppId;
+
+        if ([appId length] == 0) {
+            appId = kChartboostAppID;
+        }
     }
     NSString *appSignature = [info objectForKey:@"appSignature"];
     if (!appSignature) {
-        appSignature = kChartboostAppSignature;
+        appSignature = gAppSignature;
+
+        if ([appSignature length] == 0) {
+            appSignature = kChartboostAppSignature;
+        }
     }
     NSString *location = [info objectForKey:@"location"];
     self.location = location ? location : @"Default";

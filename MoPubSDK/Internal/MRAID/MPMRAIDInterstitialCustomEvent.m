@@ -30,11 +30,6 @@
     [self.interstitial startLoading];
 }
 
-- (void)dealloc
-{
-    self.interstitial.delegate = nil;
-}
-
 - (void)showInterstitialFromRootViewController:(UIViewController *)controller
 {
     [self.interstitial presentInterstitialFromViewController:controller];
@@ -86,6 +81,11 @@
 {
     MPLogInfo(@"MoPub MRAID interstitial did disappear");
     [self.delegate interstitialCustomEventDidDisappear:self];
+
+    // Deallocate the interstitial as we don't need it anymore. If we don't deallocate the interstitial after dismissal,
+    // then the html in the webview will continue to run which could lead to bugs such as continuing to play the sound of an inline
+    // video since the app may hold onto the interstitial ad controller. Moreover, we keep an array of controllers around as well.
+    self.interstitial = nil;
 }
 
 - (void)interstitialDidReceiveTapEvent:(MPInterstitialViewController *)interstitial

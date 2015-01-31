@@ -5,6 +5,7 @@
 //  Copyright (c) 2013 MoPub. All rights reserved.
 //
 
+#import <iAd/iAd.h>
 #import "MPiAdInterstitialCustomEvent.h"
 #import "MPInstanceProvider.h"
 #import "MPLogging.h"
@@ -65,7 +66,7 @@
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-@interface MPiAdInterstitialCustomEvent () <MPiAdInterstitialViewControllerDelegate>
+@interface MPiAdInterstitialCustomEvent () <MPiAdInterstitialViewControllerDelegate, ADInterstitialAdDelegate>
 
 @property (nonatomic, strong) ADInterstitialAd *iAdInterstitial;
 @property (nonatomic, assign) BOOL isOnScreen;

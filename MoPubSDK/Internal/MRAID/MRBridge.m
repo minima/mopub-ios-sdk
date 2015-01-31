@@ -17,7 +17,6 @@
 #import "MRProperty.h"
 #import "MRNativeCommandHandler.h"
 
-static NSString * const kMoPubURLScheme = @"mopub";
 static NSString * const kMraidURLScheme = @"mraid";
 
 @interface MRBridge () <UIWebViewDelegate, MRNativeCommandHandlerDelegate>
@@ -141,7 +140,7 @@ static NSString * const kMraidURLScheme = @"mraid";
         NSDictionary *properties = MPDictionaryFromQueryString(url.query);
         [self.nativeCommandHandler handleNativeCommand:command withProperties:properties];
         return NO;
-    } else if ([scheme isEqualToString:kMoPubURLScheme]) {
+    } else if ([url mp_isMoPubScheme]) {
         [self.delegate bridge:self performActionForMoPubSpecificURL:url];
         return NO;
     } else if ([scheme isEqualToString:@"ios-log"]) {

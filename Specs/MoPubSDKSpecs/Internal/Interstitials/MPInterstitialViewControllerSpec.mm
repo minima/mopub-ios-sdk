@@ -15,6 +15,12 @@ describe(@"MPInterstitialViewController", ^{
         [controller.view addSubview:[[UIView alloc] init]];
     });
 
+    afterEach(^{
+        // Since this file has tests that change the supported interface orientations, we need to make sure we
+        // set it back to UIInterfaceOrientationMaskAll so future tests aren't locked into a specific orientation.
+        [[UIApplication sharedApplication] setSupportedInterfaceOrientations:UIInterfaceOrientationMaskAll];
+    });
+
     describe(@"presenting the view controller", ^{
         beforeEach(^{
             [controller presentInterstitialFromViewController:presentingController];

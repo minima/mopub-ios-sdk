@@ -333,11 +333,11 @@ describe(@"MRBridge", ^{
                 });
 
                 context(@"when the command is 'setOrientationProperties'", ^{
-                    it(@"should not forward the command to the delegate", ^{
+                    it(@"should forward the command to the delegate", ^{
                         URL = [NSURL URLWithString:@"mraid://setOrientationProperties?allowOrientationChange=false&forceOrientation=portrait"];
                         [bridge webView:webView shouldStartLoadWithRequest:[NSURLRequest requestWithURL:URL] navigationType:UIWebViewNavigationTypeOther];
 
-                        delegate should_not have_received(@selector(bridge:handleNativeCommandSetOrientationPropertiesWithForceOrientationMask:));
+                        delegate should have_received(@selector(bridge:handleNativeCommandSetOrientationPropertiesWithForceOrientationMask:));
                     });
                 });
 

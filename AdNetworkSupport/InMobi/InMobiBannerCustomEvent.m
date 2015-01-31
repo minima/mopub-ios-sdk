@@ -5,6 +5,7 @@
 //  Copyright (c) 2013 MoPub, Inc. All rights reserved.
 //
 
+#import "IMBanner.h"
 #import "InMobiBannerCustomEvent.h"
 #import "MPInstanceProvider.h"
 #import "MPConstants.h"
@@ -12,6 +13,8 @@
 
 #define kInMobiAppID            @"YOUR_INMOBI_APP_ID"
 #define INVALID_INMOBI_AD_SIZE  -1
+
+static NSString *gAppId = nil;
 
 @interface MPInstanceProvider (InMobiBanners)
 
@@ -30,7 +33,7 @@
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-@interface InMobiBannerCustomEvent ()
+@interface InMobiBannerCustomEvent () <IMBannerDelegate>
 
 @property (nonatomic, strong) IMBanner *inMobiBanner;
 
@@ -42,6 +45,11 @@
 
 #pragma mark - MPBannerCustomEvent Subclass Methods
 
++ (void)setAppId:(NSString *)appId
+{
+    gAppId = [appId copy];
+}
+
 - (void)requestAdWithSize:(CGSize)size customEventInfo:(NSDictionary *)info
 {
     MPLogInfo(@"Requesting InMobi banner");
@@ -52,7 +60,12 @@
         return;
     }
 
-    self.inMobiBanner = [[MPInstanceProvider sharedProvider] buildIMBannerWithFrame:CGRectMake(0, 0, size.width, size.height) appId:kInMobiAppID adSize:imAdSizeConstant];
+    NSString *appId = gAppId;
+    if ([appId length] == 0) {
+        appId = kInMobiAppID;
+    }
+
+    self.inMobiBanner = [[MPInstanceProvider sharedProvider] buildIMBannerWithFrame:CGRectMake(0, 0, size.width, size.height) appId:appId adSize:imAdSizeConstant];
     self.inMobiBanner.delegate = self;
     self.inMobiBanner.refreshInterval = REFRESH_INTERVAL_OFF;
     NSMutableDictionary *paramsDict = [[NSMutableDictionary alloc] init];
@@ -62,8 +75,8 @@
 
     if (self.delegate.location) {
         [InMobi setLocationWithLatitude:self.delegate.location.coordinate.latitude
-                               longitude:self.delegate.location.coordinate.longitude
-                                accuracy:self.delegate.location.horizontalAccuracy];
+                              longitude:self.delegate.location.coordinate.longitude
+                               accuracy:self.delegate.location.horizontalAccuracy];
     }
     [self.inMobiBanner loadBanner];
 

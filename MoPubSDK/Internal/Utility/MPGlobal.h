@@ -22,6 +22,8 @@ NSDictionary *MPDictionaryFromQueryString(NSString *query);
 NSString *MPSHA1Digest(NSString *string);
 BOOL MPViewIsVisible(UIView *view);
 BOOL MPViewIntersectsParentWindowWithPercent(UIView *view, CGFloat percentVisible);
+NSString *MPResourcePathForResource(NSString *resourceName);
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
 /*

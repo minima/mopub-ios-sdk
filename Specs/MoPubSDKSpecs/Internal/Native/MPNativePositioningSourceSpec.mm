@@ -161,7 +161,7 @@ describe(@"MPNativePositionSource", ^{
             positionSource.maximumRetryInterval = 1.0; // Retries will be 0.2, 0.4, 0.8.
         });
 
-        it(@"should retry on failure but stop retrying once the server returns a valid response", ^{
+        xit(@"should retry on failure but stop retrying once the server returns a valid response", ^{
             __block BOOL didCallCompletionHandler = NO;
             __block MPAdPositioning *returnedPositioning;
 

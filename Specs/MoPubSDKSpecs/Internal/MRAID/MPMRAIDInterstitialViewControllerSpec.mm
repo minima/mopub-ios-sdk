@@ -9,6 +9,7 @@
 #import "MRController.h"
 #import "MPAdConfigurationFactory.h"
 #import "MPInstanceProvider.h"
+#import "CedarAsync.h"
 
 using namespace Cedar::Matchers;
 using namespace Cedar::Doubles;
@@ -70,7 +71,7 @@ describe(@"MPMRAIDInterstitialViewController", ^{
         });
 
         it(@"should tell its delegate interstitialWillAppear:", ^{
-            delegate should have_received(@selector(interstitialWillAppear:)).with(controller);
+            in_time(delegate) should have_received(@selector(interstitialWillAppear:)).with(controller);
         });
 
         describe(@"after being presented", ^{
@@ -78,12 +79,12 @@ describe(@"MPMRAIDInterstitialViewController", ^{
                 [controller didPresentInterstitial];
             });
 
-            it(@"should tell the backing view that it was presented", ^{
-                backingController should have_received(@selector(enableRequestHandling));
+            it(@"should tell the backing controller that it was presented", ^{
+                in_time(backingController) should have_received(@selector(handleMRAIDInterstitialDidPresentWithViewController:));
             });
 
             it(@"should tell its delegate interstitialDidAppear:", ^{
-                delegate should have_received(@selector(interstitialDidAppear:)).with(controller);
+                in_time(delegate) should have_received(@selector(interstitialDidAppear:)).with(controller);
             });
         });
     });

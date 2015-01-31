@@ -5,13 +5,16 @@
 //  Copyright (c) 2013 MoPub. All rights reserved.
 //
 
-#import "MPBannerCustomEvent.h"
-#import "GADBannerView.h"
+#if __has_include(<MoPub/MoPub.h>)
+    #import <MoPub/MoPub.h>
+#else
+    #import "MPBannerCustomEvent.h"
+#endif
 
 /*
- * Certified with version 6.9.3 of the Google AdMob Ads SDK.
+ * Certified with version 6.12.2 of the Google AdMob Ads SDK.
  */
 
-@interface MPGoogleAdMobBannerCustomEvent : MPBannerCustomEvent <GADBannerViewDelegate>
+@interface MPGoogleAdMobBannerCustomEvent : MPBannerCustomEvent
 
 @end

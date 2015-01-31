@@ -6,6 +6,7 @@
 //
 
 #import "MPInterstitialViewController.h"
+#import "MPForceableOrientationProtocol.h"
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -14,7 +15,7 @@
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-@interface MPMRAIDInterstitialViewController : MPInterstitialViewController
+@interface MPMRAIDInterstitialViewController : MPInterstitialViewController <MPForceableOrientationProtocol>
 
 - (id)initWithAdConfiguration:(MPAdConfiguration *)configuration;
 - (void)startLoading;

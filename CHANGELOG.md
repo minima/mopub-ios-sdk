@@ -1,3 +1,10 @@
+## Version 3.4 (January 30th, 2015)
+
+  - **Certified Facebook SDK Version 3.21.1**.
+  - **Bug fixes**.
+    - Fixed MRAID force orientation command for MRAID interstitials.
+    - Fixed interstitial bug where sound and video would continue to play after dismissal.
+
 ## Version 3.3 (December 8th, 2014)
 
   - **MRAID 2.0 support**. The MoPub SDK is now compliant with the MRAID 2.0 specification to enable rich media ads in banners and interstitial ad units. Learn more about MRAID from the [IAB](http://www.iab.net/MRAID#MRAID). To minimize integration errors, please completely remove the existing MoPub SDK from your project and then integrate the latest version.

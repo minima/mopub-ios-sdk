@@ -17,6 +17,7 @@
              [MPAdInfo infoWithTitle:@"Invalid StoreKit Link" ID:@"4ebfdd8a90ba11e295fa123138070049" type:MPAdInfoBanner],
              [MPAdInfo infoWithTitle:@"MRAID Banner" ID:@"agltb3B1Yi1pbmNyDQsSBFNpdGUYzejGEgw" type:MPAdInfoBanner],
              [MPAdInfo infoWithTitle:@"Legacy Custom Event Banner" ID:@"66e80812a6d411e295fa123138070049" type:MPAdInfoBanner],
+             [MPAdInfo infoWithTitle:@"Facebook Banner" ID:@"446dfa864dcb4469965267694a940f3d" type:MPAdInfoBanner],
              [MPAdInfo infoWithTitle:@"iAd Banner" ID:@"b9572278a20a11e295fa123138070049" type:MPAdInfoBanner],
              [MPAdInfo infoWithTitle:@"Millennial Banner" ID:@"1aa442709c9f11e281c11231392559e4" type:MPAdInfoBanner],
              [MPAdInfo infoWithTitle:@"Google AdMob Banner" ID:@"01535a569c8e11e281c11231392559e4" type:MPAdInfoBanner],
@@ -36,7 +37,7 @@
 {
     return @[
              [MPAdInfo infoWithTitle:@"Valid StoreKit Link" ID:@"c3a8fa2690c611e295fa123138070049" type:MPAdInfoInterstitial],
-             [MPAdInfo infoWithTitle:@"Millennial Phone Interstitial" ID:@"de4205fc932411e295fa123138070049" type:MPAdInfoInterstitial],
+             [MPAdInfo infoWithTitle:@"Facebook Interstitial" ID:@"cec4c5ea0ff140d3a15264da23449f97" type:MPAdInfoInterstitial],
              [MPAdInfo infoWithTitle:@"iAd Interstitial (iPad-only)" ID:@"7e7e9e50932411e281c11231392559e4" type:MPAdInfoInterstitial],
              [MPAdInfo infoWithTitle:@"Millennial Phone Interstitial" ID:@"de4205fc932411e295fa123138070049" type:MPAdInfoInterstitial],
              [MPAdInfo infoWithTitle:@"Google AdMob Interstitial" ID:@"16ae389a932d11e281c11231392559e4" type:MPAdInfoInterstitial],
@@ -56,7 +57,7 @@
     return @[
              [MPAdInfo infoWithTitle:@"Native Ad" ID:@"8ce943e5b65a4689b434d72736dbed02" type:MPAdInfoNative],
              [MPAdInfo infoWithTitle:@"InMobi Native Ad" ID:@"7e8c0239e49441a28de13b2b11d5282e" type:MPAdInfoNative],
-             [MPAdInfo infoWithTitle:@"Facebook Native Ad" ID:@"79ca92da81cb4e7c87f697b26c06700d" type:MPAdInfoNative],
+             [MPAdInfo infoWithTitle:@"Facebook Native Ad" ID:@"1ceee46ba9744155aed48ee6277ecbd6" type:MPAdInfoNative],
              [MPAdInfo infoWithTitle:@"Native Ad (TableView Example)" ID:@"8ce943e5b65a4689b434d72736dbed02" type:MPAdInfoNativeInTableView]
              ];
 }

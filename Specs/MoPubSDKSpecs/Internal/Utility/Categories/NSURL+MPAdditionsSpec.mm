@@ -72,6 +72,35 @@ describe(@"NSURL_MPAdditions", ^{
             [URL mp_hasTelephonePromptScheme] should equal(NO);
         });
     });
+
+    describe(@"mopubCommand", ^ {
+        it(@"should reject non-mopub schemes", ^{
+            NSURL *URL = [NSURL URLWithString:@"hargau://close"];
+            [URL mp_mopubHostCommand] should equal(MPMoPubHostCommandUnrecognized);
+        });
+
+        it(@"should return correct enum for known commands", ^{
+            NSURL *URL = [NSURL URLWithString:@"mopub://close"];
+            [URL mp_mopubHostCommand] should equal(MPMoPubHostCommandClose);
+
+            URL = [NSURL URLWithString:@"mopub://finishLoad"];
+            [URL mp_mopubHostCommand] should equal(MPMoPubHostCommandFinishLoad);
+
+            URL = [NSURL URLWithString:@"mopub://failLoad"];
+            [URL mp_mopubHostCommand] should equal(MPMoPubHostCommandFailLoad);
+
+            URL = [NSURL URLWithString:@"mopub://custom"];
+            [URL mp_mopubHostCommand] should equal(MPMoPubHostCommandCustom);
+
+            URL = [NSURL URLWithString:@"mopub://precacheComplete"];
+            [URL mp_mopubHostCommand] should equal(MPMoPubHostCommandPrecacheComplete);
+        });
+
+        it(@"should return unrecognized for unknown commands", ^{
+            NSURL *URL = [NSURL URLWithString:@"mopub://hargau"];
+            [URL mp_mopubHostCommand] should equal(MPMoPubHostCommandUnrecognized);
+        });
+    });
 });
 
 SPEC_END

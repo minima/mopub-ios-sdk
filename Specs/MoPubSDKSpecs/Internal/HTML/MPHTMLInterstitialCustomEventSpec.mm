@@ -5,6 +5,12 @@
 using namespace Cedar::Matchers;
 using namespace Cedar::Doubles;
 
+@interface MPHTMLInterstitialCustomEvent ()
+
+@property (nonatomic, readonly) MPHTMLInterstitialViewController *interstitial;
+
+@end
+
 SPEC_BEGIN(MPHTMLInterstitialCustomEventSpec)
 
 describe(@"MPHTMLInterstitialCustomEvent", ^{
@@ -60,6 +66,16 @@ describe(@"MPHTMLInterstitialCustomEvent", ^{
         it(@"should tell the delegate the interstitial was tapped", ^{
             [event interstitialDidReceiveTapEvent:nil];
             delegate should have_received(@selector(interstitialCustomEventDidReceiveTapEvent:));
+        });
+
+        context(@"when asked to dismiss the interstitial", ^{
+            beforeEach(^{
+                [event interstitialDidDisappear:controller];
+            });
+
+            it(@"should nil out the interstitial view controller", ^{
+                event.interstitial should be_nil;
+            });
         });
     });
 });

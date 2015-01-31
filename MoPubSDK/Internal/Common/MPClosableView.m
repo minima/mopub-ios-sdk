@@ -75,7 +75,7 @@ CGRect MPClosableViewCustomCloseButtonFrame(CGSize size, MPClosableViewCloseButt
         [self addGestureRecognizer:_userInteractionRecognizer];
         _userInteractionRecognizer.delegate = self;
 
-        _closeButtonImage = [UIImage imageNamed:kExpandableCloseButtonImageName];
+        _closeButtonImage = [UIImage imageNamed:MPResourcePathForResource(kExpandableCloseButtonImageName)];
 
         _closeButton = [UIButton buttonWithType:UIButtonTypeCustom];
         _closeButton.backgroundColor = [UIColor clearColor];

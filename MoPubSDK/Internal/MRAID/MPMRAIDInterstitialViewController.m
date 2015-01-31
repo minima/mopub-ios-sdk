@@ -15,6 +15,7 @@
 @property (nonatomic, strong) MPAdConfiguration *configuration;
 @property (nonatomic, strong) MRController *mraidController;
 @property (nonatomic, strong) UIView *interstitialView;
+@property (nonatomic, assign) UIInterfaceOrientationMask supportedOrientationMask;
 
 @end
 
@@ -55,10 +56,15 @@
 
 - (void)didPresentInterstitial
 {
-    [self.mraidController enableRequestHandling];
-    if ([self.delegate respondsToSelector:@selector(interstitialDidAppear:)]) {
-        [self.delegate interstitialDidAppear:self];
-    }
+    // This ensures that we handle didPresentInterstitial at the end of the run loop, and prevents a bug
+    // where code is run before UIKit thinks the presentViewController animation is complete, even though
+    // this is is called from the completion block for said animation.
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 0), dispatch_get_main_queue(), ^{
+        [self.mraidController handleMRAIDInterstitialDidPresentWithViewController:self];
+        if ([self.delegate respondsToSelector:@selector(interstitialDidAppear:)]) {
+            [self.delegate interstitialDidAppear:self];
+        }
+    });
 }
 
 - (void)willDismissInterstitial
@@ -137,6 +143,34 @@
 - (void)appShouldResumeFromAd:(UIView *)adView
 {
 
+}
+
+- (void)setSupportedOrientationMask:(UIInterfaceOrientationMask)supportedOrientationMask
+{
+    _supportedOrientationMask = supportedOrientationMask;
+
+    // This should be called whenever the return value of -shouldAutorotateToInterfaceOrientation changes. Since the return
+    // value is based on _supportedOrientationMask, we do that here. Prevents possible rotation bugs.
+    [UIViewController attemptRotationToDeviceOrientation];
+}
+
+#pragma mark - Orientation Handling
+
+// supportedInterfaceOrientations and shouldAutorotate are for ios 6, 7, and 8.
+- (NSUInteger)supportedInterfaceOrientations
+{
+    return ([[UIDevice currentDevice] supportsOrientationMask:self.supportedOrientationMask]) ? self.supportedOrientationMask : UIInterfaceOrientationMaskAll;
+}
+
+- (BOOL)shouldAutorotate
+{
+    return YES;
+}
+
+// shouldAutorotateToInterfaceOrientation is for ios 5.
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
+    return [[UIDevice currentDevice] doesOrientation:interfaceOrientation matchOrientationMask:self.supportedOrientationMask];
 }
 
 @end

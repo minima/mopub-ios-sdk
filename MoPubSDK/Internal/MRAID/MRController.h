@@ -8,6 +8,7 @@
 #import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
 #import "MRConstants.h"
+#import "MPMRAIDInterstitialViewController.h"
 
 @protocol MRControllerDelegate;
 @class MPAdConfiguration;
@@ -26,6 +27,7 @@
 - (instancetype)initWithAdViewFrame:(CGRect)adViewFrame adPlacementType:(MRAdViewPlacementType)placementType;
 
 - (void)loadAdWithConfiguration:(MPAdConfiguration *)configuration;
+- (void)handleMRAIDInterstitialDidPresentWithViewController:(MPMRAIDInterstitialViewController *)viewController;
 - (void)enableRequestHandling;
 - (void)disableRequestHandling;
 

@@ -17,7 +17,6 @@ static NSString * const kCloseButtonXImageName = @"MPCloseButtonX.png";
 @interface MPInterstitialViewController ()
 
 @property (nonatomic, assign) BOOL applicationHasStatusBar;
-@property (nonatomic, assign) BOOL isOnViewControllerStack;
 
 - (void)setCloseButtonImageWithImageNamed:(NSString *)imageName;
 - (void)setCloseButtonStyle:(MPInterstitialCloseButtonStyle)style;
@@ -35,7 +34,6 @@ static NSString * const kCloseButtonXImageName = @"MPCloseButtonX.png";
 @synthesize closeButtonStyle = _closeButtonStyle;
 @synthesize orientationType = _orientationType;
 @synthesize applicationHasStatusBar = _applicationHasStatusBar;
-@synthesize isOnViewControllerStack = _isOnViewControllerStack;
 @synthesize delegate = _delegate;
 
 
@@ -46,25 +44,11 @@ static NSString * const kCloseButtonXImageName = @"MPCloseButtonX.png";
     self.view.backgroundColor = [UIColor blackColor];
 }
 
-- (void)viewDidDisappear:(BOOL)animated
-{
-    [super viewDidDisappear:animated];
-
-    // When the interstitial is dismissed, we want to
-    // -viewDidDisappear: is called 1) when the interstitial is dismissed and 2) when a modal view
-    // controller is presented atop the interstitial (e.g. the ad browser).
-
-    if (![self mp_presentedViewController]) {
-        self.isOnViewControllerStack = NO;
-        //self.view.alpha = 0.0;
-    }
-}
-
 #pragma mark - Public
 
 - (void)presentInterstitialFromViewController:(UIViewController *)controller
 {
-    if (_isOnViewControllerStack) {
+    if (self.presentingViewController) {
         MPLogWarn(@"Cannot present an interstitial that is already on-screen.");
         return;
     }
@@ -77,10 +61,7 @@ static NSString * const kCloseButtonXImageName = @"MPCloseButtonX.png";
     [self layoutCloseButton];
 
     [controller presentViewController:self animated:MP_ANIMATED completion:^{
-        if (!self.isOnViewControllerStack) {
-            self.isOnViewControllerStack = YES;
-            [self didPresentInterstitial];
-        }
+        [self didPresentInterstitial];
     }];
 }
 
@@ -118,7 +99,7 @@ static NSString * const kCloseButtonXImageName = @"MPCloseButtonX.png";
         _closeButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin |
         UIViewAutoresizingFlexibleBottomMargin;
 
-        UIImage *closeButtonImage = [UIImage imageNamed:kCloseButtonXImageName];
+        UIImage *closeButtonImage = [UIImage imageNamed:MPResourcePathForResource(kCloseButtonXImageName)];
         [_closeButton setImage:closeButtonImage forState:UIControlStateNormal];
         [_closeButton sizeToFit];
 

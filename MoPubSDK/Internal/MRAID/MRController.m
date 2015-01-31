@@ -20,12 +20,13 @@
 #import "MPLogging.h"
 #import "MPTimer.h"
 #import "NSHTTPURLResponse+MPAdditions.h"
+#import "NSURL+MPAdditions.h"
 #import "UIWebView+MPAdditions.h"
+#import "MPForceableOrientationProtocol.h"
 
 static const NSTimeInterval kAdPropertyUpdateTimerInterval = 1.0;
 static const NSTimeInterval kMRAIDResizeAnimationTimeInterval = 0.3;
 
-static NSString *const kMoPubPrecacheCompleteHost = @"precacheComplete";
 static NSString *const kMRAIDCommandExpand = @"expand";
 static NSString *const kMRAIDCommandResize = @"resize";
 
@@ -39,6 +40,7 @@ static NSString *const kMRAIDCommandResize = @"resize";
 @property (nonatomic, strong) MPTimer *adPropertyUpdateTimer;
 @property (nonatomic, assign) MRAdViewPlacementType placementType;
 @property (nonatomic, strong) MRExpandModalViewController *expandModalViewController;
+@property (nonatomic, weak) MPMRAIDInterstitialViewController *interstitialViewController;
 @property (nonatomic, strong) NSMutableData *twoPartExpandData;
 @property (nonatomic, assign) NSStringEncoding responseEncoding;
 @property (nonatomic, assign) CGRect mraidDefaultAdFrame;
@@ -67,6 +69,8 @@ static NSString *const kMRAIDCommandResize = @"resize";
 @property (nonatomic, assign) UIInterfaceOrientationMask forceOrientationMask;
 
 @property (nonatomic, assign) UIInterfaceOrientation currentInterfaceOrientation;
+
+@property (nonatomic, copy) void (^forceOrientationAfterAnimationBlock)();
 
 @end
 
@@ -147,10 +151,22 @@ static NSString *const kMRAIDCommandResize = @"resize";
     [self.mraidBridge loadHTMLString:HTML baseURL:nil];
 }
 
+- (void)handleMRAIDInterstitialDidPresentWithViewController:(MPMRAIDInterstitialViewController *)viewController
+{
+    self.interstitialViewController = viewController;
+    [self enableRequestHandling];
+    [self checkViewability];
+}
+
 - (void)enableRequestHandling
 {
     self.mraidBridge.shouldHandleRequests = YES;
     self.mraidBridgeTwoPart.shouldHandleRequests = YES;
+    // If orientation has been forced while requests are disabled (during animation), we need to execute that command through the block forceOrientationAfterAnimationBlock() after the presentation completes.
+    if (self.forceOrientationAfterAnimationBlock) {
+        self.forceOrientationAfterAnimationBlock();
+        self.forceOrientationAfterAnimationBlock = nil;
+    }
 }
 
 - (void)disableRequestHandling
@@ -639,9 +655,11 @@ static NSString *const kMRAIDCommandResize = @"resize";
 - (void)bridge:(MRBridge *)bridge performActionForMoPubSpecificURL:(NSURL *)url
 {
     MPLogDebug(@"MRController - loading MoPub URL: %@", url);
-    NSString *host = [url host];
-    if ([host isEqualToString:kMoPubPrecacheCompleteHost] && self.adRequiresPrecaching) {
+    MPMoPubHostCommand command = [url mp_mopubHostCommand];
+    if (command == MPMoPubHostCommandPrecacheComplete && self.adRequiresPrecaching) {
         [self adDidLoad];
+    } else if (command == MPMoPubHostCommandFailLoad) {
+        [self adDidFailToLoad];
     } else {
         MPLogWarn(@"MRController - unsupported MoPub URL: %@", [url absoluteString]);
     }
@@ -690,36 +708,64 @@ static NSString *const kMRAIDCommandResize = @"resize";
 
 - (void)bridge:(MRBridge *)bridge handleNativeCommandSetOrientationPropertiesWithForceOrientationMask:(UIInterfaceOrientationMask)forceOrientationMask
 {
-    self.forceOrientationMask = forceOrientationMask;
+    BOOL inExpandedState = self.currentState == MRAdViewStateExpanded;
 
-    // If we aren't expanded, we don't have to force orientation on our ad.
-    if (self.currentState != MRAdViewStateExpanded) {
+    // If we aren't expanded or showing an interstitial ad, we don't have to force orientation on our ad.
+    if (!inExpandedState && self.placementType != MRAdViewPlacementTypeInterstitial) {
         return;
     }
 
+    // If request handling is paused, we want to queue up this method to be called again when they are re-enabled.
+    if (!bridge.shouldHandleRequests) {
+        __weak __typeof__(self) weakSelf = self;
+        self.forceOrientationAfterAnimationBlock = ^void() {
+            __typeof__(self) strongSelf = weakSelf;
+            [strongSelf bridge:bridge handleNativeCommandSetOrientationPropertiesWithForceOrientationMask:forceOrientationMask];
+        };
+        return;
+    }
+
+    self.forceOrientationMask = forceOrientationMask;
+
     BOOL inSameOrientation = [[UIDevice currentDevice] doesOrientation:MPInterfaceOrientation() matchOrientationMask:forceOrientationMask];
+    UIViewController <MPForceableOrientationProtocol> *fullScreenAdViewController = inExpandedState ? self.expandModalViewController : self.interstitialViewController;
 
     // If we're currently in the force orientation, we don't need to do any rotation.  However, we still need to make sure
     // that the view controller knows to use the forced orientation when the user rotates the device.
     if (inSameOrientation) {
-        self.expandModalViewController.orientationMask = forceOrientationMask;
+        fullScreenAdViewController.supportedOrientationMask = forceOrientationMask;
     } else {
         // It doesn't seem possible to force orientation in iOS 7+. So we dismiss the current view controller and re-present it with the forced orientation.
-        // We need to make sure our ad's state is correct. We need to restore the status bar visibility before we dismiss the current vc as well as track that
-        // we're animating expand so our timer doesn't try to update any properties while we're doing this.
-        [self.expandModalViewController restoreStatusBarVisibility];
+        //If it's an expanded ad, we need to restore the status bar visibility before we dismiss the current VC since we don't show the status bar in expanded state.
+        if (inExpandedState) {
+            [self.expandModalViewController restoreStatusBarVisibility];
+        }
+
+        // Block our timer from updating properties while we force orientation on the view controller.
         [self willBeginAnimatingAdSize];
 
+        UIViewController *presentingViewController = fullScreenAdViewController.presentingViewController;
         __weak __typeof__(self) weakSelf = self;
-        [self.expandModalViewController dismissViewControllerAnimated:NO completion:^{
+        [fullScreenAdViewController dismissViewControllerAnimated:NO completion:^{
             __typeof__(self) strongSelf = weakSelf;
-            [strongSelf didEndAnimatingAdSize];
 
-            // We don't need to change the state of the ad once the modal is present here as the ad is technically always in the expanded state throughout
-            // the process of dismissing and presenting.
-            [strongSelf presentExpandModalViewControllerWithView:strongSelf.expansionContentView animated:NO completion:^{
-                [strongSelf updateMRAIDProperties];
-            }];
+            if (inExpandedState) {
+
+                [strongSelf didEndAnimatingAdSize];
+
+                // If expanded, we don't need to change the state of the ad once the modal is present here as the ad is technically
+                // always in the expanded state throughout the process of dismissing and presenting.
+                [strongSelf presentExpandModalViewControllerWithView:strongSelf.expansionContentView animated:NO completion:^{
+                    [strongSelf updateMRAIDProperties];
+                }];
+            } else {
+                fullScreenAdViewController.supportedOrientationMask = forceOrientationMask;
+                [presentingViewController presentViewController:fullScreenAdViewController animated:NO completion:^{
+                    [strongSelf didEndAnimatingAdSize];
+                    strongSelf.currentInterfaceOrientation = MPInterfaceOrientation();
+                    [strongSelf updateMRAIDProperties];
+                }];
+            }
         }];
     }
 }

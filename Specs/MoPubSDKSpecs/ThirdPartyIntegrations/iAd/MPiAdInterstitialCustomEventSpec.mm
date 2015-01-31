@@ -4,7 +4,7 @@
 using namespace Cedar::Matchers;
 using namespace Cedar::Doubles;
 
-@interface MPiAdInterstitialCustomEvent (Specs)
+@interface MPiAdInterstitialCustomEvent (Specs) <ADInterstitialAdDelegate>
 
 @property (nonatomic, strong) UIViewController *iAdInterstitialViewController;
 

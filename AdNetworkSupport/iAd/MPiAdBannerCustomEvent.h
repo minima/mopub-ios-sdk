@@ -5,7 +5,11 @@
 //  Copyright (c) 2013 MoPub. All rights reserved.
 //
 
-#import "MPBannerCustomEvent.h"
+#if __has_include(<MoPub/MoPub.h>)
+    #import <MoPub/MoPub.h>
+#else
+    #import "MPBannerCustomEvent.h"
+#endif
 
 @interface MPiAdBannerCustomEvent : MPBannerCustomEvent
 

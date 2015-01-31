@@ -26,12 +26,6 @@
 
 #define MPOffscreenWebViewNeedsRenderingWorkaround() (floor(NSFoundationVersionNumber) > NSFoundationVersionNumber_iOS_6_1)
 
-NSString * const kMoPubURLScheme = @"mopub";
-NSString * const kMoPubCloseHost = @"close";
-NSString * const kMoPubFinishLoadHost = @"finishLoad";
-NSString * const kMoPubFailLoadHost = @"failLoad";
-NSString * const kMoPubCustomHost = @"custom";
-
 @interface MPAdWebViewAgent () <UIGestureRecognizerDelegate>
 
 @property (nonatomic, strong) MPAdConfiguration *configuration;
@@ -202,7 +196,7 @@ NSString * const kMoPubCustomHost = @"custom";
     }
 
     NSURL *URL = [request URL];
-    if ([[URL scheme] isEqualToString:kMoPubURLScheme]) {
+    if ([URL mp_isMoPubScheme]) {
         [self performActionForMoPubSpecificURL:URL];
         return NO;
     } else if ([self shouldIntercept:URL navigationType:navigationType]) {
@@ -223,17 +217,23 @@ NSString * const kMoPubCustomHost = @"custom";
 - (void)performActionForMoPubSpecificURL:(NSURL *)URL
 {
     MPLogDebug(@"MPAdWebView - loading MoPub URL: %@", URL);
-    NSString *host = [URL host];
-    if ([host isEqualToString:kMoPubCloseHost]) {
-        [self.delegate adDidClose:self.view];
-    } else if ([host isEqualToString:kMoPubFinishLoadHost]) {
-        [self.delegate adDidFinishLoadingAd:self.view];
-    } else if ([host isEqualToString:kMoPubFailLoadHost]) {
-        [self.delegate adDidFailToLoadAd:self.view];
-    } else if ([host isEqualToString:kMoPubCustomHost]) {
-        [self handleMoPubCustomURL:URL];
-    } else {
-        MPLogWarn(@"MPAdWebView - unsupported MoPub URL: %@", [URL absoluteString]);
+    MPMoPubHostCommand command = [URL mp_mopubHostCommand];
+    switch (command) {
+        case MPMoPubHostCommandClose:
+            [self.delegate adDidClose:self.view];
+            break;
+        case MPMoPubHostCommandFinishLoad:
+            [self.delegate adDidFinishLoadingAd:self.view];
+            break;
+        case MPMoPubHostCommandFailLoad:
+            [self.delegate adDidFailToLoadAd:self.view];
+            break;
+        case MPMoPubHostCommandCustom:
+            [self handleMoPubCustomURL:URL];
+            break;
+        default:
+            MPLogWarn(@"MPAdWebView - unsupported MoPub URL: %@", [URL absoluteString]);
+            break;
     }
 }
 

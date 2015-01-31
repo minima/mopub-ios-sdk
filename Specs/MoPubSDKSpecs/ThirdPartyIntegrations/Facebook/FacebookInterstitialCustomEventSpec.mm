@@ -5,6 +5,10 @@
 using namespace Cedar::Matchers;
 using namespace Cedar::Doubles;
 
+@interface FacebookInterstitialCustomEvent (Specs) <FBInterstitialAdDelegate>
+
+@end
+
 SPEC_BEGIN(FacebookInterstitialCustomEventSpec)
 
 describe(@"FacebookInterstitialCustomEvent", ^{

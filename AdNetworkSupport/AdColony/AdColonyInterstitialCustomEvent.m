@@ -5,15 +5,19 @@
 //  Copyright (c) 2013 MoPub. All rights reserved.
 //
 
+#import <AdColony/AdColony.h>
 #import "AdColonyInterstitialCustomEvent.h"
 #import "MPInstanceProvider.h"
 #import "MPLogging.h"
+
+static NSString *gAppId = nil;
+static NSString *gDefaultZoneId = nil;
+static NSArray *gAllZoneIds = nil;
 
 #define kAdColonyAppId @"YOUR_ADCOLONY_APPID"
 #define kAdColonyDefaultZoneId @"YOUR_ADCOLONY_DEFAULT_ZONEID" // This zone id will be used if "zoneId" is not passed through the custom info dictionary
 
 #define AdColonyZoneIds() [NSArray arrayWithObjects:@"YOUR_ADCOLONY_ZONEID1", @"YOUR_ADCOLONY_ZONEID2", nil]
-
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
 @interface MPAdColonyRouter : NSObject <AdColonyDelegate>
@@ -50,7 +54,7 @@
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-@interface AdColonyInterstitialCustomEvent ()
+@interface AdColonyInterstitialCustomEvent () <AdColonyAdDelegate>
 
 @property (nonatomic, copy) NSString *zoneId;
 @property (nonatomic, assign) BOOL zoneAvailable;
@@ -61,6 +65,20 @@
 
 @synthesize zoneId = _zoneId;
 
++ (void)setAppId:(NSString *)appId
+{
+    gAppId = [appId copy];
+}
+
++ (void)setDefaultZoneId:(NSString *)defaultZoneId
+{
+    gDefaultZoneId = [defaultZoneId copy];
+}
+
++ (void)setAllZoneIds:(NSArray *)zoneIds
+{
+    gAllZoneIds = zoneIds;
+}
 
 #pragma mark - MPInterstitialCustomEvent Subclass Methods
 
@@ -69,13 +87,21 @@
     NSString *appId = [info objectForKey:@"appId"];
     if(appId == nil)
     {
-        appId = kAdColonyAppId;
+        appId = gAppId;
+
+        if ([appId length] == 0) {
+            appId = kAdColonyAppId;
+        }
     }
 
     NSArray *allZoneIds = [info objectForKey:@"allZoneIds"];
     if(allZoneIds.count == 0)
     {
-        allZoneIds = AdColonyZoneIds();
+        allZoneIds = gAllZoneIds;
+
+        if ([allZoneIds count] == 0) {
+            allZoneIds = AdColonyZoneIds();
+        }
     }
 
     static dispatch_once_t once;
@@ -89,7 +115,11 @@
     NSString *zoneId = [info objectForKey:@"zoneId"];
     if(zoneId == nil)
     {
-        zoneId = kAdColonyDefaultZoneId;
+        zoneId = gDefaultZoneId;
+
+        if ([zoneId length] == 0) {
+            zoneId = kAdColonyDefaultZoneId;
+        }
     }
 
     self.zoneId = zoneId;

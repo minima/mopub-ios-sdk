@@ -12,6 +12,7 @@
 
 @property (nonatomic, assign) BOOL statusBarHidden;
 @property (nonatomic, assign) BOOL applicationHidesStatusBar;
+@property (nonatomic, assign) UIInterfaceOrientationMask supportedOrientationMask;
 
 @end
 
@@ -20,7 +21,7 @@
 - (instancetype)initWithOrientationMask:(UIInterfaceOrientationMask)orientationMask
 {
     if (self = [super init]) {
-        _orientationMask = orientationMask;
+        _supportedOrientationMask = orientationMask;
     }
 
     return self;
@@ -69,10 +70,17 @@
     return self.statusBarHidden;
 }
 
+- (void)setSupportedOrientationMask:(UIInterfaceOrientationMask)supportedOrientationMask
+{
+    _supportedOrientationMask = supportedOrientationMask;
+
+    [UIViewController attemptRotationToDeviceOrientation];
+}
+
 // supportedInterfaceOrientations and shouldAutorotate are for ios 6, 7, and 8.
 - (NSUInteger)supportedInterfaceOrientations
 {
-    return ([[UIDevice currentDevice] supportsOrientationMask:self.orientationMask]) ? self.orientationMask : UIInterfaceOrientationMaskAll;
+    return ([[UIDevice currentDevice] supportsOrientationMask:self.supportedOrientationMask]) ? self.supportedOrientationMask : UIInterfaceOrientationMaskAll;
 }
 
 - (BOOL)shouldAutorotate
@@ -83,15 +91,7 @@
 // shouldAutorotateToInterfaceOrientation is for ios 5.
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
-    return [[UIDevice currentDevice] doesOrientation:interfaceOrientation matchOrientationMask:self.orientationMask];
-}
-
-- (void)setOrientationMask:(UIInterfaceOrientationMask)orientationMask
-{
-    _orientationMask = orientationMask;
-
-    // Attempt to lock into whatever orientation we were set to.
-    [UIViewController attemptRotationToDeviceOrientation];
+    return [[UIDevice currentDevice] doesOrientation:interfaceOrientation matchOrientationMask:self.supportedOrientationMask];
 }
 
 #pragma mark - <MPClosableViewDelegate>

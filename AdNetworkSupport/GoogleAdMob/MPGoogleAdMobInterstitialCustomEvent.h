@@ -5,13 +5,16 @@
 //  Copyright (c) 2012 MoPub, Inc. All rights reserved.
 //
 
-#import "MPInterstitialCustomEvent.h"
-#import "GADInterstitial.h"
+#if __has_include(<MoPub/MoPub.h>)
+    #import <MoPub/MoPub.h>
+#else
+    #import "MPInterstitialCustomEvent.h"
+#endif
 
 /*
- * Certified with version 6.9.3 of the Google AdMob Ads SDK.
+ * Certified with version 6.12.2 of the Google AdMob Ads SDK.
  */
 
-@interface MPGoogleAdMobInterstitialCustomEvent : MPInterstitialCustomEvent <GADInterstitialDelegate>
+@interface MPGoogleAdMobInterstitialCustomEvent : MPInterstitialCustomEvent
 
 @end

@@ -13,6 +13,7 @@
 #import "FakeMPTimer.h"
 #import "MRImageDownloader.h"
 #import "MRBundleManager.h"
+#import <FBAudienceNetwork/FBAudienceNetwork.h>
 
 @interface MPInstanceProvider (ThirdPartyAdditions)
 
@@ -26,6 +27,7 @@
 
 #pragma mark Facebook
 - (FBAdView *)buildFBAdViewWithPlacementID:(NSString *)placementID
+                                      size:(FBAdSize)size
                         rootViewController:(UIViewController *)controller
                                   delegate:(id<FBAdViewDelegate>)delegate;
 - (FBInterstitialAd *)buildFBInterstitialAdWithPlacementID:(NSString *)placementID
@@ -340,13 +342,13 @@
 
 #pragma mark - Facebook
 
-- (FBAdView *)buildFBAdViewWithPlacementID:(NSString *)placementID rootViewController:(UIViewController *)controller delegate:(id<FBAdViewDelegate>)delegate
+- (FBAdView *)buildFBAdViewWithPlacementID:(NSString *)placementID size:(FBAdSize)size rootViewController:(UIViewController *)controller delegate:(id<FBAdViewDelegate>)delegate
 {
     if (self.fakeFBAdView) {
         self.fakeFBAdView.delegate = delegate;
         return self.fakeFBAdView;
     } else {
-        return [super buildFBAdViewWithPlacementID:placementID rootViewController:controller delegate:delegate];
+        return [super buildFBAdViewWithPlacementID:placementID size:size rootViewController:controller delegate:delegate];
     }
 }
 

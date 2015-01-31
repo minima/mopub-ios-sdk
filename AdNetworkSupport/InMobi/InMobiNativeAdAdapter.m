@@ -11,23 +11,24 @@
 #import "MPNativeAdConstants.h"
 #import "MPAdDestinationDisplayAgent.h"
 #import "MPCoreInstanceProvider.h"
+#import "MPLogging.h"
 
 /*
  * Default keys for InMobi Native Ads
  *
  * These values must correspond to the strings configured with InMobi.
  */
-static NSString *const kInMobiTitle = @"title";
-static NSString *const kInMobiDescription = @"description";
-static NSString *const kInMobiCallToAction = @"cta";
-static NSString *const kInMobiRating = @"rating";
-static NSString *const kInMobiScreenshot = @"screenshots";
-static NSString *const kInMobiIcon = @"icon";
+static NSString *gInMobiTitleKey = @"title";
+static NSString *gInMobiDescriptionKey = @"description";
+static NSString *gInMobiCallToActionKey = @"cta";
+static NSString *gInMobiRatingKey = @"rating";
+static NSString *gInMobiScreenshotKey = @"screenshots";
+static NSString *gInMobiIconKey = @"icon";
 // As of 6-25-2014 this key is editable on InMobi's site
-static NSString *const kInMobiActionURL = @"landing_url";
+static NSString *gInMobiLandingURLKey = @"landing_url";
 
 /*
- * InMobi Keys - Do Not Change.
+ * InMobi Key - Do Not Change.
  */
 static NSString *const kInMobiImageURL = @"url";
 
@@ -46,6 +47,41 @@ static NSString *const kInMobiImageURL = @"url";
 @synthesize properties = _properties;
 @synthesize defaultActionURL = _defaultActionURL;
 
++ (void)setCustomKeyForTitle:(NSString *)key
+{
+    gInMobiTitleKey = [key copy];
+}
+
++ (void)setCustomKeyForDescription:(NSString *)key
+{
+    gInMobiDescriptionKey = [key copy];
+}
+
++ (void)setCustomKeyForCallToAction:(NSString *)key
+{
+    gInMobiCallToActionKey = [key copy];
+}
+
++ (void)setCustomKeyForRating:(NSString *)key
+{
+    gInMobiRatingKey = [key copy];
+}
+
++ (void)setCustomKeyForScreenshot:(NSString *)key
+{
+    gInMobiScreenshotKey = [key copy];
+}
+
++ (void)setCustomKeyForIcon:(NSString *)key
+{
+    gInMobiIconKey = [key copy];
+}
+
++ (void)setCustomKeyForLandingURL:(NSString *)key
+{
+    gInMobiLandingURLKey = [key copy];
+}
+
 - (instancetype)initWithInMobiNativeAd:(IMNative *)nativeAd
 {
     self = [super init];
@@ -55,29 +91,29 @@ static NSString *const kInMobiImageURL = @"url";
         NSDictionary *inMobiProperties = [self inMobiProperties];
         NSMutableDictionary *properties = [NSMutableDictionary dictionary];
 
-        if ([inMobiProperties objectForKey:kInMobiRating]) {
-            [properties setObject:[inMobiProperties objectForKey:kInMobiRating] forKey:kAdStarRatingKey];
+        if ([inMobiProperties objectForKey:gInMobiRatingKey]) {
+            [properties setObject:[inMobiProperties objectForKey:gInMobiRatingKey] forKey:kAdStarRatingKey];
         }
 
-        if ([[inMobiProperties objectForKey:kInMobiTitle] length]) {
-            [properties setObject:[inMobiProperties objectForKey:kInMobiTitle] forKey:kAdTitleKey];
+        if ([[inMobiProperties objectForKey:gInMobiTitleKey] length]) {
+            [properties setObject:[inMobiProperties objectForKey:gInMobiTitleKey] forKey:kAdTitleKey];
         }
 
-        if ([[inMobiProperties objectForKey:kInMobiDescription] length]) {
-            [properties setObject:[inMobiProperties objectForKey:kInMobiDescription] forKey:kAdTextKey];
+        if ([[inMobiProperties objectForKey:gInMobiDescriptionKey] length]) {
+            [properties setObject:[inMobiProperties objectForKey:gInMobiDescriptionKey] forKey:kAdTextKey];
         }
 
-        if ([[inMobiProperties objectForKey:kInMobiCallToAction] length]) {
-            [properties setObject:[inMobiProperties objectForKey:kInMobiCallToAction] forKey:kAdCTATextKey];
+        if ([[inMobiProperties objectForKey:gInMobiCallToActionKey] length]) {
+            [properties setObject:[inMobiProperties objectForKey:gInMobiCallToActionKey] forKey:kAdCTATextKey];
         }
 
-        NSDictionary *iconDictionary = [inMobiProperties objectForKey:kInMobiIcon];
+        NSDictionary *iconDictionary = [inMobiProperties objectForKey:gInMobiIconKey];
 
         if ([[iconDictionary objectForKey:kInMobiImageURL] length]) {
             [properties setObject:[iconDictionary objectForKey:kInMobiImageURL] forKey:kAdIconImageKey];
         }
 
-        NSDictionary *mainImageDictionary = [inMobiProperties objectForKey:kInMobiScreenshot];
+        NSDictionary *mainImageDictionary = [inMobiProperties objectForKey:gInMobiScreenshotKey];
 
         if ([[mainImageDictionary objectForKey:kInMobiImageURL] length]) {
             [properties setObject:[mainImageDictionary objectForKey:kInMobiImageURL] forKey:kAdMainImageKey];
@@ -85,8 +121,11 @@ static NSString *const kInMobiImageURL = @"url";
 
         _properties = properties;
 
-        if ([[inMobiProperties objectForKey:kInMobiActionURL] length]) {
-            _defaultActionURL = [NSURL URLWithString:[inMobiProperties objectForKey:kInMobiActionURL]];
+        if ([[inMobiProperties objectForKey:gInMobiLandingURLKey] length]) {
+            _defaultActionURL = [NSURL URLWithString:[inMobiProperties objectForKey:gInMobiLandingURLKey]];
+        } else {
+            // Log a warning if we can't find the landing URL since the key can either be "landing_url", "landingURL", or a custom key depending on the date the property was created.
+            MPLogWarn(@"WARNING: Couldn't find landing url with key: %@ for InMobi network.  Double check your ad property and call setCustomKeyForLandingURL: with the correct key if necessary.", gInMobiLandingURLKey);
         }
 
         _destinationDisplayAgent = [[MPCoreInstanceProvider sharedProvider] buildMPAdDestinationDisplayAgentWithDelegate:self];

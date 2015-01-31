@@ -56,8 +56,6 @@
     [self.communicator setDelegate:nil];
 
     self.adapter = nil;
-
-
 }
 
 - (void)setAdapter:(MPBaseInterstitialAdapter *)adapter

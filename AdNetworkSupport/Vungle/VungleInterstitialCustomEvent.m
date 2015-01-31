@@ -5,22 +5,29 @@
 //  Copyright (c) 2013 MoPub. All rights reserved.
 //
 
+#import <VungleSDK/VungleSDK.h>
 #import "VungleInterstitialCustomEvent.h"
 #import "MPInstanceProvider.h"
 #import "MPLogging.h"
 
-// This is a sample Vungle app ID. You will need to replace it with your Vungle app ID.
+static NSString *gAppId = nil;
+
 #define kVungleAppID @"YOUR_VUNGLE_APP_ID"
 
 // If you need to play ads with vungle options, you may modify playVungleAdFromRootViewController and create an options dictionary and call the playAd:withOptions: method on the vungle SDK.
 
-@interface VungleInterstitialCustomEvent ()
+@interface VungleInterstitialCustomEvent () <VungleSDKDelegate>
 
 @property (nonatomic, assign) BOOL handledAdAvailable;
 
 @end
 
 @implementation VungleInterstitialCustomEvent
+
++ (void)setAppId:(NSString *)appId
+{
+    gAppId = [appId copy];
+}
 
 #pragma mark - MPInterstitialCustomEvent Subclass Methods
 
@@ -37,7 +44,11 @@
         NSString *appId = [info objectForKey:@"appId"];
         if(appId == nil)
         {
-            appId = kVungleAppID;
+            appId = gAppId;
+
+            if ([appId length] == 0) {
+                appId = kVungleAppID;
+            }
         }
 
         [sdk startWithAppId:appId];

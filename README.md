@@ -20,7 +20,7 @@ The MoPub SDK is distributed as source code that you can include in your applica
 
   Includes everything you need to serve HTML, MRAID, and Native MoPub advertisements.  No third party ad networks are included.
 
-The current version of the SDK is 3.3.0
+The current version of the SDK is 3.4.0
 
 ## Integrate
 
@@ -32,9 +32,7 @@ More detailed class documentation is available in the repo under the `ClassDocum
 
 Please view the [changelog](https://github.com/mopub/mopub-ios-sdk/blob/master/CHANGELOG.md) for details.
 
-- **MRAID 2.0 support**. The MoPub SDK is now compliant with the MRAID 2.0 specification to enable rich media ads in banners and interstitial ad units. Learn more about MRAID from the [IAB](http://www.iab.net/MRAID#MRAID). To minimize integration errors, please completely remove the existing MoPub SDK from your project and then integrate the latest version.
-- **Automatic geolocation updates**. If your app already has location permissions, the MoPub SDK will automatically attempt to acquire location data for ad requests. Please use `locationUpdatesEnabled` in `MoPub.h` to opt out of this functionality. The MoPub SDK will never prompt the user for permission if location permissions are not currently granted.
-- **Added support for AdColony SDK 2.4.12**.
+- **Certified Facebook SDK Version 3.21.1**.
 - **Bug fixes**.
 
 ### IMPORTANT UPGRADE INSTRUCTIONS

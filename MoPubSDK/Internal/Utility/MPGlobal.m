@@ -166,6 +166,17 @@ BOOL MPViewIntersectsParentWindowWithPercent(UIView *view, CGFloat percentVisibl
     return intersectionArea >= (originalArea * percentVisible);
 }
 
+NSString *MPResourcePathForResource(NSString *resourceName)
+{
+#ifdef MP_FABRIC
+    // We store all assets inside a bundle for Fabric.
+    return [@"MoPub.bundle" stringByAppendingPathComponent:resourceName];
+#else
+    // When using open source, the resources just live in the main bundle.
+    return resourceName;
+#endif
+}
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
 @implementation NSString (MPAdditions)

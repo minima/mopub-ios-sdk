@@ -470,6 +470,12 @@ describe(@"MRController", ^{
 
             window = [[UIWindow alloc] initWithFrame:CGRectMake(0, 0, 320, 480)];
             UIViewController *rootViewController = [[UIViewController alloc] init];
+
+            // We're forcing this view controller into portrait with a hard coded frame size as resize tests rely heavily on the
+            // device's frame and we do not want outside orientation settings affecting the frame.
+            spy_on(rootViewController);
+            rootViewController stub_method(@selector(supportedInterfaceOrientations)).and_return(UIInterfaceOrientationMaskPortrait);
+
             [rootViewController.view addSubview:controller.mraidAdView];
             window.rootViewController = rootViewController;
             [window makeKeyWindow];
@@ -735,6 +741,13 @@ describe(@"MRController", ^{
             it(@"should not load anything", ^{
                 URL = [NSURL URLWithString:@"mopub://close"];
                 [fakeMRBridge webView:nil shouldStartLoadWithRequest:[NSURLRequest requestWithURL:URL] navigationType:UIWebViewNavigationTypeOther] should equal(NO);
+            });
+
+            it(@"should notify the delegate when the url is failLoad", ^ {
+                URL = [NSURL URLWithString:@"mopub://failLoad"];
+                [fakeMRBridge webView:nil shouldStartLoadWithRequest:[NSURLRequest requestWithURL:URL] navigationType:UIWebViewNavigationTypeOther] should equal(NO);
+
+                controllerDelegate should have_received(@selector(adDidFailToLoad:));
             });
         });
 
@@ -1176,6 +1189,30 @@ describe(@"MRController", ^{
                 [fakeMRBridge webView:nil shouldStartLoadWithRequest:[NSURLRequest requestWithURL:URL] navigationType:UIWebViewNavigationTypeOther];
 
                 pictureManager should_not have_received(@selector(storePicture:));
+            });
+        });
+
+        context(@"when the command is 'forceOrientation' and the ad is interstitial and currently animating", ^{
+
+            beforeEach(^{
+                controller.mraidBridge.shouldHandleRequests = NO;
+                controller.placementType = MRAdViewPlacementTypeInterstitial;
+                URL = [NSURL URLWithString:@"mraid://setOrientationProperties?allowOrientationChange=false&forceOrientation=landscape"];
+                [fakeMRBridge webView:nil shouldStartLoadWithRequest:[NSURLRequest requestWithURL:URL] navigationType:UIWebViewNavigationTypeOther];
+            });
+
+            it(@"should create a block to execute the force orientation", ^{
+                controller.forceOrientationAfterAnimationBlock should_not be_nil;
+            });
+
+            it(@"should execute the block after the animation completes", ^{
+                spy_on(controller);
+                [(id<CedarDouble>)controller reset_sent_messages];
+                controller should_not have_received(@selector(bridge:handleNativeCommandSetOrientationPropertiesWithForceOrientationMask:));
+                [controller enableRequestHandling];
+                [controller handleMRAIDInterstitialDidPresentWithViewController:nil];
+                controller should have_received(@selector(bridge:handleNativeCommandSetOrientationPropertiesWithForceOrientationMask:));
+                controller.forceOrientationAfterAnimationBlock should be_nil;
             });
         });
     });

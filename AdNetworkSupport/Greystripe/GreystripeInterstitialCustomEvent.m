@@ -5,6 +5,8 @@
 //  Copyright (c) 2012 MoPub, Inc. All rights reserved.
 //
 
+#import "GSFullscreenAd.h"
+#import "GSAdDelegate.h"
 #import "GreystripeInterstitialCustomEvent.h"
 #import "MPInstanceProvider.h"
 #import "MPLogging.h"
@@ -27,10 +29,11 @@
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-// This is a sample Greystripe GUID. You will need to replace it with your Greystripe GUID.
+static NSString *gGUID = nil;
+
 #define kGreystripeGUID @"YOUR_GREYSTRIPE_GUID"
 
-@interface GreystripeInterstitialCustomEvent ()
+@interface GreystripeInterstitialCustomEvent () <GSAdDelegate>
 
 @property (nonatomic, strong) GSFullscreenAd *greystripeFullscreenAd;
 
@@ -40,12 +43,23 @@
 
 @synthesize greystripeFullscreenAd = _greystripeFullscreenAd;
 
++ (void)setGUID:(NSString *)GUID
+{
+    gGUID = [GUID copy];
+}
+
 #pragma mark - MPInterstitialCustomEvent Subclass Methods
 
 - (void)requestInterstitialWithCustomEventInfo:(NSDictionary *)info
 {
     MPLogInfo(@"Requesting Greystripe interstitial");
-    self.greystripeFullscreenAd = [[MPInstanceProvider sharedProvider] buildGSFullscreenAdWithDelegate:self GUID:kGreystripeGUID];
+
+    NSString *GUID = gGUID;
+    if ([GUID length] == 0) {
+        GUID = kGreystripeGUID;
+    }
+
+    self.greystripeFullscreenAd = [[MPInstanceProvider sharedProvider] buildGSFullscreenAdWithDelegate:self GUID:GUID];
 
     if (self.delegate.location) {
         [GSSDKInfo updateLocation:self.delegate.location];
