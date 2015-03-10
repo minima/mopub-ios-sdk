@@ -1,24 +1,18 @@
 #import "MPAdConfigurationFactory.h"
 #import "MPInterstitialAdController.h"
 #import "Chartboost+Specs.h"
+#import "MPChartboostRouter.h"
+#import "MPInstanceProvider+Chartboost.h"
 
 using namespace Cedar::Matchers;
 using namespace Cedar::Doubles;
-
-@class MPChartboostRouter;
-
-@interface MPInstanceProvider (Specs)
-
-- (MPChartboostRouter *)sharedMPCharboostRouter;
-
-@end
 
 SPEC_BEGIN(MPChartboostInterstitialIntegrationSuite)
 
 describe(@"Chartboost Integration", ^{
     beforeEach(^{
         [Chartboost clearRequestedLocations];
-        [Chartboost setDelegate:[fakeProvider sharedMPCharboostRouter]];
+        [Chartboost setDelegate:[fakeProvider sharedMPChartboostRouter]];
     });
 
     describe(@"MPChartboostInterstitialIntegrationSuite", ^{

@@ -24,6 +24,10 @@
  * integrating Greystripe using a MoPub custom event, this ID is typically configured via your
  * Greystripe network settings on the MoPub website. However, if you wish, you may use this method to
  * manually provide the custom event with your GUID.
+ *
+ * **Deprecated**: This method of setting the Greystripe GUID is deprecated. Use the MoPub website to set
+ * your GUID in your network settings for Greystripe. See the Custom Native Network Setup guide for more
+ * information. https://dev.twitter.com/mopub/ad-networks/network-setup-custom-native
  */
 + (void)setGUID:(NSString *)GUID;
 

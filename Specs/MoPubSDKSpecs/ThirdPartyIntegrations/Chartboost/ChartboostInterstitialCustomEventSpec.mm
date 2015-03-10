@@ -4,12 +4,6 @@
 using namespace Cedar::Matchers;
 using namespace Cedar::Doubles;
 
-@interface MPInstanceProvider (ChartboostInterstitials_Spec)
-
-- (Chartboost *)buildChartboost;
-
-@end
-
 SPEC_BEGIN(ChartboostInterstitialCustomEventSpec)
 
 describe(@"ChartboostInterstitialCustomEvent", ^{

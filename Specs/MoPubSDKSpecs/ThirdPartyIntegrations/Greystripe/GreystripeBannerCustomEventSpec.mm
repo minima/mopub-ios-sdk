@@ -71,12 +71,38 @@ describe(@"GreystripeBannerCustomEvent", ^{
         beforeEach(^{
             banner = [[FakeGSBannerAdView alloc] init];
             fakeProvider.fakeGSBannerAdView = banner;
-            [event requestAdWithSize:MOPUB_BANNER_SIZE customEventInfo:nil];
         });
 
+        context(@"using the right GUID", ^{
+            afterEach(^{
+                [GreystripeBannerCustomEvent setGUID:nil];
+            });
+
+            it(@"should use the GUID in customEventInfo if provided", ^{
+                NSString *GUID = @"mopub_is_great";
+                NSDictionary *info = @{@"GUID": GUID};
+                [GreystripeBannerCustomEvent setGUID:@"dont use me please!"];
+                [event requestAdWithSize:MOPUB_BANNER_SIZE customEventInfo:info];
+                banner.GUID should equal(GUID);
+            });
+
+            it(@"should use the globally set GUID if the GUID isn't set in the customEventInfo", ^{
+                NSString *GUID = @"mopub_is_really_really_spectacular";
+                [GreystripeBannerCustomEvent setGUID:GUID];
+                [event requestAdWithSize:MOPUB_BANNER_SIZE customEventInfo:nil];
+                banner.GUID should equal(GUID);
+            });
+
+            it(@"should use the #define'd GUID if the GUID isn't set in the customEventInfo or globally", ^{
+                [event requestAdWithSize:MOPUB_BANNER_SIZE customEventInfo:nil];
+                banner.GUID should equal(@"YOUR_GREYSTRIPE_GUID");
+            });
+        });
+
+
         it(@"should tell the ad to fetch and not tell the delegate anything just yet (except to ask it for location)", ^{
+            [event requestAdWithSize:MOPUB_BANNER_SIZE customEventInfo:nil];
             banner.didFetch should equal(YES);
-            banner.GUID should equal(@"YOUR_GREYSTRIPE_GUID");
             delegate should have_received(@selector(location));
             delegate.sent_messages.count should equal(1);
         });

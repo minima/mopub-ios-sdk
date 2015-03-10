@@ -35,6 +35,9 @@
 #import "MPStreamAdPlacer.h"
 #import "FakeMPStreamAdPlacer.h"
 #import "MPClosableView.h"
+#import "MPRewardedVideoAdManager.h"
+#import "MPRewardedVideoAdapter.h"
+#import "MPRewardedVideoCustomEvent.h"
 
 @class MRCalendarManager;
 @class EKEventStore;
@@ -59,6 +62,11 @@
 @property (nonatomic, strong) FakeInterstitialCustomEvent *fakeInterstitialCustomEvent;
 @property (nonatomic, strong) MPHTMLInterstitialViewController *fakeMPHTMLInterstitialViewController;
 @property (nonatomic, strong) MPMRAIDInterstitialViewController *fakeMPMRAIDInterstitialViewController;
+
+#pragma mark - Rewarded Video
+@property (nonatomic, strong) MPRewardedVideoAdManager *fakeMPRewardedVideoAdManager;
+@property (nonatomic, strong) MPRewardedVideoAdapter *fakeMPRewardedVideoAdapter;
+@property (nonatomic, strong) MPRewardedVideoCustomEvent *fakeMPRewardedVideoCustomEvent;
 
 #pragma mark - HTML Ads
 @property (nonatomic, strong) MPAdWebView *fakeMPAdWebView;

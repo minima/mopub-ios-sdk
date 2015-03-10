@@ -1,6 +1,6 @@
 //
 //  VungleInterstitialCustomEvent.h
-//  MoPub
+//  MoPubSDK
 //
 //  Copyright (c) 2013 MoPub. All rights reserved.
 //
@@ -10,7 +10,6 @@
 #else
     #import "MPInterstitialCustomEvent.h"
 #endif
-
 /*
  * Certified with version 3.0.8 of the Vungle SDK.
  *
@@ -30,6 +29,10 @@
  *
  * IMPORTANT: If you choose to use this method, be sure to call it before making any ad requests,
  * and avoid calling it more than once. Otherwise, the Vungle SDK may be initialized improperly.
+ *
+ * **Deprecated**: This method of setting the Vungle app ID is deprecated. Use the MoPub website to set
+ * your app ID in your network settings for Vungle. See the Custom Native Network Setup guide for more
+ * information. https://dev.twitter.com/mopub/ad-networks/network-setup-custom-native
  */
 + (void)setAppId:(NSString *)appId;
 

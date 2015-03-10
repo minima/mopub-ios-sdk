@@ -33,4 +33,7 @@
 + (MPAdConfiguration *)defaultInterstitialConfigurationWithHeaders:(NSDictionary *)dictionary
                                                         HTMLString:(NSString *)HTMLString;
 
++ (NSMutableDictionary *)defaultRewardedVideoHeaders;
++ (MPAdConfiguration *)defaultRewardedVideoConfiguration;
+
 @end

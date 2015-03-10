@@ -1,5 +1,6 @@
 #import "VungleInterstitialCustomEvent.h"
 #import "VungleSDK+Specs.h"
+#import "MPVungleRouter.h"
 
 #import <CoreLocation/CoreLocation.h>
 
@@ -12,6 +13,7 @@ describe(@"VungleInterstitialCustomEvent", ^{
     __block VungleInterstitialCustomEvent *model;
     __block id<CedarDouble, MPInterstitialCustomEventDelegate> delegate;
     __block VungleSDK *sharedSDK;
+    __block MPVungleRouter *router;
 
     beforeEach(^{
         model = [[VungleInterstitialCustomEvent alloc] init];
@@ -19,6 +21,7 @@ describe(@"VungleInterstitialCustomEvent", ^{
         model.delegate = delegate;
 
         sharedSDK = [VungleSDK sharedSDK];
+        router = [MPVungleRouter sharedRouter];
     });
 
     context(@"when requesting a Vungle video ad", ^{
@@ -26,8 +29,8 @@ describe(@"VungleInterstitialCustomEvent", ^{
             [model requestInterstitialWithCustomEventInfo:[NSDictionary dictionaryWithObject:@"CUSTOM_APP_ID" forKey:@"appId"]];
         });
 
-        it(@"should set itself as Vungle's delegate", ^{
-            [sharedSDK delegate] should equal(model);
+        it(@"should set itself as the Vungle router's delegate", ^{
+            [router delegate] should equal(model);
         });
 
         it(@"should use the app id from the info dictionary", ^{
@@ -37,7 +40,7 @@ describe(@"VungleInterstitialCustomEvent", ^{
         context(@"when Vungle sends us vungleSDKhasCachedAdAvailable", ^{
             beforeEach(^{
                 [delegate reset_sent_messages];
-                [sharedSDK.delegate vungleSDKhasCachedAdAvailable];
+                [router vungleSDKhasCachedAdAvailable];
             });
 
             it(@"should notify the delegate ad did load", ^{
@@ -52,7 +55,7 @@ describe(@"VungleInterstitialCustomEvent", ^{
 
             describe(@"with presenting a product sheet", ^{
                 it(@"should not send disappear messages to the delegate", ^{
-                    [sharedSDK.delegate vungleSDKwillCloseAdWithViewInfo:nil willPresentProductSheet:YES];
+                    [router vungleSDKwillCloseAdWithViewInfo:nil willPresentProductSheet:YES];
                     delegate should_not have_received(@selector(interstitialCustomEventWillDisappear:));
                     delegate should_not have_received(@selector(interstitialCustomEventDidDisappear:));
                 });
@@ -60,7 +63,7 @@ describe(@"VungleInterstitialCustomEvent", ^{
 
             describe(@"with not presenting a product sheet", ^{
                 it(@"should send disappear messages to the delegate", ^{
-                    [sharedSDK.delegate vungleSDKwillCloseAdWithViewInfo:nil willPresentProductSheet:NO];
+                    [router vungleSDKwillCloseAdWithViewInfo:nil willPresentProductSheet:NO];
                     delegate should have_received(@selector(interstitialCustomEventWillDisappear:));
                     delegate should have_received(@selector(interstitialCustomEventDidDisappear:));
                 });
@@ -73,7 +76,7 @@ describe(@"VungleInterstitialCustomEvent", ^{
             });
 
             it(@"should send disappear messages to the delegate", ^{
-                [sharedSDK.delegate vungleSDKwillCloseProductSheet:nil];
+                [router vungleSDKwillCloseProductSheet:nil];
                 delegate should have_received(@selector(interstitialCustomEventWillDisappear:));
                 delegate should have_received(@selector(interstitialCustomEventDidDisappear:));
             });
@@ -85,7 +88,7 @@ describe(@"VungleInterstitialCustomEvent", ^{
             });
 
             it(@"should send appear messages to the delegate", ^{
-                [sharedSDK.delegate vungleSDKwillShowAd];
+                [router vungleSDKwillShowAd];
                 delegate should have_received(@selector(interstitialCustomEventWillAppear:));
                 delegate should have_received(@selector(interstitialCustomEventDidAppear:));
             });
@@ -105,10 +108,10 @@ describe(@"VungleInterstitialCustomEvent", ^{
             [secondModel requestInterstitialWithCustomEventInfo:nil];
         });
 
-        it(@"secondModel should be the Vungle delegate", ^{
-            [sharedSDK delegate] should equal(secondModel);
+        it(@"secondModel should be the Vungle router's delegate", ^{
+            [router delegate] should equal(secondModel);
 
-            [sharedSDK.delegate vungleSDKhasCachedAdAvailable];
+            [router vungleSDKhasCachedAdAvailable];
             secondDelegate should have_received(@selector(interstitialCustomEvent:didLoadAd:));
             delegate should_not have_received(@selector(interstitialCustomEvent:didLoadAd:));
         });
@@ -118,8 +121,8 @@ describe(@"VungleInterstitialCustomEvent", ^{
                 [secondModel performSelector:@selector(invalidate) withObject:nil];
             });
 
-            it(@"should nil out the Vungle delegate", ^{
-                [sharedSDK delegate] should be_nil;
+            it(@"should nil out the Vungle router's delegate", ^{
+                [router delegate] should be_nil;
             });
 
             context(@"when another custom event requests a Vungle ad", ^{
@@ -127,8 +130,8 @@ describe(@"VungleInterstitialCustomEvent", ^{
                     [model requestInterstitialWithCustomEventInfo:nil];
                 });
 
-                it(@"should be the Vungle delegate", ^{
-                    [sharedSDK delegate] should equal(model);
+                it(@"should be the Vungle router's delegate", ^{
+                    [router delegate] should equal(model);
                 });
             });
         });

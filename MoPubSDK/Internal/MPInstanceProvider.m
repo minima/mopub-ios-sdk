@@ -37,6 +37,9 @@
 #import "MRBridge.h"
 #import "MRController.h"
 #import "MPClosableView.h"
+#import "MPRewardedVideoAdManager.h"
+#import "MPRewardedVideoAdapter.h"
+#import "MPRewardedVideoCustomEvent.h"
 
 @interface MPInstanceProvider ()
 
@@ -162,6 +165,31 @@ static MPInstanceProvider *sharedAdProvider = nil;
     MPMRAIDInterstitialViewController *controller = [[MPMRAIDInterstitialViewController alloc] initWithAdConfiguration:configuration];
     controller.delegate = delegate;
     return controller;
+}
+
+#pragma mark - Rewarded Video
+
+- (MPRewardedVideoAdManager *)buildRewardedVideoAdManagerWithAdUnitID:(NSString *)adUnitID delegate:(id<MPRewardedVideoAdManagerDelegate>)delegate
+{
+    return [[MPRewardedVideoAdManager alloc] initWithAdUnitID:adUnitID delegate:delegate];
+}
+
+- (MPRewardedVideoAdapter *)buildRewardedVideoAdapterWithDelegate:(id<MPRewardedVideoAdapterDelegate>)delegate
+{
+    return [[MPRewardedVideoAdapter alloc] initWithDelegate:delegate];
+}
+
+- (MPRewardedVideoCustomEvent *)buildRewardedVideoCustomEventFromCustomClass:(Class)customClass delegate:(id<MPRewardedVideoCustomEventDelegate>)delegate
+{
+    MPRewardedVideoCustomEvent *customEvent = [[customClass alloc] init];
+
+    if (![customEvent isKindOfClass:[MPRewardedVideoCustomEvent class]]) {
+        MPLogError(@"**** Custom Event Class: %@ does not extend MPRewardedVideoCustomEvent ****", NSStringFromClass(customClass));
+        return nil;
+    }
+
+    customEvent.delegate = delegate;
+    return customEvent;
 }
 
 #pragma mark - HTML Ads

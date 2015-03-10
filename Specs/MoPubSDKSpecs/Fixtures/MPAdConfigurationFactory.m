@@ -199,6 +199,24 @@
                                                   data:[HTMLString dataUsingEncoding:NSUTF8StringEncoding]];
 }
 
+#pragma mark - Rewarded Video
++ (NSMutableDictionary *)defaultRewardedVideoHeaders
+{
+    return [@{
+              kAdTypeHeaderKey: @"custom",
+              kClickthroughHeaderKey: @"http://ads.mopub.com/m/clickThroughTracker?a=1",
+              kFailUrlHeaderKey: @"http://ads.mopub.com/m/failURL",
+              kImpressionTrackerHeaderKey: @"http://ads.mopub.com/m/impressionTracker",
+              kInterceptLinksHeaderKey: @"1",
+              kLaunchpageHeaderKey: @"http://publisher.com",
+              kInterstitialAdTypeHeaderKey: kAdTypeHtml,
+              } mutableCopy];
+}
 
++ (MPAdConfiguration *)defaultRewardedVideoConfiguration
+{
+    MPAdConfiguration *adConfiguration = [[MPAdConfiguration alloc] initWithHeaders:[self defaultRewardedVideoHeaders] data:nil];
+    return adConfiguration;
+}
 
 @end

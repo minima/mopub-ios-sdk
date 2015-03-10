@@ -45,6 +45,7 @@ static NSString *gGUID = nil;
 
 + (void)setGUID:(NSString *)GUID
 {
+    MPLogWarn(@"+setGUID for class GreystripeInterstitialCustomEvent is deprecated. Use the GUID parameter when configuring your network in the MoPub website.");
     gGUID = [GUID copy];
 }
 
@@ -54,9 +55,13 @@ static NSString *gGUID = nil;
 {
     MPLogInfo(@"Requesting Greystripe interstitial");
 
-    NSString *GUID = gGUID;
-    if ([GUID length] == 0) {
-        GUID = kGreystripeGUID;
+    NSString *GUID = [info objectForKey:@"GUID"];
+    if (GUID == nil) {
+        GUID = gGUID;
+        if ([GUID length] == 0) {
+            MPLogWarn(@"Setting kGreystripeGUID in GreystripeBannerCustomEvent.m is deprecated. Use the GUID parameter when configuring your network in the MoPub website.");
+            GUID = kGreystripeGUID;
+        }
     }
 
     self.greystripeFullscreenAd = [[MPInstanceProvider sharedProvider] buildGSFullscreenAdWithDelegate:self GUID:GUID];

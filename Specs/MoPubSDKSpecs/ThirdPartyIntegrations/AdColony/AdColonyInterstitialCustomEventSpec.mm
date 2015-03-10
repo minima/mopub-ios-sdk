@@ -1,5 +1,7 @@
 #import "AdColonyInterstitialCustomEvent.h"
 #import "AdColony+Specs.h"
+#import "MPInstanceProvider+AdColony.h"
+#import "AdColonyCustomEvent+MPSpecs.h"
 
 @class MPAdColonyRouter;
 
@@ -8,12 +10,6 @@
 @property (nonatomic, readonly) NSString *zoneId;
 
 - (void)invalidate;
-
-@end
-
-@interface MPInstanceProvider ()
-
-- (MPAdColonyRouter *)sharedMPAdColonyRouter;
 
 @end
 
@@ -27,11 +23,6 @@ describe(@"AdColonyInterstitialCustomEvent", ^{
     __block id<MPInterstitialCustomEventDelegate, CedarDouble> delegate;
 
     beforeEach(^{
-        static dispatch_once_t once;
-        dispatch_once(&once, ^{
-            [AdColony mp_swizzleStartMethod];
-            [AdColony mp_swizzleZoneStatusMethod];
-        });
         [AdColony mp_setZoneStatus:-1];
 
         model = [[AdColonyInterstitialCustomEvent alloc] init];
@@ -52,12 +43,12 @@ describe(@"AdColonyInterstitialCustomEvent", ^{
         });
 
         it(@"should use the default app id", ^{
-            [AdColony mp_getAppId] should equal(@"YOUR_ADCOLONY_APPID");
+            [AdColonyCustomEvent mp_appId] should equal(@"YOUR_ADCOLONY_APPID");
         });
 
         it(@"should initialize the zone ids", ^{
-            [[AdColony mp_getZoneIds] objectAtIndex:0] should equal(@"ZONE_1");
-            [[AdColony mp_getZoneIds] objectAtIndex:1] should equal(@"ZONE_2");
+            [[AdColonyCustomEvent mp_allZoneIds] objectAtIndex:0] should equal(@"ZONE_1");
+            [[AdColonyCustomEvent mp_allZoneIds] objectAtIndex:1] should equal(@"ZONE_2");
         });
 
         it(@"should set this ad unit's zone id", ^{

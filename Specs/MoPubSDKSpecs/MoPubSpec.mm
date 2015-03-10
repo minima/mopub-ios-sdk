@@ -33,6 +33,8 @@ describe(@"MoPub", ^{
             });
         });
     });
+
+    // Mediation settings tests are spread across MPRewardedAdManagerSpec and MPRewardedVideoSpec.
 });
 
 SPEC_END

@@ -12,8 +12,6 @@
 #endif
 
 /*
- * Certified with version 2.4.12 of the AdColony SDK.
- *
  * The AdColony SDK does not provide an ad clicked callback. As a result, this custom event will not invoke delegate methods
  * interstitialCustomEventDidReceiveTapEvent: and interstitialCustomEventWillLeaveApplication:
  */
@@ -30,6 +28,10 @@
  *
  * IMPORTANT: If you choose to use this method, be sure to call it before making any ad requests,
  * and avoid calling it more than once. Otherwise, the AdColony SDK may be initialized improperly.
+ *
+ * **Deprecated**: This method of setting the AdColony app ID is deprecated. Use the MoPub website to set
+ * your app ID in your network settings for AdColony. See the Custom Native Network Setup guide for more
+ * information. https://dev.twitter.com/mopub/ad-networks/network-setup-custom-native
  */
 + (void)setAppId:(NSString *)appId;
 
@@ -43,6 +45,10 @@
  *
  * IMPORTANT: If you choose to use this method, be sure to call it before making any ad requests,
  * and avoid calling it more than once. Otherwise, the AdColony SDK may be initialized improperly.
+ *
+ * **Deprecated**: This method of setting the AdColony Zone IDs is deprecated. Use the MoPub website to set
+ * your Zone IDs in your network settings for AdColony. See the Custom Native Network Setup guide for more
+ * information. https://dev.twitter.com/mopub/ad-networks/network-setup-custom-native
  */
 + (void)setAllZoneIds:(NSArray *)zoneIds;
 
@@ -57,6 +63,10 @@
  * IMPORTANT: If you choose to use this method, be sure to call it before making any ad requests,
  * and avoid calling it more than once. Otherwise, the default zone ID may vary unexpectedly between
  * different ad requests.
+ *
+ * **Deprecated**: This method of setting the AdColony default Zone ID is deprecated. Use the MoPub website to set
+ * your default Zone ID in your network settings for AdColony. See the Custom Native Network Setup guide for more
+ * information. https://dev.twitter.com/mopub/ad-networks/network-setup-custom-native
  */
 + (void)setDefaultZoneId:(NSString *)defaultZoneId;
 

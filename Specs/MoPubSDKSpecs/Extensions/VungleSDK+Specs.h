@@ -10,5 +10,6 @@
 @interface VungleSDK (Specs)
 
 + (NSString *)mp_getAppId;
++ (NSDictionary *)mp_getPlayOptionsDictionary;
 
 @end

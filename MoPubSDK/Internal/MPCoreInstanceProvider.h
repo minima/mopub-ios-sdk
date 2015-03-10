@@ -31,12 +31,6 @@
 
 typedef id(^MPSingletonProviderBlock)();
 
-typedef enum {
-    MPTwitterAvailabilityNone = 0,
-    MPTwitterAvailabilityApp = 1 << 0,
-    MPTwitterAvailabilityNative = 1 << 1,
-} MPTwitterAvailability;
-
 @interface MPCoreInstanceProvider : NSObject
 
 + (instancetype)sharedProvider;
@@ -65,9 +59,5 @@ typedef enum {
 - (NSDictionary *)sharedCarrierInfo;
 
 - (MPTimer *)buildMPTimerWithTimeInterval:(NSTimeInterval)seconds target:(id)target selector:(SEL)selector repeats:(BOOL)repeats;
-
-- (MPTwitterAvailability)twitterAvailabilityOnDevice;
-- (void)resetTwitterAppInstallCheck;
-
 
 @end

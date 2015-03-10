@@ -263,51 +263,6 @@ describe(@"MPAdServerURLBuilder", ^{
         URL.absoluteString should contain([NSString stringWithFormat:@"&dn=%@", [[[UIDevice currentDevice] hardwareDeviceName] URLEncodedString]]);
     });
 
-    describe(@"Twitter Availability", ^{
-        beforeEach(^{
-            [fakeCoreProvider resetTwitterAppInstallCheck];
-            [[UIApplication sharedApplication] setTwitterInstalled:NO];
-            [TWTweetComposeViewController setNativeTwitterAvailable:NO];
-        });
-
-        it(@"should not pass a query if no twitter is available", ^{
-            URL = [MPAdServerURLBuilder URLWithAdUnitID:@"guy"
-                                               keywords:nil
-                                               location:nil
-                                                testing:YES];
-            URL.absoluteString should_not contain([NSString stringWithFormat:@"&ts="]);
-        });
-
-        it(@"should create query for only having twitter app installed", ^{
-            [[UIApplication sharedApplication] setTwitterInstalled:YES];
-            URL = [MPAdServerURLBuilder URLWithAdUnitID:@"guy"
-                                               keywords:nil
-                                               location:nil
-                                                testing:YES];
-            URL.absoluteString should contain([NSString stringWithFormat:@"&ts=1"]);
-        });
-
-        it(@"should create query for only having native twitter account(s)", ^{
-            [TWTweetComposeViewController setNativeTwitterAvailable:YES];
-            URL = [MPAdServerURLBuilder URLWithAdUnitID:@"guy"
-                                               keywords:nil
-                                               location:nil
-                                                testing:YES];
-            URL.absoluteString should contain([NSString stringWithFormat:@"&ts=2"]);
-
-        });
-
-        it(@"should create query for having both twitter app and native account(s)", ^{
-            [[UIApplication sharedApplication] setTwitterInstalled:YES];
-            [TWTweetComposeViewController setNativeTwitterAvailable:YES];
-            URL = [MPAdServerURLBuilder URLWithAdUnitID:@"guy"
-                                               keywords:nil
-                                               location:nil
-                                                testing:YES];
-            URL.absoluteString should contain([NSString stringWithFormat:@"&ts=3"]);
-        });
-    });
-
     describe(@"desired assets", ^{
         it(@"should append desired ad assets as a query parameter", ^{
             NSArray *assets = [NSArray arrayWithObjects:@"a", @"b", @"c", nil];

@@ -27,6 +27,14 @@
 @class MPMRAIDInterstitialViewController;
 @protocol MPInterstitialViewControllerDelegate;
 
+// Rewarded Video
+@class MPRewardedVideoAdManager;
+@class MPRewardedVideoAdapter;
+@class MPRewardedVideoCustomEvent;
+@protocol MPRewardedVideoAdapterDelegate;
+@protocol MPRewardedVideoCustomEventDelegate;
+@protocol MPRewardedVideoAdManagerDelegate;
+
 // HTML Ads
 @class MPAdWebView;
 @class MPAdWebViewAgent;
@@ -88,6 +96,12 @@
                                                                    customMethodDelegate:(id)customMethodDelegate;
 - (MPMRAIDInterstitialViewController *)buildMPMRAIDInterstitialViewControllerWithDelegate:(id<MPInterstitialViewControllerDelegate>)delegate
                                                                             configuration:(MPAdConfiguration *)configuration;
+
+#pragma mark - Rewarded Video
+- (MPRewardedVideoAdManager *)buildRewardedVideoAdManagerWithAdUnitID:(NSString *)adUnitID delegate:(id<MPRewardedVideoAdManagerDelegate>)delegate;
+- (MPRewardedVideoAdapter *)buildRewardedVideoAdapterWithDelegate:(id<MPRewardedVideoAdapterDelegate>)delegate;
+- (MPRewardedVideoCustomEvent *)buildRewardedVideoCustomEventFromCustomClass:(Class)customClass delegate:(id<MPRewardedVideoCustomEventDelegate>)delegate;
+
 
 #pragma mark - HTML Ads
 - (MPAdWebView *)buildMPAdWebViewWithFrame:(CGRect)frame

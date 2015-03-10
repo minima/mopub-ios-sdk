@@ -8,6 +8,7 @@
 #import "VungleSDK+Specs.h"
 
 static NSString *gAppId;
+static NSDictionary *gPlayOptions;
 
 @implementation VungleSDK (Specs)
 
@@ -16,9 +17,20 @@ static NSString *gAppId;
     gAppId = [appId copy];
 }
 
+
+- (void)playAd:(UIViewController *)viewController withOptions:(id)options
+{
+    gPlayOptions = options;
+}
+
 + (NSString *)mp_getAppId
 {
     return gAppId;
+}
+
++ (NSDictionary *)mp_getPlayOptionsDictionary
+{
+    return gPlayOptions;
 }
 
 @end

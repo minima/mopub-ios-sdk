@@ -63,6 +63,25 @@ describe(@"MPInterstitialViewController", ^{
         });
     });
 
+    describe(@"presenting the view controller twice", ^{
+        it(@"should call presentViewController:animated:completion: only once when presenting multiple times", ^{
+            // We wrap this entire spec in a should_not raise_exception because the second call to
+            // presentInterstitialFromViewController: will raise an exception before the spec has
+            // a chance to fail.
+            ^{
+                spy_on(presentingController);
+                [controller presentInterstitialFromViewController:presentingController];
+                presentingController should have_received(@selector(presentViewController:animated:completion:));
+
+                [(id<CedarDouble>)presentingController reset_sent_messages];
+                [controller presentInterstitialFromViewController:presentingController];
+
+                presentingController should_not have_received(@selector(presentViewController:animated:completion:));
+            } should_not raise_exception;
+        });
+    });
+
+
 #if __IPHONE_OS_VERSION_MAX_ALLOWED < MP_IOS_7_0
     // XXX jren
     // status bar show/hide paradigm is totally changed in ios 7. Now each viewcontroller is asked - (BOOL)prefersStatusBarHidden

@@ -11,6 +11,7 @@
 
 + (void)setDelegate:(id)delegate;
 + (void)setHasInterstitial:(NSNumber *)hasInterstitial forLocation:(CBLocation)location;
++ (void)setHasRewardedVideo:(NSNumber *)hasRewardedVideo forLocation:(CBLocation)location;
 + (void)simulateLoadingLocation:(NSString *)location;
 + (void)simulateUserTap:(NSString *)location;
 + (void)simulateUserDismissingLocation:(NSString *)location;
@@ -18,6 +19,7 @@
 + (NSString *)appId;
 + (NSString *)appSignature;
 + (NSArray *)requestedLocations;
++(NSArray *)requestedRewardedLocations;
 + (void)clearRequestedLocations;
 + (NSString *)currentVisibleLocation;
 

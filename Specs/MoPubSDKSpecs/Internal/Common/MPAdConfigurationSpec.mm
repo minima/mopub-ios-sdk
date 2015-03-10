@@ -198,17 +198,17 @@ describe(@"MPAdConfiguration", ^{
         configuration = [[MPAdConfiguration alloc] initWithHeaders:headers data:nil];
         configuration.refreshInterval should equal(100.12);
 
-        headers = @{kRefreshTimeHeaderKey: @"4.9"};
+        headers = @{kRefreshTimeHeaderKey: @"9.9"};
         configuration = [[MPAdConfiguration alloc] initWithHeaders:headers data:nil];
-        configuration.refreshInterval should equal(5.0);
+        configuration.refreshInterval should equal(10.0);
 
         headers = @{kRefreshTimeHeaderKey: @"pandas"};
         configuration = [[MPAdConfiguration alloc] initWithHeaders:headers data:nil];
-        configuration.refreshInterval should equal(5.0);
+        configuration.refreshInterval should equal(10.0);
 
         headers = @{kRefreshTimeHeaderKey: @""};
         configuration = [[MPAdConfiguration alloc] initWithHeaders:headers data:nil];
-        configuration.refreshInterval should equal(5.0);
+        configuration.refreshInterval should equal(10.0);
 
         headers = @{};
         configuration = [[MPAdConfiguration alloc] initWithHeaders:headers data:nil];

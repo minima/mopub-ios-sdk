@@ -138,6 +138,30 @@
                      }];
 }
 
+#pragma mark - Rewarded Video
+- (MPRewardedVideoAdManager *)buildRewardedVideoAdManagerWithAdUnitID:(NSString *)adUnitID delegate:(id<MPRewardedVideoAdManagerDelegate>)delegate
+{
+    return [self returnFake:self.fakeMPRewardedVideoAdManager
+                     orCall:^{
+                         return [super buildRewardedVideoAdManagerWithAdUnitID:adUnitID delegate:delegate];
+                     }];
+}
+
+- (MPRewardedVideoAdapter *)buildRewardedVideoAdapterWithDelegate:(id<MPRewardedVideoAdapterDelegate>)delegate
+{
+    return [self returnFake:self.fakeMPRewardedVideoAdapter
+                     orCall:^{
+                         return [super buildRewardedVideoAdapterWithDelegate:delegate];
+                     }];
+}
+
+- (MPRewardedVideoCustomEvent *)buildRewardedVideoCustomEventFromCustomClass:(Class)aClass delegate:(id<MPRewardedVideoCustomEventDelegate>)delegate
+{
+    return [self returnFake:self.fakeMPRewardedVideoCustomEvent
+                     orCall:^{
+                         return [super buildRewardedVideoCustomEventFromCustomClass:aClass delegate:delegate];
+                     }];
+}
 #pragma mark - HTML Ads
 
 - (MPAdWebView *)buildMPAdWebViewWithFrame:(CGRect)frame delegate:(id<UIWebViewDelegate>)delegate

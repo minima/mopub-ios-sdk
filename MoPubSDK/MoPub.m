@@ -9,6 +9,13 @@
 #import "MPConstants.h"
 #import "MPCoreInstanceProvider.h"
 #import "MPGeolocationProvider.h"
+#import "MPRewardedVideo.h"
+
+@interface MoPub ()
+
+@property (nonatomic, strong) NSArray *globalMediationSettings;
+
+@end
 
 @implementation MoPub
 
@@ -41,6 +48,26 @@
 - (NSString *)bundleIdentifier
 {
     return MP_BUNDLE_IDENTIFIER;
+}
+
+- (void)initializeRewardedVideoWithGlobalMediationSettings:(NSArray *)globalMediationSettings delegate:(id<MPRewardedVideoDelegate>)delegate
+{
+    // initializeWithDelegate: is a known private initialization method on MPRewardedVideo. So we forward the initialization call to that class.
+    [MPRewardedVideo performSelector:@selector(initializeWithDelegate:) withObject:delegate];
+    self.globalMediationSettings = globalMediationSettings;
+}
+
+- (id<MPMediationSettingsProtocol>)globalMediationSettingsForClass:(Class)aClass
+{
+    NSArray *mediationSettingsCollection = self.globalMediationSettings;
+
+    for (id<MPMediationSettingsProtocol> settings in mediationSettingsCollection) {
+        if ([settings isKindOfClass:aClass]) {
+            return settings;
+        }
+    }
+
+    return nil;
 }
 
 @end
