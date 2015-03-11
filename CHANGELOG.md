@@ -1,7 +1,8 @@
 ## Version 3.5 (March 10th, 2015)
-    - **Deprecated custom event class methods and constants for setting ad network parameters**.
-    - **Changed banner minimum refresh time interval to 10 seconds**.
-    - **Greystripe custom events now accept parameters configured using app.mopub.com**.
+
+  - **Deprecated custom event class methods and constants for setting ad network parameters**.
+  - **Changed banner minimum refresh time interval to 10 seconds**.
+  - **Greystripe custom events now accept parameters configured using app.mopub.com**.
 
 ## Version 3.4 (January 30th, 2015)
 
