@@ -138,7 +138,9 @@
     // Adserver doesn't return a customEventClass for MoPub native ads
     if ([configuration.networkType isEqualToString:kAdTypeNative] && configuration.customEventClass == nil) {
         configuration.customEventClass = [MPMoPubNativeCustomEvent class];
-        NSDictionary *classData = [NSJSONSerialization mp_JSONObjectWithData:configuration.adResponseData options:0 clearNullObjects:YES error:nil];
+        NSError *error;
+        NSDictionary *classData = [NSJSONSerialization mp_JSONObjectWithData:configuration.adResponseData options:0 clearNullObjects:YES error:&error];
+
         configuration.customEventClassData = classData;
     }
 
@@ -176,14 +178,20 @@
 {
     self.adConfiguration = configuration;
 
+    if (configuration.adUnitWarmingUp) {
+        MPLogInfo(kMPWarmingUpErrorLogFormatWithAdUnitID, self.adUnitIdentifier);
+        [self completeAdRequestWithAdObject:nil error:[NSError errorWithDomain:MoPubNativeAdsSDKDomain code:MPNativeAdErrorAdUnitWarmingUp userInfo:nil]];
+        return;
+    }
+
     if ([configuration.networkType isEqualToString:kAdTypeClear]) {
         MPLogInfo(kMPClearErrorLogFormatWithAdUnitID, self.adUnitIdentifier);
-
         [self completeAdRequestWithAdObject:nil error:[NSError errorWithDomain:MoPubNativeAdsSDKDomain code:MPNativeAdErrorNoInventory userInfo:nil]];
-    } else {
-        MPLogInfo(@"Received data from MoPub to construct native ad.\n");
-        [self getAdWithConfiguration:configuration];
+        return;
     }
+
+    MPLogInfo(@"Received data from MoPub to construct native ad.\n");
+    [self getAdWithConfiguration:configuration];
 }
 
 - (void)communicatorDidFailWithError:(NSError *)error

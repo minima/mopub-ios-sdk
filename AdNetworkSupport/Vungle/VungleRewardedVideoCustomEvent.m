@@ -26,7 +26,7 @@
 
 - (void)requestRewardedVideoWithCustomEventInfo:(NSDictionary *)info
 {
-    [[MPVungleRouter sharedRouter] requestAdWithCustomEventInfo:info andDelegate:self];
+    [[MPVungleRouter sharedRouter] requestRewardedVideoAdWithCustomEventInfo:info delegate:self];
 }
 
 - (BOOL)hasAdAvailable
@@ -39,7 +39,7 @@
     if ([[MPVungleRouter sharedRouter] isAdAvailable]) {
         VungleInstanceMediationSettings *settings = [self.delegate instanceMediationSettingsForClass:[VungleInstanceMediationSettings class]];
 
-        [[MPVungleRouter sharedRouter] presentRewardedVideoAdFromViewController:viewController withSettings:settings];
+        [[MPVungleRouter sharedRouter] presentRewardedVideoAdFromViewController:viewController settings:settings delegate:self];
     } else {
         MPLogInfo(@"Failed to show Vungle rewarded video: Vungle now claims that there is no available video ad.");
         NSError *error = [NSError errorWithDomain:MoPubRewardedVideoAdsSDKDomain code:MPRewardedVideoAdErrorNoAdsAvailable userInfo:nil];
@@ -76,6 +76,17 @@
 - (void)vungleAdShouldRewardUser
 {
     [self.delegate rewardedVideoShouldRewardUserForCustomEvent:self reward:[[MPRewardedVideoReward alloc] initWithCurrencyAmount:@(kMPRewardedVideoRewardCurrencyAmountUnspecified)]];
+}
+
+
+- (void)vungleAdDidFailToLoad:(NSError *)error
+{
+    [self.delegate rewardedVideoDidFailToLoadAdForCustomEvent:self error:error];
+}
+
+- (void)vungleAdDidFailToPlay:(NSError *)error
+{
+    [self.delegate rewardedVideoDidFailToPlayForCustomEvent:self error:error];
 }
 
 @end

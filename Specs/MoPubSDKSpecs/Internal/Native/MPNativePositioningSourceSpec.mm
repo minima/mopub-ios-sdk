@@ -2,6 +2,7 @@
 #import "MPIdentityProvider.h"
 #import "MPConstants.h"
 #import "CedarAsync.h"
+#import "MPAPIEndpoints.h"
 
 using namespace Cedar::Matchers;
 using namespace Cedar::Doubles;
@@ -80,6 +81,29 @@ describe(@"MPNativePositionSource", ^{
                 queryString should contain([NSString stringWithFormat:@"v=%@", MP_SERVER_VERSION]);
                 queryString should contain([NSString stringWithFormat:@"nsv=%@", MP_SDK_VERSION]);
                 queryString should contain([NSString stringWithFormat:@"udid=%@", [MPIdentityProvider identifier]]);
+            });
+
+            context(@"when HTTPS is enabled", ^{
+                beforeEach(^{
+                    [MPAPIEndpoints setUsesHTTPS:YES];
+                });
+
+                afterEach(^{
+                    [MPAPIEndpoints setUsesHTTPS:NO];
+                });
+
+                it(@"should make an ad server request over HTTPS", ^{
+                    [positionSource loadPositionsWithAdUnitIdentifier:TEST_ID completionHandler:^(MPAdPositioning *positioning, NSError *error) {
+                        didCallCompletionHandler = YES;
+                        returnedPositioning = positioning;
+                        returnedError = error;
+                    }];
+
+                    NSURL *requestURL = [[[NSURLConnection lastConnection] request] URL];
+                    requestURL.scheme should equal(@"https");
+                    requestURL.host should equal(@"ads.mopub.com");
+                    requestURL.path should equal(@"/m/pos");
+                });
             });
 
             context(@"when the server returns valid JSON", ^{

@@ -19,10 +19,11 @@
 
 + (MPVungleRouter *)sharedRouter;
 
-- (void)requestAdWithCustomEventInfo:(NSDictionary *)info andDelegate:(id<MPVungleRouterDelegate>)delegate;
+- (void)requestInterstitialAdWithCustomEventInfo:(NSDictionary *)info delegate:(id<MPVungleRouterDelegate>)delegate;
+- (void)requestRewardedVideoAdWithCustomEventInfo:(NSDictionary *)info delegate:(id<MPVungleRouterDelegate>)delegate;
 - (BOOL)isAdAvailable;
-- (void)presentInterstitialAdFromViewController:(UIViewController *)viewController;
-- (void)presentRewardedVideoAdFromViewController:(UIViewController *)viewController withSettings:(VungleInstanceMediationSettings *)settings;
+- (void)presentInterstitialAdFromViewController:(UIViewController *)viewController withDelegate:(id<MPVungleRouterDelegate>)delegate;
+- (void)presentRewardedVideoAdFromViewController:(UIViewController *)viewController settings:(VungleInstanceMediationSettings *)settings delegate:(id<MPVungleRouterDelegate>)delegate;
 - (void)clearDelegate:(id<MPVungleRouterDelegate>)delegate;
 @end
 
@@ -31,6 +32,8 @@
 - (void)vungleAdDidLoad;
 - (void)vungleAdWillAppear;
 - (void)vungleAdWillDisappear;
+- (void)vungleAdDidFailToPlay:(NSError *)error;
+- (void)vungleAdDidFailToLoad:(NSError *)error;
 
 @optional
 

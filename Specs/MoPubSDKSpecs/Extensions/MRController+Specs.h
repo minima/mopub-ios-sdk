@@ -26,6 +26,7 @@
 @property (nonatomic, assign) MRAdViewPlacementType placementType;
 @property (nonatomic, assign) UIInterfaceOrientation currentInterfaceOrientation;
 @property (nonatomic, copy) void (^forceOrientationAfterAnimationBlock)();
+@property (nonatomic, weak) MPMRAIDInterstitialViewController *interstitialViewController;
 
 - (void)checkViewability;
 - (void)orientationDidChange:(NSNotification *)notification;

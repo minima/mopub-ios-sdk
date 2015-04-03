@@ -1,5 +1,7 @@
 #import "MPAdServerCommunicator.h"
 #import "MPAdConfigurationFactory.h"
+#import "FakeMPLogEventRecorder.h"
+#import "MPLogEvent.h"
 
 using namespace Cedar::Matchers;
 using namespace Cedar::Doubles;
@@ -25,12 +27,24 @@ using namespace Cedar::Doubles;
 
 @end
 
+@interface MPAdServerCommunicator (MPSpecs)
+
+@property (nonatomic) MPLogEvent *adRequestLatencyEvent;
+
+@end
+
 SPEC_BEGIN(MPAdServerCommunicatorSpec)
 
 describe(@"MPAdServerCommunicator", ^{
     __block MPAdServerCommunicator *communicator;
     __block FakeMPAdServerCommunicatorDelegate *delegate;
+    __block FakeMPLogEventRecorder *eventRecorder;
+
     beforeEach(^{
+        eventRecorder = [[FakeMPLogEventRecorder alloc] init];
+        spy_on(eventRecorder);
+        fakeCoreProvider.fakeLogEventRecorder = eventRecorder;
+
         delegate = [[FakeMPAdServerCommunicatorDelegate alloc] init];
         communicator = [[MPAdServerCommunicator alloc] initWithDelegate:delegate];
     });
@@ -53,12 +67,16 @@ describe(@"MPAdServerCommunicator", ^{
             communicator.loading should equal(YES);
         });
 
+        it(@"should create a log event", ^{
+            communicator.adRequestLatencyEvent should_not be_nil;
+        });
+
         context(@"when the request succeeds", ^{
             beforeEach(^{
                 NSDictionary *headers = [MPAdConfigurationFactory defaultBannerHeaders];
                 PSHKFakeHTTPURLResponse *response = [[PSHKFakeHTTPURLResponse alloc] initWithStatusCode:200
-                                                                                              andHeaders:headers
-                                                                                                 andBody:@"<h1>Foo</h1>"];
+                                                                                             andHeaders:headers
+                                                                                                andBody:@"<h1>Foo</h1>"];
                 [connection receiveResponse:response];
             });
 
@@ -70,14 +88,24 @@ describe(@"MPAdServerCommunicator", ^{
             it(@"should not be loading", ^{
                 communicator.loading should equal(NO);
             });
+
+            it(@"should log an event with data about the request", ^{
+                eventRecorder should have_received(@selector(addEvent:));
+
+                MPLogEvent *event = eventRecorder.events[0];
+                event.performanceDurationMs should_not equal(0);
+                event.requestStatusCode should equal(200);
+                event.requestURI should equal(URL.absoluteString);
+                event.adType should equal(@"html");
+            });
         });
 
         context(@"when the request fails", ^{
             context(@"because the request is not in the success range", ^{
                 beforeEach(^{
                     PSHKFakeHTTPURLResponse *response = [[PSHKFakeHTTPURLResponse alloc] initWithStatusCode:404
-                                                                                                  andHeaders:nil
-                                                                                                     andBody:nil];
+                                                                                                 andHeaders:nil
+                                                                                                    andBody:nil];
                     [connection receiveResponse:response];
                 });
 
@@ -88,6 +116,10 @@ describe(@"MPAdServerCommunicator", ^{
 
                 it(@"should not be loading", ^{
                     communicator.loading should equal(NO);
+                });
+
+                it(@"should not log an event", ^{
+                    eventRecorder should_not have_received(@selector(addEvent:));
                 });
             });
 
@@ -107,6 +139,10 @@ describe(@"MPAdServerCommunicator", ^{
                 it(@"should not be loading", ^{
                     communicator.loading should equal(NO);
                 });
+
+                it(@"should not log an  event", ^{
+                    eventRecorder should_not have_received(@selector(addEvent:));
+                });
             });
         });
 
@@ -121,6 +157,10 @@ describe(@"MPAdServerCommunicator", ^{
 
             it(@"should not be loading", ^{
                 communicator.loading should equal(NO);
+            });
+
+            it(@"should not submit a latency log event", ^{
+                eventRecorder should_not have_received(@selector(addEvent:));
             });
         });
     });

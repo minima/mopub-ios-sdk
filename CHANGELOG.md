@@ -1,3 +1,8 @@
+## Version 3.6 (April 3rd, 2015)
+
+  - **Bug fixes**.
+    - Fixed crash caused by some MRAID ads attempting to set an orientation that the app doesn't support.
+    
 ## Version 3.5 (March 10th, 2015)
 
   - **Deprecated custom event class methods and constants for setting ad network parameters**.

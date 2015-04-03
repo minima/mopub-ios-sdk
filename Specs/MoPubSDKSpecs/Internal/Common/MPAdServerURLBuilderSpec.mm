@@ -5,6 +5,7 @@
 #import "TWTweetComposeViewController+MPSpecs.h"
 #import "FakeMPGeolocationProvider.h"
 #import <CoreLocation/CoreLocation.h>
+#import "MPAPIEndpoints.h"
 
 using namespace Cedar::Matchers;
 using namespace Cedar::Doubles;
@@ -315,6 +316,27 @@ describe(@"MPAdServerURLBuilder", ^{
                                           desiredAssets:nil];
 
             URL.absoluteString should_not contain(@"&seq");
+        });
+    });
+
+    context(@"when HTTPS is enabled", ^{
+        beforeEach(^{
+            [MPAPIEndpoints setUsesHTTPS:YES];
+        });
+
+        afterEach(^{
+            [MPAPIEndpoints setUsesHTTPS:NO];
+        });
+
+        it(@"should return HTTPS URLs", ^{
+            URL = [MPAdServerURLBuilder URLWithAdUnitID:@"guy"
+                                               keywords:nil
+                                               location:nil
+                                                testing:NO];
+            expected = [NSString stringWithFormat:@"https://ads.mopub.com/m/ad?v=8&udid=%@&id=guy&nv=%@",
+                        [MPIdentityProvider identifier],
+                        MP_SDK_VERSION];
+            URL.absoluteString should contain(expected);
         });
     });
 });

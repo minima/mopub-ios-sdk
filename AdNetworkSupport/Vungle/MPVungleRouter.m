@@ -9,9 +9,16 @@
 #import "MPInstanceProvider+Vungle.h"
 #import "MPLogging.h"
 #import "VungleInstanceMediationSettings.h"
+#import "MPRewardedVideoError.h"
 
 static NSString *gAppId = nil;
 NSString *const kMPVungleRewardedAdCompletedView = @"completedView";
+
+@interface MPVungleRouter ()
+
+@property (nonatomic, assign) BOOL isAdPlaying;
+
+@end
 
 @implementation MPVungleRouter
 
@@ -25,7 +32,26 @@ NSString *const kMPVungleRewardedAdCompletedView = @"completedView";
     return [[MPInstanceProvider sharedProvider] sharedMPVungleRouter];
 }
 
-- (void)requestAdWithCustomEventInfo:(NSDictionary *)info andDelegate:(id<MPVungleRouterDelegate>)delegate
+- (void)requestInterstitialAdWithCustomEventInfo:(NSDictionary *)info delegate:(id<MPVungleRouterDelegate>)delegate
+{
+    if (!self.isAdPlaying) {
+        [self requestAdWithCustomEventInfo:info delegate:delegate];
+    } else {
+        [delegate vungleAdDidFailToLoad:nil];
+    }
+}
+
+- (void)requestRewardedVideoAdWithCustomEventInfo:(NSDictionary *)info delegate:(id<MPVungleRouterDelegate>)delegate
+{
+    if (!self.isAdPlaying) {
+        [self requestAdWithCustomEventInfo:info delegate:delegate];
+    } else {
+        NSError *error = [NSError errorWithDomain:MoPubRewardedVideoAdsSDKDomain code:MPRewardedVideoAdErrorUnknown userInfo:nil];
+        [delegate vungleAdDidFailToLoad:error];
+    }
+}
+
+- (void)requestAdWithCustomEventInfo:(NSDictionary *)info delegate:(id<MPVungleRouterDelegate>)delegate
 {
     self.delegate = delegate;
 
@@ -53,20 +79,33 @@ NSString *const kMPVungleRewardedAdCompletedView = @"completedView";
     return [[VungleSDK sharedSDK] isCachedAdAvailable];
 }
 
-- (void)presentInterstitialAdFromViewController:(UIViewController *)viewController
+- (void)presentInterstitialAdFromViewController:(UIViewController *)viewController withDelegate:(id<MPVungleRouterDelegate>)delegate
 {
-    [[VungleSDK sharedSDK] playAd:viewController];
+    if (!self.isAdPlaying && self.isAdAvailable) {
+        self.delegate = delegate;
+        self.isAdPlaying = YES;
+        [[VungleSDK sharedSDK] playAd:viewController];
+    } else {
+        [delegate vungleAdDidFailToPlay:nil];
+    }
 }
 
-- (void)presentRewardedVideoAdFromViewController:(UIViewController *)viewController withSettings:(VungleInstanceMediationSettings *)settings
+- (void)presentRewardedVideoAdFromViewController:(UIViewController *)viewController settings:(VungleInstanceMediationSettings *)settings delegate:(id<MPVungleRouterDelegate>)delegate
 {
-    NSDictionary *options;
-    if (settings && [settings.userIdentifier length]) {
-        options = @{VunglePlayAdOptionKeyIncentivized : @(YES), VunglePlayAdOptionKeyUser : settings.userIdentifier};
+    if (!self.isAdPlaying && self.isAdAvailable) {
+        self.delegate = delegate;
+        self.isAdPlaying = YES;
+        NSDictionary *options;
+        if (settings && [settings.userIdentifier length]) {
+            options = @{VunglePlayAdOptionKeyIncentivized : @(YES), VunglePlayAdOptionKeyUser : settings.userIdentifier};
+        } else {
+            options = @{VunglePlayAdOptionKeyIncentivized : @(YES)};
+        }
+        [[VungleSDK sharedSDK] playAd:viewController withOptions:options];
     } else {
-        options = @{VunglePlayAdOptionKeyIncentivized : @(YES)};
+        NSError *error = [NSError errorWithDomain:MoPubRewardedVideoAdsSDKDomain code:MPRewardedVideoAdErrorNoAdsAvailable userInfo:nil];
+        [delegate vungleAdDidFailToPlay:error];
     }
-    [[VungleSDK sharedSDK] playAd:viewController withOptions:options];
 }
 
 - (void)clearDelegate:(id<MPVungleRouterDelegate>)delegate
@@ -75,6 +114,14 @@ NSString *const kMPVungleRewardedAdCompletedView = @"completedView";
     {
         [self setDelegate:nil];
     }
+}
+
+#pragma mark - private
+
+- (void)vungleAdDidFinish
+{
+    [self.delegate vungleAdWillDisappear];
+    self.isAdPlaying = NO;
 }
 
 #pragma mark - VungleSDKDelegate
@@ -96,13 +143,13 @@ NSString *const kMPVungleRewardedAdCompletedView = @"completedView";
     }
 
     if (!willPresentProductSheet) {
-        [self.delegate vungleAdWillDisappear];
+        [self vungleAdDidFinish];
     }
 }
 
 - (void)vungleSDKwillCloseProductSheet:(id)productSheet
 {
-    [self.delegate vungleAdWillDisappear];
+    [self vungleAdDidFinish];
 }
 
 @end

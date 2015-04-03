@@ -13,6 +13,7 @@
 + (NSMutableDictionary *)defaultNativeProperties;
 + (MPAdConfiguration *)defaultNativeAdConfiguration;
 + (MPAdConfiguration *)defaultNativeAdConfigurationWithCustomEventClassName:(NSString *)eventClassName;
++ (MPAdConfiguration *)defaultNativeAdConfigurationWithNetworkType:(NSString *)type;
 + (MPAdConfiguration *)defaultNativeAdConfigurationWithHeaders:(NSDictionary *)dictionary
                                                     properties:(NSDictionary *)properties;
 

@@ -17,6 +17,8 @@
 #import "MPTimer.h"
 #import "MPAnalyticsTracker.h"
 #import "MPGeolocationProvider.h"
+#import "MPLogEventRecorder.h"
+#import "MPNetworkManager.h"
 
 #define MOPUB_CARRIER_INFO_DEFAULTS_KEY @"com.mopub.carrierinfo"
 
@@ -223,6 +225,21 @@ static MPCoreInstanceProvider *sharedProvider = nil;
 {
     return [self singletonForClass:[MPReachability class] provider:^id{
         return [MPReachability reachabilityForLocalWiFi];
+    }];
+}
+
+- (MPLogEventRecorder *)sharedLogEventRecorder
+{
+    return [self singletonForClass:[MPLogEventRecorder class] provider:^id{
+        MPLogEventRecorder *recorder = [[MPLogEventRecorder alloc] init];
+        return recorder;
+    }];
+}
+
+- (MPNetworkManager *)sharedNetworkManager
+{
+    return [self singletonForClass:[MPNetworkManager class] provider:^id{
+        return [MPNetworkManager sharedNetworkManager];
     }];
 }
 

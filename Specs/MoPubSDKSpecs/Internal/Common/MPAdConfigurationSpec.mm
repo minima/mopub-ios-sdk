@@ -93,6 +93,20 @@ describe(@"MPAdConfiguration", ^{
         configuration.adType should equal(MPAdTypeUnknown);
     });
 
+    it(@"should process ad unit warming up", ^{
+        headers = @{kAdUnitWarmingUpHeaderKey:@"1"};
+        configuration = [[MPAdConfiguration alloc] initWithHeaders:headers data:nil];
+        configuration.adUnitWarmingUp should be_truthy;
+
+        headers = @{kAdUnitWarmingUpHeaderKey:@"0"};
+        configuration = [[MPAdConfiguration alloc] initWithHeaders:headers data:nil];
+        configuration.adUnitWarmingUp should be_falsy;
+
+        headers = @{kAdTypeHeaderKey:@"interstitial"};
+        configuration = [[MPAdConfiguration alloc] initWithHeaders:headers data:nil];
+        configuration.adUnitWarmingUp should be_falsy;
+    });
+
     it(@"should process the network type", ^{
         headers = @{kAdTypeHeaderKey: @"interstitial", kInterstitialAdTypeHeaderKey: @"magnets"};
         configuration = [[MPAdConfiguration alloc] initWithHeaders:headers data:nil];

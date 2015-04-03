@@ -32,13 +32,13 @@
 - (void)requestInterstitialWithCustomEventInfo:(NSDictionary *)info
 {
     self.handledAdAvailable = NO;
-    [[MPVungleRouter sharedRouter] requestAdWithCustomEventInfo:info andDelegate:self];
+    [[MPVungleRouter sharedRouter] requestInterstitialAdWithCustomEventInfo:info delegate:self];
 }
 
 - (void)showInterstitialFromRootViewController:(UIViewController *)rootViewController
 {
     if ([[MPVungleRouter sharedRouter] isAdAvailable]) {
-        [[MPVungleRouter sharedRouter] presentInterstitialAdFromViewController:rootViewController];
+        [[MPVungleRouter sharedRouter] presentInterstitialAdFromViewController:rootViewController withDelegate:self];
     } else {
         MPLogInfo(@"Failed to show Vungle video interstitial: Vungle now claims that there is no available video ad.");
         [self.delegate interstitialCustomEvent:self didFailToLoadAdWithError:nil];
@@ -84,6 +84,16 @@
 - (void)vungleAdWillDisappear
 {
     [self handleVungleAdViewWillClose];
+}
+
+- (void)vungleAdDidFailToLoad:(NSError *)error
+{
+    [self.delegate interstitialCustomEvent:self didFailToLoadAdWithError:error];
+}
+
+- (void)vungleAdDidFailToPlay:(NSError *)error
+{
+    [self.delegate interstitialCustomEvent:self didFailToLoadAdWithError:error];
 }
 
 @end

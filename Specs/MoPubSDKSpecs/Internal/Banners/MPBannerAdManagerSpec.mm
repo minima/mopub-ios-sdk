@@ -3,6 +3,11 @@
 #import "MPAdConfigurationFactory.h"
 #import "FakeBannerCustomEvent.h"
 #import "MPConstants.h"
+#import "MPLogEventRecorder.h"
+#import "MPLogEvent.h"
+#import "CedarAsync.h"
+#import "FakeMPLogEventRecorder.h"
+#import "MPIdentityProvider.h"
 
 using namespace Cedar::Matchers;
 using namespace Cedar::Doubles;
@@ -19,8 +24,12 @@ describe(@"MPBannerAdManager", ^{
     __block MPBannerAdManager *manager;
     __block id<CedarDouble, MPBannerAdManagerDelegate> delegate;
     __block FakeMPAdServerCommunicator *communicator;
+    __block FakeMPLogEventRecorder *eventRecorder;
 
     beforeEach(^{
+        eventRecorder = [[FakeMPLogEventRecorder alloc] init];
+        spy_on(eventRecorder);
+        fakeCoreProvider.fakeLogEventRecorder = eventRecorder;
         delegate = nice_fake_for(@protocol(MPBannerAdManagerDelegate));
         manager = [[MPBannerAdManager alloc] initWithDelegate:delegate];
         communicator = fakeCoreProvider.lastFakeMPAdServerCommunicator;
@@ -40,6 +49,61 @@ describe(@"MPBannerAdManager", ^{
             URL should contain(@"q=liono");
             URL should contain(@"ll=30,20");
             URL should contain(@"http://testing.ads.mopub.com");
+        });
+    });
+
+    describe(@"logging events on requests", ^{
+        __block NSString *url;
+        __block NSURLResponse *response;
+        __block NSDictionary *headers;
+        beforeEach(^{
+            [manager loadAd];
+            url = communicator.loadedURL.absoluteString;
+
+            headers = @{
+                        @"X-Adtype" : @"banner",
+                        @"X-Creativeid" : @"d06f9bde98134f76931cdf04951b60dd",
+                        @"X-Failurl" : @"http://ads.mopub.com/m/ad?v=8&udid=ifa:01C61C79-9EA0-458C-BFBB-C58F084225A7&id=c92be421345c4eab964645f6a1818284&nv=3.5.0&o=p&sc=2.0&z=-0700&mr=1&ct=2&av=1.0&dn=x86_64&exclude=365cd2475e074026b93da14103a36b97&request_id=f43228d3df2643408f9f8dc9c384603d&fail=1",
+                        @"X-Height" : @50,
+                        @"X-Width" : @320,
+                        };
+
+            response = [[NSURLResponse alloc] init];
+            spy_on(response);
+            response stub_method(@selector(allHeaderFields)).and_return(headers);
+        });
+
+        afterEach(^{
+            [eventRecorder.events removeAllObjects];
+            [(id<CedarDouble>)eventRecorder reset_sent_messages];
+        });
+
+        context(@"when the request is successful", ^{
+            it(@"should log an event with data about the request", ^{
+                [communicator loadURL:[NSURL URLWithString:url]];
+                [communicator connection:nil didReceiveResponse:response];
+                [communicator connectionDidFinishLoading:nil];
+                eventRecorder should have_received(@selector(addEvent:));
+
+                NSString *obfuscatedURI = [url stringByReplacingOccurrencesOfString:[MPIdentityProvider identifier]
+                                                                         withString:[MPIdentityProvider obfuscatedIdentifier]];
+
+                MPLogEvent *event = eventRecorder.events[0];
+                event.requestStatusCode should equal(200);
+                event.requestURI should equal(obfuscatedURI);
+                event.adType should equal(@"banner");
+            });
+        });
+
+        context(@"when the request fails to load", ^{
+            it(@"should log an unsuccessful latency event", ^{
+                [communicator loadURL:[NSURL URLWithString:url]];
+                [communicator failWithError:[NSError errorWithDomain:NSURLErrorDomain
+                                                                code:NSURLErrorNotConnectedToInternet
+                                                            userInfo:nil]];
+                eventRecorder should_not have_received(@selector(addEvent:));
+
+            });
         });
     });
 
@@ -201,6 +265,21 @@ describe(@"MPBannerAdManager", ^{
                 [manager loadAd];
 
                 MPAdConfiguration *configuration = [MPAdConfigurationFactory defaultBannerConfigurationWithNetworkType:kAdTypeClear];
+                [communicator receiveConfiguration:configuration];
+
+                delegate should have_received(@selector(managerDidFailToLoadAd));
+
+                [communicator resetLoadedURL];
+                [fakeCoreProvider advanceMPTimers:configuration.refreshInterval];
+                communicator.loadedURL should_not be_nil;
+            });
+        });
+
+        context(@"when the configuration indicates the ad unit is warming up", ^{
+            it(@"should start the refresh timer and try again later", ^{
+                [manager loadAd];
+
+                MPAdConfiguration *configuration = [MPAdConfigurationFactory defaultBannerConfigurationWithHeaders:@{@"X-Warmup":@"1"} HTMLString:nil];
                 [communicator receiveConfiguration:configuration];
 
                 delegate should have_received(@selector(managerDidFailToLoadAd));

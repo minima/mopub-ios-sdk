@@ -213,6 +213,230 @@ describe(@"MPGlobal", ^{
             });
         });
     });
+
+    describe(@"UIApplication", ^{
+        describe(@"mp_supportsOrientationMask:", ^{
+            __block NSDictionary *orientations;
+            __block NSString *orientationKey;
+            __block NSBundle *mainBundle;
+
+            beforeEach(^{
+                orientationKey = @"UISupportedInterfaceOrientations";
+                mainBundle = [NSBundle mainBundle];
+                spy_on(mainBundle);
+            });
+
+            context(@"when the app supports landscape left", ^{
+                beforeEach(^{
+                    orientations = @{orientationKey : @[@"UIInterfaceOrientationLandscapeLeft"]};
+                    mainBundle stub_method(@selector(infoDictionary)).and_return(orientations);
+                });
+
+                it(@"should support landscape", ^{
+                    [[UIApplication sharedApplication] mp_supportsOrientationMask:UIInterfaceOrientationMaskLandscape] should be_truthy;
+                });
+
+                it(@"should support landscape left", ^{
+                    [[UIApplication sharedApplication] mp_supportsOrientationMask:UIInterfaceOrientationMaskLandscapeLeft] should be_truthy;
+                });
+
+                it(@"should not support landscape right", ^{
+                    [[UIApplication sharedApplication] mp_supportsOrientationMask:UIInterfaceOrientationMaskLandscapeRight] should be_falsy;
+                });
+
+                it(@"should not support portraits", ^{
+                    [[UIApplication sharedApplication] mp_supportsOrientationMask:UIInterfaceOrientationMaskPortrait] should be_falsy;
+                    [[UIApplication sharedApplication] mp_supportsOrientationMask:UIInterfaceOrientationMaskPortraitUpsideDown] should be_falsy;
+                });
+            });
+
+            context(@"when the app supports landscape right", ^{
+                beforeEach(^{
+                    orientations = @{orientationKey : @[@"UIInterfaceOrientationLandscapeRight"]};
+                    mainBundle stub_method(@selector(infoDictionary)).and_return(orientations);
+                });
+
+                it(@"should support landscape", ^{
+                    [[UIApplication sharedApplication] mp_supportsOrientationMask:UIInterfaceOrientationMaskLandscape] should be_truthy;
+                });
+
+                it(@"should not support landscape left", ^{
+                    [[UIApplication sharedApplication] mp_supportsOrientationMask:UIInterfaceOrientationMaskLandscapeLeft] should be_falsy;
+                });
+
+                it(@"should support landscape right", ^{
+                    [[UIApplication sharedApplication] mp_supportsOrientationMask:UIInterfaceOrientationMaskLandscapeRight] should be_truthy;
+                });
+
+                it(@"should not support portraits", ^{
+                    [[UIApplication sharedApplication] mp_supportsOrientationMask:UIInterfaceOrientationMaskPortrait] should be_falsy;
+                    [[UIApplication sharedApplication] mp_supportsOrientationMask:UIInterfaceOrientationMaskPortraitUpsideDown] should be_falsy;
+                });
+            });
+
+            context(@"when the app supports portrait", ^{
+                beforeEach(^{
+                    orientations = @{orientationKey : @[@"UIInterfaceOrientationPortrait"]};
+                    mainBundle stub_method(@selector(infoDictionary)).and_return(orientations);
+                });
+
+                it(@"should not support landscape", ^{
+                    [[UIApplication sharedApplication] mp_supportsOrientationMask:UIInterfaceOrientationMaskLandscape] should be_falsy;
+                });
+
+                it(@"should not support landscape left", ^{
+                    [[UIApplication sharedApplication] mp_supportsOrientationMask:UIInterfaceOrientationMaskLandscapeLeft] should be_falsy;
+                });
+
+                it(@"should not support landscape right", ^{
+                    [[UIApplication sharedApplication] mp_supportsOrientationMask:UIInterfaceOrientationMaskLandscapeRight] should be_falsy;
+                });
+
+                it(@"should support portrait", ^{
+                    [[UIApplication sharedApplication] mp_supportsOrientationMask:UIInterfaceOrientationMaskPortrait] should be_truthy;
+                });
+
+                it(@"should not support portrait upside down", ^{
+                    [[UIApplication sharedApplication] mp_supportsOrientationMask:UIInterfaceOrientationMaskPortraitUpsideDown] should be_falsy;
+                });
+            });
+
+            context(@"when the app supports portrait upside down", ^{
+                beforeEach(^{
+                    orientations = @{orientationKey : @[@"UIInterfaceOrientationPortraitUpsideDown"]};
+                    mainBundle stub_method(@selector(infoDictionary)).and_return(orientations);
+                });
+
+                it(@"should not support landscape", ^{
+                    [[UIApplication sharedApplication] mp_supportsOrientationMask:UIInterfaceOrientationMaskLandscape] should be_falsy;
+                });
+
+                it(@"should not support landscape left", ^{
+                    [[UIApplication sharedApplication] mp_supportsOrientationMask:UIInterfaceOrientationMaskLandscapeLeft] should be_falsy;
+                });
+
+                it(@"should not support landscape right", ^{
+                    [[UIApplication sharedApplication] mp_supportsOrientationMask:UIInterfaceOrientationMaskLandscapeRight] should be_falsy;
+                });
+
+                it(@"should not support portrait", ^{
+                    [[UIApplication sharedApplication] mp_supportsOrientationMask:UIInterfaceOrientationMaskPortrait] should be_falsy;
+                });
+
+                it(@"should support portrait upside down", ^{
+                    [[UIApplication sharedApplication] mp_supportsOrientationMask:UIInterfaceOrientationMaskPortraitUpsideDown] should be_truthy;
+                });
+            });
+        });
+
+        describe(@"mp_doesOrientation:matchOrientationMask:", ^{
+            __block UIInterfaceOrientation orientation;
+
+            describe(@"portrait orientation", ^{
+                beforeEach(^{
+                    orientation = UIInterfaceOrientationPortrait;
+                });
+
+                it(@"should match portrait mask", ^{
+                    [[UIApplication sharedApplication] mp_doesOrientation:orientation matchOrientationMask:UIInterfaceOrientationMaskPortrait] should be_truthy;
+                });
+
+                it(@"should not match upside down mask", ^{
+                    [[UIApplication sharedApplication] mp_doesOrientation:orientation matchOrientationMask:UIInterfaceOrientationMaskPortraitUpsideDown] should be_falsy;
+                });
+
+                it(@"should not match landscape left mask", ^{
+                    [[UIApplication sharedApplication] mp_doesOrientation:orientation matchOrientationMask:UIInterfaceOrientationMaskLandscapeLeft] should be_falsy;
+                });
+
+                it(@"should not match landscape right mask", ^{
+                    [[UIApplication sharedApplication] mp_doesOrientation:orientation matchOrientationMask:UIInterfaceOrientationMaskLandscapeRight] should be_falsy;
+                });
+
+                it(@"should not match landscape mask", ^{
+                    [[UIApplication sharedApplication] mp_doesOrientation:orientation matchOrientationMask:UIInterfaceOrientationMaskLandscape] should be_falsy;
+                });
+            });
+
+            describe(@"upside down orientation", ^{
+                beforeEach(^{
+                    orientation = UIInterfaceOrientationPortraitUpsideDown;
+                });
+
+                it(@"should not match portrait mask", ^{
+                    [[UIApplication sharedApplication] mp_doesOrientation:orientation matchOrientationMask:UIInterfaceOrientationMaskPortrait] should be_falsy;
+                });
+
+                it(@"should match upside down mask", ^{
+                    [[UIApplication sharedApplication] mp_doesOrientation:orientation matchOrientationMask:UIInterfaceOrientationMaskPortraitUpsideDown] should be_truthy;
+                });
+
+                it(@"should not match landscape left mask", ^{
+                    [[UIApplication sharedApplication] mp_doesOrientation:orientation matchOrientationMask:UIInterfaceOrientationMaskLandscapeLeft] should be_falsy;
+                });
+
+                it(@"should not match landscape right mask", ^{
+                    [[UIApplication sharedApplication] mp_doesOrientation:orientation matchOrientationMask:UIInterfaceOrientationMaskLandscapeRight] should be_falsy;
+                });
+
+                it(@"should not match landscape mask", ^{
+                    [[UIApplication sharedApplication] mp_doesOrientation:orientation matchOrientationMask:UIInterfaceOrientationMaskLandscape] should be_falsy;
+                });
+            });
+
+            describe(@"landscape left", ^{
+                beforeEach(^{
+                    orientation = UIInterfaceOrientationLandscapeLeft;
+                });
+
+                it(@"should not match portrait mask", ^{
+                    [[UIApplication sharedApplication] mp_doesOrientation:orientation matchOrientationMask:UIInterfaceOrientationMaskPortrait] should be_falsy;
+                });
+
+                it(@"should not match upside down mask", ^{
+                    [[UIApplication sharedApplication] mp_doesOrientation:orientation matchOrientationMask:UIInterfaceOrientationMaskPortraitUpsideDown] should be_falsy;
+                });
+
+                it(@"should match landscape left mask", ^{
+                    [[UIApplication sharedApplication] mp_doesOrientation:orientation matchOrientationMask:UIInterfaceOrientationMaskLandscapeLeft] should be_truthy;
+                });
+
+                it(@"should not match landscape right mask", ^{
+                    [[UIApplication sharedApplication] mp_doesOrientation:orientation matchOrientationMask:UIInterfaceOrientationMaskLandscapeRight] should be_falsy;
+                });
+
+                it(@"should match landscape mask", ^{
+                    [[UIApplication sharedApplication] mp_doesOrientation:orientation matchOrientationMask:UIInterfaceOrientationMaskLandscape] should be_truthy;
+                });
+            });
+
+            describe(@"landscape right", ^{
+                beforeEach(^{
+                    orientation = UIInterfaceOrientationLandscapeRight;
+                });
+
+                it(@"should not match portrait mask", ^{
+                    [[UIApplication sharedApplication] mp_doesOrientation:orientation matchOrientationMask:UIInterfaceOrientationMaskPortrait] should be_falsy;
+                });
+
+                it(@"should not match upside down mask", ^{
+                    [[UIApplication sharedApplication] mp_doesOrientation:orientation matchOrientationMask:UIInterfaceOrientationMaskPortraitUpsideDown] should be_falsy;
+                });
+
+                it(@"should not match landscape left mask", ^{
+                    [[UIApplication sharedApplication] mp_doesOrientation:orientation matchOrientationMask:UIInterfaceOrientationMaskLandscapeLeft] should be_falsy;
+                });
+
+                it(@"should match landscape right mask", ^{
+                    [[UIApplication sharedApplication] mp_doesOrientation:orientation matchOrientationMask:UIInterfaceOrientationMaskLandscapeRight] should be_truthy;
+                });
+
+                it(@"should match landscape mask", ^{
+                    [[UIApplication sharedApplication] mp_doesOrientation:orientation matchOrientationMask:UIInterfaceOrientationMaskLandscape] should be_truthy;
+                });
+            });
+        });
+    });
 });
 
 SPEC_END

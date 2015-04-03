@@ -127,6 +127,22 @@
                      }];
 }
 
+- (MPLogEventRecorder *)sharedLogEventRecorder
+{
+    return [self returnFake:self.fakeLogEventRecorder
+                     orCall:^{
+                         return [super sharedLogEventRecorder];
+                     }];
+}
+
+- (MPNetworkManager *)sharedNetworkManager
+{
+    return [self returnFake:self.fakeNetworkManager
+                     orCall:^{
+                         return [super sharedNetworkManager];
+                     }];
+}
+
 - (MPAnalyticsTracker *)sharedMPAnalyticsTracker
 {
     return [self sharedFakeMPAnalyticsTracker];

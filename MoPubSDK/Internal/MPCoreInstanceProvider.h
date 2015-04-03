@@ -28,6 +28,8 @@
 @class MPTimer;
 @class MPGeolocationProvider;
 @class CLLocationManager;
+@class MPLogEventRecorder;
+@class MPNetworkManager;
 
 typedef id(^MPSingletonProviderBlock)();
 
@@ -54,6 +56,8 @@ typedef id(^MPSingletonProviderBlock)();
 - (NSOperationQueue *)sharedOperationQueue;
 - (MPAnalyticsTracker *)sharedMPAnalyticsTracker;
 - (MPReachability *)sharedMPReachability;
+- (MPLogEventRecorder *)sharedLogEventRecorder;
+- (MPNetworkManager *)sharedNetworkManager;
 
 // This call may return nil and may not update if the user hot-swaps the device's sim card.
 - (NSDictionary *)sharedCarrierInfo;

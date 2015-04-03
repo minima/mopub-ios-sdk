@@ -1,6 +1,7 @@
 #import "MPAdConversionTracker.h"
 #import "MPIdentityProvider.h"
 #import "NSErrorFactory.h"
+#import "MPAPIEndpoints.h"
 
 using namespace Cedar::Matchers;
 using namespace Cedar::Doubles;
@@ -79,6 +80,25 @@ describe(@"MPAdConversionTracker", ^{
                     [NSURLConnection connections] should_not be_empty;
                 });
             });
+        });
+    });
+
+    context(@"when HTTPS is enabled", ^{
+        beforeEach(^{
+            [MPAPIEndpoints setUsesHTTPS:YES];
+        });
+
+        afterEach(^{
+            [MPAPIEndpoints setUsesHTTPS:NO];
+        });
+
+        it(@"should make its API call over HTTPS", ^{
+            [tracker reportApplicationOpenForApplicationID:applicationID];
+            NSURLConnection *connection = [[NSURLConnection connections] lastObject];
+
+            NSURLRequest *request = [connection request];
+            NSString *URL = request.URL.absoluteString;
+            URL should contain(@"https://ads.mopub.com/m/open?v=8");
         });
     });
 });

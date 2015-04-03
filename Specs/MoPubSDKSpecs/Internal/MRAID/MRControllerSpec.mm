@@ -1192,27 +1192,168 @@ describe(@"MRController", ^{
             });
         });
 
-        context(@"when the command is 'forceOrientation' and the ad is interstitial and currently animating", ^{
+        context(@"when the command is 'setOrientationProperties", ^{
+            __block UIApplication *sharedApplication;
+            __block UIViewController *rootViewController;
 
             beforeEach(^{
-                controller.mraidBridge.shouldHandleRequests = NO;
-                controller.placementType = MRAdViewPlacementTypeInterstitial;
+                sharedApplication = [UIApplication sharedApplication];
+                spy_on(sharedApplication);
+
+                rootViewController = [[UIViewController alloc] init];
+                window.rootViewController = rootViewController;
+                [window makeKeyWindow];
+
                 URL = [NSURL URLWithString:@"mraid://setOrientationProperties?allowOrientationChange=false&forceOrientation=landscape"];
-                [fakeMRBridge webView:nil shouldStartLoadWithRequest:[NSURLRequest requestWithURL:URL] navigationType:UIWebViewNavigationTypeOther];
             });
 
-            it(@"should create a block to execute the force orientation", ^{
-                controller.forceOrientationAfterAnimationBlock should_not be_nil;
+            context(@"when our ad is an expanded banner", ^{
+                __block MRExpandModalViewController *expandViewController;
+
+                beforeEach(^{
+                    controller.placementType = MRAdViewPlacementTypeInline;
+                    controller.currentState = MRAdViewStateExpanded;
+                    controller.mraidBridge.shouldHandleRequests = YES;
+
+                    expandViewController = [[MRExpandModalViewController alloc] init];
+                    controller.expandModalViewController = expandViewController;
+
+                    [rootViewController presentViewController:expandViewController animated:NO completion:NULL];
+                });
+
+                context(@"when the app doesn't support the force orientation", ^{
+                    beforeEach(^{
+                        sharedApplication stub_method(@selector(mp_supportsOrientationMask:)).and_return(NO);
+
+                        [fakeMRBridge webView:nil shouldStartLoadWithRequest:[NSURLRequest requestWithURL:URL] navigationType:UIWebViewNavigationTypeOther];
+                    });
+
+                    it(@"should not attempt to force the orientation", ^{
+                        controller should_not have_received(@selector(presentExpandModalViewControllerWithView:animated:completion:));
+                    });
+                });
+
+                context(@"when the app supports the force orientation", ^{
+                    beforeEach(^{
+                        sharedApplication stub_method(@selector(mp_supportsOrientationMask:)).and_return(YES);
+                    });
+
+                    it(@"should not attempt to force the orientation", ^{
+                        [fakeMRBridge webView:nil shouldStartLoadWithRequest:[NSURLRequest requestWithURL:URL] navigationType:UIWebViewNavigationTypeOther];
+                        controller should have_received(@selector(presentExpandModalViewControllerWithView:animated:completion:));
+                    });
+
+                    it(@"should nil out the forceOrientationAfterAnimationBlock", ^{
+                        // Give the controller a random forceOrientationAfterAnimationBlock so we can determine if it gets set to nil when setOrientationProperties is called.
+                        controller.forceOrientationAfterAnimationBlock = ^{
+                            NSLog(@"hello");
+                        };
+
+                        [fakeMRBridge webView:nil shouldStartLoadWithRequest:[NSURLRequest requestWithURL:URL] navigationType:UIWebViewNavigationTypeOther];
+                        controller.forceOrientationAfterAnimationBlock should be_nil;
+                    });
+
+                    context(@"when the ad is currently animating", ^{
+                        beforeEach(^{
+                            controller.mraidBridge.shouldHandleRequests = NO;
+                            [fakeMRBridge webView:nil shouldStartLoadWithRequest:[NSURLRequest requestWithURL:URL] navigationType:UIWebViewNavigationTypeOther];
+                        });
+
+                        it(@"should create a block to execute the force orientation", ^{
+                            controller.forceOrientationAfterAnimationBlock should_not be_nil;
+                        });
+
+                        it(@"should execute the block after the animation completes", ^{
+                            [(id<CedarDouble>)controller reset_sent_messages];
+                            controller should_not have_received(@selector(bridge:handleNativeCommandSetOrientationPropertiesWithForceOrientationMask:));
+                            [controller enableRequestHandling];
+                            [controller handleMRAIDInterstitialDidPresentWithViewController:nil];
+                            controller should have_received(@selector(bridge:handleNativeCommandSetOrientationPropertiesWithForceOrientationMask:));
+                            controller.forceOrientationAfterAnimationBlock should be_nil;
+                        });
+                    });
+
+                });
             });
 
-            it(@"should execute the block after the animation completes", ^{
-                spy_on(controller);
-                [(id<CedarDouble>)controller reset_sent_messages];
-                controller should_not have_received(@selector(bridge:handleNativeCommandSetOrientationPropertiesWithForceOrientationMask:));
-                [controller enableRequestHandling];
-                [controller handleMRAIDInterstitialDidPresentWithViewController:nil];
-                controller should have_received(@selector(bridge:handleNativeCommandSetOrientationPropertiesWithForceOrientationMask:));
-                controller.forceOrientationAfterAnimationBlock should be_nil;
+            context(@"when our ad type is interstitial", ^{
+                __block UIViewController<CedarDouble> *presentingViewController;
+                __block MPMRAIDInterstitialViewController *interstitialViewController;
+
+                beforeEach(^{
+                    presentingViewController = nice_fake_for([UIViewController class]);
+                    interstitialViewController = [[MPMRAIDInterstitialViewController alloc] init];
+                    spy_on(interstitialViewController);
+                    interstitialViewController stub_method(@selector(presentingViewController)).and_return(presentingViewController);
+
+                    controller.interstitialViewController = interstitialViewController;
+                    controller.placementType = MRAdViewPlacementTypeInterstitial;
+
+                    [rootViewController presentViewController:interstitialViewController animated:NO completion:NULL];
+                });
+
+                context(@"when the app doesn't support the force orientation", ^{
+                    beforeEach(^{
+                        sharedApplication stub_method(@selector(mp_supportsOrientationMask:)).and_return(NO);
+
+                        controller.mraidBridge.shouldHandleRequests = YES;
+
+                        [fakeMRBridge webView:nil shouldStartLoadWithRequest:[NSURLRequest requestWithURL:URL] navigationType:UIWebViewNavigationTypeOther];
+                    });
+
+                    it(@"should not attempt to force the orientation", ^{
+                        // We dismiss and then present the same view controller to force orientation. So we make sure we don't observe
+                        // those methods after forcing the orientation.
+                        controller.interstitialViewController should_not have_received(@selector(dismissViewControllerAnimated:completion:));
+                        presentingViewController should_not have_received(@selector(presentViewController:animated:completion:));
+                    });
+                });
+
+                context(@"when the app supports the force orientation", ^{
+                    beforeEach(^{
+                        sharedApplication stub_method(@selector(mp_supportsOrientationMask:)).and_return(YES);
+
+                        controller.mraidBridge.shouldHandleRequests = YES;
+                    });
+
+                    it(@"should attempt to force the orientation", ^{
+                        [fakeMRBridge webView:nil shouldStartLoadWithRequest:[NSURLRequest requestWithURL:URL] navigationType:UIWebViewNavigationTypeOther];
+
+                        // We dismiss and then present the same view controller to force orientation. We make sure we observe these methods to verify that we have forced orientation.
+                        controller.interstitialViewController should have_received(@selector(dismissViewControllerAnimated:completion:));
+                        presentingViewController should have_received(@selector(presentViewController:animated:completion:));
+                    });
+
+                    it(@"should nil out the forceOrientationAfterAnimationBlock", ^{
+                        // Give the controller a random forceOrientationAfterAnimationBlock so we can determine if it gets set to nil when setOrientationProperties is called.
+                        controller.forceOrientationAfterAnimationBlock = ^{
+                            NSLog(@"hello");
+                        };
+
+                        [fakeMRBridge webView:nil shouldStartLoadWithRequest:[NSURLRequest requestWithURL:URL] navigationType:UIWebViewNavigationTypeOther];
+                        controller.forceOrientationAfterAnimationBlock should be_nil;
+                    });
+
+                    context(@"when the ad is currently animating", ^{
+                        beforeEach(^{
+                            controller.mraidBridge.shouldHandleRequests = NO;
+                            [fakeMRBridge webView:nil shouldStartLoadWithRequest:[NSURLRequest requestWithURL:URL] navigationType:UIWebViewNavigationTypeOther];
+                        });
+
+                        it(@"should create a block to execute the force orientation", ^{
+                            controller.forceOrientationAfterAnimationBlock should_not be_nil;
+                        });
+
+                        it(@"should execute the block after the animation completes", ^{
+                            [(id<CedarDouble>)controller reset_sent_messages];
+                            controller should_not have_received(@selector(bridge:handleNativeCommandSetOrientationPropertiesWithForceOrientationMask:));
+                            [controller enableRequestHandling];
+                            [controller handleMRAIDInterstitialDidPresentWithViewController:nil];
+                            controller should have_received(@selector(bridge:handleNativeCommandSetOrientationPropertiesWithForceOrientationMask:));
+                            controller.forceOrientationAfterAnimationBlock should be_nil;
+                        });
+                    });
+                });
             });
         });
     });

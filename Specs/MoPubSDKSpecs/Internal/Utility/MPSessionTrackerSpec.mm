@@ -1,6 +1,7 @@
 #import "MPSessionTracker.h"
 #import "MPIdentityProvider.h"
 #import "MPGlobal.h"
+#import "MPAPIEndpoints.h"
 
 using namespace Cedar::Matchers;
 using namespace Cedar::Doubles;
@@ -43,6 +44,26 @@ describe(@"MPSessionTracker", ^{
 
         NSString *expectedIdentifierQuery = [NSString stringWithFormat:@"&udid=%@", [MPIdentityProvider identifier]];
         URL should contain(expectedIdentifierQuery);
+    });
+
+    context(@"when HTTPS is enabled", ^{
+        beforeEach(^{
+            [MPAPIEndpoints setUsesHTTPS:YES];
+        });
+
+        afterEach(^{
+            [MPAPIEndpoints setUsesHTTPS:NO];
+        });
+
+        it(@"should make its API calls over HTTPS", ^{
+            [NSURLConnection connections] should be_empty;
+            [[NSNotificationCenter defaultCenter] postNotificationName:UIApplicationWillEnterForegroundNotification
+                                                                object:[UIApplication sharedApplication]];
+
+            NSURLRequest *request = [[[NSURLConnection connections] objectAtIndex:0] request];
+            NSString *URL = request.URL.absoluteString;
+            URL should contain(@"https://ads.mopub.com/m/open?v=8");
+        });
     });
 });
 

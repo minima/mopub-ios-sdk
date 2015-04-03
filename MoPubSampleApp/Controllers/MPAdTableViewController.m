@@ -21,6 +21,7 @@
 #import "MPNativeAdPlacerTableViewController.h"
 #import "MPNativeAdPlacerCollectionViewController.h"
 #import "MPNativeAdPlacerPageViewController.h"
+#import "MPSampleAppLogReader.h"
 
 typedef enum
 {
@@ -82,6 +83,8 @@ typedef enum
     UIButton* myInfoButton = [UIButton buttonWithType:UIButtonTypeInfoLight];
     [myInfoButton addTarget:self action:@selector(infoButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:myInfoButton];
+
+    [[MPSampleAppLogReader sharedLogReader] beginReadingLogMessages];
 
     [super viewDidLoad];
 }

@@ -10,6 +10,8 @@
 @interface NSURLConnection (MPSpecs)
 
 + (NSURLConnection *)lastConnection;
++ (void)spoofSendSynchronousRequestWithResponse:(NSHTTPURLResponse *)response;
++ (void)sendSynchronousRequestsNormally;
 - (void)receiveSuccessfulResponse:(NSString *)body;
 - (void)receiveResponseWithStatusCode:(int)code body:(NSString *)body;
 

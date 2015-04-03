@@ -10,6 +10,9 @@
 #import "MPAdSection.h"
 #import "MPIdentityProvider.h"
 #import "MPAdConversionTracker.h"
+#import "MPLogEvent.h"
+#import "MPLogEventRecorder.h"
+#import "MPLogging.h"
 
 #if RUN_KIF_TESTS
 #import "MPKIFTestController.h"

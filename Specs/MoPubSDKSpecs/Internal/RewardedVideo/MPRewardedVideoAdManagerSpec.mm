@@ -164,13 +164,38 @@ describe(@"MPRewardedVideoAdManager", ^{
                 adManager.ready should be_falsy;
             });
         });
+
+        context(@"when the ad unit is warming up", ^{
+            beforeEach(^{
+                NSMutableDictionary *headers = [MPAdConfigurationFactory defaultRewardedVideoHeaders];
+                [headers setObject:@"1" forKey:@"X-Warmup"];
+                adConfiguration = [[MPAdConfiguration alloc] initWithHeaders:headers data:nil];
+                [adManager loadRewardedVideoAd];
+            });
+
+            it(@"should not forward the downloaded ad configuration to its adapter", ^{
+                adapter should_not have_received(@selector(getAdWithConfiguration:)).with(adConfiguration);
+            });
+
+            it(@"should tell its delegate the ad failed to load", ^{
+                delegate should have_received(@selector(rewardedVideoDidFailToLoadForAdManager:error:));
+            });
+
+            it(@"should not be loading", ^{
+                adManager.loading should be_falsy;
+            });
+
+            it(@"should not be ready", ^{
+                adManager.ready should be_falsy;
+            });
+        });
     });
 
     describe(@"handling an ad played by a different manager for the same network", ^{
         beforeEach(^{
             [adManager communicatorDidReceiveAdConfiguration:adConfiguration];
         });
-        
+
         it(@"should pass the message to its adapter if the manager is ready" , ^{
             adManager.ready = YES;
             [adManager handleAdPlayedForCustomEventNetwork];

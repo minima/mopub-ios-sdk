@@ -27,6 +27,8 @@
 @property (nonatomic, strong) FakeMPReachability *fakeMPReachability;
 @property (nonatomic, strong) MPGeolocationProvider *fakeGeolocationProvider;
 @property (nonatomic, strong) NSDictionary *fakeCarrierInfo;
+@property (nonatomic, strong) MPLogEventRecorder *fakeLogEventRecorder;
+@property (nonatomic, strong) MPNetworkManager *fakeNetworkManager;
 
 - (NSString *)userAgent;
 - (FakeMPAnalyticsTracker *)sharedFakeMPAnalyticsTracker;

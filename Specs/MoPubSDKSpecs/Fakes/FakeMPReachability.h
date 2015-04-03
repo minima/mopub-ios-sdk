@@ -10,5 +10,6 @@
 @interface FakeMPReachability : MPReachability
 
 @property (nonatomic, assign) BOOL hasWifi;
+@property (nonatomic, assign) BOOL hasCellular;
 
 @end
