@@ -4,9 +4,12 @@ Thanks for taking a look at MoPub! We take pride in having an easy-to-use, flexi
 
 Sign up for an account at [http://app.mopub.com/](http://app.mopub.com/).
 
-Help is available on the [wiki](https://github.com/mopub/mopub-ios-sdk/wiki/Getting-Started), detailed class documentation is available at [ClassDocumentation](http://htmlpreview.github.com/?https://github.com/mopub/mopub-ios-sdk/blob/master/ClassDocumentation/index.html)
+## Need Help?
+You can find integration documentation on our [wiki](https://github.com/mopub/mopub-ios-sdk/wiki/Getting-Started) and additional help documentation on our [developer help site](http://dev.twitter.com/mopub).
 
-**We have launched a new license as of version 3.2.0.** To view the full license, visit [http://www.mopub.com/legal/sdk-license-agreement/](http://www.mopub.com/legal/sdk-license-agreement/)
+To file an issue with our team visit the [MoPub Forum](https://twittercommunity.com/c/fabric/mopub).
+
+**Note: We will be deprecating the use of GitHub issues in the near future and migrating all issues to the forum to provide a faster response time.**
 
 ## Download
 
@@ -20,7 +23,7 @@ The MoPub SDK is distributed as source code that you can include in your applica
 
   Includes everything you need to serve HTML, MRAID, and Native MoPub advertisements.  No third party ad networks are included.
 
-The current version of the SDK is 3.6.0
+The current version of the SDK is 3.7.0
 
 ## Integrate
 
@@ -32,8 +35,14 @@ More detailed class documentation is available in the repo under the `ClassDocum
 
 Please view the [changelog](https://github.com/mopub/mopub-ios-sdk/blob/master/CHANGELOG.md) for details.
 
+- **Added iAd medium rectangle ad support**.
+- **Certified Google AdMob SDK version 7.1.0**.
+- **Certified Greystripe SDK version 4.4.0**.
+- **Certified Vungle SDK version 3.0.13**.
+	- Added click callback support.
 - **Bug fixes**.
-	- Fixed crash caused by some MRAID ads attempting to set an orientation that the app doesn't support.
+	- Addressed a race condition when receiving location updates after calling -`[MPGeolocationProvider disableLocationUpdates:]`.
+	
 
 ### IMPORTANT UPGRADE INSTRUCTIONS
 

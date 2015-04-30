@@ -15,6 +15,10 @@ describe(@"MPAdView", ^{
 
     describe(@"loadAd", ^{
         it(@"should tell its manager to begin loading", ^{
+
+            NSLog(@"CEDAR HEADLESS ENV: %@",[[[NSProcessInfo processInfo] environment] objectForKey:@"CEDAR_HEADLESS_SPECS"] );
+            NSLog(@"CEDAR REPORTER ENV: %@",[[[NSProcessInfo processInfo] environment] objectForKey:@"CEDAR_REPORTER_CLASS"] );
+
             adView.keywords = @"hi=4";
             adView.location = [[CLLocation alloc] initWithCoordinate:CLLocationCoordinate2DMake(20, 20)
                                                              altitude:10

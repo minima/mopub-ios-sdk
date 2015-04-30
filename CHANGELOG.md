@@ -1,3 +1,13 @@
+## Version 3.7 (April 30th, 2015)
+
+- **Added iAd medium rectangle ad support**.
+- **Certified Google AdMob SDK version 7.1.0**.
+- **Certified Greystripe SDK version 4.4.0**.
+- **Certified Vungle SDK version 3.0.13**.
+	- Added click callback support.
+- **Bug fixes**.
+	- Addressed a race condition when receiving location updates after calling -`[MPGeolocationProvider disableLocationUpdates:]`.
+    
 ## Version 3.6 (April 3rd, 2015)
 
   - **Bug fixes**.

@@ -89,9 +89,6 @@ describe(@"NSURL_MPAdditions", ^{
             URL = [NSURL URLWithString:@"mopub://failLoad"];
             [URL mp_mopubHostCommand] should equal(MPMoPubHostCommandFailLoad);
 
-            URL = [NSURL URLWithString:@"mopub://custom"];
-            [URL mp_mopubHostCommand] should equal(MPMoPubHostCommandCustom);
-
             URL = [NSURL URLWithString:@"mopub://precacheComplete"];
             [URL mp_mopubHostCommand] should equal(MPMoPubHostCommandPrecacheComplete);
         });

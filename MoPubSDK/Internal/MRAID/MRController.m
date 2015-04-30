@@ -311,7 +311,8 @@ static NSString *const kMRAIDCommandResize = @"resize";
 {
     // Set up some initial properties so mraid can operate.
     MPLogDebug(@"Injecting initial JavaScript state.");
-    NSArray *startingMraidProperties = @[[MRPlacementTypeProperty propertyWithType:self.placementType],
+    NSArray *startingMraidProperties = @[[MRHostSDKVersionProperty defaultProperty],
+                                         [MRPlacementTypeProperty propertyWithType:self.placementType],
                                          [MRSupportsProperty defaultProperty],
                                          [MRStateProperty propertyWithState:self.currentState]
                                          ];
@@ -998,7 +999,7 @@ static NSString *const kMRAIDCommandResize = @"resize";
     MRBridge *activeBridge = [self bridgeForActiveAdView];
     [activeBridge fireSetCurrentPositionWithPositionRect:frame];
 
-    MPLogDebug(@"Current Position: %@", NSStringFromCGRect(frame));
+    MPLogTrace(@"Current Position: %@", NSStringFromCGRect(frame));
 }
 
 - (void)updateDefaultPosition
@@ -1009,7 +1010,7 @@ static NSString *const kMRAIDCommandResize = @"resize";
     [self.mraidBridge fireSetDefaultPositionWithPositionRect:defaultFrame];
     [self.mraidBridgeTwoPart fireSetDefaultPositionWithPositionRect:defaultFrame];
 
-    MPLogDebug(@"Default Position: %@", NSStringFromCGRect(defaultFrame));
+    MPLogTrace(@"Default Position: %@", NSStringFromCGRect(defaultFrame));
 }
 
 - (void)updateScreenSize
@@ -1021,7 +1022,7 @@ static NSString *const kMRAIDCommandResize = @"resize";
     [self.mraidBridge fireSetScreenSize:screenSize];
     [self.mraidBridgeTwoPart fireSetScreenSize:screenSize];
 
-    MPLogDebug(@"Screen Size: %@", NSStringFromCGSize(screenSize));
+    MPLogTrace(@"Screen Size: %@", NSStringFromCGSize(screenSize));
 }
 
 - (void)updateMaxSize
@@ -1033,7 +1034,7 @@ static NSString *const kMRAIDCommandResize = @"resize";
     [self.mraidBridge fireSetMaxSize:maxSize];
     [self.mraidBridgeTwoPart fireSetMaxSize:maxSize];
 
-    MPLogDebug(@"Max Size: %@", NSStringFromCGSize(maxSize));
+    MPLogTrace(@"Max Size: %@", NSStringFromCGSize(maxSize));
 }
 
 #pragma mark - MRAID events

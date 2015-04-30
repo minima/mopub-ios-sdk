@@ -10,11 +10,12 @@
 #else
     #import "MPInterstitialCustomEvent.h"
 #endif
+
 /*
- * Certified with version 3.0.8 of the Vungle SDK.
+ * Certified with version 3.0.13 of the Vungle SDK.
  *
- * The Vungle SDK does not provide an ad clicked callback. As a result, this custom event will not invoke delegate methods
- * interstitialCustomEventDidReceiveTapEvent: and interstitialCustomEventWillLeaveApplication:
+ * The Vungle SDK does not provide an "application will leave" callback, thus this custom event
+ * will not invoke the interstitialCustomEventWillLeaveApplication: delegate method.
  */
 
 @interface VungleInterstitialCustomEvent : MPInterstitialCustomEvent

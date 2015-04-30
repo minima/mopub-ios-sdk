@@ -54,18 +54,64 @@ describe(@"VungleRewardedVideoCustomEvent", ^{
             });
 
             describe(@"with presenting a product sheet", ^{
-                it(@"should not send disappear messages to the delegate", ^{
+                beforeEach(^{
                     [router vungleSDKwillCloseAdWithViewInfo:nil willPresentProductSheet:YES];
+                });
+
+                it(@"should not send disappear messages to the delegate", ^{
                     delegate should_not have_received(@selector(rewardedVideoWillAppearForCustomEvent:));
                     delegate should_not have_received(@selector(rewardedVideoDidAppearForCustomEvent:));
+                });
+
+                it(@"should not trigger a click event", ^{
+                    delegate should_not have_received(@selector(rewardedVideoDidReceiveTapEventForCustomEvent:));
                 });
             });
 
             describe(@"with not presenting a product sheet", ^{
-                it(@"should send disappear messages to the delegate", ^{
+                beforeEach(^{
                     [router vungleSDKwillCloseAdWithViewInfo:nil willPresentProductSheet:NO];
+                });
+
+                it(@"should send disappear messages to the delegate", ^{
                     delegate should have_received(@selector(rewardedVideoWillDisappearForCustomEvent:));
                     delegate should have_received(@selector(rewardedVideoDidDisappearForCustomEvent:));
+                });
+
+                it(@"should not trigger a click event", ^{
+                    delegate should_not have_received(@selector(rewardedVideoDidReceiveTapEventForCustomEvent:));
+                });
+            });
+
+            describe(@"signifying that the user did click to download app", ^{
+                beforeEach(^{
+                    NSDictionary *info = @{@"didDownload" : @(YES)};
+                    [router vungleSDKwillCloseAdWithViewInfo:info willPresentProductSheet:NO];
+                });
+
+                it(@"should not send disappear messages to the delegate", ^{
+                    delegate should_not have_received(@selector(rewardedVideoWillAppearForCustomEvent:));
+                    delegate should_not have_received(@selector(rewardedVideoDidAppearForCustomEvent:));
+                });
+
+                it(@"should trigger a click event", ^{
+                    delegate should have_received(@selector(rewardedVideoDidReceiveTapEventForCustomEvent:));
+                });
+            });
+
+            describe(@"signifying that the user did not click to download app", ^{
+                beforeEach(^{
+                    NSDictionary *info = @{@"didDownload" : @(NO)};
+                    [router vungleSDKwillCloseAdWithViewInfo:info willPresentProductSheet:NO];
+                });
+
+                it(@"should not send disappear messages to the delegate", ^{
+                    delegate should_not have_received(@selector(rewardedVideoWillAppearForCustomEvent:));
+                    delegate should_not have_received(@selector(rewardedVideoDidAppearForCustomEvent:));
+                });
+
+                it(@"should not trigger a click event", ^{
+                    delegate should_not have_received(@selector(rewardedVideoDidReceiveTapEventForCustomEvent:));
                 });
             });
         });

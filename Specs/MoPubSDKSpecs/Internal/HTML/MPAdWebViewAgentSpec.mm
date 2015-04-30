@@ -9,14 +9,6 @@
 using namespace Cedar::Matchers;
 using namespace Cedar::Doubles;
 
-@protocol SassyProtocol <NSObject>
-- (void)mySassyMethod:(NSDictionary *)sass;
-@end
-
-@protocol VerySassyProtocol <SassyProtocol>
-- (void)mySassyMethod;
-@end
-
 @interface MPAdWebViewAgent ()
 
 @property (nonatomic, assign) BOOL userInteractedWithWebView;
@@ -44,8 +36,7 @@ describe(@"MPAdWebViewAgent", ^{
         fakeCoreProvider.fakeMPAdDestinationDisplayAgent = destinationDisplayAgent;
 
         agent = [[MPAdWebViewAgent alloc] initWithAdWebViewFrame:CGRectMake(0,0,30,20)
-                                                         delegate:delegate
-                                             customMethodDelegate:nil];
+                                                         delegate:delegate];
         webView = agent.view;
         agent.userInteractedWithWebView = YES;
         bannerConfiguration = [MPAdConfigurationFactory defaultBannerConfiguration];
@@ -219,40 +210,6 @@ describe(@"MPAdWebViewAgent", ^{
                 });
             });
 
-            context(@"when the host is 'custom'", ^{
-                beforeEach(^{
-                    URL = [NSURL URLWithString:@"mopub://custom?fnc=mySassyMethod&data=%7B%22foo%22%3A3%7D"];
-                });
-
-                context(@"when the custom method delegate responds to -mySassyMethod (no arguments)", ^{
-                    it(@"should call -mySassyMethod on the custom method delegate", ^{
-                        id<CedarDouble, VerySassyProtocol> customMethodDelegate = nice_fake_for(@protocol(VerySassyProtocol));
-                        agent.customMethodDelegate = customMethodDelegate;
-                        [agent webView:agent.view shouldStartLoadWithRequest:[NSURLRequest requestWithURL:URL] navigationType:UIWebViewNavigationTypeOther] should equal(NO);
-
-                        customMethodDelegate should have_received("mySassyMethod");
-                    });
-                });
-
-                context(@"when the custom method delegate responds to -mySassyMethod: but not -mySassyMethod", ^{
-                    it(@"should call -mySassyMethod: on the custom method delegate and pass in data", ^{
-                        id<CedarDouble, VerySassyProtocol> customMethodDelegate = nice_fake_for(@protocol(SassyProtocol));
-                        agent.customMethodDelegate = customMethodDelegate;
-                        [agent webView:agent.view shouldStartLoadWithRequest:[NSURLRequest requestWithURL:URL] navigationType:UIWebViewNavigationTypeOther] should equal(NO);
-
-                        customMethodDelegate should have_received("mySassyMethod:").with(@{@"foo": @3});
-                    });
-                });
-
-                context(@"when the custom method delegate responds to neither method", ^{
-                    it(@"should not blow up", ^{
-                        id customMethodDelegate = [[NSObject alloc] init];
-                        agent.customMethodDelegate = customMethodDelegate;
-                        [agent webView:agent.view shouldStartLoadWithRequest:[NSURLRequest requestWithURL:URL] navigationType:UIWebViewNavigationTypeOther] should equal(NO);
-                    });
-                });
-            });
-
             context(@"when the host is something else", ^{
                 beforeEach(^{
                     URL = [NSURL URLWithString:@"mopub://other"];
@@ -368,8 +325,7 @@ describe(@"MPAdWebViewAgent", ^{
                 fakeCoreProvider.fakeMPAdDestinationDisplayAgent = nil;
 
                 agent = [[MPAdWebViewAgent alloc] initWithAdWebViewFrame:CGRectMake(0,0,30,20)
-                                                                 delegate:delegate
-                                                     customMethodDelegate:nil];
+                                                                 delegate:delegate];
 
                 URL = [NSURL URLWithString:@"twitter://food"];
                 [agent webView:nil shouldStartLoadWithRequest:[NSURLRequest requestWithURL:URL] navigationType:UIWebViewNavigationTypeLinkClicked];
@@ -392,8 +348,7 @@ describe(@"MPAdWebViewAgent", ^{
                 fakeCoreProvider.fakeMPAdDestinationDisplayAgent = nil;
 
                 agent = [[MPAdWebViewAgent alloc] initWithAdWebViewFrame:CGRectMake(0,0,30,20)
-                                                                 delegate:delegate
-                                                     customMethodDelegate:nil];
+                                                                 delegate:delegate];
             });
 
             it(@"should not load anything", ^{
@@ -418,8 +373,7 @@ describe(@"MPAdWebViewAgent", ^{
                 fakeCoreProvider.fakeMPAdDestinationDisplayAgent = nil;
 
                 agent = [[MPAdWebViewAgent alloc] initWithAdWebViewFrame:CGRectMake(0,0,30,20)
-                                                                 delegate:delegate
-                                                     customMethodDelegate:nil];
+                                                                 delegate:delegate];
                 webView = agent.view;
             });
 

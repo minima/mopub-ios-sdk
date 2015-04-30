@@ -12,7 +12,8 @@
 #import "MPRewardedVideoError.h"
 
 static NSString *gAppId = nil;
-NSString *const kMPVungleRewardedAdCompletedView = @"completedView";
+static NSString *const kMPVungleRewardedAdCompletedView = @"completedView";
+static NSString *const kMPVungleAdUserDidDownloadKey = @"didDownload";
 
 @interface MPVungleRouter ()
 
@@ -84,7 +85,12 @@ NSString *const kMPVungleRewardedAdCompletedView = @"completedView";
     if (!self.isAdPlaying && self.isAdAvailable) {
         self.delegate = delegate;
         self.isAdPlaying = YES;
-        [[VungleSDK sharedSDK] playAd:viewController];
+
+        BOOL success = [[VungleSDK sharedSDK] playAd:viewController error:nil];
+
+        if (!success) {
+            [delegate vungleAdDidFailToPlay:nil];
+        }
     } else {
         [delegate vungleAdDidFailToPlay:nil];
     }
@@ -101,7 +107,12 @@ NSString *const kMPVungleRewardedAdCompletedView = @"completedView";
         } else {
             options = @{VunglePlayAdOptionKeyIncentivized : @(YES)};
         }
-        [[VungleSDK sharedSDK] playAd:viewController withOptions:options];
+
+        BOOL success = [[VungleSDK sharedSDK] playAd:viewController withOptions:options error:nil];
+
+        if (!success) {
+            [delegate vungleAdDidFailToPlay:nil];
+        }
     } else {
         NSError *error = [NSError errorWithDomain:MoPubRewardedVideoAdsSDKDomain code:MPRewardedVideoAdErrorNoAdsAvailable userInfo:nil];
         [delegate vungleAdDidFailToPlay:error];
@@ -138,6 +149,10 @@ NSString *const kMPVungleRewardedAdCompletedView = @"completedView";
 
 - (void)vungleSDKwillCloseAdWithViewInfo:(NSDictionary *)viewInfo willPresentProductSheet:(BOOL)willPresentProductSheet
 {
+    if ([viewInfo[kMPVungleAdUserDidDownloadKey] isEqual:@YES]) {
+        [self.delegate vungleAdWasTapped];
+    }
+
     if ([[viewInfo objectForKey:kMPVungleRewardedAdCompletedView] boolValue] && [self.delegate respondsToSelector:@selector(vungleAdShouldRewardUser)]) {
         [self.delegate vungleAdShouldRewardUser];
     }

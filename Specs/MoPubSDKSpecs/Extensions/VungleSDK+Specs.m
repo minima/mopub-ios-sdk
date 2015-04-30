@@ -18,9 +18,10 @@ static NSDictionary *gPlayOptions;
 }
 
 
-- (void)playAd:(UIViewController *)viewController withOptions:(id)options
+- (BOOL)playAd:(UIViewController *)viewController withOptions:(id)options error:(NSError **)error
 {
     gPlayOptions = options;
+    return YES;
 }
 
 + (NSString *)mp_getAppId

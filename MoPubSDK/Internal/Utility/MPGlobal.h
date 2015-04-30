@@ -17,6 +17,7 @@ UIWindow *MPKeyWindow(void);
 CGFloat MPStatusBarHeight(void);
 CGRect MPApplicationFrame(void);
 CGRect MPScreenBounds(void);
+CGSize MPScreenResolution(void);
 CGFloat MPDeviceScaleFactor(void);
 NSDictionary *MPDictionaryFromQueryString(NSString *query);
 NSString *MPSHA1Digest(NSString *string);

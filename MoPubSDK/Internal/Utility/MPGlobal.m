@@ -61,6 +61,14 @@ CGRect MPScreenBounds()
     return bounds;
 }
 
+CGSize MPScreenResolution()
+{
+    CGRect bounds = MPScreenBounds();
+    CGFloat scale = MPDeviceScaleFactor();
+
+    return CGSizeMake(bounds.size.width*scale, bounds.size.height*scale);
+}
+
 CGFloat MPDeviceScaleFactor()
 {
     if ([[UIScreen mainScreen] respondsToSelector:@selector(displayLinkWithTarget:selector:)] &&

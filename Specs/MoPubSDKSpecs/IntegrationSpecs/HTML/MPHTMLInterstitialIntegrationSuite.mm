@@ -7,16 +7,11 @@
 using namespace Cedar::Matchers;
 using namespace Cedar::Doubles;
 
-@protocol MethodicalDelegate <MPInterstitialAdControllerDelegate>
-
-- (void)beMethodical:(NSDictionary *)dictionary;
-
-@end
 
 SPEC_BEGIN(MPHTMLInterstitialIntegrationSuite)
 
 describe(@"MPHTMLInterstitialIntegrationSuite", ^{
-    __block id<MethodicalDelegate, CedarDouble> delegate;
+    __block id<MPInterstitialAdControllerDelegate, CedarDouble> delegate;
     __block MPInterstitialAdController *interstitial = nil;
     __block UIViewController *presentingController;
     __block FakeMPAdWebView *webview;
@@ -31,7 +26,7 @@ describe(@"MPHTMLInterstitialIntegrationSuite", ^{
         fakeAdAlertManager = [[FakeMPAdAlertManager alloc] init];
         fakeCoreProvider.fakeAdAlertManager = fakeAdAlertManager;
 
-        delegate = nice_fake_for(@protocol(MethodicalDelegate));
+        delegate = nice_fake_for(@protocol(MPInterstitialAdControllerDelegate));
 
         interstitial = [MPInterstitialAdController interstitialAdControllerForAdUnitId:@"html_interstitial"];
         interstitial.location = [[CLLocation alloc] initWithLatitude:1337 longitude:1337];
@@ -113,14 +108,6 @@ describe(@"MPHTMLInterstitialIntegrationSuite", ^{
                 webview.presentingViewController should equal(presentingController);
             });
 
-            context(@"and the ad loads a custom method URL", ^{
-                it(@"should call the method on the interstitial's delegate", ^{
-                    NSURL *URL = [NSURL URLWithString:@"mopub://custom?fnc=beMethodical&data=%7B%22foo%22%3A3%7D"];
-                    [webview sendClickRequest:[NSURLRequest requestWithURL:URL]];
-                    delegate should have_received(@selector(beMethodical:)).with(@{@"foo":@3});
-                });
-            });
-
             describe(@"MPAdAlertManager", ^{
                 context(@"when the user alerts on the ad", ^{
                     beforeEach(^{
@@ -180,7 +167,7 @@ describe(@"MPHTMLInterstitialIntegrationSuite", ^{
                 it(@"should no longer handle any webview requests", ^{
                     [delegate reset_sent_messages];
 
-                    NSURL *URL = [NSURL URLWithString:@"mopub://custom?fnc=beMethodical&data=%7B%22foo%22%3A3%7D"];
+                    NSURL *URL = [NSURL URLWithString:@"http://www.mopub.com"];
                     [webview sendClickRequest:[NSURLRequest requestWithURL:URL]];
                     [delegate sent_messages] should be_empty;
                 });

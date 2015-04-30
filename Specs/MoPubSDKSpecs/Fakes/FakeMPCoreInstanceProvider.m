@@ -67,6 +67,14 @@
 
 #pragma mark - Utilities
 
+- (UIDevice *)sharedCurrentDevice
+{
+    return [self returnFake:self.fakeUIDevice
+                     orCall:^id{
+                         return [super sharedCurrentDevice];
+                     }];
+}
+
 - (MPGeolocationProvider *)sharedMPGeolocationProvider
 {
     return [self returnFake:self.fakeGeolocationProvider

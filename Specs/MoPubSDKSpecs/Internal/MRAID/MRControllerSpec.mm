@@ -702,6 +702,22 @@ describe(@"MRController", ^{
         });
     });
 
+    context(@"when an ad finishes loading and appears on the screen", ^{
+        beforeEach(^{
+            NSString *HTMLString = @"Hello, world!";
+            configuration = [MPAdConfigurationFactory defaultBannerConfigurationWithHeaders:nil
+                                                                                 HTMLString:HTMLString];
+            [controller loadAdWithConfiguration:configuration];
+            [controller bridge:fakeMRBridge didFinishLoadingWebView:webView];
+            [window addSubview:controller.mraidAdView];
+        });
+
+        it(@"should configure the MRAID JS with the version of the SDK that is being used", ^{
+            NSString *expected = [NSString stringWithFormat:@"hostSDKVersion: '%@'", MP_SDK_VERSION];
+            fakeMRBridge.changedProperties should contain(expected);
+        });
+    });
+
     describe(@"Pre-caching", ^{
         __block NSString *HTMLString;
 

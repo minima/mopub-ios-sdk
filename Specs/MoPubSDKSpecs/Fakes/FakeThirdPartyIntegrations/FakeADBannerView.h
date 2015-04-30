@@ -12,10 +12,12 @@
 
 @interface FakeADBannerView : UIView
 
+@property (nonatomic) ADAdType type;
 @property (nonatomic, weak) id<ADBannerViewDelegate> delegate;
 @property (nonatomic, assign, getter=isBannerLoaded) BOOL bannerLoaded;
 @property (nonatomic, copy) NSString *currentContentSizeIdentifier;
 
+- (instancetype)initWithAdType:(ADAdType)type;
 - (void)simulateLoadingAd;
 - (void)simulateFailingToLoad;
 - (void)simulateUserInteraction;

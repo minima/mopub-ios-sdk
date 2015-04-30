@@ -86,6 +86,11 @@
     [self handleVungleAdViewWillClose];
 }
 
+- (void)vungleAdWasTapped
+{
+    [self.delegate interstitialCustomEventDidReceiveTapEvent:self];
+}
+
 - (void)vungleAdDidFailToLoad:(NSError *)error
 {
     [self.delegate interstitialCustomEvent:self didFailToLoadAdWithError:error];

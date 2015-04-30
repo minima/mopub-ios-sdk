@@ -20,7 +20,7 @@
 #pragma mark - Third Party Integrations Category Interfaces
 #pragma mark iAd
 - (ADInterstitialAd *)buildADInterstitialAd;
-- (ADBannerView *)buildADBannerView;
+- (ADBannerView *)buildADBannerViewWithAdType:(ADAdType)adType;
 
 #pragma mark Chartboost
 - (Chartboost *)buildChartboost;
@@ -121,11 +121,11 @@
     return [super buildInterstitialCustomEventFromCustomClass:customClass delegate:delegate];
 }
 
-- (MPHTMLInterstitialViewController *)buildMPHTMLInterstitialViewControllerWithDelegate:(id<MPInterstitialViewControllerDelegate>)delegate orientationType:(MPInterstitialOrientationType)type customMethodDelegate:(id)customMethodDelegate
+- (MPHTMLInterstitialViewController *)buildMPHTMLInterstitialViewControllerWithDelegate:(id<MPInterstitialViewControllerDelegate>)delegate orientationType:(MPInterstitialOrientationType)type
 {
     return [self returnFake:self.fakeMPHTMLInterstitialViewController
                      orCall:^{
-                         return [super buildMPHTMLInterstitialViewControllerWithDelegate:delegate orientationType:type customMethodDelegate:customMethodDelegate];
+                         return [super buildMPHTMLInterstitialViewControllerWithDelegate:delegate orientationType:type];
                      }];
 }
 
@@ -175,13 +175,12 @@
     }
 }
 
-- (MPAdWebViewAgent *)buildMPAdWebViewAgentWithAdWebViewFrame:(CGRect)frame delegate:(id<MPAdWebViewAgentDelegate>)delegate customMethodDelegate:(id)customMethodDelegate
+- (MPAdWebViewAgent *)buildMPAdWebViewAgentWithAdWebViewFrame:(CGRect)frame delegate:(id<MPAdWebViewAgentDelegate>)delegate
 {
     return [self returnFake:self.fakeMPAdWebViewAgent
                      orCall:^{
                          return [super buildMPAdWebViewAgentWithAdWebViewFrame:frame
-                                                                      delegate:delegate
-                                                          customMethodDelegate:customMethodDelegate];
+                                                                      delegate:delegate];
                      }];
 }
 
@@ -348,11 +347,25 @@
 
 #pragma mark iAd
 
-- (ADBannerView *)buildADBannerView
+- (ADBannerView *)buildADBannerViewWithAdType:(ADAdType)adType
 {
-    return [self returnFake:self.fakeADBannerView
+    ADBannerView *returnValue;
+
+    switch (adType) {
+        case ADAdTypeBanner:
+            returnValue = self.fakeADBannerView;
+            break;
+        case ADAdTypeMediumRectangle:
+            returnValue = self.fakeADBannerViewMediumRectangle;
+            break;
+        default:
+            returnValue = self.fakeADBannerView;
+            break;
+    }
+
+    return [self returnFake:returnValue
                      orCall:^{
-                         return [super buildADBannerView];
+                         return [super buildADBannerViewWithAdType:adType];
                      }];
 }
 

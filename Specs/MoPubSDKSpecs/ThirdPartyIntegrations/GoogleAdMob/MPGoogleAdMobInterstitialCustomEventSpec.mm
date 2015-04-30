@@ -49,7 +49,7 @@ describe(@"MPGoogleAdMobInterstitialCustomEvent", ^{
             interstitial.loadedRequest should equal(request);
 
             request should have_received(@selector(setLocationWithLatitude:longitude:accuracy:)).with((CGFloat)37.1).and_with((CGFloat)21.2).and_with((CGFloat)12.3);
-            request should have_received(@selector(setTestDevices:)).with(@[GAD_SIMULATOR_ID]);
+            request should have_received(@selector(setTestDevices:));
         });
     });
 });

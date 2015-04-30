@@ -32,6 +32,7 @@
 - (void)vungleAdDidLoad;
 - (void)vungleAdWillAppear;
 - (void)vungleAdWillDisappear;
+- (void)vungleAdWasTapped;
 - (void)vungleAdDidFailToPlay:(NSError *)error;
 - (void)vungleAdDidFailToLoad:(NSError *)error;
 

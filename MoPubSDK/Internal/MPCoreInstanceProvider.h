@@ -49,6 +49,7 @@ typedef id(^MPSingletonProviderBlock)();
 - (MPAdDestinationDisplayAgent *)buildMPAdDestinationDisplayAgentWithDelegate:(id<MPAdDestinationDisplayAgentDelegate>)delegate;
 
 #pragma mark - Utilities
+- (UIDevice *)sharedCurrentDevice;
 - (MPGeolocationProvider *)sharedMPGeolocationProvider;
 - (CLLocationManager *)buildCLLocationManager;
 - (id<MPAdAlertManagerProtocol>)buildMPAdAlertManagerWithDelegate:(id)delegate;

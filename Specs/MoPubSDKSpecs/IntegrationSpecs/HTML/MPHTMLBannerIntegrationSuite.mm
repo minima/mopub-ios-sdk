@@ -6,12 +6,6 @@
 using namespace Cedar::Matchers;
 using namespace Cedar::Doubles;
 
-@protocol ChocolateMPAdViewDelegate <MPAdViewDelegate>
-
-- (void)chocolate:(NSDictionary *)sauce;
-
-@end
-
 SPEC_BEGIN(MPHTMLBannerIntegrationSuite)
 
 describe(@"MPHTMLBannerIntegrationSuite", ^{
@@ -32,7 +26,7 @@ describe(@"MPHTMLBannerIntegrationSuite", ^{
         fakeCoreProvider.fakeAdAlertManager = fakeAdAlertManager;
 
         presentingController = [[UIViewController alloc] init];
-        delegate = nice_fake_for(@protocol(ChocolateMPAdViewDelegate));
+        delegate = nice_fake_for(@protocol(MPAdViewDelegate));
         delegate stub_method(@selector(viewControllerForPresentingModalView)).and_return(presentingController);
 
         configuration = [MPAdConfigurationFactory defaultBannerConfiguration];
@@ -63,11 +57,6 @@ describe(@"MPHTMLBannerIntegrationSuite", ^{
         beforeEach(^{
             [delegate reset_sent_messages];
             [fakeAd simulateLoadingAd];
-        });
-
-        it(@"should allow the ad to call down to the delegate via the custom method URL/API", ^{
-            [fakeAd loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"mopub://custom?fnc=chocolate&data=%7B%22caramel%22%3A3%7D"]]];
-            delegate should have_received(@selector(chocolate:)).with(@{@"caramel":@3});
         });
 
         it(@"should tell the delegate, show the ad, but *not* track an impression", ^{

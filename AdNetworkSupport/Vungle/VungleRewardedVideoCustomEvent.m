@@ -73,6 +73,12 @@
     [self.delegate rewardedVideoWillDisappearForCustomEvent:self];
     [self.delegate rewardedVideoDidDisappearForCustomEvent:self];
 }
+
+- (void)vungleAdWasTapped
+{
+    [self.delegate rewardedVideoDidReceiveTapEventForCustomEvent:self];
+}
+
 - (void)vungleAdShouldRewardUser
 {
     [self.delegate rewardedVideoShouldRewardUserForCustomEvent:self reward:[[MPRewardedVideoReward alloc] initWithCurrencyAmount:@(kMPRewardedVideoRewardCurrencyAmountUnspecified)]];

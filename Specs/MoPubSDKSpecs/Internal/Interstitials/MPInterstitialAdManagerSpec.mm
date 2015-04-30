@@ -7,6 +7,7 @@
 #import "MPLogEventRecorder.h"
 #import "MPLogEvent.h"
 #import "FakeMPLogEventRecorder.h"
+#import "NSDate+MPSpecs.h"
 
 using namespace Cedar::Matchers;
 using namespace Cedar::Doubles;
@@ -57,12 +58,23 @@ describe(@"MPInterstitialAdManager", ^{
         __block NSString *url;
 
         beforeEach(^{
+            // We swizzle the date here because the URL string's value (location's age in seconds) depends on the current time. We're just making sure
+            // the same date is always returned for all calls to [NSDate date] so it's easier to test URLs against one another.
+            [NSDate mp_swizzleDateMethod];
+            [NSDate mp_setFakeDate:[NSDate dateWithTimeIntervalSinceReferenceDate:1000]];
+
             location = [[CLLocation alloc] initWithLatitude:50 longitude:50];
+
+            [NSDate mp_setFakeDate:[NSDate dateWithTimeIntervalSinceReferenceDate:2000]];
             [manager loadInterstitialWithAdUnitID:@"1138"
                                          keywords:@"hi=2,ho=3"
                                          location:location
                                           testing:YES];
             url = communicator.loadedURL.absoluteString;
+        });
+
+        afterEach(^{
+            [NSDate mp_swizzleDateMethod];
         });
 
         it(@"should request an ad", ^{

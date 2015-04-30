@@ -165,6 +165,11 @@ static MPCoreInstanceProvider *sharedProvider = nil;
 
 #pragma mark - Utilities
 
+- (UIDevice *)sharedCurrentDevice
+{
+    return [UIDevice currentDevice];
+}
+
 - (MPGeolocationProvider *)sharedMPGeolocationProvider
 {
     return [self singletonForClass:[MPGeolocationProvider class] provider:^id{

@@ -16,7 +16,6 @@ static NSString * const kMoPubURLScheme = @"mopub";
 static NSString * const kMoPubCloseHost = @"close";
 static NSString * const kMoPubFinishLoadHost = @"finishLoad";
 static NSString * const kMoPubFailLoadHost = @"failLoad";
-static NSString * const kMoPubCustomHost = @"custom";
 static NSString * const kMoPubPrecacheCompleteHost = @"precacheComplete";
 
 @implementation NSURL (MPAdditions)
@@ -71,8 +70,6 @@ static NSString * const kMoPubPrecacheCompleteHost = @"precacheComplete";
         return MPMoPubHostCommandFinishLoad;
     } else if ([host isEqualToString:kMoPubFailLoadHost]) {
         return MPMoPubHostCommandFailLoad;
-    } else if ([host isEqualToString:kMoPubCustomHost]) {
-        return MPMoPubHostCommandCustom;
     } else if ([host isEqualToString:kMoPubPrecacheCompleteHost]) {
         return MPMoPubHostCommandPrecacheComplete;
     } else {

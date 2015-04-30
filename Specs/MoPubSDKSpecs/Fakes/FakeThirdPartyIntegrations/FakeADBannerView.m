@@ -9,6 +9,15 @@
 
 @implementation FakeADBannerView
 
+- (instancetype)initWithAdType:(ADAdType)type
+{
+    self = [super init];
+    if (self) {
+        _type = type;
+    }
+    return self;
+}
+
 - (void)simulateLoadingAd
 {
     self.bannerLoaded = YES;

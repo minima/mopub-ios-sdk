@@ -10,8 +10,7 @@
 #import "FakeInterstitialAdapter.h"
 #import "FakeMPAnalyticsTracker.h"
 #import <iAd/iAd.h>
-#import "GADInterstitial.h"
-#import "GADBannerView.h"
+#import <GoogleMobileAds/GoogleMobileAds.h>
 #import "FakeMMInterstitial.h"
 #import "FakeInterstitialCustomEvent.h"
 #import <Chartboost/Chartboost.h>
@@ -19,7 +18,6 @@
 #import "IMInterstitial.h"
 #import "IMBanner.h"
 #import "MPInterstitialAdManager.h"
-#import "GADRequest.h"
 #import "FakeMMAdView.h"
 #import "FakeGSBannerAdView.h"
 #import "MPBaseBannerAdapter.h"
@@ -97,6 +95,7 @@
 
 #pragma mark iAd
 @property (nonatomic, strong) ADBannerView *fakeADBannerView;
+@property (nonatomic, strong) ADBannerView *fakeADBannerViewMediumRectangle;
 @property (nonatomic, strong) ADInterstitialAd *fakeADInterstitialAd;
 
 #pragma mark Facebook

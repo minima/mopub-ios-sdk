@@ -1,5 +1,6 @@
 #import "MPGlobal.h"
 #import "UIView+MPSpecs.h"
+#import "MPGlobalSpecHelper.h"
 
 using namespace Cedar::Matchers;
 using namespace Cedar::Doubles;
@@ -30,6 +31,17 @@ describe(@"MPGlobal", ^{
                 [[MPTelephoneConfirmationController alloc] initWithURL:[NSURL URLWithString:@"telprompt://3439899999"] clickHandler:nil] should_not be_nil;
                 [[MPTelephoneConfirmationController alloc] initWithURL:[NSURL URLWithString:@"telprompt:3439899999"] clickHandler:nil] should_not be_nil;
             });
+        });
+    });
+
+    describe(@"MPScreenResolution", ^{
+        it(@"should return the resolution of the screen", ^{
+            CGSize screenSizeInPoints = [MPGlobalSpecHelper screenBounds].size;
+            CGFloat scale = [MPGlobalSpecHelper deviceScaleFactor];
+            CGSize screenResolution = [MPGlobalSpecHelper screenResolution];
+
+            screenResolution.width should equal(screenSizeInPoints.width*scale);
+            screenResolution.height should equal(screenSizeInPoints.height*scale);
         });
     });
 

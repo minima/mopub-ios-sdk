@@ -93,11 +93,12 @@ describe(@"MPAdServerCommunicator", ^{
                 eventRecorder should have_received(@selector(addEvent:));
 
                 MPLogEvent *event = eventRecorder.events[0];
-                event.performanceDurationMs should_not equal(0);
                 event.requestStatusCode should equal(200);
                 event.requestURI should equal(URL.absoluteString);
                 event.adType should equal(@"html");
             });
+
+            it(@"should log an event that records the correct performanceDurationMs", PENDING);
         });
 
         context(@"when the request fails", ^{

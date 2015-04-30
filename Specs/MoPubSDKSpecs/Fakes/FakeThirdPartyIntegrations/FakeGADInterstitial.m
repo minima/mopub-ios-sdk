@@ -6,7 +6,7 @@
 //
 
 #import "FakeGADInterstitial.h"
-#import "GADInterstitial.h"
+#import <GoogleMobileAds/GoogleMobileAds.h>
 
 @implementation FakeGADInterstitial
 
