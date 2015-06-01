@@ -23,7 +23,7 @@ The MoPub SDK is distributed as source code that you can include in your applica
 
   Includes everything you need to serve HTML, MRAID, and Native MoPub advertisements.  No third party ad networks are included.
 
-The current version of the SDK is 3.7.0
+The current version of the SDK is 3.8.0
 
 ## Integrate
 
@@ -35,13 +35,7 @@ More detailed class documentation is available in the repo under the `ClassDocum
 
 Please view the [changelog](https://github.com/mopub/mopub-ios-sdk/blob/master/CHANGELOG.md) for details.
 
-- **Added iAd medium rectangle ad support**.
-- **Certified Google AdMob SDK version 7.1.0**.
-- **Certified Greystripe SDK version 4.4.0**.
-- **Certified Vungle SDK version 3.0.13**.
-	- Added click callback support.
-- **Bug fixes**.
-	- Addressed a race condition when receiving location updates after calling -`[MPGeolocationProvider disableLocationUpdates:]`.
+- **Minor improvements**.
 	
 
 ### IMPORTANT UPGRADE INSTRUCTIONS

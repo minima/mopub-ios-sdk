@@ -7,7 +7,6 @@ require './Scripts/screen_recorder'
 require './Scripts/network_testing'
 require './Scripts/sdk_downloader'
 
-
 puts ENV["PATH"]
 ENV["PATH"] += ":/usr/local/bin"
 
@@ -16,14 +15,12 @@ if File.exists?('./Scripts/private/private.rb')
 end
 
 CONFIGURATION = "Debug"
-SDK_VERSION = "8.1"
 BUILD_DIR = File.join(File.dirname(__FILE__), "build")
 CEDAR_OUT = File.join(BUILD_DIR, "mopubsdk-cedar.xml")
 
-
 class Simulator
   def initialize(options)
-    sdk_version = options[:sdk] || SDK_VERSION
+    sdk_version = options[:sdk] || available_sdk_versions.max
     @ios_sim_device_id = "com.apple.CoreSimulator.SimDeviceType.iPhone-5s, #{sdk_version}"
   end
 
@@ -40,7 +37,6 @@ end
 def head(text)
   puts "\n########### #{text} ###########"
 end
-
 
 def clean!
   `rm -rf #{BUILD_DIR}`
@@ -77,7 +73,7 @@ def build(options)
   elsif options[:sdk_version]
     sdk = "iphonesimulator#{options[:sdk_version]}"
   else
-    sdk = "iphonesimulator#{SDK_VERSION}"
+    sdk = "iphonesimulator#{available_sdk_versions.max}"
   end
   out_file = output_file("mopub_#{options[:target].downcase}_#{sdk}")
   system_or_exit(%Q[xcodebuild -project #{project}.xcodeproj -target #{target} -configuration #{configuration} ARCHS=i386 -sdk #{sdk} build SYMROOT=#{BUILD_DIR}], out_file)
@@ -183,13 +179,13 @@ namespace :mopubsdk do
     head "Building Specs"
     build :project => "MoPubSDK", :target => "Specs"
 
-    sim_version = ENV['simulator_version']
-    if (!sim_version)
-      sim_version = SDK_VERSION
+    simulator_version = ENV['simulator_version']
+    if (!simulator_version)
+      simulator_version = available_sdk_versions.max
     end
 
-    head "Running Specs in iOS Simulator version #{sim_version}"
-    run_in_simulator(:project => "MoPubSDK", :target => "Specs", :environment => cedar_env, :sdk => sim_version)
+    head "Running Specs in iOS Simulator version #{simulator_version}"
+    run_in_simulator(:project => "MoPubSDK", :target => "Specs", :environment => cedar_env, :sdk => simulator_version)
 
     head "SUCCESS"
   end

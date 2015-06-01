@@ -1,3 +1,7 @@
+## Version 3.8 (June 1st, 2015)
+
+- **Minor improvements**.
+
 ## Version 3.7 (April 30th, 2015)
 
 - **Added iAd medium rectangle ad support**.

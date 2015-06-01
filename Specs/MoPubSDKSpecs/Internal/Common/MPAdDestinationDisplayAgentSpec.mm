@@ -9,6 +9,12 @@ using namespace Cedar::Doubles;
 
 typedef void (^URLVerificationBlock)(NSURL *URL);
 
+@interface MPAdDestinationDisplayAgent ()
+
+@property (nonatomic, strong) MPActivityViewControllerHelper *activityViewControllerHelper;
+
+@end
+
 SPEC_BEGIN(MPAdDestinationDisplayAgentSpec)
 
 describe(@"MPAdDestinationDisplayAgent", ^{
@@ -281,6 +287,35 @@ describe(@"MPAdDestinationDisplayAgent", ^{
 
         it(@"should allow subsequent displayDestinationForURL: calls", ^{
             verifyThatDisplayDestinationIsEnabled();
+        });
+    });
+
+    describe(@"when openShareURL is called", ^{
+        beforeEach(^{
+            spy_on(agent.activityViewControllerHelper);
+        });
+
+        context(@"when the host is 'tweet'", ^{
+            beforeEach(^{
+               URL = [NSURL URLWithString:@"mopubshare://tweet"];
+                [agent openShareURL:URL];
+            });
+
+            it(@"should tell activityViewControllerHelper to present activity view controller:", ^{
+                agent.activityViewControllerHelper should have_received(@selector(presentActivityViewControllerWithTweetShareURL:)).with(URL);
+            });
+
+            it(@"should hide the loading indicator", ^{
+                window.subviews.lastObject should be_nil;
+            });
+        });
+
+        context(@"when the host is unrecognized", ^{
+            it(@"should NOT tell the activityViewControllerHelper to present activity view controller", ^{
+                NSURL *URL = [NSURL URLWithString:@"mopubshare://blah"];
+                [agent openShareURL:URL];
+                agent.activityViewControllerHelper should_not have_received(@selector(presentActivityViewControllerWithTweetShareURL:));
+            });
         });
     });
 

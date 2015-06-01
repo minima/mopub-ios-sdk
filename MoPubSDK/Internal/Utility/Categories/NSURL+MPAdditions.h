@@ -15,6 +15,11 @@ typedef enum {
     MPMoPubHostCommandPrecacheComplete
 } MPMoPubHostCommand;
 
+typedef enum {
+    MPMoPubShareHostCommandTweet,
+    MPMoPubShareHostCommandUnrecognized
+} MPMoPubShareHostCommand;
+
 @interface NSURL (MPAdditions)
 
 - (NSDictionary *)mp_queryAsDictionary;
@@ -23,5 +28,7 @@ typedef enum {
 - (BOOL)mp_isSafeForLoadingWithoutUserAction;
 - (BOOL)mp_isMoPubScheme;
 - (MPMoPubHostCommand)mp_mopubHostCommand;
+- (BOOL)mp_isMoPubShareScheme;
+- (MPMoPubShareHostCommand)mp_MoPubShareHostCommand;
 
 @end

@@ -30,5 +30,6 @@
 - (void)showStoreKitProductWithParameter:(NSString *)parameter fallbackURL:(NSURL *)URL;
 - (void)openURLInApplication:(NSURL *)URL;
 - (void)failedToResolveURLWithError:(NSError *)error;
+- (BOOL)openShareURL:(NSURL*)URL;
 
 @end

@@ -31,4 +31,10 @@
     self.error = error;
 }
 
+- (BOOL)openShareURL:(NSURL *)URL
+{
+    self.shareURL = URL;
+    return YES;
+}
+
 @end

@@ -735,6 +735,20 @@
 		7EE1D2EF1AA1413800F7AFFA /* MPLogEventRecorder.h in Headers */ = {isa = PBXBuildFile; fileRef = 7EE1D2DA1A9EA12400F7AFFA /* MPLogEventRecorder.h */; };
 		7EE1D2F31AA1477200F7AFFA /* MPLogEventRecorderSpec.mm in Sources */ = {isa = PBXBuildFile; fileRef = 7EE1D2F21AA1477200F7AFFA /* MPLogEventRecorderSpec.mm */; };
 		7EEEE2181AB79878007986C0 /* MPLogEventCommunicatorSpec.mm in Sources */ = {isa = PBXBuildFile; fileRef = 7EEEE2171AB79878007986C0 /* MPLogEventCommunicatorSpec.mm */; };
+		875390C61B04073F001F0550 /* MPActivityViewControllerHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 875390C31B04073F001F0550 /* MPActivityViewControllerHelper.m */; };
+		875390C71B04073F001F0550 /* MPActivityViewControllerHelper+TweetShare.m in Sources */ = {isa = PBXBuildFile; fileRef = 875390C51B04073F001F0550 /* MPActivityViewControllerHelper+TweetShare.m */; };
+		875390D21B040769001F0550 /* MPActivityViewControllerHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 875390C31B04073F001F0550 /* MPActivityViewControllerHelper.m */; };
+		875390D31B040769001F0550 /* MPActivityViewControllerHelper+TweetShare.m in Sources */ = {isa = PBXBuildFile; fileRef = 875390C51B04073F001F0550 /* MPActivityViewControllerHelper+TweetShare.m */; };
+		875390D41B04076A001F0550 /* MPActivityViewControllerHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 875390C31B04073F001F0550 /* MPActivityViewControllerHelper.m */; };
+		875390D51B04076A001F0550 /* MPActivityViewControllerHelper+TweetShare.m in Sources */ = {isa = PBXBuildFile; fileRef = 875390C51B04073F001F0550 /* MPActivityViewControllerHelper+TweetShare.m */; };
+		875390D61B04076B001F0550 /* MPActivityViewControllerHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 875390C31B04073F001F0550 /* MPActivityViewControllerHelper.m */; };
+		875390D71B04076B001F0550 /* MPActivityViewControllerHelper+TweetShare.m in Sources */ = {isa = PBXBuildFile; fileRef = 875390C51B04073F001F0550 /* MPActivityViewControllerHelper+TweetShare.m */; };
+		875390D81B04076D001F0550 /* MPActivityViewControllerHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 875390C31B04073F001F0550 /* MPActivityViewControllerHelper.m */; };
+		875390D91B04076D001F0550 /* MPActivityViewControllerHelper+TweetShare.m in Sources */ = {isa = PBXBuildFile; fileRef = 875390C51B04073F001F0550 /* MPActivityViewControllerHelper+TweetShare.m */; };
+		87CF21181B041E630080E6BB /* MPActivityViewControllerHelperSpec.mm in Sources */ = {isa = PBXBuildFile; fileRef = 87CF210C1B0413920080E6BB /* MPActivityViewControllerHelperSpec.mm */; };
+		87CF21231B0AB1B90080E6BB /* MPActivityViewControllerHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 875390C21B04073F001F0550 /* MPActivityViewControllerHelper.h */; };
+		87CF212E1B0AB1C60080E6BB /* MPActivityViewControllerHelper+TweetShare.h in Headers */ = {isa = PBXBuildFile; fileRef = 875390C41B04073F001F0550 /* MPActivityViewControllerHelper+TweetShare.h */; };
+		87CF213E1B0C045B0080E6BB /* MPActivityViewControllerHelper+TweetShareSpec.mm in Sources */ = {isa = PBXBuildFile; fileRef = 87CF213D1B0C045B0080E6BB /* MPActivityViewControllerHelper+TweetShareSpec.mm */; };
 		A71DB7C41A2EAEC600D3B229 /* MPGeolocationProviderSpec.mm in Sources */ = {isa = PBXBuildFile; fileRef = A71DB7C31A2EAEC600D3B229 /* MPGeolocationProviderSpec.mm */; };
 		A71DB7D11A2EDE7E00D3B229 /* CLLocationManager+MPSpecs.m in Sources */ = {isa = PBXBuildFile; fileRef = A71DB7D01A2EDE7E00D3B229 /* CLLocationManager+MPSpecs.m */; };
 		A71DB7D41A2EDEEA00D3B229 /* FakeCLLocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A71DB7D31A2EDEEA00D3B229 /* FakeCLLocationManager.m */; };
@@ -1692,6 +1706,12 @@
 		7EE1D2E81AA0E74900F7AFFA /* MPLogEventSpec.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = MPLogEventSpec.mm; path = "Specs/MoPubSDKSpecs/Internal/Event Logging/MPLogEventSpec.mm"; sourceTree = SOURCE_ROOT; };
 		7EE1D2F21AA1477200F7AFFA /* MPLogEventRecorderSpec.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = MPLogEventRecorderSpec.mm; path = "Event Logging/MPLogEventRecorderSpec.mm"; sourceTree = "<group>"; };
 		7EEEE2171AB79878007986C0 /* MPLogEventCommunicatorSpec.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = MPLogEventCommunicatorSpec.mm; path = "Event Logging/MPLogEventCommunicatorSpec.mm"; sourceTree = "<group>"; };
+		875390C21B04073F001F0550 /* MPActivityViewControllerHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPActivityViewControllerHelper.h; sourceTree = "<group>"; };
+		875390C31B04073F001F0550 /* MPActivityViewControllerHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPActivityViewControllerHelper.m; sourceTree = "<group>"; };
+		875390C41B04073F001F0550 /* MPActivityViewControllerHelper+TweetShare.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MPActivityViewControllerHelper+TweetShare.h"; sourceTree = "<group>"; };
+		875390C51B04073F001F0550 /* MPActivityViewControllerHelper+TweetShare.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MPActivityViewControllerHelper+TweetShare.m"; sourceTree = "<group>"; };
+		87CF210C1B0413920080E6BB /* MPActivityViewControllerHelperSpec.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MPActivityViewControllerHelperSpec.mm; sourceTree = "<group>"; };
+		87CF213D1B0C045B0080E6BB /* MPActivityViewControllerHelper+TweetShareSpec.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "MPActivityViewControllerHelper+TweetShareSpec.mm"; sourceTree = "<group>"; };
 		A71DB7C31A2EAEC600D3B229 /* MPGeolocationProviderSpec.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MPGeolocationProviderSpec.mm; sourceTree = "<group>"; };
 		A71DB7CF1A2EDE7E00D3B229 /* CLLocationManager+MPSpecs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CLLocationManager+MPSpecs.h"; sourceTree = "<group>"; };
 		A71DB7D01A2EDE7E00D3B229 /* CLLocationManager+MPSpecs.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CLLocationManager+MPSpecs.m"; sourceTree = "<group>"; };
@@ -3028,6 +3048,10 @@
 				AEF9D4DA171CA895005AAA5A /* MPAdDestinationDisplayAgent.m */,
 				AEF9D4DB171CA895005AAA5A /* MPAdServerCommunicator.h */,
 				AEF9D4DC171CA895005AAA5A /* MPAdServerCommunicator.m */,
+				875390C21B04073F001F0550 /* MPActivityViewControllerHelper.h */,
+				875390C31B04073F001F0550 /* MPActivityViewControllerHelper.m */,
+				875390C41B04073F001F0550 /* MPActivityViewControllerHelper+TweetShare.h */,
+				875390C51B04073F001F0550 /* MPActivityViewControllerHelper+TweetShare.m */,
 				AEF9D4DD171CA895005AAA5A /* MPAdServerURLBuilder.h */,
 				AEF9D4DE171CA895005AAA5A /* MPAdServerURLBuilder.m */,
 				AEF9D4DF171CA895005AAA5A /* MPFacebookKeywordProvider.h */,
@@ -3531,7 +3555,9 @@
 				4684BFAB17E8F6000089E8E3 /* AdAlerts */,
 				AEF9D60A171CA8AD005AAA5A /* MPAdBrowserControllerSpec.mm */,
 				AEF9D60B171CA8AD005AAA5A /* MPAdConfigurationSpec.mm */,
+				87CF213D1B0C045B0080E6BB /* MPActivityViewControllerHelper+TweetShareSpec.mm */,
 				AEF9D60C171CA8AD005AAA5A /* MPAdDestinationDisplayAgentSpec.mm */,
+				87CF210C1B0413920080E6BB /* MPActivityViewControllerHelperSpec.mm */,
 				AEF9D60D171CA8AD005AAA5A /* MPAdServerCommunicatorSpec.mm */,
 				AEF9D60E171CA8AD005AAA5A /* MPAdServerURLBuilderSpec.mm */,
 				AEF9D60F171CA8AD005AAA5A /* MPProgressOverlayViewSpec.mm */,
@@ -3721,6 +3747,7 @@
 				57ACE4021AA7E8D900A05633 /* MPRewardedVideoAdManager.h in Headers */,
 				570AFFB519D6192C00065388 /* MPHTMLInterstitialCustomEvent.h in Headers */,
 				5786BFC01A38EAE8004DC3F6 /* MoPub-Bridging-Header.h in Headers */,
+				87CF212E1B0AB1C60080E6BB /* MPActivityViewControllerHelper+TweetShare.h in Headers */,
 				570AFF7D19D6191000065388 /* MPNativeCustomEvent.h in Headers */,
 				570AFF3A19D618F200065388 /* MPAdConversionTracker.h in Headers */,
 				570AFFB919D6192C00065388 /* MPMRAIDBannerCustomEvent.h in Headers */,
@@ -3804,6 +3831,7 @@
 				570AFF4519D618F200065388 /* MPInterstitialCustomEvent.h in Headers */,
 				A778C8A81ABB4ED4003F427D /* MPAPIEndpoints.h in Headers */,
 				570A000619D6193800065388 /* MPReachability.h in Headers */,
+				87CF21231B0AB1B90080E6BB /* MPActivityViewControllerHelper.h in Headers */,
 				570AFF9C19D6192C00065388 /* MPBannerCustomEventAdapter.h in Headers */,
 				570AFFA519D6192C00065388 /* MPInterstitialAdManager.h in Headers */,
 				5786BFB61A38EACC004DC3F6 /* MPProgressOverlayView.h in Headers */,
@@ -4614,6 +4642,7 @@
 				468BCDB619996C550054A051 /* MPCoreInstanceProvider.m in Sources */,
 				468BCDB719996C550054A051 /* MPBaseBannerAdapter.m in Sources */,
 				A7759F071A1EB19500087E00 /* MPGeolocationProvider.m in Sources */,
+				875390D61B04076B001F0550 /* MPActivityViewControllerHelper.m in Sources */,
 				468BCDB819996C550054A051 /* MPLegacyBannerCustomEventAdapter.m in Sources */,
 				468BCDB919996C550054A051 /* MPTableViewCellImpressionTracker.m in Sources */,
 				468BCDBA19996C550054A051 /* MPAdBrowserController.m in Sources */,
@@ -4699,6 +4728,7 @@
 				468BCDF719996C550054A051 /* MPStoreKitProvider.m in Sources */,
 				468BCDF819996C550054A051 /* MPTimer.m in Sources */,
 				571CF60419ACF13C0035EE78 /* UIView+MPNativeAd.m in Sources */,
+				875390D71B04076B001F0550 /* MPActivityViewControllerHelper+TweetShare.m in Sources */,
 				57ACE4101AA7E8D900A05633 /* MPRewardedVideoCustomEvent.m in Sources */,
 				468BCDF919996C550054A051 /* MPAdConversionTracker.m in Sources */,
 				468BCDFA19996C550054A051 /* MPAdView.m in Sources */,
@@ -4793,6 +4823,7 @@
 				570AFF7E19D6191000065388 /* MPNativeCustomEvent.m in Sources */,
 				5786BFC61A38EAEE004DC3F6 /* MPGeolocationProvider.m in Sources */,
 				570A00EB19D6325300065388 /* MPStreamAdPlacer.m in Sources */,
+				875390D91B04076D001F0550 /* MPActivityViewControllerHelper+TweetShare.m in Sources */,
 				570AFFB619D6192C00065388 /* MPHTMLInterstitialCustomEvent.m in Sources */,
 				570AFFCD19D6192C00065388 /* MRCommand.m in Sources */,
 				570AFFBC19D6192C00065388 /* MPMRAIDInterstitialCustomEvent.m in Sources */,
@@ -4815,6 +4846,7 @@
 				5786BFCD1A38EAFD004DC3F6 /* MRNativeCommandHandler.m in Sources */,
 				5786BFD21A38EAFD004DC3F6 /* MRBridge.m in Sources */,
 				570A00E019D6325300065388 /* MPNativeAdSource.m in Sources */,
+				875390D81B04076D001F0550 /* MPActivityViewControllerHelper.m in Sources */,
 				7EB508491A9E448B0042603B /* MPLogEvent.m in Sources */,
 				570A001519D6193800065388 /* MPInstanceProvider.m in Sources */,
 				570AFFF519D6193800065388 /* NSURL+MPAdditions.m in Sources */,
@@ -5007,6 +5039,7 @@
 				AE515F61171F1B110086B464 /* MRCommand.m in Sources */,
 				57D6485D1A0DE39500433CFE /* MPClosableView.m in Sources */,
 				4A71895718D25FC50056F068 /* NSJSONSerialization+MPAdditions.m in Sources */,
+				875390C71B04073F001F0550 /* MPActivityViewControllerHelper+TweetShare.m in Sources */,
 				57B86B5719C78F5D00AD50EE /* MPConstants.m in Sources */,
 				AE515F63171F1B110086B464 /* MRProperty.m in Sources */,
 				4AF54B55194A217F0093F714 /* MPMoPubNativeAdAdapter.m in Sources */,
@@ -5029,6 +5062,7 @@
 				A72F90DB19B7B1FF00A5601B /* MPNativePositionSource.m in Sources */,
 				4AB5CCD019F55596005ABBC1 /* MPLogProvider.m in Sources */,
 				AE515F6A171F1B110086B464 /* MPIdentityProvider.m in Sources */,
+				875390C61B04073F001F0550 /* MPActivityViewControllerHelper.m in Sources */,
 				7EB508451A9E448B0042603B /* MPLogEvent.m in Sources */,
 				AE515F6B171F1B110086B464 /* MPLogging.m in Sources */,
 				AE515F6C171F1B110086B464 /* MPReachability.m in Sources */,
@@ -5132,6 +5166,7 @@
 				AEF9D586171CA895005AAA5A /* MPAnalyticsTracker.m in Sources */,
 				AEF9D588171CA895005AAA5A /* MPError.m in Sources */,
 				AEF9D58A171CA895005AAA5A /* MPGlobal.m in Sources */,
+				875390D31B040769001F0550 /* MPActivityViewControllerHelper+TweetShare.m in Sources */,
 				A71DB7C41A2EAEC600D3B229 /* MPGeolocationProviderSpec.mm in Sources */,
 				4A2AEC531AA4F5C8002AFB88 /* MPInstanceProvider+Chartboost.m in Sources */,
 				AEF9D58C171CA895005AAA5A /* MPIdentityProvider.m in Sources */,
@@ -5222,6 +5257,7 @@
 				AEF9D666171CA8AD005AAA5A /* MPGoogleAdMobInterstitialIntegrationSuite.mm in Sources */,
 				7E7B605B1ABA218A0049FFC5 /* FakeMPLogEventRecorder.m in Sources */,
 				AEF9D667171CA8AD005AAA5A /* MPGreystripeBannerIntegrationSuite.mm in Sources */,
+				875390D21B040769001F0550 /* MPActivityViewControllerHelper.m in Sources */,
 				4A2AEC601AA4F6A6002AFB88 /* MPChartboostRouterSpec.mm in Sources */,
 				4A5E30F118D3CD7900662306 /* MPCoreInstanceProviderSpec.mm in Sources */,
 				A7A1CE0C1974AC690082A6FA /* MPStreamAdPlacerSpec.mm in Sources */,
@@ -5321,6 +5357,7 @@
 				A7A1CDE91974904A0082A6FA /* MPStreamAdPlacementData.m in Sources */,
 				A7A1CE0A1974AC4C0082A6FA /* MPNativeAdSourceSpec.mm in Sources */,
 				AEF9D69C171CA8AD005AAA5A /* MPAdConversionTrackerSpec.mm in Sources */,
+				87CF21181B041E630080E6BB /* MPActivityViewControllerHelperSpec.mm in Sources */,
 				AEF9D69D171CA8AD005AAA5A /* MPAdViewSpec.mm in Sources */,
 				4A5968C318CFE71200D0D1AD /* MPCoreInstanceProvider.m in Sources */,
 				4AFE5788191C4C5600A2CF82 /* FakeFBInterstitialAd.m in Sources */,
@@ -5408,6 +5445,7 @@
 				4684BFA917E8EBC40089E8E3 /* FakeMPAdAlertManager.m in Sources */,
 				4684BFAD17E8F6000089E8E3 /* MPAdAlertManagerSpec.mm in Sources */,
 				462A006217E9138B003FD66C /* FakeUITouch.m in Sources */,
+				87CF213E1B0C045B0080E6BB /* MPActivityViewControllerHelper+TweetShareSpec.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5453,6 +5491,7 @@
 				AEF9D545171CA895005AAA5A /* MPLegacyBannerCustomEventAdapter.m in Sources */,
 				AEF9D547171CA895005AAA5A /* MPAdBrowserController.m in Sources */,
 				AEF9D54A171CA895005AAA5A /* MPAdConfiguration.m in Sources */,
+				875390D51B04076A001F0550 /* MPActivityViewControllerHelper+TweetShare.m in Sources */,
 				A7A1CDDE197478E20082A6FA /* MPNativeAdData.m in Sources */,
 				AEF9D54C171CA895005AAA5A /* MPAdDestinationDisplayAgent.m in Sources */,
 				57B86B5919C78F5D00AD50EE /* MPConstants.m in Sources */,
@@ -5475,6 +5514,7 @@
 				575828911A16F281009C7A85 /* MRController.m in Sources */,
 				AEF9D558171CA895005AAA5A /* MPAdWebView.m in Sources */,
 				AEF9D55A171CA895005AAA5A /* MPAdWebViewAgent.m in Sources */,
+				875390D41B04076A001F0550 /* MPActivityViewControllerHelper.m in Sources */,
 				AEF9D55C171CA895005AAA5A /* MPHTMLBannerCustomEvent.m in Sources */,
 				AEF9D55E171CA895005AAA5A /* MPHTMLInterstitialCustomEvent.m in Sources */,
 				AEF9D560171CA895005AAA5A /* MPHTMLInterstitialViewController.m in Sources */,

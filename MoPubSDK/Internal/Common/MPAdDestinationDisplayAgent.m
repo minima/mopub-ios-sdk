@@ -9,6 +9,7 @@
 #import "UIViewController+MPAdditions.h"
 #import "MPCoreInstanceProvider.h"
 #import "MPLastResortDelegate.h"
+#import "MPLogging.h"
 #import "NSURL+MPAdditions.h"
 
 @interface MPAdDestinationDisplayAgent ()
@@ -23,6 +24,7 @@
 
 @property (nonatomic, strong) MPAdBrowserController *browserController;
 @property (nonatomic, strong) MPTelephoneConfirmationController *telephoneConfirmationController;
+@property (nonatomic, strong) MPActivityViewControllerHelper *activityViewControllerHelper;
 
 - (void)presentStoreKitControllerWithItemIdentifier:(NSString *)identifier fallbackURL:(NSURL *)URL;
 - (void)hideOverlay;
@@ -45,6 +47,7 @@
     agent.delegate = delegate;
     agent.resolver = [[MPCoreInstanceProvider sharedProvider] buildMPURLResolver];
     agent.overlayView = [[MPProgressOverlayView alloc] initWithDelegate:agent];
+    agent.activityViewControllerHelper = [[MPActivityViewControllerHelper alloc] initWithDelegate:agent];
     return agent;
 }
 
@@ -127,6 +130,19 @@
     }
 }
 
+- (BOOL)openShareURL:(NSURL *)URL
+{
+    MPLogDebug(@"MPAdDestinationDisplayAgent - loading Share URL: %@", URL);
+    MPMoPubShareHostCommand command = [URL mp_MoPubShareHostCommand];
+    switch (command) {
+        case MPMoPubShareHostCommandTweet:
+            return [self.activityViewControllerHelper presentActivityViewControllerWithTweetShareURL:URL];
+        default:
+            MPLogWarn(@"MPAdDestinationDisplayAgent - unsupported Share URL: %@", [URL absoluteString]);
+            return NO;
+    }
+}
+
 - (void)interceptTelephoneURL:(NSURL *)URL
 {
     __weak MPAdDestinationDisplayAgent *weakSelf = self;
@@ -198,6 +214,25 @@
 - (void)hideOverlay
 {
     [self.overlayView hide];
+}
+
+#pragma mark <MPActivityViewControllerHelperDelegate>
+
+- (UIViewController *)viewControllerForPresentingActivityViewController
+{
+    return self.delegate.viewControllerForPresentingModalView;
+}
+
+- (void)activityViewControllerWillPresent
+{
+    [self hideOverlay];
+    self.isLoadingDestination = NO;
+    [self.delegate displayAgentWillPresentModal];
+}
+
+- (void)activityViewControllerDidDismiss
+{
+    [self.delegate displayAgentDidDismissModal];
 }
 
 @end

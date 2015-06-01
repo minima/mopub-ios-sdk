@@ -378,23 +378,20 @@
 		577A1FA219AE7EA6006DA28B /* MPNativeAdPageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 577A1FA119AE7EA6006DA28B /* MPNativeAdPageView.m */; };
 		577DF03C19A28786001514D3 /* MPNativeAdPlacerPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 577DF03B19A28786001514D3 /* MPNativeAdPlacerPageViewController.m */; };
 		57EFB8F11AE1AB2300A8865D /* __vungle.db in Resources */ = {isa = PBXBuildFile; fileRef = 57EFB8EA1AE1AB2300A8865D /* __vungle.db */; };
-		57EFB8F21AE1AB2300A8865D /* __vungle.db in Resources */ = {isa = PBXBuildFile; fileRef = 57EFB8EA1AE1AB2300A8865D /* __vungle.db */; };
 		57EFB8F31AE1AB2300A8865D /* vg_close.png in Resources */ = {isa = PBXBuildFile; fileRef = 57EFB8EB1AE1AB2300A8865D /* vg_close.png */; };
-		57EFB8F41AE1AB2300A8865D /* vg_close.png in Resources */ = {isa = PBXBuildFile; fileRef = 57EFB8EB1AE1AB2300A8865D /* vg_close.png */; };
 		57EFB8F51AE1AB2300A8865D /* vg_cta.png in Resources */ = {isa = PBXBuildFile; fileRef = 57EFB8EC1AE1AB2300A8865D /* vg_cta.png */; };
-		57EFB8F61AE1AB2300A8865D /* vg_cta.png in Resources */ = {isa = PBXBuildFile; fileRef = 57EFB8EC1AE1AB2300A8865D /* vg_cta.png */; };
 		57EFB8F71AE1AB2300A8865D /* vg_mute_off.png in Resources */ = {isa = PBXBuildFile; fileRef = 57EFB8ED1AE1AB2300A8865D /* vg_mute_off.png */; };
-		57EFB8F81AE1AB2300A8865D /* vg_mute_off.png in Resources */ = {isa = PBXBuildFile; fileRef = 57EFB8ED1AE1AB2300A8865D /* vg_mute_off.png */; };
 		57EFB8F91AE1AB2300A8865D /* vg_mute_on.png in Resources */ = {isa = PBXBuildFile; fileRef = 57EFB8EE1AE1AB2300A8865D /* vg_mute_on.png */; };
-		57EFB8FA1AE1AB2300A8865D /* vg_mute_on.png in Resources */ = {isa = PBXBuildFile; fileRef = 57EFB8EE1AE1AB2300A8865D /* vg_mute_on.png */; };
 		57EFB8FB1AE1AB2300A8865D /* vg_timer.png in Resources */ = {isa = PBXBuildFile; fileRef = 57EFB8EF1AE1AB2300A8865D /* vg_timer.png */; };
-		57EFB8FC1AE1AB2300A8865D /* vg_timer.png in Resources */ = {isa = PBXBuildFile; fileRef = 57EFB8EF1AE1AB2300A8865D /* vg_timer.png */; };
 		57EFB8FD1AE1AB2300A8865D /* VungleSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57EFB8F01AE1AB2300A8865D /* VungleSDK.framework */; };
-		57EFB8FE1AE1AB2300A8865D /* VungleSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57EFB8F01AE1AB2300A8865D /* VungleSDK.framework */; };
 		57FFAB86199C110D00F655CF /* MPNativeCollectionViewAdCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 57FFAB85199C110D00F655CF /* MPNativeCollectionViewAdCollectionViewCell.m */; };
 		7E17DDDF1AB22E2D00E4D976 /* MPLogEventCommunicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E17DDDE1AB22E2D00E4D976 /* MPLogEventCommunicator.m */; };
 		7ED6F1391AA148E4000B19F1 /* MPLogEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 7ED6F1361AA148E4000B19F1 /* MPLogEvent.m */; };
 		7ED6F13A1AA148E4000B19F1 /* MPLogEventRecorder.m in Sources */ = {isa = PBXBuildFile; fileRef = 7ED6F1381AA148E4000B19F1 /* MPLogEventRecorder.m */; };
+		87CF216E1B0D39100080E6BB /* MPActivityViewControllerHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 87CF216B1B0D39100080E6BB /* MPActivityViewControllerHelper.m */; };
+		87CF216F1B0D39100080E6BB /* MPActivityViewControllerHelper+TweetShare.m in Sources */ = {isa = PBXBuildFile; fileRef = 87CF216D1B0D39100080E6BB /* MPActivityViewControllerHelper+TweetShare.m */; };
+		87CF217F1B0D39150080E6BB /* MPActivityViewControllerHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 87CF216B1B0D39100080E6BB /* MPActivityViewControllerHelper.m */; };
+		87CF21801B0D39170080E6BB /* MPActivityViewControllerHelper+TweetShare.m in Sources */ = {isa = PBXBuildFile; fileRef = 87CF216D1B0D39100080E6BB /* MPActivityViewControllerHelper+TweetShare.m */; };
 		A778C8C31ABB550E003F427D /* MPAPIEndpoints.m in Sources */ = {isa = PBXBuildFile; fileRef = A778C8C21ABB550E003F427D /* MPAPIEndpoints.m */; };
 		A778C8C41ABB550E003F427D /* MPAPIEndpoints.m in Sources */ = {isa = PBXBuildFile; fileRef = A778C8C21ABB550E003F427D /* MPAPIEndpoints.m */; };
 		A7E95AA81ACA173A00A26AFD /* MPRetryingHTTPOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E95AA71ACA173A00A26AFD /* MPRetryingHTTPOperation.m */; };
@@ -915,6 +912,10 @@
 		7ED6F1361AA148E4000B19F1 /* MPLogEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPLogEvent.m; sourceTree = "<group>"; };
 		7ED6F1371AA148E4000B19F1 /* MPLogEventRecorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPLogEventRecorder.h; sourceTree = "<group>"; };
 		7ED6F1381AA148E4000B19F1 /* MPLogEventRecorder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPLogEventRecorder.m; sourceTree = "<group>"; };
+		87CF216A1B0D39100080E6BB /* MPActivityViewControllerHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPActivityViewControllerHelper.h; sourceTree = "<group>"; };
+		87CF216B1B0D39100080E6BB /* MPActivityViewControllerHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPActivityViewControllerHelper.m; sourceTree = "<group>"; };
+		87CF216C1B0D39100080E6BB /* MPActivityViewControllerHelper+TweetShare.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MPActivityViewControllerHelper+TweetShare.h"; sourceTree = "<group>"; };
+		87CF216D1B0D39100080E6BB /* MPActivityViewControllerHelper+TweetShare.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MPActivityViewControllerHelper+TweetShare.m"; sourceTree = "<group>"; };
 		A7736CEA199D73D500AD4887 /* MPIndexPathPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPIndexPathPickerView.h; sourceTree = "<group>"; };
 		A7736CEB199D73D500AD4887 /* MPIndexPathPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPIndexPathPickerView.m; sourceTree = "<group>"; };
 		A778C8C11ABB550E003F427D /* MPAPIEndpoints.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPAPIEndpoints.h; sourceTree = "<group>"; };
@@ -1169,6 +1170,10 @@
 		572408C51A688C05009271B8 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				87CF216A1B0D39100080E6BB /* MPActivityViewControllerHelper.h */,
+				87CF216B1B0D39100080E6BB /* MPActivityViewControllerHelper.m */,
+				87CF216C1B0D39100080E6BB /* MPActivityViewControllerHelper+TweetShare.h */,
+				87CF216D1B0D39100080E6BB /* MPActivityViewControllerHelper+TweetShare.m */,
 				572408C61A688C05009271B8 /* AdAlerts */,
 				A778C8C11ABB550E003F427D /* MPAPIEndpoints.h */,
 				A778C8C21ABB550E003F427D /* MPAPIEndpoints.m */,
@@ -2247,6 +2252,7 @@
 				57240A491A688C05009271B8 /* MPIdentityProvider.m in Sources */,
 				572409DA1A688C05009271B8 /* MPAdWebViewAgent.m in Sources */,
 				57240AC41A688C05009271B8 /* MPStreamAdPlacer.m in Sources */,
+				87CF21801B0D39170080E6BB /* MPActivityViewControllerHelper+TweetShare.m in Sources */,
 				572409C81A688C05009271B8 /* MPFacebookKeywordProvider.m in Sources */,
 				57240AA91A688C05009271B8 /* MPNativeAdConstants.m in Sources */,
 				57240A041A688C05009271B8 /* MPMRAIDInterstitialViewController.m in Sources */,
@@ -2332,6 +2338,7 @@
 				57240A401A688C05009271B8 /* MPError.m in Sources */,
 				572409EC1A688C05009271B8 /* MPInterstitialCustomEventAdapter.m in Sources */,
 				5755DAEE1AAA4E2300DC32EA /* AdColonyGlobalMediationSettings.m in Sources */,
+				87CF217F1B0D39150080E6BB /* MPActivityViewControllerHelper.m in Sources */,
 				5755D6361AA8F62900DC32EA /* MPRewardedVideoReward.m in Sources */,
 				57240A101A688C05009271B8 /* MRCommand.m in Sources */,
 				5755D6301AA8F62900DC32EA /* MPRewardedVideoCustomEvent.m in Sources */,
@@ -2459,6 +2466,7 @@
 				4AD1E8B018F36D39000D1753 /* MPNativeAdView.m in Sources */,
 				57240A631A688C05009271B8 /* MoPub.m in Sources */,
 				57240A5A1A688C05009271B8 /* MPStoreKitProvider.m in Sources */,
+				87CF216E1B0D39100080E6BB /* MPActivityViewControllerHelper.m in Sources */,
 				57240AC61A688C05009271B8 /* MPTableViewAdManager.m in Sources */,
 				467343F017FE3D6900D68BB6 /* MPAdPersistenceManager.m in Sources */,
 				572409A61A688C05009271B8 /* MPBaseBannerAdapter.m in Sources */,
@@ -2527,6 +2535,7 @@
 				57240A541A688C05009271B8 /* MPReachability.m in Sources */,
 				4A8DD10418C90620005E9389 /* MPNativeAdTableHeaderView.m in Sources */,
 				572409E81A688C05009271B8 /* MPInterstitialAdManager.m in Sources */,
+				87CF216F1B0D39100080E6BB /* MPActivityViewControllerHelper+TweetShare.m in Sources */,
 				57240A961A688C05009271B8 /* MPNativePositionSource.m in Sources */,
 				57240A2D1A688C05009271B8 /* NSHTTPURLResponse+MPAdditions.m in Sources */,
 				57240A1E1A688C05009271B8 /* MRImageDownloader.m in Sources */,

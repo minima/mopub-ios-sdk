@@ -81,6 +81,8 @@ static NSString * const kMoPubSafariNavigateHost = @"navigate";
     } else if ([self safariURLForURL:URL]) {
         NSURL *safariURL = [NSURL URLWithString:[self safariURLForURL:URL]];
         [self.delegate openURLInApplication:safariURL];
+    } else if ([URL mp_isMoPubShareScheme]) {
+        return [self.delegate openShareURL:URL];
     } else if ([self URLShouldOpenInApplication:URL]) {
         if ([[UIApplication sharedApplication] canOpenURL:URL]) {
             [self.delegate openURLInApplication:URL];

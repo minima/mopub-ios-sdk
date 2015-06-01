@@ -10,6 +10,9 @@
 static NSString * const kTelephoneScheme = @"tel";
 static NSString * const kTelephonePromptScheme = @"telprompt";
 
+// Share Constants
+static NSString * const kMoPubShareScheme = @"mopubshare";
+static NSString * const kMoPubShareTweetHost = @"tweet";
 
 // Commands Constants
 static NSString * const kMoPubURLScheme = @"mopub";
@@ -53,10 +56,21 @@ static NSString * const kMoPubPrecacheCompleteHost = @"precacheComplete";
         [[self scheme].lowercaseString isEqualToString:@"about"];
 }
 
-
 - (BOOL)mp_isMoPubScheme
 {
     return [[self scheme] isEqualToString:kMoPubURLScheme];
+}
+
+- (MPMoPubShareHostCommand)mp_MoPubShareHostCommand
+{
+    NSString *host = [self host];
+    if (![self mp_isMoPubShareScheme]) {
+        return MPMoPubShareHostCommandUnrecognized;
+    } else if ([host isEqualToString:kMoPubShareTweetHost]) {
+        return MPMoPubShareHostCommandTweet;
+    } else {
+        return MPMoPubShareHostCommandUnrecognized;
+    }
 }
 
 - (MPMoPubHostCommand)mp_mopubHostCommand
@@ -75,6 +89,11 @@ static NSString * const kMoPubPrecacheCompleteHost = @"precacheComplete";
     } else {
         return MPMoPubHostCommandUnrecognized;
     }
+}
+
+- (BOOL)mp_isMoPubShareScheme
+{
+    return [[self scheme] isEqualToString:kMoPubShareScheme];
 }
 
 @end

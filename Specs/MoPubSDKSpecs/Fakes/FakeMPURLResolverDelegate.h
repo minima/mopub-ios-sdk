@@ -16,5 +16,6 @@
 @property (nonatomic, strong) NSError *error;
 @property (nonatomic, copy) NSString *storeKitParameter;
 @property (nonatomic, strong) NSURL *storeFallbackURL;
+@property (nonatomic, strong) NSURL *shareURL;
 
 @end
