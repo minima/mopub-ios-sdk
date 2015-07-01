@@ -31,7 +31,7 @@ static const NSInteger FacebookNoFillErrorCode = 1001;
         self.fbNativeAd.delegate = self;
         [self.fbNativeAd loadAd];
     } else {
-        [self.delegate nativeCustomEvent:self didFailToLoadAdWithError:[NSError errorWithDomain:MoPubNativeAdsSDKDomain code:MPNativeAdErrorInvalidServerResponse userInfo:nil]];
+        [self.delegate nativeCustomEvent:self didFailToLoadAdWithError:MPNativeAdNSErrorForInvalidAdServerResponse(@"Invalid Facebook placement ID")];
     }
 }
 
@@ -55,8 +55,7 @@ static const NSInteger FacebookNoFillErrorCode = 1001;
     [super precacheImagesWithURLs:imageURLs completionBlock:^(NSArray *errors) {
         if (errors) {
             MPLogDebug(@"%@", errors);
-            MPLogInfo(@"Error: data received was invalid.");
-            [self.delegate nativeCustomEvent:self didFailToLoadAdWithError:[NSError errorWithDomain:MoPubNativeAdsSDKDomain code:MPNativeAdErrorInvalidServerResponse userInfo:nil]];
+            [self.delegate nativeCustomEvent:self didFailToLoadAdWithError:MPNativeAdNSErrorForImageDownloadFailure()];
         } else {
             [self.delegate nativeCustomEvent:self didLoadAd:interfaceAd];
         }
@@ -66,9 +65,9 @@ static const NSInteger FacebookNoFillErrorCode = 1001;
 - (void)nativeAd:(FBNativeAd *)nativeAd didFailWithError:(NSError *)error
 {
     if (error.code == FacebookNoFillErrorCode) {
-        [self.delegate nativeCustomEvent:self didFailToLoadAdWithError:[NSError errorWithDomain:MoPubNativeAdsSDKDomain code:MPNativeAdErrorNoInventory userInfo:error.userInfo]];
+        [self.delegate nativeCustomEvent:self didFailToLoadAdWithError:MPNativeAdNSErrorForNoInventory()];
     } else {
-        [self.delegate nativeCustomEvent:self didFailToLoadAdWithError:[NSError errorWithDomain:MoPubNativeAdsSDKDomain code:MPNativeAdErrorInvalidServerResponse userInfo:error.userInfo]];
+        [self.delegate nativeCustomEvent:self didFailToLoadAdWithError:MPNativeAdNSErrorForInvalidAdServerResponse(@"Facebook ad load error")];
     }
 }
 

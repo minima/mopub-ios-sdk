@@ -153,9 +153,9 @@ static MPCoreInstanceProvider *sharedProvider = nil;
 
 #pragma mark - URL Handling
 
-- (MPURLResolver *)buildMPURLResolver
+- (MPURLResolver *)buildMPURLResolverWithURL:(NSURL *)URL completion:(MPURLResolverCompletionBlock)completion;
 {
-    return [MPURLResolver resolver];
+    return [MPURLResolver resolverWithURL:URL completion:completion];
 }
 
 - (MPAdDestinationDisplayAgent *)buildMPAdDestinationDisplayAgentWithDelegate:(id<MPAdDestinationDisplayAgentDelegate>)delegate

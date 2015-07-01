@@ -29,7 +29,7 @@
 
 - (NSString *)description
 {
-    return [NSString stringWithFormat:@"<MPTimer %p: TimeInterval:%.1f, Target:%@, Selector:%@>", self, self.timeInterval, self.target, NSStringFromSelector(self.selector)];
+    return [NSString stringWithFormat:@"<MPTimer %p: TimeInterval:%.1f, TimeToNextTrigger: %.1f, Target:%@, Selector:%@>", self, self.timeInterval, self.timeToNextTrigger, self.target, NSStringFromSelector(self.selector)];
 }
 
 - (BOOL)scheduleNow

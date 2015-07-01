@@ -8,7 +8,7 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 #import "MPGlobal.h"
-
+#import "MPURLResolver.h"
 
 @class MPAdConfiguration;
 
@@ -17,7 +17,6 @@
 @protocol MPAdServerCommunicatorDelegate;
 
 // URL Handling
-@class MPURLResolver;
 @class MPAdDestinationDisplayAgent;
 @protocol MPAdDestinationDisplayAgentDelegate;
 
@@ -45,7 +44,7 @@ typedef id(^MPSingletonProviderBlock)();
 - (MPAdServerCommunicator *)buildMPAdServerCommunicatorWithDelegate:(id<MPAdServerCommunicatorDelegate>)delegate;
 
 #pragma mark - URL Handling
-- (MPURLResolver *)buildMPURLResolver;
+- (MPURLResolver *)buildMPURLResolverWithURL:(NSURL *)URL completion:(MPURLResolverCompletionBlock)completion;
 - (MPAdDestinationDisplayAgent *)buildMPAdDestinationDisplayAgentWithDelegate:(id<MPAdDestinationDisplayAgentDelegate>)delegate;
 
 #pragma mark - Utilities

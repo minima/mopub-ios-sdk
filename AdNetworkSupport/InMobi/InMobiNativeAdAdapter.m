@@ -178,19 +178,11 @@ static NSString *const kInMobiImageURL = @"url";
     NSError *error = nil;
 
     if (!controller) {
-        NSDictionary *userInfo = [NSDictionary dictionaryWithObject:@"Cannot display content without a root view controller."
-                                                             forKey:MPNativeAdErrorContentDisplayErrorReasonKey];
-        error = [NSError errorWithDomain:MoPubNativeAdsSDKDomain
-                                    code:MPNativeAdErrorContentDisplayError
-                                userInfo:userInfo];
+        error = MPNativeAdNSErrorForContentDisplayErrorMissingRootController();
     }
 
     if (!URL || ![URL isKindOfClass:[NSURL class]] || ![URL.absoluteString length]) {
-        NSDictionary *userInfo = [NSDictionary dictionaryWithObject:@"Cannot display content without a valid URL."
-                                                             forKey:MPNativeAdErrorContentDisplayErrorReasonKey];
-        error = [NSError errorWithDomain:MoPubNativeAdsSDKDomain
-                                    code:MPNativeAdErrorContentDisplayError
-                                userInfo:userInfo];
+        error = MPNativeAdNSErrorForContentDisplayErrorInvalidURL();
     }
 
     if (error) {

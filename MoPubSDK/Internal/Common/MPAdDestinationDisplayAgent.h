@@ -14,8 +14,7 @@
 
 @protocol MPAdDestinationDisplayAgentDelegate;
 
-@interface MPAdDestinationDisplayAgent : NSObject <MPURLResolverDelegate,
-                                                   MPProgressOverlayViewDelegate,
+@interface MPAdDestinationDisplayAgent : NSObject <MPProgressOverlayViewDelegate,
                                                    MPAdBrowserControllerDelegate,
                                                    MPSKStoreProductViewControllerDelegate,
                                                    MPActivityViewControllerHelperDelegate>

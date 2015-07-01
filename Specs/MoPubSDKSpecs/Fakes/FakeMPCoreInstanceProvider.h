@@ -10,6 +10,7 @@
 #import "FakeMPReachability.h"
 #import "FakeMPGeolocationProvider.h"
 #import "FakeUIDevice.h"
+#import "FakeMPURLResolver.h"
 
 @interface FakeMPCoreInstanceProvider : MPCoreInstanceProvider
 
@@ -17,7 +18,7 @@
 @property (nonatomic, strong) FakeMPAdServerCommunicator *lastFakeMPAdServerCommunicator;
 
 #pragma mark - URL Handling
-@property (nonatomic, strong) MPURLResolver *fakeMPURLResolver;
+@property (nonatomic, strong) FakeMPURLResolver *fakeMPURLResolver;
 @property (nonatomic, strong) MPAdDestinationDisplayAgent *fakeMPAdDestinationDisplayAgent;
 
 #pragma mark - Utilities

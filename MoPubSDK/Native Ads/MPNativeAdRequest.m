@@ -152,7 +152,7 @@
         self.loading = NO;
         [self loadAdWithURL:self.adConfiguration.failoverURL];
     } else {
-        [self completeAdRequestWithAdObject:nil error:[NSError errorWithDomain:MoPubNativeAdsSDKDomain code:MPNativeAdErrorInvalidServerResponse userInfo:nil]];
+        [self completeAdRequestWithAdObject:nil error:MPNativeAdNSErrorForInvalidAdServerResponse(nil)];
     }
 }
 
@@ -180,13 +180,13 @@
 
     if (configuration.adUnitWarmingUp) {
         MPLogInfo(kMPWarmingUpErrorLogFormatWithAdUnitID, self.adUnitIdentifier);
-        [self completeAdRequestWithAdObject:nil error:[NSError errorWithDomain:MoPubNativeAdsSDKDomain code:MPNativeAdErrorAdUnitWarmingUp userInfo:nil]];
+        [self completeAdRequestWithAdObject:nil error:MPNativeAdNSErrorForAdUnitWarmingUp()];
         return;
     }
 
     if ([configuration.networkType isEqualToString:kAdTypeClear]) {
         MPLogInfo(kMPClearErrorLogFormatWithAdUnitID, self.adUnitIdentifier);
-        [self completeAdRequestWithAdObject:nil error:[NSError errorWithDomain:MoPubNativeAdsSDKDomain code:MPNativeAdErrorNoInventory userInfo:nil]];
+        [self completeAdRequestWithAdObject:nil error:MPNativeAdNSErrorForNoInventory()];
         return;
     }
 
@@ -198,7 +198,7 @@
 {
     MPLogDebug(@"Error: Couldn't retrieve an ad from MoPub. Message: %@", error);
 
-    [self completeAdRequestWithAdObject:nil error:[NSError errorWithDomain:MoPubNativeAdsSDKDomain code:MPNativeAdErrorHTTPError userInfo:nil]];
+    [self completeAdRequestWithAdObject:nil error:MPNativeAdNSErrorForNetworkConnectionError()];
 }
 
 #pragma mark - <MPNativeCustomEventDelegate>
@@ -215,7 +215,7 @@
 
     // Error if we don't have click tracker or impression trackers.
     if (!adObject.engagementTrackingURL || adObject.impressionTrackers.count < 1) {
-        [self completeAdRequestWithAdObject:nil error:[NSError errorWithDomain:MoPubNativeAdsSDKDomain code:MPNativeAdErrorInvalidServerResponse userInfo:nil]];
+        [self completeAdRequestWithAdObject:nil error:MPNativeAdNSErrorForInvalidAdServerResponse(@"Invalid ad trackers")];
     } else {
         [self completeAdRequestWithAdObject:adObject error:nil];
     }

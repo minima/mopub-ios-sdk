@@ -47,7 +47,7 @@ static NSString *gAppId = nil;
         self.inMobiAd.delegate = self;
         [self.inMobiAd loadAd];
     } else {
-        [self.delegate nativeCustomEvent:self didFailToLoadAdWithError:[NSError errorWithDomain:MoPubNativeAdsSDKDomain code:MPNativeAdErrorInvalidServerResponse userInfo:nil]];
+        [self.delegate nativeCustomEvent:self didFailToLoadAdWithError:MPNativeAdNSErrorForInvalidAdServerResponse(@"Invalid InMobi app ID")];
     }
 }
 
@@ -62,21 +62,20 @@ static NSString *gAppId = nil;
 
     if ([[interfaceAd.properties objectForKey:kAdIconImageKey] length]) {
         if (![MPNativeAdUtils addURLString:[interfaceAd.properties objectForKey:kAdIconImageKey] toURLArray:imageURLs]) {
-            [self.delegate nativeCustomEvent:self didFailToLoadAdWithError:[NSError errorWithDomain:MoPubNativeAdsSDKDomain code:MPNativeAdErrorInvalidServerResponse userInfo:nil]];
+            [self.delegate nativeCustomEvent:self didFailToLoadAdWithError:MPNativeAdNSErrorForInvalidImageURL()];
         }
     }
 
     if ([[interfaceAd.properties objectForKey:kAdMainImageKey] length]) {
         if (![MPNativeAdUtils addURLString:[interfaceAd.properties objectForKey:kAdMainImageKey] toURLArray:imageURLs]) {
-            [self.delegate nativeCustomEvent:self didFailToLoadAdWithError:[NSError errorWithDomain:MoPubNativeAdsSDKDomain code:MPNativeAdErrorInvalidServerResponse userInfo:nil]];
+            [self.delegate nativeCustomEvent:self didFailToLoadAdWithError:MPNativeAdNSErrorForInvalidImageURL()];
         }
     }
 
     [super precacheImagesWithURLs:imageURLs completionBlock:^(NSArray *errors) {
         if (errors) {
             MPLogDebug(@"%@", errors);
-            MPLogInfo(@"Error: data received was invalid.");
-            [self.delegate nativeCustomEvent:self didFailToLoadAdWithError:[NSError errorWithDomain:MoPubNativeAdsSDKDomain code:MPNativeAdErrorInvalidServerResponse userInfo:nil]];
+            [self.delegate nativeCustomEvent:self didFailToLoadAdWithError:MPNativeAdNSErrorForImageDownloadFailure()];
         } else {
             [self.delegate nativeCustomEvent:self didLoadAd:interfaceAd];
         }
@@ -85,7 +84,7 @@ static NSString *gAppId = nil;
 
 -(void)nativeAd:(IMNative*)native didFailWithError:(IMError*)error
 {
-    [self.delegate nativeCustomEvent:self didFailToLoadAdWithError:[NSError errorWithDomain:MoPubNativeAdsSDKDomain code:MPNativeAdErrorInvalidServerResponse userInfo:nil]];
+    [self.delegate nativeCustomEvent:self didFailToLoadAdWithError:MPNativeAdNSErrorForInvalidAdServerResponse(@"InMobi ad load error")];
 }
 
 @end

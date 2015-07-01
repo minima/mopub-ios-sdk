@@ -34,9 +34,10 @@ static BOOL gTwitterInstalled;
     objc_setAssociatedObject(self, &LAST_OPENED_URL_KEY, url, OBJC_ASSOCIATION_RETAIN);
 }
 
-- (void)openURL:(NSURL *)url
+- (BOOL)openURL:(NSURL *)url
 {
     self.lastOpenedURL = url;
+    return [self canOpenURL:url];
 }
 
 - (void)setStatusBarOrientation:(UIInterfaceOrientation)orientation
@@ -65,17 +66,17 @@ static BOOL gTwitterInstalled;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         Class class = [self class];
-        
+
         //swizzling canOpenURL:
         SEL originalCanOpenURLSelector = @selector(canOpenURL:);
         SEL swizzledCanOpenURLSelector = @selector(test_CanOpenURL:);
-        
+
         Method originalCanOpenURLMethod = class_getInstanceMethod(class, originalCanOpenURLSelector);
         Method swizzledCanOpenURLMethod = class_getInstanceMethod(class, swizzledCanOpenURLSelector);
-        
+
         BOOL didAddCanOpenURLMethod =
         class_addMethod(class, originalCanOpenURLSelector, method_getImplementation(swizzledCanOpenURLMethod), method_getTypeEncoding(swizzledCanOpenURLMethod));
-        
+
         if (didAddCanOpenURLMethod) {
             class_replaceMethod(class, swizzledCanOpenURLSelector, method_getImplementation(originalCanOpenURLMethod), method_getTypeEncoding(originalCanOpenURLMethod));
         } else {
@@ -114,7 +115,7 @@ static BOOL gTwitterInstalled;
     {
         canOpenURL = [self test_CanOpenURL:url];
     }
-    
+
     return canOpenURL;
 }
 

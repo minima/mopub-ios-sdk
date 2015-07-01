@@ -23,6 +23,35 @@ static NSString * const kMoPubPrecacheCompleteHost = @"precacheComplete";
 
 @implementation NSURL (MPAdditions)
 
+- (NSString *)mp_queryParameterForKey:(NSString *)key
+{
+    NSArray *queryElements = [self.query componentsSeparatedByString:@"&"];
+    for (NSString *element in queryElements) {
+        NSArray *keyAndValue = [element componentsSeparatedByString:@"="];
+        if (keyAndValue.count >= 2 &&
+            [[keyAndValue objectAtIndex:0] isEqualToString:key] &&
+            [[keyAndValue objectAtIndex:1] length] > 0) {
+            return [[keyAndValue objectAtIndex:1] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        }
+    }
+    return nil;
+}
+
+- (NSArray *)mp_queryParametersForKey:(NSString *)key
+{
+    NSMutableArray *matchingParameters = [NSMutableArray array];
+    NSArray *queryElements = [self.query componentsSeparatedByString:@"&"];
+    for (NSString *element in queryElements) {
+        NSArray *keyAndValue = [element componentsSeparatedByString:@"="];
+        if (keyAndValue.count >= 2 &&
+            [[keyAndValue objectAtIndex:0] isEqualToString:key] &&
+            [[keyAndValue objectAtIndex:1] length] > 0) {
+            [matchingParameters addObject:[[keyAndValue objectAtIndex:1] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+        }
+    }
+    return [NSArray arrayWithArray:matchingParameters];
+}
+
 - (NSDictionary *)mp_queryAsDictionary
 {
     NSMutableDictionary *queryDict = [NSMutableDictionary dictionary];

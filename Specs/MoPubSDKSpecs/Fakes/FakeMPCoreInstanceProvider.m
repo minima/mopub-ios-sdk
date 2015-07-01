@@ -7,6 +7,7 @@
 
 #import "FakeMPCoreInstanceProvider.h"
 #import "MPGeolocationProvider.h"
+#import "FakeMPURLResolver.h"
 
 @interface FakeMPCoreInstanceProvider ()
 
@@ -49,11 +50,14 @@
 
 #pragma mark - URL Handling
 
-- (MPURLResolver *)buildMPURLResolver
+- (MPURLResolver *)buildMPURLResolverWithURL:(NSURL *)URL completion:(MPURLResolverCompletionBlock)completion
 {
-    return [self returnFake:self.fakeMPURLResolver
+    FakeMPURLResolver *fakeResolver = self.fakeMPURLResolver;
+    fakeResolver.URL = URL;
+    fakeResolver.completion = completion;
+    return [self returnFake:fakeResolver
                      orCall:^{
-                         return [super buildMPURLResolver];
+                         return [super buildMPURLResolverWithURL:URL completion:completion];
                      }];
 }
 
@@ -176,7 +180,7 @@
     NSTimeInterval advanceBy = 0;
     while (timeInterval > 0) {
         advanceBy = delta < timeInterval ? delta : timeInterval;
-        for (FakeMPTimer *timer in self.fakeTimers) {
+        for (FakeMPTimer *timer in [self.fakeTimers copy]) {
             [timer advanceTime:advanceBy];
         }
         timeInterval -= advanceBy;

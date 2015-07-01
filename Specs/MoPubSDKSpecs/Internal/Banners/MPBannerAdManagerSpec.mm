@@ -27,6 +27,12 @@ describe(@"MPBannerAdManager", ^{
     __block FakeMPLogEventRecorder *eventRecorder;
 
     beforeEach(^{
+        // XXX: The geolocation provider can cause these tests to be flaky, since it can potentially
+        // override the `location` property of MPAdView. For this reason, we substitute a fake
+        // geolocation provider that never establishes a known location.
+        FakeMPGeolocationProvider *fakeGeolocationProvider = [[FakeMPGeolocationProvider alloc] init];
+        fakeCoreProvider.fakeGeolocationProvider = fakeGeolocationProvider;
+
         eventRecorder = [[FakeMPLogEventRecorder alloc] init];
         spy_on(eventRecorder);
         fakeCoreProvider.fakeLogEventRecorder = eventRecorder;

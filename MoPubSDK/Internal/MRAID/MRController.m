@@ -1071,7 +1071,8 @@ static NSString *const kMRAIDCommandResize = @"resize";
 
 - (void)checkViewability
 {
-    BOOL viewable = MPViewIsVisible([self activeView]);
+    BOOL viewable = MPViewIsVisible([self activeView]) &&
+        ([[UIApplication sharedApplication] applicationState] == UIApplicationStateActive);
     [self updateViewabilityWithBool:viewable];
 }
 

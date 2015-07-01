@@ -18,7 +18,7 @@ describe(@"MPBannerCustomEventAdapter", ^{
         adapter = [[MPBannerCustomEventAdapter alloc] initWithDelegate:delegate];
         configuration = [MPAdConfigurationFactory defaultBannerConfigurationWithCustomEventClassName:@"FakeBannerCustomEvent"];
         event = [[FakeBannerCustomEvent alloc] init];
-        fakeProvider.FakeBannerCustomEvent = event;
+        fakeProvider.fakeBannerCustomEvent = event;
     });
 
     context(@"when asked to get an ad for a configuration", ^{
@@ -37,7 +37,7 @@ describe(@"MPBannerCustomEventAdapter", ^{
 
         context(@"when the requested custom event class does not exist", ^{
             beforeEach(^{
-                fakeProvider.FakeBannerCustomEvent = nil;
+                fakeProvider.fakeBannerCustomEvent = nil;
                 configuration = [MPAdConfigurationFactory defaultInterstitialConfigurationWithCustomEventClassName:@"NonExistentCustomEvent"];
                 [adapter _getAdWithConfiguration:configuration containerSize:CGSizeZero];
             });

@@ -22,6 +22,8 @@ typedef enum {
 
 @interface NSURL (MPAdditions)
 
+- (NSString *)mp_queryParameterForKey:(NSString *)key;
+- (NSArray *)mp_queryParametersForKey:(NSString *)key;
 - (NSDictionary *)mp_queryAsDictionary;
 - (BOOL)mp_hasTelephoneScheme;
 - (BOOL)mp_hasTelephonePromptScheme;

@@ -10,15 +10,17 @@ describe(@"MPAdView", ^{
     __block MPAdView *adView;
 
     beforeEach(^{
+        // XXX: The geolocation provider can cause these tests to be flaky, since it can potentially
+        // override the `location` property of MPAdView. For this reason, we substitute a fake
+        // geolocation provider that never establishes a known location.
+        FakeMPGeolocationProvider *fakeGeolocationProvider = [[FakeMPGeolocationProvider alloc] init];
+        fakeCoreProvider.fakeGeolocationProvider = fakeGeolocationProvider;
+
         adView = [[MPAdView alloc] initWithAdUnitId:@"foo" size:MOPUB_BANNER_SIZE];
     });
 
     describe(@"loadAd", ^{
         it(@"should tell its manager to begin loading", ^{
-
-            NSLog(@"CEDAR HEADLESS ENV: %@",[[[NSProcessInfo processInfo] environment] objectForKey:@"CEDAR_HEADLESS_SPECS"] );
-            NSLog(@"CEDAR REPORTER ENV: %@",[[[NSProcessInfo processInfo] environment] objectForKey:@"CEDAR_REPORTER_CLASS"] );
-
             adView.keywords = @"hi=4";
             adView.location = [[CLLocation alloc] initWithCoordinate:CLLocationCoordinate2DMake(20, 20)
                                                              altitude:10
