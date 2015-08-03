@@ -6,7 +6,6 @@
 //
 
 #import "MPAdDestinationDisplayAgent.h"
-#import "UIViewController+MPAdditions.h"
 #import "MPCoreInstanceProvider.h"
 #import "MPLastResortDelegate.h"
 #import "MPLogging.h"
@@ -207,8 +206,7 @@ static NSString * const kDisplayAgentErrorDomain = @"com.mopub.displayagent";
                                                               HTMLString:HTMLString
                                                                 delegate:self];
     self.browserController.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-    [[self.delegate viewControllerForPresentingModalView] mp_presentModalViewController:self.browserController
-                                                                               animated:MP_ANIMATED];
+    [[self.delegate viewControllerForPresentingModalView] presentViewController:self.browserController animated:MP_ANIMATED completion:nil];
 }
 
 - (void)showStoreKitProductWithParameter:(NSString *)parameter fallbackURL:(NSURL *)URL
@@ -286,8 +284,7 @@ static NSString * const kDisplayAgentErrorDomain = @"com.mopub.displayagent";
     [self.storeKitController loadProductWithParameters:parameters completionBlock:nil];
 
     [self hideOverlay];
-    [[self.delegate viewControllerForPresentingModalView] mp_presentModalViewController:self.storeKitController
-                                                                               animated:MP_ANIMATED];
+    [[self.delegate viewControllerForPresentingModalView] presentViewController:self.storeKitController animated:MP_ANIMATED completion:nil];
 #endif
 }
 
@@ -318,8 +315,9 @@ static NSString * const kDisplayAgentErrorDomain = @"com.mopub.displayagent";
 
 - (void)hideModalAndNotifyDelegate
 {
-    [[self.delegate viewControllerForPresentingModalView] mp_dismissModalViewControllerAnimated:MP_ANIMATED];
-    [self.delegate displayAgentDidDismissModal];
+    [[self.delegate viewControllerForPresentingModalView] dismissViewControllerAnimated:MP_ANIMATED completion:^{
+        [self.delegate displayAgentDidDismissModal];
+    }];
 }
 
 - (void)hideOverlay

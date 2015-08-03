@@ -11,11 +11,7 @@
 
 typedef void (^MPURLResolverCompletionBlock)(MPURLActionInfo *actionInfo, NSError *error);
 
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= MP_IOS_5_0
 @interface MPURLResolver : NSObject <NSURLConnectionDataDelegate>
-#else
-@interface MPURLResolver : NSObject
-#endif
 
 + (instancetype)resolverWithURL:(NSURL *)URL completion:(MPURLResolverCompletionBlock)completion;
 - (void)start;

@@ -24,7 +24,7 @@ The MoPub SDK is distributed as source code that you can include in your applica
 
   Includes everything you need to serve HTML, MRAID, and Native MoPub advertisements.  No third party ad networks are included.
 
-The current version of the SDK is 3.9.0
+The current version of the SDK is 3.10.0
 
 ## Integrate
 
@@ -36,12 +36,9 @@ More detailed class documentation is available in the repo under the `ClassDocum
 
 Please view the [changelog](https://github.com/mopub/mopub-ios-sdk/blob/master/CHANGELOG.md) for details.
 
-- **Added VAST 3.0 standard support for video ads**.
-- **Improved video player UX**.
-- **Improved error messages**.
-- **Improved deep link handling**.
+- **Minor improvements**.
 - **Bug fixes**.
-	- Fixed clickthrough behavior for MRAID ads that use iframes.
+	- didDismissInterstitial is now called when the dismiss animation has completed.
 
 ### IMPORTANT UPGRADE INSTRUCTIONS
 

@@ -1,7 +1,6 @@
 #import "MPInterstitialAdController.h"
 #import "MPAdConfigurationFactory.h"
 #import "FakeMPAdWebView.h"
-#import "UIViewController+MPAdditions.h"
 #import "FakeMPAdAlertManager.h"
 
 using namespace Cedar::Matchers;
@@ -86,7 +85,7 @@ describe(@"MPHTMLInterstitialIntegrationSuite", ^{
             beforeEach(^{
                 [delegate reset_sent_messages];
                 [interstitial showFromViewController:presentingController];
-                UIViewController *presentedVC = [presentingController mp_presentedViewController];
+                UIViewController *presentedVC = presentingController.presentedViewController;
                 [presentedVC viewWillAppear:MP_ANIMATED];
                 [presentedVC viewDidAppear:MP_ANIMATED];
             });
@@ -96,7 +95,7 @@ describe(@"MPHTMLInterstitialIntegrationSuite", ^{
 
                 [presentingController dismissModalViewControllerAnimated:NO];
                 [interstitial showFromViewController:presentingController];
-                UIViewController *presentedVC = [presentingController mp_presentedViewController];
+                UIViewController *presentedVC = presentingController.presentedViewController;
                 [presentedVC viewWillAppear:MP_ANIMATED];
                 [presentedVC viewDidAppear:MP_ANIMATED];
                 fakeCoreProvider.sharedFakeMPAnalyticsTracker.trackedImpressionConfigurations.count should equal(1);
@@ -135,11 +134,11 @@ describe(@"MPHTMLInterstitialIntegrationSuite", ^{
                 beforeEach(^{
                     [delegate reset_sent_messages];
                     UIViewController *newModalVC = [[UIViewController alloc] init];
-                    UIViewController *interstitialVC = [presentingController mp_presentedViewController];
-                    [interstitialVC mp_presentModalViewController:newModalVC animated:MP_ANIMATED];
+                    UIViewController *interstitialVC = presentingController.presentedViewController;
+                    [interstitialVC presentViewController:newModalVC animated:MP_ANIMATED completion:nil];
                     [interstitialVC viewWillDisappear:MP_ANIMATED];
                     [interstitialVC viewDidDisappear:MP_ANIMATED];
-                    [interstitialVC mp_dismissModalViewControllerAnimated:MP_ANIMATED];
+                    [interstitialVC dismissViewControllerAnimated:MP_ANIMATED completion:nil];
                     [interstitialVC viewWillAppear:MP_ANIMATED];
                     [interstitialVC viewDidAppear:MP_ANIMATED];
                 });

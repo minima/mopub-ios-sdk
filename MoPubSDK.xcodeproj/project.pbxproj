@@ -130,7 +130,6 @@
 		468BCDE719996C550054A051 /* MRProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = AEF9D512171CA895005AAA5A /* MRProperty.m */; };
 		468BCDE819996C550054A051 /* MPMoPubNativeAdAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AF54B54194A217F0093F714 /* MPMoPubNativeAdAdapter.m */; };
 		468BCDE919996C550054A051 /* NSURL+MPAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = AEF9D516171CA895005AAA5A /* NSURL+MPAdditions.m */; };
-		468BCDEA19996C550054A051 /* UIViewController+MPAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = AEF9D518171CA895005AAA5A /* UIViewController+MPAdditions.m */; };
 		468BCDEB19996C550054A051 /* UIWebView+MPAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = AEF9D51A171CA895005AAA5A /* UIWebView+MPAdditions.m */; };
 		468BCDEC19996C550054A051 /* MPMoPubNativeCustomEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 571FA43A193FC4D300A36583 /* MPMoPubNativeCustomEvent.m */; };
 		468BCDED19996C550054A051 /* MPAnalyticsTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = AEF9D51C171CA895005AAA5A /* MPAnalyticsTracker.m */; };
@@ -435,8 +434,6 @@
 		570AFFD519D6192C00065388 /* MRProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = AEF9D512171CA895005AAA5A /* MRProperty.m */; };
 		570AFFF419D6193800065388 /* NSURL+MPAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = AEF9D515171CA895005AAA5A /* NSURL+MPAdditions.h */; };
 		570AFFF519D6193800065388 /* NSURL+MPAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = AEF9D516171CA895005AAA5A /* NSURL+MPAdditions.m */; };
-		570AFFF619D6193800065388 /* UIViewController+MPAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = AEF9D517171CA895005AAA5A /* UIViewController+MPAdditions.h */; };
-		570AFFF719D6193800065388 /* UIViewController+MPAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = AEF9D518171CA895005AAA5A /* UIViewController+MPAdditions.m */; };
 		570AFFF819D6193800065388 /* UIWebView+MPAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = AEF9D519171CA895005AAA5A /* UIWebView+MPAdditions.h */; };
 		570AFFF919D6193800065388 /* UIWebView+MPAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = AEF9D51A171CA895005AAA5A /* UIWebView+MPAdditions.m */; };
 		570AFFFA19D6193800065388 /* NSJSONSerialization+MPAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 4A71895518D25FC50056F068 /* NSJSONSerialization+MPAdditions.h */; };
@@ -909,7 +906,6 @@
 		AE515F61171F1B110086B464 /* MRCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = AEF9D50E171CA895005AAA5A /* MRCommand.m */; };
 		AE515F63171F1B110086B464 /* MRProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = AEF9D512171CA895005AAA5A /* MRProperty.m */; };
 		AE515F64171F1B110086B464 /* NSURL+MPAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = AEF9D516171CA895005AAA5A /* NSURL+MPAdditions.m */; };
-		AE515F65171F1B110086B464 /* UIViewController+MPAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = AEF9D518171CA895005AAA5A /* UIViewController+MPAdditions.m */; };
 		AE515F66171F1B110086B464 /* UIWebView+MPAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = AEF9D51A171CA895005AAA5A /* UIWebView+MPAdditions.m */; };
 		AE515F67171F1B110086B464 /* MPAnalyticsTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = AEF9D51C171CA895005AAA5A /* MPAnalyticsTracker.m */; };
 		AE515F68171F1B110086B464 /* MPError.m in Sources */ = {isa = PBXBuildFile; fileRef = AEF9D51E171CA895005AAA5A /* MPError.m */; };
@@ -1035,8 +1031,6 @@
 		AEF9D57E171CA895005AAA5A /* MRProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = AEF9D512171CA895005AAA5A /* MRProperty.m */; };
 		AEF9D57F171CA895005AAA5A /* NSURL+MPAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = AEF9D516171CA895005AAA5A /* NSURL+MPAdditions.m */; };
 		AEF9D580171CA895005AAA5A /* NSURL+MPAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = AEF9D516171CA895005AAA5A /* NSURL+MPAdditions.m */; };
-		AEF9D581171CA895005AAA5A /* UIViewController+MPAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = AEF9D518171CA895005AAA5A /* UIViewController+MPAdditions.m */; };
-		AEF9D582171CA895005AAA5A /* UIViewController+MPAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = AEF9D518171CA895005AAA5A /* UIViewController+MPAdditions.m */; };
 		AEF9D583171CA895005AAA5A /* UIWebView+MPAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = AEF9D51A171CA895005AAA5A /* UIWebView+MPAdditions.m */; };
 		AEF9D584171CA895005AAA5A /* UIWebView+MPAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = AEF9D51A171CA895005AAA5A /* UIWebView+MPAdditions.m */; };
 		AEF9D585171CA895005AAA5A /* MPAnalyticsTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = AEF9D51C171CA895005AAA5A /* MPAnalyticsTracker.m */; };
@@ -1952,8 +1946,6 @@
 		AEF9D512171CA895005AAA5A /* MRProperty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MRProperty.m; sourceTree = "<group>"; };
 		AEF9D515171CA895005AAA5A /* NSURL+MPAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURL+MPAdditions.h"; sourceTree = "<group>"; };
 		AEF9D516171CA895005AAA5A /* NSURL+MPAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURL+MPAdditions.m"; sourceTree = "<group>"; };
-		AEF9D517171CA895005AAA5A /* UIViewController+MPAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+MPAdditions.h"; sourceTree = "<group>"; };
-		AEF9D518171CA895005AAA5A /* UIViewController+MPAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+MPAdditions.m"; sourceTree = "<group>"; };
 		AEF9D519171CA895005AAA5A /* UIWebView+MPAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIWebView+MPAdditions.h"; sourceTree = "<group>"; };
 		AEF9D51A171CA895005AAA5A /* UIWebView+MPAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWebView+MPAdditions.m"; sourceTree = "<group>"; };
 		AEF9D51B171CA895005AAA5A /* MPAnalyticsTracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPAnalyticsTracker.h; sourceTree = "<group>"; };
@@ -3214,8 +3206,6 @@
 				57098CDC1A2458D00005A153 /* NSHTTPURLResponse+MPAdditions.m */,
 				AEF9D515171CA895005AAA5A /* NSURL+MPAdditions.h */,
 				AEF9D516171CA895005AAA5A /* NSURL+MPAdditions.m */,
-				AEF9D517171CA895005AAA5A /* UIViewController+MPAdditions.h */,
-				AEF9D518171CA895005AAA5A /* UIViewController+MPAdditions.m */,
 				AEF9D519171CA895005AAA5A /* UIWebView+MPAdditions.h */,
 				AEF9D51A171CA895005AAA5A /* UIWebView+MPAdditions.m */,
 				4A71895518D25FC50056F068 /* NSJSONSerialization+MPAdditions.h */,
@@ -3836,7 +3826,6 @@
 				570AFF7B19D6191000065388 /* MPNativeAdRequestTargeting.h in Headers */,
 				A7BB73E31B34D79B00B3161B /* MPEnhancedDeeplinkRequest.h in Headers */,
 				570AFF5219D6191000065388 /* MPAdPositioning.h in Headers */,
-				570AFFF619D6193800065388 /* UIViewController+MPAdditions.h in Headers */,
 				57ACE4081AA7E8D900A05633 /* MPRewardedVideo.h in Headers */,
 				570AFF9919D6192C00065388 /* MPBannerAdManager.h in Headers */,
 				575AE6581B38C75B00444109 /* FABKitProtocol.h in Headers */,
@@ -4729,7 +4718,6 @@
 				468BCDE719996C550054A051 /* MRProperty.m in Sources */,
 				468BCDE819996C550054A051 /* MPMoPubNativeAdAdapter.m in Sources */,
 				468BCDE919996C550054A051 /* NSURL+MPAdditions.m in Sources */,
-				468BCDEA19996C550054A051 /* UIViewController+MPAdditions.m in Sources */,
 				468BCDEB19996C550054A051 /* UIWebView+MPAdditions.m in Sources */,
 				A71DB8141A2FE68300D3B229 /* MoPub.m in Sources */,
 				A72F913B19C0D4C700A5601B /* MPNativePositionResponseDeserializer.m in Sources */,
@@ -4841,7 +4829,6 @@
 				570A000D19D6193800065388 /* MPTimer.m in Sources */,
 				57ACE40D1AA7E8D900A05633 /* MPRewardedVideo.m in Sources */,
 				570AFFBA19D6192C00065388 /* MPMRAIDBannerCustomEvent.m in Sources */,
-				570AFFF719D6193800065388 /* UIViewController+MPAdditions.m in Sources */,
 				570AFF3D19D618F200065388 /* MPAdView.m in Sources */,
 				570AFFBE19D6192C00065388 /* MPMRAIDInterstitialViewController.m in Sources */,
 				570A000319D6193800065388 /* MPIdentityProvider.m in Sources */,
@@ -5074,7 +5061,6 @@
 				AE515F63171F1B110086B464 /* MRProperty.m in Sources */,
 				4AF54B55194A217F0093F714 /* MPMoPubNativeAdAdapter.m in Sources */,
 				AE515F64171F1B110086B464 /* NSURL+MPAdditions.m in Sources */,
-				AE515F65171F1B110086B464 /* UIViewController+MPAdditions.m in Sources */,
 				AE515F66171F1B110086B464 /* UIWebView+MPAdditions.m in Sources */,
 				A71DB8131A2FE68300D3B229 /* MoPub.m in Sources */,
 				A7E95AC21ACA237C00A26AFD /* MPRetryingHTTPOperation.m in Sources */,
@@ -5193,7 +5179,6 @@
 				A7A9AC2519745B4E00C26A7E /* MPNativeAdSource.m in Sources */,
 				AEF9D57E171CA895005AAA5A /* MRProperty.m in Sources */,
 				AEF9D580171CA895005AAA5A /* NSURL+MPAdditions.m in Sources */,
-				AEF9D582171CA895005AAA5A /* UIViewController+MPAdditions.m in Sources */,
 				7EEEE2181AB79878007986C0 /* MPLogEventCommunicatorSpec.mm in Sources */,
 				AEF9D584171CA895005AAA5A /* UIWebView+MPAdditions.m in Sources */,
 				AEF9D586171CA895005AAA5A /* MPAnalyticsTracker.m in Sources */,
@@ -5578,7 +5563,6 @@
 				AEF9D57D171CA895005AAA5A /* MRProperty.m in Sources */,
 				4A2AEC4C1AA4F5C8002AFB88 /* MPChartboostRouter.m in Sources */,
 				AEF9D57F171CA895005AAA5A /* NSURL+MPAdditions.m in Sources */,
-				AEF9D581171CA895005AAA5A /* UIViewController+MPAdditions.m in Sources */,
 				A72F90EF19B7CA0400A5601B /* MPServerAdPositioning.m in Sources */,
 				AEF9D583171CA895005AAA5A /* UIWebView+MPAdditions.m in Sources */,
 				AEF9D585171CA895005AAA5A /* MPAnalyticsTracker.m in Sources */,

@@ -1,3 +1,9 @@
+## Version 3.10 (August 3rd, 2015)
+
+- **Minor improvements**.
+- **Bug fixes**.
+	- didDismissInterstitial is now called when the dismiss animation has completed.
+	
 ## Version 3.9 (July 1st, 2015)
 
 - **Added VAST 3.0 standard support for video ads**.

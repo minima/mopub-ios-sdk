@@ -206,8 +206,6 @@
 		57240A311A688C05009271B8 /* NSJSONSerialization+MPAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 572409261A688C05009271B8 /* NSJSONSerialization+MPAdditions.m */; };
 		57240A331A688C05009271B8 /* NSURL+MPAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 572409281A688C05009271B8 /* NSURL+MPAdditions.m */; };
 		57240A341A688C05009271B8 /* NSURL+MPAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 572409281A688C05009271B8 /* NSURL+MPAdditions.m */; };
-		57240A361A688C05009271B8 /* UIViewController+MPAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 5724092A1A688C05009271B8 /* UIViewController+MPAdditions.m */; };
-		57240A371A688C05009271B8 /* UIViewController+MPAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 5724092A1A688C05009271B8 /* UIViewController+MPAdditions.m */; };
 		57240A391A688C05009271B8 /* UIWebView+MPAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 5724092C1A688C05009271B8 /* UIWebView+MPAdditions.m */; };
 		57240A3A1A688C05009271B8 /* UIWebView+MPAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 5724092C1A688C05009271B8 /* UIWebView+MPAdditions.m */; };
 		57240A3C1A688C05009271B8 /* MPAnalyticsTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 5724092E1A688C05009271B8 /* MPAnalyticsTracker.m */; };
@@ -671,8 +669,6 @@
 		572409261A688C05009271B8 /* NSJSONSerialization+MPAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSJSONSerialization+MPAdditions.m"; sourceTree = "<group>"; };
 		572409271A688C05009271B8 /* NSURL+MPAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURL+MPAdditions.h"; sourceTree = "<group>"; };
 		572409281A688C05009271B8 /* NSURL+MPAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURL+MPAdditions.m"; sourceTree = "<group>"; };
-		572409291A688C05009271B8 /* UIViewController+MPAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+MPAdditions.h"; sourceTree = "<group>"; };
-		5724092A1A688C05009271B8 /* UIViewController+MPAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+MPAdditions.m"; sourceTree = "<group>"; };
 		5724092B1A688C05009271B8 /* UIWebView+MPAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIWebView+MPAdditions.h"; sourceTree = "<group>"; };
 		5724092C1A688C05009271B8 /* UIWebView+MPAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWebView+MPAdditions.m"; sourceTree = "<group>"; };
 		5724092D1A688C05009271B8 /* MPAnalyticsTracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPAnalyticsTracker.h; sourceTree = "<group>"; };
@@ -1350,8 +1346,6 @@
 				572409261A688C05009271B8 /* NSJSONSerialization+MPAdditions.m */,
 				572409271A688C05009271B8 /* NSURL+MPAdditions.h */,
 				572409281A688C05009271B8 /* NSURL+MPAdditions.m */,
-				572409291A688C05009271B8 /* UIViewController+MPAdditions.h */,
-				5724092A1A688C05009271B8 /* UIViewController+MPAdditions.m */,
 				5724092B1A688C05009271B8 /* UIWebView+MPAdditions.h */,
 				5724092C1A688C05009271B8 /* UIWebView+MPAdditions.m */,
 			);
@@ -2381,7 +2375,6 @@
 				572409FE1A688C05009271B8 /* MPMRAIDBannerCustomEvent.m in Sources */,
 				46B333EB19F075680078078A /* MPAdEntryViewController.m in Sources */,
 				57240AA01A688C05009271B8 /* MPClientAdPositioning.m in Sources */,
-				57240A371A688C05009271B8 /* UIViewController+MPAdditions.m in Sources */,
 				46B333F519F075680078078A /* MPNativeAdPageView.m in Sources */,
 				572409C21A688C05009271B8 /* MPAdServerURLBuilder.m in Sources */,
 				57240ACA1A688C05009271B8 /* MPTableViewAdPlacer.m in Sources */,
@@ -2489,7 +2482,6 @@
 				467343F017FE3D6900D68BB6 /* MPAdPersistenceManager.m in Sources */,
 				572409A61A688C05009271B8 /* MPBaseBannerAdapter.m in Sources */,
 				572409F41A688C05009271B8 /* MPCoreInstanceProvider.m in Sources */,
-				57240A361A688C05009271B8 /* UIViewController+MPAdditions.m in Sources */,
 				57240A001A688C05009271B8 /* MPMRAIDInterstitialCustomEvent.m in Sources */,
 				57240AC91A688C05009271B8 /* MPTableViewAdPlacer.m in Sources */,
 				46F883C917FB7AC5004CE563 /* MPLeaderboardBannerAdDetailViewController.m in Sources */,
