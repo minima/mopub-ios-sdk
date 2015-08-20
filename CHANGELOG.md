@@ -1,3 +1,7 @@
+## Version 3.11 (August 20th, 2015)
+
+- **Updated Millennial Media custom events (Millennial Media SDK 6.0+ only)**.
+
 ## Version 3.10 (August 3rd, 2015)
 
 - **Minor improvements**.

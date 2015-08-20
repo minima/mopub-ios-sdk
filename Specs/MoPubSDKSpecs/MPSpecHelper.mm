@@ -8,7 +8,7 @@
 #import "MPSpecHelper.h"
 #import "MPInterstitialAdController.h"
 #import "GSSDKInfo.h"
-#import <MillennialMedia/MMSDK.h>
+#import <MMAdSDK/MMSDK.h>
 #import "CedarAsync.h"
 #import "FakeMPInstanceProvider.h"
 #import "FakeMPCoreInstanceProvider.h"
@@ -58,7 +58,7 @@ void log_sent_messages(id<CedarDouble> fake)
     if (!beforeAllDidRun) {
         usleep(200000);
         beforeAllDidRun = YES;
-        [MMSDK setLogLevel:MMLOG_LEVEL_OFF];
+        [MMSDK setLogLevel:MMLogLevelError];
         [GSSDKInfo setGUID:@"GreystripeGUID"]; //silences greystripe complaints further down the line
     }
 

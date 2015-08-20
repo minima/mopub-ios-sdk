@@ -47,10 +47,6 @@
 - (IMBanner *)buildIMBannerWithFrame:(CGRect)frame appId:(NSString *)appId adSize:(int)adSize;
 - (IMInterstitial *)buildIMInterstitialWithDelegate:(id<IMInterstitialDelegate>)delegate appId:(NSString *)appId;
 
-#pragma mark Millennial
-- (MMAdView *)buildMMAdViewWithFrame:(CGRect)frame apid:(NSString *)apid rootViewController:(UIViewController *)controller;
-- (id)MMInterstitial;
-
 @end
 
 @implementation FakeMPInstanceProvider
@@ -479,29 +475,6 @@
         return self.fakeIMAdInterstitial;
     }
     return [super buildIMInterstitialWithDelegate:delegate appId:appId];
-}
-
-#pragma mark Millennial
-
-- (MMAdView *)buildMMAdViewWithFrame:(CGRect)frame apid:(NSString *)apid rootViewController:(UIViewController *)controller
-{
-    if (self.fakeMMAdView) {
-        self.fakeMMAdView.frame = frame;
-        self.fakeMMAdView.apid = apid;
-        self.fakeMMAdView.rootViewController = controller;
-        return self.fakeMMAdView.masquerade;
-    }
-
-    return [super buildMMAdViewWithFrame:frame apid:apid rootViewController:controller];
-}
-
-- (id)MMInterstitial
-{
-    if (self.fakeMMInterstitial) {
-        return self.fakeMMInterstitial;
-    } else {
-        return [super MMInterstitial];
-    }
 }
 
 @end
