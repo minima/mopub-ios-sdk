@@ -22,6 +22,7 @@
     return @[
              [MPAdSection sectionWithTitle:@"Banner Ads" ads:[MPAdInfo bannerAds]],
              [MPAdSection sectionWithTitle:@"Interstitial Ads" ads:[MPAdInfo interstitialAds]],
+             [MPAdSection sectionWithTitle:@"Rewarded Video Ads" ads:[MPAdInfo rewardedVideoAds]],
              [MPAdSection sectionWithTitle:@"Native Ads" ads:[MPAdInfo nativeAds]],
              [MPAdSection sectionWithTitle:@"Saved Ads" ads:[MPAdPersistenceManager sharedManager].savedAds]
              ];

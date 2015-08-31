@@ -14,6 +14,7 @@
 				570A002919D61D6900065388 /* ShellScript */,
 			);
 			dependencies = (
+				4ADE60391B5011E2004C3673 /* PBXTargetDependency */,
 				57CF564E19DE4814000D29C5 /* PBXTargetDependency */,
 				57CF565019DE4814000D29C5 /* PBXTargetDependency */,
 				57CF565219DE4814000D29C5 /* PBXTargetDependency */,
@@ -239,6 +240,31 @@
 		4ADD7CD51AA5624000BAAB74 /* MPChartboostRouter.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A2AEC401AA4F5C8002AFB88 /* MPChartboostRouter.m */; };
 		4ADD7CD61AA5624000BAAB74 /* MPInstanceProvider+Chartboost.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A2AEC421AA4F5C8002AFB88 /* MPInstanceProvider+Chartboost.m */; };
 		4ADD7CD71AA5624000BAAB74 /* ChartboostInterstitialCustomEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = AEE38824171F4D300019601C /* ChartboostInterstitialCustomEvent.m */; };
+		4ADE5FEF1B4FFA38004C3673 /* MPInstanceProvider+Unity.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ADE5FE51B4FFA38004C3673 /* MPInstanceProvider+Unity.m */; };
+		4ADE5FF01B4FFA38004C3673 /* MPInstanceProvider+Unity.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ADE5FE51B4FFA38004C3673 /* MPInstanceProvider+Unity.m */; };
+		4ADE5FF11B4FFA38004C3673 /* UnityAdsRewardedVideoCustomEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ADE5FE71B4FFA38004C3673 /* UnityAdsRewardedVideoCustomEvent.m */; };
+		4ADE5FF21B4FFA38004C3673 /* UnityAdsRewardedVideoCustomEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ADE5FE71B4FFA38004C3673 /* UnityAdsRewardedVideoCustomEvent.m */; };
+		4ADE5FF31B4FFA38004C3673 /* MPUnityRouter.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ADE5FE91B4FFA38004C3673 /* MPUnityRouter.m */; };
+		4ADE5FF41B4FFA38004C3673 /* MPUnityRouter.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ADE5FE91B4FFA38004C3673 /* MPUnityRouter.m */; };
+		4ADE5FF51B4FFA38004C3673 /* UnityAds.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 4ADE5FEB1B4FFA38004C3673 /* UnityAds.bundle */; };
+		4ADE5FF61B4FFA38004C3673 /* UnityAds.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4ADE5FEC1B4FFA38004C3673 /* UnityAds.framework */; };
+		4ADE5FF71B4FFA38004C3673 /* UnityAds.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4ADE5FEC1B4FFA38004C3673 /* UnityAds.framework */; };
+		4ADE5FF81B4FFA38004C3673 /* UnityAdsInstanceMediationSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ADE5FEE1B4FFA38004C3673 /* UnityAdsInstanceMediationSettings.m */; };
+		4ADE5FF91B4FFA38004C3673 /* UnityAdsInstanceMediationSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ADE5FEE1B4FFA38004C3673 /* UnityAdsInstanceMediationSettings.m */; };
+		4ADE600B1B4FFA66004C3673 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AEF1F32B16EF9AD700273462 /* Foundation.framework */; };
+		4ADE60161B4FFA94004C3673 /* UnityAds.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4ADE5FEC1B4FFA38004C3673 /* UnityAds.framework */; };
+		4ADE60171B4FFAC6004C3673 /* MPInstanceProvider+Unity.h in Headers */ = {isa = PBXBuildFile; fileRef = 4ADE5FE41B4FFA38004C3673 /* MPInstanceProvider+Unity.h */; };
+		4ADE60181B4FFAC6004C3673 /* UnityAdsRewardedVideoCustomEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = 4ADE5FE61B4FFA38004C3673 /* UnityAdsRewardedVideoCustomEvent.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4ADE60191B4FFAC6004C3673 /* MPUnityRouter.h in Headers */ = {isa = PBXBuildFile; fileRef = 4ADE5FE81B4FFA38004C3673 /* MPUnityRouter.h */; };
+		4ADE601A1B4FFAC6004C3673 /* UnityAdsInstanceMediationSettings.h in Headers */ = {isa = PBXBuildFile; fileRef = 4ADE5FED1B4FFA38004C3673 /* UnityAdsInstanceMediationSettings.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4ADE601B1B4FFB18004C3673 /* MPInstanceProvider+Unity.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ADE5FE51B4FFA38004C3673 /* MPInstanceProvider+Unity.m */; };
+		4ADE601C1B4FFB18004C3673 /* UnityAdsRewardedVideoCustomEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ADE5FE71B4FFA38004C3673 /* UnityAdsRewardedVideoCustomEvent.m */; };
+		4ADE601D1B4FFB18004C3673 /* MPUnityRouter.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ADE5FE91B4FFA38004C3673 /* MPUnityRouter.m */; };
+		4ADE601E1B4FFB18004C3673 /* UnityAdsInstanceMediationSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ADE5FEE1B4FFA38004C3673 /* UnityAdsInstanceMediationSettings.m */; };
+		4ADE602D1B4FFC9C004C3673 /* MPUnityRouterSpec.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4ADE602C1B4FFC9C004C3673 /* MPUnityRouterSpec.mm */; };
+		4ADE602F1B4FFCAF004C3673 /* UnityAdsRewardedVideoCustomEventSpec.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4ADE602E1B4FFCAF004C3673 /* UnityAdsRewardedVideoCustomEventSpec.mm */; };
+		4ADE60371B5006AF004C3673 /* UnityAds+Specs.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ADE60361B5006AF004C3673 /* UnityAds+Specs.m */; };
+		4ADE604D1B501621004C3673 /* UnityCustomEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = 4ADE604B1B50160E004C3673 /* UnityCustomEvent.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4ADF7B6A1AA56DD5001E33D4 /* MPInstanceProvider+Vungle.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A2AECAF1AA52A28002AFB88 /* MPInstanceProvider+Vungle.m */; };
 		4ADF7B6B1AA56DD5001E33D4 /* MPVungleRouter.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A2AECB11AA52A28002AFB88 /* MPVungleRouter.m */; };
 		4ADF7B6C1AA56DD5001E33D4 /* VungleRewardedVideoCustomEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A2AECB31AA52A28002AFB88 /* VungleRewardedVideoCustomEvent.m */; };
@@ -464,6 +490,12 @@
 		57292A0419461ACB00E6586C /* MPNativeAdConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 57292A0319461ACB00E6586C /* MPNativeAdConstants.m */; };
 		57292A0F19461DA300E6586C /* MPNativeAdConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 57292A0319461ACB00E6586C /* MPNativeAdConstants.m */; };
 		572A1B131934FFEC00E40F5A /* MPImageDownloadQueueSpec.mm in Sources */ = {isa = PBXBuildFile; fileRef = 572A1B121934FFEC00E40F5A /* MPImageDownloadQueueSpec.mm */; };
+		57401A451B7AAEF0000EEA64 /* MPDAAIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 57401A421B7AAEF0000EEA64 /* MPDAAIcon.png */; };
+		57401A461B7AAEF0000EEA64 /* MPDAAIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 57401A421B7AAEF0000EEA64 /* MPDAAIcon.png */; };
+		57401A471B7AAEF0000EEA64 /* MPDAAIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 57401A431B7AAEF0000EEA64 /* MPDAAIcon@2x.png */; };
+		57401A481B7AAEF0000EEA64 /* MPDAAIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 57401A431B7AAEF0000EEA64 /* MPDAAIcon@2x.png */; };
+		57401A491B7AAEF0000EEA64 /* MPDAAIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 57401A441B7AAEF0000EEA64 /* MPDAAIcon@3x.png */; };
+		57401A4A1B7AAEF0000EEA64 /* MPDAAIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 57401A441B7AAEF0000EEA64 /* MPDAAIcon@3x.png */; };
 		5755DA0E1AA90B4700DC32EA /* MPRewardedVideoAdapterSpec.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5755DA0A1AA90B4700DC32EA /* MPRewardedVideoAdapterSpec.mm */; };
 		5755DA0F1AA90B4700DC32EA /* MPRewardedVideoAdManagerSpec.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5755DA0B1AA90B4700DC32EA /* MPRewardedVideoAdManagerSpec.mm */; };
 		5755DA101AA90B4700DC32EA /* MPRewardedVideoRewardSpec.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5755DA0C1AA90B4700DC32EA /* MPRewardedVideoRewardSpec.mm */; };
@@ -1152,6 +1184,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		4ADE60381B5011E2004C3673 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AEF1F32016EF9AD700273462 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4ADE60041B4FFA66004C3673;
+			remoteInfo = UnityCustomEvent;
+		};
 		570A001D19D61D0700065388 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = AEF1F32016EF9AD700273462 /* Project object */;
@@ -1521,6 +1560,22 @@
 		4AB5CCFF19F56B99005ABBC1 /* MPLogProviderSpec.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MPLogProviderSpec.mm; sourceTree = "<group>"; };
 		4AB846EC1A71CEE8003C23E6 /* MPForceableOrientationProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPForceableOrientationProtocol.h; sourceTree = "<group>"; };
 		4AD1D8F919E4958200705E52 /* MPNativeAdDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPNativeAdDelegate.h; sourceTree = "<group>"; };
+		4ADE5FE41B4FFA38004C3673 /* MPInstanceProvider+Unity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MPInstanceProvider+Unity.h"; sourceTree = "<group>"; };
+		4ADE5FE51B4FFA38004C3673 /* MPInstanceProvider+Unity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MPInstanceProvider+Unity.m"; sourceTree = "<group>"; };
+		4ADE5FE61B4FFA38004C3673 /* UnityAdsRewardedVideoCustomEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UnityAdsRewardedVideoCustomEvent.h; sourceTree = "<group>"; };
+		4ADE5FE71B4FFA38004C3673 /* UnityAdsRewardedVideoCustomEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UnityAdsRewardedVideoCustomEvent.m; sourceTree = "<group>"; };
+		4ADE5FE81B4FFA38004C3673 /* MPUnityRouter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPUnityRouter.h; sourceTree = "<group>"; };
+		4ADE5FE91B4FFA38004C3673 /* MPUnityRouter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPUnityRouter.m; sourceTree = "<group>"; };
+		4ADE5FEB1B4FFA38004C3673 /* UnityAds.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = UnityAds.bundle; sourceTree = "<group>"; };
+		4ADE5FEC1B4FFA38004C3673 /* UnityAds.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = UnityAds.framework; sourceTree = "<group>"; };
+		4ADE5FED1B4FFA38004C3673 /* UnityAdsInstanceMediationSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UnityAdsInstanceMediationSettings.h; sourceTree = "<group>"; };
+		4ADE5FEE1B4FFA38004C3673 /* UnityAdsInstanceMediationSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UnityAdsInstanceMediationSettings.m; sourceTree = "<group>"; };
+		4ADE60141B4FFA66004C3673 /* libUnityCustomEvent.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libUnityCustomEvent.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		4ADE602C1B4FFC9C004C3673 /* MPUnityRouterSpec.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MPUnityRouterSpec.mm; sourceTree = "<group>"; };
+		4ADE602E1B4FFCAF004C3673 /* UnityAdsRewardedVideoCustomEventSpec.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = UnityAdsRewardedVideoCustomEventSpec.mm; sourceTree = "<group>"; };
+		4ADE60351B5006AF004C3673 /* UnityAds+Specs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UnityAds+Specs.h"; sourceTree = "<group>"; };
+		4ADE60361B5006AF004C3673 /* UnityAds+Specs.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UnityAds+Specs.m"; sourceTree = "<group>"; };
+		4ADE604B1B50160E004C3673 /* UnityCustomEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UnityCustomEvent.h; path = UnityCustomEvent/UnityCustomEvent.h; sourceTree = SOURCE_ROOT; };
 		4ADF7BA01AA691F8001E33D4 /* VungleInstanceMediationSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VungleInstanceMediationSettings.h; sourceTree = "<group>"; };
 		4ADF7BA11AA691F8001E33D4 /* VungleInstanceMediationSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VungleInstanceMediationSettings.m; sourceTree = "<group>"; };
 		4ADF7BFC1AADF958001E33D4 /* MPVungleRouterSpec.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MPVungleRouterSpec.mm; sourceTree = "<group>"; };
@@ -1573,6 +1628,9 @@
 		57214DE61A66FB4C0075BF95 /* MRAID.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = MRAID.bundle; sourceTree = "<group>"; };
 		57292A0319461ACB00E6586C /* MPNativeAdConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPNativeAdConstants.m; sourceTree = "<group>"; };
 		572A1B121934FFEC00E40F5A /* MPImageDownloadQueueSpec.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MPImageDownloadQueueSpec.mm; sourceTree = "<group>"; };
+		57401A421B7AAEF0000EEA64 /* MPDAAIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MPDAAIcon.png; sourceTree = "<group>"; };
+		57401A431B7AAEF0000EEA64 /* MPDAAIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MPDAAIcon@2x.png"; sourceTree = "<group>"; };
+		57401A441B7AAEF0000EEA64 /* MPDAAIcon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MPDAAIcon@3x.png"; sourceTree = "<group>"; };
 		5755ADCD19C79CAD0012B01F /* MoPub-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MoPub-Bridging-Header.h"; sourceTree = "<group>"; };
 		5755DA0A1AA90B4700DC32EA /* MPRewardedVideoAdapterSpec.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MPRewardedVideoAdapterSpec.mm; sourceTree = "<group>"; };
 		5755DA0B1AA90B4700DC32EA /* MPRewardedVideoAdManagerSpec.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MPRewardedVideoAdManagerSpec.mm; sourceTree = "<group>"; };
@@ -2095,6 +2153,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		4ADE60081B4FFA66004C3673 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4ADE60161B4FFA94004C3673 /* UnityAds.framework in Frameworks */,
+				4ADE600B1B4FFA66004C3673 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		570A005819D6206800065388 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -2233,6 +2300,7 @@
 				AEE8E94C16FB933B00C41D15 /* MessageUI.framework in Frameworks */,
 				AEE8E94716FB8C2300C41D15 /* iAd.framework in Frameworks */,
 				AED9E4B216F78FCB00EA71A7 /* libxml2.2.dylib in Frameworks */,
+				4ADE5FF71B4FFA38004C3673 /* UnityAds.framework in Frameworks */,
 				AEA97CB116EF9E9F0046D464 /* AdSupport.framework in Frameworks */,
 				AEA97CAF16EF9E980046D464 /* StoreKit.framework in Frameworks */,
 				AEA97CAD16EF9E690046D464 /* CoreLocation.framework in Frameworks */,
@@ -2255,6 +2323,7 @@
 				4A01443A1B75432B001B649C /* MMAdSDK.framework in Frameworks */,
 				4A3CB2DA19749B0700160D24 /* libInMobi-4.4.1.a in Frameworks */,
 				464F469D1817397900BB243C /* AdColony.framework in Frameworks */,
+				4ADE5FF61B4FFA38004C3673 /* UnityAds.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2412,6 +2481,40 @@
 			path = Facebook;
 			sourceTree = "<group>";
 		};
+		4ADE5FE31B4FFA38004C3673 /* Unity */ = {
+			isa = PBXGroup;
+			children = (
+				4ADE5FE41B4FFA38004C3673 /* MPInstanceProvider+Unity.h */,
+				4ADE5FE51B4FFA38004C3673 /* MPInstanceProvider+Unity.m */,
+				4ADE5FE61B4FFA38004C3673 /* UnityAdsRewardedVideoCustomEvent.h */,
+				4ADE5FE71B4FFA38004C3673 /* UnityAdsRewardedVideoCustomEvent.m */,
+				4ADE5FE81B4FFA38004C3673 /* MPUnityRouter.h */,
+				4ADE5FE91B4FFA38004C3673 /* MPUnityRouter.m */,
+				4ADE5FEA1B4FFA38004C3673 /* SDK */,
+				4ADE5FED1B4FFA38004C3673 /* UnityAdsInstanceMediationSettings.h */,
+				4ADE5FEE1B4FFA38004C3673 /* UnityAdsInstanceMediationSettings.m */,
+			);
+			path = Unity;
+			sourceTree = "<group>";
+		};
+		4ADE5FEA1B4FFA38004C3673 /* SDK */ = {
+			isa = PBXGroup;
+			children = (
+				4ADE5FEB1B4FFA38004C3673 /* UnityAds.bundle */,
+				4ADE5FEC1B4FFA38004C3673 /* UnityAds.framework */,
+			);
+			path = SDK;
+			sourceTree = "<group>";
+		};
+		4ADE60211B4FFC6E004C3673 /* Unity */ = {
+			isa = PBXGroup;
+			children = (
+				4ADE602C1B4FFC9C004C3673 /* MPUnityRouterSpec.mm */,
+				4ADE602E1B4FFCAF004C3673 /* UnityAdsRewardedVideoCustomEventSpec.mm */,
+			);
+			path = Unity;
+			sourceTree = "<group>";
+		};
 		4AEC89C318DA36B700EAC91B /* Native */ = {
 			isa = PBXGroup;
 			children = (
@@ -2541,6 +2644,7 @@
 		57CE76011AD72A7C0003830D /* UmbrellaHeaders */ = {
 			isa = PBXGroup;
 			children = (
+				4ADE604B1B50160E004C3673 /* UnityCustomEvent.h */,
 				57CE76181AD72AE80003830D /* ChartboostCustomEvent.h */,
 				57CE760C1AD72AA10003830D /* FacebookCustomEvent.h */,
 				57CE760E1AD72AAE0003830D /* GoogleAdMobCustomEvent.h */,
@@ -2745,6 +2849,7 @@
 				AEE3884D171F4D300019601C /* InMobi */,
 				465C283418037DB800A0C76D /* Vungle */,
 				AEE3885C171F4D300019601C /* Millennial */,
+				4ADE5FE31B4FFA38004C3673 /* Unity */,
 			);
 			path = AdNetworkSupport;
 			sourceTree = "<group>";
@@ -2912,6 +3017,7 @@
 				57CF55C719DE46E1000D29C5 /* libInMobiCustomEvent.a */,
 				57CF55FD19DE472B000D29C5 /* libVungleCustomEvent.a */,
 				57CF562619DE47B5000D29C5 /* libMillennialCustomEvent.a */,
+				4ADE60141B4FFA66004C3673 /* libUnityCustomEvent.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -3193,6 +3299,9 @@
 				57214DDE1A66F9B20075BF95 /* MPCloseButtonX.png */,
 				57214DDF1A66F9B20075BF95 /* MPCloseButtonX@2x.png */,
 				57214DE01A66F9B20075BF95 /* MPCloseButtonX@3x.png */,
+				57401A421B7AAEF0000EEA64 /* MPDAAIcon.png */,
+				57401A431B7AAEF0000EEA64 /* MPDAAIcon@2x.png */,
+				57401A441B7AAEF0000EEA64 /* MPDAAIcon@3x.png */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -3289,6 +3398,8 @@
 				575E1EA31ADD9583007FEE11 /* MPGlobalSpecHelper.m */,
 				57EFB8471AE052DD00A8865D /* NSDate+MPSpecs.h */,
 				57EFB8481AE052DD00A8865D /* NSDate+MPSpecs.m */,
+				4ADE60351B5006AF004C3673 /* UnityAds+Specs.h */,
+				4ADE60361B5006AF004C3673 /* UnityAds+Specs.m */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -3616,6 +3727,7 @@
 				AEF9D641171CA8AD005AAA5A /* InMobi */,
 				AEF9D643171CA8AD005AAA5A /* Millennial */,
 				4625EB821803809D00C2755D /* Vungle */,
+				4ADE60211B4FFC6E004C3673 /* Unity */,
 			);
 			path = ThirdPartyIntegrations;
 			sourceTree = "<group>";
@@ -3680,6 +3792,18 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
+		4ADE600C1B4FFA66004C3673 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4ADE60181B4FFAC6004C3673 /* UnityAdsRewardedVideoCustomEvent.h in Headers */,
+				4ADE601A1B4FFAC6004C3673 /* UnityAdsInstanceMediationSettings.h in Headers */,
+				4ADE60191B4FFAC6004C3673 /* MPUnityRouter.h in Headers */,
+				4ADE60171B4FFAC6004C3673 /* MPInstanceProvider+Unity.h in Headers */,
+				4ADE604D1B501621004C3673 /* UnityCustomEvent.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		570AFF3819D6186E00065388 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -3943,6 +4067,24 @@
 			name = "MoPubSDK-APICheck";
 			productName = MoPubSDK;
 			productReference = 468BCE1019996C550054A051 /* libMoPubSDK-APICheck.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		4ADE60041B4FFA66004C3673 /* UnityCustomEvent */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4ADE60111B4FFA66004C3673 /* Build configuration list for PBXNativeTarget "UnityCustomEvent" */;
+			buildPhases = (
+				4ADE60051B4FFA66004C3673 /* Sources */,
+				4ADE60081B4FFA66004C3673 /* Frameworks */,
+				4ADE600C1B4FFA66004C3673 /* Headers */,
+				4ADE60101B4FFA66004C3673 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = UnityCustomEvent;
+			productName = MillennialCustomEvent;
+			productReference = 4ADE60141B4FFA66004C3673 /* libUnityCustomEvent.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 		570A005A19D6206800065388 /* MoPubResources */ = {
@@ -4261,6 +4403,7 @@
 				57CF55C619DE46E1000D29C5 /* InMobiCustomEvent */,
 				57CF55FC19DE472B000D29C5 /* VungleCustomEvent */,
 				57CF562519DE47B5000D29C5 /* MillennialCustomEvent */,
+				4ADE60041B4FFA66004C3673 /* UnityCustomEvent */,
 			);
 		};
 /* End PBXProject section */
@@ -4357,8 +4500,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				57401A461B7AAEF0000EEA64 /* MPDAAIcon.png in Resources */,
 				5724084B1A68676C009271B8 /* MPCloseButtonX@3x.png in Resources */,
+				57401A4A1B7AAEF0000EEA64 /* MPDAAIcon@3x.png in Resources */,
 				5724084E1A68677A009271B8 /* MRAID.bundle in Resources */,
+				57401A481B7AAEF0000EEA64 /* MPDAAIcon@2x.png in Resources */,
 				5724084D1A686777009271B8 /* MPCloseButtonX.png in Resources */,
 				57A1A3801A780A55006A08DA /* MPAdBrowserController.xib in Resources */,
 				5724084C1A686770009271B8 /* MPCloseButtonX@2x.png in Resources */,
@@ -4372,13 +4518,17 @@
 				57EFB8931AE0784D00A8865D /* vg_timer.png in Resources */,
 				57214DE21A66F9B20075BF95 /* MPCloseButtonX@2x.png in Resources */,
 				57EFB88F1AE0784D00A8865D /* vg_close.png in Resources */,
+				57401A471B7AAEF0000EEA64 /* MPDAAIcon@2x.png in Resources */,
+				4ADE5FF51B4FFA38004C3673 /* UnityAds.bundle in Resources */,
 				57EFB88E1AE0784D00A8865D /* __vungle.db in Resources */,
 				57EFB8911AE0784D00A8865D /* vg_mute_off.png in Resources */,
 				57EFB8901AE0784D00A8865D /* vg_cta.png in Resources */,
 				57214DE11A66F9B20075BF95 /* MPCloseButtonX.png in Resources */,
 				57A1A37F1A780A55006A08DA /* MPAdBrowserController.xib in Resources */,
 				57214DE31A66F9B20075BF95 /* MPCloseButtonX@3x.png in Resources */,
+				57401A491B7AAEF0000EEA64 /* MPDAAIcon@3x.png in Resources */,
 				57214DE71A66FB4C0075BF95 /* MRAID.bundle in Resources */,
+				57401A451B7AAEF0000EEA64 /* MPDAAIcon.png in Resources */,
 				57EFB8921AE0784D00A8865D /* vg_mute_on.png in Resources */,
 				AEF9D646171CA8AD005AAA5A /* InfoPlist.strings in Resources */,
 			);
@@ -4387,6 +4537,19 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		4ADE60101B4FFA66004C3673 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "sh Scripts/build_scripts/fabric_build_framework.sh";
+		};
 		570A001619D61AE700065388 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -4716,6 +4879,17 @@
 				468BCE0819996C550054A051 /* MRVideoPlayerManager.m in Sources */,
 				468BCE0919996C550054A051 /* MPAdAlertGestureRecognizer.m in Sources */,
 				468BCE0A19996C550054A051 /* MPAdAlertManager.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4ADE60051B4FFA66004C3673 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4ADE601B1B4FFB18004C3673 /* MPInstanceProvider+Unity.m in Sources */,
+				4ADE601C1B4FFB18004C3673 /* UnityAdsRewardedVideoCustomEvent.m in Sources */,
+				4ADE601D1B4FFB18004C3673 /* MPUnityRouter.m in Sources */,
+				4ADE601E1B4FFB18004C3673 /* UnityAdsInstanceMediationSettings.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5096,6 +5270,7 @@
 				57ACE4001AA7E8D900A05633 /* MPRewardedVideoAdapter.m in Sources */,
 				AEF9D548171CA895005AAA5A /* MPAdBrowserController.m in Sources */,
 				AEF9D54B171CA895005AAA5A /* MPAdConfiguration.m in Sources */,
+				4ADE5FF21B4FFA38004C3673 /* UnityAdsRewardedVideoCustomEvent.m in Sources */,
 				AEF9D54D171CA895005AAA5A /* MPAdDestinationDisplayAgent.m in Sources */,
 				57EFB8491AE052DD00A8865D /* NSDate+MPSpecs.m in Sources */,
 				AEF9D54F171CA895005AAA5A /* MPAdServerCommunicator.m in Sources */,
@@ -5123,6 +5298,7 @@
 				4AB5CCD319F55596005ABBC1 /* MPLogProvider.m in Sources */,
 				AEF9D570171CA895005AAA5A /* MPMRAIDBannerCustomEvent.m in Sources */,
 				AEF9D572171CA895005AAA5A /* MPMRAIDInterstitialCustomEvent.m in Sources */,
+				4ADE5FF91B4FFA38004C3673 /* UnityAdsInstanceMediationSettings.m in Sources */,
 				AEF9D574171CA895005AAA5A /* MPMRAIDInterstitialViewController.m in Sources */,
 				57D648601A0DE39500433CFE /* MPClosableView.m in Sources */,
 				A7E95AC51ACA237C00A26AFD /* MPRetryingHTTPOperation.m in Sources */,
@@ -5142,6 +5318,7 @@
 				AEF9D58C171CA895005AAA5A /* MPIdentityProvider.m in Sources */,
 				46672CD619BE74AD0047E671 /* Chartboost+Specs.m in Sources */,
 				7EE1D2ED1AA1412800F7AFFA /* MPLogEventRecorder.m in Sources */,
+				4ADE60371B5006AF004C3673 /* UnityAds+Specs.m in Sources */,
 				AEF9D58E171CA895005AAA5A /* MPLogging.m in Sources */,
 				AEF9D590171CA895005AAA5A /* MPReachability.m in Sources */,
 				5755DA111AA90B4700DC32EA /* MPRewardedVideoSpec.mm in Sources */,
@@ -5166,6 +5343,7 @@
 				7E17DDB41AB1053000E4D976 /* MPLogEventCommunicator.m in Sources */,
 				A7E95AD71ACA38FF00A26AFD /* MPNetworkManager.m in Sources */,
 				A7E95AFE1ACA8F0300A26AFD /* MPQRunLoopOperation.m in Sources */,
+				4ADE602F1B4FFCAF004C3673 /* UnityAdsRewardedVideoCustomEventSpec.mm in Sources */,
 				46EDEE6919832A3B00241385 /* MPNativeAdUtils.m in Sources */,
 				4A2AEC4D1AA4F5C8002AFB88 /* MPChartboostRouter.m in Sources */,
 				AEF9D649171CA8AD005AAA5A /* NSURLConnection+MPSpecs.m in Sources */,
@@ -5191,6 +5369,7 @@
 				5755DA0E1AA90B4700DC32EA /* MPRewardedVideoAdapterSpec.mm in Sources */,
 				AEF9D653171CA8AD005AAA5A /* FakeMPTimer.m in Sources */,
 				A72F90EA19B7B22400A5601B /* MPNativePositioningSourceSpec.mm in Sources */,
+				4ADE602D1B4FFC9C004C3673 /* MPUnityRouterSpec.mm in Sources */,
 				571FA431193F9B7E00A36583 /* MPMoPubNativeCustomEventSpec.mm in Sources */,
 				7EB508481A9E448B0042603B /* MPLogEvent.m in Sources */,
 				AEF9D655171CA8AD005AAA5A /* FakeStoreProductViewController.m in Sources */,
@@ -5238,6 +5417,7 @@
 				AEF9D66B171CA8AD005AAA5A /* MPiAdBannerIntegrationSuite.mm in Sources */,
 				AEF9D66C171CA8AD005AAA5A /* MPiAdInterstitialIntegrationSuite.mm in Sources */,
 				4611AD7417FA13E200F054CE /* MPAdAlertGestureRecognizerSpec.mm in Sources */,
+				4ADE5FF41B4FFA38004C3673 /* MPUnityRouter.m in Sources */,
 				AEF9D66D171CA8AD005AAA5A /* MPInMobiBannerIntegrationSuite.mm in Sources */,
 				AEF9D66E171CA8AD005AAA5A /* MPInMobiInterstitialIntegrationSuite.mm in Sources */,
 				AEF9D66F171CA8AD005AAA5A /* InterstitialIntegrationSharedBehaviors.mm in Sources */,
@@ -5269,6 +5449,7 @@
 				AEF9D682171CA8AD005AAA5A /* MPURLResolverSpec.mm in Sources */,
 				AEF9D683171CA8AD005AAA5A /* MPAdWebViewAgentSpec.mm in Sources */,
 				AEF9D684171CA8AD005AAA5A /* MPAdWebViewSpec.mm in Sources */,
+				4ADE5FF01B4FFA38004C3673 /* MPInstanceProvider+Unity.m in Sources */,
 				57697EE6193FE51B00E7DF5A /* NSOperationQueue+MPSpecs.m in Sources */,
 				AEF9D685171CA8AD005AAA5A /* MPHTMLBannerCustomEventSpec.mm in Sources */,
 				57ACDB641AA134BE00A05633 /* AdColonyCustomEventSpec.mm in Sources */,
@@ -5426,6 +5607,7 @@
 				466B2C651999749500234CC2 /* MPMoPubNativeCustomEvent.m in Sources */,
 				A7759F081A1EB19500087E00 /* MPGeolocationProvider.m in Sources */,
 				466B2C661999749500234CC2 /* MPNativeCache.m in Sources */,
+				4ADE5FEF1B4FFA38004C3673 /* MPInstanceProvider+Unity.m in Sources */,
 				466B2C671999749500234CC2 /* MPTableViewCellImpressionTracker.m in Sources */,
 				466B2C681999749500234CC2 /* MPNativeAd.m in Sources */,
 				A7E95AD61ACA38FF00A26AFD /* MPNetworkManager.m in Sources */,
@@ -5447,11 +5629,13 @@
 				AEF9D53F171CA895005AAA5A /* MPBannerAdManager.m in Sources */,
 				4AB5CCD219F55596005ABBC1 /* MPLogProvider.m in Sources */,
 				AEF9D541171CA895005AAA5A /* MPBannerCustomEventAdapter.m in Sources */,
+				4ADE5FF11B4FFA38004C3673 /* UnityAdsRewardedVideoCustomEvent.m in Sources */,
 				57697F381941217200E7DF5A /* FacebookNativeCustomEvent.m in Sources */,
 				A7E95AFD1ACA8F0300A26AFD /* MPQRunLoopOperation.m in Sources */,
 				AEF9D543171CA895005AAA5A /* MPBaseBannerAdapter.m in Sources */,
 				57ACDB851AA1357300A05633 /* AdColonyCustomEvent.m in Sources */,
 				AEF9D545171CA895005AAA5A /* MPLegacyBannerCustomEventAdapter.m in Sources */,
+				4ADE5FF81B4FFA38004C3673 /* UnityAdsInstanceMediationSettings.m in Sources */,
 				AEF9D547171CA895005AAA5A /* MPAdBrowserController.m in Sources */,
 				AEF9D54A171CA895005AAA5A /* MPAdConfiguration.m in Sources */,
 				875390D51B04076A001F0550 /* MPActivityViewControllerHelper+TweetShare.m in Sources */,
@@ -5558,6 +5742,7 @@
 				A77A790E17C3840900AB0DCA /* MRPictureManager.m in Sources */,
 				A77A791A17C3844B00AB0DCA /* MRVideoPlayerManager.m in Sources */,
 				46ECD6E617E7A29500442BCA /* MPAdAlertGestureRecognizer.m in Sources */,
+				4ADE5FF31B4FFA38004C3673 /* MPUnityRouter.m in Sources */,
 				A7E95AC41ACA237C00A26AFD /* MPRetryingHTTPOperation.m in Sources */,
 				A7BB73E61B34D79B00B3161B /* MPEnhancedDeeplinkRequest.m in Sources */,
 				46ECD6E917E7A29500442BCA /* MPAdAlertManager.m in Sources */,
@@ -5567,6 +5752,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		4ADE60391B5011E2004C3673 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4ADE60041B4FFA66004C3673 /* UnityCustomEvent */;
+			targetProxy = 4ADE60381B5011E2004C3673 /* PBXContainerItemProxy */;
+		};
 		570A001E19D61D0700065388 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 570AFF1719D6174200065388 /* MoPubFabric */;
@@ -5697,6 +5887,73 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "MoPubSDK-APICheck";
 				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		4ADE60121B4FFA66004C3673 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = NO;
+				DSTROOT = /tmp/UnityCustomEvent.dst;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/AdNetworkSupport/Unity/SDK",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREFIX_HEADER = "";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = UnityCustomEvent;
+				PUBLIC_HEADERS_FOLDER_PATH = HeadersUnity;
+				SKIP_INSTALL = YES;
+				STRIP_STYLE = "non-global";
+			};
+			name = Debug;
+		};
+		4ADE60131B4FFA66004C3673 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = NO;
+				DSTROOT = /tmp/UnityCustomEvent.dst;
+				ENABLE_NS_ASSERTIONS = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/AdNetworkSupport/Unity/SDK",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREFIX_HEADER = "";
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = UnityCustomEvent;
+				PUBLIC_HEADERS_FOLDER_PATH = HeadersUnity;
+				SKIP_INSTALL = YES;
+				STRIP_STYLE = "non-global";
 			};
 			name = Release;
 		};
@@ -6475,6 +6732,7 @@
 					"\"$(SRCROOT)/AdNetworkSupport/Vungle/SDK/VungleSDK.embeddedframework\"",
 					"\"$(SRCROOT)/AdNetworkSupport/Chartboost/SDK\"",
 					"\"$(SRCROOT)/AdNetworkSupport/GoogleAdMob/SDK\"",
+					"$(PROJECT_DIR)/AdNetworkSupport/Unity/SDK",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Specs/MoPubSDKSpecs/Specs-Prefix.pch";
@@ -6531,6 +6789,7 @@
 					"\"$(SRCROOT)/AdNetworkSupport/Vungle/SDK/VungleSDK.embeddedframework\"",
 					"\"$(SRCROOT)/AdNetworkSupport/Chartboost/SDK\"",
 					"\"$(SRCROOT)/AdNetworkSupport/GoogleAdMob/SDK\"",
+					"$(PROJECT_DIR)/AdNetworkSupport/Unity/SDK",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Specs/MoPubSDKSpecs/Specs-Prefix.pch";
@@ -6631,6 +6890,7 @@
 					"\"$(SRCROOT)/AdNetworkSupport/Chartboost/SDK\"",
 					"\"$(SRCROOT)/AdNetworkSupport/GoogleAdMob/SDK\"",
 					"$(PROJECT_DIR)/AdNetworkSupport/Millennial/SDK",
+					"$(PROJECT_DIR)/AdNetworkSupport/Unity/SDK",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
@@ -6664,6 +6924,7 @@
 					"\"$(SRCROOT)/AdNetworkSupport/Chartboost/SDK\"",
 					"\"$(SRCROOT)/AdNetworkSupport/GoogleAdMob/SDK\"",
 					"$(PROJECT_DIR)/AdNetworkSupport/Millennial/SDK",
+					"$(PROJECT_DIR)/AdNetworkSupport/Unity/SDK",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
@@ -6689,6 +6950,15 @@
 			buildConfigurations = (
 				468BCE0E19996C550054A051 /* Debug */,
 				468BCE0F19996C550054A051 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4ADE60111B4FFA66004C3673 /* Build configuration list for PBXNativeTarget "UnityCustomEvent" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4ADE60121B4FFA66004C3673 /* Debug */,
+				4ADE60131B4FFA66004C3673 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

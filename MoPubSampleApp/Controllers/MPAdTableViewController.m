@@ -22,6 +22,7 @@
 #import "MPNativeAdPlacerCollectionViewController.h"
 #import "MPNativeAdPlacerPageViewController.h"
 #import "MPSampleAppLogReader.h"
+#import "MPRewardedVideoAdDetailViewController.h"
 
 typedef enum
 {
@@ -172,6 +173,9 @@ typedef enum
             break;
         case MPAdInfoInterstitial:
             detailViewController = [[MPInterstitialAdDetailViewController alloc] initWithAdInfo:info];
+            break;
+        case MPAdInfoRewardedVideo:
+            detailViewController = [[MPRewardedVideoAdDetailViewController alloc] initWithAdInfo:info];
             break;
         case MPAdInfoNative:
             detailViewController = [[MPNativeAdDetailViewController alloc] initWithAdInfo:info];

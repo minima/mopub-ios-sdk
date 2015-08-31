@@ -71,6 +71,27 @@ describe(@"MPMoPubNativeAdAdapter", ^{
             adAdapter should be_nil;
         });
     });
+
+    context(@"when loading the daa icon into an image view", ^{
+        __block MPMoPubNativeAdAdapter *adAdapter;
+        __block UIImageView *imageView;
+
+        beforeEach(^{
+            adAdapter = [[MPMoPubNativeAdAdapter alloc] initWithAdProperties:[validProperties mutableCopy]];
+            imageView = [[UIImageView alloc] init];
+            [adAdapter loadDAAIconIntoImageView:imageView];
+        });
+
+        it(@"should attach a tap recognizer to the image view", ^{
+            imageView.gestureRecognizers.count should equal(1);
+            [imageView.gestureRecognizers[0] isKindOfClass:[UITapGestureRecognizer class]] should be_truthy;
+        });
+
+        it(@"should load the daa icon into the image view", ^{
+            UIImage *daaImage = [UIImage imageNamed:@"MPDAAIcon"];
+            imageView.image should equal(daaImage);
+        });
+    });
 });
 
 SPEC_END

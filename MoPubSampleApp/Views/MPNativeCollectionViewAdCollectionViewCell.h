@@ -13,6 +13,7 @@
 
 @property (strong, nonatomic) UILabel *titleLabel;
 @property (strong, nonatomic) UIImageView *iconImageView;
+@property (strong, nonatomic) UIImageView *DAAIconImageView;
 @property (strong, nonatomic) UILabel *ctaLabel;
 
 @end

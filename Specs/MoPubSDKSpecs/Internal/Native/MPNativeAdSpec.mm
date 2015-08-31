@@ -319,6 +319,84 @@ describe(@"MPNativeAd", ^{
         });
     });
 
+    describe(@"loading the daa icon into an image view", ^{
+        __block UITapGestureRecognizer *recognizer;
+        __block id<CedarDouble, MPNativeAdAdapter> fakeAdapter;
+        __block UIImageView *imageView;
+
+        beforeEach(^{
+            recognizer = [[UITapGestureRecognizer alloc] init];
+            imageView = [[UIImageView alloc] init];
+            [imageView addGestureRecognizer:recognizer];
+            fakeAdapter = nice_fake_for(@protocol(MPNativeAdAdapter));
+            nativeAd = [[MPNativeAd alloc] initWithAdAdapter:fakeAdapter];
+        });
+
+        context(@"when its native ad adapter implements -loadDAAIconIntoImageView:", ^{
+            beforeEach(^{
+                fakeAdapter stub_method(@selector(loadDAAIconIntoImageView:));
+                [nativeAd loadDAAIconIntoImageView:imageView];
+            });
+
+            it(@"should forward the call to its adapter", ^{
+                fakeAdapter should have_received(@selector(loadDAAIconIntoImageView:));
+            });
+
+            it(@"should remove all gesture recognizers from the image view", ^{
+                imageView.gestureRecognizers should_not contain(recognizer);
+            });
+
+            it(@"should make the image view visible", ^{
+                imageView.hidden should be_falsy;
+            });
+
+            context(@"when the image view is reused with an adapter that doesn't implement -loadDAAIconIntoImageView:", ^{
+                beforeEach(^{
+                    fakeAdapter = nice_fake_for(@protocol(MPNativeAdAdapter));
+                    fakeAdapter reject_method(@selector(loadDAAIconIntoImageView:));
+                    nativeAd = [[MPNativeAd alloc] initWithAdAdapter:fakeAdapter];
+                    [nativeAd loadDAAIconIntoImageView:imageView];
+                });
+
+                it(@"should hide the image view", ^{
+                    imageView.hidden should be_truthy;
+                });
+            });
+        });
+
+        context(@"when its native ad adapter doesn't implement -loadDAAIconIntoImageView:", ^{
+            beforeEach(^{
+                fakeAdapter reject_method(@selector(loadDAAIconIntoImageView:));
+                [nativeAd loadDAAIconIntoImageView:imageView];
+            });
+
+            it(@"should not forward the call to its adapter", ^{
+                fakeAdapter should_not have_received(@selector(loadDAAIconIntoImageView:));
+            });
+
+            it(@"should remove all gesture recognizers from the image view", ^{
+                imageView.gestureRecognizers should_not contain(recognizer);
+            });
+
+            it(@"should hide the image view", ^{
+                imageView.hidden should be_truthy;
+            });
+
+            context(@"when the image view is reused with an adapter that does implement -loadDAAIconIntoImageView:", ^{
+                beforeEach(^{
+                    fakeAdapter = nice_fake_for(@protocol(MPNativeAdAdapter));
+                    fakeAdapter stub_method(@selector(loadDAAIconIntoImageView:));
+                    nativeAd = [[MPNativeAd alloc] initWithAdAdapter:fakeAdapter];
+                    [nativeAd loadDAAIconIntoImageView:imageView];
+                });
+
+                it(@"should make the image view visible", ^{
+                    imageView.hidden should be_falsy;
+                });
+            });
+        });
+    });
+
     context(@"when its native ad adapter implements all protocol methods and does not handle click or impression tracking", ^{
         __block id<CedarDouble, MPNativeAdAdapter> mockadAdapter;
         __block MPNativeAd *nativeAd;

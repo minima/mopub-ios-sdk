@@ -1,3 +1,9 @@
+## Version 3.12 (August 31st, 2015)
+
+- **Added Privacy Information icon support for MoPub native ads**.
+- **GA of rewarded video ad mediation**.
+	- Added mediation support for AdColony, Chartboost, Vungle, and Unity rewarded video ads.
+
 ## Version 3.11 (August 20th, 2015)
 
 - **Updated Millennial Media custom events (Millennial Media SDK 6.0+ only)**.

@@ -26,6 +26,7 @@ AdNetworkSupport/**/SDK/*.a
 AdNetworkSupport/**/SDK/*.framework
 AdNetworkSupport/**/SDK/*.embeddedframework
 AdNetworkSupport/Vungle/VungleSDK.embeddedframework/
+AdNetworkSupport/Unity/SDK/UnityAds.bundle/
 mopub-ios-sdk.podspec
 Scripts/*
 !Scripts/build_scripts/
@@ -44,5 +45,6 @@ MoPubFabric/
 MoPubResources/
 VungleCustomEvent/
 iAdCustomEvent/
+UnityCustomEvent/
 Fabric/
 MoPubSwiftSampleApp/

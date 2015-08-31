@@ -223,7 +223,6 @@ describe(@"VungleRewardedVideoCustomEvent", ^{
             });
         });
     });
-
 });
 
 SPEC_END

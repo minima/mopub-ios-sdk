@@ -28,6 +28,9 @@
         self.iconImageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 10, 60, 60)];
         [self addSubview:self.iconImageView];
 
+        self.DAAIconImageView = [[UIImageView alloc] initWithFrame:CGRectMake(290, 10, 20, 20)];
+        [self addSubview:self.DAAIconImageView];
+
         self.mainImageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 119, 300, 156)];
         [self.mainImageView setClipsToBounds:YES];
         [self.mainImageView setContentMode:UIViewContentModeScaleAspectFill];
@@ -55,6 +58,7 @@
     [adObject loadTextIntoLabel:self.mainTextLabel];
     [adObject loadIconIntoImageView:self.iconImageView];
     [adObject loadImageIntoImageView:self.mainImageView];
+    [adObject loadDAAIconIntoImageView:self.DAAIconImageView];
     [adObject loadCallToActionTextIntoLabel:self.ctaLabel];
 }
 

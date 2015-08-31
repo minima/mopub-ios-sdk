@@ -13,7 +13,7 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(9, 0, 61, 24)];
+        self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(2, 0, 61, 24)];
         [self.titleLabel setFont:[UIFont boldSystemFontOfSize:16.0f]];
         [self.titleLabel setText:@"Title"];
         [self addSubview:self.titleLabel];
@@ -22,6 +22,9 @@
         [self.iconImageView setClipsToBounds:YES];
         [self.iconImageView setContentMode:UIViewContentModeScaleAspectFill];
         [self addSubview:self.iconImageView];
+
+        self.DAAIconImageView = [[UIImageView alloc] initWithFrame:CGRectMake(60, 5, 8, 8)];
+        [self addSubview:self.DAAIconImageView];
 
         self.ctaLabel = [[UILabel alloc] initWithFrame:CGRectMake(2, 99, 66, 10)];
         [self.ctaLabel setFont:[UIFont systemFontOfSize:10.0f]];
@@ -47,6 +50,7 @@
 {
     [adObject loadTitleIntoLabel:self.titleLabel];
     [adObject loadIconIntoImageView:self.iconImageView];
+    [adObject loadDAAIconIntoImageView:self.DAAIconImageView];
     [adObject loadCallToActionTextIntoLabel:self.ctaLabel];
 }
 

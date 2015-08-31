@@ -121,7 +121,7 @@ static NSString *const kMPVungleAdUserDidDownloadKey = @"didDownload";
 
 - (void)clearDelegate:(id<MPVungleRouterDelegate>)delegate
 {
-    if(self.delegate == delegate)
+    if (self.delegate == delegate)
     {
         [self setDelegate:nil];
     }

@@ -14,7 +14,7 @@
     self.titleLabel.text = @"Title Label";
     self.bodyLabel.text = @"Ad Body Label";
     self.ctaLabel.text = @"Call To Action Label";
-    
+
     self.iconImageView.image = nil;
     self.fullsizeImageView.image = nil;
 }
@@ -23,7 +23,8 @@
 {
     [adObject loadIconIntoImageView:self.iconImageView];
     [adObject loadImageIntoImageView:self.fullsizeImageView];
-    
+    [adObject loadDAAIconIntoImageView:self.DAAIconImageView];
+
     [adObject loadTitleIntoLabel:self.titleLabel];
     [adObject loadTextIntoLabel:self.bodyLabel];
     [adObject loadCallToActionTextIntoLabel:self.ctaLabel];
