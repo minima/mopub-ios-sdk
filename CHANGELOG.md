@@ -1,3 +1,7 @@
+## Version 3.13 (September 17th, 2015)
+
+- **Added iOS 9 support**.
+
 ## Version 3.12 (August 31st, 2015)
 
 - **Added Privacy Information icon support for MoPub native ads**.

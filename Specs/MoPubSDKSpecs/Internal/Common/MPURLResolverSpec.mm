@@ -140,29 +140,10 @@ describe(@"MPURLResolver", ^{
                 url = [NSURL URLWithString:@"tel:5555555555"];
             });
 
-            context(@"when the device supports telephone schemes", ^{
-                beforeEach(^{
-                    [[UIApplication sharedApplication] mp_setCanOpenTelephoneSchemes:YES];
-                });
-
-                it(@"should resolve to an info object indicating a deeplink", ^{
-                    resolvedActionInfo.actionType should equal(MPURLActionTypeGenericDeeplink);
-                    resolvedActionInfo.originalURL should equal(url);
-                    resolvedActionInfo.deeplinkURL should equal(url);
-                });
-            });
-
-            context(@"when the device does not support telephone schemes", ^{
-                beforeEach(^{
-                    [[UIApplication sharedApplication] mp_setCanOpenTelephoneSchemes:NO];
-                });
-
-                it(@"should call the completion block with an error", ^{
-                    [NSURLConnection lastConnection] should be_nil;
-
-                    resolvedActionInfo should be_nil;
-                    resolverError should_not be_nil;
-                });
+            it(@"should resolve to an info object indicating a deeplink", ^{
+                resolvedActionInfo.actionType should equal(MPURLActionTypeGenericDeeplink);
+                resolvedActionInfo.originalURL should equal(url);
+                resolvedActionInfo.deeplinkURL should equal(url);
             });
         });
 
@@ -171,29 +152,10 @@ describe(@"MPURLResolver", ^{
                 url = [NSURL URLWithString:@"telprompt:5555555555"];
             });
 
-            context(@"when the device supports telephone schemes", ^{
-                beforeEach(^{
-                    [[UIApplication sharedApplication] mp_setCanOpenTelephoneSchemes:YES];
-                });
-
-                it(@"should resolve to an info object indicating a deeplink", ^{
-                    resolvedActionInfo.actionType should equal(MPURLActionTypeGenericDeeplink);
-                    resolvedActionInfo.originalURL should equal(url);
-                    resolvedActionInfo.deeplinkURL should equal(url);
-                });
-            });
-
-            context(@"when the device does not support telephone schemes", ^{
-                beforeEach(^{
-                    [[UIApplication sharedApplication] mp_setCanOpenTelephoneSchemes:NO];
-                });
-
-                it(@"should call the completion block with an error", ^{
-                    [NSURLConnection lastConnection] should be_nil;
-
-                    resolvedActionInfo should be_nil;
-                    resolverError should_not be_nil;
-                });
+            it(@"should resolve to an info object indicating a deeplink", ^{
+                resolvedActionInfo.actionType should equal(MPURLActionTypeGenericDeeplink);
+                resolvedActionInfo.originalURL should equal(url);
+                resolvedActionInfo.deeplinkURL should equal(url);
             });
         });
 
@@ -224,35 +186,6 @@ describe(@"MPURLResolver", ^{
                         resolvedActionInfo should be_nil;
                         resolverError should_not be_nil;
                     });
-                });
-            });
-
-            context(@"when the URL is something else that the application can open", ^{
-                beforeEach(^{
-                    url = [NSURL URLWithString:@"ftp://www.google.com"];
-                    [[UIApplication sharedApplication] canOpenURL:url] should be_truthy;
-                });
-
-                it(@"should resolve to an info object indicating a deeplink", ^{
-                    [NSURLConnection lastConnection] should be_nil;
-
-                    resolvedActionInfo.actionType should equal(MPURLActionTypeGenericDeeplink);
-                    resolvedActionInfo.originalURL should equal(url);
-                    resolvedActionInfo.deeplinkURL should equal(url);
-                });
-            });
-
-            context(@"when the URL cannot be opened by the application", ^{
-                beforeEach(^{
-                    url = [NSURL URLWithString:@"asdf://www.google.com"];
-                    [[UIApplication sharedApplication] canOpenURL:url] should_not be_truthy;
-                });
-
-                it(@"should call the completion block with an error", ^{
-                    [NSURLConnection lastConnection] should be_nil;
-
-                    resolvedActionInfo should be_nil;
-                    resolverError should_not be_nil;
                 });
             });
         });
