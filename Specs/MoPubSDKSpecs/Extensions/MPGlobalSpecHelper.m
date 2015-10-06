@@ -29,4 +29,9 @@
     return MPDictionaryFromQueryString(query);
 }
 
++ (NSArray *)convertStrArrayToURLArray:(NSArray *)strArray
+{
+    return MPConvertStringArrayToURLArray(strArray);
+}
+
 @end

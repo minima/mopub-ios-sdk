@@ -11,8 +11,10 @@
 #import "MPNativeAd.h"
 #import "MPAdPersistenceManager.h"
 #import "MPNativeAdRequestTargeting.h"
-#import "MPNativeAdView.h"
+#import "MPStaticNativeAdView.h"
 #import "MPNativeAdDelegate.h"
+#import "MPStaticNativeAdRenderer.h"
+#import "MPStaticNativeAdRendererSettings.h"
 
 NSString *const kNativeAdDefaultActionViewKey = @"kNativeAdDefaultActionButtonKey";
 
@@ -21,7 +23,7 @@ NSString *const kNativeAdDefaultActionViewKey = @"kNativeAdDefaultActionButtonKe
 @property (nonatomic, strong) MPAdInfo *info;
 @property (nonatomic, strong) MPNativeAd *nativeAd;
 @property (weak, nonatomic) IBOutlet UILabel *IDLabel;
-@property (weak, nonatomic) IBOutlet MPNativeAdView *adViewContainer;
+@property (weak, nonatomic) IBOutlet UIView *adViewContainer;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
 @property (weak, nonatomic) IBOutlet UILabel *failLabel;
 @property (weak, nonatomic) IBOutlet UIButton *loadAdButton;
@@ -74,9 +76,14 @@ NSString *const kNativeAdDefaultActionViewKey = @"kNativeAdDefaultActionButtonKe
     [self.spinner startAnimating];
     [self clearAd];
 
-    MPNativeAdRequest *adRequest1 = [MPNativeAdRequest requestWithAdUnitIdentifier:self.info.ID];
+    // Create and configure a renderer configuration for native ads.
+    MPStaticNativeAdRendererSettings *settings = [[MPStaticNativeAdRendererSettings alloc] init];
+    settings.renderingViewClass = [MPStaticNativeAdView class];
 
+    MPNativeAdRendererConfiguration *config = [MPStaticNativeAdRenderer rendererConfigurationWithRendererSettings:settings];
+    MPNativeAdRequest *adRequest1 = [MPNativeAdRequest requestWithAdUnitIdentifier:self.info.ID rendererConfigurations:@[config]];
     MPNativeAdRequestTargeting *targeting = [[MPNativeAdRequestTargeting alloc] init];
+
     targeting.keywords = self.keywordsTextField.text;
     adRequest1.targeting = targeting;
     self.info.keywords = adRequest1.targeting.keywords;
@@ -101,8 +108,7 @@ NSString *const kNativeAdDefaultActionViewKey = @"kNativeAdDefaultActionButtonKe
 
 - (void)clearAd
 {
-    [self.adViewContainer clearAd];
-
+    [[self.adViewContainer subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
     self.nativeAd = nil;
     self.failLabel.hidden = YES;
 }
@@ -111,26 +117,16 @@ NSString *const kNativeAdDefaultActionViewKey = @"kNativeAdDefaultActionButtonKe
 {
     self.loadAdButton.enabled = YES;
 
-    [self.nativeAd prepareForDisplayInView:self.adViewContainer];
+    [[self.adViewContainer subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
+    UIView *adView = [self.nativeAd retrieveAdViewWithError:nil];
+    [self.adViewContainer addSubview:adView];
+    adView.frame = self.adViewContainer.bounds;
 }
 
 - (void)configureAdLoadFail
 {
     self.loadAdButton.enabled = YES;
     self.failLabel.hidden = NO;
-}
-
-#pragma mark - Actions
-
-- (IBAction)launchAdURL:(id)sender
-{
-    [self.nativeAd displayContentWithCompletion:^(BOOL success, NSError *error) {
-        if (success) {
-            NSLog(@"Completed display of ad's default action URL");
-        } else {
-            NSLog(@"================> %@", error);
-        }
-    }];
 }
 
 #pragma mark - UITextFieldDelegate
@@ -144,6 +140,21 @@ NSString *const kNativeAdDefaultActionViewKey = @"kNativeAdDefaultActionButtonKe
 }
 
 #pragma mark - MPNativeAdDelegate
+
+- (void)willPresentModalForNativeAd:(MPNativeAd *)nativeAd
+{
+    NSLog(@"Will present modal for native ad.");
+}
+
+- (void)didDismissModalForNativeAd:(MPNativeAd *)nativeAd
+{
+    NSLog(@"Did dismiss modal for native ad.");
+}
+
+- (void)willLeaveApplicationFromNativeAd:(MPNativeAd *)nativeAd
+{
+    NSLog(@"Will leave application from native ad.");
+}
 
 - (UIViewController *)viewControllerForPresentingModalView
 {

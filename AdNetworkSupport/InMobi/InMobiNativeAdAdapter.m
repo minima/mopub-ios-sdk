@@ -12,6 +12,10 @@
 #import "MPAdDestinationDisplayAgent.h"
 #import "MPCoreInstanceProvider.h"
 #import "MPLogging.h"
+#import "MPStaticNativeAdImpressionTimer.h"
+
+static const NSTimeInterval kInMobiRequiredSecondsForImpression = 0.0;
+static const CGFloat kInMobiRequiredViewVisibilityPercentage = 0.5;
 
 /*
  * Default keys for InMobi Native Ads
@@ -32,13 +36,11 @@ static NSString *gInMobiLandingURLKey = @"landing_url";
  */
 static NSString *const kInMobiImageURL = @"url";
 
-@interface InMobiNativeAdAdapter() <MPAdDestinationDisplayAgentDelegate>
+@interface InMobiNativeAdAdapter() <MPAdDestinationDisplayAgentDelegate, MPStaticNativeAdImpressionTimerDelegate>
 
-@property (nonatomic, readonly, strong) IMNative *inMobiNativeAd;
-
-@property (nonatomic, readonly, strong) MPAdDestinationDisplayAgent *destinationDisplayAgent;
-@property (nonatomic, weak) UIViewController *rootViewController;
-@property (nonatomic, copy) void (^actionCompletionBlock)(BOOL, NSError *);
+@property (nonatomic, readonly) IMNative *inMobiNativeAd;
+@property (nonatomic) MPStaticNativeAdImpressionTimer *impressionTimer;
+@property (nonatomic, readonly) MPAdDestinationDisplayAgent *destinationDisplayAgent;
 
 @end
 
@@ -129,6 +131,9 @@ static NSString *const kInMobiImageURL = @"url";
         }
 
         _destinationDisplayAgent = [[MPCoreInstanceProvider sharedProvider] buildMPAdDestinationDisplayAgentWithDelegate:self];
+
+        _impressionTimer = [[MPStaticNativeAdImpressionTimer alloc] initWithRequiredSecondsForImpression:kInMobiRequiredSecondsForImpression requiredViewVisibilityPercentage:kInMobiRequiredViewVisibilityPercentage];
+        _impressionTimer.delegate = self;
     }
     return self;
 }
@@ -155,15 +160,18 @@ static NSString *const kInMobiImageURL = @"url";
     }
 }
 
-#pragma mark - MPNativeAdAdapter
+#pragma mark - <MPStaticNativeAdImpressionTimerDelegate>
 
-- (NSTimeInterval)requiredSecondsForImpression
+- (void)trackImpression
 {
-    return 0.0;
+    [self.delegate nativeAdWillLogImpression:self];
 }
+
+#pragma mark - <MPNativeAdAdapter>
 
 - (void)willAttachToView:(UIView *)view
 {
+    [self.impressionTimer startTrackingView:view];
     [self.inMobiNativeAd attachToView:view];
 }
 
@@ -173,60 +181,38 @@ static NSString *const kInMobiImageURL = @"url";
 }
 
 - (void)displayContentForURL:(NSURL *)URL rootViewController:(UIViewController *)controller
-                  completion:(void (^)(BOOL success, NSError *error))completionBlock
 {
-    NSError *error = nil;
-
     if (!controller) {
-        error = MPNativeAdNSErrorForContentDisplayErrorMissingRootController();
-    }
-
-    if (!URL || ![URL isKindOfClass:[NSURL class]] || ![URL.absoluteString length]) {
-        error = MPNativeAdNSErrorForContentDisplayErrorInvalidURL();
-    }
-
-    if (error) {
-
-        if (completionBlock) {
-            completionBlock(NO, error);
-        }
         return;
     }
 
-    self.rootViewController = controller;
-    self.actionCompletionBlock = completionBlock;
+    if (!URL || ![URL isKindOfClass:[NSURL class]] || ![URL.absoluteString length]) {
+        return;
+    }
 
     [self.destinationDisplayAgent displayDestinationForURL:URL];
 }
 
-#pragma mark - <MPAdDestinationDisplayAgent>
+#pragma mark - <MPAdDestinationDisplayAgentDelegate>
 
 - (UIViewController *)viewControllerForPresentingModalView
 {
-    return self.rootViewController;
+    return [self.delegate viewControllerForPresentingModalView];
 }
 
 - (void)displayAgentWillPresentModal
 {
-
+    [self.delegate nativeAdWillPresentModalForAdapter:self];
 }
 
 - (void)displayAgentWillLeaveApplication
 {
-    if (self.actionCompletionBlock) {
-        self.actionCompletionBlock(YES, nil);
-        self.actionCompletionBlock = nil;
-    }
+    [self.delegate nativeAdWillLeaveApplicationFromAdapter:self];
 }
 
 - (void)displayAgentDidDismissModal
 {
-    if (self.actionCompletionBlock) {
-        self.actionCompletionBlock(YES, nil);
-        self.actionCompletionBlock = nil;
-    }
-    self.rootViewController = nil;
+    [self.delegate nativeAdDidDismissModalForAdapter:self];
 }
-
 
 @end

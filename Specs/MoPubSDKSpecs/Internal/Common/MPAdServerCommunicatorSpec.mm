@@ -96,6 +96,7 @@ describe(@"MPAdServerCommunicator", ^{
                 event.requestStatusCode should equal(200);
                 event.requestURI should equal(URL.absoluteString);
                 event.adType should equal(@"html");
+                event.eventCategory should equal(@"requests");
             });
 
             it(@"should log an event that records the correct performanceDurationMs", PENDING);

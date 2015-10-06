@@ -1,3 +1,13 @@
+## Version 4.0 (October 6th, 2015)
+
+- **Minimum supported iOS version is now 6.0**.
+- **Updated native ad integration APIs**.
+- **Improved native ad placer caching and request logic**.
+- **Clicks are now automatically tracked for native ads that use the manual integration**.
+- **Removed deprecated classes**.
+  - Removed legacy custom event classes deprecated in 1.10.
+  - Removed MPTableViewAdManager class deprecated in 3.0.
+
 ## Version 3.13 (September 17th, 2015)
 
 - **Added iOS 9 support**.

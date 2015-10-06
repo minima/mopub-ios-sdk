@@ -5,6 +5,9 @@
 #import "MPNativeAd+Internal.h"
 #import "MPNativeAd+Specs.h"
 #import "CedarAsync.h"
+#import "MPStaticNativeAdRenderer.h"
+#import "FakeNativeAdRenderingClass.h"
+#import "MPStaticNativeAdRendererSettings.h"
 
 using namespace Cedar::Matchers;
 using namespace Cedar::Doubles;
@@ -15,8 +18,14 @@ describe(@"FacebookNativeCustomEvent", ^{
     NSDictionary *validInfo = @{@"placement_id" : @"288600224541553_653781581356747"};
     __block id<CedarDouble, MPNativeCustomEventDelegate> delegate;
     __block FacebookNativeCustomEvent *customEvent;
+    __block MPStaticNativeAdRenderer *renderer;
 
     beforeEach(^{
+        MPStaticNativeAdRendererSettings *settings = [[MPStaticNativeAdRendererSettings alloc] init];
+        settings.renderingViewClass = [FakeNativeAdRenderingClass class];
+
+        renderer = [[MPStaticNativeAdRenderer alloc] initWithRendererSettings:settings];
+
         delegate = nice_fake_for(@protocol(MPNativeCustomEventDelegate));
         customEvent = [[FacebookNativeCustomEvent alloc] init];
         customEvent.delegate = delegate;
@@ -28,7 +37,7 @@ describe(@"FacebookNativeCustomEvent", ^{
     });
 
     afterEach(^{
-        customEvent.delegate = nil;
+         customEvent.delegate = nil;
          delegate = nil;
          customEvent = nil;
     });

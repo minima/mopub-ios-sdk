@@ -4,6 +4,12 @@
 using namespace Cedar::Matchers;
 using namespace Cedar::Doubles;
 
+@interface MPAdView (Specs)
+
+- (void)setAdContentView:(UIView *)view;
+
+@end
+
 SPEC_BEGIN(MPAdViewSpec)
 
 describe(@"MPAdView", ^{

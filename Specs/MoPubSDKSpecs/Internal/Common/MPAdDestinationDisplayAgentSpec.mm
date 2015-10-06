@@ -27,6 +27,7 @@ describe(@"MPAdDestinationDisplayAgent", ^{
     __block UIViewController *presentingViewController;
     __block URLVerificationBlock verifyThatTheURLWasSentToApplication;
     __block NoArgBlock verifyThatDisplayDestinationIsEnabled;
+    __block FakeMPAnalyticsTracker *sharedFakeMPAnalyticsTracker;
 
     beforeEach(^{
         fakeResolver = [[FakeMPURLResolver alloc] init];
@@ -52,6 +53,8 @@ describe(@"MPAdDestinationDisplayAgent", ^{
             [agent displayDestinationForURL:[NSURL URLWithString:@"http://www.google.com/"]];
             delegate should have_received(@selector(displayAgentWillPresentModal));
         } copy];
+        sharedFakeMPAnalyticsTracker = [[FakeMPCoreInstanceProvider sharedProvider] sharedFakeMPAnalyticsTracker];
+        [sharedFakeMPAnalyticsTracker reset];
     });
 
     afterEach(^{
@@ -315,7 +318,7 @@ describe(@"MPAdDestinationDisplayAgent", ^{
                 [agent displayDestinationForURL:deeplinkPlusURL];
 
                 // Sanity check: tracking URLs should not have fired by this point.
-                [NSURLConnection connections] should be_empty;
+                sharedFakeMPAnalyticsTracker.trackingRequestURLs should be_empty;
 
                 MPEnhancedDeeplinkRequest *request = [[MPEnhancedDeeplinkRequest alloc] initWithURL:deeplinkPlusURL];
                 [fakeResolver resolveWithActionInfo:[MPURLActionInfo infoWithURL:deeplinkPlusURL enhancedDeeplinkRequest:request]];
@@ -326,9 +329,9 @@ describe(@"MPAdDestinationDisplayAgent", ^{
             });
 
             it(@"should fire any primary tracking URLs on the deeplink request", ^{
-                [[NSURLConnection connections] count] should equal(2);
-                ((NSURLConnection *)[[NSURLConnection connections] objectAtIndex:0]).request.URL.absoluteString should equal(@"http://www.mopub.com");
-                ((NSURLConnection *)[[NSURLConnection connections] objectAtIndex:1]).request.URL.absoluteString should equal(@"http://www.twitter.com");
+                [sharedFakeMPAnalyticsTracker.trackingRequestURLs count] should equal(2);
+                ((NSURL *)[sharedFakeMPAnalyticsTracker.trackingRequestURLs objectAtIndex:0]).absoluteString should equal(@"http://www.mopub.com");
+                ((NSURL *)[sharedFakeMPAnalyticsTracker.trackingRequestURLs objectAtIndex:1]).absoluteString should equal(@"http://www.twitter.com");
             });
         });
 
@@ -361,7 +364,7 @@ describe(@"MPAdDestinationDisplayAgent", ^{
                         [agent displayDestinationForURL:deeplinkPlusURL];
 
                         // Sanity check: tracking URLs should not have fired by this point.
-                        [NSURLConnection connections] should be_empty;
+                        sharedFakeMPAnalyticsTracker.trackingRequestURLs should be_empty;
 
                         MPEnhancedDeeplinkRequest *request = [[MPEnhancedDeeplinkRequest alloc] initWithURL:deeplinkPlusURL];
                         [fakeResolver resolveWithActionInfo:[MPURLActionInfo infoWithURL:deeplinkPlusURL enhancedDeeplinkRequest:request]];
@@ -376,9 +379,9 @@ describe(@"MPAdDestinationDisplayAgent", ^{
                     });
 
                     it(@"should fire any fallback tracking URLs on the deeplink request", ^{
-                        [[NSURLConnection connections] count] should equal(2);
-                        ((NSURLConnection *)[[NSURLConnection connections] objectAtIndex:0]).request.URL.absoluteString should equal(@"http://www.mopub.com");
-                        ((NSURLConnection *)[[NSURLConnection connections] objectAtIndex:1]).request.URL.absoluteString should equal(@"http://www.twitter.com");
+                        [sharedFakeMPAnalyticsTracker.trackingRequestURLs count] should equal(2);
+                        ((NSURL *)[sharedFakeMPAnalyticsTracker.trackingRequestURLs objectAtIndex:0]).absoluteString should equal(@"http://www.mopub.com");
+                        ((NSURL *)[sharedFakeMPAnalyticsTracker.trackingRequestURLs objectAtIndex:1]).absoluteString should equal(@"http://www.twitter.com");
                     });
                 });
 
@@ -405,7 +408,7 @@ describe(@"MPAdDestinationDisplayAgent", ^{
                     });
 
                     it(@"should not fire any fallback tracking URLs", ^{
-                        [[NSURLConnection connections] count] should equal(0);
+                        [sharedFakeMPAnalyticsTracker.trackingRequestURLs count] should equal(0);
                     });
                 });
 
@@ -431,7 +434,7 @@ describe(@"MPAdDestinationDisplayAgent", ^{
                     });
 
                     it(@"should not fire any fallback tracking URLs", ^{
-                        [[NSURLConnection connections] count] should equal(0);
+                        [sharedFakeMPAnalyticsTracker.trackingRequestURLs count] should equal(0);
                     });
                 });
             });

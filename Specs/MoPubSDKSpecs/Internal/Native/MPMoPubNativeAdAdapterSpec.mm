@@ -1,5 +1,9 @@
 #import "MPMoPubNativeAdAdapter.h"
 #import "MPNativeAdConstants.h"
+#import "MPStaticNativeAdImpressionTimer+Specs.h"
+#import "MPAdDestinationDisplayAgent.h"
+#import "MPNativeAdConstants.h"
+#import "MPGlobalSpecHelper.h"
 
 #define kImpressionTrackerURLsKey   @"imptracker"
 #define kDefaultActionURLKey        @"clk"
@@ -8,30 +12,70 @@
 using namespace Cedar::Matchers;
 using namespace Cedar::Doubles;
 
+@interface MPMoPubNativeAdAdapter ()
+
+@property (nonatomic, strong) MPStaticNativeAdImpressionTimer *impressionTimer;
+
+@end
+
 SPEC_BEGIN(MPMoPubNativeAdAdapterSpec)
 
 describe(@"MPMoPubNativeAdAdapter", ^{
+    NSArray *clickTrackerURLArray = @[
+                                      @"http://www.mopub.com/byebyebye",
+                                      @"http://lol.haha.haha/",
+                                      @"http://lol.rofl.lmao/haha",
+                                      @"ab#($@%" // give a bad URL to make sure it is discarded
+                                      ];
+
     NSDictionary *validProperties = @{kAdTitleKey : @"WUT",
                                       kAdTextKey : @"WUT DaWG",
                                       kAdIconImageKey : kMPSpecsTestImageURL,
                                       kAdMainImageKey : kMPSpecsTestImageURL,
                                       kAdCTATextKey : @"DO IT",
-                                      kImpressionTrackerURLsKey: @[@"http://www.mopub.com/tearinupmyheartwhenimwithyou", @"http://www.mopub.com/pop"],
+                                      kImpressionTrackerURLsKey: @[@"http://www.mopub.com/tearinupmyheartwhenimwithyou", @"http://www.mopub.com/pop", @"ab#($@%"],
                                       kClickTrackerURLKey : @"http://www.mopub.com/byebyebye",
+                                      kDefaultActionURLKey : @"http://www.mopub.com/iwantyouback"
+                                      };
+
+    NSDictionary *validPropertiesWithClickArray = @{kAdTitleKey : @"WUT",
+                                      kAdTextKey : @"WUT DaWG",
+                                      kAdIconImageKey : kMPSpecsTestImageURL,
+                                      kAdMainImageKey : kMPSpecsTestImageURL,
+                                      kAdCTATextKey : @"DO IT",
+                                      kImpressionTrackerURLsKey: @[@"ab#($@%", @"http://www.mopub.com/tearinupmyheartwhenimwithyou", @"http://www.mopub.com/pop"],
+                                      kClickTrackerURLKey : clickTrackerURLArray,
                                       kDefaultActionURLKey : @"http://www.mopub.com/iwantyouback"
                                       };
 
     context(@"when initializing with valid properties", ^{
         __block MPMoPubNativeAdAdapter *adAdapter;
+        __block id<CedarDouble, MPNativeAdAdapterDelegate> delegate;
 
         beforeEach(^{
             adAdapter = [[MPMoPubNativeAdAdapter alloc] initWithAdProperties:[validProperties mutableCopy]];
         });
 
         it(@"should load the properties correctly", ^{
+            NSArray *clickTrackerURLs = @[
+                                          [NSURL URLWithString:[validProperties objectForKey:kClickTrackerURLKey]]
+                                          ];
+
+            NSArray *impressionTrackerURLs = [MPGlobalSpecHelper convertStrArrayToURLArray:[validProperties objectForKey:kImpressionTrackerURLsKey]];
+
             [adAdapter.defaultActionURL absoluteString] should equal([validProperties objectForKey:kDefaultActionURLKey]);
-            [adAdapter.engagementTrackingURL absoluteString] should equal([validProperties objectForKey:kClickTrackerURLKey]);
-            adAdapter.impressionTrackers should equal([validProperties objectForKey:kImpressionTrackerURLsKey]);
+            adAdapter.clickTrackerURLs should equal(clickTrackerURLs);
+            adAdapter.impressionTrackerURLs should equal(impressionTrackerURLs);
+            [adAdapter.properties objectForKey:kAdDAAIconImageKey] should equal(@"MPDAAIcon");
+        });
+
+        it(@"should load the click array tracker correctly", ^{
+            adAdapter = [[MPMoPubNativeAdAdapter alloc] initWithAdProperties:[validPropertiesWithClickArray mutableCopy]];
+
+            adAdapter.clickTrackerURLs.count should equal(3);
+            adAdapter.clickTrackerURLs should contain([NSURL URLWithString:clickTrackerURLArray[0]]);
+            adAdapter.clickTrackerURLs should contain([NSURL URLWithString:clickTrackerURLArray[1]]);
+            adAdapter.clickTrackerURLs should contain([NSURL URLWithString:clickTrackerURLArray[2]]);
         });
 
         it(@"should clean the properties", ^{
@@ -43,22 +87,94 @@ describe(@"MPMoPubNativeAdAdapter", ^{
         });
 
         context(@"when displaying content for URL", ^{
-            it(@"should error out when not given a controller", ^{
-                __block BOOL didError = NO;
-                [adAdapter displayContentForURL:[NSURL URLWithString:@"www.dimsum.com"] rootViewController:nil completion:^(BOOL success, NSError *error) {
-                    didError = (error != nil);
-                }];
+            __block MPAdDestinationDisplayAgent *fakeDisplayAgent;
 
-                didError should be_truthy;
+            beforeEach(^{
+                fakeDisplayAgent = nice_fake_for([MPAdDestinationDisplayAgent class]);
+                fakeCoreProvider.fakeMPAdDestinationDisplayAgent = fakeDisplayAgent;
+
+                delegate = nice_fake_for(@protocol(MPNativeAdAdapterDelegate));
+                adAdapter = [[MPMoPubNativeAdAdapter alloc] initWithAdProperties:[validProperties mutableCopy]];
+                adAdapter.delegate = delegate;
             });
 
-            it(@"should error out when not given a URL", ^{
-                __block BOOL didError = NO;
-                [adAdapter displayContentForURL:nil rootViewController:[[UIViewController alloc] init] completion:^(BOOL success, NSError *error) {
-                    didError = (error != nil);
-                }];
+            it(@"should not attempt to display the url content when not given a controller", ^{
+                [adAdapter displayContentForURL:[NSURL URLWithString:@"www.dimsum.com"] rootViewController:nil];
 
-                didError should be_truthy;
+                fakeDisplayAgent should_not have_received(@selector(displayDestinationForURL:));
+            });
+
+            it(@"should not attempt to display the url content out when not given a URL", ^{
+                [adAdapter displayContentForURL:nil rootViewController:[[UIViewController alloc] init]];
+
+                fakeDisplayAgent should_not have_received(@selector(displayDestinationForURL:));
+            });
+
+            context(@"when displaying URL content with valid parameters", ^{
+                beforeEach(^{
+                    fakeCoreProvider.fakeMPAdDestinationDisplayAgent = nil;
+                    adAdapter = [[MPMoPubNativeAdAdapter alloc] initWithAdProperties:[validProperties mutableCopy]];
+                    adAdapter.delegate = delegate;
+                });
+
+                it(@"should tell the delegate the modal will present when displaying URL content with valid parameters", ^{
+                    [adAdapter displayContentForURL:[NSURL URLWithString:@"www.dimsum.com"] rootViewController:[[UIViewController alloc] init]];
+                    delegate should have_received(@selector(nativeAdWillPresentModalForAdapter:)).with(adAdapter);
+                });
+
+                context(@"when dismissing the modal", ^{
+                    __block MPAdBrowserController *browser;
+                    __block UIViewController *presentingViewController;
+
+                    beforeEach(^{
+                        presentingViewController = [[UIViewController alloc] init];
+                        [adAdapter displayContentForURL:[NSURL URLWithString:@"www.dimsum.com"] rootViewController:presentingViewController];
+                        browser = (MPAdBrowserController *)presentingViewController.presentedViewController;
+                        [browser.doneButton tap];
+                    });
+
+                    it(@"should tell the its delegate that the modal was dismissed", ^{
+                        delegate should have_received(@selector(nativeAdDidDismissModalForAdapter:)).with(adAdapter);
+                    });
+                });
+
+                context(@"when the URL will take the user out of the application", ^{
+                    __block NSURL *URL;
+
+                    beforeEach(^{
+                        URL =[NSURL URLWithString:@"mopubnativebrowser://navigate?url=http://www.google.com"];
+                        [adAdapter displayContentForURL:URL rootViewController:[[UIViewController alloc] init]];
+                    });
+
+                    it(@"should tell the delegate the user will leave the app", ^{
+                        delegate should have_received(@selector(nativeAdWillLeaveApplicationFromAdapter:)).with(adAdapter);
+                    });
+                });
+            });
+        });
+
+        context(@"impression tracking", ^{
+            it(@"should require the ad to be visible for 0.0 seconds", ^{
+                adAdapter.impressionTimer.requiredSecondsForImpression should equal(1.0);
+            });
+
+            it(@"should require the 50% of the ad to be on screen to be considered as visible", ^{
+                adAdapter.impressionTimer.requiredViewVisibilityPercentage should equal(0.5);
+            });
+
+            xit(@"should only be told to track an impression once", ^{
+
+            });
+
+            context(@"when the impression is tracked", ^{
+                beforeEach(^{
+                    adAdapter.delegate = nice_fake_for(@protocol(MPNativeAdAdapterDelegate));
+                    [adAdapter performSelector:@selector(trackImpression)];
+                });
+
+                it(@"should tell its delegate it tracked an impression", ^{
+                    adAdapter.delegate should have_received(@selector(nativeAdWillLogImpression:));
+                });
             });
         });
     });
@@ -72,24 +188,49 @@ describe(@"MPMoPubNativeAdAdapter", ^{
         });
     });
 
-    context(@"when loading the daa icon into an image view", ^{
+    context(@"when the daa icon is tapped", ^{
+        it(@"should try to open the mopub daa icon url", ^{
+            MPAdDestinationDisplayAgent *fakeAgent = nice_fake_for([MPAdDestinationDisplayAgent class]);
+            fakeCoreProvider.fakeMPAdDestinationDisplayAgent = fakeAgent;
+
+            MPMoPubNativeAdAdapter *adAdapter = [[MPMoPubNativeAdAdapter alloc] initWithAdProperties:validProperties.mutableCopy];
+            [adAdapter displayContentForDAAIconTap];
+
+            fakeAgent should have_received(@selector(displayDestinationForURL:)).with([NSURL URLWithString:@"https://www.mopub.com/optout"]);
+        });
+    });
+
+    context(@"when the ad view is loaded", ^{
         __block MPMoPubNativeAdAdapter *adAdapter;
-        __block UIImageView *imageView;
+        __block UIView *view;
 
         beforeEach(^{
+            view = [[UIView alloc] init];
             adAdapter = [[MPMoPubNativeAdAdapter alloc] initWithAdProperties:[validProperties mutableCopy]];
-            imageView = [[UIImageView alloc] init];
-            [adAdapter loadDAAIconIntoImageView:imageView];
+            spy_on(adAdapter.impressionTimer);
+            [adAdapter willAttachToView:view];
         });
 
-        it(@"should attach a tap recognizer to the image view", ^{
-            imageView.gestureRecognizers.count should equal(1);
-            [imageView.gestureRecognizers[0] isKindOfClass:[UITapGestureRecognizer class]] should be_truthy;
+        it(@"should tell the impression timer to start tracking the view", ^{
+            adAdapter.impressionTimer should have_received(@selector(startTrackingView:)).with(view);
         });
+    });
 
-        it(@"should load the daa icon into the image view", ^{
-            UIImage *daaImage = [UIImage imageNamed:@"MPDAAIcon"];
-            imageView.image should equal(daaImage);
+    context(@"when initializing with a single bad click URL", ^{
+        NSDictionary *invalidClickProperties = @{kAdTitleKey : @"WUT",
+                                                 kAdTextKey : @"WUT DaWG",
+                                                 kAdIconImageKey : kMPSpecsTestImageURL,
+                                                 kAdMainImageKey : kMPSpecsTestImageURL,
+                                                 kAdCTATextKey : @"DO IT",
+                                                 kImpressionTrackerURLsKey: @[@"http://www.mopub.com/tearinupmyheartwhenimwithyou", @"http://www.mopub.com/pop"],
+                                                 kClickTrackerURLKey : @"ab#($@%",
+                                                 kDefaultActionURLKey : @"http://www.mopub.com/iwantyouback"
+                                                 };
+
+        it(@"should return a nil adapter", ^{
+            MPMoPubNativeAdAdapter *adAdapter = [[MPMoPubNativeAdAdapter alloc] initWithAdProperties:[invalidClickProperties mutableCopy]];
+
+            adAdapter should be_nil;
         });
     });
 });

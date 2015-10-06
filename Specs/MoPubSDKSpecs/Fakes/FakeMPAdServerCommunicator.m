@@ -25,7 +25,7 @@
     self.loadedURL = URL;
     self.cancelled = NO;
     // Start tracking how long it takes to successfully or unsuccessfully retrieve an ad.
-    self.adRequestLatencyEvent = [[MPLogEvent alloc] init];
+    self.adRequestLatencyEvent = [[MPLogEvent alloc] initWithEventCategory:MPLogEventCategoryRequests eventName:MPLogEventNameAdRequest];
     self.adRequestLatencyEvent.requestURI = URL.absoluteString;
 }
 

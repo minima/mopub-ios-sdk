@@ -8,6 +8,8 @@
 #import <Foundation/Foundation.h>
 #import "MPNativeAd.h"
 
+@protocol MPNativeAdAdapter;
+
 @interface MPNativeAd (Specs)
 
 @property (nonatomic, retain) UIView *associatedView;

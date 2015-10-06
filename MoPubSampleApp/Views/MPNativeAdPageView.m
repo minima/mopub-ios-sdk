@@ -38,6 +38,9 @@
         [self.ctaLabel setTextAlignment:NSTextAlignmentRight];
         [self addSubview:self.ctaLabel];
 
+        self.privacyInformationIconImageView = [[UIImageView alloc] initWithFrame:CGRectMake(290, 10, 20, 20)];
+        [self addSubview:self.privacyInformationIconImageView];
+
         self.backgroundColor = [UIColor colorWithWhite:0.21 alpha:1.0f];
         self.titleLabel.textColor = [UIColor colorWithWhite:0.86 alpha:1.0f];
         self.mainTextLabel.textColor = [UIColor colorWithWhite:0.86 alpha:1.0f];
@@ -49,20 +52,34 @@
     return self;
 }
 
-#pragma mark - <MPNativeAdRendering>
-
-- (void)layoutAdAssets:(MPNativeAd *)adObject
+- (UILabel *)nativeMainTextLabel
 {
-    [adObject loadTitleIntoLabel:self.titleLabel];
-    [adObject loadTextIntoLabel:self.mainTextLabel];
-    [adObject loadIconIntoImageView:self.iconImageView];
-    [adObject loadImageIntoImageView:self.mainImageView];
-    [adObject loadCallToActionTextIntoLabel:self.ctaLabel];
+    return self.mainTextLabel;
 }
 
-+ (CGSize)sizeWithMaximumWidth:(CGFloat)maximumWidth
+- (UILabel *)nativeTitleTextLabel
 {
-    return CGSizeMake(320, 480);
+    return self.titleLabel;
+}
+
+- (UILabel *)nativeCallToActionTextLabel
+{
+    return self.ctaLabel;
+}
+
+- (UIImageView *)nativeIconImageView
+{
+    return self.iconImageView;
+}
+
+- (UIImageView *)nativeMainImageView
+{
+    return self.mainImageView;
+}
+
+- (UIImageView *)nativePrivacyInformationIconImageView
+{
+    return self.privacyInformationIconImageView;
 }
 
 @end

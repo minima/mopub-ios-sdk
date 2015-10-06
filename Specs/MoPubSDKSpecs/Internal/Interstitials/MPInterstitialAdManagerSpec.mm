@@ -2,7 +2,6 @@
 #import <CoreLocation/CoreLocation.h>
 #import "MPAdServerURLBuilder.h"
 #import "MPAdConfigurationFactory.h"
-#import "MPLegacyInterstitialCustomEventAdapter.h"
 #import "MPInterstitialAdManagerDelegate.h"
 #import "MPLogEventRecorder.h"
 #import "MPLogEvent.h"
@@ -293,72 +292,6 @@ describe(@"MPInterstitialAdManager", ^{
             NSObject *interstitialDelegateProxy = [[NSObject alloc] init];
             delegate stub_method("interstitialDelegate").and_return(interstitialDelegateProxy);
             [manager interstitialDelegate] should equal(interstitialDelegateProxy);
-        });
-    });
-
-    describe(@"when notified about legacy custom event status", ^{
-        context(@"when not actually managing a legacy custom event", ^{
-            __block FakeInterstitialAdapter *adapter;
-
-            beforeEach(^{
-                [manager loadInterstitialWithAdUnitID:@"gimme_adapter" keywords:@"" location:nil testing:YES];
-                adapter = [[FakeInterstitialAdapter alloc] init];
-                fakeProvider.fakeInterstitialAdapter = adapter;
-
-                configuration = [MPAdConfigurationFactory defaultFakeInterstitialConfiguration];
-                [communicator receiveConfiguration:configuration];
-            });
-
-            it(@"should not explode", ^{
-                [manager customEventDidLoadAd];
-                [manager customEventDidFailToLoadAd];
-                [manager customEventActionWillBegin];
-            });
-        });
-
-        context(@"when actually managing a legacy custom event", ^{
-            __block MPLegacyInterstitialCustomEventAdapter<CedarDouble> *adapter;
-
-            beforeEach(^{
-                adapter = nice_fake_for([MPLegacyInterstitialCustomEventAdapter class]);
-                fakeProvider.fakeInterstitialAdapter = adapter;
-
-                [manager loadInterstitialWithAdUnitID:@"gimme_adapter" keywords:@"" location:nil testing:YES];
-                [communicator receiveConfiguration:configuration];
-            });
-
-            itShouldBehaveLike(@"a manager that is in the midst of loading an interstitial");
-
-            context(@"and the custom event loaded", ^{
-                beforeEach(^{
-                    [manager customEventDidLoadAd];
-                });
-
-                it(@"should inform the legacy adapter", ^{
-                    adapter should have_received(@selector(customEventDidLoadAd));
-                });
-
-                itShouldBehaveLike(@"a manager that is able to handle a new interstitial request");
-            });
-
-            context(@"and the custom event failed to load", ^{
-                beforeEach(^{
-                    [manager customEventDidFailToLoadAd];
-                });
-
-                it(@"should inform the legacy adapter", ^{
-                    adapter should have_received(@selector(customEventDidFailToLoadAd));
-                });
-
-                itShouldBehaveLike(@"a manager that is able to handle a new interstitial request");
-            });
-
-            context(@"and the custom event action will begin", ^{
-                it(@"should inform the legacy adapter", ^{
-                    [manager customEventActionWillBegin];
-                    adapter should have_received(@selector(customEventActionWillBegin));
-                });
-            });
         });
     });
 

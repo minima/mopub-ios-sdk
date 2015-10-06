@@ -11,6 +11,7 @@
 
 @property (nonatomic, strong) NSMutableArray *trackedImpressionConfigurations;
 @property (nonatomic, strong) NSMutableArray *trackedClickConfigurations;
+@property (nonatomic, strong) NSMutableArray *trackingRequestURLs;
 
 - (void)reset;
 

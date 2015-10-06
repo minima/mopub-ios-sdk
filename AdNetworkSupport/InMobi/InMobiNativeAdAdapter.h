@@ -21,6 +21,8 @@
 
 @interface InMobiNativeAdAdapter : NSObject <MPNativeAdAdapter>
 
+@property (nonatomic, weak) id<MPNativeAdAdapterDelegate> delegate;
+
 /*
  * Optional methods to tell the adapter where to find specific ad assets
  * within an InMobi native ad response.

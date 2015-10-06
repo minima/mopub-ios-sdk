@@ -5,6 +5,10 @@
 #import "MPClientAdPositioning.h"
 #import "MPNativeAdRendering.h"
 #import "CedarAsync.h"
+#import "MPNativeAdRendererConfiguration.h"
+#import "MPCollectionViewAdPlacerCell.h"
+#import "MPStaticNativeAdRenderer.h"
+#import "MPStaticNativeAdRendererSettings.h"
 
 using namespace Cedar::Matchers;
 using namespace Cedar::Doubles;
@@ -106,10 +110,24 @@ describe(@"MPCollectionViewAdPlacer", ^{
     __block MPClientAdPositioning *adPositioning;
     __block MPStreamAdPlacer<CedarDouble> *fakeStreamAdPlacer;
     __block UICollectionView *fakeCollectionView;
+    __block MPStaticNativeAdRenderer *renderer;
+    __block NSArray *nativeAdRendererConfigurations;
 
     beforeEach(^{
+        MPStaticNativeAdRendererSettings *settings = [[MPStaticNativeAdRendererSettings alloc] init];
+
+        settings.renderingViewClass = [FakeMPNativeAdRenderingClassCollectionView class];
+        settings.viewSizeHandler = ^(CGFloat maxWidth) {
+            return CGSizeMake(70, 113);
+        };
+
+        renderer = [[MPStaticNativeAdRenderer alloc] initWithRendererSettings:settings];
+
+        MPNativeAdRendererConfiguration *config = [MPStaticNativeAdRenderer rendererConfigurationWithRendererSettings:settings];
+        nativeAdRendererConfigurations = @[config];
+
         fakeStreamAdPlacer = nice_fake_for([MPStreamAdPlacer class]);
-        fakeStreamAdPlacer stub_method(@selector(reuseIdentifierForRenderingClassAtIndexPath:)).and_return(@"MoPubFakeMPNativeAdRenderingClassCollectionView");
+
         fakeCollectionView = nice_fake_for([UICollectionView class]);
         adPositioning = [MPClientAdPositioning positioning];
         [adPositioning addFixedIndexPath:[NSIndexPath indexPathForRow:1 inSection:1]];
@@ -121,7 +139,7 @@ describe(@"MPCollectionViewAdPlacer", ^{
         collectionView.delegate = collectionViewDelegate;
         collectionView.dataSource = collectionViewDataSource;
         presentingViewController = nice_fake_for([UIViewController class]);
-        collectionViewAdPlacer = [MPCollectionViewAdPlacer placerWithCollectionView:collectionView viewController:presentingViewController adPositioning:adPositioning defaultAdRenderingClass:[FakeMPNativeAdRenderingClassCollectionView class]];
+        collectionViewAdPlacer = [MPCollectionViewAdPlacer placerWithCollectionView:collectionView viewController:presentingViewController adPositioning:adPositioning rendererConfigurations:nativeAdRendererConfigurations];
     });
 
     describe(@"method forwarding", ^{
@@ -135,14 +153,14 @@ describe(@"MPCollectionViewAdPlacer", ^{
             it(@"should be the kind of class the data source is", ^{
                 [collectionViewAdPlacer isKindOfClass:[FakeCollectionViewProtocolDataSource class]] should be_falsy;
                 collectionView.dataSource = nice_fake_for([FakeCollectionViewProtocolDataSource class]);
-                collectionViewAdPlacer = [MPCollectionViewAdPlacer placerWithCollectionView:collectionView viewController:presentingViewController adPositioning:adPositioning defaultAdRenderingClass:[FakeMPNativeAdRenderingClassCollectionView class]];
+                collectionViewAdPlacer = [MPCollectionViewAdPlacer placerWithCollectionView:collectionView viewController:presentingViewController adPositioning:adPositioning rendererConfigurations:nativeAdRendererConfigurations];
                 [collectionViewAdPlacer isKindOfClass:[FakeCollectionViewProtocolDataSource class]] should be_truthy;
             });
 
             it(@"should be the kind of class the delegate is", ^{
                 [collectionViewAdPlacer isKindOfClass:[FakeCollectionViewProtocolDelegate class]] should be_falsy;
                 collectionView.delegate = nice_fake_for([FakeCollectionViewProtocolDelegate class]);
-                collectionViewAdPlacer = [MPCollectionViewAdPlacer placerWithCollectionView:collectionView viewController:presentingViewController adPositioning:adPositioning defaultAdRenderingClass:[FakeMPNativeAdRenderingClassCollectionView class]];
+                collectionViewAdPlacer = [MPCollectionViewAdPlacer placerWithCollectionView:collectionView viewController:presentingViewController adPositioning:adPositioning rendererConfigurations:nativeAdRendererConfigurations];
                 [collectionViewAdPlacer isKindOfClass:[FakeCollectionViewProtocolDelegate class]] should be_truthy;
             });
         });
@@ -163,14 +181,14 @@ describe(@"MPCollectionViewAdPlacer", ^{
             it(@"should conform to all of the original delegate's protocols", ^{
                 // FakeCollectionViewProtocolDataSource implements UITabBarDelegate.
                 collectionView.delegate = nice_fake_for([FakeCollectionViewProtocolDelegate class]);
-                collectionViewAdPlacer = [MPCollectionViewAdPlacer placerWithCollectionView:collectionView viewController:presentingViewController adPositioning:adPositioning defaultAdRenderingClass:[FakeMPNativeAdRenderingClassCollectionView class]];
+                collectionViewAdPlacer = [MPCollectionViewAdPlacer placerWithCollectionView:collectionView viewController:presentingViewController adPositioning:adPositioning rendererConfigurations:nativeAdRendererConfigurations];
                 [collectionViewAdPlacer conformsToProtocol:@protocol(UITabBarDelegate)] should be_truthy;
             });
 
             it(@"should conform to all of the original data source's protocols", ^{
                 // FakeCollectionViewProtocolDataSource implements UITabBarDelegate.
                 collectionView.dataSource = nice_fake_for([FakeCollectionViewProtocolDataSource class]);
-                collectionViewAdPlacer = [MPCollectionViewAdPlacer placerWithCollectionView:collectionView viewController:presentingViewController adPositioning:adPositioning defaultAdRenderingClass:[FakeMPNativeAdRenderingClassCollectionView class]];
+                collectionViewAdPlacer = [MPCollectionViewAdPlacer placerWithCollectionView:collectionView viewController:presentingViewController adPositioning:adPositioning rendererConfigurations:nativeAdRendererConfigurations];
                 [collectionViewAdPlacer conformsToProtocol:@protocol(UITabBarDelegate)] should be_truthy;
             });
         });
@@ -228,6 +246,38 @@ describe(@"MPCollectionViewAdPlacer", ^{
         });
     });
 
+    describe(@"delegate methods", ^{
+        __block id<MPCollectionViewAdPlacerDelegate, CedarDouble> delegate;
+
+        it(@"should forward delegate methods to the delegate if the delegate implements them", ^{
+            delegate = nice_fake_for(@protocol(MPCollectionViewAdPlacerDelegate));
+            collectionViewAdPlacer.delegate = delegate;
+
+            [collectionViewAdPlacer nativeAdWillPresentModalForStreamAdPlacer:nil];
+            delegate should have_received(@selector(nativeAdWillPresentModalForCollectionViewAdPlacer:)).with(collectionViewAdPlacer);
+
+            [collectionViewAdPlacer nativeAdDidDismissModalForStreamAdPlacer:nil];
+            delegate should have_received(@selector(nativeAdDidDismissModalForCollectionViewAdPlacer:)).with(collectionViewAdPlacer);
+
+            [collectionViewAdPlacer nativeAdWillLeaveApplicationFromStreamAdPlacer:nil];
+            delegate should have_received(@selector(nativeAdWillLeaveApplicationFromCollectionViewAdPlacer:)).with(collectionViewAdPlacer);
+        });
+
+        it(@"should not forward delegate methods that the delegate doesn't respond to", ^{
+            delegate = fake_for(@protocol(MPCollectionViewAdPlacerDelegate));
+            collectionViewAdPlacer.delegate = delegate;
+
+            [collectionViewAdPlacer nativeAdWillPresentModalForStreamAdPlacer:nil];
+            delegate should_not have_received(@selector(nativeAdWillPresentModalForCollectionViewAdPlacer:)).with(collectionViewAdPlacer);
+
+            [collectionViewAdPlacer nativeAdDidDismissModalForStreamAdPlacer:nil];
+            delegate should_not have_received(@selector(nativeAdDidDismissModalForCollectionViewAdPlacer:)).with(collectionViewAdPlacer);
+
+            [collectionViewAdPlacer nativeAdWillLeaveApplicationFromStreamAdPlacer:nil];
+            delegate should_not have_received(@selector(nativeAdWillLeaveApplicationFromCollectionViewAdPlacer:)).with(collectionViewAdPlacer);
+        });
+    });
+
     describe(@"instantiation", ^{
         it(@"should make the collection view ad placer the stream ad placer's delegate", ^{
             collectionViewAdPlacer.streamAdPlacer.delegate should equal(collectionViewAdPlacer);
@@ -252,24 +302,16 @@ describe(@"MPCollectionViewAdPlacer", ^{
             adPlacer.viewController should equal(presentingViewController);
         });
 
-        it(@"should pass on the class to the stream ad placer", ^{
+        it(@"should pass on the renderers to the stream ad placer", ^{
             MPStreamAdPlacer *adPlacer = collectionViewAdPlacer.streamAdPlacer;
-            adPlacer.defaultAdRenderingClass should equal([FakeMPNativeAdRenderingClassCollectionView class]);
-        });
-
-        it(@"should throw an exception when the rendering class isn't a collection view cell", ^{
-            ^{
-                // Fake the stream ad placer so the stream ad placer can't throw an exception.
-                fakeProvider.fakeStreamAdPlacer = fakeStreamAdPlacer;
-                collectionViewAdPlacer = [MPCollectionViewAdPlacer placerWithCollectionView:collectionView viewController:presentingViewController adPositioning:adPositioning defaultAdRenderingClass:[UIView class]];
-            } should raise_exception;
+            adPlacer.rendererConfigurations should equal(nativeAdRendererConfigurations);
         });
 
         context(@"when using the server-side positioning convenience method", ^{
             __block MPCollectionViewAdPlacer *placerWithServerPositioning;
 
             beforeEach(^{
-                placerWithServerPositioning = [MPCollectionViewAdPlacer placerWithCollectionView:collectionView viewController:presentingViewController defaultAdRenderingClass:[FakeMPNativeAdRenderingClassCollectionView class]];
+                placerWithServerPositioning = [MPCollectionViewAdPlacer placerWithCollectionView:collectionView viewController:presentingViewController rendererConfigurations:nativeAdRendererConfigurations];
             });
 
             it(@"should ask the server for positions when requesting ads", ^{
@@ -279,50 +321,18 @@ describe(@"MPCollectionViewAdPlacer", ^{
         });
 
         describe(@"registering cells for reuse", ^{
-            __block Class renderingClass;
-            __block UINib *fakeNib;
-
-            beforeEach(^{
-                [FakeMPNativeAdRenderingClassCollectionViewXIB setNibForAd:nil];
-            });
-
-            context(@"when the rendering class implements +nibForAd with a valid nib", ^{
-                beforeEach(^{
-                    renderingClass = [FakeMPNativeAdRenderingClassCollectionViewXIB class];
-                    fakeNib = nice_fake_for([UINib class]);
-                    [FakeMPNativeAdRenderingClassCollectionViewXIB setNibForAd:fakeNib];
-                });
-
-                it(@"should register the nib with the collection view", ^{
-                    collectionViewAdPlacer = [MPCollectionViewAdPlacer placerWithCollectionView:fakeCollectionView viewController:presentingViewController adPositioning:adPositioning defaultAdRenderingClass:renderingClass];
-                    fakeCollectionView should have_received(@selector(registerNib:forCellWithReuseIdentifier:)).with(fakeNib).and_with(@"MoPubFakeMPNativeAdRenderingClassCollectionViewXIB");
-                    fakeCollectionView should_not have_received(@selector(registerClass:forCellWithReuseIdentifier:)).with(Arguments::anything).and_with(Arguments::anything);
-                });
-            });
-
-            context(@"when the rendering class implements +nibForAd but it returns nil", ^{
-                it(@"should throw an exception", ^{
-                    ^{
-                        [MPCollectionViewAdPlacer placerWithCollectionView:fakeCollectionView viewController:presentingViewController adPositioning:adPositioning defaultAdRenderingClass:renderingClass];
-                    } should raise_exception;
-                });
-            });
-
-            context(@"when the rendering class does not implement +nibForAd", ^{
-                it(@"should register the class with the table view", ^{
-                    collectionViewAdPlacer = [MPCollectionViewAdPlacer placerWithCollectionView:fakeCollectionView viewController:presentingViewController adPositioning:adPositioning defaultAdRenderingClass:[FakeMPNativeAdRenderingClassCollectionView class]];
-                    fakeCollectionView should have_received(@selector(registerClass:forCellWithReuseIdentifier:)).with([FakeMPNativeAdRenderingClassCollectionView class]).and_with(@"MoPubFakeMPNativeAdRenderingClassCollectionView");
-                    fakeCollectionView should_not have_received(@selector(registerNib:forCellWithReuseIdentifier:)).with(Arguments::anything).and_with(Arguments::anything);
-                });
+            it(@"should register MPCollectionViewAdPlacerCell as the class with the collection view", ^{
+                collectionViewAdPlacer = [MPCollectionViewAdPlacer placerWithCollectionView:fakeCollectionView viewController:presentingViewController adPositioning:adPositioning rendererConfigurations:nativeAdRendererConfigurations];
+                fakeCollectionView should have_received(@selector(registerClass:forCellWithReuseIdentifier:)).with([MPCollectionViewAdPlacerCell class]).and_with(@"MPCollectionViewAdPlacerReuseIdentifier");
+                fakeCollectionView should_not have_received(@selector(registerNib:forCellWithReuseIdentifier:)).with(Arguments::anything).and_with(Arguments::anything);
             });
         });
     });
 
     describe(@"loading ads", ^{
         beforeEach(^{
-            fakeStreamAdPlacer stub_method(@selector(defaultAdRenderingClass)).and_return([NSObject class]);
             fakeProvider.fakeStreamAdPlacer = fakeStreamAdPlacer;
-            collectionViewAdPlacer = [MPCollectionViewAdPlacer placerWithCollectionView:collectionView viewController:presentingViewController adPositioning:adPositioning defaultAdRenderingClass:[FakeMPNativeAdRenderingClassCollectionView class]];
+            collectionViewAdPlacer = [MPCollectionViewAdPlacer placerWithCollectionView:collectionView viewController:presentingViewController adPositioning:adPositioning rendererConfigurations:nativeAdRendererConfigurations];
         });
 
         it(@"should forward loadAdsForAdUnitID to the stream ad placer", ^{
@@ -347,7 +357,7 @@ describe(@"MPCollectionViewAdPlacer", ^{
         __block MPStreamAdPlacer *streamAdPlacer;
 
         beforeEach(^{
-            streamAdPlacer = [MPStreamAdPlacer placerWithViewController:presentingViewController adPositioning:adPositioning defaultAdRenderingClass:[FakeMPNativeAdRenderingClassCollectionView class]];
+            streamAdPlacer = [MPStreamAdPlacer placerWithViewController:presentingViewController adPositioning:adPositioning rendererConfigurations:nativeAdRendererConfigurations];
             spy_on(streamAdPlacer);
             fakeProvider.fakeStreamAdPlacer = streamAdPlacer;
             collectionView = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:[[UICollectionViewFlowLayout alloc] init]];
@@ -357,7 +367,7 @@ describe(@"MPCollectionViewAdPlacer", ^{
         context(@"when the collection view has no visible cells", ^{
             beforeEach(^{
                 collectionView stub_method(@selector(indexPathsForVisibleItems)).and_return(@[]);
-                collectionViewAdPlacer = [MPCollectionViewAdPlacer placerWithCollectionView:collectionView viewController:presentingViewController adPositioning:adPositioning defaultAdRenderingClass:[FakeMPNativeAdRenderingClassCollectionView class]];
+                collectionViewAdPlacer = [MPCollectionViewAdPlacer placerWithCollectionView:collectionView viewController:presentingViewController adPositioning:adPositioning rendererConfigurations:nativeAdRendererConfigurations];
                 [collectionViewAdPlacer updateVisibleCells];
             });
 
@@ -382,7 +392,7 @@ describe(@"MPCollectionViewAdPlacer", ^{
                     }
                     return [NSIndexPath indexPathForRow:adjustedIndexPath.row+5 inSection:adjustedIndexPath.section];
                 });
-                collectionViewAdPlacer = [MPCollectionViewAdPlacer placerWithCollectionView:collectionView viewController:presentingViewController adPositioning:adPositioning defaultAdRenderingClass:[FakeMPNativeAdRenderingClassCollectionView class]];
+                collectionViewAdPlacer = [MPCollectionViewAdPlacer placerWithCollectionView:collectionView viewController:presentingViewController adPositioning:adPositioning rendererConfigurations:nativeAdRendererConfigurations];
             });
 
             it(@"should set visible index paths on the stream ad placer without an explicit updateVisibleCells call", ^{
@@ -432,7 +442,7 @@ describe(@"MPCollectionViewAdPlacer", ^{
                 executionBlock();
             });
             fakeProvider.fakeStreamAdPlacer = fakeStreamAdPlacer;
-            collectionViewAdPlacer = [MPCollectionViewAdPlacer placerWithCollectionView:fakeCollectionView viewController:presentingViewController adPositioning:adPositioning defaultAdRenderingClass:[FakeMPNativeAdRenderingClassCollectionView class]];
+            collectionViewAdPlacer = [MPCollectionViewAdPlacer placerWithCollectionView:fakeCollectionView viewController:presentingViewController adPositioning:adPositioning rendererConfigurations:nativeAdRendererConfigurations];
         });
 
         describe(@"-adPlacer:didLoadAdAtIndexPath:", ^{
@@ -481,7 +491,7 @@ describe(@"MPCollectionViewAdPlacer", ^{
             collectionView.delegate = collectionViewDelegate;
             collectionView.dataSource = collectionViewDataSource;
             fakeProvider.fakeStreamAdPlacer = fakeStreamAdPlacer;
-            collectionViewAdPlacer = [MPCollectionViewAdPlacer placerWithCollectionView:collectionView viewController:presentingViewController adPositioning:adPositioning defaultAdRenderingClass:[FakeMPNativeAdRenderingClassCollectionView class]];
+            collectionViewAdPlacer = [MPCollectionViewAdPlacer placerWithCollectionView:collectionView viewController:presentingViewController adPositioning:adPositioning rendererConfigurations:nativeAdRendererConfigurations];
 
             [[CDRSpecHelper specHelper].sharedExampleContext setObject:fakeStreamAdPlacer forKey:@"fakeStreamAdPlacer"];
             [[CDRSpecHelper specHelper].sharedExampleContext setObject:collectionViewAdPlacer forKey:@"uiCollectionAdPlacer"];
@@ -535,12 +545,8 @@ describe(@"MPCollectionViewAdPlacer", ^{
                         cell = [collectionViewAdPlacer collectionView:fakeCollectionView cellForItemAtIndexPath:indexPath];
                     });
 
-                    it(@"should retrieve the reuseIdentifier for the rendering class", ^{
-                        fakeStreamAdPlacer should have_received(@selector(reuseIdentifierForRenderingClassAtIndexPath:)).with(indexPath);
-                    });
-
-                    it(@"should render the ad", ^{
-                        fakeStreamAdPlacer should have_received(@selector(renderAdAtIndexPath:inView:)).with(indexPath).with(Arguments::anything);
+                    it(@"should render the ad and pass the cell's content view as the view to render to", ^{
+                        fakeStreamAdPlacer should have_received(@selector(renderAdAtIndexPath:inView:)).with(indexPath).with(cell.contentView);
                     });
 
                     it(@"should return something equal to what dequeueReusableCellWithReuseIdentifier:forIndexPath: returns", ^{
@@ -623,12 +629,8 @@ describe(@"MPCollectionViewAdPlacer", ^{
                 context(@"when there is an ad at the index path", ^{
                     beforeEach(^{
                         fakeStreamAdPlacer stub_method(@selector(isAdAtIndexPath:)).and_return(YES);
-                        collectionViewAdPlacer = [MPCollectionViewAdPlacer placerWithCollectionView:fakeCollectionView viewController:presentingViewController adPositioning:adPositioning defaultAdRenderingClass:[FakeMPNativeAdRenderingClassCollectionView class]];
+                        collectionViewAdPlacer = [MPCollectionViewAdPlacer placerWithCollectionView:fakeCollectionView viewController:presentingViewController adPositioning:adPositioning rendererConfigurations:nativeAdRendererConfigurations];
                         [collectionViewAdPlacer collectionView:fakeCollectionView didSelectItemAtIndexPath:indexPath];
-                    });
-
-                    it(@"should call displayContentForAdAtAdjustedIndexPath", ^{
-                        fakeStreamAdPlacer should have_received(@selector(displayContentForAdAtAdjustedIndexPath:)).with(indexPath);
                     });
 
                     it(@"should should deselect the item immediately", ^{
@@ -734,7 +736,7 @@ describe(@"MPCollectionViewAdPlacer", ^{
                 it(@"should call through to the original data source when there is no ad at index path and return whatever the original returns", ^{
                     collectionViewDelegate = nice_fake_for([FakeCollectionViewProtocolDelegate class]);
                     collectionView.delegate = collectionViewDelegate;
-                    collectionViewAdPlacer = [MPCollectionViewAdPlacer placerWithCollectionView:collectionView viewController:presentingViewController adPositioning:adPositioning defaultAdRenderingClass:[FakeMPNativeAdRenderingClassCollectionView class]];
+                    collectionViewAdPlacer = [MPCollectionViewAdPlacer placerWithCollectionView:collectionView viewController:presentingViewController adPositioning:adPositioning rendererConfigurations:nativeAdRendererConfigurations];
 
                     fakeStreamAdPlacer stub_method(@selector(isAdAtIndexPath:)).and_return(NO);
                     collectionViewDelegate stub_method(@selector(collectionView:layout:sizeForItemAtIndexPath:)).and_return(stubbedSize);

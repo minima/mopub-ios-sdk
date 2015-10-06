@@ -1,7 +1,7 @@
 #import "MPStreamAdPlacer+Specs.h"
 #import "MPAdPositioning.h"
 #import "MPNativeAdSource.h"
-#import "MPNativeAd.h"
+#import "MPNativeAd+Internal.h"
 #import "MPStreamAdPlacementData+Specs.h"
 #import "MPNativeAdRendering.h"
 #import "MPNativeAdRequestTargeting.h"
@@ -9,20 +9,27 @@
 #import "MPClientAdPositioning.h"
 #import "MPServerAdPositioning.h"
 #import "MPNativePositionSource.h"
+#import "MPNativeAdRendererConfiguration.h"
+#import "MPMoPubNativeAdAdapter.h"
+#import "MPStaticNativeAdRendererSettings.h"
+#import "MPStaticNativeAdRenderer.h"
+#import "MPStaticNativeAdRendererSettings.h"
+#import "MPNativeView.h"
+#import "MPNativeAdDelegate.h"
 
 using namespace Cedar::Matchers;
 using namespace Cedar::Doubles;
 
-const CGSize gStubbedRenderingSize = CGSizeMake((CGFloat)5, (CGFloat)4);
+CGSize gStubbedRenderingSize = CGSizeMake(70, 113);
 
-@interface MPStreamAdPlacer () <MPNativeAdSourceDelegate>
+@interface MPStreamAdPlacer () <MPNativeAdSourceDelegate, MPNativeAdDelegate>
 @end
 
 @interface FakeMPNativeAdRenderingClassView : UIView <MPNativeAdRendering>
 
-@property (nonatomic, readonly) NSUInteger layoutAdAssetsCallCount;
+@property (nonatomic, readonly) NSUInteger retrieveAdViewCallCount;
 
-- (void)resetLayoutAdAssetsCallCount;
+- (void)resetRetrieveViewCallCount;
 
 @end
 
@@ -30,12 +37,12 @@ const CGSize gStubbedRenderingSize = CGSizeMake((CGFloat)5, (CGFloat)4);
 
 - (void)layoutAdAssets:(MPNativeAd *)adObject
 {
-    ++_layoutAdAssetsCallCount;
+    ++_retrieveAdViewCallCount;
 }
 
-- (void)resetLayoutAdAssetsCallCount
+- (void)resetRetrieveViewCallCount
 {
-    _layoutAdAssetsCallCount = 0;
+    _retrieveAdViewCallCount = 0;
 }
 
 + (CGSize)sizeWithMaximumWidth:(CGFloat)maxWidth
@@ -80,8 +87,21 @@ describe(@"MPStreamAdPlacer", ^{
     __block MPStreamAdPlacementData *placementData;
     __block MPNativeAdSource *adSource;
     __block MPNativePositionSource *positioningSource;
+    __block MPNativeAdRendererConfiguration *rendererConfiguration;
+    __block MPStaticNativeAdRendererSettings *rendererSettings;
+    __block NSArray *nativeAdRendererConfigurations;
 
     beforeEach(^{
+        rendererSettings = [[MPStaticNativeAdRendererSettings alloc] init];
+        rendererSettings.renderingViewClass = [FakeMPNativeAdRenderingClassView class];
+        rendererSettings.viewSizeHandler = ^(CGFloat maxWidth) {
+            return gStubbedRenderingSize;
+        };
+
+        rendererConfiguration = [MPStaticNativeAdRenderer rendererConfigurationWithRendererSettings:rendererSettings];
+
+        nativeAdRendererConfigurations = @[rendererConfiguration];
+
         positioning = [MPClientAdPositioning positioning];
         [positioning addFixedIndexPath:[NSIndexPath indexPathForRow:1 inSection:1]];
         [positioning enableRepeatingPositionsWithInterval:3];
@@ -93,38 +113,32 @@ describe(@"MPStreamAdPlacer", ^{
         fakeProvider.fakeNativeAdSource = adSource;
         fakeProvider.fakeNativePositioningSource = positioningSource;
         fakeProvider.fakeStreamAdPlacementData = placementData;
-        placer = [MPStreamAdPlacer placerWithViewController:viewController adPositioning:positioning defaultAdRenderingClass:[FakeMPNativeAdRenderingClassView class]];
+        placer = [MPStreamAdPlacer placerWithViewController:viewController adPositioning:positioning rendererConfigurations:nativeAdRendererConfigurations];
         placer.delegate = placerDelegate;
     });
 
     describe(@"instantiation failure cases", ^{
         it(@"should throw an exception if no view controller is passed", ^{
             ^{
-                placer = [MPStreamAdPlacer placerWithViewController:nil adPositioning:positioning defaultAdRenderingClass:[FakeMPNativeAdRenderingClassView class]];
+                placer = [MPStreamAdPlacer placerWithViewController:nil adPositioning:positioning rendererConfigurations:nativeAdRendererConfigurations];
             } should raise_exception;
         });
 
         it(@"should throw an exception if no ad positioning object is passed", ^{
             ^{
-                placer = [MPStreamAdPlacer placerWithViewController:viewController adPositioning:nil defaultAdRenderingClass:[FakeMPNativeAdRenderingClassView class]];
+                placer = [MPStreamAdPlacer placerWithViewController:viewController adPositioning:nil rendererConfigurations:nativeAdRendererConfigurations];
             } should raise_exception;
         });
 
-        it(@"should throw an exception if the defaultAdRenderingClass is not a view", ^{
+        xit(@"should throw an exception if the rendering configuration array is nil", ^{
             ^{
-                placer = [MPStreamAdPlacer placerWithViewController:viewController adPositioning:nil defaultAdRenderingClass:[FakeMPNativeAdRenderingClass class]];
+                placer = [MPStreamAdPlacer placerWithViewController:viewController adPositioning:nil rendererConfigurations:nativeAdRendererConfigurations];
             } should raise_exception;
         });
 
-        it(@"should throw an exception if the defaultAdRenderingClass does not implement MPNativeAdRendering protocol", ^{
+        xit(@"should throw an exception if any of the rendering configurations aren't of type MPNativeAdRendererConfiguration", ^{
             ^{
-                placer = [MPStreamAdPlacer placerWithViewController:viewController adPositioning:nil defaultAdRenderingClass:[UIView class]];
-            } should raise_exception;
-        });
-
-        it(@"should throw an exception if the defaultAdRenderingClass does not implement MPNativeAdRendering protocol and is not a view", ^{
-            ^{
-                placer = [MPStreamAdPlacer placerWithViewController:viewController adPositioning:nil defaultAdRenderingClass:[NSObject class]];
+                placer = [MPStreamAdPlacer placerWithViewController:viewController adPositioning:nil rendererConfigurations:nativeAdRendererConfigurations];
             } should raise_exception;
         });
     });
@@ -134,15 +148,41 @@ describe(@"MPStreamAdPlacer", ^{
         placerPositioning.repeatingInterval should equal(positioning.repeatingInterval);
         placerPositioning.fixedPositions should equal(positioning.fixedPositions);
         placer.viewController should equal(viewController);
-        placer.defaultAdRenderingClass should equal([FakeMPNativeAdRenderingClassView class]);
+        placer.rendererConfigurations should equal(nativeAdRendererConfigurations);
         fakeProvider.fakeNativeAdSource should have_received(@selector(setDelegate:)).with(placer);
     });
 
-    describe(@"-reuseIdentifierForRenderingClassAtIndexPath:", ^{
-        context(@"when the stream ad placer has a valid rendering class", ^{
-            it(@"should return the name of the rendering class with a prefix", ^{
-                [placer reuseIdentifierForRenderingClassAtIndexPath:nil] should equal([@"MoPub" stringByAppendingString:NSStringFromClass([FakeMPNativeAdRenderingClassView class])]);
-            });
+    describe(@"delegate methods", ^{
+        __block id<MPStreamAdPlacerDelegate, CedarDouble> delegate;
+
+        it(@"should forward delegate methods to the delegate if the delegate implements them", ^{
+            MPNativeAd *ad = [MPNativeAd new];
+            delegate = nice_fake_for(@protocol(MPStreamAdPlacerDelegate));
+            placer.delegate = delegate;
+
+            [placer willPresentModalForNativeAd:ad];
+            delegate should have_received(@selector(nativeAdWillPresentModalForStreamAdPlacer:)).with(placer);
+
+            [placer didDismissModalForNativeAd:ad];
+            delegate should have_received(@selector(nativeAdDidDismissModalForStreamAdPlacer:)).with(placer);
+
+            [placer willLeaveApplicationFromNativeAd:ad];
+            delegate should have_received(@selector(nativeAdWillLeaveApplicationFromStreamAdPlacer:)).with(placer);
+        });
+
+        it(@"should not forward delegate methods that the delegate doesn't respond to", ^{
+            MPNativeAd *ad = [MPNativeAd new];
+            delegate = fake_for(@protocol(MPStreamAdPlacerDelegate));
+            placer.delegate = delegate;
+
+            [placer willPresentModalForNativeAd:ad];
+            delegate should_not have_received(@selector(nativeAdWillPresentModalForStreamAdPlacer:)).with(placer);
+
+            [placer didDismissModalForNativeAd:ad];
+            delegate should_not have_received(@selector(nativeAdDidDismissModalForStreamAdPlacer:)).with(placer);
+
+            [placer willLeaveApplicationFromNativeAd:ad];
+            delegate should_not have_received(@selector(nativeAdWillLeaveApplicationFromStreamAdPlacer:)).with(placer);
         });
     });
 
@@ -408,79 +448,124 @@ describe(@"MPStreamAdPlacer", ^{
         });
     });
 
-    describe(@"-displayContentForAdAtAdjustedIndexPath", ^{
-        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-        __block MPNativeAd *nativeAd;
-
-        beforeEach(^{
-            MPNativeAdData *adData = [[MPNativeAdData alloc] init];
-            nativeAd = nice_fake_for([MPNativeAd class]);
-            adData.ad = nativeAd;
-            adData.renderingClass = [FakeMPNativeAdRenderingClassView class];
-            placementData stub_method(@selector(adDataAtAdjustedIndexPath:)).and_return(adData);
-        });
-
-        it(@"should call -displayContentWithCompletion on the native ad", ^{
-            [placer displayContentForAdAtAdjustedIndexPath:indexPath];
-            nativeAd should have_received(@selector(displayContentWithCompletion:)).with(nil);
-        });
-    });
-
     describe(@"-renderAdAtIndexPath:", ^{
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
         __block FakeMPNativeAdRenderingClassView *renderView;
+        __block MPMoPubNativeAdAdapter *adapter;
+
+        beforeEach(^{
+            renderView = [[FakeMPNativeAdRenderingClassView alloc] init];
+        });
 
         context(@"when there is no ad data at the index path", ^{
             beforeEach(^{
                 placementData stub_method(@selector(adDataAtAdjustedIndexPath:)).and_return(nil);
-                renderView = [[FakeMPNativeAdRenderingClassView alloc] init];
-                [renderView resetLayoutAdAssetsCallCount];
                 [placer renderAdAtIndexPath:indexPath inView:renderView];
             });
 
-            it(@"should not call layoutAdAssets on the view", ^{
-                renderView.layoutAdAssetsCallCount should equal(0);
+            it(@"should not add any subviews to the render view", ^{
+                renderView.subviews.count should equal(0);
             });
         });
 
         context(@"when there is ad data at the index path", ^{
+            __block MPNativeAd<CedarDouble> *fakeNativeAd;
+            __block MPNativeView *renderedView;
+
             beforeEach(^{
+                renderedView = [MPNativeView new];
+                adapter = [[MPMoPubNativeAdAdapter alloc] init];
                 MPNativeAdData *adData = [[MPNativeAdData alloc] init];
-                MPNativeAd *nativeAd = [[MPNativeAd alloc] init];
-                adData.ad = nativeAd;
-                adData.renderingClass = [FakeMPNativeAdRenderingClassView class];
+                fakeNativeAd = nice_fake_for([MPNativeAd class]);
+                fakeNativeAd stub_method(@selector(retrieveAdViewWithError:)).and_return(renderedView);
+                adData.ad = fakeNativeAd;
                 placementData stub_method(@selector(adDataAtAdjustedIndexPath:)).and_return(adData);
-                renderView = [[FakeMPNativeAdRenderingClassView alloc] init];
-                [renderView resetLayoutAdAssetsCallCount];
+                renderView = [[FakeMPNativeAdRenderingClassView alloc] initWithFrame:CGRectMake(0, 0, 243, 100)];
                 [placer renderAdAtIndexPath:indexPath inView:renderView];
             });
 
-            it(@"should call layoutAdAssets on the view once", ^{
-                renderView.layoutAdAssetsCallCount should equal(1);
+            it(@"should attach the rendered ad view to the render view", ^{
+                renderView.subviews.count should equal(1);
+                renderView.subviews[0] should equal(renderedView);
+            });
+
+            it(@"should retrieve the view through the native ad", ^{
+                fakeNativeAd should have_received(@selector(retrieveAdViewWithError:));
+            });
+
+            it(@"should tell the native ad to update the size of the ad view", ^{
+                fakeNativeAd should have_received(@selector(updateAdViewSize:));
+            });
+            context(@"when the cell already has an ad and is reused", ^{
+                __block MPNativeView *renderedView2;
+                __block UIView *otherView;
+
+                beforeEach(^{
+                    otherView = [UIView new];
+                    renderedView2 = [MPNativeView new];
+                    adapter = [[MPMoPubNativeAdAdapter alloc] init];
+                    MPNativeAdData *adData = [[MPNativeAdData alloc] init];
+                    fakeNativeAd = nice_fake_for([MPNativeAd class]);
+                    fakeNativeAd stub_method(@selector(retrieveAdViewWithError:)).and_return(renderedView2);
+                    adData.ad = fakeNativeAd;
+                    placementData = nice_fake_for([MPStreamAdPlacementData class]);
+                    placementData stub_method(@selector(adDataAtAdjustedIndexPath:)).and_return(adData);
+                    fakeProvider.fakeStreamAdPlacementData = placementData;
+                    [renderView addSubview:otherView];
+
+                    placer = [MPStreamAdPlacer placerWithViewController:viewController adPositioning:positioning rendererConfigurations:nativeAdRendererConfigurations];
+                    [placer renderAdAtIndexPath:indexPath inView:renderView];
+                });
+
+                it(@"should remove the old ad view", ^{
+                    renderView.subviews should_not contain(renderedView);
+                    renderView.subviews should contain(renderedView2);
+                });
+
+                it(@"should not remove non-ad views", ^{
+                    renderView.subviews should contain(otherView);
+                });
             });
         });
     });
 
     describe(@"-sizeForAdAtIndexPath:withMaximumWidth:", ^{
-        context(@"when the rendering class implements sizeWithMaximumWidth:", ^{
+        __block MPNativeAd *ad;
+
+        context(@"when the rendering class implements the view size handler", ^{
             beforeEach(^{
+                MPStaticNativeAdRenderer *renderer = [[MPStaticNativeAdRenderer alloc] initWithRendererSettings:rendererSettings];
+                ad = [[MPNativeAd alloc] initWithAdAdapter:nil];
+                ad.renderer = renderer;
                 MPNativeAdData *adData = [[MPNativeAdData alloc] init];
-                adData.renderingClass = [FakeMPNativeAdRenderingClassView class];
+
+                adData.ad = ad;
+
                 placementData stub_method(@selector(adDataAtAdjustedIndexPath:)).and_return(adData);
             });
+
             it(@"should return the size from the rendering class", ^{
                 [placer sizeForAdAtIndexPath:[NSIndexPath indexPathForItem:1 inSection:1] withMaximumWidth:3] should equal(gStubbedRenderingSize);
             });
+
+            it(@"should tell the native ad to update the size of the ad view", ^{
+                spy_on(ad);
+                [placer sizeForAdAtIndexPath:[NSIndexPath indexPathForItem:1 inSection:1] withMaximumWidth:3];
+
+                ad should have_received(@selector(updateAdViewSize:));
+            });
         });
 
-        context(@"when the rendering class doesn't implement sizeWithMaximumWidth:", ^{
+        context(@"when the rendering class doesn't implement the view size handler", ^{
             beforeEach(^{
+                MPStaticNativeAdRenderer *renderer = [[MPStaticNativeAdRenderer alloc] initWithRendererSettings:nil];
+                MPNativeAd *ad = [[MPNativeAd alloc] initWithAdAdapter:nil];
+                ad.renderer = renderer;
                 MPNativeAdData *adData = [[MPNativeAdData alloc] init];
-                adData.renderingClass = [FakeMPNativeAdRenderingClassViewNoSize class];
-                placementData stub_method(@selector(adDataAtAdjustedIndexPath:)).and_return(adData);
 
-                placer = [MPStreamAdPlacer placerWithViewController:viewController adPositioning:positioning defaultAdRenderingClass:[FakeMPNativeAdRenderingClassViewNoSize class]];
+                adData.ad = ad;
             });
+
             it(@"should return size with the given maxWidth and default height of 44", ^{
                 [placer sizeForAdAtIndexPath:[NSIndexPath indexPathForItem:1 inSection:1] withMaximumWidth:320] should equal(CGSizeMake(320, 44));
             });
@@ -499,7 +584,7 @@ describe(@"MPStreamAdPlacer", ^{
             targeting = nice_fake_for([MPNativeAdRequestTargeting class]);
             adUnitID = @"wut";
             fakeProvider.fakeNativeAdSource = nice_fake_for([MPNativeAdSource class]);
-            placer = [MPStreamAdPlacer placerWithViewController:viewController adPositioning:positioning defaultAdRenderingClass:[FakeMPNativeAdRenderingClassView class]];
+            placer = [MPStreamAdPlacer placerWithViewController:viewController adPositioning:positioning rendererConfigurations:nativeAdRendererConfigurations];
             placer.delegate = placerDelegate;
         });
 
@@ -560,7 +645,7 @@ describe(@"MPStreamAdPlacer", ^{
 
             it(@"should not load any ads", ^{
                 [placer loadAdsForAdUnitID:nil targeting:targeting];
-                fakeProvider.fakeNativeAdSource should_not have_received(@selector(loadAdsWithAdUnitIdentifier:andTargeting:)).with(adUnitID).and_with(targeting);
+                fakeProvider.fakeNativeAdSource should_not have_received(@selector(loadAdsWithAdUnitIdentifier:rendererConfigurations:andTargeting:));
             });
         });
 
@@ -574,7 +659,7 @@ describe(@"MPStreamAdPlacer", ^{
             });
 
             it(@"should ask the ad source to load ads with targeting parameters", ^{
-                fakeProvider.fakeNativeAdSource should have_received(@selector(loadAdsWithAdUnitIdentifier:andTargeting:)).with(adUnitID).and_with(targeting);
+                fakeProvider.fakeNativeAdSource should have_received(@selector(loadAdsWithAdUnitIdentifier:rendererConfigurations:andTargeting:)).with(adUnitID).and_with(nativeAdRendererConfigurations).and_with(targeting);
             });
 
             context(@"if ads have never been placed in the stream", ^{
@@ -645,7 +730,7 @@ describe(@"MPStreamAdPlacer", ^{
                     fakeProvider.fakeStreamAdPlacementData = nil;
 
                     MPServerAdPositioning *serverPositioning = [[MPServerAdPositioning alloc] init];
-                    placer = [MPStreamAdPlacer placerWithViewController:viewController adPositioning:serverPositioning defaultAdRenderingClass:[FakeMPNativeAdRenderingClassView class]];
+                    placer = [MPStreamAdPlacer placerWithViewController:viewController adPositioning:serverPositioning rendererConfigurations:nativeAdRendererConfigurations];
                     placer.delegate = placerDelegate;
                 });
 
@@ -787,7 +872,7 @@ describe(@"MPStreamAdPlacer", ^{
                 [positioning addFixedIndexPath:[NSIndexPath indexPathForRow:1 inSection:1]];
                 [positioning addFixedIndexPath:[NSIndexPath indexPathForRow:3 inSection:1]];
 
-                placer = [MPStreamAdPlacer placerWithViewController:viewController adPositioning:positioning defaultAdRenderingClass:[FakeMPNativeAdRenderingClassView class]];
+                placer = [MPStreamAdPlacer placerWithViewController:viewController adPositioning:positioning rendererConfigurations:nativeAdRendererConfigurations];
                 placer.delegate = placerDelegate;
                 [placer loadAdsForAdUnitID:@"fake ad unit"];
                 [placer setItemCount:3 forSection:0];

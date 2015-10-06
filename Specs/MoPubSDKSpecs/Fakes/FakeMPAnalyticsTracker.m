@@ -14,6 +14,7 @@
     if (self) {
         self.trackedImpressionConfigurations = [NSMutableArray array];
         self.trackedClickConfigurations = [NSMutableArray array];
+        self.trackingRequestURLs = [NSMutableArray array];
     }
     return self;
 }
@@ -32,6 +33,11 @@
 - (void)trackClickForConfiguration:(MPAdConfiguration *)configuration
 {
     [self.trackedClickConfigurations addObject:configuration];
+}
+
+- (void)sendTrackingRequestForURLs:(NSArray *)URLs
+{
+    [self.trackingRequestURLs addObjectsFromArray:URLs];
 }
 
 @end

@@ -13,6 +13,7 @@
 #import "MPLogEvent.h"
 #import "MPLogEventRecorder.h"
 #import "MPLogging.h"
+#import <UIKit/UIKit.h>
 
 @implementation AppDelegate
 

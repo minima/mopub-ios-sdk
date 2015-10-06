@@ -79,19 +79,9 @@
 
 #pragma mark - MPNativeAdAdapter
 
-- (NSTimeInterval)requiredSecondsForImpression
-{
-    return 0.0;
-}
-
 - (NSURL *)defaultActionURL
 {
     return nil;
-}
-
-- (BOOL)enableThirdPartyImpressionTracking
-{
-    return YES;
 }
 
 - (BOOL)enableThirdPartyClickTracking
@@ -103,10 +93,7 @@
 {
     [self.fbNativeAd registerViewForInteraction:view withViewController:[self.delegate viewControllerForPresentingModalView]];
 }
-- (void)didDetachFromView:(UIView *)view
-{
-    [self.fbNativeAd unregisterView];
-}
+
 #pragma mark - FBNativeAdDelegate
 
 - (void)nativeAdWillLogImpression:(FBNativeAd *)nativeAd
@@ -125,6 +112,13 @@
     } else {
         MPLogWarn(@"Delegate does not implement click tracking callback. Clicks likely not being tracked.");
     }
+
+    [self.delegate nativeAdWillPresentModalForAdapter:self];
+}
+
+- (void)nativeAdDidFinishHandlingClick:(FBNativeAd *)nativeAd
+{
+    [self.delegate nativeAdDidDismissModalForAdapter:self];
 }
 
 @end

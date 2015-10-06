@@ -51,6 +51,11 @@ void log_sent_messages(id<CedarDouble> fake)
     }
 }
 
+NSData *dataFromXMLFileNamed(NSString *name) {
+    NSString *file = [[NSBundle mainBundle] pathForResource:name ofType:@"xml"];
+    return [NSData dataWithContentsOfFile:file];
+}
+
 @implementation MPSpecHelper
 
 + (void)beforeEach

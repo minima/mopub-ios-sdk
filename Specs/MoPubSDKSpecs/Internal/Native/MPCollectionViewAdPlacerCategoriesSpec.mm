@@ -1,6 +1,10 @@
 #import "MPCollectionViewAdPlacer.h"
 #import "MPAdPositioning.h"
 #import "MPNativeAdRendering.h"
+#import "MPStaticNativeAdRendererSettings.h"
+#import "MPNativeAdRendererConfiguration.h"
+#import "MPStaticNativeAdRenderer.h"
+#import "MPStaticNativeAdRendererSettings.h"
 
 using namespace Cedar::Matchers;
 using namespace Cedar::Doubles;
@@ -9,10 +13,6 @@ using namespace Cedar::Doubles;
 @end
 
 @implementation MPCollectionNativeAdCell
-- (void)layoutAdAssets:(MPNativeAd *)adObject
-{
-
-}
 @end
 
 static NSString *const kReuseIdentifier = @"reuseCell";
@@ -78,8 +78,22 @@ describe(@"MPCollectionViewAdPlacerCategories", ^{
     __block id<UICollectionViewDataSource> dataSource;
     __block id<UICollectionViewDelegate> delegate;
     __block UICollectionView *placerlessCollectionView;
+    __block MPStaticNativeAdRenderer *renderer;
+    __block NSArray *nativeAdRendererConfigurations;
 
     beforeEach(^{
+        MPStaticNativeAdRendererSettings *settings = [[MPStaticNativeAdRendererSettings alloc] init];
+
+        settings.renderingViewClass = [MPCollectionNativeAdCell class];
+        settings.viewSizeHandler = ^(CGFloat maxWidth) {
+            return CGSizeMake(70, 113);
+        };
+
+        renderer = [[MPStaticNativeAdRenderer alloc] initWithRendererSettings:settings];
+
+        MPNativeAdRendererConfiguration *config = [MPStaticNativeAdRenderer rendererConfigurationWithRendererSettings:settings];
+        nativeAdRendererConfigurations = @[config];
+
         UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
         layout.scrollDirection = UICollectionViewScrollDirectionVertical;
         layout.itemSize = CGSizeMake(320, 44);
@@ -99,10 +113,10 @@ describe(@"MPCollectionViewAdPlacerCategories", ^{
 
         MPAdPositioning *fakePositioning = nice_fake_for([MPAdPositioning class]);
 
-        FakeMPStreamAdPlacer *fakeStreamAdPlacer = [FakeMPStreamAdPlacer placerWithViewController:viewController adPositioning:fakePositioning defaultAdRenderingClass:[MPCollectionNativeAdCell class]];
+        FakeMPStreamAdPlacer *fakeStreamAdPlacer = [FakeMPStreamAdPlacer placerWithViewController:viewController adPositioning:fakePositioning rendererConfigurations:nativeAdRendererConfigurations];
         fakeProvider.fakeStreamAdPlacer = fakeStreamAdPlacer;
 
-        placer = [MPCollectionViewAdPlacer placerWithCollectionView:collectionView viewController:viewController adPositioning:fakePositioning defaultAdRenderingClass:[MPCollectionNativeAdCell class]];
+        placer = [MPCollectionViewAdPlacer placerWithCollectionView:collectionView viewController:viewController adPositioning:fakePositioning rendererConfigurations:nativeAdRendererConfigurations];
 
         UICollectionViewFlowLayout *secondLayout = [[UICollectionViewFlowLayout alloc] init];
         secondLayout.scrollDirection = UICollectionViewScrollDirectionVertical;

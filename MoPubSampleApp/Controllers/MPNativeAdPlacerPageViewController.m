@@ -10,6 +10,9 @@
 #import "MPStreamAdPlacer.h"
 #import "MPClientAdPositioning.h"
 #import "MPNativeAdPageView.h"
+#import "MPNativeAdRendererConfiguration.h"
+#import "MPStaticNativeAdRenderer.h"
+#import "MPStaticNativeAdRendererSettings.h"
 
 // This variable will extend the ad placer's visible range by kVisiblePathLookAhead view controllers.
 const NSUInteger kVisiblePathLookAhead = 0;
@@ -47,7 +50,14 @@ const NSUInteger kBeginningNumberOfPages = 8;
         [positioning addFixedIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
         [positioning enableRepeatingPositionsWithInterval:2];
 
-        _streamAdPlacer = [MPStreamAdPlacer placerWithViewController:self adPositioning:positioning defaultAdRenderingClass:[MPNativeAdPageView class]];
+        MPStaticNativeAdRendererSettings *settings = [[MPStaticNativeAdRendererSettings alloc] init];
+        settings.renderingViewClass = [MPNativeAdPageView class];
+        settings.viewSizeHandler = ^(CGFloat maxWidth) {
+            return self.view.bounds.size;
+        };
+
+        MPNativeAdRendererConfiguration *config = [MPStaticNativeAdRenderer rendererConfigurationWithRendererSettings:settings];
+        _streamAdPlacer = [MPStreamAdPlacer placerWithViewController:self adPositioning:positioning rendererConfigurations:@[config]];
         _streamAdPlacer.delegate = self;
 
         // Create a bunch of alternating red/green view controllers.
@@ -175,13 +185,11 @@ const NSUInteger kBeginningNumberOfPages = 8;
 
 - (void)adPlacer:(MPStreamAdPlacer *)adPlacer didLoadAdAtIndexPath:(NSIndexPath *)indexPath
 {
-    MPNativeAdPageView *adView = [[MPNativeAdPageView alloc] initWithFrame:CGRectMake(0, 0, 320, 480)];
+    CGRect frame = CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height);
+    UIView *adView = [[UIView alloc] initWithFrame:frame];
     UIViewController *vc = [[UIViewController alloc] init];
     [vc.view addSubview:adView];
-    [vc.view setFrame:CGRectMake(0, 0, 320, 480)];
-
-    UITapGestureRecognizer *gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(adTapped:)];
-    [vc.view addGestureRecognizer:gestureRecognizer];
+    [vc.view setFrame:frame];
 
     [self.contentViewControllers insertObject:vc atIndex:indexPath.row];
     [self.streamAdPlacer renderAdAtIndexPath:indexPath inView:adView];
@@ -206,16 +214,6 @@ const NSUInteger kBeginningNumberOfPages = 8;
     [self updateVisibleIndexPaths];
 
     self.adCount -= deletionIndices.count;
-}
-
-#pragma mark - UITapGestureRecognizer
-
-- (void)adTapped:(UITapGestureRecognizer *)gestureRecognizer
-{
-    if (gestureRecognizer.state == UIGestureRecognizerStateEnded) {
-        NSUInteger itemIndex = [self.contentViewControllers indexOfObject:self.pageViewController.viewControllers[0]];
-        [self.streamAdPlacer displayContentForAdAtAdjustedIndexPath:[NSIndexPath indexPathForRow:itemIndex inSection:0]];
-    }
 }
 
 #pragma mark - UIActionSheetDelegate

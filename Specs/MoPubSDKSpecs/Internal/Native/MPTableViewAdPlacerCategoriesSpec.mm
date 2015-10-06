@@ -1,21 +1,14 @@
 #import "MPTableViewAdPlacer.h"
 #import "MPNativeAdRendering.h"
 #import "MPAdPositioning.h"
+#import "MPNativeAdRendererConfiguration.h"
+#import "FakeNativeAdRenderingClass.h"
+#import "MPTableViewAdPlacerCell.h"
+#import "MPStaticNativeAdRenderer.h"
+#import "MPStaticNativeAdRendererSettings.h"
 
 using namespace Cedar::Matchers;
 using namespace Cedar::Doubles;
-
-@interface MPNativeAdCell : UITableViewCell <MPNativeAdRendering>
-
-@end
-
-@implementation MPNativeAdCell
-#pragma mark - <MPNativeAdRendering>
-- (void)layoutAdAssets:(MPNativeAd *)adObject
-{
-
-}
-@end
 
 static NSString *const kReuseIdentifier = @"reuseCell";
 
@@ -52,8 +45,22 @@ describe(@"MPTableViewAdPlacerCategories", ^{
     __block id<UITableViewDataSource> dataSource;
     __block id<UITableViewDelegate> delegate;
     __block UITableView *placerlessTableView;
+    __block MPStaticNativeAdRenderer *renderer;
+    __block NSArray *nativeAdRendererConfigurations;
 
     beforeEach(^{
+        MPStaticNativeAdRendererSettings *settings = [[MPStaticNativeAdRendererSettings alloc] init];
+
+        settings.renderingViewClass = [FakeNativeAdRenderingClass class];
+        settings.viewSizeHandler = ^(CGFloat maxWidth) {
+            return CGSizeMake(70, 113);
+        };
+
+        renderer = [[MPStaticNativeAdRenderer alloc] initWithRendererSettings:settings];
+
+        MPNativeAdRendererConfiguration *config = [MPStaticNativeAdRenderer rendererConfigurationWithRendererSettings:settings];
+        nativeAdRendererConfigurations = @[config];
+
         tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, 320, 480)];
 
         TableViewDataSourceDelegateHelper *helper = [[TableViewDataSourceDelegateHelper alloc] init];
@@ -68,11 +75,10 @@ describe(@"MPTableViewAdPlacerCategories", ^{
         UIViewController *viewController = [[UIViewController alloc] init];
 
         MPAdPositioning *fakePositioning = nice_fake_for([MPAdPositioning class]);
-
-        FakeMPStreamAdPlacer *fakeStreamAdPlacer = [FakeMPStreamAdPlacer placerWithViewController:viewController adPositioning:fakePositioning defaultAdRenderingClass:[MPNativeAdCell class]];
+        FakeMPStreamAdPlacer *fakeStreamAdPlacer = [FakeMPStreamAdPlacer placerWithViewController:viewController adPositioning:fakePositioning rendererConfigurations:nativeAdRendererConfigurations];
         fakeProvider.fakeStreamAdPlacer = fakeStreamAdPlacer;
 
-        placer = [MPTableViewAdPlacer placerWithTableView:tableView viewController:viewController adPositioning:fakePositioning defaultAdRenderingClass:[MPNativeAdCell class]];
+        placer = [MPTableViewAdPlacer placerWithTableView:tableView viewController:viewController adPositioning:fakePositioning rendererConfigurations:nativeAdRendererConfigurations];
 
         placerlessTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, 320, 480)];
         placerlessTableView.delegate = delegate;
@@ -539,7 +545,7 @@ describe(@"MPTableViewAdPlacerCategories", ^{
                 fakeProvider.fakeStreamAdPlacer stub_method(@selector(originalIndexPathsForAdjustedIndexPaths:)).and_return(@[_IP(0, 0)]);
                 fakeProvider.fakeStreamAdPlacer stub_method(@selector(adjustedIndexPathForOriginalIndexPath:)).with(_IP(0, 0)).and_return(_IP(1, 0));
                 spy_on(tableView);
-                tableView stub_method(@selector(visibleCells)).and_return(@[[MPNativeAdCell new], [UITableViewCell new]]);
+                tableView stub_method(@selector(visibleCells)).and_return(@[[MPTableViewAdPlacerCell new], [UITableViewCell new]]);
                 tableView stub_method(@selector(indexPathsForVisibleRows)).and_return(@[_IP(0, 0), _IP(1, 0)]);
                 tableView stub_method(@selector(cellForRowAtIndexPath:)).and_return([UITableViewCell new]);
             });

@@ -13,5 +13,6 @@
 + (CGRect)screenBounds;
 + (CGFloat)deviceScaleFactor;
 + (NSDictionary *)dictionaryFromQueryString:(NSString *)query;
++ (NSArray *)convertStrArrayToURLArray:(NSArray *)strArray;
 
 @end

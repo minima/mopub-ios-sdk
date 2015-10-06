@@ -4,6 +4,9 @@
 #import "MPNativeAd+Specs.h"
 #import "IMNative+Specs.h"
 #import "CedarAsync.h"
+#import "MPStaticNativeAdRenderer.h"
+#import "FakeNativeAdRenderingClass.h"
+#import "MPStaticNativeAdRendererSettings.h"
 
 using namespace Cedar::Matchers;
 using namespace Cedar::Doubles;
@@ -14,10 +17,16 @@ describe(@"InMobiNativeCustomEvent", ^{
     NSDictionary *validInfo = @{@"app_id" : @"b15abe4c93a84f59a65faceca30c9591"};
     __block id<CedarDouble, MPNativeCustomEventDelegate> delegate;
     __block InMobiNativeCustomEvent *customEvent;
+    __block MPStaticNativeAdRenderer *renderer;
 
     [InMobi initialize:@"b15abe4c93a84f59a65faceca30c9591"];
 
     beforeEach(^{
+        MPStaticNativeAdRendererSettings *settings = [[MPStaticNativeAdRendererSettings alloc] init];
+        settings.renderingViewClass = [FakeNativeAdRenderingClass class];
+
+        renderer = [[MPStaticNativeAdRenderer alloc] initWithRendererSettings:settings];
+
         delegate = nice_fake_for(@protocol(MPNativeCustomEventDelegate));
         customEvent = [[InMobiNativeCustomEvent alloc] init];
         customEvent.delegate = delegate;

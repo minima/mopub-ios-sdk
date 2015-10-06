@@ -6,6 +6,12 @@
 #import "MPClientAdPositioning.h"
 #import "MPNativeAdRendering.h"
 #import "CedarAsync.h"
+#import "MPNativeAdRendererConfiguration.h"
+#import "MPStaticNativeAdRenderer.h"
+#import "MPStaticNativeAdRendererSettings.h"
+#import "MPNativeAdRendererConfiguration.h"
+#import "MPStaticNativeAdRendererSettings.h"
+#import "MPTableViewAdPlacerCell.h"
 
 using namespace Cedar::Matchers;
 using namespace Cedar::Doubles;
@@ -86,27 +92,6 @@ static UINib *sNib = nil;
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-@interface FakeUITableViewiOS5_0 : UITableView
-@end
-
-////////////////////////////////////////////////////////////////////////////////////////////////////
-
-@implementation FakeUITableViewiOS5_0
-
-- (BOOL)respondsToSelector:(SEL)aSelector
-{
-    if (aSelector == @selector(dequeueReusableCellWithIdentifier:forIndexPath:) ||
-        aSelector == @selector(registerNib:forCellReuseIdentifier:)) {
-        return NO;
-    } else {
-        return [super respondsToSelector:aSelector];
-    }
-}
-
-@end
-
-////////////////////////////////////////////////////////////////////////////////////////////////////
-
 @interface MPTableViewAdPlacer () <UITableViewDataSource, UITableViewDelegate, MPStreamAdPlacerDelegate>
 @end
 
@@ -121,10 +106,22 @@ describe(@"MPTableViewAdPlacer", ^{
     __block MPClientAdPositioning *adPositioning;
     __block UITableView<CedarDouble> *fakeTableView;
     __block MPStreamAdPlacer<CedarDouble> *fakeStreamAdPlacer;
+    __block MPNativeAdRendererConfiguration *rendererConfiguration;
+    __block NSArray *nativeAdRendererConfigurations;
 
     beforeEach(^{
+        MPStaticNativeAdRendererSettings *settings = [[MPStaticNativeAdRendererSettings alloc] init];
+        settings.renderingViewClass = [FakeMPNativeAdRenderingClassTableView class];
+        settings.viewSizeHandler = ^(CGFloat maxWidth) {
+            return CGSizeMake(70, 113);
+        };
+
+        rendererConfiguration = [MPStaticNativeAdRenderer rendererConfigurationWithRendererSettings:settings];
+
+        nativeAdRendererConfigurations = @[rendererConfiguration];
+
         fakeStreamAdPlacer = nice_fake_for([MPStreamAdPlacer class]);
-        fakeStreamAdPlacer stub_method(@selector(reuseIdentifierForRenderingClassAtIndexPath:)).and_return(@"MoPubFakeMPNativeAdRenderingClassView");
+
         adPositioning = [MPClientAdPositioning positioning];
         [adPositioning addFixedIndexPath:[NSIndexPath indexPathForRow:1 inSection:1]];
         [adPositioning enableRepeatingPositionsWithInterval:3];
@@ -134,7 +131,7 @@ describe(@"MPTableViewAdPlacer", ^{
         tableView.delegate = tableViewDelegate;
         tableView.dataSource = tableViewDataSource;
         presentingViewController = nice_fake_for([UIViewController class]);
-        tableViewAdPlacer = [MPTableViewAdPlacer placerWithTableView:tableView viewController:presentingViewController adPositioning:adPositioning defaultAdRenderingClass:[FakeMPNativeAdRenderingClassTableView class]];
+        tableViewAdPlacer = [MPTableViewAdPlacer placerWithTableView:tableView viewController:presentingViewController adPositioning:adPositioning rendererConfigurations:nativeAdRendererConfigurations];
         fakeTableView = nice_fake_for([UITableView class]);
     });
 
@@ -149,18 +146,49 @@ describe(@"MPTableViewAdPlacer", ^{
             it(@"should be the kind of class the data source is", ^{
                 [tableViewAdPlacer isKindOfClass:[FakeTableViewProtocolDataSource class]] should be_falsy;
                 tableView.dataSource = nice_fake_for([FakeTableViewProtocolDataSource class]);
-                tableViewAdPlacer = [MPTableViewAdPlacer placerWithTableView:tableView viewController:presentingViewController adPositioning:adPositioning defaultAdRenderingClass:[FakeMPNativeAdRenderingClassTableView class]];
+                tableViewAdPlacer = [MPTableViewAdPlacer placerWithTableView:tableView viewController:presentingViewController adPositioning:adPositioning rendererConfigurations:nativeAdRendererConfigurations];
                 [tableViewAdPlacer isKindOfClass:[FakeTableViewProtocolDataSource class]] should be_truthy;
             });
 
             it(@"should be the kind of class the delegate is", ^{
                 [tableViewAdPlacer isKindOfClass:[FakeTableViewProtocolDelegate class]] should be_falsy;
                 tableView.delegate = nice_fake_for([FakeTableViewProtocolDelegate class]);
-                tableViewAdPlacer = [MPTableViewAdPlacer placerWithTableView:tableView viewController:presentingViewController adPositioning:adPositioning defaultAdRenderingClass:[FakeMPNativeAdRenderingClassTableView class]];
+                tableViewAdPlacer = [MPTableViewAdPlacer placerWithTableView:tableView viewController:presentingViewController adPositioning:adPositioning rendererConfigurations:nativeAdRendererConfigurations];
                 [tableViewAdPlacer isKindOfClass:[FakeTableViewProtocolDelegate class]] should be_truthy;
             });
         });
 
+        describe(@"delegate methods", ^{
+            __block id<MPTableViewAdPlacerDelegate, CedarDouble> delegate;
+
+            it(@"should forward delegate methods to the delegate if the delegate implements them", ^{
+                delegate = nice_fake_for(@protocol(MPTableViewAdPlacerDelegate));
+                tableViewAdPlacer.delegate = delegate;
+
+                [tableViewAdPlacer nativeAdWillPresentModalForStreamAdPlacer:nil];
+                delegate should have_received(@selector(nativeAdWillPresentModalForTableViewAdPlacer:)).with(tableViewAdPlacer);
+
+                [tableViewAdPlacer nativeAdDidDismissModalForStreamAdPlacer:nil];
+                delegate should have_received(@selector(nativeAdDidDismissModalForTableViewAdPlacer:)).with(tableViewAdPlacer);
+
+                [tableViewAdPlacer nativeAdWillLeaveApplicationFromStreamAdPlacer:nil];
+                delegate should have_received(@selector(nativeAdWillLeaveApplicationFromTableViewAdPlacer:)).with(tableViewAdPlacer);
+            });
+
+            it(@"should not forward delegate methods that the delegate doesn't respond to", ^{
+                delegate = fake_for(@protocol(MPTableViewAdPlacerDelegate));
+                tableViewAdPlacer.delegate = delegate;
+
+                [tableViewAdPlacer nativeAdWillPresentModalForStreamAdPlacer:nil];
+                delegate should_not have_received(@selector(nativeAdWillPresentModalForTableViewAdPlacer:)).with(tableViewAdPlacer);
+
+                [tableViewAdPlacer nativeAdDidDismissModalForStreamAdPlacer:nil];
+                delegate should_not have_received(@selector(nativeAdDidDismissModalForTableViewAdPlacer:)).with(tableViewAdPlacer);
+
+                [tableViewAdPlacer nativeAdWillLeaveApplicationFromStreamAdPlacer:nil];
+                delegate should_not have_received(@selector(nativeAdWillLeaveApplicationFromTableViewAdPlacer:)).with(tableViewAdPlacer);
+            });
+        });
         describe(@"-conformsToProtocol:", ^{
             it(@"should conform to the UITableViewDataSource protocol", ^{
                 [tableViewAdPlacer conformsToProtocol:@protocol(UITableViewDataSource)] should be_truthy;
@@ -177,14 +205,14 @@ describe(@"MPTableViewAdPlacer", ^{
             it(@"should conform to all of the original delegate's protocols", ^{
                 // FakeTableViewProtocolDataSource implements UITabBarDelegate.
                 tableView.delegate = nice_fake_for([FakeTableViewProtocolDelegate class]);
-                tableViewAdPlacer = [MPTableViewAdPlacer placerWithTableView:tableView viewController:presentingViewController adPositioning:adPositioning defaultAdRenderingClass:[FakeMPNativeAdRenderingClassTableView class]];
+                tableViewAdPlacer = [MPTableViewAdPlacer placerWithTableView:tableView viewController:presentingViewController adPositioning:adPositioning rendererConfigurations:nativeAdRendererConfigurations];
                 [tableViewAdPlacer conformsToProtocol:@protocol(UITabBarDelegate)] should be_truthy;
             });
 
             it(@"should conform to all of the original data source's protocols", ^{
                 // FakeTableViewProtocolDataSource implements UITabBarDelegate.
                 tableView.dataSource = nice_fake_for([FakeTableViewProtocolDataSource class]);
-                tableViewAdPlacer = [MPTableViewAdPlacer placerWithTableView:tableView viewController:presentingViewController adPositioning:adPositioning defaultAdRenderingClass:[FakeMPNativeAdRenderingClassTableView class]];
+                tableViewAdPlacer = [MPTableViewAdPlacer placerWithTableView:tableView viewController:presentingViewController adPositioning:adPositioning rendererConfigurations:nativeAdRendererConfigurations];
                 [tableViewAdPlacer conformsToProtocol:@protocol(UITabBarDelegate)] should be_truthy;
             });
         });
@@ -262,16 +290,16 @@ describe(@"MPTableViewAdPlacer", ^{
             adPlacer.viewController should equal(presentingViewController);
         });
 
-        it(@"should pass on the class to the stream ad placer", ^{
+        it(@"should pass the renderers to the stream ad placer", ^{
             MPStreamAdPlacer *adPlacer = tableViewAdPlacer.streamAdPlacer;
-            adPlacer.defaultAdRenderingClass should equal([FakeMPNativeAdRenderingClassTableView class]);
+            adPlacer.rendererConfigurations should equal(nativeAdRendererConfigurations);
         });
 
         context(@"when using the server-side positioning convenience method", ^{
             __block MPTableViewAdPlacer *placerWithServerPositioning;
 
             beforeEach(^{
-                placerWithServerPositioning = [MPTableViewAdPlacer placerWithTableView:tableView viewController:presentingViewController defaultAdRenderingClass:[FakeMPNativeAdRenderingClassTableView class]];
+                placerWithServerPositioning = [MPTableViewAdPlacer placerWithTableView:tableView viewController:presentingViewController rendererConfigurations:nativeAdRendererConfigurations];
             });
 
             it(@"should ask the server for positions when requesting ads", ^{
@@ -281,74 +309,20 @@ describe(@"MPTableViewAdPlacer", ^{
         });
 
         describe(@"registering cells for reuse", ^{
-            __block Class renderingClass;
-            __block UINib *fakeNib;
+            it(@"should register the MPTableViewAdPlacerCell class with the table view", ^{
+                tableViewAdPlacer = [MPTableViewAdPlacer placerWithTableView:fakeTableView viewController:presentingViewController adPositioning:adPositioning rendererConfigurations:nativeAdRendererConfigurations];
+                fakeTableView should have_received(@selector(registerClass:forCellReuseIdentifier:)).with([MPTableViewAdPlacerCell class]).and_with(@"MPTableViewAdPlacerReuseIdentifier");
 
-            afterEach(^{
-                [FakeMPNativeAdRenderingClassTableViewXIB setNibForAd:nil];
-            });
-
-            context(@"when the rendering class implements +nibForAd with a valid nib", ^{
-                beforeEach(^{
-                    renderingClass = [FakeMPNativeAdRenderingClassTableViewXIB class];
-                    fakeNib = nice_fake_for([UINib class]);
-                    [FakeMPNativeAdRenderingClassTableViewXIB setNibForAd:fakeNib];
-                });
-
-                context(@"on post-iOS 5 table views", ^{
-                    it(@"should register the nib with the table view", ^{
-                        tableViewAdPlacer = [MPTableViewAdPlacer placerWithTableView:fakeTableView viewController:presentingViewController adPositioning:adPositioning defaultAdRenderingClass:renderingClass];
-                        fakeTableView should have_received(@selector(registerNib:forCellReuseIdentifier:)).with(fakeNib).and_with(@"MoPubFakeMPNativeAdRenderingClassTableViewXIB");
-
-                        // Make sure we don't also call registerClass:forCellReuseIdentifier:.
-                        fakeTableView should_not have_received(@selector(registerClass:forCellReuseIdentifier:)).with(Arguments::anything).and_with(Arguments::anything);
-                    });
-                });
-            });
-
-            context(@"when the rendering class implements +nibForAd but it returns nil", ^{
-                it(@"should throw an exception", ^{
-                    ^{
-                        [MPTableViewAdPlacer placerWithTableView:fakeTableView viewController:presentingViewController adPositioning:adPositioning defaultAdRenderingClass:renderingClass];
-                    } should raise_exception;
-                });
-            });
-
-            context(@"when the rendering class does not implement +nibForAd", ^{
-                __block FakeUITableViewiOS5_0 *fakeTableViewiOS5_0;
-
-                context(@"on pre-iOS 6 table views that don't have registerClass:forCellReuseIdentifier:", ^{
-                    beforeEach(^{
-                        fakeTableViewiOS5_0 = [[FakeUITableViewiOS5_0 alloc] init];
-                        spy_on(fakeTableViewiOS5_0);
-                    });
-
-                    it(@"should not blow up or call registerNib:forCellReuseIdentifier:", ^{
-                        ^{
-                            [MPTableViewAdPlacer placerWithTableView:fakeTableViewiOS5_0 viewController:presentingViewController adPositioning:adPositioning defaultAdRenderingClass:[FakeMPNativeAdRenderingClassTableView class]];
-                        } should_not raise_exception;
-                        fakeTableViewiOS5_0 should_not have_received(@selector(registerNib:forCellReuseIdentifier:)).with(Arguments::anything).and_with(Arguments::anything);
-                    });
-                });
-
-                context(@"on post-iOS 6 table views", ^{
-                    it(@"should register the class with the table view", ^{
-                        tableViewAdPlacer = [MPTableViewAdPlacer placerWithTableView:fakeTableView viewController:presentingViewController adPositioning:adPositioning defaultAdRenderingClass:[FakeMPNativeAdRenderingClassTableView class]];
-                        fakeTableView should have_received(@selector(registerClass:forCellReuseIdentifier:)).with([FakeMPNativeAdRenderingClassTableView class]).and_with(@"MoPubFakeMPNativeAdRenderingClassTableView");
-
-                        // Make sure we don't also call registerNib:forCellReuseIdentifier:.
-                        fakeTableView should_not have_received(@selector(registerNib:forCellReuseIdentifier:)).with(Arguments::anything).and_with(Arguments::anything);
-                    });
-                });
+                // Make sure we don't also call registerNib:forCellReuseIdentifier:.
+                fakeTableView should_not have_received(@selector(registerNib:forCellReuseIdentifier:)).with(Arguments::anything).and_with(Arguments::anything);
             });
         });
     });
 
     describe(@"loading ads", ^{
         beforeEach(^{
-            fakeStreamAdPlacer stub_method(@selector(defaultAdRenderingClass)).and_return([NSObject class]);
             fakeProvider.fakeStreamAdPlacer = fakeStreamAdPlacer;
-            tableViewAdPlacer = [MPTableViewAdPlacer placerWithTableView:tableView viewController:presentingViewController adPositioning:adPositioning defaultAdRenderingClass:[FakeMPNativeAdRenderingClassTableView class]];
+            tableViewAdPlacer = [MPTableViewAdPlacer placerWithTableView:tableView viewController:presentingViewController adPositioning:adPositioning rendererConfigurations:nativeAdRendererConfigurations];
         });
 
         it(@"should forward loadAdsForAdUnitID to the stream ad placer", ^{
@@ -367,7 +341,7 @@ describe(@"MPTableViewAdPlacer", ^{
     describe(@"MPStreamAdPlacerDelegate", ^{
         beforeEach(^{
             fakeProvider.fakeStreamAdPlacer = fakeStreamAdPlacer;
-            tableViewAdPlacer = [MPTableViewAdPlacer placerWithTableView:fakeTableView viewController:presentingViewController adPositioning:adPositioning defaultAdRenderingClass:[FakeMPNativeAdRenderingClassTableView class]];
+            tableViewAdPlacer = [MPTableViewAdPlacer placerWithTableView:fakeTableView viewController:presentingViewController adPositioning:adPositioning rendererConfigurations:nativeAdRendererConfigurations];
         });
 
         describe(@"-adPlacer:didLoadAdAtIndexPath:", ^{
@@ -418,7 +392,7 @@ describe(@"MPTableViewAdPlacer", ^{
         __block MPStreamAdPlacer *streamAdPlacer;
 
         beforeEach(^{
-            streamAdPlacer = [MPStreamAdPlacer placerWithViewController:presentingViewController adPositioning:adPositioning defaultAdRenderingClass:[FakeMPNativeAdRenderingClassTableView class]];
+            streamAdPlacer = [MPStreamAdPlacer placerWithViewController:presentingViewController adPositioning:adPositioning rendererConfigurations:nativeAdRendererConfigurations];
             spy_on(streamAdPlacer);
             fakeProvider.fakeStreamAdPlacer = streamAdPlacer;
             tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
@@ -428,7 +402,7 @@ describe(@"MPTableViewAdPlacer", ^{
         context(@"when the table view has no visible cells", ^{
             beforeEach(^{
                 tableView stub_method(@selector(indexPathsForVisibleRows)).and_return(@[]);
-                tableViewAdPlacer = [MPTableViewAdPlacer placerWithTableView:tableView viewController:presentingViewController adPositioning:adPositioning defaultAdRenderingClass:[FakeMPNativeAdRenderingClassTableView class]];
+                tableViewAdPlacer = [MPTableViewAdPlacer placerWithTableView:tableView viewController:presentingViewController adPositioning:adPositioning rendererConfigurations:nativeAdRendererConfigurations];
             });
 
             it(@"should not set visible index paths on the stream ad placer", ^{
@@ -451,7 +425,7 @@ describe(@"MPTableViewAdPlacer", ^{
                     }
                     return [NSIndexPath indexPathForRow:adjustedIndexPath.row+5 inSection:adjustedIndexPath.section];
                 });
-                tableViewAdPlacer = [MPTableViewAdPlacer placerWithTableView:tableView viewController:presentingViewController adPositioning:adPositioning defaultAdRenderingClass:[FakeMPNativeAdRenderingClassTableView class]];
+                tableViewAdPlacer = [MPTableViewAdPlacer placerWithTableView:tableView viewController:presentingViewController adPositioning:adPositioning rendererConfigurations:nativeAdRendererConfigurations];
             });
 
             it(@"should set visible index paths on the stream ad placer", ^{
@@ -501,9 +475,9 @@ describe(@"MPTableViewAdPlacer", ^{
             tableView = [[UITableView alloc] init];
             tableView.delegate = tableViewDelegate;
             tableView.dataSource = tableViewDataSource;
-            fakeStreamAdPlacer stub_method(@selector(defaultAdRenderingClass)).and_return([NSObject class]);
+
             fakeProvider.fakeStreamAdPlacer = fakeStreamAdPlacer;
-            tableViewAdPlacer = [MPTableViewAdPlacer placerWithTableView:tableView viewController:presentingViewController adPositioning:adPositioning defaultAdRenderingClass:[FakeMPNativeAdRenderingClassTableView class]];
+            tableViewAdPlacer = [MPTableViewAdPlacer placerWithTableView:tableView viewController:presentingViewController adPositioning:adPositioning rendererConfigurations:nativeAdRendererConfigurations];
 
             [[CDRSpecHelper specHelper].sharedExampleContext setObject:fakeStreamAdPlacer forKey:@"fakeStreamAdPlacer"];
             [[CDRSpecHelper specHelper].sharedExampleContext setObject:tableViewAdPlacer forKey:@"uiCollectionAdPlacer"];
@@ -550,14 +524,9 @@ describe(@"MPTableViewAdPlacer", ^{
                         cell = [tableViewAdPlacer tableView:fakeTableView cellForRowAtIndexPath:indexPath];
                     });
 
-                    it(@"should retrieve the reuse identifier for the rendering class", ^{
-                        fakeStreamAdPlacer should have_received(@selector(reuseIdentifierForRenderingClassAtIndexPath:)).with(indexPath);
+                    it(@"should always render the ad and pass the cell's content view as the view to render to", ^{
+                        fakeStreamAdPlacer should have_received(@selector(renderAdAtIndexPath:inView:)).with(indexPath).with(cell.contentView);
                     });
-
-                    it(@"should always render the ad", ^{
-                        fakeStreamAdPlacer should have_received(@selector(renderAdAtIndexPath:inView:)).with(indexPath).with(Arguments::anything);
-                    });
-
                     context(@"if a nib or class was previously registered for the reuse identifier", ^{
                         it(@"should return something equal to what -dequeueReusableCellWithIdentifier:forIndexPath: returns", ^{
                             cell should equal(fakeView);

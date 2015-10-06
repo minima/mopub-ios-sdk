@@ -39,19 +39,21 @@
     return self;
 }
 
-+ (CGSize)sizeWithMaximumWidth:(CGFloat)maximumWidth
-{
-    return CGSizeMake(70, 113);
-}
-
 #pragma mark - <MPNativeAdRendering>
 
-- (void)layoutAdAssets:(MPNativeAd *)adObject
+- (UILabel *)nativeTitleTextLabel
 {
-    [adObject loadTitleIntoLabel:self.titleLabel];
-    [adObject loadIconIntoImageView:self.iconImageView];
-    [adObject loadDAAIconIntoImageView:self.DAAIconImageView];
-    [adObject loadCallToActionTextIntoLabel:self.ctaLabel];
+    return self.titleLabel;
+}
+
+- (UILabel *)nativeCtaTextLabel
+{
+    return self.ctaLabel;
+}
+
+- (UIImageView *)nativeIconImageView
+{
+    return self.iconImageView;
 }
 
 @end

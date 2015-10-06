@@ -132,31 +132,4 @@
     self.failLabel.hidden = NO;
 }
 
-#pragma mark - Legacy Custom Events
-
-- (void)startLegacyBannerCustomEvent:(MPAdView *)view
-{
-    UIView *banner = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 50)];
-    banner.backgroundColor = [UIColor redColor];
-
-    UIGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(userDidTapCustomEventBanner:)];
-    [banner addGestureRecognizer:tapRecognizer];
-
-    [self.adView customEventDidLoadAd];
-    [self.adView setAdContentView:banner];
-    [self.spinner stopAnimating];
-}
-
-- (void)userDidTapCustomEventBanner:(UIGestureRecognizer *)recognizer
-{
-    [self.adView customEventActionWillBegin];
-    recognizer.view.backgroundColor = [UIColor greenColor];
-
-    [UIView animateWithDuration:1.0 animations:^{
-        recognizer.view.backgroundColor = [UIColor redColor];
-    } completion:^(BOOL finished) {
-        [self.adView customEventActionDidEnd];
-    }];
-}
-
 @end

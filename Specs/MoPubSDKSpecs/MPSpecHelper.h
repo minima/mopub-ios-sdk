@@ -34,6 +34,7 @@ typedef id (^IDReturningBlock)();
 void verify_fake_received_selectors(id<CedarDouble> fake, NSArray *selectors);
 void verify_fake_received_selectors_async(id<CedarDouble> fake, NSArray *selectors);
 void log_sent_messages(id<CedarDouble> fake);
+NSData *dataFromXMLFileNamed(NSString *name);
 
 extern FakeMPInstanceProvider *fakeProvider;
 extern FakeMPCoreInstanceProvider *fakeCoreProvider;

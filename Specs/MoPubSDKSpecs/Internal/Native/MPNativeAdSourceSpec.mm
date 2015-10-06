@@ -1,12 +1,16 @@
 #import "MPNativeAdSource.h"
 #import "MPNativeAdSourceQueue.h"
-#import "MPNativeAd.h"
+#import "MPNativeAd+Internal.h"
 #import "MPAdConfigurationFactory.h"
 #import "NSJSONSerialization+MPAdditions.h"
 #import "MPMoPubNativeAdAdapter.h"
 #import "MPNativeAdSourceDelegate.h"
 #import "CedarAsync.h"
-
+#import "MPNativeAdRendererConfiguration.h"
+#import "FakeNativeAdRenderingClass.h"
+#import "MPStaticNativeAdRenderer.h"
+#import "MPStaticNativeAdRendererSettings.h"
+#import "MPNativeAdRendererConfiguration.h"
 
 using namespace Cedar::Matchers;
 using namespace Cedar::Doubles;
@@ -40,15 +44,29 @@ describe(@"MPNativeAdSource", ^{
     __block MPNativeAdSource *adSource;
     __block MPAdConfiguration *configuration;
     __block id<MPNativeAdSourceDelegate, CedarDouble> delegate;
+    __block MPStaticNativeAdRenderer *renderer;
+    __block NSArray *nativeAdRendererConfigurations;
 
     context(@"when requesting real ads", ^{
 
         beforeEach(^{
+            MPStaticNativeAdRendererSettings *settings = [[MPStaticNativeAdRendererSettings alloc] init];
+
+            settings.renderingViewClass = [FakeNativeAdRenderingClass class];
+            settings.viewSizeHandler = ^(CGFloat maxWidth) {
+                return CGSizeMake(70, 113);
+            };
+
+            renderer = [[MPStaticNativeAdRenderer alloc] initWithRendererSettings:settings];
+
+            MPNativeAdRendererConfiguration *config = [MPStaticNativeAdRenderer rendererConfigurationWithRendererSettings:settings];
+            nativeAdRendererConfigurations = @[config];
+
             adSource = [MPNativeAdSource source];
             delegate = nice_fake_for(@protocol(MPNativeAdSourceDelegate));
             adSource.delegate = delegate;
 
-            [adSource loadAdsWithAdUnitIdentifier:@"8ce943e5b65a4689b434d72736dbed02" andTargeting:nil];
+            [adSource loadAdsWithAdUnitIdentifier:@"8ce943e5b65a4689b434d72736dbed02" rendererConfigurations:nativeAdRendererConfigurations andTargeting:nil];
         });
 
         it(@"should notify it's delegate when the first ad loads", ^{
@@ -65,13 +83,14 @@ describe(@"MPNativeAdSource", ^{
 
             configuration = [MPAdConfigurationFactory defaultNativeAdConfiguration];
 
-            MPNativeAdSourceQueue *newQueue = [[MPNativeAdSourceQueue alloc] initWithAdUnitIdentifier:@"identifier" andTargeting:nil];
+            MPNativeAdSourceQueue *newQueue = [[MPNativeAdSourceQueue alloc] initWithAdUnitIdentifier:@"identifier" rendererConfigurations:nativeAdRendererConfigurations andTargeting:nil];
 
             for (NSInteger x = 0; x < 3; x++) {
                 NSMutableDictionary *properties = [NSJSONSerialization mp_JSONObjectWithData:configuration.adResponseData options:NSJSONReadingMutableContainers clearNullObjects:YES error:nil];
                 [properties setObject:[NSString stringWithFormat:@"%ld", (long)x] forKey:@"title"];
                 MPMoPubNativeAdAdapter *adAdapter = [[MPMoPubNativeAdAdapter alloc] initWithAdProperties:[properties mutableCopy]];
                 MPNativeAd *fakeAd = [[MPNativeAd alloc] initWithAdAdapter:adAdapter];
+                fakeAd.renderer = renderer;
                 [newQueue addNativeAd:fakeAd];
             }
 

@@ -7,6 +7,10 @@
 #import "FakeMPLogEventRecorder.h"
 #import "MPLogEvent.h"
 #import "MPIdentityProvider.h"
+#import "MPNativeAdRendererConfiguration.h"
+#import "FakeNativeAdRenderingClass.h"
+#import "MPStaticNativeAdRenderer.h"
+#import "MPStaticNativeAdRendererSettings.h"
 
 using namespace Cedar::Matchers;
 using namespace Cedar::Doubles;
@@ -28,8 +32,22 @@ describe(@"MPNativeAdRequest", ^{
     __block FakeMPAdServerCommunicator *communicator;
     __block FakeMPLogEventRecorder *eventRecorder;
     __block BOOL successfullyLoadedNativeAd;
+    __block MPStaticNativeAdRenderer *renderer;
+    __block NSArray *nativeAdRendererConfigurations;
 
     beforeEach(^{
+        MPStaticNativeAdRendererSettings *settings = [[MPStaticNativeAdRendererSettings alloc] init];
+
+        settings.renderingViewClass = [FakeNativeAdRenderingClass class];
+        settings.viewSizeHandler = ^(CGFloat maxWidth) {
+            return CGSizeMake(70, 113);
+        };
+
+        renderer = [[MPStaticNativeAdRenderer alloc] initWithRendererSettings:settings];
+
+        MPNativeAdRendererConfiguration *config = [MPStaticNativeAdRenderer rendererConfigurationWithRendererSettings:settings];
+        nativeAdRendererConfigurations = @[config];
+
         eventRecorder = [[FakeMPLogEventRecorder alloc] init];
         spy_on(eventRecorder);
         fakeCoreProvider.fakeLogEventRecorder = eventRecorder;
@@ -38,7 +56,7 @@ describe(@"MPNativeAdRequest", ^{
 
         successfullyLoadedNativeAd = NO;
 
-        request = [MPNativeAdRequest requestWithAdUnitIdentifier:@"native_identifier"];
+        request = [MPNativeAdRequest requestWithAdUnitIdentifier:@"native_identifier" rendererConfigurations:nativeAdRendererConfigurations];
         request.targeting = targeting;
         [request startWithCompletionHandler:^(MPNativeAdRequest *request, MPNativeAd *response, NSError *error) {
             NSLog(@"completed");
@@ -81,6 +99,11 @@ describe(@"MPNativeAdRequest", ^{
 
             [communicator loadURL:[NSURL URLWithString:url]];
             [communicator connection:nil didReceiveResponse:response];
+
+        });
+
+        // TODO: Add tests for this. For both failure and success.
+        xcontext(@"choosing renderers for custom events", ^{
 
         });
 
