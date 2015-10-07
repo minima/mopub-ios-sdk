@@ -6,7 +6,7 @@
 		<meta id="xcode-display" name="xcode-display" content="render"/>
 		<link rel="stylesheet" type="text/css" href="../css/styles.css" media="all" />
 		<link rel="stylesheet" type="text/css" media="print" href="../css/stylesPrint.css" />
-		<meta name="generator" content="appledoc 2.2 (build 961)" />
+		<meta name="generator" content="appledoc 2.2 (build 963)" />
 	</head>
 	<body>
 		<header id="top_header">
@@ -41,7 +41,9 @@
 	
 	<option value="class_methods">Class Methods</option>
 	
-	<option value="//api/name/placerWithTableView:viewController:adPositioning:defaultAdRenderingClass:">&nbsp;&nbsp;&nbsp;&nbsp;+ placerWithTableView:viewController:adPositioning:defaultAdRenderingClass:</option>
+	<option value="//api/name/placerWithTableView:viewController:adPositioning:rendererConfigurations:">&nbsp;&nbsp;&nbsp;&nbsp;+ placerWithTableView:viewController:adPositioning:rendererConfigurations:</option>
+	
+	<option value="//api/name/placerWithTableView:viewController:rendererConfigurations:">&nbsp;&nbsp;&nbsp;&nbsp;+ placerWithTableView:viewController:rendererConfigurations:</option>
 	
 	
 	
@@ -82,7 +84,9 @@
 
 <li role="treeitem" class="children"><span class="disclosure"></span><span class="sectionName"><a href="#class_methods">Class Methods</a></span><ul>
 	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/placerWithTableView:viewController:adPositioning:defaultAdRenderingClass:">placerWithTableView:viewController:adPositioning:defaultAdRenderingClass:</a></span></li>
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/placerWithTableView:viewController:adPositioning:rendererConfigurations:">placerWithTableView:viewController:adPositioning:rendererConfigurations:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/placerWithTableView:viewController:rendererConfigurations:">placerWithTableView:viewController:rendererConfigurations:</a></span></li>
 	
 </ul></li>
 
@@ -131,7 +135,7 @@
 					<div class="section section-overview">
 						<a title="Overview" name="overview"></a>
 						<h2 class="subtitle subtitle-overview">Overview</h2>
-						<p>The <code>MPTableViewAdPlacer</code> class allows you to request native ads from the MoPub ad server and
+						<p>The <code>MPTableViewAdPlacer</code> class allows you to request native ads from the <a href="../Classes/MoPub.html">MoPub</a> ad server and
 place them into a <code>UITableView</code> object.</p>
 
 <p>When an instance of this class is initialized with a table view, it wraps the table view&rsquo;s
@@ -154,7 +158,13 @@ content cells.</p>
 						<ul class="task-list">
 							<li>
 	<span class="tooltip">
-		<code><a href="#//api/name/placerWithTableView:viewController:adPositioning:defaultAdRenderingClass:">+&nbsp;placerWithTableView:viewController:adPositioning:defaultAdRenderingClass:</a></code>
+		<code><a href="#//api/name/placerWithTableView:viewController:rendererConfigurations:">+&nbsp;placerWithTableView:viewController:rendererConfigurations:</a></code>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/placerWithTableView:viewController:adPositioning:rendererConfigurations:">+&nbsp;placerWithTableView:viewController:adPositioning:rendererConfigurations:</a></code>
 	</span>
 	
 	
@@ -194,18 +204,18 @@ content cells.</p>
 						<h2 class="subtitle subtitle-methods">Class Methods</h2>
 						
 						<div class="section-method">
-	<a name="//api/name/placerWithTableView:viewController:adPositioning:defaultAdRenderingClass:" title="placerWithTableView:viewController:adPositioning:defaultAdRenderingClass:"></a>
-	<h3 class="subsubtitle method-title">placerWithTableView:viewController:adPositioning:defaultAdRenderingClass:</h3>
+	<a name="//api/name/placerWithTableView:viewController:adPositioning:rendererConfigurations:" title="placerWithTableView:viewController:adPositioning:rendererConfigurations:"></a>
+	<h3 class="subsubtitle method-title">placerWithTableView:viewController:adPositioning:rendererConfigurations:</h3>
 	
 	
 	
 	<div class="method-subsection brief-description">
-		<p>Creates and returns an ad placer that will insert ads into a table view.</p>
+		<p>Creates and returns an ad placer that will insert ads into a table view at specified positions.</p>
 	</div>		
 	
     
 
-	<div class="method-subsection method-declaration"><code>+ (instancetype)placerWithTableView:(UITableView *)<em>tableView</em> viewController:(UIViewController *)<em>controller</em> adPositioning:(MPAdPositioning *)<em>positioning</em> defaultAdRenderingClass:(Class)<em>defaultAdRenderingClass</em></code></div>
+	<div class="method-subsection method-declaration"><code>+ (instancetype)placerWithTableView:(UITableView *)<em>tableView</em> viewController:(UIViewController *)<em>controller</em> adPositioning:(MPAdPositioning *)<em>positioning</em> rendererConfigurations:(NSArray *)<em>rendererConfigurations</em></code></div>
 
     
 	
@@ -228,9 +238,10 @@ content cells.</p>
 		</dl>
 		
 		<dl class="argument-def parameter-def">
-			<dt><em>defaultAdRenderingClass</em></dt>
-			<dd><p>The class that will be used to render ads. This class must
-implement the <a href="../Protocols/MPNativeAdRendering.html"><code>MPNativeAdRendering</code></a> protocol and must be a subclass of <code>UITableViewCell</code>.</p></dd>
+			<dt><em>rendererConfigurations</em></dt>
+			<dd><p>An array of <a href="../Classes/MPNativeAdRendererConfiguration.html">MPNativeAdRendererConfiguration</a> objects that control how
+the native ad is rendered. You should pass in configurations that can render any ad type that
+may be displayed for the given ad unit.</p></dd>
 		</dl>
 		
 	</div>
@@ -245,6 +256,97 @@ implement the <a href="../Protocols/MPNativeAdRendering.html"><code>MPNativeAdRe
 	
 	
 	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>When using this method, there are two options for controlling the positions where ads appear
+within the table view.</p>
+
+<p>First, you may pass an <a href="../Classes/MPServerAdPositioning.html"><code>MPServerAdPositioning</code></a> object as the <code>positioning</code> parameter, which tells
+the ad placer to obtain positioning information dynamically from the ad server, which you can
+configure on the <a href="../Classes/MoPub.html">MoPub</a> website. In many cases, this is the preferred approach, since it allows
+you to modify the positions without rebuilding your application. Note that calling the
+convenience method +placerWithTableView:viewController:defaultAdRenderingClass: accomplishes
+this as well.</p>
+
+<p>Alternatively, if you wish to hard-code your positions, you may pass an <a href="../Classes/MPClientAdPositioning.html"><code>MPClientAdPositioning</code></a>
+object instead.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">MPTableViewAdPlacer.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/placerWithTableView:viewController:rendererConfigurations:" title="placerWithTableView:viewController:rendererConfigurations:"></a>
+	<h3 class="subsubtitle method-title">placerWithTableView:viewController:rendererConfigurations:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Creates and returns an ad placer that will insert ads into a table view at positions that can
+be configured dynamically on the <a href="../Classes/MoPub.html">MoPub</a> website.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>+ (instancetype)placerWithTableView:(UITableView *)<em>tableView</em> viewController:(UIViewController *)<em>controller</em> rendererConfigurations:(NSArray *)<em>rendererConfigurations</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>tableView</em></dt>
+			<dd><p>The table view in which to insert ads.</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>controller</em></dt>
+			<dd><p>The view controller which should be used to present modal content.</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>rendererConfigurations</em></dt>
+			<dd><p>An array of <a href="../Classes/MPNativeAdRendererConfiguration.html">MPNativeAdRendererConfiguration</a> objects that control how
+the native ad is rendered. You should pass in configurations that can render any ad type that
+may be displayed for the given ad unit.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	<div class="method-subsection return">
+		<h4 class="method-subtitle parameter-title">Return Value</h4>
+		<p>An <code>MPTableViewAdPlacer</code> object.</p>
+	</div>
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>When you make an ad request, the ad placer will ask the <a href="../Classes/MoPub.html">MoPub</a> ad server for the positions where
+ads should be inserted into the table view. You can configure these positioning values by
+editing your ad unit&rsquo;s settings on the <a href="../Classes/MoPub.html">MoPub</a> website.</p>
+
+<p>Using this method is equivalent to calling
+<a href="#//api/name/placerWithTableView:viewController:adPositioning:rendererConfigurations:">placerWithTableView:viewController:adPositioning:rendererConfigurations:</a> and passing in an
+<a href="../Classes/MPServerAdPositioning.html"><code>MPServerAdPositioning</code></a> object as the <code>positioning</code> parameter.</p>
+	</div>
 	
 	
 	
@@ -275,7 +377,7 @@ implement the <a href="../Protocols/MPNativeAdRendering.html"><code>MPNativeAdRe
 	
 	
 	<div class="method-subsection brief-description">
-		<p>Requests ads from the MoPub ad server using the specified ad unit ID.</p>
+		<p>Requests ads from the <a href="../Classes/MoPub.html">MoPub</a> ad server using the specified ad unit ID.</p>
 	</div>		
 	
     
@@ -289,7 +391,7 @@ implement the <a href="../Protocols/MPNativeAdRendering.html"><code>MPNativeAdRe
 		
 		<dl class="argument-def parameter-def">
 			<dt><em>adUnitID</em></dt>
-			<dd><p>A string representing a MoPub ad unit ID.</p></dd>
+			<dd><p>A string representing a <a href="../Classes/MoPub.html">MoPub</a> ad unit ID.</p></dd>
 		</dl>
 		
 	</div>
@@ -321,7 +423,7 @@ implement the <a href="../Protocols/MPNativeAdRendering.html"><code>MPNativeAdRe
 	
 	
 	<div class="method-subsection brief-description">
-		<p>Requests ads from the MoPub ad server using the specified ad unit ID and targeting parameters.</p>
+		<p>Requests ads from the <a href="../Classes/MoPub.html">MoPub</a> ad server using the specified ad unit ID and targeting parameters.</p>
 	</div>		
 	
     
@@ -335,7 +437,7 @@ implement the <a href="../Protocols/MPNativeAdRendering.html"><code>MPNativeAdRe
 		
 		<dl class="argument-def parameter-def">
 			<dt><em>adUnitID</em></dt>
-			<dd><p>A string representing a MoPub ad unit ID.</p></dd>
+			<dd><p>A string representing a <a href="../Classes/MoPub.html">MoPub</a> ad unit ID.</p></dd>
 		</dl>
 		
 		<dl class="argument-def parameter-def">
@@ -370,6 +472,9 @@ implement the <a href="../Protocols/MPNativeAdRendering.html"><code>MPNativeAdRe
 					
                     
                     
+                    
+                    
+
 				</div>
 				<div class="main-navigation navigation-bottom">
 					<ul>
@@ -380,9 +485,9 @@ implement the <a href="../Protocols/MPNativeAdRendering.html"><code>MPNativeAdRe
 				<div id="footer">
 					<hr />
 					<div class="footer-copyright">
-						<p><span class="copyright">&copy; 2014 MoPub. All rights reserved. (Last updated: 2014-08-28)</span><br />
+						<p><span class="copyright">&copy; 2015 MoPub. All rights reserved. (Last updated: 2015-10-07)</span><br />
 						
-						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.2 (build 961)</a>.</span></p>
+						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.2 (build 963)</a>.</span></p>
 						
 					</div>
 				</div>

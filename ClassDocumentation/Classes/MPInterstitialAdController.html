@@ -6,7 +6,7 @@
 		<meta id="xcode-display" name="xcode-display" content="render"/>
 		<link rel="stylesheet" type="text/css" href="../css/styles.css" media="all" />
 		<link rel="stylesheet" type="text/css" media="print" href="../css/stylesPrint.css" />
-		<meta name="generator" content="appledoc 2.2 (build 961)" />
+		<meta name="generator" content="appledoc 2.2 (build 963)" />
 	</head>
 	<body>
 		<header id="top_header">
@@ -65,12 +65,6 @@
 	
 	<option value="instance_methods">Instance Methods</option>
 	
-	<option value="//api/name/customEventActionWillBegin">&nbsp;&nbsp;&nbsp;&nbsp;- customEventActionWillBegin</option>
-	
-	<option value="//api/name/customEventDidFailToLoadAd">&nbsp;&nbsp;&nbsp;&nbsp;- customEventDidFailToLoadAd</option>
-	
-	<option value="//api/name/customEventDidLoadAd">&nbsp;&nbsp;&nbsp;&nbsp;- customEventDidLoadAd</option>
-	
 	<option value="//api/name/loadAd">&nbsp;&nbsp;&nbsp;&nbsp;- loadAd</option>
 	
 	<option value="//api/name/showFromViewController:">&nbsp;&nbsp;&nbsp;&nbsp;- showFromViewController:</option>
@@ -107,8 +101,6 @@
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_Disposing of an Interstitial Ad">Disposing of an Interstitial Ad</a></span></li>
 	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_Handling Custom Event Methods (Deprecated)">Handling Custom Event Methods (Deprecated)</a></span></li>
-	
 </ul></li>
 
 
@@ -144,12 +136,6 @@
 
 
 <li role="treeitem" class="children"><span class="disclosure"></span><span class="sectionName"><a href="#instance_methods">Instance Methods</a></span><ul>
-	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/customEventActionWillBegin">customEventActionWillBegin</a></span></li>
-	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/customEventDidFailToLoadAd">customEventDidFailToLoadAd</a></span></li>
-	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/customEventDidLoadAd">customEventDidLoadAd</a></span></li>
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/loadAd">loadAd</a></span></li>
 	
@@ -328,32 +314,6 @@ displayed during natural transition points in your application.</p>
 </li>
 						</ul>
 						
-						
-						<a title="Handling Custom Event Methods (Deprecated)" name="task_Handling Custom Event Methods (Deprecated)"></a>
-						<h3 class="subsubtitle task-title">Handling Custom Event Methods (Deprecated)</h3>
-
-						<ul class="task-list">
-							<li>
-	<span class="tooltip">
-		<code><a href="#//api/name/customEventDidLoadAd">&ndash;&nbsp;customEventDidLoadAd</a></code>
-	</span>
-	
-	
-</li><li>
-	<span class="tooltip">
-		<code><a href="#//api/name/customEventDidFailToLoadAd">&ndash;&nbsp;customEventDidFailToLoadAd</a></code>
-	</span>
-	
-	
-</li><li>
-	<span class="tooltip">
-		<code><a href="#//api/name/customEventActionWillBegin">&ndash;&nbsp;customEventActionWillBegin</a></code>
-	</span>
-	
-	
-</li>
-						</ul>
-						
 					</div>
 					
 					
@@ -371,7 +331,7 @@ displayed during natural transition points in your application.</p>
 	
 	
 	<div class="method-subsection brief-description">
-		<p>The MoPub ad unit ID for this interstitial ad.</p>
+		<p>The <a href="../Classes/MoPub.html">MoPub</a> ad unit ID for this interstitial ad.</p>
 	</div>		
 	
     
@@ -388,7 +348,7 @@ displayed during natural transition points in your application.</p>
 	
 	<div class="method-subsection discussion-section">
 		<h4 class="method-subtitle">Discussion</h4>
-		<p>Ad unit IDs are created on the MoPub website. An ad unit is a defined placement in your
+		<p>Ad unit IDs are created on the <a href="../Classes/MoPub.html">MoPub</a> website. An ad unit is a defined placement in your
 application set aside for advertising. If no ad unit ID is set, the ad object will use a default
 ID that only receives test ads.</p>
 	</div>
@@ -419,7 +379,7 @@ ID that only receives test ads.</p>
 	
     
 
-	<div class="method-subsection method-declaration"><code>@property (nonatomic, assign) id&lt;MPInterstitialAdControllerDelegate&gt; delegate</code></div>
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, weak) id&lt;MPInterstitialAdControllerDelegate&gt; delegate</code></div>
 
     
 	
@@ -450,7 +410,7 @@ ID that only receives test ads.</p>
 	
 	
 	<div class="method-subsection brief-description">
-		<p>A string representing a set of keywords that should be passed to the MoPub ad server to receive
+		<p>A string representing a set of keywords that should be passed to the <a href="../Classes/MoPub.html">MoPub</a> ad server to receive
 more relevant advertising.</p>
 	</div>		
 	
@@ -471,7 +431,7 @@ more relevant advertising.</p>
 		<p>Keywords are typically used to target ad campaigns at specific user segments. They should be
 formatted as comma-separated key-value pairs (e.g. &ldquo;marital:single,age:24&rdquo;).</p>
 
-<p>On the MoPub website, keyword targeting options can be found under the &ldquo;Advanced Targeting&rdquo;
+<p>On the <a href="../Classes/MoPub.html">MoPub</a> website, keyword targeting options can be found under the &ldquo;Advanced Targeting&rdquo;
 section when managing campaigns.</p>
 	</div>
 	
@@ -496,7 +456,7 @@ section when managing campaigns.</p>
 	
 	
 	<div class="method-subsection brief-description">
-		<p>A <code>CLLocation</code> object representing a user&rsquo;s location that should be passed to the MoPub ad server
+		<p>A <code>CLLocation</code> object representing a user&rsquo;s location that should be passed to the <a href="../Classes/MoPub.html">MoPub</a> ad server
 to receive more relevant advertising.</p>
 	</div>		
 	
@@ -645,7 +605,7 @@ submitting your application to the App Store.</p></div>
 		
 		<dl class="argument-def parameter-def">
 			<dt><em>adUnitId</em></dt>
-			<dd><p>A string representing a MoPub ad unit ID.</p></dd>
+			<dd><p>A string representing a <a href="../Classes/MoPub.html">MoPub</a> ad unit ID.</p></dd>
 		</dl>
 		
 	</div>
@@ -743,132 +703,6 @@ object after calling this method.</p></div>
 					<div class="section section-methods">
 						<a title="Instance Methods" name="instance_methods"></a>
 						<h2 class="subtitle subtitle-methods">Instance Methods</h2>
-						
-						<div class="section-method">
-	<a name="//api/name/customEventActionWillBegin" title="customEventActionWillBegin"></a>
-	<h3 class="subsubtitle method-title">customEventActionWillBegin</h3>
-	
-	
-	
-	<div class="method-subsection brief-description">
-		<p>Notifies MoPub that a user has tapped on a custom event interstitial.</p>
-	</div>		
-	
-    
-
-	<div class="method-subsection method-declaration"><code>- (void)customEventActionWillBegin</code></div>
-
-    
-	
-	
-	
-	
-	
-	
-	
-	<div class="method-subsection discussion-section">
-		<h4 class="method-subtitle">Discussion</h4>
-		<div class="bug"><p><strong>Warning</strong>: This method has been deprecated. You should instead implement interstitial
-custom events using a subclass of <a href="../Classes/MPInterstitialCustomEvent.html"><code>MPInterstitialCustomEvent</code></a>.</p></div>
-	</div>
-	
-	
-	
-	
-	
-	
-	
-	<div class="method-subsection declared-in-section">
-		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">MPInterstitialAdController.h</code><br />
-	</div>				
-	
-	
-</div>
-						
-						<div class="section-method">
-	<a name="//api/name/customEventDidFailToLoadAd" title="customEventDidFailToLoadAd"></a>
-	<h3 class="subsubtitle method-title">customEventDidFailToLoadAd</h3>
-	
-	
-	
-	<div class="method-subsection brief-description">
-		<p>Notifies MoPub that a custom event has failed to load an interstitial.</p>
-	</div>		
-	
-    
-
-	<div class="method-subsection method-declaration"><code>- (void)customEventDidFailToLoadAd</code></div>
-
-    
-	
-	
-	
-	
-	
-	
-	
-	<div class="method-subsection discussion-section">
-		<h4 class="method-subtitle">Discussion</h4>
-		<div class="bug"><p><strong>Warning</strong>: This method has been deprecated. You should instead implement interstitial
-custom events using a subclass of <a href="../Classes/MPInterstitialCustomEvent.html"><code>MPInterstitialCustomEvent</code></a>.</p></div>
-	</div>
-	
-	
-	
-	
-	
-	
-	
-	<div class="method-subsection declared-in-section">
-		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">MPInterstitialAdController.h</code><br />
-	</div>				
-	
-	
-</div>
-						
-						<div class="section-method">
-	<a name="//api/name/customEventDidLoadAd" title="customEventDidLoadAd"></a>
-	<h3 class="subsubtitle method-title">customEventDidLoadAd</h3>
-	
-	
-	
-	<div class="method-subsection brief-description">
-		<p>Notifies MoPub that a custom event has successfully loaded an interstitial.</p>
-	</div>		
-	
-    
-
-	<div class="method-subsection method-declaration"><code>- (void)customEventDidLoadAd</code></div>
-
-    
-	
-	
-	
-	
-	
-	
-	
-	<div class="method-subsection discussion-section">
-		<h4 class="method-subtitle">Discussion</h4>
-		<div class="bug"><p><strong>Warning</strong>: This method has been deprecated. You should instead implement interstitial
-custom events using a subclass of <a href="../Classes/MPInterstitialCustomEvent.html"><code>MPInterstitialCustomEvent</code></a>.</p></div>
-	</div>
-	
-	
-	
-	
-	
-	
-	
-	<div class="method-subsection declared-in-section">
-		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">MPInterstitialAdController.h</code><br />
-	</div>				
-	
-	
-</div>
 						
 						<div class="section-method">
 	<a name="//api/name/loadAd" title="loadAd"></a>
@@ -973,6 +807,9 @@ informed about when an interstitial takes over or relinquishes the screen.</p>
 					
                     
                     
+                    
+                    
+
 				</div>
 				<div class="main-navigation navigation-bottom">
 					<ul>
@@ -983,9 +820,9 @@ informed about when an interstitial takes over or relinquishes the screen.</p>
 				<div id="footer">
 					<hr />
 					<div class="footer-copyright">
-						<p><span class="copyright">&copy; 2014 MoPub. All rights reserved. (Last updated: 2014-08-28)</span><br />
+						<p><span class="copyright">&copy; 2015 MoPub. All rights reserved. (Last updated: 2015-10-07)</span><br />
 						
-						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.2 (build 961)</a>.</span></p>
+						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.2 (build 963)</a>.</span></p>
 						
 					</div>
 				</div>

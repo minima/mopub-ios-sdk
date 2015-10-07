@@ -6,7 +6,7 @@
 		<meta id="xcode-display" name="xcode-display" content="render"/>
 		<link rel="stylesheet" type="text/css" href="../css/styles.css" media="all" />
 		<link rel="stylesheet" type="text/css" media="print" href="../css/stylesPrint.css" />
-		<meta name="generator" content="appledoc 2.2 (build 961)" />
+		<meta name="generator" content="appledoc 2.2 (build 963)" />
 	</head>
 	<body>
 		<header id="top_header">
@@ -165,7 +165,7 @@
 						<a title="Overview" name="overview"></a>
 						<h2 class="subtitle subtitle-overview">Overview</h2>
 						<p>Instances of your custom subclass of <a href="../Classes/MPInterstitialCustomEvent.html"><code>MPInterstitialCustomEvent</code></a> will have an <code>MPInterstitialCustomEventDelegate</code> delegate.
-You use this delegate to communicate events ad events back to the MoPub SDK.</p>
+You use this delegate to communicate events ad events back to the <a href="../Classes/MoPub.html">MoPub</a> SDK.</p>
 
 <p>When mediating a third party ad network it is important to call as many of these methods
 as accurately as possible.  Not all ad networks support all these events, and some support
@@ -328,7 +328,7 @@ network&rsquo;s events and the callbacks defined on <code>MPInterstitialCustomEv
 		
 		<dl class="argument-def parameter-def">
 			<dt><em>customEvent</em></dt>
-			<dd><p>You should pass <code>self</code> to allow the MoPub SDK to associate this event with the correct
+			<dd><p>You should pass <code>self</code> to allow the <a href="../Classes/MoPub.html">MoPub</a> SDK to associate this event with the correct
 instance of your custom event.</p></dd>
 		</dl>
 		
@@ -386,13 +386,13 @@ Failure to do so will disrupt the mediation waterfall and cause future ad reques
 		
 		<dl class="argument-def parameter-def">
 			<dt><em>customEvent</em></dt>
-			<dd><p>You should pass <code>self</code> to allow the MoPub SDK to associate this event with the correct
+			<dd><p>You should pass <code>self</code> to allow the <a href="../Classes/MoPub.html">MoPub</a> SDK to associate this event with the correct
 instance of your custom event.</p></dd>
 		</dl>
 		
 		<dl class="argument-def parameter-def">
 			<dt><em>ad</em></dt>
-			<dd><p>(<em>optional</em>) An object that represents the ad that was retrieved.  The MoPub SDK does not
+			<dd><p>(<em>optional</em>) An object that represents the ad that was retrieved.  The <a href="../Classes/MoPub.html">MoPub</a> SDK does not
 do anything with this optional parameter.</p></dd>
 		</dl>
 		
@@ -445,7 +445,7 @@ Failure to do so will disrupt the mediation waterfall and cause future ad reques
 		
 		<dl class="argument-def parameter-def">
 			<dt><em>customEvent</em></dt>
-			<dd><p>You should pass <code>self</code> to allow the MoPub SDK to associate this event with the correct
+			<dd><p>You should pass <code>self</code> to allow the <a href="../Classes/MoPub.html">MoPub</a> SDK to associate this event with the correct
 instance of your custom event.</p></dd>
 		</dl>
 		
@@ -501,7 +501,7 @@ this immediately after calling <a href="#//api/name/interstitialCustomEventWillA
 		
 		<dl class="argument-def parameter-def">
 			<dt><em>customEvent</em></dt>
-			<dd><p>You should pass <code>self</code> to allow the MoPub SDK to associate this event with the correct
+			<dd><p>You should pass <code>self</code> to allow the <a href="../Classes/MoPub.html">MoPub</a> SDK to associate this event with the correct
 instance of your custom event.</p></dd>
 		</dl>
 		
@@ -557,7 +557,7 @@ this immediately after calling <code>-interstitialCustomEventDidDisappear:</code
 		
 		<dl class="argument-def parameter-def">
 			<dt><em>customEvent</em></dt>
-			<dd><p>You should pass <code>self</code> to allow the MoPub SDK to associate this event with the correct
+			<dd><p>You should pass <code>self</code> to allow the <a href="../Classes/MoPub.html">MoPub</a> SDK to associate this event with the correct
 instance of your custom event.</p></dd>
 		</dl>
 		
@@ -572,7 +572,7 @@ instance of your custom event.</p></dd>
 	<div class="method-subsection discussion-section">
 		<h4 class="method-subtitle">Discussion</h4>
 		<p>Some third-party networks will mark interstitials as expired (indicating they should not be
-presented) <em>after</em> they have loaded.  You may use this method to inform the MoPub SDK that a
+presented) <em>after</em> they have loaded.  You may use this method to inform the <a href="../Classes/MoPub.html">MoPub</a> SDK that a
 previously loaded interstitial has expired and that a new interstitial should be obtained.</p>
 	</div>
 	
@@ -611,7 +611,7 @@ previously loaded interstitial has expired and that a new interstitial should be
 		
 		<dl class="argument-def parameter-def">
 			<dt><em>customEvent</em></dt>
-			<dd><p>You should pass <code>self</code> to allow the MoPub SDK to associate this event with the correct
+			<dd><p>You should pass <code>self</code> to allow the <a href="../Classes/MoPub.html">MoPub</a> SDK to associate this event with the correct
 instance of your custom event.</p></dd>
 		</dl>
 		
@@ -668,7 +668,7 @@ those callbacks (since leaving the application is generally an indicator of a us
 		
 		<dl class="argument-def parameter-def">
 			<dt><em>customEvent</em></dt>
-			<dd><p>You should pass <code>self</code> to allow the MoPub SDK to associate this event with the correct
+			<dd><p>You should pass <code>self</code> to allow the <a href="../Classes/MoPub.html">MoPub</a> SDK to associate this event with the correct
 instance of your custom event.</p></dd>
 		</dl>
 		
@@ -721,7 +721,7 @@ Failure to do so will disrupt the mediation waterfall and cause future ad reques
 		
 		<dl class="argument-def parameter-def">
 			<dt><em>customEvent</em></dt>
-			<dd><p>You should pass <code>self</code> to allow the MoPub SDK to associate this event with the correct
+			<dd><p>You should pass <code>self</code> to allow the <a href="../Classes/MoPub.html">MoPub</a> SDK to associate this event with the correct
 instance of your custom event.</p></dd>
 		</dl>
 		
@@ -774,7 +774,7 @@ Failure to do so will disrupt the mediation waterfall and cause future ad reques
 		
 		<dl class="argument-def parameter-def">
 			<dt><em>customEvent</em></dt>
-			<dd><p>You should pass <code>self</code> to allow the MoPub SDK to associate this event with the correct
+			<dd><p>You should pass <code>self</code> to allow the <a href="../Classes/MoPub.html">MoPub</a> SDK to associate this event with the correct
 instance of your custom event.</p></dd>
 		</dl>
 		
@@ -825,7 +825,7 @@ instance of your custom event.</p></dd>
 	
 	<div class="method-subsection return">
 		<h4 class="method-subtitle parameter-title">Return Value</h4>
-		<p>This method provides the location that was passed into the parent <a href="../Classes/MPInterstitialAdController.html"><code>MPInterstitialAdController</code></a>.  The MoPub
+		<p>This method provides the location that was passed into the parent <a href="../Classes/MPInterstitialAdController.html"><code>MPInterstitialAdController</code></a>.  The <a href="../Classes/MoPub.html">MoPub</a>
 SDK does <strong>not</strong> automatically request the user&rsquo;s location.  It is your responsibility to pass the location
 into <a href="../Classes/MPInterstitialAdController.html"><code>MPInterstitialAdController</code></a>.</p>
 
@@ -875,7 +875,7 @@ into <a href="../Classes/MPInterstitialAdController.html"><code>MPInterstitialAd
 	<div class="method-subsection discussion-section">
 		<h4 class="method-subtitle">Discussion</h4>
 		<div class="warning"><p><strong>Important</strong>: You should <strong>only</strong> call this method if you have <a href="../Classes/MPInterstitialCustomEvent.html#//api/name/enableAutomaticImpressionAndClickTracking">opted out of automatic click and impression tracking</a>.
-By default the MoPub SDK automatically tracks clicks.</p>
+By default the <a href="../Classes/MoPub.html">MoPub</a> SDK automatically tracks clicks.</p>
 
 <p><strong>Important</strong>: In order to obtain accurate metrics, it is your responsibility to call <code>trackClick</code> only <strong>once</strong> per ad.</p></div>
 	</div>
@@ -919,7 +919,7 @@ By default the MoPub SDK automatically tracks clicks.</p>
 	<div class="method-subsection discussion-section">
 		<h4 class="method-subtitle">Discussion</h4>
 		<div class="warning"><p><strong>Important</strong>: You should <strong>only</strong> call this method if you have <a href="../Classes/MPInterstitialCustomEvent.html#//api/name/enableAutomaticImpressionAndClickTracking">opted out of automatic click and impression tracking</a>.
-By default the MoPub SDK automatically tracks impressions.</p>
+By default the <a href="../Classes/MoPub.html">MoPub</a> SDK automatically tracks impressions.</p>
 
 <p><strong>Important</strong>: In order to obtain accurate metrics, it is your responsibility to call <code>trackImpression</code> only <strong>once</strong> per ad.</p></div>
 	</div>
@@ -943,6 +943,9 @@ By default the MoPub SDK automatically tracks impressions.</p>
 					
                     
                     
+                    
+                    
+
 				</div>
 				<div class="main-navigation navigation-bottom">
 					<ul>
@@ -953,9 +956,9 @@ By default the MoPub SDK automatically tracks impressions.</p>
 				<div id="footer">
 					<hr />
 					<div class="footer-copyright">
-						<p><span class="copyright">&copy; 2014 MoPub. All rights reserved. (Last updated: 2014-08-28)</span><br />
+						<p><span class="copyright">&copy; 2015 MoPub. All rights reserved. (Last updated: 2015-10-07)</span><br />
 						
-						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.2 (build 961)</a>.</span></p>
+						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.2 (build 963)</a>.</span></p>
 						
 					</div>
 				</div>

@@ -6,7 +6,7 @@
 		<meta id="xcode-display" name="xcode-display" content="render"/>
 		<link rel="stylesheet" type="text/css" href="../css/styles.css" media="all" />
 		<link rel="stylesheet" type="text/css" media="print" href="../css/stylesPrint.css" />
-		<meta name="generator" content="appledoc 2.2 (build 961)" />
+		<meta name="generator" content="appledoc 2.2 (build 963)" />
 	</head>
 	<body>
 		<header id="top_header">
@@ -137,15 +137,15 @@
 					<div class="section section-overview">
 						<a title="Overview" name="overview"></a>
 						<h2 class="subtitle subtitle-overview">Overview</h2>
-						<p>The MoPub iOS SDK mediates third party Ad Networks using custom events.  The custom events are
+						<p>The <a href="../Classes/MoPub.html">MoPub</a> iOS SDK mediates third party Ad Networks using custom events.  The custom events are
 responsible for instantiating and manipulating objects in the third party SDK and translating
-and communicating events from those objects back to the MoPub SDK by notifying a <a href="#//api/name/delegate">delegate</a>.</p>
+and communicating events from those objects back to the <a href="../Classes/MoPub.html">MoPub</a> SDK by notifying a <a href="#//api/name/delegate">delegate</a>.</p>
 
 <p><code>MPInterstitialCustomEvent</code> is a base class for custom events that support full-screen interstitial ads.
-By implementing subclasses of <code>MPInterstitialCustomEvent</code> you can enable the MoPub SDK to
+By implementing subclasses of <code>MPInterstitialCustomEvent</code> you can enable the <a href="../Classes/MoPub.html">MoPub</a> SDK to
 natively support a wide variety of third-party ad networks.</p>
 
-<p>At runtime, the MoPub SDK will find and instantiate an <code>MPInterstitialCustomEvent</code> subclass as needed and
+<p>At runtime, the <a href="../Classes/MoPub.html">MoPub</a> SDK will find and instantiate an <code>MPInterstitialCustomEvent</code> subclass as needed and
 invoke its <a href="#//api/name/requestInterstitialWithCustomEventInfo:"><code>requestInterstitialWithCustomEventInfo:</code></a> method.</p>
 					</div>
 					
@@ -227,7 +227,7 @@ invoke its <a href="#//api/name/requestInterstitialWithCustomEventInfo:"><code>r
 	
     
 
-	<div class="method-subsection method-declaration"><code>@property (nonatomic, assign) id&lt;MPInterstitialCustomEventDelegate&gt; delegate</code></div>
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, weak) id&lt;MPInterstitialCustomEventDelegate&gt; delegate</code></div>
 
     
 	
@@ -239,7 +239,7 @@ invoke its <a href="#//api/name/requestInterstitialWithCustomEventInfo:"><code>r
 	
 	<div class="method-subsection discussion-section">
 		<h4 class="method-subtitle">Discussion</h4>
-		<p>The <code>delegate</code> object defines several methods that you should call in order to inform both MoPub
+		<p>The <code>delegate</code> object defines several methods that you should call in order to inform both <a href="../Classes/MoPub.html">MoPub</a>
 and your <a href="../Classes/MPInterstitialAdController.html"><code>MPInterstitialAdController</code></a>&rsquo;s delegate of the progress of your custom event.</p>
 	</div>
 	
@@ -293,8 +293,8 @@ and your <a href="../Classes/MPInterstitialAdController.html"><code>MPInterstiti
 		<h4 class="method-subtitle">Discussion</h4>
 		<p>By default, the  <a href="../Protocols/MPInterstitialCustomEventDelegate.html">MPInterstitialCustomEventDelegate</a> will automatically record impressions and clicks in
 response to the appropriate callbacks. You may override this behavior by implementing this method
-to return <code>NO</code>.</p><div class="warning"><p><strong>Important</strong>: If you do this, you are responsible for calling the <a href="../Protocols/MPInterstitialCustomEventDelegate.html#//api/name/trackImpression"><code>-trackImpression</code></a> and
-<a href="../Protocols/MPInterstitialCustomEventDelegate.html#//api/name/trackClick"><code>-trackClick</code></a> methods on the custom event <a href="#//api/name/delegate">delegate</a>. Additionally, you should make sure that these
+to return <code>NO</code>.</p><div class="warning"><p><strong>Important</strong>: If you do this, you are responsible for calling the <code>-trackImpression</code> and
+<code>-trackClick</code> methods on the custom event <a href="#//api/name/delegate">delegate</a>. Additionally, you should make sure that these
 methods are only called <strong>once</strong> per ad.</p></div>
 	</div>
 	
@@ -319,7 +319,7 @@ methods are only called <strong>once</strong> per ad.</p></div>
 	
 	
 	<div class="method-subsection brief-description">
-		<p>Called when the MoPub SDK requires a new interstitial ad.</p>
+		<p>Called when the <a href="../Classes/MoPub.html">MoPub</a> SDK requires a new interstitial ad.</p>
 	</div>		
 	
     
@@ -334,7 +334,7 @@ methods are only called <strong>once</strong> per ad.</p></div>
 		<dl class="argument-def parameter-def">
 			<dt><em>info</em></dt>
 			<dd><p>A  dictionary containing additional custom data associated with a given custom event
-request. This data is configurable on the MoPub website, and may be used to pass dynamic information, such as publisher IDs.</p></dd>
+request. This data is configurable on the <a href="../Classes/MoPub.html">MoPub</a> website, and may be used to pass dynamic information, such as publisher IDs.</p></dd>
 		</dl>
 		
 	</div>
@@ -347,9 +347,9 @@ request. This data is configurable on the MoPub website, and may be used to pass
 	
 	<div class="method-subsection discussion-section">
 		<h4 class="method-subtitle">Discussion</h4>
-		<p>When the MoPub SDK receives a response indicating it should load a custom event, it will send
-this message to your custom event class. Your implementation of this method can either load an
-interstitial ad from a third-party ad network, or execute any application code. It must also notify the
+		<p>When the <a href="../Classes/MoPub.html">MoPub</a> SDK receives a response indicating it should load a custom event, it will send
+this message to your custom event class. Your implementation of this method should load an
+interstitial ad from a third-party ad network. It must also notify the
 <a href="../Protocols/MPInterstitialCustomEventDelegate.html"><code>MPInterstitialCustomEventDelegate</code></a> of certain lifecycle events.</p>
 	</div>
 	
@@ -406,7 +406,7 @@ of your code calling <a href="../Classes/MPInterstitialAdController.html#//api/n
 of this method should present the interstitial ad from the specified view controller.</p>
 
 <p>If you decide to <a href="#//api/name/enableAutomaticImpressionAndClickTracking">opt out of automatic impression tracking</a>, you should place your
-manual calls to <a href="../Protocols/MPInterstitialCustomEventDelegate.html#//api/name/trackImpression">-trackImpression</a> in this method to ensure correct metrics.</p><div class="warning"><p><strong>Important</strong>: You should not attempt to display the interstitial until you receive this message.</p></div>
+manual calls to <a href="../Protocols/MPInterstitialCustomEventDelegate.html#//api/name/trackImpression">-trackImpression</a> in this method to ensure correct metrics.</p>
 	</div>
 	
 	
@@ -428,6 +428,9 @@ manual calls to <a href="../Protocols/MPInterstitialCustomEventDelegate.html#//a
 					
                     
                     
+                    
+                    
+
 				</div>
 				<div class="main-navigation navigation-bottom">
 					<ul>
@@ -438,9 +441,9 @@ manual calls to <a href="../Protocols/MPInterstitialCustomEventDelegate.html#//a
 				<div id="footer">
 					<hr />
 					<div class="footer-copyright">
-						<p><span class="copyright">&copy; 2014 MoPub. All rights reserved. (Last updated: 2014-08-28)</span><br />
+						<p><span class="copyright">&copy; 2015 MoPub. All rights reserved. (Last updated: 2015-10-07)</span><br />
 						
-						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.2 (build 961)</a>.</span></p>
+						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.2 (build 963)</a>.</span></p>
 						
 					</div>
 				</div>

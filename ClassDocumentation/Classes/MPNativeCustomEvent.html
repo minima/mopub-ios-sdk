@@ -6,7 +6,7 @@
 		<meta id="xcode-display" name="xcode-display" content="render"/>
 		<link rel="stylesheet" type="text/css" href="../css/styles.css" media="all" />
 		<link rel="stylesheet" type="text/css" media="print" href="../css/stylesPrint.css" />
-		<meta name="generator" content="appledoc 2.2 (build 961)" />
+		<meta name="generator" content="appledoc 2.2 (build 963)" />
 	</head>
 	<body>
 		<header id="top_header">
@@ -133,20 +133,20 @@
 					<div class="section section-overview">
 						<a title="Overview" name="overview"></a>
 						<h2 class="subtitle subtitle-overview">Overview</h2>
-						<p>The MoPub iOS SDK mediates third-party native ad networks using custom events. Custom events are
+						<p>The <a href="../Classes/MoPub.html">MoPub</a> iOS SDK mediates third-party native ad networks using custom events. Custom events are
 responsible for instantiating and manipulating native ad objects in the third-party SDK and
-translating and communicating events from those objects back to the MoPub SDK by notifying a
+translating and communicating events from those objects back to the <a href="../Classes/MoPub.html">MoPub</a> SDK by notifying a
 <a href="#//api/name/delegate">delegate</a>.</p>
 
 <p><code>MPNativeCustomEvent</code> is a base class for custom events that support native ads. By implementing
-subclasses of <code>MPNativeCustomEvent</code> you can enable the MoPub SDK to support a variety of
+subclasses of <code>MPNativeCustomEvent</code> you can enable the <a href="../Classes/MoPub.html">MoPub</a> SDK to support a variety of
 third-party ad networks.</p>
 
 <p>Your implementation should create an <a href="../Classes/MPNativeAd.html"><code>MPNativeAd</code></a> object using an appropriate <a href="../Protocols/MPNativeAdAdapter.html"><code>MPNativeAdAdapter</code></a>
 for your network. Your custom event should also call the appropriate
 <a href="../Protocols/MPNativeCustomEventDelegate.html"><code>MPNativeCustomEventDelegate</code></a> methods.</p>
 
-<p>At runtime, the MoPub SDK will find and instantiate an <code>MPNativeCustomEvent</code> subclass as needed
+<p>At runtime, the <a href="../Classes/MoPub.html">MoPub</a> SDK will find and instantiate an <code>MPNativeCustomEvent</code> subclass as needed
 and invoke its <a href="#//api/name/requestAdWithCustomEventInfo:"><code>requestAdWithCustomEventInfo:</code></a> method.</p>
 					</div>
 					
@@ -217,12 +217,12 @@ and invoke its <a href="#//api/name/requestAdWithCustomEventInfo:"><code>request
 	
 	
 	<div class="method-subsection brief-description">
-		<p>The <a href="../Protocols/MPNativeCustomEventDelegate.html"><code>MPNativeCustomEventDelegate</code></a> to send messages to as events occur.</p>
+		<p>The <a href="../Protocols/MPNativeCustomEventDelegate.html"><code>MPNativeCustomEventDelegate</code></a> receives messages concerning the status of loading a native ad.</p>
 	</div>		
 	
     
 
-	<div class="method-subsection method-declaration"><code>@property (nonatomic, assign) id&lt;MPNativeCustomEventDelegate&gt; delegate</code></div>
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, weak) id&lt;MPNativeCustomEventDelegate&gt; delegate</code></div>
 
     
 	
@@ -234,7 +234,7 @@ and invoke its <a href="#//api/name/requestAdWithCustomEventInfo:"><code>request
 	
 	<div class="method-subsection discussion-section">
 		<h4 class="method-subtitle">Discussion</h4>
-		<p>The <code>delegate</code> object defines several methods that you should call in order to inform MoPub
+		<p>The <code>delegate</code> object defines several methods that you should call in order to inform <a href="../Classes/MoPub.html">MoPub</a>
 of the progress of your custom event.</p>
 	</div>
 	
@@ -330,7 +330,7 @@ success or failure callbacks on the <a href="../Protocols/MPNativeCustomEventDel
 	
 	
 	<div class="method-subsection brief-description">
-		<p>Called when the MoPub SDK requires a new native ad.</p>
+		<p>Called when the <a href="../Classes/MoPub.html">MoPub</a> SDK requires a new native ad.</p>
 	</div>		
 	
     
@@ -345,7 +345,7 @@ success or failure callbacks on the <a href="../Protocols/MPNativeCustomEventDel
 		<dl class="argument-def parameter-def">
 			<dt><em>info</em></dt>
 			<dd><p>A dictionary containing additional custom data associated with a given custom event
-request. This data is configurable on the MoPub website, and may be used to pass dynamic
+request. This data is configurable on the <a href="../Classes/MoPub.html">MoPub</a> website, and may be used to pass dynamic
 information, such as publisher IDs.</p></dd>
 		</dl>
 		
@@ -359,7 +359,7 @@ information, such as publisher IDs.</p></dd>
 	
 	<div class="method-subsection discussion-section">
 		<h4 class="method-subtitle">Discussion</h4>
-		<p>When the MoPub SDK receives a response indicating it should load a custom event, it will send
+		<p>When the <a href="../Classes/MoPub.html">MoPub</a> SDK receives a response indicating it should load a custom event, it will send
 this message to your custom event class. Your implementation should load a native ad from a
 third-party ad network.</p>
 	</div>
@@ -383,6 +383,9 @@ third-party ad network.</p>
 					
                     
                     
+                    
+                    
+
 				</div>
 				<div class="main-navigation navigation-bottom">
 					<ul>
@@ -393,9 +396,9 @@ third-party ad network.</p>
 				<div id="footer">
 					<hr />
 					<div class="footer-copyright">
-						<p><span class="copyright">&copy; 2014 MoPub. All rights reserved. (Last updated: 2014-08-28)</span><br />
+						<p><span class="copyright">&copy; 2015 MoPub. All rights reserved. (Last updated: 2015-10-07)</span><br />
 						
-						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.2 (build 961)</a>.</span></p>
+						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.2 (build 963)</a>.</span></p>
 						
 					</div>
 				</div>

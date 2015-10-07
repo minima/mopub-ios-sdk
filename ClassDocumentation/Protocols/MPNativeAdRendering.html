@@ -6,7 +6,7 @@
 		<meta id="xcode-display" name="xcode-display" content="render"/>
 		<link rel="stylesheet" type="text/css" href="../css/styles.css" media="all" />
 		<link rel="stylesheet" type="text/css" media="print" href="../css/stylesPrint.css" />
-		<meta name="generator" content="appledoc 2.2 (build 961)" />
+		<meta name="generator" content="appledoc 2.2 (build 963)" />
 	</head>
 	<body>
 		<header id="top_header">
@@ -43,14 +43,28 @@
 	
 	<option value="//api/name/nibForAd">&nbsp;&nbsp;&nbsp;&nbsp;+ nibForAd</option>
 	
-	<option value="//api/name/sizeWithMaximumWidth:">&nbsp;&nbsp;&nbsp;&nbsp;+ sizeWithMaximumWidth:</option>
-	
 	
 	
 	
 	<option value="instance_methods">Instance Methods</option>
 	
-	<option value="//api/name/layoutAdAssets:">&nbsp;&nbsp;&nbsp;&nbsp;- layoutAdAssets:</option>
+	<option value="//api/name/layoutCustomAssetsWithProperties:imageLoader:">&nbsp;&nbsp;&nbsp;&nbsp;- layoutCustomAssetsWithProperties:imageLoader:</option>
+	
+	<option value="//api/name/layoutStarRating:">&nbsp;&nbsp;&nbsp;&nbsp;- layoutStarRating:</option>
+	
+	<option value="//api/name/nativeCallToActionTextLabel">&nbsp;&nbsp;&nbsp;&nbsp;- nativeCallToActionTextLabel</option>
+	
+	<option value="//api/name/nativeIconImageView">&nbsp;&nbsp;&nbsp;&nbsp;- nativeIconImageView</option>
+	
+	<option value="//api/name/nativeMainImageView">&nbsp;&nbsp;&nbsp;&nbsp;- nativeMainImageView</option>
+	
+	<option value="//api/name/nativeMainTextLabel">&nbsp;&nbsp;&nbsp;&nbsp;- nativeMainTextLabel</option>
+	
+	<option value="//api/name/nativePrivacyInformationIconImageView">&nbsp;&nbsp;&nbsp;&nbsp;- nativePrivacyInformationIconImageView</option>
+	
+	<option value="//api/name/nativeTitleTextLabel">&nbsp;&nbsp;&nbsp;&nbsp;- nativeTitleTextLabel</option>
+	
+	<option value="//api/name/nativeVideoView">&nbsp;&nbsp;&nbsp;&nbsp;- nativeVideoView</option>
 	
 	
 	
@@ -80,15 +94,29 @@
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/nibForAd">nibForAd</a></span></li>
 	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/sizeWithMaximumWidth:">sizeWithMaximumWidth:</a></span></li>
-	
 </ul></li>
 
 
 
 <li role="treeitem" class="children"><span class="disclosure"></span><span class="sectionName"><a href="#instance_methods">Instance Methods</a></span><ul>
 	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/layoutAdAssets:">layoutAdAssets:</a></span></li>
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/layoutCustomAssetsWithProperties:imageLoader:">layoutCustomAssetsWithProperties:imageLoader:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/layoutStarRating:">layoutStarRating:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/nativeCallToActionTextLabel">nativeCallToActionTextLabel</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/nativeIconImageView">nativeIconImageView</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/nativeMainImageView">nativeMainImageView</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/nativeMainTextLabel">nativeMainTextLabel</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/nativePrivacyInformationIconImageView">nativePrivacyInformationIconImageView</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/nativeTitleTextLabel">nativeTitleTextLabel</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/nativeVideoView">nativeVideoView</a></span></li>
 	
 </ul></li>
 
@@ -129,6 +157,9 @@
 						<h2 class="subtitle subtitle-overview">Overview</h2>
 						<p>The MPNativeAdRendering protocol provides methods for displaying ad content in
 custom view classes.</p>
+
+<p>It can be used for both static native ads and native video ads. If you are serving
+native video ads, you need to implement <a href="#//api/name/nativeVideoView">nativeVideoView</a>.</p>
 					</div>
 					
 					
@@ -146,13 +177,55 @@ custom view classes.</p>
 						<ul class="task-list">
 							<li>
 	<span class="tooltip">
-		<code><a href="#//api/name/layoutAdAssets:">&ndash;&nbsp;layoutAdAssets:</a></code>
+		<code><a href="#//api/name/nativeMainTextLabel">&ndash;&nbsp;nativeMainTextLabel</a></code>
 	</span>
 	
-	<span class="task-item-suffix">required method</span>
+	
 </li><li>
 	<span class="tooltip">
-		<code><a href="#//api/name/sizeWithMaximumWidth:">+&nbsp;sizeWithMaximumWidth:</a></code>
+		<code><a href="#//api/name/nativeTitleTextLabel">&ndash;&nbsp;nativeTitleTextLabel</a></code>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/nativeIconImageView">&ndash;&nbsp;nativeIconImageView</a></code>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/nativeMainImageView">&ndash;&nbsp;nativeMainImageView</a></code>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/nativeVideoView">&ndash;&nbsp;nativeVideoView</a></code>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/nativeCallToActionTextLabel">&ndash;&nbsp;nativeCallToActionTextLabel</a></code>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/nativePrivacyInformationIconImageView">&ndash;&nbsp;nativePrivacyInformationIconImageView</a></code>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/layoutStarRating:">&ndash;&nbsp;layoutStarRating:</a></code>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/layoutCustomAssetsWithProperties:imageLoader:">&ndash;&nbsp;layoutCustomAssetsWithProperties:imageLoader:</a></code>
 	</span>
 	
 	
@@ -223,57 +296,6 @@ custom view classes.</p>
 	
 </div>
 						
-						<div class="section-method">
-	<a name="//api/name/sizeWithMaximumWidth:" title="sizeWithMaximumWidth:"></a>
-	<h3 class="subsubtitle method-title">sizeWithMaximumWidth:</h3>
-	
-	
-	
-	<div class="method-subsection brief-description">
-		<p>Returns size of the rendering object given a maximum width.</p>
-	</div>		
-	
-    
-
-	<div class="method-subsection method-declaration"><code>+ (CGSize)sizeWithMaximumWidth:(CGFloat)<em>maximumWidth</em></code></div>
-
-    
-	
-	<div class="method-subsection arguments-section parameters">
-		<h4 class="method-subtitle parameter-title">Parameters</h4>
-		
-		<dl class="argument-def parameter-def">
-			<dt><em>maximumWidth</em></dt>
-			<dd><p>The maximum width intended for the size of the view.</p></dd>
-		</dl>
-		
-	</div>
-	
-	
-	
-	<div class="method-subsection return">
-		<h4 class="method-subtitle parameter-title">Return Value</h4>
-		<p>a CGSize that corresponds to the given maximumWidth.</p>
-	</div>
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	<div class="method-subsection declared-in-section">
-		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">MPNativeAdRendering.h</code><br />
-	</div>				
-	
-	
-</div>
-						
 					</div>
 					
 					
@@ -283,18 +305,18 @@ custom view classes.</p>
 						<h2 class="subtitle subtitle-methods">Instance Methods</h2>
 						
 						<div class="section-method">
-	<a name="//api/name/layoutAdAssets:" title="layoutAdAssets:"></a>
-	<h3 class="subsubtitle method-title">layoutAdAssets:</h3>
+	<a name="//api/name/layoutCustomAssetsWithProperties:imageLoader:" title="layoutCustomAssetsWithProperties:imageLoader:"></a>
+	<h3 class="subsubtitle method-title">layoutCustomAssetsWithProperties:imageLoader:</h3>
 	
 	
 	
 	<div class="method-subsection brief-description">
-		<p>Populates a view&rsquo;s relevant subviews with ad content.</p>
+		<p>This method allows you to insert your custom native ad elements into your view.</p>
 	</div>		
 	
     
 
-	<div class="method-subsection method-declaration"><code>- (void)layoutAdAssets:(MPNativeAd *)<em>adObject</em></code></div>
+	<div class="method-subsection method-declaration"><code>- (void)layoutCustomAssetsWithProperties:(NSDictionary *)<em>customProperties</em> imageLoader:(MPNativeAdRenderingImageLoader *)<em>imageLoader</em></code></div>
 
     
 	
@@ -302,9 +324,13 @@ custom view classes.</p>
 		<h4 class="method-subtitle parameter-title">Parameters</h4>
 		
 		<dl class="argument-def parameter-def">
-			<dt><em>adObject</em></dt>
-			<dd><p>An object containing ad assets (text, images) which may be loaded
-into appropriate subviews (UILabel, UIImageView) via convenience methods.</p></dd>
+			<dt><em>customProperties</em></dt>
+			<dd><p>Dictionary that contains custom native ad elements.</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>imageLoader</em></dt>
+			<dd><p>Use this object to load your custom images by calling <code>loadImageForURL:intoImageView:</code>.</p></dd>
 		</dl>
 		
 	</div>
@@ -317,33 +343,351 @@ into appropriate subviews (UILabel, UIImageView) via convenience methods.</p></d
 	
 	<div class="method-subsection discussion-section">
 		<h4 class="method-subtitle">Discussion</h4>
-		<p>Your implementation of this method should call one or more of the methods listed below.</p>
+		<p>This method will be called when your ad view is added to the view hierarchy.</p>
 	</div>
 	
 	
 	
 	
 	
-	<div class="method-subsection see-also-section">
-		<h4 class="method-subtitle">See Also</h4>
-		<ul>
-			
-			<li><code><p><a href="../Classes/MPNativeAd.html#//api/name/loadTextIntoLabel:">[MPNativeAd loadTextIntoLabel:]</a></p></code></li>
-			
-			<li><code><p><a href="../Classes/MPNativeAd.html#//api/name/loadTitleIntoLabel:">[MPNativeAd loadTitleIntoLabel:]</a></p></code></li>
-			
-			<li><code><p><a href="../Classes/MPNativeAd.html#//api/name/loadIconIntoImageView:">[MPNativeAd loadIconIntoImageView:]</a></p></code></li>
-			
-			<li><code><p><a href="../Classes/MPNativeAd.html#//api/name/loadImageIntoImageView:">[MPNativeAd loadImageIntoImageView:]</a></p></code></li>
-			
-			<li><code><p><a href="../Classes/MPNativeAd.html#//api/name/loadCallToActionTextIntoLabel:">[MPNativeAd loadCallToActionTextIntoLabel:]</a></p></code></li>
-			
-			<li><code><p><a href="../Classes/MPNativeAd.html#//api/name/loadCallToActionTextIntoButton:">[MPNativeAd loadCallToActionTextIntoButton:]</a></p></code></li>
-			
-			<li><code><p><a href="../Classes/MPNativeAd.html#//api/name/loadImageForURL:intoImageView:">[MPNativeAd loadImageForURL:intoImageView:]</a></p></code></li>
-			
-		</ul>
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">MPNativeAdRendering.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/layoutStarRating:" title="layoutStarRating:"></a>
+	<h3 class="subsubtitle method-title">layoutStarRating:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>This method is called if the ad contains a star rating.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (void)layoutStarRating:(NSNumber *)<em>starRating</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>starRating</em></dt>
+			<dd><p>An NSNumber that is a float in the range of 0.0f and 5.0f.</p></dd>
+		</dl>
+		
 	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Implement this method if you expect and wish to display a star rating.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">MPNativeAdRendering.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/nativeCallToActionTextLabel" title="nativeCallToActionTextLabel"></a>
+	<h3 class="subsubtitle method-title">nativeCallToActionTextLabel</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Returns the UILabel that your view is using for the call to action (cta) text.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (UILabel *)nativeCallToActionTextLabel</code></div>
+
+    
+	
+	
+	
+	<div class="method-subsection return">
+		<h4 class="method-subtitle parameter-title">Return Value</h4>
+		<p>a UILabel that is used for the cta text.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">MPNativeAdRendering.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/nativeIconImageView" title="nativeIconImageView"></a>
+	<h3 class="subsubtitle method-title">nativeIconImageView</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Return the UIImageView that your view is using for the icon image.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (UIImageView *)nativeIconImageView</code></div>
+
+    
+	
+	
+	
+	<div class="method-subsection return">
+		<h4 class="method-subtitle parameter-title">Return Value</h4>
+		<p>a UIImageView that is used for the icon image.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">MPNativeAdRendering.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/nativeMainImageView" title="nativeMainImageView"></a>
+	<h3 class="subsubtitle method-title">nativeMainImageView</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Return the UIImageView that your view is using for the main image.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (UIImageView *)nativeMainImageView</code></div>
+
+    
+	
+	
+	
+	<div class="method-subsection return">
+		<h4 class="method-subtitle parameter-title">Return Value</h4>
+		<p>a UIImageView that is used for the main image.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">MPNativeAdRendering.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/nativeMainTextLabel" title="nativeMainTextLabel"></a>
+	<h3 class="subsubtitle method-title">nativeMainTextLabel</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Return the UILabel that your view is using for the main text.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (UILabel *)nativeMainTextLabel</code></div>
+
+    
+	
+	
+	
+	<div class="method-subsection return">
+		<h4 class="method-subtitle parameter-title">Return Value</h4>
+		<p>a UILabel that is used for the main text.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">MPNativeAdRendering.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/nativePrivacyInformationIconImageView" title="nativePrivacyInformationIconImageView"></a>
+	<h3 class="subsubtitle method-title">nativePrivacyInformationIconImageView</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Returns the UIImageView that your view is using for the privacy information icon.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (UIImageView *)nativePrivacyInformationIconImageView</code></div>
+
+    
+	
+	
+	
+	<div class="method-subsection return">
+		<h4 class="method-subtitle parameter-title">Return Value</h4>
+		<p>a UIImageView that is used for the privacy information icon.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">MPNativeAdRendering.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/nativeTitleTextLabel" title="nativeTitleTextLabel"></a>
+	<h3 class="subsubtitle method-title">nativeTitleTextLabel</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Return the UILabel that your view is using for the title text.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (UILabel *)nativeTitleTextLabel</code></div>
+
+    
+	
+	
+	
+	<div class="method-subsection return">
+		<h4 class="method-subtitle parameter-title">Return Value</h4>
+		<p>a UILabel that is used for the title text.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">MPNativeAdRendering.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/nativeVideoView" title="nativeVideoView"></a>
+	<h3 class="subsubtitle method-title">nativeVideoView</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Return the UIView that your view is using for the video.
+You only need to implement this when you are serving video ads.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (UIView *)nativeVideoView</code></div>
+
+    
+	
+	
+	
+	<div class="method-subsection return">
+		<h4 class="method-subtitle parameter-title">Return Value</h4>
+		<p>a UIView that is used to hold the video.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	
@@ -360,6 +704,9 @@ into appropriate subviews (UILabel, UIImageView) via convenience methods.</p></d
 					
                     
                     
+                    
+                    
+
 				</div>
 				<div class="main-navigation navigation-bottom">
 					<ul>
@@ -370,9 +717,9 @@ into appropriate subviews (UILabel, UIImageView) via convenience methods.</p></d
 				<div id="footer">
 					<hr />
 					<div class="footer-copyright">
-						<p><span class="copyright">&copy; 2014 MoPub. All rights reserved. (Last updated: 2014-08-28)</span><br />
+						<p><span class="copyright">&copy; 2015 MoPub. All rights reserved. (Last updated: 2015-10-07)</span><br />
 						
-						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.2 (build 961)</a>.</span></p>
+						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.2 (build 963)</a>.</span></p>
 						
 					</div>
 				</div>
