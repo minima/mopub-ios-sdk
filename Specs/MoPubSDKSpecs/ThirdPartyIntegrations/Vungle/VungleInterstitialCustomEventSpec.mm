@@ -37,14 +37,25 @@ describe(@"VungleInterstitialCustomEvent", ^{
             [VungleSDK mp_getAppId] should equal(@"CUSTOM_APP_ID");
         });
 
-        context(@"when Vungle sends us vungleSDKhasCachedAdAvailable", ^{
+        context(@"when Vungle sends us vungleSDKAdPlayableChanged and says an ad is playable", ^{
             beforeEach(^{
                 [delegate reset_sent_messages];
-                [router vungleSDKhasCachedAdAvailable];
+                [router vungleSDKAdPlayableChanged:YES];
             });
 
             it(@"should notify the delegate ad did load", ^{
                 delegate should have_received(@selector(interstitialCustomEvent:didLoadAd:));
+            });
+        });
+
+        context(@"when Vungle sends us vungleSDKAdPlayableChanged and says an ad is not playable", ^{
+            beforeEach(^{
+                [delegate reset_sent_messages];
+                [router vungleSDKAdPlayableChanged:NO];
+            });
+
+            it(@"should not notify the delegate that an ad did load", ^{
+                delegate should_not have_received(@selector(interstitialCustomEvent:didLoadAd:));
             });
         });
 
@@ -157,7 +168,7 @@ describe(@"VungleInterstitialCustomEvent", ^{
         it(@"secondModel should be the Vungle router's delegate", ^{
             [router delegate] should equal(secondModel);
 
-            [router vungleSDKhasCachedAdAvailable];
+            [router vungleSDKAdPlayableChanged:YES];
             secondDelegate should have_received(@selector(interstitialCustomEvent:didLoadAd:));
             delegate should_not have_received(@selector(interstitialCustomEvent:didLoadAd:));
         });

@@ -309,7 +309,7 @@ describe(@"MPAdServerURLBuilder", ^{
                                            keywords:nil
                                            location:nil
                                             testing:YES];
-        URL.absoluteString should contain([NSString stringWithFormat:@"&dn=%@", [[[UIDevice currentDevice] hardwareDeviceName] URLEncodedString]]);
+        URL.absoluteString should contain([NSString stringWithFormat:@"&dn=%@", [[[UIDevice currentDevice] mp_hardwareDeviceName] mp_URLEncodedString]]);
     });
 
     it(@"should provide the screen size in pixels", ^{
@@ -325,7 +325,7 @@ describe(@"MPAdServerURLBuilder", ^{
     });
 
     it(@"should provide the app's bundle identifier", ^{
-        NSString *bundleParam = [NSString stringWithFormat:@"&bundle=%@", [[[NSBundle mainBundle] bundleIdentifier] URLEncodedString]];
+        NSString *bundleParam = [NSString stringWithFormat:@"&bundle=%@", [[[NSBundle mainBundle] bundleIdentifier] mp_URLEncodedString]];
 
         URL = [MPAdServerURLBuilder URLWithAdUnitID:@"guy"
                                            keywords:nil

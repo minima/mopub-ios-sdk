@@ -91,7 +91,9 @@ static NSString *kDefaultCellIdentifier = @"MoPubSampleAppTableViewAdPlacerCell"
     targeting.location = [[CLLocation alloc] initWithLatitude:37.7793 longitude:-122.4175];
     targeting.desiredAssets = [NSSet setWithObjects:kAdIconImageKey, kAdMainImageKey, kAdCTATextKey, kAdTextKey, kAdTitleKey, nil];
 
-    // Create and configure a renderer configuration for native ads.
+    // Create and configure a renderer configuration.
+
+    // Static native ads
     MPStaticNativeAdRendererSettings *nativeAdSettings = [[MPStaticNativeAdRendererSettings alloc] init];
     nativeAdSettings.renderingViewClass = [MPTableViewAdPlacerView class];
     nativeAdSettings.viewSizeHandler = ^(CGFloat maximumWidth) {
@@ -107,7 +109,7 @@ static NSString *kDefaultCellIdentifier = @"MoPubSampleAppTableViewAdPlacerCell"
 
     // Create an ad positioning object and register the index paths where ads should be displayed.
     /*
-    MPClientAdPositioning *positioning = [MPClientAdPositioning positioning];
+     MPClientAdPositioning *positioning = [MPClientAdPositioning positioning];
      [positioning addFixedIndexPath:[NSIndexPath indexPathForRow:2 inSection:0]];
      [positioning addFixedIndexPath:[NSIndexPath indexPathForRow:30 inSection:0]];
      [positioning addFixedIndexPath:[NSIndexPath indexPathForRow:60 inSection:0]];
@@ -115,7 +117,7 @@ static NSString *kDefaultCellIdentifier = @"MoPubSampleAppTableViewAdPlacerCell"
      [positioning enableRepeatingPositionsWithInterval:10];
 
 
-    self.placer = [MPTableViewAdPlacer placerWithTableView:self.tableView viewController:self adPositioning:positioning rendererConfigurations:@[nativeAdConfig]];
+     self.placer = [MPTableViewAdPlacer placerWithTableView:self.tableView viewController:self adPositioning:positioning rendererConfigurations:@[nativeAdConfig]];
      */
 
     self.placer.delegate = self;

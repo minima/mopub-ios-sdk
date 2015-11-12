@@ -276,7 +276,7 @@ describe(@"MPStaticNativeAdRendererSpec", ^{
                     });
                 });
 
-                fcontext(@"when the view does implement -nativeIconImageView or -nativeMainImageView", ^{
+                context(@"when the view does implement -nativeIconImageView or -nativeMainImageView", ^{
                     beforeEach(^{
                         settings = [[MPStaticNativeAdRendererSettings alloc] init];
                         settings.renderingViewClass = [FakeNativeAdRenderingClass class];

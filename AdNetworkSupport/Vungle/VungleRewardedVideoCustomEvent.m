@@ -31,7 +31,7 @@
 
 - (BOOL)hasAdAvailable
 {
-    return [[VungleSDK sharedSDK] isCachedAdAvailable];
+    return [[VungleSDK sharedSDK] isAdPlayable];
 }
 
 - (void)presentRewardedVideoFromViewController:(UIViewController *)viewController

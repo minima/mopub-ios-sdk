@@ -1,3 +1,9 @@
+## Version 4.1 (November 12th, 2015)
+
+- **Added MoPub prefixes to constants and category methods**.
+- **Certified Tapjoy 11.2.2**.
+- **Certified Vungle 3.2.0**.
+
 ## Version 4.0 (October 6th, 2015)
 
 - **Minimum supported iOS version is now 6.0**.

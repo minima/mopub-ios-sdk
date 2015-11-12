@@ -68,7 +68,7 @@ static NSString *const kMPVungleAdUserDidDownloadKey = @"didDownload";
     });
 
     // Need to check immediately as an ad may be cached.
-    if ([[VungleSDK sharedSDK] isCachedAdAvailable]) {
+    if ([[VungleSDK sharedSDK] isAdPlayable]) {
         [self.delegate vungleAdDidLoad];
     }
 
@@ -77,7 +77,7 @@ static NSString *const kMPVungleAdUserDidDownloadKey = @"didDownload";
 
 - (BOOL)isAdAvailable
 {
-    return [[VungleSDK sharedSDK] isCachedAdAvailable];
+    return [[VungleSDK sharedSDK] isAdPlayable];
 }
 
 - (void)presentInterstitialAdFromViewController:(UIViewController *)viewController withDelegate:(id<MPVungleRouterDelegate>)delegate
@@ -137,9 +137,11 @@ static NSString *const kMPVungleAdUserDidDownloadKey = @"didDownload";
 
 #pragma mark - VungleSDKDelegate
 
-- (void)vungleSDKhasCachedAdAvailable
+- (void)vungleSDKAdPlayableChanged:(BOOL)isAdPlayable
 {
-    [self.delegate vungleAdDidLoad];
+    if (isAdPlayable) {
+        [self.delegate vungleAdDidLoad];
+    }
 }
 
 - (void)vungleSDKwillShowAd

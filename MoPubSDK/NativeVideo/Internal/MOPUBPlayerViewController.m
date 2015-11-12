@@ -111,8 +111,8 @@ static const double kVideoFinishedBufferingAllowedError = 0.1;
 - (void)layoutLoadingIndicator
 {
     if (_loadingIndicator) {
-        _loadingIndicator.x = CGRectGetWidth(self.view.bounds) - kLoadingIndicatorRightMargin - CGRectGetWidth(_loadingIndicator.bounds);
-        _loadingIndicator.y = kLoadingIndicatorTopMargin;
+        _loadingIndicator.mp_x = CGRectGetWidth(self.view.bounds) - kLoadingIndicatorRightMargin - CGRectGetWidth(_loadingIndicator.bounds);
+        _loadingIndicator.mp_y = kLoadingIndicatorTopMargin;
     }
 }
 
@@ -236,8 +236,8 @@ static const double kVideoFinishedBufferingAllowedError = 0.1;
 {
     if (!self.muteButton) {
         self.muteButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [self.muteButton setImage:[UIImage imageNamed:@"MPMutedBtn"] forState:UIControlStateNormal];
-        [self.muteButton setImage:[UIImage imageNamed:@"MPUnmutedBtn"] forState:UIControlStateSelected];
+        [self.muteButton setImage:[UIImage imageNamed:MPResourcePathForResource(@"MPMutedBtn")] forState:UIControlStateNormal];
+        [self.muteButton setImage:[UIImage imageNamed:MPResourcePathForResource(@"MPUnmutedBtn")] forState:UIControlStateSelected];
         [self.muteButton addTarget:self action:@selector(muteButtonTapped) forControlEvents:UIControlEventTouchUpInside];
         self.muteButton.mp_TouchAreaInsets = UIEdgeInsetsMake(kMuteIconInlineModeTouchAreaInsets, kMuteIconInlineModeTouchAreaInsets, kMuteIconInlineModeTouchAreaInsets, kMuteIconInlineModeTouchAreaInsets);
         [self.muteButton sizeToFit];

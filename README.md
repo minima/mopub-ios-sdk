@@ -24,7 +24,7 @@ The MoPub SDK is distributed as source code that you can include in your applica
 
   Includes everything you need to serve HTML, MRAID, and Native MoPub advertisements.  No third party ad networks are included.
 
-The current version of the SDK is 4.0.0
+The current version of the SDK is 4.1.0
 
 ## Integrate
 
@@ -36,13 +36,9 @@ More detailed class documentation is available in the repo under the `ClassDocum
 
 Please view the [changelog](https://github.com/mopub/mopub-ios-sdk/blob/master/CHANGELOG.md) for details.
 
-- **Minimum supported iOS version is now 6.0**.
-- **Updated native ad integration APIs**.
-- **Improved native ad placer caching and request logic**.
-- **Clicks are now automatically tracked for native ads that use the manual integration**.
-- **Removed deprecated classes**.
-  - Removed legacy custom event classes deprecated in 1.10.
-  - Removed MPTableViewAdManager class deprecated in 3.0.
+- **Added MoPub prefixes to constants and category methods**.
+- **Certified Tapjoy 11.2.2**.
+- **Certified Vungle 3.2.0**.
 
 ### IMPORTANT 4.0 UPGRADE INSTRUCTIONS
 

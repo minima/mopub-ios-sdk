@@ -471,59 +471,85 @@ describe(@"MPStreamAdPlacer", ^{
         context(@"when there is ad data at the index path", ^{
             __block MPNativeAd<CedarDouble> *fakeNativeAd;
             __block MPNativeView *renderedView;
+            __block MPNativeAdData *adData;
 
             beforeEach(^{
                 renderedView = [MPNativeView new];
                 adapter = [[MPMoPubNativeAdAdapter alloc] init];
-                MPNativeAdData *adData = [[MPNativeAdData alloc] init];
+                adData = [[MPNativeAdData alloc] init];
                 fakeNativeAd = nice_fake_for([MPNativeAd class]);
                 fakeNativeAd stub_method(@selector(retrieveAdViewWithError:)).and_return(renderedView);
+
                 adData.ad = fakeNativeAd;
                 placementData stub_method(@selector(adDataAtAdjustedIndexPath:)).and_return(adData);
-                renderView = [[FakeMPNativeAdRenderingClassView alloc] initWithFrame:CGRectMake(0, 0, 243, 100)];
-                [placer renderAdAtIndexPath:indexPath inView:renderView];
             });
 
-            it(@"should attach the rendered ad view to the render view", ^{
-                renderView.subviews.count should equal(1);
-                renderView.subviews[0] should equal(renderedView);
-            });
-
-            it(@"should retrieve the view through the native ad", ^{
-                fakeNativeAd should have_received(@selector(retrieveAdViewWithError:));
-            });
-
-            it(@"should tell the native ad to update the size of the ad view", ^{
-                fakeNativeAd should have_received(@selector(updateAdViewSize:));
-            });
-            context(@"when the cell already has an ad and is reused", ^{
-                __block MPNativeView *renderedView2;
-                __block UIView *otherView;
-
+            context(@"when no viewSizeHandler is provided", ^{
                 beforeEach(^{
-                    otherView = [UIView new];
-                    renderedView2 = [MPNativeView new];
-                    adapter = [[MPMoPubNativeAdAdapter alloc] init];
-                    MPNativeAdData *adData = [[MPNativeAdData alloc] init];
-                    fakeNativeAd = nice_fake_for([MPNativeAd class]);
-                    fakeNativeAd stub_method(@selector(retrieveAdViewWithError:)).and_return(renderedView2);
-                    adData.ad = fakeNativeAd;
-                    placementData = nice_fake_for([MPStreamAdPlacementData class]);
-                    placementData stub_method(@selector(adDataAtAdjustedIndexPath:)).and_return(adData);
-                    fakeProvider.fakeStreamAdPlacementData = placementData;
-                    [renderView addSubview:otherView];
+                    rendererSettings.viewSizeHandler = nil;
+                    MPStaticNativeAdRenderer *renderer = [[MPStaticNativeAdRenderer alloc] initWithRendererSettings:rendererSettings];
+                    fakeNativeAd stub_method(@selector(renderer)).and_return(renderer);
 
-                    placer = [MPStreamAdPlacer placerWithViewController:viewController adPositioning:positioning rendererConfigurations:nativeAdRendererConfigurations];
+                    renderView = [[FakeMPNativeAdRenderingClassView alloc] initWithFrame:CGRectMake(0, 0, 243, 100)];
                     [placer renderAdAtIndexPath:indexPath inView:renderView];
                 });
 
-                it(@"should remove the old ad view", ^{
-                    renderView.subviews should_not contain(renderedView);
-                    renderView.subviews should contain(renderedView2);
+                it(@"should default to a size of (maxWidth, 44)", ^{
+                    fakeNativeAd should have_received(@selector(updateAdViewSize:)).with(CGSizeMake(renderView.bounds.size.width, 44.0f));
+                });
+            });
+
+            context(@"when a viewSizeHandler is provided", ^{
+                beforeEach(^{
+                    MPStaticNativeAdRenderer *renderer = [[MPStaticNativeAdRenderer alloc] initWithRendererSettings:rendererSettings];
+                    fakeNativeAd stub_method(@selector(renderer)).and_return(renderer);
+
+                    renderView = [[FakeMPNativeAdRenderingClassView alloc] initWithFrame:CGRectMake(0, 0, 243, 100)];
+                    [placer renderAdAtIndexPath:indexPath inView:renderView];
                 });
 
-                it(@"should not remove non-ad views", ^{
-                    renderView.subviews should contain(otherView);
+                it(@"should attach the rendered ad view to the render view", ^{
+                    renderView.subviews.count should equal(1);
+                    renderView.subviews[0] should equal(renderedView);
+                });
+
+                it(@"should retrieve the view through the native ad", ^{
+                    fakeNativeAd should have_received(@selector(retrieveAdViewWithError:));
+                });
+
+                it(@"should tell the native ad to update the size of the ad view", ^{
+                    fakeNativeAd should have_received(@selector(updateAdViewSize:)).with(gStubbedRenderingSize);
+                });
+
+                context(@"when the cell already has an ad and is reused", ^{
+                    __block MPNativeView *renderedView2;
+                    __block UIView *otherView;
+
+                    beforeEach(^{
+                        otherView = [UIView new];
+                        renderedView2 = [MPNativeView new];
+                        adapter = [[MPMoPubNativeAdAdapter alloc] init];
+                        MPNativeAdData *adData = [[MPNativeAdData alloc] init];
+                        fakeNativeAd = nice_fake_for([MPNativeAd class]);
+                        fakeNativeAd stub_method(@selector(retrieveAdViewWithError:)).and_return(renderedView2);
+                        adData.ad = fakeNativeAd;
+                        placementData = nice_fake_for([MPStreamAdPlacementData class]);
+                        placementData stub_method(@selector(adDataAtAdjustedIndexPath:)).and_return(adData);
+                        fakeProvider.fakeStreamAdPlacementData = placementData;
+                        [renderView addSubview:otherView];
+
+                        placer = [MPStreamAdPlacer placerWithViewController:viewController adPositioning:positioning rendererConfigurations:nativeAdRendererConfigurations];
+                        [placer renderAdAtIndexPath:indexPath inView:renderView];
+                    });
+
+                    it(@"should remove the old ad view", ^{
+                        renderView.subviews should_not contain(renderedView);
+                        renderView.subviews should contain(renderedView2);
+                    });
+
+                    it(@"should not remove non-ad views", ^{
+                        renderView.subviews should contain(otherView);
+                    });
                 });
             });
         });

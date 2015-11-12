@@ -14,6 +14,7 @@
 				570A002919D61D6900065388 /* ShellScript */,
 			);
 			dependencies = (
+				57D322231BD98F1600ACF21E /* PBXTargetDependency */,
 				4ADE60391B5011E2004C3673 /* PBXTargetDependency */,
 				57CF564E19DE4814000D29C5 /* PBXTargetDependency */,
 				57CF565019DE4814000D29C5 /* PBXTargetDependency */,
@@ -460,8 +461,6 @@
 		571FA43C193FC4D300A36583 /* MPMoPubNativeCustomEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 571FA43A193FC4D300A36583 /* MPMoPubNativeCustomEvent.m */; };
 		57214D2B1A65BA380075BF95 /* MoPub.h in Headers */ = {isa = PBXBuildFile; fileRef = A71DB8111A2FE68300D3B229 /* MoPub.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		57214D2C1A65BA400075BF95 /* MoPub.m in Sources */ = {isa = PBXBuildFile; fileRef = A71DB8121A2FE68300D3B229 /* MoPub.m */; };
-		57214D3D1A65D2BD0075BF95 /* MPNativeAdSampleTableViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 57214D381A65D2BD0075BF95 /* MPNativeAdSampleTableViewCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		57214D3E1A65D2BD0075BF95 /* MPNativeAdSampleTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 57214D391A65D2BD0075BF95 /* MPNativeAdSampleTableViewCell.m */; };
 		57214D601A65D5CB0075BF95 /* FBAudienceNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A35D40619E35FF70097BC75 /* FBAudienceNetwork.framework */; };
 		57214DE11A66F9B20075BF95 /* MPCloseButtonX.png in Resources */ = {isa = PBXBuildFile; fileRef = 57214DDE1A66F9B20075BF95 /* MPCloseButtonX.png */; };
 		57214DE21A66F9B20075BF95 /* MPCloseButtonX@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 57214DDF1A66F9B20075BF95 /* MPCloseButtonX@2x.png */; };
@@ -805,6 +804,20 @@
 		57CF562719DE47B5000D29C5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AEF1F32B16EF9AD700273462 /* Foundation.framework */; };
 		57CF564919DE47E3000D29C5 /* MPMillennialBannerCustomEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = AEE3885E171F4D300019601C /* MPMillennialBannerCustomEvent.m */; };
 		57CF564A19DE47E3000D29C5 /* MPMillennialInterstitialCustomEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = AEE38860171F4D300019601C /* MPMillennialInterstitialCustomEvent.m */; };
+		57D321DD1BD98D2E00ACF21E /* TapjoyResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 57D321D71BD98D2E00ACF21E /* TapjoyResources.bundle */; };
+		57D321DE1BD98D2E00ACF21E /* Tapjoy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57D321D81BD98D2E00ACF21E /* Tapjoy.framework */; };
+		57D321DF1BD98D2E00ACF21E /* Tapjoy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57D321D81BD98D2E00ACF21E /* Tapjoy.framework */; };
+		57D321E01BD98D2E00ACF21E /* TapjoyInterstitialCustomEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 57D321DA1BD98D2E00ACF21E /* TapjoyInterstitialCustomEvent.m */; };
+		57D321E11BD98D2E00ACF21E /* TapjoyInterstitialCustomEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 57D321DA1BD98D2E00ACF21E /* TapjoyInterstitialCustomEvent.m */; };
+		57D321E21BD98D2E00ACF21E /* TapjoyRewardedVideoCustomEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 57D321DC1BD98D2E00ACF21E /* TapjoyRewardedVideoCustomEvent.m */; };
+		57D321E31BD98D2E00ACF21E /* TapjoyRewardedVideoCustomEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 57D321DC1BD98D2E00ACF21E /* TapjoyRewardedVideoCustomEvent.m */; };
+		57D3220C1BD98DC900ACF21E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AEF1F32B16EF9AD700273462 /* Foundation.framework */; };
+		57D3221B1BD98E7500ACF21E /* TapjoyInterstitialCustomEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = 57D321D91BD98D2E00ACF21E /* TapjoyInterstitialCustomEvent.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		57D3221C1BD98E7900ACF21E /* TapjoyInterstitialCustomEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 57D321DA1BD98D2E00ACF21E /* TapjoyInterstitialCustomEvent.m */; };
+		57D3221D1BD98E7900ACF21E /* TapjoyRewardedVideoCustomEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = 57D321DB1BD98D2E00ACF21E /* TapjoyRewardedVideoCustomEvent.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		57D3221E1BD98E7900ACF21E /* TapjoyRewardedVideoCustomEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 57D321DC1BD98D2E00ACF21E /* TapjoyRewardedVideoCustomEvent.m */; };
+		57D322211BD98EC700ACF21E /* Tapjoy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57D321D81BD98D2E00ACF21E /* Tapjoy.framework */; };
+		57D322251BD98FF300ACF21E /* TapJoyCustomEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = 57D322241BD98FF300ACF21E /* TapJoyCustomEvent.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		57D647FB1A0B4E4400433CFE /* MRError.m in Sources */ = {isa = PBXBuildFile; fileRef = 57D647FA1A0B4E4400433CFE /* MRError.m */; };
 		57D647FC1A0B4E4400433CFE /* MRError.m in Sources */ = {isa = PBXBuildFile; fileRef = 57D647FA1A0B4E4400433CFE /* MRError.m */; };
 		57D647FD1A0B4E4400433CFE /* MRError.m in Sources */ = {isa = PBXBuildFile; fileRef = 57D647FA1A0B4E4400433CFE /* MRError.m */; };
@@ -837,6 +850,18 @@
 		57E078641A1C7A7D00865697 /* MRConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 57E078621A1C7A7D00865697 /* MRConstants.m */; };
 		57E078651A1C7A7D00865697 /* MRConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 57E078621A1C7A7D00865697 /* MRConstants.m */; };
 		57E078661A1C7A7D00865697 /* MRConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 57E078621A1C7A7D00865697 /* MRConstants.m */; };
+		57E20E7E1BCC639F00B51C8C /* MPCloseBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = B257A2FA1BA3911300F5D320 /* MPCloseBtn.png */; };
+		57E20E7F1BCC63A400B51C8C /* MPCloseBtn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B257A2FB1BA3911300F5D320 /* MPCloseBtn@2x.png */; };
+		57E20E801BCC63A400B51C8C /* MPCloseBtn@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = B257A2FC1BA3911300F5D320 /* MPCloseBtn@3x.png */; };
+		57E20E811BCC63A400B51C8C /* MPMutedBtn@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = B257A3001BA3911300F5D320 /* MPMutedBtn@1x.png */; };
+		57E20E821BCC63A400B51C8C /* MPMutedBtn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B257A3011BA3911300F5D320 /* MPMutedBtn@2x.png */; };
+		57E20E831BCC63A400B51C8C /* MPMutedBtn@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = B257A3021BA3911300F5D320 /* MPMutedBtn@3x.png */; };
+		57E20E841BCC63A400B51C8C /* MPPlayBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = B257A3031BA3911300F5D320 /* MPPlayBtn.png */; };
+		57E20E851BCC63A400B51C8C /* MPPlayBtn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B257A3041BA3911300F5D320 /* MPPlayBtn@2x.png */; };
+		57E20E861BCC63A400B51C8C /* MPPlayBtn@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = B257A3051BA3911300F5D320 /* MPPlayBtn@3x.png */; };
+		57E20E871BCC63A400B51C8C /* MPUnmutedBtn@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = B257A3061BA3911300F5D320 /* MPUnmutedBtn@1x.png */; };
+		57E20E881BCC63A400B51C8C /* MPUnmutedBtn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B257A3071BA3911300F5D320 /* MPUnmutedBtn@2x.png */; };
+		57E20E891BCC63A400B51C8C /* MPUnmutedBtn@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = B257A3081BA3911300F5D320 /* MPUnmutedBtn@3x.png */; };
 		57E6B8801BA25B4B001FE403 /* MPNativeAd+Internal.m in Sources */ = {isa = PBXBuildFile; fileRef = 57E6B87F1BA25B4B001FE403 /* MPNativeAd+Internal.m */; };
 		57E6B8811BA25B4B001FE403 /* MPNativeAd+Internal.m in Sources */ = {isa = PBXBuildFile; fileRef = 57E6B87F1BA25B4B001FE403 /* MPNativeAd+Internal.m */; };
 		57E6B8821BA25B4B001FE403 /* MPNativeAd+Internal.m in Sources */ = {isa = PBXBuildFile; fileRef = 57E6B87F1BA25B4B001FE403 /* MPNativeAd+Internal.m */; };
@@ -847,22 +872,27 @@
 		57EAA4DE1A1F3BE300923851 /* MRExpandModalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 57EAA4DC1A1F3BE300923851 /* MRExpandModalViewController.m */; };
 		57EAA4DF1A1F3BE300923851 /* MRExpandModalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 57EAA4DC1A1F3BE300923851 /* MRExpandModalViewController.m */; };
 		57EAA4E01A1F3BE300923851 /* MRExpandModalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 57EAA4DC1A1F3BE300923851 /* MRExpandModalViewController.m */; };
+		57EF008A1BD969CE002634DE /* __vungle.db in Resources */ = {isa = PBXBuildFile; fileRef = 57EF00831BD969CE002634DE /* __vungle.db */; };
+		57EF008B1BD969CE002634DE /* vg_close.png in Resources */ = {isa = PBXBuildFile; fileRef = 57EF00841BD969CE002634DE /* vg_close.png */; };
+		57EF008C1BD969CE002634DE /* vg_cta.png in Resources */ = {isa = PBXBuildFile; fileRef = 57EF00851BD969CE002634DE /* vg_cta.png */; };
+		57EF008D1BD969CE002634DE /* vg_mute_off.png in Resources */ = {isa = PBXBuildFile; fileRef = 57EF00861BD969CE002634DE /* vg_mute_off.png */; };
+		57EF008E1BD969CE002634DE /* vg_mute_on.png in Resources */ = {isa = PBXBuildFile; fileRef = 57EF00871BD969CE002634DE /* vg_mute_on.png */; };
+		57EF008F1BD969CE002634DE /* vg_privacy.png in Resources */ = {isa = PBXBuildFile; fileRef = 57EF00881BD969CE002634DE /* vg_privacy.png */; };
+		57EF00901BD969CE002634DE /* VungleSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57EF00891BD969CE002634DE /* VungleSDK.framework */; };
+		57EF00911BD969CE002634DE /* VungleSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57EF00891BD969CE002634DE /* VungleSDK.framework */; };
+		57EF00921BD969CE002634DE /* VungleSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57EF00891BD969CE002634DE /* VungleSDK.framework */; };
 		57EFB8491AE052DD00A8865D /* NSDate+MPSpecs.m in Sources */ = {isa = PBXBuildFile; fileRef = 57EFB8481AE052DD00A8865D /* NSDate+MPSpecs.m */; };
-		57EFB88E1AE0784D00A8865D /* __vungle.db in Resources */ = {isa = PBXBuildFile; fileRef = 57EFB8871AE0784D00A8865D /* __vungle.db */; };
-		57EFB88F1AE0784D00A8865D /* vg_close.png in Resources */ = {isa = PBXBuildFile; fileRef = 57EFB8881AE0784D00A8865D /* vg_close.png */; };
-		57EFB8901AE0784D00A8865D /* vg_cta.png in Resources */ = {isa = PBXBuildFile; fileRef = 57EFB8891AE0784D00A8865D /* vg_cta.png */; };
-		57EFB8911AE0784D00A8865D /* vg_mute_off.png in Resources */ = {isa = PBXBuildFile; fileRef = 57EFB88A1AE0784D00A8865D /* vg_mute_off.png */; };
-		57EFB8921AE0784D00A8865D /* vg_mute_on.png in Resources */ = {isa = PBXBuildFile; fileRef = 57EFB88B1AE0784D00A8865D /* vg_mute_on.png */; };
-		57EFB8931AE0784D00A8865D /* vg_timer.png in Resources */ = {isa = PBXBuildFile; fileRef = 57EFB88C1AE0784D00A8865D /* vg_timer.png */; };
-		57EFB8941AE0784D00A8865D /* VungleSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57EFB88D1AE0784D00A8865D /* VungleSDK.framework */; };
-		57EFB8951AE0784D00A8865D /* VungleSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57EFB88D1AE0784D00A8865D /* VungleSDK.framework */; };
-		57EFB8961AE0784D00A8865D /* VungleSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57EFB88D1AE0784D00A8865D /* VungleSDK.framework */; };
 		57F403791BA09B26002E2601 /* MPStaticNativeAdImpressionTimer.h in Headers */ = {isa = PBXBuildFile; fileRef = 57F403771BA09B26002E2601 /* MPStaticNativeAdImpressionTimer.h */; };
 		57F4037A1BA09B26002E2601 /* MPStaticNativeAdImpressionTimer.m in Sources */ = {isa = PBXBuildFile; fileRef = 57F403781BA09B26002E2601 /* MPStaticNativeAdImpressionTimer.m */; };
 		57F4037B1BA09B26002E2601 /* MPStaticNativeAdImpressionTimer.m in Sources */ = {isa = PBXBuildFile; fileRef = 57F403781BA09B26002E2601 /* MPStaticNativeAdImpressionTimer.m */; };
 		57F4037C1BA09B26002E2601 /* MPStaticNativeAdImpressionTimer.m in Sources */ = {isa = PBXBuildFile; fileRef = 57F403781BA09B26002E2601 /* MPStaticNativeAdImpressionTimer.m */; };
 		57F4037D1BA09B26002E2601 /* MPStaticNativeAdImpressionTimer.m in Sources */ = {isa = PBXBuildFile; fileRef = 57F403781BA09B26002E2601 /* MPStaticNativeAdImpressionTimer.m */; };
 		57F4037E1BA09B26002E2601 /* MPStaticNativeAdImpressionTimer.m in Sources */ = {isa = PBXBuildFile; fileRef = 57F403781BA09B26002E2601 /* MPStaticNativeAdImpressionTimer.m */; };
+		57FDE73F1BCEBE8100F55DD5 /* MPStaticNativeAdView.h in Headers */ = {isa = PBXBuildFile; fileRef = 57FDE73D1BCEBE8100F55DD5 /* MPStaticNativeAdView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		57FDE7401BCEBE8100F55DD5 /* MPStaticNativeAdView.m in Sources */ = {isa = PBXBuildFile; fileRef = 57FDE73E1BCEBE8100F55DD5 /* MPStaticNativeAdView.m */; };
+		57FDE7451BCEBF5C00F55DD5 /* MPVideoNativeAdView.h in Headers */ = {isa = PBXBuildFile; fileRef = 57FDE7431BCEBF5C00F55DD5 /* MPVideoNativeAdView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		57FDE7461BCEBF5C00F55DD5 /* MPVideoNativeAdView.m in Sources */ = {isa = PBXBuildFile; fileRef = 57FDE7441BCEBF5C00F55DD5 /* MPVideoNativeAdView.m */; };
+		57FEAA4C1BD974B9005A94B6 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57FEAA4B1BD974B9005A94B6 /* WebKit.framework */; };
 		7E0E6DFF1A940D090019489F /* GreystripeInterstitialCustomEventSpec.mm in Sources */ = {isa = PBXBuildFile; fileRef = 7E0E6DFE1A940D090019489F /* GreystripeInterstitialCustomEventSpec.mm */; };
 		7E17DDB21AB1053000E4D976 /* MPLogEventCommunicator.h in Headers */ = {isa = PBXBuildFile; fileRef = 7E17DDB01AB1053000E4D976 /* MPLogEventCommunicator.h */; };
 		7E17DDB31AB1053000E4D976 /* MPLogEventCommunicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E17DDB11AB1053000E4D976 /* MPLogEventCommunicator.m */; };
@@ -1566,6 +1596,13 @@
 			remoteGlobalIDString = 57CF562519DE47B5000D29C5;
 			remoteInfo = MillennialCustomEvent;
 		};
+		57D322221BD98F1600ACF21E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AEF1F32016EF9AD700273462 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 57D322021BD98DC900ACF21E;
+			remoteInfo = TapjoyCustomEvent;
+		};
 		A7A7319718F5C9F600E327C9 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = A7A7318C18F5C9F600E327C9 /* Foundation.xcodeproj */;
@@ -1916,8 +1953,6 @@
 		571FA439193FC4D300A36583 /* MPMoPubNativeCustomEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPMoPubNativeCustomEvent.h; sourceTree = "<group>"; };
 		571FA43A193FC4D300A36583 /* MPMoPubNativeCustomEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPMoPubNativeCustomEvent.m; sourceTree = "<group>"; };
 		57214D371A65D2BD0075BF95 /* module.modulemap */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.module-map"; path = module.modulemap; sourceTree = "<group>"; };
-		57214D381A65D2BD0075BF95 /* MPNativeAdSampleTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPNativeAdSampleTableViewCell.h; sourceTree = "<group>"; };
-		57214D391A65D2BD0075BF95 /* MPNativeAdSampleTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPNativeAdSampleTableViewCell.m; sourceTree = "<group>"; };
 		57214D3B1A65D2BD0075BF95 /* Framework-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Framework-Info.plist"; sourceTree = "<group>"; };
 		57214DDE1A66F9B20075BF95 /* MPCloseButtonX.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MPCloseButtonX.png; sourceTree = "<group>"; };
 		57214DDF1A66F9B20075BF95 /* MPCloseButtonX@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MPCloseButtonX@2x.png"; sourceTree = "<group>"; };
@@ -2070,6 +2105,14 @@
 		57CF55C719DE46E1000D29C5 /* libInMobiCustomEvent.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libInMobiCustomEvent.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		57CF55FD19DE472B000D29C5 /* libVungleCustomEvent.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libVungleCustomEvent.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		57CF562619DE47B5000D29C5 /* libMillennialCustomEvent.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libMillennialCustomEvent.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		57D321D71BD98D2E00ACF21E /* TapjoyResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = TapjoyResources.bundle; sourceTree = "<group>"; };
+		57D321D81BD98D2E00ACF21E /* Tapjoy.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Tapjoy.framework; sourceTree = "<group>"; };
+		57D321D91BD98D2E00ACF21E /* TapjoyInterstitialCustomEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TapjoyInterstitialCustomEvent.h; sourceTree = "<group>"; };
+		57D321DA1BD98D2E00ACF21E /* TapjoyInterstitialCustomEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TapjoyInterstitialCustomEvent.m; sourceTree = "<group>"; };
+		57D321DB1BD98D2E00ACF21E /* TapjoyRewardedVideoCustomEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TapjoyRewardedVideoCustomEvent.h; sourceTree = "<group>"; };
+		57D321DC1BD98D2E00ACF21E /* TapjoyRewardedVideoCustomEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TapjoyRewardedVideoCustomEvent.m; sourceTree = "<group>"; };
+		57D3221A1BD98DC900ACF21E /* libTapjoyCustomEvent.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libTapjoyCustomEvent.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		57D322241BD98FF300ACF21E /* TapJoyCustomEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TapJoyCustomEvent.h; path = TapJoyCustomEvent/TapJoyCustomEvent.h; sourceTree = SOURCE_ROOT; };
 		57D647F91A0B4E4400433CFE /* MRError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MRError.h; sourceTree = "<group>"; };
 		57D647FA1A0B4E4400433CFE /* MRError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MRError.m; sourceTree = "<group>"; };
 		57D6485B1A0DE39500433CFE /* MPClosableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPClosableView.h; sourceTree = "<group>"; };
@@ -2082,17 +2125,22 @@
 		57E78752191A9B690073B3AA /* ASIdentifierManager+MPSpecs.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ASIdentifierManager+MPSpecs.m"; sourceTree = "<group>"; };
 		57EAA4DB1A1F3BE300923851 /* MRExpandModalViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MRExpandModalViewController.h; sourceTree = "<group>"; };
 		57EAA4DC1A1F3BE300923851 /* MRExpandModalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MRExpandModalViewController.m; sourceTree = "<group>"; };
+		57EF00831BD969CE002634DE /* __vungle.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = __vungle.db; sourceTree = "<group>"; };
+		57EF00841BD969CE002634DE /* vg_close.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = vg_close.png; sourceTree = "<group>"; };
+		57EF00851BD969CE002634DE /* vg_cta.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = vg_cta.png; sourceTree = "<group>"; };
+		57EF00861BD969CE002634DE /* vg_mute_off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = vg_mute_off.png; sourceTree = "<group>"; };
+		57EF00871BD969CE002634DE /* vg_mute_on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = vg_mute_on.png; sourceTree = "<group>"; };
+		57EF00881BD969CE002634DE /* vg_privacy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = vg_privacy.png; sourceTree = "<group>"; };
+		57EF00891BD969CE002634DE /* VungleSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = VungleSDK.framework; sourceTree = "<group>"; };
 		57EFB8471AE052DD00A8865D /* NSDate+MPSpecs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+MPSpecs.h"; sourceTree = "<group>"; };
 		57EFB8481AE052DD00A8865D /* NSDate+MPSpecs.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+MPSpecs.m"; sourceTree = "<group>"; };
-		57EFB8871AE0784D00A8865D /* __vungle.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = __vungle.db; sourceTree = "<group>"; };
-		57EFB8881AE0784D00A8865D /* vg_close.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = vg_close.png; sourceTree = "<group>"; };
-		57EFB8891AE0784D00A8865D /* vg_cta.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = vg_cta.png; sourceTree = "<group>"; };
-		57EFB88A1AE0784D00A8865D /* vg_mute_off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = vg_mute_off.png; sourceTree = "<group>"; };
-		57EFB88B1AE0784D00A8865D /* vg_mute_on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = vg_mute_on.png; sourceTree = "<group>"; };
-		57EFB88C1AE0784D00A8865D /* vg_timer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = vg_timer.png; sourceTree = "<group>"; };
-		57EFB88D1AE0784D00A8865D /* VungleSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = VungleSDK.framework; sourceTree = "<group>"; };
 		57F403771BA09B26002E2601 /* MPStaticNativeAdImpressionTimer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPStaticNativeAdImpressionTimer.h; sourceTree = "<group>"; };
 		57F403781BA09B26002E2601 /* MPStaticNativeAdImpressionTimer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPStaticNativeAdImpressionTimer.m; sourceTree = "<group>"; };
+		57FDE73D1BCEBE8100F55DD5 /* MPStaticNativeAdView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPStaticNativeAdView.h; sourceTree = "<group>"; };
+		57FDE73E1BCEBE8100F55DD5 /* MPStaticNativeAdView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPStaticNativeAdView.m; sourceTree = "<group>"; };
+		57FDE7431BCEBF5C00F55DD5 /* MPVideoNativeAdView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPVideoNativeAdView.h; sourceTree = "<group>"; };
+		57FDE7441BCEBF5C00F55DD5 /* MPVideoNativeAdView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPVideoNativeAdView.m; sourceTree = "<group>"; };
+		57FEAA4B1BD974B9005A94B6 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		7E0E6DFE1A940D090019489F /* GreystripeInterstitialCustomEventSpec.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = GreystripeInterstitialCustomEventSpec.mm; sourceTree = "<group>"; };
 		7E17DDB01AB1053000E4D976 /* MPLogEventCommunicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MPLogEventCommunicator.h; path = "Event Logging/MPLogEventCommunicator.h"; sourceTree = "<group>"; };
 		7E17DDB11AB1053000E4D976 /* MPLogEventCommunicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MPLogEventCommunicator.m; path = "Event Logging/MPLogEventCommunicator.m"; sourceTree = "<group>"; };
@@ -2666,7 +2714,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				57EFB8961AE0784D00A8865D /* VungleSDK.framework in Frameworks */,
+				57EF00921BD969CE002634DE /* VungleSDK.framework in Frameworks */,
 				57CF55FE19DE472B000D29C5 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2677,6 +2725,15 @@
 			files = (
 				4A01443C1B75432C001B649C /* MMAdSDK.framework in Frameworks */,
 				57CF562719DE47B5000D29C5 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		57D3220B1BD98DC900ACF21E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				57D3220C1BD98DC900ACF21E /* Foundation.framework in Frameworks */,
+				57D322211BD98EC700ACF21E /* Tapjoy.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2691,11 +2748,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				57FEAA4C1BD974B9005A94B6 /* WebKit.framework in Frameworks */,
 				4A35D40819E360110097BC75 /* FBAudienceNetwork.framework in Frameworks */,
 				469474DB197A083D006AF074 /* libCedarAsync-StaticLib.a in Frameworks */,
 				A7A731BF18F5D10E00E327C9 /* libFoundation+PivotalCore-StaticLib.a in Frameworks */,
 				A7A731C018F5D10E00E327C9 /* libFoundation+PivotalSpecHelper-StaticLib.a in Frameworks */,
 				A7A731C118F5D10E00E327C9 /* libUIKit+PivotalCore-StaticLib.a in Frameworks */,
+				57D321DF1BD98D2E00ACF21E /* Tapjoy.framework in Frameworks */,
 				A7A731C218F5D10E00E327C9 /* libUIKit+PivotalSpecHelper-StaticLib.a in Frameworks */,
 				A7A731C318F5D10E00E327C9 /* libUIKit+PivotalSpecHelperStubs-StaticLib.a in Frameworks */,
 				AEA97BE116EF9C030046D464 /* Foundation.framework in Frameworks */,
@@ -2717,8 +2776,8 @@
 				AE1091E617011C8A00812E6E /* libz.dylib in Frameworks */,
 				46672CD319BE5EB20047E671 /* Chartboost.framework in Frameworks */,
 				AE1091E417011C8400812E6E /* libsqlite3.dylib in Frameworks */,
+				57EF00911BD969CE002634DE /* VungleSDK.framework in Frameworks */,
 				AEE8E95816FBBBF900C41D15 /* QuartzCore.framework in Frameworks */,
-				57EFB8951AE0784D00A8865D /* VungleSDK.framework in Frameworks */,
 				AEE8E95716FBBBF200C41D15 /* AVFoundation.framework in Frameworks */,
 				AEE8E95616FBBBD900C41D15 /* MediaPlayer.framework in Frameworks */,
 				AEE8E94E16FB934C00C41D15 /* AudioToolbox.framework in Frameworks */,
@@ -2744,9 +2803,10 @@
 			files = (
 				4A35D40719E35FF70097BC75 /* FBAudienceNetwork.framework in Frameworks */,
 				46672CD219BE5EB20047E671 /* Chartboost.framework in Frameworks */,
-				57EFB8941AE0784D00A8865D /* VungleSDK.framework in Frameworks */,
+				57EF00901BD969CE002634DE /* VungleSDK.framework in Frameworks */,
 				4A42C8CB1ADEF3CA0063F637 /* GoogleMobileAds.framework in Frameworks */,
 				4A01443A1B75432B001B649C /* MMAdSDK.framework in Frameworks */,
+				57D321DE1BD98D2E00ACF21E /* Tapjoy.framework in Frameworks */,
 				4A3CB2DA19749B0700160D24 /* libInMobi-4.4.1.a in Frameworks */,
 				464F469D1817397900BB243C /* AdColony.framework in Frameworks */,
 				4ADE5FF61B4FFA38004C3673 /* UnityAds.framework in Frameworks */,
@@ -2818,7 +2878,7 @@
 		465C283518037DB800A0C76D /* SDK */ = {
 			isa = PBXGroup;
 			children = (
-				57EFB8851AE0784D00A8865D /* VungleSDK.embeddedframework */,
+				57EF00811BD969CE002634DE /* VungleSDK.embeddedframework */,
 				465C283F18037DB800A0C76D /* README.md */,
 			);
 			path = SDK;
@@ -3008,9 +3068,11 @@
 			children = (
 				57CE76011AD72A7C0003830D /* UmbrellaHeaders */,
 				57214D361A65D2BD0075BF95 /* Modules */,
-				57214D381A65D2BD0075BF95 /* MPNativeAdSampleTableViewCell.h */,
-				57214D391A65D2BD0075BF95 /* MPNativeAdSampleTableViewCell.m */,
 				57214D3A1A65D2BD0075BF95 /* Resources */,
+				57FDE73D1BCEBE8100F55DD5 /* MPStaticNativeAdView.h */,
+				57FDE73E1BCEBE8100F55DD5 /* MPStaticNativeAdView.m */,
+				57FDE7431BCEBF5C00F55DD5 /* MPVideoNativeAdView.h */,
+				57FDE7441BCEBF5C00F55DD5 /* MPVideoNativeAdView.m */,
 			);
 			path = MoPubFabric;
 			sourceTree = "<group>";
@@ -3112,29 +3174,68 @@
 				57CE76121AD72AC30003830D /* iAdCustomEvent.h */,
 				57CE76141AD72ACD0003830D /* InMobiCustomEvent.h */,
 				57CE76161AD72AD90003830D /* MillennialCustomEvent.h */,
+				57D322241BD98FF300ACF21E /* TapJoyCustomEvent.h */,
 				57CE761A1AD72AF60003830D /* VungleCustomEvent.h */,
 			);
 			name = UmbrellaHeaders;
 			sourceTree = "<group>";
 		};
-		57EFB8851AE0784D00A8865D /* VungleSDK.embeddedframework */ = {
+		57EF00811BD969CE002634DE /* VungleSDK.embeddedframework */ = {
 			isa = PBXGroup;
 			children = (
-				57EFB8861AE0784D00A8865D /* Resources */,
-				57EFB88D1AE0784D00A8865D /* VungleSDK.framework */,
+				57EF00821BD969CE002634DE /* Resources */,
+				57EF00891BD969CE002634DE /* VungleSDK.framework */,
 			);
 			path = VungleSDK.embeddedframework;
 			sourceTree = "<group>";
 		};
-		57EFB8861AE0784D00A8865D /* Resources */ = {
+		57EF00821BD969CE002634DE /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				57EFB8871AE0784D00A8865D /* __vungle.db */,
-				57EFB8881AE0784D00A8865D /* vg_close.png */,
-				57EFB8891AE0784D00A8865D /* vg_cta.png */,
-				57EFB88A1AE0784D00A8865D /* vg_mute_off.png */,
-				57EFB88B1AE0784D00A8865D /* vg_mute_on.png */,
-				57EFB88C1AE0784D00A8865D /* vg_timer.png */,
+				57EF00831BD969CE002634DE /* __vungle.db */,
+				57EF00841BD969CE002634DE /* vg_close.png */,
+				57EF00851BD969CE002634DE /* vg_cta.png */,
+				57EF00861BD969CE002634DE /* vg_mute_off.png */,
+				57EF00871BD969CE002634DE /* vg_mute_on.png */,
+				57EF00881BD969CE002634DE /* vg_privacy.png */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		57D321D31BD98D2E00ACF21E /* Tapjoy */ = {
+			isa = PBXGroup;
+			children = (
+				57D321D41BD98D2E00ACF21E /* SDK */,
+				57D321D91BD98D2E00ACF21E /* TapjoyInterstitialCustomEvent.h */,
+				57D321DA1BD98D2E00ACF21E /* TapjoyInterstitialCustomEvent.m */,
+				57D321DB1BD98D2E00ACF21E /* TapjoyRewardedVideoCustomEvent.h */,
+				57D321DC1BD98D2E00ACF21E /* TapjoyRewardedVideoCustomEvent.m */,
+			);
+			name = Tapjoy;
+			path = TapJoy;
+			sourceTree = "<group>";
+		};
+		57D321D41BD98D2E00ACF21E /* SDK */ = {
+			isa = PBXGroup;
+			children = (
+				57D321D51BD98D2E00ACF21E /* Tapjoy.embeddedframework */,
+			);
+			path = SDK;
+			sourceTree = "<group>";
+		};
+		57D321D51BD98D2E00ACF21E /* Tapjoy.embeddedframework */ = {
+			isa = PBXGroup;
+			children = (
+				57D321D61BD98D2E00ACF21E /* Resources */,
+				57D321D81BD98D2E00ACF21E /* Tapjoy.framework */,
+			);
+			path = Tapjoy.embeddedframework;
+			sourceTree = "<group>";
+		};
+		57D321D61BD98D2E00ACF21E /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				57D321D71BD98D2E00ACF21E /* TapjoyResources.bundle */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -3406,6 +3507,7 @@
 				AEE38839171F4D300019601C /* Greystripe */,
 				AEE38848171F4D300019601C /* iAd */,
 				AEE3884D171F4D300019601C /* InMobi */,
+				57D321D31BD98D2E00ACF21E /* Tapjoy */,
 				465C283418037DB800A0C76D /* Vungle */,
 				AEE3885C171F4D300019601C /* Millennial */,
 				4ADE5FE31B4FFA38004C3673 /* Unity */,
@@ -3577,6 +3679,7 @@
 				57CF55FD19DE472B000D29C5 /* libVungleCustomEvent.a */,
 				57CF562619DE47B5000D29C5 /* libMillennialCustomEvent.a */,
 				4ADE60141B4FFA66004C3673 /* libUnityCustomEvent.a */,
+				57D3221A1BD98DC900ACF21E /* libTapjoyCustomEvent.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -3584,6 +3687,7 @@
 		AEF1F32A16EF9AD700273462 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				57FEAA4B1BD974B9005A94B6 /* WebKit.framework */,
 				469474DA197A083D006AF074 /* libCedarAsync-StaticLib.a */,
 				AEF1F32B16EF9AD700273462 /* Foundation.framework */,
 				4A3E49CA1950BBEA0014EEAB /* libInMobi-4.1.0.a */,
@@ -4488,7 +4592,6 @@
 				5786BFCE1A38EAFD004DC3F6 /* MRNativeCommandHandler.h in Headers */,
 				5786BFBE1A38EACC004DC3F6 /* MPClosableView.h in Headers */,
 				57ACE4141AA7E8D900A05633 /* MPRewardedVideoError.h in Headers */,
-				57214D3D1A65D2BD0075BF95 /* MPNativeAdSampleTableViewCell.h in Headers */,
 				A7A4229D1B603CB400024A3A /* MPVASTTrackingEvent.h in Headers */,
 				570A00E219D6325300065388 /* MPNativeAdSourceQueue.h in Headers */,
 				57AC69551BB21FA20053C556 /* MOPUBNativeVideoAdConfigValues.h in Headers */,
@@ -4514,6 +4617,7 @@
 				5786BFB81A38EACC004DC3F6 /* MPURLResolver.h in Headers */,
 				A776A50A1B5DDE0A00095706 /* MPXMLParser.h in Headers */,
 				570A000419D6193800065388 /* MPLogging.h in Headers */,
+				57FDE73F1BCEBE8100F55DD5 /* MPStaticNativeAdView.h in Headers */,
 				570AFF6F19D6191000065388 /* MPCollectionViewAdPlacer.h in Headers */,
 				A7A422971B603CB400024A3A /* MPVASTModel.h in Headers */,
 				570AFF6D19D6191000065388 /* MPClientAdPositioning.h in Headers */,
@@ -4556,6 +4660,7 @@
 				57AC69891BB21FFC0053C556 /* MPNativeAdRendererImageHandler.h in Headers */,
 				573A82F01B8E488400ED4067 /* MPCollectionViewAdPlacerCell.h in Headers */,
 				570AFFA519D6192C00065388 /* MPInterstitialAdManager.h in Headers */,
+				57FDE7451BCEBF5C00F55DD5 /* MPVideoNativeAdView.h in Headers */,
 				5786BFB61A38EACC004DC3F6 /* MPProgressOverlayView.h in Headers */,
 				570A000219D6193800065388 /* MPIdentityProvider.h in Headers */,
 				570A00EC19D6325300065388 /* MPTableViewCellImpressionTracker.h in Headers */,
@@ -4581,6 +4686,16 @@
 				5786BFAD1A38EACC004DC3F6 /* MPAdDestinationDisplayAgent.h in Headers */,
 				573A82D81B8E487300ED4067 /* MPStaticNativeAdRenderer.h in Headers */,
 				570AFF9E19D6192C00065388 /* MPBaseBannerAdapter.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		57D3220E1BD98DC900ACF21E /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				57D322251BD98FF300ACF21E /* TapJoyCustomEvent.h in Headers */,
+				57D3221B1BD98E7500ACF21E /* TapjoyInterstitialCustomEvent.h in Headers */,
+				57D3221D1BD98E7900ACF21E /* TapjoyRewardedVideoCustomEvent.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4925,6 +5040,24 @@
 			productReference = 57CF562619DE47B5000D29C5 /* libMillennialCustomEvent.a */;
 			productType = "com.apple.product-type.library.static";
 		};
+		57D322021BD98DC900ACF21E /* TapjoyCustomEvent */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 57D322171BD98DC900ACF21E /* Build configuration list for PBXNativeTarget "TapjoyCustomEvent" */;
+			buildPhases = (
+				57D322031BD98DC900ACF21E /* Sources */,
+				57D3220B1BD98DC900ACF21E /* Frameworks */,
+				57D3220E1BD98DC900ACF21E /* Headers */,
+				57D322161BD98DC900ACF21E /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TapjoyCustomEvent;
+			productName = AdColonyCustomEvent;
+			productReference = 57D3221A1BD98DC900ACF21E /* libTapjoyCustomEvent.a */;
+			productType = "com.apple.product-type.library.static";
+		};
 		AE515F39171F1B110086B464 /* MoPubSDK */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = AE515F99171F1B110086B464 /* Build configuration list for PBXNativeTarget "MoPubSDK" */;
@@ -5042,6 +5175,7 @@
 				57CF55C619DE46E1000D29C5 /* InMobiCustomEvent */,
 				57CF55FC19DE472B000D29C5 /* VungleCustomEvent */,
 				57CF562519DE47B5000D29C5 /* MillennialCustomEvent */,
+				57D322021BD98DC900ACF21E /* TapjoyCustomEvent */,
 				4ADE60041B4FFA66004C3673 /* UnityCustomEvent */,
 			);
 		};
@@ -5139,14 +5273,26 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				57E20E891BCC63A400B51C8C /* MPUnmutedBtn@3x.png in Resources */,
+				57E20E801BCC63A400B51C8C /* MPCloseBtn@3x.png in Resources */,
+				57E20E831BCC63A400B51C8C /* MPMutedBtn@3x.png in Resources */,
+				57E20E821BCC63A400B51C8C /* MPMutedBtn@2x.png in Resources */,
 				57401A461B7AAEF0000EEA64 /* MPDAAIcon.png in Resources */,
+				57E20E851BCC63A400B51C8C /* MPPlayBtn@2x.png in Resources */,
 				5724084B1A68676C009271B8 /* MPCloseButtonX@3x.png in Resources */,
 				57401A4A1B7AAEF0000EEA64 /* MPDAAIcon@3x.png in Resources */,
+				57E20E881BCC63A400B51C8C /* MPUnmutedBtn@2x.png in Resources */,
+				57E20E7F1BCC63A400B51C8C /* MPCloseBtn@2x.png in Resources */,
+				57E20E861BCC63A400B51C8C /* MPPlayBtn@3x.png in Resources */,
 				5724084E1A68677A009271B8 /* MRAID.bundle in Resources */,
 				57401A481B7AAEF0000EEA64 /* MPDAAIcon@2x.png in Resources */,
 				5724084D1A686777009271B8 /* MPCloseButtonX.png in Resources */,
 				57A1A3801A780A55006A08DA /* MPAdBrowserController.xib in Resources */,
+				57E20E811BCC63A400B51C8C /* MPMutedBtn@1x.png in Resources */,
+				57E20E841BCC63A400B51C8C /* MPPlayBtn.png in Resources */,
 				5724084C1A686770009271B8 /* MPCloseButtonX@2x.png in Resources */,
+				57E20E871BCC63A400B51C8C /* MPUnmutedBtn@1x.png in Resources */,
+				57E20E7E1BCC639F00B51C8C /* MPCloseBtn.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5154,36 +5300,37 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				57EFB8931AE0784D00A8865D /* vg_timer.png in Resources */,
 				B257A3171BA3911300F5D320 /* MPUnmutedBtn@3x.png in Resources */,
 				B257A30A1BA3911300F5D320 /* MPCloseBtn@2x.png in Resources */,
+				57EF008A1BD969CE002634DE /* __vungle.db in Resources */,
 				A78B73D31BA9061C00010BE6 /* extensions-multiple.xml in Resources */,
 				A72210C51B8CA8BE0099DCF6 /* linear-absolute-skipoffset-zero.xml in Resources */,
 				A78B6FF21BA8A1AB00010BE6 /* extension-mopubviewabilitytracker-invalid.xml in Resources */,
 				A72210A11B8B2DFF0099DCF6 /* invalid-1.xml in Resources */,
+				57EF008B1BD969CE002634DE /* vg_close.png in Resources */,
 				A7220FC71B6ABDE60099DCF6 /* vast-w-companion-ad.xml in Resources */,
+				57EF008F1BD969CE002634DE /* vg_privacy.png in Resources */,
 				57214DE21A66F9B20075BF95 /* MPCloseButtonX@2x.png in Resources */,
 				B257A3161BA3911300F5D320 /* MPUnmutedBtn@2x.png in Resources */,
+				57EF008E1BD969CE002634DE /* vg_mute_on.png in Resources */,
 				B257A30B1BA3911300F5D320 /* MPCloseBtn@3x.png in Resources */,
+				57EF008C1BD969CE002634DE /* vg_cta.png in Resources */,
 				A72210EC1B8DFA5C0099DCF6 /* extension-mopubviewabilitytracker-valid.xml in Resources */,
-				57EFB88F1AE0784D00A8865D /* vg_close.png in Resources */,
 				57401A471B7AAEF0000EEA64 /* MPDAAIcon@2x.png in Resources */,
 				4ADE5FF51B4FFA38004C3673 /* UnityAds.bundle in Resources */,
 				B257A3131BA3911300F5D320 /* MPPlayBtn@2x.png in Resources */,
 				B257A3121BA3911300F5D320 /* MPPlayBtn.png in Resources */,
-				57EFB88E1AE0784D00A8865D /* __vungle.db in Resources */,
-				57EFB8911AE0784D00A8865D /* vg_mute_off.png in Resources */,
 				466FCE431BB9C04F00F76D55 /* invalid-3.xml in Resources */,
 				B257A3101BA3911300F5D320 /* MPMutedBtn@2x.png in Resources */,
 				873B38081BA8CDA400D57423 /* linear-event-tracking.xml in Resources */,
 				B257A30F1BA3911300F5D320 /* MPMutedBtn@1x.png in Resources */,
+				57D321DD1BD98D2E00ACF21E /* TapjoyResources.bundle in Resources */,
 				B257A3151BA3911300F5D320 /* MPUnmutedBtn@1x.png in Resources */,
 				A72210031B6C37070099DCF6 /* infinite-wrapper-cycle.xml in Resources */,
 				A72210021B6C37070099DCF6 /* basic-wrapper.xml in Resources */,
 				A72210B91B8CA7360099DCF6 /* linear-absolute-skipoffset.xml in Resources */,
 				A72210C91B8CABF60099DCF6 /* linear-percentage-skipoffset.xml in Resources */,
 				873B380A1BA8CDC900D57423 /* linear-progress-tracking.xml in Resources */,
-				57EFB8901AE0784D00A8865D /* vg_cta.png in Resources */,
 				B257A3091BA3911300F5D320 /* MPCloseBtn.png in Resources */,
 				57214DE11A66F9B20075BF95 /* MPCloseButtonX.png in Resources */,
 				B257A3111BA3911300F5D320 /* MPMutedBtn@3x.png in Resources */,
@@ -5197,9 +5344,9 @@
 				873B380C1BA8CDE000D57423 /* linear-tracking.xml in Resources */,
 				57401A451B7AAEF0000EEA64 /* MPDAAIcon.png in Resources */,
 				B257A3141BA3911300F5D320 /* MPPlayBtn@3x.png in Resources */,
-				57EFB8921AE0784D00A8865D /* vg_mute_on.png in Resources */,
 				AEF9D646171CA8AD005AAA5A /* InfoPlist.strings in Resources */,
 				A78EB03C1BAA12AE001135F8 /* extension-mopubviewabilitytracker-multiple.xml in Resources */,
+				57EF008D1BD969CE002634DE /* vg_mute_off.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5415,6 +5562,19 @@
 			shellScript = "sh Scripts/build_scripts/fabric_build_framework.sh";
 		};
 		57CF564819DE47CD000D29C5 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "sh Scripts/build_scripts/fabric_build_framework.sh";
+		};
+		57D322161BD98DC900ACF21E /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -5669,6 +5829,7 @@
 				5731A7B11BBDFE8D00579ACE /* MPNativeAdRenderingImageLoader.m in Sources */,
 				570A000919D6193800065388 /* MPSessionTracker.m in Sources */,
 				A7220FF51B6C2D750099DCF6 /* MPVASTResource.m in Sources */,
+				57FDE7401BCEBE8100F55DD5 /* MPStaticNativeAdView.m in Sources */,
 				570AFF7C19D6191000065388 /* MPNativeAdRequestTargeting.m in Sources */,
 				A7A422D21B66FB9700024A3A /* MPVASTDurationOffset.m in Sources */,
 				570AFF7719D6191000065388 /* MPNativeAdError.m in Sources */,
@@ -5746,7 +5907,6 @@
 				570AFF3B19D618F200065388 /* MPAdConversionTracker.m in Sources */,
 				A776A50F1B5DDE0A00095706 /* MPXMLParser.m in Sources */,
 				A722106B1B79705D0099DCF6 /* MPVASTMacroProcessor.m in Sources */,
-				57214D3E1A65D2BD0075BF95 /* MPNativeAdSampleTableViewCell.m in Sources */,
 				5786BFD41A38EAFD004DC3F6 /* MRError.m in Sources */,
 				57ACE4131AA7E8D900A05633 /* MPRewardedVideoCustomEvent.m in Sources */,
 				57AC69541BB21FA20053C556 /* MOPUBNativeVideoAdAdapter.m in Sources */,
@@ -5755,6 +5915,7 @@
 				5786BFC41A38EAEE004DC3F6 /* NSHTTPURLResponse+MPAdditions.m in Sources */,
 				5786BFB01A38EACC004DC3F6 /* MPAdServerCommunicator.m in Sources */,
 				B2E3F5521BAB8529000BB32D /* MOPUBNativeVideoAdRenderer.m in Sources */,
+				57FDE7461BCEBF5C00F55DD5 /* MPVideoNativeAdView.m in Sources */,
 				A7BB73D31B32240900B3161B /* MPURLActionInfo.m in Sources */,
 				A776A56A1B5DDFF400095706 /* MPVASTMediaFile.m in Sources */,
 				570AFFB219D6192C00065388 /* MPAdWebViewAgent.m in Sources */,
@@ -5869,6 +6030,15 @@
 			files = (
 				57CF564A19DE47E3000D29C5 /* MPMillennialInterstitialCustomEvent.m in Sources */,
 				57CF564919DE47E3000D29C5 /* MPMillennialBannerCustomEvent.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		57D322031BD98DC900ACF21E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				57D3221C1BD98E7900ACF21E /* TapjoyInterstitialCustomEvent.m in Sources */,
+				57D3221E1BD98E7900ACF21E /* TapjoyRewardedVideoCustomEvent.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -6129,6 +6299,7 @@
 				AEF9D58E171CA895005AAA5A /* MPLogging.m in Sources */,
 				AEF9D590171CA895005AAA5A /* MPReachability.m in Sources */,
 				5755DA111AA90B4700DC32EA /* MPRewardedVideoSpec.mm in Sources */,
+				57D321E31BD98D2E00ACF21E /* TapjoyRewardedVideoCustomEvent.m in Sources */,
 				57B86B5A19C78F5D00AD50EE /* MPConstants.m in Sources */,
 				4A95FE40191ADF910025724A /* FacebookBannerCustomEventSpec.mm in Sources */,
 				AEF9D592171CA895005AAA5A /* MPSessionTracker.m in Sources */,
@@ -6143,6 +6314,7 @@
 				4A95FE23191ADC9A0025724A /* FacebookInterstitialCustomEvent.m in Sources */,
 				A71DB7D41A2EDEEA00D3B229 /* FakeCLLocationManager.m in Sources */,
 				A7A1CE0E1974AC710082A6FA /* MPTableViewAdPlacerSpec.mm in Sources */,
+				57D321E11BD98D2E00ACF21E /* TapjoyInterstitialCustomEvent.m in Sources */,
 				AEF9D5A0171CA895005AAA5A /* MPInterstitialCustomEvent.m in Sources */,
 				A776A50E1B5DDE0A00095706 /* MPXMLParser.m in Sources */,
 				AEF9D647171CA8AD005AAA5A /* MPInstanceProvider+Spec.m in Sources */,
@@ -6527,6 +6699,7 @@
 				46EDEE6819832A3B00241385 /* MPNativeAdUtils.m in Sources */,
 				A7A422D01B66FB9700024A3A /* MPVASTDurationOffset.m in Sources */,
 				575828911A16F281009C7A85 /* MRController.m in Sources */,
+				57D321E01BD98D2E00ACF21E /* TapjoyInterstitialCustomEvent.m in Sources */,
 				AEF9D558171CA895005AAA5A /* MPAdWebView.m in Sources */,
 				AEF9D55A171CA895005AAA5A /* MPAdWebViewAgent.m in Sources */,
 				B2E3F5501BAB8529000BB32D /* MOPUBNativeVideoAdRenderer.m in Sources */,
@@ -6633,6 +6806,7 @@
 				5731A7AF1BBDFE8D00579ACE /* MPNativeAdRenderingImageLoader.m in Sources */,
 				4ADE5FF31B4FFA38004C3673 /* MPUnityRouter.m in Sources */,
 				A7E95AC41ACA237C00A26AFD /* MPRetryingHTTPOperation.m in Sources */,
+				57D321E21BD98D2E00ACF21E /* TapjoyRewardedVideoCustomEvent.m in Sources */,
 				A7BB73E61B34D79B00B3161B /* MPEnhancedDeeplinkRequest.m in Sources */,
 				A776A5481B5DDFBC00095706 /* MPVASTLinearAd.m in Sources */,
 				57AC69521BB21FA20053C556 /* MOPUBNativeVideoAdAdapter.m in Sources */,
@@ -6703,6 +6877,11 @@
 			isa = PBXTargetDependency;
 			target = 57CF562519DE47B5000D29C5 /* MillennialCustomEvent */;
 			targetProxy = 57CF565D19DE4814000D29C5 /* PBXContainerItemProxy */;
+		};
+		57D322231BD98F1600ACF21E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 57D322021BD98DC900ACF21E /* TapjoyCustomEvent */;
+			targetProxy = 57D322221BD98F1600ACF21E /* PBXContainerItemProxy */;
 		};
 		A7A731CF18F5D38000E327C9 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -6785,6 +6964,10 @@
 		4ADE60121B4FFA66004C3673 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = (
+					"$(ARCHS_STANDARD)",
+					armv7s,
+				);
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
@@ -6820,6 +7003,10 @@
 		4ADE60131B4FFA66004C3673 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = (
+					"$(ARCHS_STANDARD)",
+					armv7s,
+				);
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
@@ -6932,6 +7119,10 @@
 		570AFF2619D6174300065388 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = (
+					"$(ARCHS_STANDARD)",
+					armv7s,
+				);
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
@@ -6965,6 +7156,10 @@
 		570AFF2719D6174300065388 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = (
+					"$(ARCHS_STANDARD)",
+					armv7s,
+				);
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
@@ -6996,6 +7191,10 @@
 		57CF54CF19DE4360000D29C5 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = (
+					"$(ARCHS_STANDARD)",
+					armv7s,
+				);
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
@@ -7031,6 +7230,10 @@
 		57CF54D019DE4360000D29C5 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = (
+					"$(ARCHS_STANDARD)",
+					armv7s,
+				);
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
@@ -7063,6 +7266,10 @@
 		57CF550719DE4430000D29C5 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = (
+					"$(ARCHS_STANDARD)",
+					armv7s,
+				);
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
@@ -7098,6 +7305,10 @@
 		57CF550819DE4430000D29C5 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = (
+					"$(ARCHS_STANDARD)",
+					armv7s,
+				);
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
@@ -7130,6 +7341,10 @@
 		57CF553019DE44AE000D29C5 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = (
+					"$(ARCHS_STANDARD)",
+					armv7s,
+				);
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
@@ -7165,6 +7380,10 @@
 		57CF553119DE44AE000D29C5 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = (
+					"$(ARCHS_STANDARD)",
+					armv7s,
+				);
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
@@ -7197,6 +7416,10 @@
 		57CF555919DE453A000D29C5 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = (
+					"$(ARCHS_STANDARD)",
+					armv7s,
+				);
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
@@ -7232,6 +7455,10 @@
 		57CF555A19DE453A000D29C5 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = (
+					"$(ARCHS_STANDARD)",
+					armv7s,
+				);
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
@@ -7264,6 +7491,10 @@
 		57CF559219DE4608000D29C5 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = (
+					"$(ARCHS_STANDARD)",
+					armv7s,
+				);
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
@@ -7295,6 +7526,10 @@
 		57CF559319DE4608000D29C5 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = (
+					"$(ARCHS_STANDARD)",
+					armv7s,
+				);
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
@@ -7323,6 +7558,10 @@
 		57CF55BB19DE4665000D29C5 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = (
+					"$(ARCHS_STANDARD)",
+					armv7s,
+				);
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
@@ -7354,6 +7593,10 @@
 		57CF55BC19DE4665000D29C5 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = (
+					"$(ARCHS_STANDARD)",
+					armv7s,
+				);
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
@@ -7382,6 +7625,10 @@
 		57CF55E419DE46E2000D29C5 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = (
+					"$(ARCHS_STANDARD)",
+					armv7s,
+				);
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
@@ -7413,6 +7660,10 @@
 		57CF55E519DE46E2000D29C5 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = (
+					"$(ARCHS_STANDARD)",
+					armv7s,
+				);
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
@@ -7441,6 +7692,10 @@
 		57CF561A19DE472C000D29C5 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = (
+					"$(ARCHS_STANDARD)",
+					armv7s,
+				);
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
@@ -7476,6 +7731,10 @@
 		57CF561B19DE472C000D29C5 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = (
+					"$(ARCHS_STANDARD)",
+					armv7s,
+				);
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
@@ -7508,6 +7767,10 @@
 		57CF564319DE47B6000D29C5 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = (
+					"$(ARCHS_STANDARD)",
+					armv7s,
+				);
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
@@ -7543,6 +7806,10 @@
 		57CF564419DE47B6000D29C5 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = (
+					"$(ARCHS_STANDARD)",
+					armv7s,
+				);
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
@@ -7567,6 +7834,81 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PUBLIC_HEADERS_FOLDER_PATH = HeadersMillennial;
+				SKIP_INSTALL = YES;
+				STRIP_STYLE = "non-global";
+			};
+			name = Release;
+		};
+		57D322181BD98DC900ACF21E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = (
+					"$(ARCHS_STANDARD)",
+					armv7s,
+				);
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = NO;
+				DSTROOT = /tmp/TapjoyCustomEvent.dst;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/AdNetworkSupport/TapJoy/SDK/Tapjoy.embeddedframework",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREFIX_HEADER = "";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = TapjoyCustomEvent;
+				PUBLIC_HEADERS_FOLDER_PATH = HeadersTapjoy;
+				SKIP_INSTALL = YES;
+				STRIP_STYLE = "non-global";
+			};
+			name = Debug;
+		};
+		57D322191BD98DC900ACF21E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = (
+					"$(ARCHS_STANDARD)",
+					armv7s,
+				);
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = NO;
+				DSTROOT = /tmp/TapjoyCustomEvent.dst;
+				ENABLE_NS_ASSERTIONS = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/AdNetworkSupport/TapJoy/SDK/Tapjoy.embeddedframework",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREFIX_HEADER = "";
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = TapjoyCustomEvent;
+				PUBLIC_HEADERS_FOLDER_PATH = HeadersTapjoy;
 				SKIP_INSTALL = YES;
 				STRIP_STYLE = "non-global";
 			};
@@ -7625,6 +7967,7 @@
 					"\"$(SRCROOT)/AdNetworkSupport/Chartboost/SDK\"",
 					"\"$(SRCROOT)/AdNetworkSupport/GoogleAdMob/SDK\"",
 					"$(PROJECT_DIR)/AdNetworkSupport/Unity/SDK",
+					"$(PROJECT_DIR)/AdNetworkSupport/TapJoy/SDK/Tapjoy.embeddedframework",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Specs/MoPubSDKSpecs/Specs-Prefix.pch";
@@ -7682,6 +8025,7 @@
 					"\"$(SRCROOT)/AdNetworkSupport/Chartboost/SDK\"",
 					"\"$(SRCROOT)/AdNetworkSupport/GoogleAdMob/SDK\"",
 					"$(PROJECT_DIR)/AdNetworkSupport/Unity/SDK",
+					"$(PROJECT_DIR)/AdNetworkSupport/TapJoy/SDK/Tapjoy.embeddedframework",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Specs/MoPubSDKSpecs/Specs-Prefix.pch";
@@ -7783,6 +8127,7 @@
 					"\"$(SRCROOT)/AdNetworkSupport/GoogleAdMob/SDK\"",
 					"$(PROJECT_DIR)/AdNetworkSupport/Millennial/SDK",
 					"$(PROJECT_DIR)/AdNetworkSupport/Unity/SDK",
+					"$(PROJECT_DIR)/AdNetworkSupport/TapJoy/SDK/Tapjoy.embeddedframework",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
@@ -7817,6 +8162,7 @@
 					"\"$(SRCROOT)/AdNetworkSupport/GoogleAdMob/SDK\"",
 					"$(PROJECT_DIR)/AdNetworkSupport/Millennial/SDK",
 					"$(PROJECT_DIR)/AdNetworkSupport/Unity/SDK",
+					"$(PROJECT_DIR)/AdNetworkSupport/TapJoy/SDK/Tapjoy.embeddedframework",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
@@ -7959,6 +8305,15 @@
 			buildConfigurations = (
 				57CF564319DE47B6000D29C5 /* Debug */,
 				57CF564419DE47B6000D29C5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		57D322171BD98DC900ACF21E /* Build configuration list for PBXNativeTarget "TapjoyCustomEvent" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				57D322181BD98DC900ACF21E /* Debug */,
+				57D322191BD98DC900ACF21E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

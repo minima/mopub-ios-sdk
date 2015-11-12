@@ -37,14 +37,25 @@ describe(@"VungleRewardedVideoCustomEvent", ^{
             [VungleSDK mp_getAppId] should equal(@"CUSTOM_APP_ID");
         });
 
-        context(@"when Vungle sends us vungleSDKhasCachedAdAvailable", ^{
+        context(@"when Vungle sends us vungleSDKAdPlayableChanged with an ad being playable", ^{
             beforeEach(^{
                 [delegate reset_sent_messages];
-                [router vungleSDKhasCachedAdAvailable];
+                [router vungleSDKAdPlayableChanged:YES];
             });
 
             it(@"should notify the delegate ad did load", ^{
                 delegate should have_received(@selector(rewardedVideoDidLoadAdForCustomEvent:));
+            });
+        });
+
+        context(@"when Vungle sends us isAdPlayable with an ad not being playable", ^{
+            beforeEach(^{
+                [delegate reset_sent_messages];
+                [router vungleSDKAdPlayableChanged:NO];
+            });
+
+            it(@"should not tell the delegate an ad loaded", ^{
+                delegate should_not have_received(@selector(rewardedVideoDidLoadAdForCustomEvent:));
             });
         });
 
@@ -198,7 +209,7 @@ describe(@"VungleRewardedVideoCustomEvent", ^{
         it(@"secondModel should be the Vungle router's delegate", ^{
             [router delegate] should equal(secondModel);
 
-            [router vungleSDKhasCachedAdAvailable];
+            [router vungleSDKAdPlayableChanged:YES];
             secondDelegate should have_received(@selector(rewardedVideoDidLoadAdForCustomEvent:));
             delegate should_not have_received(@selector(rewardedVideoDidLoadAdForCustomEvent:));
         });

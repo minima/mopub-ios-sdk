@@ -34,7 +34,7 @@ describe(@"MPVungleRouter", ^{
 
     context(@"when an ad is not already playing", ^{
         beforeEach(^{
-            SDK stub_method(@selector(isCachedAdAvailable)).and_return(YES);
+            SDK stub_method(@selector(isAdPlayable)).and_return(YES);
         });
 
         it(@"should attempt to play an interstitial ad", ^{
@@ -78,7 +78,7 @@ describe(@"MPVungleRouter", ^{
 
     context(@"when an interstitial ad is already playing", ^{
         beforeEach(^{
-            SDK stub_method(@selector(isCachedAdAvailable)).and_return(YES);
+            SDK stub_method(@selector(isAdPlayable)).and_return(YES);
             [router presentInterstitialAdFromViewController:controller withDelegate:delegate];
         });
 
@@ -95,7 +95,7 @@ describe(@"MPVungleRouter", ^{
 
     context(@"when a rewarded video ad is already playing", ^{
         beforeEach(^{
-            SDK stub_method(@selector(isCachedAdAvailable)).and_return(YES);
+            SDK stub_method(@selector(isAdPlayable)).and_return(YES);
             [router presentRewardedVideoAdFromViewController:controller settings:nil delegate:delegate];
         });
 
@@ -112,7 +112,7 @@ describe(@"MPVungleRouter", ^{
 
     context(@"when an interstitial ad closes", ^{
         beforeEach(^{
-            SDK stub_method(@selector(isCachedAdAvailable)).and_return(YES);
+            SDK stub_method(@selector(isAdPlayable)).and_return(YES);
             [router presentInterstitialAdFromViewController:controller withDelegate:delegate];
             router.isAdPlaying should be_truthy;
         });
@@ -134,7 +134,7 @@ describe(@"MPVungleRouter", ^{
 
     context(@"when a rewarded video ad ad closes", ^{
         beforeEach(^{
-            SDK stub_method(@selector(isCachedAdAvailable)).and_return(YES);
+            SDK stub_method(@selector(isAdPlayable)).and_return(YES);
             [router presentRewardedVideoAdFromViewController:controller settings:nil delegate:delegate];
             router.isAdPlaying should be_truthy;
         });
@@ -156,7 +156,7 @@ describe(@"MPVungleRouter", ^{
 
     context(@"when an ad is not available", ^{
         beforeEach(^{
-            SDK stub_method(@selector(isCachedAdAvailable)).and_return(NO);
+            SDK stub_method(@selector(isAdPlayable)).and_return(NO);
             router.isAdPlaying = NO;
         });
 

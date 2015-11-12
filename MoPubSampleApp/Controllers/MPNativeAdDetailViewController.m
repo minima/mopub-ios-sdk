@@ -81,6 +81,7 @@ NSString *const kNativeAdDefaultActionViewKey = @"kNativeAdDefaultActionButtonKe
     settings.renderingViewClass = [MPStaticNativeAdView class];
 
     MPNativeAdRendererConfiguration *config = [MPStaticNativeAdRenderer rendererConfigurationWithRendererSettings:settings];
+
     MPNativeAdRequest *adRequest1 = [MPNativeAdRequest requestWithAdUnitIdentifier:self.info.ID rendererConfigurations:@[config]];
     MPNativeAdRequestTargeting *targeting = [[MPNativeAdRequestTargeting alloc] init];
 

@@ -560,8 +560,8 @@ static const NSUInteger kIndexPathItemIndex = 1;
 
     CGSize adSize;
 
-    if ([(id)renderer respondsToSelector:@selector(viewSizeHandler)]) {
-        adSize = [(id)renderer viewSizeHandler](maxWidth);
+    if ([renderer respondsToSelector:@selector(viewSizeHandler)] && renderer.viewSizeHandler) {
+        adSize = [renderer viewSizeHandler](maxWidth);
     } else {
         adSize = CGSizeMake(maxWidth, 44.0f);
         MPLogWarn(@"WARNING: + (CGSize)viewSizeHandler is NOT implemented for native ad renderer %@ at index path %@. You MUST implement this method to ensure that ad placer native ad cells are correctly sized. Returning a default size of %@ for now.", NSStringFromClass([(id)renderer class]), indexPath, NSStringFromCGSize(adSize));
