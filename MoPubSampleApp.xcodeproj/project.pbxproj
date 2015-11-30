@@ -352,11 +352,6 @@
 		5755DB041AAA4E2300DC32EA /* MPInstanceProvider+Chartboost.m in Sources */ = {isa = PBXBuildFile; fileRef = 5755DA741AAA4E2300DC32EA /* MPInstanceProvider+Chartboost.m */; };
 		5755DB061AAA4E2300DC32EA /* Chartboost.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5755DA761AAA4E2300DC32EA /* Chartboost.framework */; };
 		5755DB081AAA4E2300DC32EA /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 5755DA771AAA4E2300DC32EA /* README.md */; };
-		5755DB0A1AAA4E2300DC32EA /* FacebookBannerCustomEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 5755DA7A1AAA4E2300DC32EA /* FacebookBannerCustomEvent.m */; };
-		5755DB0C1AAA4E2300DC32EA /* FacebookInterstitialCustomEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 5755DA7C1AAA4E2300DC32EA /* FacebookInterstitialCustomEvent.m */; };
-		5755DB0E1AAA4E2300DC32EA /* FacebookNativeAdAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 5755DA7E1AAA4E2300DC32EA /* FacebookNativeAdAdapter.m */; };
-		5755DB101AAA4E2300DC32EA /* FacebookNativeCustomEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 5755DA801AAA4E2300DC32EA /* FacebookNativeCustomEvent.m */; };
-		5755DB121AAA4E2300DC32EA /* FBAudienceNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5755DA821AAA4E2300DC32EA /* FBAudienceNetwork.framework */; };
 		5755DB141AAA4E2300DC32EA /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 5755DA831AAA4E2300DC32EA /* README.md */; };
 		5755DB161AAA4E2300DC32EA /* MPGoogleAdMobBannerCustomEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 5755DA861AAA4E2300DC32EA /* MPGoogleAdMobBannerCustomEvent.m */; };
 		5755DB181AAA4E2300DC32EA /* MPGoogleAdMobInterstitialCustomEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 5755DA881AAA4E2300DC32EA /* MPGoogleAdMobInterstitialCustomEvent.m */; };
@@ -388,6 +383,11 @@
 		575F4A991B9796DD001352D7 /* MPNativeAdRendererConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 575F4A971B9796DD001352D7 /* MPNativeAdRendererConfiguration.m */; };
 		577A1FA219AE7EA6006DA28B /* MPNativeAdPageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 577A1FA119AE7EA6006DA28B /* MPNativeAdPageView.m */; };
 		577DF03C19A28786001514D3 /* MPNativeAdPlacerPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 577DF03B19A28786001514D3 /* MPNativeAdPlacerPageViewController.m */; };
+		57881F211BDED96A0046122E /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57881F201BDED96A0046122E /* CoreMotion.framework */; };
+		579532411BE13E4400065CA5 /* FacebookBannerCustomEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 5755DA7A1AAA4E2300DC32EA /* FacebookBannerCustomEvent.m */; };
+		579532421BE13E4400065CA5 /* FacebookInterstitialCustomEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 5755DA7C1AAA4E2300DC32EA /* FacebookInterstitialCustomEvent.m */; };
+		579532431BE13E4400065CA5 /* FacebookNativeAdAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 5755DA7E1AAA4E2300DC32EA /* FacebookNativeAdAdapter.m */; };
+		579532441BE13E4400065CA5 /* FacebookNativeCustomEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 5755DA801AAA4E2300DC32EA /* FacebookNativeCustomEvent.m */; };
 		57AC6A041BB221130053C556 /* MOPUBActivityIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 57AC69ED1BB221130053C556 /* MOPUBActivityIndicatorView.m */; };
 		57AC6A051BB221130053C556 /* MOPUBActivityIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 57AC69ED1BB221130053C556 /* MOPUBActivityIndicatorView.m */; };
 		57AC6A061BB221130053C556 /* MOPUBAVPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 57AC69EF1BB221130053C556 /* MOPUBAVPlayer.m */; };
@@ -567,6 +567,7 @@
 		B294E0621BACDA3600909531 /* MOPUBNativeVideoAdRendererSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = B294E0601BACDA3600909531 /* MOPUBNativeVideoAdRendererSettings.m */; };
 		B2A7A63E1BA8C58300659ADD /* MOPUBNativeVideoAdRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = B2A7A63D1BA8C58300659ADD /* MOPUBNativeVideoAdRenderer.m */; };
 		B2A7A63F1BA8C58300659ADD /* MOPUBNativeVideoAdRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = B2A7A63D1BA8C58300659ADD /* MOPUBNativeVideoAdRenderer.m */; };
+		B2DDC9BB1BFBACFA00656985 /* FBAudienceNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B2DDC9BA1BFBACFA00656985 /* FBAudienceNetwork.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -981,7 +982,6 @@
 		5755DA7E1AAA4E2300DC32EA /* FacebookNativeAdAdapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FacebookNativeAdAdapter.m; sourceTree = "<group>"; };
 		5755DA7F1AAA4E2300DC32EA /* FacebookNativeCustomEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FacebookNativeCustomEvent.h; sourceTree = "<group>"; };
 		5755DA801AAA4E2300DC32EA /* FacebookNativeCustomEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FacebookNativeCustomEvent.m; sourceTree = "<group>"; };
-		5755DA821AAA4E2300DC32EA /* FBAudienceNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBAudienceNetwork.framework; sourceTree = "<group>"; };
 		5755DA831AAA4E2300DC32EA /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		5755DA851AAA4E2300DC32EA /* MPGoogleAdMobBannerCustomEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPGoogleAdMobBannerCustomEvent.h; sourceTree = "<group>"; };
 		5755DA861AAA4E2300DC32EA /* MPGoogleAdMobBannerCustomEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPGoogleAdMobBannerCustomEvent.m; sourceTree = "<group>"; };
@@ -1050,6 +1050,7 @@
 		577A1FA119AE7EA6006DA28B /* MPNativeAdPageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPNativeAdPageView.m; sourceTree = "<group>"; };
 		577DF03A19A28786001514D3 /* MPNativeAdPlacerPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPNativeAdPlacerPageViewController.h; sourceTree = "<group>"; };
 		577DF03B19A28786001514D3 /* MPNativeAdPlacerPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPNativeAdPlacerPageViewController.m; sourceTree = "<group>"; };
+		57881F201BDED96A0046122E /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		57AC69EC1BB221130053C556 /* MOPUBActivityIndicatorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MOPUBActivityIndicatorView.h; sourceTree = "<group>"; };
 		57AC69ED1BB221130053C556 /* MOPUBActivityIndicatorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MOPUBActivityIndicatorView.m; sourceTree = "<group>"; };
 		57AC69EE1BB221130053C556 /* MOPUBAVPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MOPUBAVPlayer.h; sourceTree = "<group>"; };
@@ -1251,6 +1252,7 @@
 		B294E0601BACDA3600909531 /* MOPUBNativeVideoAdRendererSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MOPUBNativeVideoAdRendererSettings.m; sourceTree = "<group>"; };
 		B2A7A63C1BA8C58300659ADD /* MOPUBNativeVideoAdRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MOPUBNativeVideoAdRenderer.h; sourceTree = "<group>"; };
 		B2A7A63D1BA8C58300659ADD /* MOPUBNativeVideoAdRenderer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MOPUBNativeVideoAdRenderer.m; sourceTree = "<group>"; };
+		B2DDC9BA1BFBACFA00656985 /* FBAudienceNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBAudienceNetwork.framework; sourceTree = "<group>"; };
 		E060FE6A1994000C00F4F33C /* MPNativeAdPlacerCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPNativeAdPlacerCollectionViewController.h; sourceTree = "<group>"; };
 		E060FE6B1994000C00F4F33C /* MPNativeAdPlacerCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPNativeAdPlacerCollectionViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -1260,6 +1262,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				57881F211BDED96A0046122E /* CoreMotion.framework in Frameworks */,
 				57EF00CE1BD96EB5002634DE /* WebKit.framework in Frameworks */,
 				57D322401BD9944500ACF21E /* libc++.dylib in Frameworks */,
 				4A9350521B66D7B500ABF4A3 /* libxml2.dylib in Frameworks */,
@@ -1286,13 +1289,13 @@
 				46B3341319F075680078078A /* MessageUI.framework in Frameworks */,
 				46B3341419F075680078078A /* AVFoundation.framework in Frameworks */,
 				46B3341519F075680078078A /* AudioToolbox.framework in Frameworks */,
-				5755DB121AAA4E2300DC32EA /* FBAudienceNetwork.framework in Frameworks */,
 				46B3341619F075680078078A /* libz.dylib in Frameworks */,
 				46B3341719F075680078078A /* libsqlite3.dylib in Frameworks */,
 				46B3341819F075680078078A /* MediaPlayer.framework in Frameworks */,
 				46B3341919F075680078078A /* EventKit.framework in Frameworks */,
 				46B3341A19F075680078078A /* EventKitUI.framework in Frameworks */,
 				5755DAFA1AAA4E2300DC32EA /* AdColony.framework in Frameworks */,
+				B2DDC9BB1BFBACFA00656985 /* FBAudienceNetwork.framework in Frameworks */,
 				46B3341C19F075680078078A /* Foundation.framework in Frameworks */,
 				46B3341D19F075680078078A /* CoreLocation.framework in Frameworks */,
 				46B3341E19F075680078078A /* QuartzCore.framework in Frameworks */,
@@ -1907,7 +1910,7 @@
 		5755DA811AAA4E2300DC32EA /* SDK */ = {
 			isa = PBXGroup;
 			children = (
-				5755DA821AAA4E2300DC32EA /* FBAudienceNetwork.framework */,
+				B2DDC9BA1BFBACFA00656985 /* FBAudienceNetwork.framework */,
 				5755DA831AAA4E2300DC32EA /* README.md */,
 			);
 			path = SDK;
@@ -2234,6 +2237,7 @@
 		AE23239116F78A17002C2082 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				57881F201BDED96A0046122E /* CoreMotion.framework */,
 				57EF00CD1BD96EB5002634DE /* WebKit.framework */,
 				57D3223F1BD9944500ACF21E /* libc++.dylib */,
 				4A9350511B66D7B500ABF4A3 /* libxml2.dylib */,
@@ -2727,7 +2731,6 @@
 				57240A881A688C05009271B8 /* MPMoPubNativeCustomEvent.m in Sources */,
 				57240A5E1A688C05009271B8 /* MPTimer.m in Sources */,
 				574DEB1C1B698303006531EB /* MPStaticNativeAdRenderer.m in Sources */,
-				5755DB101AAA4E2300DC32EA /* FacebookNativeCustomEvent.m in Sources */,
 				873B382C1BA905D500D57423 /* MPVASTTracking.m in Sources */,
 				572409CE1A688C05009271B8 /* MPLastResortDelegate.m in Sources */,
 				A7A4227A1B5F224400024A3A /* MPVASTResponse.m in Sources */,
@@ -2741,7 +2744,6 @@
 				57240ABE1A688C05009271B8 /* MPServerAdPositioning.m in Sources */,
 				4ADE5FBC1B4FC8E4004C3673 /* MPInstanceProvider+Unity.m in Sources */,
 				A7E95B181ACA9C3E00A26AFD /* MPQRunLoopOperation.m in Sources */,
-				5755DB0C1AAA4E2300DC32EA /* FacebookInterstitialCustomEvent.m in Sources */,
 				572409CB1A688C05009271B8 /* MPLastResortDelegate+EventKit.m in Sources */,
 				A714FE761B699B1B000EAEC4 /* MPVASTStringUtilities.m in Sources */,
 				57240A5B1A688C05009271B8 /* MPStoreKitProvider.m in Sources */,
@@ -2816,6 +2818,7 @@
 				5755DB081AAA4E2300DC32EA /* README.md in Sources */,
 				57F403931BA09B62002E2601 /* MPStaticNativeAdImpressionTimer.m in Sources */,
 				57240A311A688C05009271B8 /* NSJSONSerialization+MPAdditions.m in Sources */,
+				579532411BE13E4400065CA5 /* FacebookBannerCustomEvent.m in Sources */,
 				57C784D71BCC4C6C00E4BB7D /* MPNativeVideoTableViewAdPlacerView.m in Sources */,
 				57240A3D1A688C05009271B8 /* MPAnalyticsTracker.m in Sources */,
 				46B333A019F075680078078A /* main.m in Sources */,
@@ -2823,7 +2826,6 @@
 				46B333A119F075680078078A /* AppDelegate.m in Sources */,
 				5755DAF81AAA4E2300DC32EA /* MPInstanceProvider+AdColony.m in Sources */,
 				572409B31A688C05009271B8 /* MPAdBrowserController.m in Sources */,
-				5755DB0A1AAA4E2300DC32EA /* FacebookBannerCustomEvent.m in Sources */,
 				5755DB001AAA4E2300DC32EA /* ChartboostRewardedVideoCustomEvent.m in Sources */,
 				57AC6A171BB221130053C556 /* MOPUBPlayerView.m in Sources */,
 				57AC6A0F1BB221130053C556 /* MOPUBNativeVideoAdConfigValues.m in Sources */,
@@ -2854,9 +2856,9 @@
 				57240A221A688C05009271B8 /* MRNativeCommandHandler.m in Sources */,
 				46B333A719F075680078078A /* MPAdSection.m in Sources */,
 				57AC6A1B1BB221130053C556 /* MOPUBReplayView.m in Sources */,
-				5755DB0E1AAA4E2300DC32EA /* FacebookNativeAdAdapter.m in Sources */,
 				572409B01A688C05009271B8 /* MPAdAlertManager.m in Sources */,
 				46B333A819F075680078078A /* MPInterstitialAdDetailViewController.m in Sources */,
+				579532431BE13E4400065CA5 /* FacebookNativeAdAdapter.m in Sources */,
 				574DEB241B6ADB93006531EB /* MPCollectionViewAdPlacerCell.m in Sources */,
 				46B333A919F075680078078A /* MPManualAdViewController.m in Sources */,
 				57240A4C1A688C05009271B8 /* MPInternalUtils.m in Sources */,
@@ -2890,6 +2892,7 @@
 				57240A8B1A688C05009271B8 /* MPNativeAdSourceQueue.m in Sources */,
 				46B333C919F075680078078A /* MPLeaderboardBannerAdDetailViewController.m in Sources */,
 				57240A4F1A688C05009271B8 /* MPLogging.m in Sources */,
+				579532421BE13E4400065CA5 /* FacebookInterstitialCustomEvent.m in Sources */,
 				575F4A991B9796DD001352D7 /* MPNativeAdRendererConfiguration.m in Sources */,
 				572409A71A688C05009271B8 /* MPBaseBannerAdapter.m in Sources */,
 				575F4A6D1B977714001352D7 /* MPStaticNativeAdRendererSettings.m in Sources */,
@@ -2933,6 +2936,7 @@
 				572409C51A688C05009271B8 /* MPClosableView.m in Sources */,
 				B28725D81B9F917F00C0D61B /* UIButton+MPAdditions.m in Sources */,
 				57240A851A688C05009271B8 /* MPMoPubNativeAdAdapter.m in Sources */,
+				579532441BE13E4400065CA5 /* FacebookNativeCustomEvent.m in Sources */,
 				5755DB2E1AAA4E2300DC32EA /* InMobiNativeAdAdapter.m in Sources */,
 				5755DB421AAA4E2300DC32EA /* MPVungleRouter.m in Sources */,
 				57240A2E1A688C05009271B8 /* NSHTTPURLResponse+MPAdditions.m in Sources */,
@@ -3161,6 +3165,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/AdNetworkSupport/Facebook/SDK",
@@ -3197,6 +3202,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/AdNetworkSupport/Facebook/SDK",

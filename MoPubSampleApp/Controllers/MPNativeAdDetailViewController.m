@@ -15,6 +15,9 @@
 #import "MPNativeAdDelegate.h"
 #import "MPStaticNativeAdRenderer.h"
 #import "MPStaticNativeAdRendererSettings.h"
+#import "MOPUBNativeVideoAdRendererSettings.h"
+#import "MOPUBNativeVideoAdRenderer.h"
+#import "MPNativeVideoView.h"
 
 NSString *const kNativeAdDefaultActionViewKey = @"kNativeAdDefaultActionButtonKey";
 
@@ -82,7 +85,15 @@ NSString *const kNativeAdDefaultActionViewKey = @"kNativeAdDefaultActionButtonKe
 
     MPNativeAdRendererConfiguration *config = [MPStaticNativeAdRenderer rendererConfigurationWithRendererSettings:settings];
 
-    MPNativeAdRequest *adRequest1 = [MPNativeAdRequest requestWithAdUnitIdentifier:self.info.ID rendererConfigurations:@[config]];
+    // Video configuration. You don't need to create nativeVideoAdSettings and nativeVideoConfig unless you are using native video ads.
+    MOPUBNativeVideoAdRendererSettings *nativeVideoAdSettings = [[MOPUBNativeVideoAdRendererSettings alloc] init];
+    nativeVideoAdSettings.renderingViewClass = [MPNativeVideoView class];
+    nativeVideoAdSettings.viewSizeHandler = ^(CGFloat maximumWidth) {
+        return CGSizeMake(maximumWidth, 312.0f);
+    };
+    MPNativeAdRendererConfiguration *nativeVideoConfig = [MOPUBNativeVideoAdRenderer rendererConfigurationWithRendererSettings:nativeVideoAdSettings];
+
+    MPNativeAdRequest *adRequest1 = [MPNativeAdRequest requestWithAdUnitIdentifier:self.info.ID rendererConfigurations:@[config, nativeVideoConfig]];
     MPNativeAdRequestTargeting *targeting = [[MPNativeAdRequestTargeting alloc] init];
 
     targeting.keywords = self.keywordsTextField.text;

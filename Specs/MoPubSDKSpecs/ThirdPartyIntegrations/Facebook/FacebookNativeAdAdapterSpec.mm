@@ -112,6 +112,14 @@ describe(@"FacebookNativeAdAdapter", ^{
             [adAdapter nativeAdDidFinishHandlingClick:mockFBAd];
             adAdapter.delegate should have_received(@selector(nativeAdDidDismissModalForAdapter:)).with(adAdapter);
         });
+
+        it(@"should provide an ad choices icon view", ^{
+            [adAdapter respondsToSelector:@selector(privacyInformationIconView)] should be_truthy;
+        });
+
+        it(@"should provide a main media view", ^{
+            [adAdapter respondsToSelector:@selector(mainMediaView)] should be_truthy;
+        })
     });
 });
 

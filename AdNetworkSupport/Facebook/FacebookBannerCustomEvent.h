@@ -12,7 +12,7 @@
 #endif
 
 /**
- * Certified with the Facebook iOS SDK version 3.21.1
+ * Certified with the Facebook iOS SDK version 4.8.0
  */
 
 @interface FacebookBannerCustomEvent : MPBannerCustomEvent

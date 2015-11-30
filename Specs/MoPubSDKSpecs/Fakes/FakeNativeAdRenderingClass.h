@@ -16,6 +16,7 @@
 @property (nonatomic, strong) UILabel *titleLabel;
 @property (nonatomic, strong) UILabel *mainTextLabel;
 @property (nonatomic, strong) UITapGestureRecognizer *tapGesture;
+@property (nonatomic, strong) UIImageView *privacyInformationIconImageView;
 
 @property (nonatomic, assign) BOOL didLayoutStarRating;
 @property (nonatomic, strong) NSNumber *lastStarRating;

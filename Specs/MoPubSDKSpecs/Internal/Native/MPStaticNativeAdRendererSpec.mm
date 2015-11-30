@@ -118,6 +118,135 @@ describe(@"MPStaticNativeAdRendererSpec", ^{
 
             });
 
+            context(@"main media view", ^{
+                __block FakeNativeAdRenderingClass *castedRenderedView;
+
+                beforeEach(^{
+                    settings = [[MPStaticNativeAdRendererSettings alloc] init];
+                    settings.renderingViewClass = [FakeNativeAdRenderingClass class];
+                    renderer = [[MPStaticNativeAdRenderer alloc] initWithRendererSettings:settings];
+                });
+
+                context(@"when the adapter implements mainMediaView", ^{
+                    __block UIView *mediaView;
+                    beforeEach(^{
+                        mediaView = [UIView new];
+                        adapter = nice_fake_for(@protocol(MPNativeAdAdapter));
+                        adapter stub_method(@selector(mainMediaView)).and_return(mediaView);
+
+                        castedRenderedView = (FakeNativeAdRenderingClass *)[renderer retrieveViewWithAdapter:adapter error:nil];
+                    });
+
+                    it(@"should attach the media view to the main image view", ^{
+                        castedRenderedView.mainImageView.subviews[0] should equal(mediaView);
+                    });
+
+                    it(@"should not attempt to load the main image", ^{
+                        renderer.rendererImageHandler = nice_fake_for([MPNativeAdRendererImageHandler class]);
+                        [renderer adViewWillMoveToSuperview:[UIView new]];
+
+                        renderer.rendererImageHandler should_not have_received(@selector(loadImageForURL:intoImageView:)).with(Arguments::anything).and_with(castedRenderedView.mainImageView);
+                    });
+                });
+            });
+
+            context(@"privacy information icon", ^{
+                __block FakeNativeAdRenderingClass *castedRenderedView;
+
+                beforeEach(^{
+                    settings = [[MPStaticNativeAdRendererSettings alloc] init];
+                    settings.renderingViewClass = [FakeNativeAdRenderingClass class];
+                    renderer = [[MPStaticNativeAdRenderer alloc] initWithRendererSettings:settings];
+                });
+
+                context(@"when the render view class contains a privacy information icon image view", ^{
+                    context(@"when the adapter's properties contain a privacy icon image", ^{
+                        beforeEach(^{
+                            adapter = [[MPMoPubNativeAdAdapter alloc] initWithAdProperties:adapterProperties.mutableCopy];
+                            renderedView = [renderer retrieveViewWithAdapter:adapter error:&error];
+                            castedRenderedView = (FakeNativeAdRenderingClass *)renderedView;
+                        });
+
+                        it(@"should not hide the privacy icon view", ^{
+                            castedRenderedView.nativePrivacyInformationIconImageView.hidden should be_falsy;
+                        });
+
+                        it(@"should populate the privacy icon view with an image", ^{
+                            castedRenderedView.nativePrivacyInformationIconImageView.image should_not be_nil;
+                        });
+
+                        it(@"should not add any subviews to the privacy icon view", ^{
+                            castedRenderedView.nativePrivacyInformationIconImageView.subviews.count should equal(0);
+                        });
+                    });
+
+                    context(@"when the adapter provides a view for the privacy icon image", ^{
+                        __block UIView *stubbedPrivacyIconView;
+
+                        beforeEach(^{
+                            adapter = nice_fake_for(@protocol(MPNativeAdAdapter));
+                            stubbedPrivacyIconView = [UIView new];
+                            adapter stub_method(@selector(privacyInformationIconView)).and_return(stubbedPrivacyIconView);
+                            renderedView = [renderer retrieveViewWithAdapter:adapter error:&error];
+                            castedRenderedView = (FakeNativeAdRenderingClass *)renderedView;
+                        });
+
+                        it(@"should not hide the privacy icon view", ^{
+                            castedRenderedView.nativePrivacyInformationIconImageView.hidden should be_falsy;
+                        });
+
+                        it(@"should not populate the privacy icon view with an image", ^{
+                            castedRenderedView.nativePrivacyInformationIconImageView.image should be_nil;
+                        });
+
+                        it(@"should place the privacy information icon view as a subview of the render class' privacy icon view", ^{
+                            NSArray *subviews = castedRenderedView.nativePrivacyInformationIconImageView.subviews;
+
+                            subviews.count should equal(1);
+                            subviews[0] should equal(stubbedPrivacyIconView);
+                        });
+                    });
+
+                    context(@"when the adapter doesn't supply anything for the privacy information icon", ^{
+                        beforeEach(^{
+                            NSMutableDictionary *propertiesWithNoPrivacyIcon = adapterProperties.mutableCopy;
+                            [propertiesWithNoPrivacyIcon removeObjectForKey:kAdDAAIconImageKey];
+                            adapter = nice_fake_for(@protocol(MPNativeAdAdapter));
+                            adapter stub_method(@selector(properties)).and_return(propertiesWithNoPrivacyIcon);
+                            adapter reject_method(@selector(privacyInformationIconView));
+                            renderedView = [renderer retrieveViewWithAdapter:adapter error:&error];
+                            castedRenderedView = (FakeNativeAdRenderingClass *)renderedView;
+                        });
+
+                        it(@"should hide the privacy icon view", ^{
+                            castedRenderedView.nativePrivacyInformationIconImageView.hidden should be_truthy;
+                        });
+
+                        it(@"should not populate the privacy icon view with an image", ^{
+                            castedRenderedView.nativePrivacyInformationIconImageView.image should be_nil;
+                        });
+
+                        it(@"should not place a privacy information icon view as a subview of the render class' privacy icon view", ^{
+                            NSArray *subviews = castedRenderedView.nativePrivacyInformationIconImageView.subviews;
+                            subviews.count should equal(0);
+                        });
+                    });
+                });
+
+                context(@"when the render view class doesn't contain a privacy information icon image view", ^{
+                    beforeEach(^{
+                        settings = [[MPStaticNativeAdRendererSettings alloc] init];
+                        settings.renderingViewClass = [UIView class];
+                        renderer = [[MPStaticNativeAdRenderer alloc] initWithRendererSettings:settings];
+                    });
+
+                    it(@"should not crash", ^{
+                        ^{ renderedView = [renderer retrieveViewWithAdapter:adapter error:&error]; } should_not raise_exception;
+                    });
+
+                });
+            });
+
             context(@"star rating", ^{
                 beforeEach(^{
                     settings = [[MPStaticNativeAdRendererSettings alloc] init];

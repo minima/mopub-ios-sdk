@@ -14,13 +14,15 @@
 @class FBNativeAd;
 
 /**
- * Certified with the Facebook iOS SDK version 3.21.1
+ * Certified with the Facebook iOS SDK version 4.8.0
  */
+
+extern NSString *const kFBVideoAdsEnabledKey;
 
 @interface FacebookNativeAdAdapter : NSObject <MPNativeAdAdapter>
 
 @property (nonatomic, weak) id<MPNativeAdAdapterDelegate> delegate;
 
-- (instancetype)initWithFBNativeAd:(FBNativeAd *)fbNativeAd;
+- (instancetype)initWithFBNativeAd:(FBNativeAd *)fbNativeAd adProperties:(NSDictionary *)adProps;
 
 @end

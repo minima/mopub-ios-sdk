@@ -18,7 +18,8 @@
 - (void)simulateFailingToLoad
 {
     self.bannerLoaded = NO;
-    [self.delegate adView:self.masquerade didFailWithError:nil];
+    NSError *error;
+    [self.delegate adView:self.masquerade didFailWithError:error];
 }
 
 - (void)simulateUserInteraction

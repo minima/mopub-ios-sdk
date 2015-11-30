@@ -11,9 +11,13 @@
 #import "MPNativeAdError.h"
 #import "MPLogging.h"
 
+NSString *const kFBVideoAdsEnabledKey = @"video_enabled";
+
 @interface FacebookNativeAdAdapter () <FBNativeAdDelegate>
 
-@property (nonatomic, readonly, strong) FBNativeAd *fbNativeAd;
+@property (nonatomic, readonly) FBNativeAd *fbNativeAd;
+@property (nonatomic, readonly) FBAdChoicesView *adChoicesView;
+@property (nonatomic, readonly) FBMediaView *mediaView;
 
 @end
 
@@ -21,7 +25,7 @@
 
 @synthesize properties = _properties;
 
-- (instancetype)initWithFBNativeAd:(FBNativeAd *)fbNativeAd
+- (instancetype)initWithFBNativeAd:(FBNativeAd *)fbNativeAd adProperties:(NSDictionary *)adProps
 {
     if (self = [super init]) {
         _fbNativeAd = fbNativeAd;
@@ -36,7 +40,13 @@
             starRating = [NSNumber numberWithFloat:ratio*fbNativeAd.starRating.value];
         }
 
-        NSMutableDictionary *properties = [NSMutableDictionary dictionary];
+        NSMutableDictionary *properties;
+        if (adProps) {
+            properties = [NSMutableDictionary dictionaryWithDictionary:adProps];
+        } else {
+            properties = [NSMutableDictionary dictionary];
+        }
+
 
         if (starRating) {
             [properties setObject:starRating forKey:kAdStarRatingKey];
@@ -58,10 +68,6 @@
             [properties setObject:fbNativeAd.icon.url.absoluteString forKey:kAdIconImageKey];
         }
 
-        if (fbNativeAd.coverImage.url.absoluteString) {
-            [properties setObject:fbNativeAd.coverImage.url.absoluteString forKey:kAdMainImageKey];
-        }
-
         if (fbNativeAd.placementID) {
             [properties setObject:fbNativeAd.placementID forKey:@"placementID"];
         }
@@ -71,6 +77,18 @@
         }
 
         _properties = properties;
+
+        _adChoicesView = [[FBAdChoicesView alloc] initWithNativeAd:fbNativeAd];
+        _adChoicesView.backgroundShown = NO;
+
+        // If video ad is enabled, use mediaView, otherwise use coverImage.
+        if ([[_properties objectForKey:kFBVideoAdsEnabledKey] boolValue]) {
+            _mediaView = [[FBMediaView alloc] initWithNativeAd:fbNativeAd];
+        } else {
+            if (fbNativeAd.coverImage.url.absoluteString) {
+                [properties setObject:fbNativeAd.coverImage.url.absoluteString forKey:kAdMainImageKey];
+            }
+        }
     }
 
     return self;
@@ -92,6 +110,16 @@
 - (void)willAttachToView:(UIView *)view
 {
     [self.fbNativeAd registerViewForInteraction:view withViewController:[self.delegate viewControllerForPresentingModalView]];
+}
+
+- (UIView *)privacyInformationIconView
+{
+    return self.adChoicesView;
+}
+
+- (UIView *)mainMediaView
+{
+    return self.mediaView;
 }
 
 #pragma mark - FBNativeAdDelegate

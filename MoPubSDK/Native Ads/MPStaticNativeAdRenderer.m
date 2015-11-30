@@ -91,6 +91,7 @@
     }
 
     if ([self.adView respondsToSelector:@selector(nativePrivacyInformationIconImageView)]) {
+        // MoPub ads pass the privacy information icon key through the properties dictionary.
         NSString *daaIconImageLoc = [adapter.properties objectForKey:kAdDAAIconImageKey];
         if (daaIconImageLoc) {
             UIImageView *imageView = self.adView.nativePrivacyInformationIconImageView;
@@ -103,9 +104,29 @@
             UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(DAAIconTapped)];
             imageView.userInteractionEnabled = YES;
             [imageView addGestureRecognizer:tapRecognizer];
+        } else if ([adapter respondsToSelector:@selector(privacyInformationIconView)]) {
+            // The ad network may provide its own view for its privacy information icon. We assume the ad handles the tap on the icon as well.
+            UIView *privacyIconAdView = [adapter privacyInformationIconView];
+            privacyIconAdView.frame = self.adView.nativePrivacyInformationIconImageView.bounds;
+            privacyIconAdView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+            self.adView.nativePrivacyInformationIconImageView.userInteractionEnabled = YES;
+            [self.adView.nativePrivacyInformationIconImageView addSubview:privacyIconAdView];
+            self.adView.nativePrivacyInformationIconImageView.hidden = NO;
         } else {
+            self.adView.nativePrivacyInformationIconImageView.userInteractionEnabled = NO;
             self.adView.nativePrivacyInformationIconImageView.hidden = YES;
         }
+    }
+
+    if ([self shouldLoadMediaView]) {
+        UIView *mediaView = [self.adapter mainMediaView];
+        UIView *mainImageView = [self.adView nativeMainImageView];
+
+        mediaView.frame = mainImageView.bounds;
+        mediaView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+        mainImageView.userInteractionEnabled = YES;
+
+        [mainImageView addSubview:mediaView];
     }
 
     // See if the ad contains a star rating and notify the view if it does.
@@ -118,6 +139,13 @@
     }
 
     return self.adView;
+}
+
+- (BOOL)shouldLoadMediaView
+{
+    return [self.adapter respondsToSelector:@selector(mainMediaView)]
+        && [self.adapter mainMediaView]
+        && [self.adView respondsToSelector:@selector(nativeMainImageView)];
 }
 
 - (void)DAAIconTapped
@@ -137,8 +165,11 @@
             [self.rendererImageHandler loadImageForURL:[NSURL URLWithString:[self.adapter.properties objectForKey:kAdIconImageKey]] intoImageView:self.adView.nativeIconImageView];
         }
 
-        if ([self.adapter.properties objectForKey:kAdMainImageKey] && [self.adView respondsToSelector:@selector(nativeMainImageView)]) {
-            [self.rendererImageHandler loadImageForURL:[NSURL URLWithString:[self.adapter.properties objectForKey:kAdMainImageKey]] intoImageView:self.adView.nativeMainImageView];
+        // Only handle the loading of the main image if the adapter doesn't already have a view for it.
+        if (!([self.adapter respondsToSelector:@selector(mainMediaView)] && [self.adapter mainMediaView])) {
+            if ([self.adapter.properties objectForKey:kAdMainImageKey] && [self.adView respondsToSelector:@selector(nativeMainImageView)]) {
+                [self.rendererImageHandler loadImageForURL:[NSURL URLWithString:[self.adapter.properties objectForKey:kAdMainImageKey]] intoImageView:self.adView.nativeMainImageView];
+            }
         }
 
         // Layout custom assets here as the custom assets may contain images that need to be loaded.

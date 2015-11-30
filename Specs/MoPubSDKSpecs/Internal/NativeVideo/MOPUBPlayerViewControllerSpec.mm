@@ -21,6 +21,7 @@ using namespace Cedar::Doubles;
 @property (nonatomic) UIButton *muteButton;
 
 - (void)initOnVideoReady;
+- (void)muteButtonTapped;
 - (void)avPlayer:(MOPUBAVPlayer *)player playbackTimeDidProgress:(NSTimeInterval)currentPlaybackTime;
 
 @end
@@ -89,8 +90,14 @@ describe(@"MOPUBPlayerViewController", ^{
 
         it(@"Vast tracker mute event should be called", ^{
             spy_on(controller.vastTracking);
-            [controller setMuted:YES];
+            [controller muteButtonTapped];
             controller.vastTracking should have_received(@selector(handleVideoEvent:videoTimeOffset:));
+        });
+
+        it(@"Vast tracker mute event should not be called by setting mute enabled directly", ^{
+            spy_on(controller.vastTracking);
+            [controller setMuted:YES];
+            controller.vastTracking should_not have_received(@selector(handleVideoEvent:videoTimeOffset:));
         });
 
     });

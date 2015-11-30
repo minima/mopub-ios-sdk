@@ -21,7 +21,8 @@
 - (void)simulateFailingToLoad
 {
     self.isAdValid = NO;
-    [self.delegate interstitialAd:self.masquerade didFailWithError:nil];
+    NSError *error;
+    [self.delegate interstitialAd:self.masquerade didFailWithError:error];
 }
 
 - (void)loadAd

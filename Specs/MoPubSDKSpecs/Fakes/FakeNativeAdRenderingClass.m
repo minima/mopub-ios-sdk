@@ -13,6 +13,9 @@
 {
     self = [super init];
     if (self) {
+        self.privacyInformationIconImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
+        [self addSubview:self.privacyInformationIconImageView];
+
         self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(75, 10, 212, 60)];
         [self.titleLabel setFont:[UIFont boldSystemFontOfSize:17.0f]];
         [self.titleLabel setText:@"Title"];
@@ -73,6 +76,11 @@
 - (UIImageView *)nativeMainImageView
 {
     return self.mainImageView;
+}
+
+- (UIImageView *)nativePrivacyInformationIconImageView
+{
+    return self.privacyInformationIconImageView;
 }
 
 - (void)layoutStarRating:(NSNumber *)starRating

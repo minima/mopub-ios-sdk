@@ -301,8 +301,7 @@ static const double kVideoFinishedBufferingAllowedError = 0.1;
 
 - (void)setMuted:(BOOL)muted
 {
-    MPVideoEventType eventType = muted ? MPVideoEventTypeMuted : MPVideoEventTypeUnmuted;
-    [self.vastTracking handleVideoEvent:eventType videoTimeOffset:self.avPlayer.currentPlaybackTime];
+    _muted = muted;
     [self.muteButton setSelected:!muted];
     self.avPlayer.muted = muted;
 }
@@ -365,6 +364,9 @@ static const double kVideoFinishedBufferingAllowedError = 0.1;
 {
     self.muteButton.selected = !self.muteButton.selected;
     self.muted = !self.muteButton.selected;
+
+    MPVideoEventType eventType = self.muted ? MPVideoEventTypeMuted : MPVideoEventTypeUnmuted;
+    [self.vastTracking handleVideoEvent:eventType videoTimeOffset:self.avPlayer.currentPlaybackTime];
 }
 
 # pragma mark - KVO
@@ -595,7 +597,10 @@ static const double kVideoFinishedBufferingAllowedError = 0.1;
 
 - (void)applicationDidEnterForeground:(NSNotification *)notification
 {
-    if (self.avPlayer && self.isReadyToPlay && !self.finishedPlaying) {
+    // Resume video playback only if the visible area is larger than or equal to the autoplay threshold.
+
+    BOOL playVisible = MPViewIntersectsParentWindowWithPercent(self.playerView, self.nativeVideoAdConfig.playVisiblePercent/100.0f);
+    if (self.avPlayer && self.isReadyToPlay && !self.finishedPlaying && playVisible) {
         [self resume];
     }
 }

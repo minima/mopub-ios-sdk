@@ -18,7 +18,6 @@
 				4ADE60391B5011E2004C3673 /* PBXTargetDependency */,
 				57CF564E19DE4814000D29C5 /* PBXTargetDependency */,
 				57CF565019DE4814000D29C5 /* PBXTargetDependency */,
-				57CF565219DE4814000D29C5 /* PBXTargetDependency */,
 				57CF565419DE4814000D29C5 /* PBXTargetDependency */,
 				57CF565619DE4814000D29C5 /* PBXTargetDependency */,
 				57CF565819DE4814000D29C5 /* PBXTargetDependency */,
@@ -193,8 +192,6 @@
 		4A2AECC71AA52AA6002AFB88 /* VungleRewardedVideoCustomEventSpec.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4A2AECC61AA52AA6002AFB88 /* VungleRewardedVideoCustomEventSpec.mm */; };
 		4A2E21301936845D004A7899 /* MPNativeCustomEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A2E212F1936845D004A7899 /* MPNativeCustomEvent.m */; };
 		4A2E21311936845D004A7899 /* MPNativeCustomEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A2E212F1936845D004A7899 /* MPNativeCustomEvent.m */; };
-		4A35D40719E35FF70097BC75 /* FBAudienceNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A35D40619E35FF70097BC75 /* FBAudienceNetwork.framework */; };
-		4A35D40819E360110097BC75 /* FBAudienceNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A35D40619E35FF70097BC75 /* FBAudienceNetwork.framework */; };
 		4A3CB2DA19749B0700160D24 /* libInMobi-4.4.1.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A3CB2D919749B0700160D24 /* libInMobi-4.4.1.a */; };
 		4A3CB2DB19749B0700160D24 /* libInMobi-4.4.1.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A3CB2D919749B0700160D24 /* libInMobi-4.4.1.a */; };
 		4A42C8CB1ADEF3CA0063F637 /* GoogleMobileAds.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A42C8CA1ADEF3CA0063F637 /* GoogleMobileAds.framework */; };
@@ -205,8 +202,6 @@
 		4A5E30E218D3C74000662306 /* MPCoreInstanceProvider+Spec.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A5E30E118D3C74000662306 /* MPCoreInstanceProvider+Spec.m */; };
 		4A5E30EF18D3C77F00662306 /* FakeMPCoreInstanceProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A5E30EE18D3C77F00662306 /* FakeMPCoreInstanceProvider.m */; };
 		4A5E30F118D3CD7900662306 /* MPCoreInstanceProviderSpec.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4A5E30F018D3CD7900662306 /* MPCoreInstanceProviderSpec.mm */; };
-		4A659CD91925895F003288F9 /* FacebookBannerCustomEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A95FE1D191ADC9A0025724A /* FacebookBannerCustomEvent.m */; };
-		4A659CDA1925895F003288F9 /* FacebookInterstitialCustomEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A95FE1F191ADC9A0025724A /* FacebookInterstitialCustomEvent.m */; };
 		4A71892718D13B9D0056F068 /* MPLastResortDelegate+EventKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A71892618D13B9D0056F068 /* MPLastResortDelegate+EventKit.m */; };
 		4A71892818D13B9D0056F068 /* MPLastResortDelegate+EventKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A71892618D13B9D0056F068 /* MPLastResortDelegate+EventKit.m */; };
 		4A71895718D25FC50056F068 /* NSJSONSerialization+MPAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A71895618D25FC50056F068 /* NSJSONSerialization+MPAdditions.m */; };
@@ -215,10 +210,6 @@
 		4A7DE89C1947AB9300226DEC /* InMobiNativeCustomEventSpec.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4A7DE89B1947AB9300226DEC /* InMobiNativeCustomEventSpec.mm */; };
 		4A7DE8A81947ABAB00226DEC /* InMobiNativeAdAdapterSpec.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4A7DE8A71947ABAB00226DEC /* InMobiNativeAdAdapterSpec.mm */; };
 		4A7DE8B01947CF3800226DEC /* IMNative+Specs.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A7DE8AF1947CF3800226DEC /* IMNative+Specs.m */; };
-		4A95FE22191ADC9A0025724A /* FacebookBannerCustomEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A95FE1D191ADC9A0025724A /* FacebookBannerCustomEvent.m */; };
-		4A95FE23191ADC9A0025724A /* FacebookInterstitialCustomEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A95FE1F191ADC9A0025724A /* FacebookInterstitialCustomEvent.m */; };
-		4A95FE40191ADF910025724A /* FacebookBannerCustomEventSpec.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4A95FE3F191ADF910025724A /* FacebookBannerCustomEventSpec.mm */; };
-		4A95FE42191ADF9E0025724A /* FacebookInterstitialCustomEventSpec.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4A95FE41191ADF9E0025724A /* FacebookInterstitialCustomEventSpec.mm */; };
 		4A95FE45191AFF460025724A /* FakeFBAdView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A95FE44191AFF460025724A /* FakeFBAdView.m */; };
 		4A97542A18FC85EC00C19F10 /* MPTableViewCellImpressionTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = A77FBEE018C533B400531E8A /* MPTableViewCellImpressionTracker.m */; };
 		4A97542B18FC85EC00C19F10 /* MPImageDownloadQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = A77FBF0218C5343E00531E8A /* MPImageDownloadQueue.m */; };
@@ -278,8 +269,6 @@
 		4AEC89D118DA373600EAC91B /* MPNativeCacheSpec.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4AEC89D018DA373600EAC91B /* MPNativeCacheSpec.mm */; };
 		4AF0CB8C193647FF00901450 /* MPNativeAdSpec.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4AF0CB8B193647FF00901450 /* MPNativeAdSpec.mm */; };
 		4AF0CB8E193648BD00901450 /* MPNativeAdRequestSpec.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4AF0CB8D193648BD00901450 /* MPNativeAdRequestSpec.mm */; };
-		4AF54B4D194A21500093F714 /* FacebookNativeAdAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AF54B4C194A21500093F714 /* FacebookNativeAdAdapter.m */; };
-		4AF54B4E194A21500093F714 /* FacebookNativeAdAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AF54B4C194A21500093F714 /* FacebookNativeAdAdapter.m */; };
 		4AF54B51194A21600093F714 /* InMobiNativeAdAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AF54B50194A21600093F714 /* InMobiNativeAdAdapter.m */; };
 		4AF54B52194A21600093F714 /* InMobiNativeAdAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AF54B50194A21600093F714 /* InMobiNativeAdAdapter.m */; };
 		4AF54B55194A217F0093F714 /* MPMoPubNativeAdAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AF54B54194A217F0093F714 /* MPMoPubNativeAdAdapter.m */; };
@@ -291,7 +280,6 @@
 		4AF7F8531A0C194500ABD80D /* MRNativeCommandHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AF7F84E1A0C194500ABD80D /* MRNativeCommandHandler.m */; };
 		4AF7F8741A0C34CE00ABD80D /* MRNativeCommandHandlerSpec.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4AF7F8731A0C34CE00ABD80D /* MRNativeCommandHandlerSpec.mm */; };
 		4AFE5788191C4C5600A2CF82 /* FakeFBInterstitialAd.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AFE5787191C4C5600A2CF82 /* FakeFBInterstitialAd.m */; };
-		4AFF8A671A5F10740066DFD7 /* FBAdView+Specs.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AFF8A661A5F10740066DFD7 /* FBAdView+Specs.m */; };
 		570002DA1A2C3C9600AEC4A3 /* MRExpandModalViewControllerSpec.mm in Sources */ = {isa = PBXBuildFile; fileRef = 570002D91A2C3C9600AEC4A3 /* MRExpandModalViewControllerSpec.mm */; };
 		57098CDD1A2458D00005A153 /* NSHTTPURLResponse+MPAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 57098CDC1A2458D00005A153 /* NSHTTPURLResponse+MPAdditions.m */; };
 		57098CDE1A2458D00005A153 /* NSHTTPURLResponse+MPAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 57098CDC1A2458D00005A153 /* NSHTTPURLResponse+MPAdditions.m */; };
@@ -524,11 +512,6 @@
 		575F4A3A1B90E74C001352D7 /* FakeNativeAdRenderingClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 575F4A391B90E74C001352D7 /* FakeNativeAdRenderingClass.m */; };
 		57697EE5193FE51B00E7DF5A /* NSOperationQueue+MPSpecs.m in Sources */ = {isa = PBXBuildFile; fileRef = 57697EE4193FE51B00E7DF5A /* NSOperationQueue+MPSpecs.m */; };
 		57697EE6193FE51B00E7DF5A /* NSOperationQueue+MPSpecs.m in Sources */ = {isa = PBXBuildFile; fileRef = 57697EE4193FE51B00E7DF5A /* NSOperationQueue+MPSpecs.m */; };
-		57697F381941217200E7DF5A /* FacebookNativeCustomEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 57697F351941217200E7DF5A /* FacebookNativeCustomEvent.m */; };
-		57697F391941217200E7DF5A /* FacebookNativeCustomEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 57697F351941217200E7DF5A /* FacebookNativeCustomEvent.m */; };
-		57697F461941234E00E7DF5A /* FacebookNativeCustomEventSpec.mm in Sources */ = {isa = PBXBuildFile; fileRef = 57697F451941234E00E7DF5A /* FacebookNativeCustomEventSpec.mm */; };
-		57697F4C19412C0F00E7DF5A /* FBNativeAd+Specs.m in Sources */ = {isa = PBXBuildFile; fileRef = 57697F4B19412C0F00E7DF5A /* FBNativeAd+Specs.m */; };
-		57697F4F19412FF200E7DF5A /* FacebookNativeAdAdapterSpec.mm in Sources */ = {isa = PBXBuildFile; fileRef = 57697F4E19412FF200E7DF5A /* FacebookNativeAdAdapterSpec.mm */; };
 		5776FF7419895A36004765FA /* MPAdPlacerSharedExamplesSpec.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5776FF7319895A36004765FA /* MPAdPlacerSharedExamplesSpec.mm */; };
 		5778E398196E06080002FA8C /* MPMRAIDInterstitialViewControllerSpec.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5778E397196E06080002FA8C /* MPMRAIDInterstitialViewControllerSpec.mm */; };
 		5783B0351AC5FC1300FB8711 /* MPLogEventRecorderSpecHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5783B0341AC5FC1300FB8711 /* MPLogEventRecorderSpecHelper.m */; };
@@ -872,6 +855,7 @@
 		57EAA4DE1A1F3BE300923851 /* MRExpandModalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 57EAA4DC1A1F3BE300923851 /* MRExpandModalViewController.m */; };
 		57EAA4DF1A1F3BE300923851 /* MRExpandModalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 57EAA4DC1A1F3BE300923851 /* MRExpandModalViewController.m */; };
 		57EAA4E01A1F3BE300923851 /* MRExpandModalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 57EAA4DC1A1F3BE300923851 /* MRExpandModalViewController.m */; };
+		57EBF9581BDEA8BB00E5DF86 /* MPFacebookKeywordProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = AEF9D4E0171CA895005AAA5A /* MPFacebookKeywordProvider.m */; };
 		57EF008A1BD969CE002634DE /* __vungle.db in Resources */ = {isa = PBXBuildFile; fileRef = 57EF00831BD969CE002634DE /* __vungle.db */; };
 		57EF008B1BD969CE002634DE /* vg_close.png in Resources */ = {isa = PBXBuildFile; fileRef = 57EF00841BD969CE002634DE /* vg_close.png */; };
 		57EF008C1BD969CE002634DE /* vg_cta.png in Resources */ = {isa = PBXBuildFile; fileRef = 57EF00851BD969CE002634DE /* vg_cta.png */; };
@@ -1313,7 +1297,6 @@
 		AEF9D550171CA895005AAA5A /* MPAdServerURLBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = AEF9D4DE171CA895005AAA5A /* MPAdServerURLBuilder.m */; };
 		AEF9D551171CA895005AAA5A /* MPAdServerURLBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = AEF9D4DE171CA895005AAA5A /* MPAdServerURLBuilder.m */; };
 		AEF9D552171CA895005AAA5A /* MPFacebookKeywordProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = AEF9D4E0171CA895005AAA5A /* MPFacebookKeywordProvider.m */; };
-		AEF9D553171CA895005AAA5A /* MPFacebookKeywordProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = AEF9D4E0171CA895005AAA5A /* MPFacebookKeywordProvider.m */; };
 		AEF9D554171CA895005AAA5A /* MPProgressOverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = AEF9D4E3171CA895005AAA5A /* MPProgressOverlayView.m */; };
 		AEF9D555171CA895005AAA5A /* MPProgressOverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = AEF9D4E3171CA895005AAA5A /* MPProgressOverlayView.m */; };
 		AEF9D556171CA895005AAA5A /* MPURLResolver.m in Sources */ = {isa = PBXBuildFile; fileRef = AEF9D4E5171CA895005AAA5A /* MPURLResolver.m */; };
@@ -1546,13 +1529,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = 57CF54E919DE442F000D29C5;
 			remoteInfo = ChartboostCustomEvent;
-		};
-		57CF565119DE4814000D29C5 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = AEF1F32016EF9AD700273462 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 57CF54B219DE435F000D29C5;
-			remoteInfo = FacebookCustomEvent;
 		};
 		57CF565319DE4814000D29C5 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -2749,7 +2725,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				57FEAA4C1BD974B9005A94B6 /* WebKit.framework in Frameworks */,
-				4A35D40819E360110097BC75 /* FBAudienceNetwork.framework in Frameworks */,
 				469474DB197A083D006AF074 /* libCedarAsync-StaticLib.a in Frameworks */,
 				A7A731BF18F5D10E00E327C9 /* libFoundation+PivotalCore-StaticLib.a in Frameworks */,
 				A7A731C018F5D10E00E327C9 /* libFoundation+PivotalSpecHelper-StaticLib.a in Frameworks */,
@@ -2801,7 +2776,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4A35D40719E35FF70097BC75 /* FBAudienceNetwork.framework in Frameworks */,
 				46672CD219BE5EB20047E671 /* Chartboost.framework in Frameworks */,
 				57EF00901BD969CE002634DE /* VungleSDK.framework in Frameworks */,
 				4A42C8CB1ADEF3CA0063F637 /* GoogleMobileAds.framework in Frameworks */,
@@ -3180,28 +3154,6 @@
 			name = UmbrellaHeaders;
 			sourceTree = "<group>";
 		};
-		57EF00811BD969CE002634DE /* VungleSDK.embeddedframework */ = {
-			isa = PBXGroup;
-			children = (
-				57EF00821BD969CE002634DE /* Resources */,
-				57EF00891BD969CE002634DE /* VungleSDK.framework */,
-			);
-			path = VungleSDK.embeddedframework;
-			sourceTree = "<group>";
-		};
-		57EF00821BD969CE002634DE /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				57EF00831BD969CE002634DE /* __vungle.db */,
-				57EF00841BD969CE002634DE /* vg_close.png */,
-				57EF00851BD969CE002634DE /* vg_cta.png */,
-				57EF00861BD969CE002634DE /* vg_mute_off.png */,
-				57EF00871BD969CE002634DE /* vg_mute_on.png */,
-				57EF00881BD969CE002634DE /* vg_privacy.png */,
-			);
-			path = Resources;
-			sourceTree = "<group>";
-		};
 		57D321D31BD98D2E00ACF21E /* Tapjoy */ = {
 			isa = PBXGroup;
 			children = (
@@ -3236,6 +3188,28 @@
 			isa = PBXGroup;
 			children = (
 				57D321D71BD98D2E00ACF21E /* TapjoyResources.bundle */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		57EF00811BD969CE002634DE /* VungleSDK.embeddedframework */ = {
+			isa = PBXGroup;
+			children = (
+				57EF00821BD969CE002634DE /* Resources */,
+				57EF00891BD969CE002634DE /* VungleSDK.framework */,
+			);
+			path = VungleSDK.embeddedframework;
+			sourceTree = "<group>";
+		};
+		57EF00821BD969CE002634DE /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				57EF00831BD969CE002634DE /* __vungle.db */,
+				57EF00841BD969CE002634DE /* vg_close.png */,
+				57EF00851BD969CE002634DE /* vg_cta.png */,
+				57EF00861BD969CE002634DE /* vg_mute_off.png */,
+				57EF00871BD969CE002634DE /* vg_mute_on.png */,
+				57EF00881BD969CE002634DE /* vg_privacy.png */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -6227,7 +6201,6 @@
 				4AE42FC718DA314300DE4BF6 /* MPNativeCache.m in Sources */,
 				A7A1CDD51974782E0082A6FA /* MPTableViewAdPlacer.m in Sources */,
 				A72F913D19C0D4C700A5601B /* MPNativePositionResponseDeserializer.m in Sources */,
-				57697F461941234E00E7DF5A /* FacebookNativeCustomEventSpec.mm in Sources */,
 				4AB3DA9318C0306000F9563F /* TWTweetComposeViewController+MPSpecs.m in Sources */,
 				AEF9D540171CA895005AAA5A /* MPBannerAdManager.m in Sources */,
 				4A71892818D13B9D0056F068 /* MPLastResortDelegate+EventKit.m in Sources */,
@@ -6245,7 +6218,6 @@
 				AEF9D54F171CA895005AAA5A /* MPAdServerCommunicator.m in Sources */,
 				AEF9D551171CA895005AAA5A /* MPAdServerURLBuilder.m in Sources */,
 				A7BB73D21B32240900B3161B /* MPURLActionInfo.m in Sources */,
-				AEF9D553171CA895005AAA5A /* MPFacebookKeywordProvider.m in Sources */,
 				AEF9D555171CA895005AAA5A /* MPProgressOverlayView.m in Sources */,
 				571FA43C193FC4D300A36583 /* MPMoPubNativeCustomEvent.m in Sources */,
 				4A7DE8B01947CF3800226DEC /* IMNative+Specs.m in Sources */,
@@ -6301,7 +6273,6 @@
 				5755DA111AA90B4700DC32EA /* MPRewardedVideoSpec.mm in Sources */,
 				57D321E31BD98D2E00ACF21E /* TapjoyRewardedVideoCustomEvent.m in Sources */,
 				57B86B5A19C78F5D00AD50EE /* MPConstants.m in Sources */,
-				4A95FE40191ADF910025724A /* FacebookBannerCustomEventSpec.mm in Sources */,
 				AEF9D592171CA895005AAA5A /* MPSessionTracker.m in Sources */,
 				571FA435193FB69D00A36583 /* MPMoPubNativeAdAdapterSpec.mm in Sources */,
 				AEF9D594171CA895005AAA5A /* MPStoreKitProvider.m in Sources */,
@@ -6311,7 +6282,6 @@
 				AEF9D59A171CA895005AAA5A /* MPAdView.m in Sources */,
 				AEF9D59C171CA895005AAA5A /* MPBannerCustomEvent.m in Sources */,
 				AEF9D59E171CA895005AAA5A /* MPInterstitialAdController.m in Sources */,
-				4A95FE23191ADC9A0025724A /* FacebookInterstitialCustomEvent.m in Sources */,
 				A71DB7D41A2EDEEA00D3B229 /* FakeCLLocationManager.m in Sources */,
 				A7A1CE0E1974AC710082A6FA /* MPTableViewAdPlacerSpec.mm in Sources */,
 				57D321E11BD98D2E00ACF21E /* TapjoyInterstitialCustomEvent.m in Sources */,
@@ -6350,7 +6320,6 @@
 				57ACDB751AA134DD00A05633 /* AdColonyRewardedVideoCustomEvent.m in Sources */,
 				5755DA0F1AA90B4700DC32EA /* MPRewardedVideoAdManagerSpec.mm in Sources */,
 				A7A1CE141974AC9D0082A6FA /* MPAdPositioningSpec.mm in Sources */,
-				4A95FE42191ADF9E0025724A /* FacebookInterstitialCustomEventSpec.mm in Sources */,
 				AEF9D652171CA8AD005AAA5A /* FakeMPReachability.m in Sources */,
 				5755DA0E1AA90B4700DC32EA /* MPRewardedVideoAdapterSpec.mm in Sources */,
 				AEF9D653171CA8AD005AAA5A /* FakeMPTimer.m in Sources */,
@@ -6403,7 +6372,6 @@
 				575E1EA41ADD9583007FEE11 /* MPGlobalSpecHelper.m in Sources */,
 				4A2AEC471AA4F5C8002AFB88 /* ChartboostRewardedVideoCustomEvent.m in Sources */,
 				A778C8AC1ABB4ED4003F427D /* MPAPIEndpoints.m in Sources */,
-				4A95FE22191ADC9A0025724A /* FacebookBannerCustomEvent.m in Sources */,
 				464F469C1817397900BB243C /* AdColonyInterstitialCustomEvent.m in Sources */,
 				AEF9D668171CA8AD005AAA5A /* MPGreystripeInterstitialIntegrationSuite.mm in Sources */,
 				AEF9D669171CA8AD005AAA5A /* MPHTMLBannerIntegrationSuite.mm in Sources */,
@@ -6417,7 +6385,6 @@
 				AEF9D66D171CA8AD005AAA5A /* MPInMobiBannerIntegrationSuite.mm in Sources */,
 				AEF9D66E171CA8AD005AAA5A /* MPInMobiInterstitialIntegrationSuite.mm in Sources */,
 				AEF9D66F171CA8AD005AAA5A /* InterstitialIntegrationSharedBehaviors.mm in Sources */,
-				57697F4C19412C0F00E7DF5A /* FBNativeAd+Specs.m in Sources */,
 				A71DB7D11A2EDE7E00D3B229 /* CLLocationManager+MPSpecs.m in Sources */,
 				4625EB8B180380CC00C2755D /* VungleInterstitialCustomEventSpec.mm in Sources */,
 				57ACE41E1AA7E8D900A05633 /* MPRewardedVideoReward.m in Sources */,
@@ -6490,7 +6457,6 @@
 				873B37F01BA8CBE000D57423 /* MPVASTTracking.m in Sources */,
 				A7A1CDDF197478E20082A6FA /* MPNativeAdData.m in Sources */,
 				4A0C4BE519A42A4D00DE956C /* MPStreamAdPlacementData+Specs.m in Sources */,
-				4AFF8A671A5F10740066DFD7 /* FBAdView+Specs.m in Sources */,
 				572A1B131934FFEC00E40F5A /* MPImageDownloadQueueSpec.mm in Sources */,
 				AEF9D699171CA8AD005AAA5A /* MPSessionTrackerSpec.mm in Sources */,
 				4A2AECC71AA52AA6002AFB88 /* VungleRewardedVideoCustomEventSpec.mm in Sources */,
@@ -6510,6 +6476,7 @@
 				878251D41BB38A0000EB5283 /* MPLogEvent+NativeVideo.m in Sources */,
 				4A5968C318CFE71200D0D1AD /* MPCoreInstanceProvider.m in Sources */,
 				4AFE5788191C4C5600A2CF82 /* FakeFBInterstitialAd.m in Sources */,
+				57EBF9581BDEA8BB00E5DF86 /* MPFacebookKeywordProvider.m in Sources */,
 				A72210361B792C6F0099DCF6 /* MPVideoConfig.m in Sources */,
 				57AC69591BB21FA20053C556 /* MOPUBNativeVideoAdConfigValues.m in Sources */,
 				AEF9D69E171CA8AD005AAA5A /* MPInterstitialAdControllerSpec.mm in Sources */,
@@ -6541,7 +6508,6 @@
 				4AE1406B1947AB0C0064B20F /* InMobiNativeCustomEvent.m in Sources */,
 				AEE38869171F4D300019601C /* MPGoogleAdMobBannerCustomEvent.m in Sources */,
 				AEE3886B171F4D300019601C /* MPGoogleAdMobInterstitialCustomEvent.m in Sources */,
-				4AF54B4E194A21500093F714 /* FacebookNativeAdAdapter.m in Sources */,
 				AEE3886F171F4D300019601C /* GreystripeBannerCustomEvent.m in Sources */,
 				4661F840193EA6D5005B59DF /* MPNativeAdRequestTargetingSpec.mm in Sources */,
 				AEE38871171F4D300019601C /* GreystripeInterstitialCustomEvent.m in Sources */,
@@ -6578,7 +6544,6 @@
 				A72F90F619B7CA1D00A5601B /* MPServerAdPositioningSpec.mm in Sources */,
 				4A7DE8A81947ABAB00226DEC /* InMobiNativeAdAdapterSpec.mm in Sources */,
 				57E78753191A9B690073B3AA /* ASIdentifierManager+MPSpecs.m in Sources */,
-				57697F391941217200E7DF5A /* FacebookNativeCustomEvent.m in Sources */,
 				57E078661A1C7A7D00865697 /* MRConstants.m in Sources */,
 				DE99C5EC5E7569A2ED68A432 /* MRImageDownloader.m in Sources */,
 				57ACDB781AA134DE00A05633 /* MPInstanceProvider+AdColony.m in Sources */,
@@ -6601,7 +6566,6 @@
 				A72F90DE19B7B1FF00A5601B /* MPNativePositionSource.m in Sources */,
 				A7220FC41B6ABB680099DCF6 /* MPVASTManagerSpec.mm in Sources */,
 				57ACDB561AA134AF00A05633 /* MPAdColonyRouter+MPSpecs.m in Sources */,
-				57697F4F19412FF200E7DF5A /* FacebookNativeAdAdapterSpec.mm in Sources */,
 				5776FF7419895A36004765FA /* MPAdPlacerSharedExamplesSpec.mm in Sources */,
 				46ECD6EA17E7A29500442BCA /* MPAdAlertManager.m in Sources */,
 				4684BF9F17E8EBA50089E8E3 /* FakeMPAdAlertGestureRecognizer.m in Sources */,
@@ -6651,10 +6615,7 @@
 				466B2C711999749500234CC2 /* NSJSONSerialization+MPAdditions.m in Sources */,
 				A714FEB61B6AB09A000EAEC4 /* MPVASTManager.m in Sources */,
 				466B2C721999749500234CC2 /* MPCoreInstanceProvider.m in Sources */,
-				4AF54B4D194A21500093F714 /* FacebookNativeAdAdapter.m in Sources */,
 				4A2AEC521AA4F5C8002AFB88 /* MPInstanceProvider+Chartboost.m in Sources */,
-				4A659CD91925895F003288F9 /* FacebookBannerCustomEvent.m in Sources */,
-				4A659CDA1925895F003288F9 /* FacebookInterstitialCustomEvent.m in Sources */,
 				57AC695E1BB21FA20053C556 /* MOPUBNativeVideoCustomEvent.m in Sources */,
 				57ACDB8F1AA1358C00A05633 /* MPInstanceProvider+AdColony.m in Sources */,
 				AEF9D53F171CA895005AAA5A /* MPBannerAdManager.m in Sources */,
@@ -6662,7 +6623,6 @@
 				AEF9D541171CA895005AAA5A /* MPBannerCustomEventAdapter.m in Sources */,
 				4ADE5FF11B4FFA38004C3673 /* UnityAdsRewardedVideoCustomEvent.m in Sources */,
 				A7A422A01B603CB400024A3A /* MPVASTTrackingEvent.m in Sources */,
-				57697F381941217200E7DF5A /* FacebookNativeCustomEvent.m in Sources */,
 				A7E95AFD1ACA8F0300A26AFD /* MPQRunLoopOperation.m in Sources */,
 				AEF9D543171CA895005AAA5A /* MPBaseBannerAdapter.m in Sources */,
 				57ACDB851AA1357300A05633 /* AdColonyCustomEvent.m in Sources */,
@@ -6842,11 +6802,6 @@
 			isa = PBXTargetDependency;
 			target = 57CF54E919DE442F000D29C5 /* ChartboostCustomEvent */;
 			targetProxy = 57CF564F19DE4814000D29C5 /* PBXContainerItemProxy */;
-		};
-		57CF565219DE4814000D29C5 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 57CF54B219DE435F000D29C5 /* FacebookCustomEvent */;
-			targetProxy = 57CF565119DE4814000D29C5 /* PBXContainerItemProxy */;
 		};
 		57CF565419DE4814000D29C5 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;

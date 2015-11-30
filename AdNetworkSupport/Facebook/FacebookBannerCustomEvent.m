@@ -58,7 +58,7 @@
     FBAdSize fbAdSize;
     if (CGSizeEqualToSize(size, kFBAdSize320x50.size)) {
         fbAdSize = kFBAdSize320x50;
-    } else if (CGSizeEqualToSize(size, kFBAdSizeHeight250Rectangle.size)) {
+    } else if (size.height == kFBAdSizeHeight250Rectangle.size.height) {
         fbAdSize = kFBAdSizeHeight250Rectangle;
     } else if (size.height == kFBAdSizeHeight90Banner.size.height) {
         fbAdSize = kFBAdSizeHeight90Banner;

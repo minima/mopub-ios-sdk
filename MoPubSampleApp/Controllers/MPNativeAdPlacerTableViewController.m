@@ -17,6 +17,9 @@
 #import "MPStaticNativeAdRenderer.h"
 #import "MPNativeAdRendererConfiguration.h"
 #import <CoreLocation/CoreLocation.h>
+#import "MPNativeVideoTableViewAdPlacerView.h"
+#import "MOPUBNativeVideoAdRenderer.h"
+#import "MOPUBNativeVideoAdRendererSettings.h"
 
 static NSString *kDefaultCellIdentifier = @"MoPubSampleAppTableViewAdPlacerCell";
 
@@ -101,8 +104,16 @@ static NSString *kDefaultCellIdentifier = @"MoPubSampleAppTableViewAdPlacerCell"
     };
     MPNativeAdRendererConfiguration *nativeAdConfig = [MPStaticNativeAdRenderer rendererConfigurationWithRendererSettings:nativeAdSettings];
 
+    // Native video ads. You don't need to create nativeVideoAdSettings and nativeVideoConfig unless you are using native video ads.
+    MOPUBNativeVideoAdRendererSettings *nativeVideoAdSettings = [[MOPUBNativeVideoAdRendererSettings alloc] init];
+    nativeVideoAdSettings.renderingViewClass = [MPNativeVideoTableViewAdPlacerView class];
+    nativeVideoAdSettings.viewSizeHandler = ^(CGFloat maximumWidth) {
+        return CGSizeMake(maximumWidth, 312.0f);
+    };
+    MPNativeAdRendererConfiguration *nativeVideoConfig = [MOPUBNativeVideoAdRenderer rendererConfigurationWithRendererSettings:nativeVideoAdSettings];
+
     // Create a table view ad placer that uses server-side ad positioning.
-    self.placer = [MPTableViewAdPlacer placerWithTableView:self.tableView viewController:self rendererConfigurations:@[nativeAdConfig]];
+    self.placer = [MPTableViewAdPlacer placerWithTableView:self.tableView viewController:self rendererConfigurations:@[nativeAdConfig, nativeVideoConfig]];
 
     // If you wish to use client-side ad positioning rather than configuring your ad unit on the
     // MoPub website, comment out the line above and use the code below instead.
@@ -117,7 +128,7 @@ static NSString *kDefaultCellIdentifier = @"MoPubSampleAppTableViewAdPlacerCell"
      [positioning enableRepeatingPositionsWithInterval:10];
 
 
-     self.placer = [MPTableViewAdPlacer placerWithTableView:self.tableView viewController:self adPositioning:positioning rendererConfigurations:@[nativeAdConfig]];
+     self.placer = [MPTableViewAdPlacer placerWithTableView:self.tableView viewController:self adPositioning:positioning rendererConfigurations:@[nativeAdConfig, nativeVideoConfig]];
      */
 
     self.placer.delegate = self;

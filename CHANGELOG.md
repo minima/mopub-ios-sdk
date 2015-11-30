@@ -1,3 +1,13 @@
+## Version 4.2 (November 30th, 2015)
+
+- **Upgraded Facebook SDK support to 4.8.0**.
+	- Facebook Audience Network custom events for native and native video automatically display Facebook's AdChoices icon.
+- **Added mediation support for Facebook video**.
+- **Bug fixes**
+    - Added mp prefix to common constants.
+    - Fixed minor issue with video resuming during background to foreground transitions.
+    - Fixed minor issue generating the 'mute' video status event.
+
 ## Version 4.1 (November 12th, 2015)
 
 - **Added MoPub prefixes to constants and category methods**.
