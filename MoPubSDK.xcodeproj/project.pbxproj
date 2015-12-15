@@ -507,7 +507,6 @@
 		575828911A16F281009C7A85 /* MRController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5758288E1A16F281009C7A85 /* MRController.m */; };
 		575828921A16F281009C7A85 /* MRController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5758288E1A16F281009C7A85 /* MRController.m */; };
 		575828B41A1724BB009C7A85 /* FakeMRController.m in Sources */ = {isa = PBXBuildFile; fileRef = 575828B31A1724BB009C7A85 /* FakeMRController.m */; };
-		575AE6581B38C75B00444109 /* FABKitProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 575AE64D1B38C71200444109 /* FABKitProtocol.h */; };
 		575E1EA41ADD9583007FEE11 /* MPGlobalSpecHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 575E1EA31ADD9583007FEE11 /* MPGlobalSpecHelper.m */; };
 		575F4A3A1B90E74C001352D7 /* FakeNativeAdRenderingClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 575F4A391B90E74C001352D7 /* FakeNativeAdRenderingClass.m */; };
 		57697EE5193FE51B00E7DF5A /* NSOperationQueue+MPSpecs.m in Sources */ = {isa = PBXBuildFile; fileRef = 57697EE4193FE51B00E7DF5A /* NSOperationQueue+MPSpecs.m */; };
@@ -1934,6 +1933,10 @@
 		57214DDF1A66F9B20075BF95 /* MPCloseButtonX@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MPCloseButtonX@2x.png"; sourceTree = "<group>"; };
 		57214DE01A66F9B20075BF95 /* MPCloseButtonX@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MPCloseButtonX@3x.png"; sourceTree = "<group>"; };
 		57214DE61A66FB4C0075BF95 /* MRAID.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = MRAID.bundle; sourceTree = "<group>"; };
+		57253A601C0CC426001C01E5 /* FABAttributes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FABAttributes.h; sourceTree = "<group>"; };
+		57253A611C0CC426001C01E5 /* FABKitProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FABKitProtocol.h; sourceTree = "<group>"; };
+		57253A621C0CC426001C01E5 /* Fabric+FABKits.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Fabric+FABKits.h"; sourceTree = "<group>"; };
+		57253A631C0CC426001C01E5 /* Fabric.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Fabric.h; sourceTree = "<group>"; };
 		57292A0319461ACB00E6586C /* MPNativeAdConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPNativeAdConstants.m; sourceTree = "<group>"; };
 		572A1B121934FFEC00E40F5A /* MPImageDownloadQueueSpec.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MPImageDownloadQueueSpec.mm; sourceTree = "<group>"; };
 		5731A7AA1BBDFE8D00579ACE /* MPNativeAdRenderingImageLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPNativeAdRenderingImageLoader.h; sourceTree = "<group>"; };
@@ -1961,7 +1964,6 @@
 		575828B21A1724BB009C7A85 /* FakeMRController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FakeMRController.h; sourceTree = "<group>"; };
 		575828B31A1724BB009C7A85 /* FakeMRController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FakeMRController.m; sourceTree = "<group>"; };
 		575828B51A172B20009C7A85 /* MRBridge+MPSpecs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MRBridge+MPSpecs.h"; sourceTree = "<group>"; };
-		575AE64D1B38C71200444109 /* FABKitProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FABKitProtocol.h; sourceTree = "<group>"; };
 		575E1EA21ADD9583007FEE11 /* MPGlobalSpecHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPGlobalSpecHelper.h; sourceTree = "<group>"; };
 		575E1EA31ADD9583007FEE11 /* MPGlobalSpecHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPGlobalSpecHelper.m; sourceTree = "<group>"; };
 		575F4A381B90E74C001352D7 /* FakeNativeAdRenderingClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FakeNativeAdRenderingClass.h; sourceTree = "<group>"; };
@@ -3067,6 +3069,17 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
+		57253A5F1C0CC426001C01E5 /* Fabric */ = {
+			isa = PBXGroup;
+			children = (
+				57253A601C0CC426001C01E5 /* FABAttributes.h */,
+				57253A611C0CC426001C01E5 /* FABKitProtocol.h */,
+				57253A621C0CC426001C01E5 /* Fabric+FABKits.h */,
+				57253A631C0CC426001C01E5 /* Fabric.h */,
+			);
+			path = Fabric;
+			sourceTree = "<group>";
+		};
 		5755DA091AA90B4700DC32EA /* RewardedVideo */ = {
 			isa = PBXGroup;
 			children = (
@@ -3705,7 +3718,6 @@
 				A77FBED818C533B400531E8A /* Native Ads */,
 				AEF9D4C7171CA895005AAA5A /* Internal */,
 				AEF9D53B171CA895005AAA5A /* Resources */,
-				575AE64D1B38C71200444109 /* FABKitProtocol.h */,
 				AEF9D52E171CA895005AAA5A /* MPAdConversionTracker.h */,
 				AEF9D52F171CA895005AAA5A /* MPAdConversionTracker.m */,
 				AEF9D530171CA895005AAA5A /* MPAdView.h */,
@@ -3730,6 +3742,7 @@
 		AEF9D4C7171CA895005AAA5A /* Internal */ = {
 			isa = PBXGroup;
 			children = (
+				57253A5F1C0CC426001C01E5 /* Fabric */,
 				7EB508371A9E443E0042603B /* Event Logging */,
 				AEF9D4D3171CA895005AAA5A /* Common */,
 				AEF9D4C8171CA895005AAA5A /* Banners */,
@@ -4606,7 +4619,6 @@
 				57ACE4081AA7E8D900A05633 /* MPRewardedVideo.h in Headers */,
 				A776A5351B5DDF9900095706 /* MPVASTWrapper.h in Headers */,
 				570AFF9919D6192C00065388 /* MPBannerAdManager.h in Headers */,
-				575AE6581B38C75B00444109 /* FABKitProtocol.h in Headers */,
 				570A000C19D6193800065388 /* MPTimer.h in Headers */,
 				570AFF9B19D6192C00065388 /* MPBannerAdManagerDelegate.h in Headers */,
 				570A00D919D6325300065388 /* MPMoPubNativeAdAdapter.h in Headers */,

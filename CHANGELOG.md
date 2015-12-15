@@ -1,3 +1,7 @@
+## Version 4.3 (December 15th, 2015)
+
+- **Minor SDK improvements**.
+	
 ## Version 4.2 (November 30th, 2015)
 
 - **Upgraded Facebook SDK support to 4.8.0**.

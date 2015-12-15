@@ -7,6 +7,7 @@ using namespace Cedar::Doubles;
 @interface MPURLResolver (Spec)
 
 - (NSStringEncoding)stringEncodingFromContentType:(NSString *)contentType;
+- (MPURLActionInfo *)actionInfoFromURL:(NSURL *)URL error:(NSError **)error;
 
 @end
 
@@ -472,6 +473,12 @@ describe(@"MPURLResolver", ^{
                     resolvedActionInfo should be_nil;
                 }
             });
+        });
+    });
+
+    describe(@"when url and error are nil", ^{
+        it(@"should return nil and not crash", ^{
+            [urlResolver actionInfoFromURL:nil error:nil] should be_nil;
         });
     });
 
