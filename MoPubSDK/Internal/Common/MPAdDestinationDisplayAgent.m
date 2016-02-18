@@ -304,6 +304,15 @@ static NSString * const kDisplayAgentErrorDomain = @"com.mopub.displayagent";
     [self hideModalAndNotifyDelegate];
 }
 
+- (MPAdConfiguration *)adConfiguration
+{
+    if ([self.delegate respondsToSelector:@selector(adConfiguration)]) {
+        return [self.delegate adConfiguration];
+    }
+
+    return nil;
+}
+
 #pragma mark - <MPProgressOverlayViewDelegate>
 
 - (void)overlayCancelButtonPressed

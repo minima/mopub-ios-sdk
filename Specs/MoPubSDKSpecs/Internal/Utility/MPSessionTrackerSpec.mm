@@ -18,7 +18,7 @@ describe(@"MPSessionTracker", ^{
         [request valueForHTTPHeaderField:@"User-Agent"] should equal(@"FAKE_TEST_USER_AGENT_STRING");
 
         NSString *URL = request.URL.absoluteString;
-        URL should contain(@"http://ads.mopub.com/m/open?v=8");
+        URL should contain(@"https://ads.mopub.com/m/open?v=8");
         URL should contain(@"&id=com.mopub.Specs");
         URL should contain(@"&av=1.0");
         URL should contain(@"&st=1");
@@ -37,7 +37,7 @@ describe(@"MPSessionTracker", ^{
         [request valueForHTTPHeaderField:@"User-Agent"] should equal(@"FAKE_TEST_USER_AGENT_STRING");
 
         NSString *URL = request.URL.absoluteString;
-        URL should contain(@"http://ads.mopub.com/m/open?v=8");
+        URL should contain(@"https://ads.mopub.com/m/open?v=8");
         URL should contain(@"&id=com.mopub.Specs");
         URL should contain(@"&av=1.0");
         URL should contain(@"&st=1");
@@ -46,23 +46,23 @@ describe(@"MPSessionTracker", ^{
         URL should contain(expectedIdentifierQuery);
     });
 
-    context(@"when HTTPS is enabled", ^{
+    context(@"when HTTPS is disabled", ^{
         beforeEach(^{
-            [MPAPIEndpoints setUsesHTTPS:YES];
-        });
-
-        afterEach(^{
             [MPAPIEndpoints setUsesHTTPS:NO];
         });
 
-        it(@"should make its API calls over HTTPS", ^{
+        afterEach(^{
+            [MPAPIEndpoints setUsesHTTPS:YES];
+        });
+
+        it(@"should make its API calls over HTTP", ^{
             [NSURLConnection connections] should be_empty;
             [[NSNotificationCenter defaultCenter] postNotificationName:UIApplicationWillEnterForegroundNotification
                                                                 object:[UIApplication sharedApplication]];
 
             NSURLRequest *request = [[[NSURLConnection connections] objectAtIndex:0] request];
             NSString *URL = request.URL.absoluteString;
-            URL should contain(@"https://ads.mopub.com/m/open?v=8");
+            URL should contain(@"http://ads.mopub.com/m/open?v=8");
         });
     });
 });

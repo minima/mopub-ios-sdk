@@ -1,4 +1,12 @@
 #import "MPAdBrowserController.h"
+#import "FakeMPLogEventRecorder.h"
+
+
+@interface MPAdBrowserController (Spec)
+
+@property (nonatomic) MPLogEvent *dwellEvent;
+
+@end
 
 using namespace Cedar::Matchers;
 using namespace Cedar::Doubles;
@@ -10,6 +18,7 @@ describe(@"MPAdBrowserController", ^{
     __block MPAdBrowserController *browser;
     __block id<CedarDouble, MPAdBrowserControllerDelegate> delegate;
     __block NSURL *URL;
+    __block UIWindow *window;
 
     beforeEach(^{
         presentingViewController = [[UIViewController alloc] init];
@@ -24,7 +33,7 @@ describe(@"MPAdBrowserController", ^{
 
         // ios 7 is unhappy if a UIActionSheet attempts to display from a view
         // that's not attached to a window
-        UIWindow *window = [[UIWindow alloc] init];
+        window = [[UIWindow alloc] init];
         [window addSubview:browser.view];
 
         [browser viewWillAppear:NO];
@@ -32,6 +41,30 @@ describe(@"MPAdBrowserController", ^{
 
         [presentingViewController presentViewController:browser animated:NO completion:nil];
         presentingViewController.presentedViewController should be_same_instance_as(browser);
+    });
+
+    context(@"if somehow the browser's URL is nil", ^{
+        beforeEach(^{
+            [presentingViewController dismissViewControllerAnimated:NO completion:nil];
+            [browser.view removeFromSuperview];
+
+            browser = [[MPAdBrowserController alloc] initWithURL:nil
+                                                      HTMLString:@"<h1>Hello, it's me</h1>"
+                                                        delegate:delegate];
+
+            [window addSubview:browser.view];
+
+            [browser viewWillAppear:NO];
+            [browser viewDidAppear:NO];
+
+            [presentingViewController presentViewController:browser animated:NO completion:nil];
+
+        });
+
+        it(@"should use http://ads.mopub.com as the baseURL", ^{
+            NSURL *verifyURL = [NSURL URLWithString:@"http://ads.mopub.com"];
+            [browser.webView loadedBaseURL] should equal(verifyURL);
+        });
     });
 
     describe(@"after the view appears", ^{
@@ -45,6 +78,74 @@ describe(@"MPAdBrowserController", ^{
             browser.forwardButton.enabled should equal(NO);
             browser.refreshButton.enabled should equal(NO);
             browser.safariButton.enabled should equal(NO);
+        });
+    });
+
+    describe(@"dwell time logging", ^{
+        __block FakeMPLogEventRecorder *recorder;
+        beforeEach(^{
+            recorder = [[FakeMPLogEventRecorder alloc] init];
+            fakeCoreProvider.fakeLogEventRecorder = recorder;
+
+            browser = [[MPAdBrowserController alloc] initWithURL:URL
+                                                      HTMLString:@"<h1>Hello</h1>"
+                                                        delegate:delegate];
+        });
+
+        it(@"doesn't create the dwelling log event more than once", ^{
+            [browser viewWillAppear:NO];
+            [browser viewDidAppear:NO];
+
+            MPLogEvent *originalEvent = browser.dwellEvent;
+
+            [browser viewWillAppear:NO];
+            [browser viewDidAppear:NO];
+
+            // If viewAppearedDate changed, it'd have a new address.
+            originalEvent should equal(browser.dwellEvent);
+        });
+
+        context(@"when the delegate doesn't provide an ad configuration", ^{
+            beforeEach(^{
+                delegate reject_method(@selector(adConfiguration));
+
+                [browser viewWillAppear:NO];
+                [browser viewDidAppear:NO];
+                [browser done];
+            });
+
+            it(@"should not have logged an event", ^{
+                recorder.events.count should equal(0);
+            });
+        });
+
+        context(@"when the delegate returns a nil ad configuration", ^{
+            beforeEach(^{
+                delegate stub_method(@selector(adConfiguration)).and_return(nil);
+
+                [browser viewWillAppear:NO];
+                [browser viewDidAppear:NO];
+                [browser done];
+            });
+
+            it(@"should not have logged an event", ^{
+                recorder.events.count should equal(0);
+            });
+        });
+
+        context(@"when the delegate provides a non-nil ad configuration", ^{
+            beforeEach(^{
+                MPAdConfiguration *adConfiguration = [[MPAdConfiguration alloc] init];
+                delegate stub_method(@selector(adConfiguration)).and_return(adConfiguration);
+
+                [browser viewWillAppear:NO];
+                [browser viewDidAppear:NO];
+                [browser done];
+            });
+
+            it(@"should have logged an event", ^{
+                recorder.events.count should equal(1);
+            });
         });
     });
 

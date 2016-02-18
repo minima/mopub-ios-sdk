@@ -581,6 +581,47 @@ describe(@"MPAdDestinationDisplayAgent", ^{
             });
         });
     });
+
+    describe(@"-adConfiguration delegate method", ^{
+        __block id<CedarDouble, MPAdDestinationDisplayAgentDelegate> delegate;
+
+        beforeEach(^{
+            delegate = nice_fake_for(@protocol(MPAdDestinationDisplayAgentDelegate));
+            agent.delegate = delegate;
+        });
+
+        context(@"when the delegate doesn't respond to the -adConfiguration selector", ^{
+            beforeEach(^{
+                delegate reject_method(@selector(adConfiguration));
+            });
+
+            it(@"should return nil", ^{
+                agent.adConfiguration should be_nil;
+            });
+        });
+
+        context(@"when the delegate returns a nil adConfiguration", ^{
+            beforeEach(^{
+                delegate stub_method(@selector(adConfiguration)).and_return(nil);
+            });
+
+            it(@"should return nil", ^{
+                agent.adConfiguration should be_nil;
+            });
+        });
+
+        context(@"when the delegate returns a non-nil adConfiguration", ^{
+            __block MPAdConfiguration *delegateAdConfiguration;
+            beforeEach(^{
+                delegateAdConfiguration = [[MPAdConfiguration alloc] init];
+                delegate stub_method(@selector(adConfiguration)).and_return(delegateAdConfiguration);
+            });
+
+            it(@"should return the delegate's ad configuration", ^{
+                agent.adConfiguration should equal(delegateAdConfiguration);
+            });
+        });
+    });
 });
 
 SPEC_END

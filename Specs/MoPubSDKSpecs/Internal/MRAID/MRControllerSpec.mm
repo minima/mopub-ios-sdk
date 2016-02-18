@@ -725,19 +725,25 @@ describe(@"MRController", ^{
     describe(@"loading an ad configuration", ^{
         context(@"when the MRAID bundle is not available", ^{
             __block MRBundleManager<CedarDouble> *fakeBundleManager;
+            __block NSString *HTMLString;
 
             beforeEach(^{
+                spy_on(fakeMRBridge);
                 fakeBundleManager = nice_fake_for([MRBundleManager class]);
                 fakeBundleManager stub_method("mraidPath").and_return((NSString *)nil);
                 fakeProvider.fakeMRBundleManager = fakeBundleManager;
 
-                NSString *HTMLString = @"<h1>Hi, dudes!</h1>";
+                HTMLString = @"<h1>Hi, dudes!</h1>";
                 configuration = [MPAdConfigurationFactory defaultInterstitialConfigurationWithHeaders:nil HTMLString:HTMLString];
                 [controller loadAdWithConfiguration:configuration];
             });
 
             it(@"should not load the string into its webview", ^{
                 [webView loadedHTMLString] should be_nil;
+            });
+
+            it(@"should use http://ads.mopub.com for the baseURL", ^{
+                fakeMRBridge should have_received(@selector(loadHTMLString:baseURL:)).with(HTMLString).and_with([NSURL URLWithString:@"http://ads.mopub.com"]);
             });
 
             it(@"should tell its delegate that the ad failed to load", ^{

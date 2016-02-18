@@ -1,4 +1,5 @@
 #import "MPInterstitialViewController.h"
+#import "UIButton+MPAdditions.h"
 
 using namespace Cedar::Matchers;
 using namespace Cedar::Doubles;
@@ -59,6 +60,19 @@ describe(@"MPInterstitialViewController", ^{
                 UIViewController *differentPresentingController = [[UIViewController alloc] init];
                 [controller presentInterstitialFromViewController:differentPresentingController];
                 differentPresentingController.presentedViewController should equal(controller);
+            });
+        });
+
+        context(@"when viewController is presented", ^ {
+            beforeEach(^{
+                [controller presentInterstitialFromViewController:presentingController];
+            });
+
+            it(@"closeable button touch area should have correct touch inset", ^{
+                controller.closeButton.mp_TouchAreaInsets.top should equal(5);
+                controller.closeButton.mp_TouchAreaInsets.left should equal(5);
+                controller.closeButton.mp_TouchAreaInsets.bottom should equal(5);
+                controller.closeButton.mp_TouchAreaInsets.right should equal(5);
             });
         });
     });

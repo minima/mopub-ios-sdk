@@ -238,6 +238,8 @@ static const CGFloat kAutoPlayTimerInterval = 0.25f;
 
 - (void)playerDidProgressToTime:(NSTimeInterval)playbackTime
 {
+    [self.adapter handleVideoHasProgressedToTime:playbackTime];
+
     // Only the first impression is tracked.
     if (!self.trackingImpressionFired && [self.trackingAgent shouldTrackImpressionWithCurrentPlaybackTime:playbackTime]) {
         self.trackingImpressionFired = YES;

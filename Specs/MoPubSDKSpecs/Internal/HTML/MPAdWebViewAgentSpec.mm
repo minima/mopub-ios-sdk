@@ -47,12 +47,19 @@ describe(@"MPAdWebViewAgent", ^{
         context(@"setting the frame", ^{
             beforeEach(^{
                 interstitialConfiguration.preferredSize = CGSizeMake(123, 123);
+
+                spy_on(webView);
+
                 [agent loadConfiguration:interstitialConfiguration];
             });
 
             it(@"should ignore the frame size", ^{
                 agent.view.frame.size.width should equal(30);
                 agent.view.frame.size.height should equal(20);
+            });
+
+            it(@"should load the html with a base url of http://ads.mopub.com", ^{
+                webView should have_received(@selector(loadHTMLString:baseURL:)).with(interstitialConfiguration.adResponseHTMLString).and_with([NSURL URLWithString:@"http://ads.mopub.com"]);
             });
         });
     });

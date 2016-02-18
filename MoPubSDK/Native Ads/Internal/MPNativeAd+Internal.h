@@ -14,6 +14,7 @@
 @property (nonatomic, readwrite, strong) id<MPNativeAdRenderer> renderer;
 @property (nonatomic, readonly) NSMutableSet *clickTrackerURLs;
 @property (nonatomic, readonly) NSMutableSet *impressionTrackerURLs;
+@property (nonatomic, readonly, strong) id<MPNativeAdAdapter> adAdapter;
 
 /**
  * This method is called by the ad placers when the sizes of the ad placer stream

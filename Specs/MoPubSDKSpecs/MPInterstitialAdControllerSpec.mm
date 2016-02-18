@@ -54,7 +54,7 @@ describe(@"MPInterstitialAdController", ^{
             requestedPath should contain(@"&q=hi=4");
             requestedPath should contain(@"&ll=20,20");
             requestedPath should contain(@"&lla=100");
-            requestedPath should contain(@"http://testing.ads.mopub.com");
+            requestedPath should contain(@"https://testing.ads.mopub.com");
         });
     });
 

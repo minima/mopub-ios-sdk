@@ -83,16 +83,16 @@ describe(@"MPNativePositionSource", ^{
                 queryString should contain([NSString stringWithFormat:@"udid=%@", [MPIdentityProvider identifier]]);
             });
 
-            context(@"when HTTPS is enabled", ^{
+            context(@"when HTTPS is disabled", ^{
                 beforeEach(^{
-                    [MPAPIEndpoints setUsesHTTPS:YES];
-                });
-
-                afterEach(^{
                     [MPAPIEndpoints setUsesHTTPS:NO];
                 });
 
-                it(@"should make an ad server request over HTTPS", ^{
+                afterEach(^{
+                    [MPAPIEndpoints setUsesHTTPS:YES];
+                });
+
+                it(@"should make an ad server request over HTTP", ^{
                     [positionSource loadPositionsWithAdUnitIdentifier:TEST_ID completionHandler:^(MPAdPositioning *positioning, NSError *error) {
                         didCallCompletionHandler = YES;
                         returnedPositioning = positioning;
@@ -100,7 +100,7 @@ describe(@"MPNativePositionSource", ^{
                     }];
 
                     NSURL *requestURL = [[[NSURLConnection lastConnection] request] URL];
-                    requestURL.scheme should equal(@"https");
+                    requestURL.scheme should equal(@"http");
                     requestURL.host should equal(@"ads.mopub.com");
                     requestURL.path should equal(@"/m/pos");
                 });

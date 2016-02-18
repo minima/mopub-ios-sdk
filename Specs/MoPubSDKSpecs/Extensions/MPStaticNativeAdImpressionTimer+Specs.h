@@ -11,5 +11,7 @@
 
 @property (nonatomic, assign) CGFloat requiredViewVisibilityPercentage;
 @property (nonatomic, readonly) NSTimeInterval requiredSecondsForImpression;
+@property (nonatomic, assign) NSTimeInterval firstVisibilityTimestamp;
+@property (nonatomic) MPTimer *viewVisibilityTimer;
 
 @end

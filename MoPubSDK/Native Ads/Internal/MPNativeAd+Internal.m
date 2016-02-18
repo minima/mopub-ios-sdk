@@ -16,6 +16,7 @@
 @dynamic creationDate;
 @dynamic renderer;
 @dynamic associatedView;
+@dynamic adAdapter;
 
 - (void)updateAdViewSize:(CGSize)size
 {

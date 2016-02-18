@@ -9,6 +9,10 @@
 #import "MPAdBrowserController.h"
 #import "MPLogging.h"
 #import "MPGlobal.h"
+#import "MPLogEvent.h"
+#import "MPLogEventRecorder.h"
+#import "MPAdConfiguration.h"
+#import "MPAPIEndPoints.h"
 
 static NSString * const kAdBrowserControllerNibName = @"MPAdBrowserController";
 
@@ -17,6 +21,8 @@ static NSString * const kAdBrowserControllerNibName = @"MPAdBrowserController";
 @property (nonatomic, strong) UIActionSheet *actionSheet;
 @property (nonatomic, strong) NSString *HTMLString;
 @property (nonatomic, assign) int webViewLoadCount;
+@property (nonatomic) MPLogEvent *dwellEvent;
+@property (nonatomic) BOOL hasAppeared;
 
 - (void)dismissActionSheet;
 
@@ -63,6 +69,8 @@ static NSString * const kAdBrowserControllerNibName = @"MPAdBrowserController";
         self.spinner.hidesWhenStopped = YES;
 
         self.webViewLoadCount = 0;
+
+        _hasAppeared = NO;
     }
     return self;
 }
@@ -99,7 +107,18 @@ static NSString * const kAdBrowserControllerNibName = @"MPAdBrowserController";
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    [self.webView loadHTMLString:self.HTMLString baseURL:self.URL];
+
+    // Track when this view first appears so we can log the time the user stays in the view controller. Creating the event will mark the start of the dwell time.
+    // Make sure we don't create the event twice.
+    if (!self.hasAppeared) {
+        self.dwellEvent = [[MPLogEvent alloc] initWithEventCategory:MPLogEventCategoryAdInteractions eventName:MPLogEventNameClickthroughDwellTime];
+    }
+
+    self.hasAppeared = YES;
+
+    NSURL *baseURL = (self.URL != nil) ? self.URL : [NSURL URLWithString:[MPAPIEndpoints baseURL]];
+
+    [self.webView loadHTMLString:self.HTMLString baseURL:baseURL];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -131,6 +150,18 @@ static NSString * const kAdBrowserControllerNibName = @"MPAdBrowserController";
         [self.delegate dismissBrowserController:self animated:MP_ANIMATED];
     } else {
         [self dismissViewControllerAnimated:MP_ANIMATED completion:nil];
+    }
+
+    if ([self.delegate respondsToSelector:@selector(adConfiguration)]) {
+        MPAdConfiguration *configuration = [self.delegate adConfiguration];
+
+        if (configuration) {
+            MPAdConfigurationLogEventProperties *logProperties = [[MPAdConfigurationLogEventProperties alloc] initWithConfiguration:configuration];
+            [self.dwellEvent setLogEventProperties:logProperties];
+            [self.dwellEvent recordEndTime];
+
+            MPAddLogEvent(self.dwellEvent);
+        }
     }
 }
 

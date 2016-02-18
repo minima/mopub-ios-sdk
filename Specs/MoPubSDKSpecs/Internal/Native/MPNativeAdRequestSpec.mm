@@ -11,16 +11,19 @@
 #import "FakeNativeAdRenderingClass.h"
 #import "MPStaticNativeAdRenderer.h"
 #import "MPStaticNativeAdRendererSettings.h"
+#import "MPMoPubNativeAdAdapter.h"
 
 using namespace Cedar::Matchers;
 using namespace Cedar::Doubles;
 
 @interface MPNativeAdRequest (Specs) <MPNativeCustomEventDelegate, MPAdServerCommunicatorDelegate>
 
+@property (nonatomic) MPAdConfiguration *adConfiguration;
 @property (nonatomic, assign) BOOL loading;
 @property (nonatomic, copy) MPNativeAdRequestHandler completionHandler;
 
 - (void)getAdWithConfiguration:(MPAdConfiguration *)configuration;
+- (void)completeAdRequestWithAdObject:(MPNativeAd *)adObject error:(NSError *)error;
 
 @end
 
@@ -121,6 +124,32 @@ describe(@"MPNativeAdRequest", ^{
                 // The MPAdConfiguration implementation has not been updated since Native/Rewarded
                 // ad types were introduced.
                 event.adType should equal(@"native");
+            });
+
+            context(@"when the adapter has an adConfiguration property", ^{
+                it(@"should set the adapter's adConfiguration to the request's adConfiguration", ^{
+                    MPMoPubNativeAdAdapter *adapter = [[MPMoPubNativeAdAdapter alloc] init];
+                    MPNativeAd *nativeAd = [[MPNativeAd alloc] initWithAdAdapter:adapter];
+                    request.adConfiguration = [[MPAdConfiguration alloc] init];
+
+                    [request completeAdRequestWithAdObject:nativeAd error:nil];
+
+                    adapter.adConfiguration should equal(request.adConfiguration);
+                });
+            });
+
+            context(@"when the adapter doesn't have an adConfiguration property", ^{
+                it(@"should not attempt to set the adapter's adConfiguration to the request's adConfiguration", ^{
+                    ^{
+                        // We don't include adConfiguration in the base class (MPNativeAdAdapter), so it is not implemented by default.
+                        id<CedarDouble,MPNativeAdAdapter> adapter = nice_fake_for(@protocol(MPNativeAdAdapter));
+
+                        MPNativeAd *nativeAd = [[MPNativeAd alloc] initWithAdAdapter:adapter];
+                        request.adConfiguration = [[MPAdConfiguration alloc] init];
+
+                        [request completeAdRequestWithAdObject:nativeAd error:nil];
+                    } should_not raise_exception;
+                });
             });
         });
 
