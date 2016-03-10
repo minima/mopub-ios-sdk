@@ -4,7 +4,6 @@
 - **Bug fixes**
 	- Fixed native video impression tracking
 	- Made closeable hot spot consistent across all full-screen creative types
-	- Added boundry checks to address https://github.com/mopub/mopub-ios-sdk/pull/138
 
 
 ## Version 4.3 (December 15th, 2015)

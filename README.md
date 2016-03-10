@@ -40,7 +40,6 @@ Please view the [changelog](https://github.com/mopub/mopub-ios-sdk/blob/master/C
 - **Bug fixes**
 	- Fixed native video impression tracking
 	- Made closeable hot spot consistent across all full-screen creative types
-	- Added boundry checks to address https://github.com/mopub/mopub-ios-sdk/pull/138
 
 ### IMPORTANT 4.0 UPGRADE INSTRUCTIONS
 
