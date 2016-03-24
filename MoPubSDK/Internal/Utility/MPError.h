@@ -10,18 +10,18 @@
 extern NSString * const kMPErrorDomain;
 
 typedef enum {
-    MPErrorUnknown = -1,
-    MPErrorNoInventory = 0,
-    MPErrorAdUnitWarmingUp = 1,
-    MPErrorNetworkTimedOut = 4,
-    MPErrorServerError = 8,
-    MPErrorAdapterNotFound = 16,
-    MPErrorAdapterInvalid = 17,
-    MPErrorAdapterHasNoInventory = 18
-} MPErrorCode;
+    MOPErrorUnknown = -1,
+    MOPErrorNoInventory = 0,
+    MOPErrorAdUnitWarmingUp = 1,
+    MOPErrorNetworkTimedOut = 4,
+    MOPErrorServerError = 8,
+    MOPErrorAdapterNotFound = 16,
+    MOPErrorAdapterInvalid = 17,
+    MOPErrorAdapterHasNoInventory = 18
+} MOPErrorCode;
 
 @interface MPError : NSError
 
-+ (MPError *)errorWithCode:(MPErrorCode)code;
++ (MPError *)errorWithCode:(MOPErrorCode)code;
 
 @end

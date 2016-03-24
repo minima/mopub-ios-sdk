@@ -129,21 +129,21 @@
     if (self.configuration.adUnitWarmingUp) {
         MPLogInfo(kMPWarmingUpErrorLogFormatWithAdUnitID, self.delegate.interstitialAdController.adUnitId);
         self.loading = NO;
-        [self.delegate manager:self didFailToLoadInterstitialWithError:[MPError errorWithCode:MPErrorAdUnitWarmingUp]];
+        [self.delegate manager:self didFailToLoadInterstitialWithError:[MPError errorWithCode:MOPErrorAdUnitWarmingUp]];
         return;
     }
 
     if ([self.configuration.networkType isEqualToString:kAdTypeClear]) {
         MPLogInfo(kMPClearErrorLogFormatWithAdUnitID, self.delegate.interstitialAdController.adUnitId);
         self.loading = NO;
-        [self.delegate manager:self didFailToLoadInterstitialWithError:[MPError errorWithCode:MPErrorNoInventory]];
+        [self.delegate manager:self didFailToLoadInterstitialWithError:[MPError errorWithCode:MOPErrorNoInventory]];
         return;
     }
 
     if (self.configuration.adType != MPAdTypeInterstitial) {
         MPLogWarn(@"Could not load ad: interstitial object received a non-interstitial ad unit ID.");
         self.loading = NO;
-        [self.delegate manager:self didFailToLoadInterstitialWithError:[MPError errorWithCode:MPErrorAdapterInvalid]];
+        [self.delegate manager:self didFailToLoadInterstitialWithError:[MPError errorWithCode:MOPErrorAdapterInvalid]];
         return;
     }
 
