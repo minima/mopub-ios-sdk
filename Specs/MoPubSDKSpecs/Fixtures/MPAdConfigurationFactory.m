@@ -213,9 +213,23 @@
               } mutableCopy];
 }
 
++ (NSMutableDictionary *)defaultRewardedVideoHeadersWithReward
+{
+    NSMutableDictionary *dict = [[self defaultRewardedVideoHeaders] mutableCopy];
+    dict[kRewardedVideoCurrencyNameHeaderKey] = @"gold";
+    dict[kRewardedVideoCurrencyAmountHeaderKey] = @"12";
+    return dict;
+}
+
 + (MPAdConfiguration *)defaultRewardedVideoConfiguration
 {
     MPAdConfiguration *adConfiguration = [[MPAdConfiguration alloc] initWithHeaders:[self defaultRewardedVideoHeaders] data:nil];
+    return adConfiguration;
+}
+
++ (MPAdConfiguration *)defaultRewardedVideoConfigurationWithReward
+{
+    MPAdConfiguration *adConfiguration = [[MPAdConfiguration alloc] initWithHeaders:[self defaultRewardedVideoHeadersWithReward] data:nil];
     return adConfiguration;
 }
 

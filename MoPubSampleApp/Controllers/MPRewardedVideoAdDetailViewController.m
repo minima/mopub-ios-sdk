@@ -72,7 +72,7 @@
 
 
     // create Instance Mediation Settings as needed here
-    [MPRewardedVideo loadRewardedVideoAdWithAdUnitID:self.info.ID withMediationSettings:@[]];
+    [MPRewardedVideo loadRewardedVideoAdWithAdUnitID:self.info.ID keywords:nil location:nil mediationSettings:@[]];
 }
 
 - (IBAction)didTapShowButton:(id)sender

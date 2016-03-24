@@ -568,6 +568,8 @@
 		B2A7A63E1BA8C58300659ADD /* MOPUBNativeVideoAdRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = B2A7A63D1BA8C58300659ADD /* MOPUBNativeVideoAdRenderer.m */; };
 		B2A7A63F1BA8C58300659ADD /* MOPUBNativeVideoAdRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = B2A7A63D1BA8C58300659ADD /* MOPUBNativeVideoAdRenderer.m */; };
 		B2DDC9BB1BFBACFA00656985 /* FBAudienceNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B2DDC9BA1BFBACFA00656985 /* FBAudienceNetwork.framework */; };
+		B2E47F701C7E365200DE5EA6 /* MPMoPubRewardedVideoCustomEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = B2E47F6F1C7E365200DE5EA6 /* MPMoPubRewardedVideoCustomEvent.m */; };
+		B2E47F711C7E365200DE5EA6 /* MPMoPubRewardedVideoCustomEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = B2E47F6F1C7E365200DE5EA6 /* MPMoPubRewardedVideoCustomEvent.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1232,6 +1234,7 @@
 		AEEA5E4F16F940EC003D48F4 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.1.sdk/System/Library/Frameworks/MessageUI.framework; sourceTree = "<absolute>"; };
 		AEEA5E5016F940EC003D48F4 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.1.sdk/System/Library/Frameworks/AudioToolbox.framework; sourceTree = "<absolute>"; };
 		AEEA5E5116F940EC003D48F4 /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.1.sdk/System/Library/Frameworks/iAd.framework; sourceTree = "<absolute>"; };
+		B2056EE21C5952450030419E /* MPPrivateRewardedVideoCustomEventDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPPrivateRewardedVideoCustomEventDelegate.h; sourceTree = "<group>"; };
 		B20C81411BB21B50007F0E45 /* MPDAAIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MPDAAIcon.png; sourceTree = "<group>"; };
 		B20C81421BB21B50007F0E45 /* MPDAAIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MPDAAIcon@2x.png"; sourceTree = "<group>"; };
 		B20C81431BB21B50007F0E45 /* MPDAAIcon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MPDAAIcon@3x.png"; sourceTree = "<group>"; };
@@ -1256,6 +1259,8 @@
 		B2A7A63C1BA8C58300659ADD /* MOPUBNativeVideoAdRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MOPUBNativeVideoAdRenderer.h; sourceTree = "<group>"; };
 		B2A7A63D1BA8C58300659ADD /* MOPUBNativeVideoAdRenderer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MOPUBNativeVideoAdRenderer.m; sourceTree = "<group>"; };
 		B2DDC9BA1BFBACFA00656985 /* FBAudienceNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBAudienceNetwork.framework; sourceTree = "<group>"; };
+		B2E47F6E1C7E365200DE5EA6 /* MPMoPubRewardedVideoCustomEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPMoPubRewardedVideoCustomEvent.h; sourceTree = "<group>"; };
+		B2E47F6F1C7E365200DE5EA6 /* MPMoPubRewardedVideoCustomEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPMoPubRewardedVideoCustomEvent.m; sourceTree = "<group>"; };
 		E060FE6A1994000C00F4F33C /* MPNativeAdPlacerCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPNativeAdPlacerCollectionViewController.h; sourceTree = "<group>"; };
 		E060FE6B1994000C00F4F33C /* MPNativeAdPlacerCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPNativeAdPlacerCollectionViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -1823,10 +1828,13 @@
 		5755D6181AA8F62900DC32EA /* Internal */ = {
 			isa = PBXGroup;
 			children = (
+				B2E47F6E1C7E365200DE5EA6 /* MPMoPubRewardedVideoCustomEvent.h */,
+				B2E47F6F1C7E365200DE5EA6 /* MPMoPubRewardedVideoCustomEvent.m */,
 				5755D6191AA8F62900DC32EA /* MPRewardedVideoAdapter.h */,
 				5755D61A1AA8F62900DC32EA /* MPRewardedVideoAdapter.m */,
 				5755D61B1AA8F62900DC32EA /* MPRewardedVideoAdManager.h */,
 				5755D61C1AA8F62900DC32EA /* MPRewardedVideoAdManager.m */,
+				B2056EE21C5952450030419E /* MPPrivateRewardedVideoCustomEventDelegate.h */,
 			);
 			path = Internal;
 			sourceTree = "<group>";
@@ -2899,6 +2907,7 @@
 				5755DAEE1AAA4E2300DC32EA /* AdColonyGlobalMediationSettings.m in Sources */,
 				878251DE1BB38A8200EB5283 /* MPLogEvent+NativeVideo.m in Sources */,
 				57AC6A151BB221130053C556 /* MOPUBPlayerManager.m in Sources */,
+				B2E47F711C7E365200DE5EA6 /* MPMoPubRewardedVideoCustomEvent.m in Sources */,
 				87CF217F1B0D39150080E6BB /* MPActivityViewControllerHelper.m in Sources */,
 				5755D6361AA8F62900DC32EA /* MPRewardedVideoReward.m in Sources */,
 				57240A101A688C05009271B8 /* MRCommand.m in Sources */,
@@ -3121,6 +3130,7 @@
 				57AC6A0E1BB221130053C556 /* MOPUBNativeVideoAdConfigValues.m in Sources */,
 				57240A931A688C05009271B8 /* MPNativePositionResponseDeserializer.m in Sources */,
 				572409DF1A688C05009271B8 /* MPHTMLInterstitialCustomEvent.m in Sources */,
+				B2E47F701C7E365200DE5EA6 /* MPMoPubRewardedVideoCustomEvent.m in Sources */,
 				A7A4227D1B5F224400024A3A /* MPVASTInline.m in Sources */,
 				57240A691A688C05009271B8 /* MPAdView.m in Sources */,
 				A78EB0501BAA1B0F001135F8 /* MPVASTMacroProcessor.m in Sources */,

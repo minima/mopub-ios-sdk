@@ -259,6 +259,16 @@ describe(@"MPAdConfiguration", ^{
         configuration.adTimeoutInterval should equal(-1);
     });
 
+    it(@"should process rewardedVideo", ^{
+        headers = @{kRewardedVideoCurrencyNameHeaderKey: @"gold", kRewardedVideoCurrencyAmountHeaderKey: @"1234"};
+        configuration = [[MPAdConfiguration alloc] initWithHeaders:headers data:nil];
+        configuration.rewardedVideoReward should_not be_nil;
+
+        configuration.rewardedVideoReward.currencyType should equal(@"gold");
+        configuration.rewardedVideoReward.amount.intValue should equal(1234);
+
+    });
+
     it(@"should process the nativeSDKParameters", ^{
         headers = @{kNativeSDKParametersHeaderKey: @"{\"foo\":\"bar\", \"baz\":2, \"nah\":null}"};
         configuration = [[MPAdConfiguration alloc] initWithHeaders:headers data:nil];

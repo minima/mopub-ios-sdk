@@ -36,5 +36,6 @@
 
 + (NSMutableDictionary *)defaultRewardedVideoHeaders;
 + (MPAdConfiguration *)defaultRewardedVideoConfiguration;
++ (MPAdConfiguration *)defaultRewardedVideoConfigurationWithReward;
 
 @end

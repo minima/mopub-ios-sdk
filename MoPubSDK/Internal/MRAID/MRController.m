@@ -666,6 +666,8 @@ static NSString *const kMRAIDCommandResize = @"resize";
         [self adDidLoad];
     } else if (command == MPMoPubHostCommandFailLoad) {
         [self adDidFailToLoad];
+    } else if (command == MPMoPubHostCommandRewardedVideoEnded) {
+        [self.delegate rewardedVideoEnded];
     } else {
         MPLogWarn(@"MRController - unsupported MoPub URL: %@", [url absoluteString]);
     }

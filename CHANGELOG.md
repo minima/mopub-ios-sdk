@@ -1,3 +1,9 @@
+## Version 4.5 (March 24th, 2016)
+
+- **Rewarded video support from the MoPub Marketplace (Beta)**
+- **Bug fixes**
+	- The SDK now correctly sends matched modal presented/dismissed callbacks on clickthrough
+
 ## Version 4.4 (February 17th, 2016)
 
 - **Enabled SSL ad requests by default**

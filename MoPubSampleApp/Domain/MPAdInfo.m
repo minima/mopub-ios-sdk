@@ -28,7 +28,7 @@
     NSMutableArray *ads = [NSMutableArray array];
 
     [ads addObjectsFromArray:@[
-                               [MPAdInfo infoWithTitle:@"HTML Banner Ad" ID:@"c92be421345c4eab964645f6a1818284" type:MPAdInfoBanner],
+                               [MPAdInfo infoWithTitle:@"HTML Banner Ad" ID:@"0ac59b0996d947309c33f59d6676399f" type:MPAdInfoBanner],
                                [MPAdInfo infoWithTitle:@"MRAID Banner Ad" ID:@"23b49916add211e281c11231392559e4" type:MPAdInfoBanner],
                                [MPAdInfo infoWithTitle:@"HTML MRECT Banner Ad" ID:@"2aae44d2ab91424d9850870af33e5af7" type:MPAdInfoMRectBanner],
                                ]];

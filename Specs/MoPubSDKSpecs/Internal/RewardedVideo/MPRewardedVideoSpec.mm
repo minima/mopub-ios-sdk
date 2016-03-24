@@ -124,11 +124,11 @@ describe(@"RewardedVideo", ^{
 
             // Make sure consecutive load calls are forwarded to the ad manager.
             [MPRewardedVideo loadRewardedVideoAdWithAdUnitID:adUnitID withMediationSettings:nil];
-            fakeAdManager should have_received(@selector(loadRewardedVideoAd));
+            fakeAdManager should have_received(@selector(loadRewardedVideoAdWithKeywords:location:));
             [fakeAdManager reset_sent_messages];
 
             [MPRewardedVideo loadRewardedVideoAdWithAdUnitID:adUnitID withMediationSettings:nil];
-            fakeAdManager should have_received(@selector(loadRewardedVideoAd));
+            fakeAdManager should have_received(@selector(loadRewardedVideoAdWithKeywords:location:));
         });
 
         describe(@"loading with mediation settings", ^{

@@ -797,6 +797,13 @@ describe(@"MRController", ^{
 
                 controllerDelegate should have_received(@selector(adDidLoad:));
             });
+
+            it(@"should notify the delegate when the rewarded video finished playing", ^{
+                NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:@"mopub://rewardedVideoEnded"]];
+                [fakeMRBridge webView:webView shouldStartLoadWithRequest:request navigationType:UIWebViewNavigationTypeOther];
+
+                controllerDelegate should have_received(@selector(rewardedVideoEnded));
+            });
         });
     });
 
