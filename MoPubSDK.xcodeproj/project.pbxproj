@@ -7040,6 +7040,8 @@
 			buildSettings = {
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				OTHER_CFLAGS = "";
+				"OTHER_CFLAGS[arch=*]" = "-fembed-bitcode-marker";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -7049,6 +7051,7 @@
 			buildSettings = {
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				OTHER_CFLAGS = "-fembed-bitcode";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -7144,6 +7147,7 @@
 				GENERATE_MASTER_OBJECT_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
+				"OTHER_CFLAGS[arch=*]" = "-fembed-bitcode-marker";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = MoPub;
 				PUBLIC_HEADERS_FOLDER_PATH = Headers;
@@ -7179,6 +7183,7 @@
 				GENERATE_MASTER_OBJECT_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				"OTHER_CFLAGS[arch=*]" = "-fembed-bitcode";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = MoPub;
 				PUBLIC_HEADERS_FOLDER_PATH = Headers;

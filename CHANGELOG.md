@@ -1,3 +1,7 @@
+## Version 4.5.1 (April 4th, 2016)
+
+- **bitcode support for MoPub Fabric Kit**
+	
 ## Version 4.5 (March 24th, 2016)
 
 - **Rewarded video support from the MoPub Marketplace (Beta)**
