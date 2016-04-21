@@ -2,6 +2,7 @@
 #import <EventKit/EventKit.h>
 #import "FakeEKEventStore.h"
 #import "CedarAsync.h"
+#import <Cedar/Cedar.h>
 
 @interface MRCalendarManager (Spec)
 
@@ -308,7 +309,7 @@ describe(@"MRCalendarManager", ^{
             it(@"creates the rule *correctly*", ^{
                 // SDK will turn the invalid value into Sunday, avoiding this odd result would
                 // mean more ugly code in the SDK
-                EKRecurrenceDayOfWeek *sunday = [EKRecurrenceDayOfWeek dayOfWeek:1];
+                EKRecurrenceDayOfWeek *sunday = [EKRecurrenceDayOfWeek dayOfWeek:EKWeekdaySunday];
                 rule.daysOfTheWeek should equal(@[sunday]);
             });
         });
@@ -332,13 +333,13 @@ describe(@"MRCalendarManager", ^{
 
             it(@"creates the rule correctly", ^{
                 // SDK requires 1 - 7, Sunday - Saturday
-                EKRecurrenceDayOfWeek *sunday    = [EKRecurrenceDayOfWeek dayOfWeek:1];
-                EKRecurrenceDayOfWeek *monday    = [EKRecurrenceDayOfWeek dayOfWeek:2];
-                EKRecurrenceDayOfWeek *tuesday   = [EKRecurrenceDayOfWeek dayOfWeek:3];
-                EKRecurrenceDayOfWeek *wednesday = [EKRecurrenceDayOfWeek dayOfWeek:4];
-                EKRecurrenceDayOfWeek *thursday  = [EKRecurrenceDayOfWeek dayOfWeek:5];
-                EKRecurrenceDayOfWeek *friday    = [EKRecurrenceDayOfWeek dayOfWeek:6];
-                EKRecurrenceDayOfWeek *saturday  = [EKRecurrenceDayOfWeek dayOfWeek:7];
+                EKRecurrenceDayOfWeek *sunday    = [EKRecurrenceDayOfWeek dayOfWeek:EKWeekdaySunday];
+                EKRecurrenceDayOfWeek *monday    = [EKRecurrenceDayOfWeek dayOfWeek:EKWeekdayMonday];
+                EKRecurrenceDayOfWeek *tuesday   = [EKRecurrenceDayOfWeek dayOfWeek:EKWeekdayTuesday];
+                EKRecurrenceDayOfWeek *wednesday = [EKRecurrenceDayOfWeek dayOfWeek:EKWeekdayWednesday];
+                EKRecurrenceDayOfWeek *thursday  = [EKRecurrenceDayOfWeek dayOfWeek:EKWeekdayThursday];
+                EKRecurrenceDayOfWeek *friday    = [EKRecurrenceDayOfWeek dayOfWeek:EKWeekdayFriday];
+                EKRecurrenceDayOfWeek *saturday  = [EKRecurrenceDayOfWeek dayOfWeek:EKWeekdaySaturday];
 
                 rule.daysOfTheWeek should equal(@[sunday, monday, tuesday, wednesday, thursday, friday, saturday]);
             });

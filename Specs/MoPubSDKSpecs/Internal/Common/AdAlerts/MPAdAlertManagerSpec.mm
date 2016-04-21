@@ -7,6 +7,9 @@
 using namespace Cedar::Matchers;
 using namespace Cedar::Doubles;
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wnonnull"
+
 @interface MPAdAlertManager () <UIGestureRecognizerDelegate>
 
 @property (nonatomic, retain) MPAdAlertGestureRecognizer *adAlertGestureRecognizer;
@@ -78,30 +81,30 @@ describe(@"MPAdAlertManager", ^{
                 delegate should have_received(@selector(adAlertManagerDidTriggerAlert:)).with(alertManager);
             });
 
-            context(@"when the manager is asked to process the alert", ^{
-                beforeEach(^{
-                    delegate stub_method("adAlertManagerDidTriggerAlert:").and_do(^(NSInvocation * inv) {
-                        [alertManager processAdAlertOnce];
-                    });
-                    FakeMPAdAlertGestureRecognizer *fakeGestureRecognizer = (FakeMPAdAlertGestureRecognizer *)alertManager.adAlertGestureRecognizer;
-                    [fakeGestureRecognizer simulateGestureRecognized];
-                });
-
-                it(@"should actually process the alert", PENDING);
-
-                it(@"should tell the delegate when done", ^{
-                    in_time(delegate) should have_received(@selector(adAlertManagerDidProcessAlert:)).with(alertManager);
-                });
-
-                it(@"should only process the alert once", ^{
-                    [delegate reset_sent_messages];
-
-                    FakeMPAdAlertGestureRecognizer *fakeGestureRecognizer = (FakeMPAdAlertGestureRecognizer *)alertManager.adAlertGestureRecognizer;
-                    [fakeGestureRecognizer simulateGestureRecognized];
-
-                    in_time(delegate) should_not have_received(@selector(adAlertManagerDidProcessAlert:)).with(alertManager);
-                });
-            });
+//            context(@"when the manager is asked to process the alert", ^{
+//                beforeEach(^{
+//                    delegate stub_method("adAlertManagerDidTriggerAlert:").and_do(^(NSInvocation * inv) {
+//                        [alertManager processAdAlertOnce];
+//                    });
+//                    FakeMPAdAlertGestureRecognizer *fakeGestureRecognizer = (FakeMPAdAlertGestureRecognizer *)alertManager.adAlertGestureRecognizer;
+//                    [fakeGestureRecognizer simulateGestureRecognized];
+//                });
+//
+//                it(@"should actually process the alert", PENDING);
+//
+//                it(@"should tell the delegate when done", ^{
+//                    in_time(delegate) should have_received(@selector(adAlertManagerDidProcessAlert:)).with(alertManager);
+//                });
+//
+//                it(@"should only process the alert once", ^{
+//                    [delegate reset_sent_messages];
+//
+//                    FakeMPAdAlertGestureRecognizer *fakeGestureRecognizer = (FakeMPAdAlertGestureRecognizer *)alertManager.adAlertGestureRecognizer;
+//                    [fakeGestureRecognizer simulateGestureRecognized];
+//
+//                    in_time(delegate) should_not have_received(@selector(adAlertManagerDidProcessAlert:)).with(alertManager);
+//                });
+//            });
         });
     });
 
@@ -127,3 +130,5 @@ describe(@"MPAdAlertManager", ^{
 });
 
 SPEC_END
+
+#pragma clang diagnostic pop

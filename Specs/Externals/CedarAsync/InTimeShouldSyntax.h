@@ -1,4 +1,5 @@
 #import "AsyncActualValue.h"
+#import <Cedar/Cedar.h>
 
 namespace CedarAsync {
     template<typename T>
@@ -25,5 +26,5 @@ namespace CedarAsync {
 }
 
 #ifndef CEDAR_ASYNC_DISALLOW_IN_TIME
-#define in_time(x) (InTimeMarker<typeof(x)>){^{return x;}, __FILE__, __LINE__}
+#define in_time(x) (InTimeMarker<__typeof__(x)>){^{return x;}, __FILE__, __LINE__}
 #endif

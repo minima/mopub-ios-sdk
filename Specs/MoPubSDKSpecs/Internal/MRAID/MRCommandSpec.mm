@@ -1,5 +1,6 @@
 #import "MRCommand.h"
 #import "MRNativeCommandHandler+Specs.h"
+#import <Cedar/Cedar.h>
 
 #define kParamValidURLString @"http://www.google.com"
 #define ParamValidURL() [NSURL URLWithString:kParamValidURLString]

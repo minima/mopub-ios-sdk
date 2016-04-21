@@ -1,4 +1,5 @@
 #import "NSJSONSerialization+MPAdditions.h"
+#import <Cedar/Cedar.h>
 
 using namespace Cedar::Matchers;
 using namespace Cedar::Doubles;
@@ -13,7 +14,7 @@ describe(@"NSJSONSerialization_MPAdditions", ^{
             if (data) {
                 dictionary = [NSJSONSerialization mp_JSONObjectWithData:data options:kNilOptions clearNullObjects:YES error:nil];
             }
-            
+
             dictionary should equal(@{@"foo": @"bar", @"baz": @2, @"recurseDict": @{@"value": @"a value!"}, @"testArray": @[@"item1", @{@"value": @"a value!"}]});
         });
     });

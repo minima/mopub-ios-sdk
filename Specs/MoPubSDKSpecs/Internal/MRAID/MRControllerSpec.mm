@@ -13,9 +13,13 @@
 #import "MRNativeCommandHandler.h"
 #import "MRExpandModalViewController.h"
 #import "MPClosableView+MPSpecs.h"
+#import <Cedar/Cedar.h>
 
 using namespace Cedar::Matchers;
 using namespace Cedar::Doubles;
+
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wnonnull"
 
 @interface MRNativeCommandHandler () <MRCalendarManagerDelegate, MRPictureManagerDelegate, MRVideoPlayerManagerDelegate, MRCommandDelegate>
 
@@ -1575,3 +1579,5 @@ describe(@"MRController", ^{
 });
 
 SPEC_END
+
+#pragma clang diagnostic pop

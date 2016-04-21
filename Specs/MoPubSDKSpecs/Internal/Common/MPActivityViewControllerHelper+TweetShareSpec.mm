@@ -1,11 +1,12 @@
 #import "MPActivityViewControllerHelper+TweetShare.h"
+#import <Cedar/Cedar.h>
 
 using namespace Cedar::Matchers;
 using namespace Cedar::Doubles;
 
 SPEC_BEGIN(MPActivityViewControllerHelper_TweetShareSpec)
 
-describe(@"MPActivityViewControllerHelper_TweetShare", ^{
+xdescribe(@"MPActivityViewControllerHelper_TweetShare", ^{
     __block MPActivityViewControllerHelper *activityViewControllerHelper;
     __block id<MPActivityViewControllerHelperDelegate> delegate;
 

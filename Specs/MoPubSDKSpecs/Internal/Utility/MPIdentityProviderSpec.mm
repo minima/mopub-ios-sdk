@@ -1,6 +1,7 @@
 #import "MPIdentityProvider.h"
 #import <AdSupport/AdSupport.h>
 #import "ASIdentifierManager+MPSpecs.h"
+#import <Cedar/Cedar.h>
 
 using namespace Cedar::Matchers;
 using namespace Cedar::Doubles;

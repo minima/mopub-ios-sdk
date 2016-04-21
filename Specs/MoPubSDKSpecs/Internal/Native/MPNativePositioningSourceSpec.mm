@@ -3,6 +3,7 @@
 #import "MPConstants.h"
 #import "CedarAsync.h"
 #import "MPAPIEndpoints.h"
+#import <Cedar/Cedar.h>
 
 using namespace Cedar::Matchers;
 using namespace Cedar::Doubles;

@@ -5,20 +5,29 @@
 //  Copyright (c) 2015 MoPub. All rights reserved.
 //
 
-#import "MPStaticNativeAdRenderer.h"
-#import "MPNativeAdRenderer.h"
-#import "MPNativeAdAdapter.h"
-#import "MPNativeAdRendering.h"
-#import "MPNativeAdConstants.h"
-#import "MPNativeCache.h"
-#import "MPLogging.h"
-#import "MPNativeView.h"
-#import "MPNativeAdError.h"
-#import "MPStaticNativeAdRendererSettings.h"
-#import "MPNativeAdRendererConfiguration.h"
 #import "MPAdDestinationDisplayAgent.h"
+#import "MPLogging.h"
+#import "MPNativeAdAdapter.h"
+#import "MPNativeAdConstants.h"
+#import "MPNativeAdError.h"
+#import "MPNativeAdRenderer.h"
+#import "MPNativeAdRendererConfiguration.h"
+#import "MPNativeAdRendererConstants.h"
 #import "MPNativeAdRendererImageHandler.h"
+#import "MPNativeAdRendering.h"
 #import "MPNativeAdRenderingImageLoader.h"
+#import "MPNativeCache.h"
+#import "MPNativeView.h"
+#import "MPStaticNativeAdRenderer.h"
+#import "MPStaticNativeAdRendererSettings.h"
+
+/**
+ *  -1.0 is somewhat significant because this also happens to be what `UITableViewAutomaticDimension`
+ *  is so it makes for easier migration to use `UITableViewAutomaticDimension` on iOS 8+ later but is not
+ *  currently passed back in `-tableView:shouldIndentWhileEditingRowAtIndexPath:` directly so it can
+ *  be any abitrary value.
+ */
+const CGFloat MPNativeViewDynamicDimension = -1.0;
 
 @interface MPStaticNativeAdRenderer () <MPNativeAdRendererImageHandlerDelegate>
 

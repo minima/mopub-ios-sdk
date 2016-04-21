@@ -1,6 +1,7 @@
 #import "MPHTMLInterstitialCustomEvent.h"
 #import "MPAdConfigurationFactory.h"
 #import "MPHTMLInterstitialViewController.h"
+#import <Cedar/Cedar.h>
 
 using namespace Cedar::Matchers;
 using namespace Cedar::Doubles;

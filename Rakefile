@@ -76,7 +76,11 @@ def build(options)
     sdk = "iphonesimulator#{available_sdk_versions.max}"
   end
   out_file = output_file("mopub_#{options[:target].downcase}_#{sdk}")
-  system_or_exit(%Q[xcodebuild -project #{project}.xcodeproj -target #{target} -configuration #{configuration} ARCHS=i386 -sdk #{sdk} build SYMROOT=#{BUILD_DIR}], out_file)
+  if target == 'Specs' 
+  	system_or_exit(%Q[xcodebuild -workspace #{project}.xcworkspace -scheme #{target} -configuration #{configuration} -destination 'platform=iOS Simulator,name=iPad' -sdk #{sdk} build SYMROOT=#{BUILD_DIR}], out_file)
+  else
+	system_or_exit(%Q[xcodebuild -project #{project}.xcodeproj -target #{target} -configuration #{configuration} ARCHS=i386 -sdk #{sdk} build SYMROOT=#{BUILD_DIR}], out_file) 
+  end
 end
 
 def run_in_simulator(options)
@@ -115,7 +119,7 @@ end
 
 def available_sdk_versions
   available = []
-  `xcodebuild -showsdks | grep simulator`.split("\n").each do |line|
+  `xcodebuild -showsdks | grep iphonesimulator`.split("\n").each do |line|
     match = line.match(/simulator([\d\.]+)/)
     # excluding 5.* SDK and 6.* versions
     available << match[1] if match and !match[1].start_with? "5." and !match[1].start_with? "6."

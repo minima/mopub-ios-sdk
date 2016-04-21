@@ -12,9 +12,13 @@
 #import "MPStaticNativeAdRenderer.h"
 #import "MPStaticNativeAdRendererSettings.h"
 #import "MPMoPubNativeAdAdapter.h"
+#import <Cedar/Cedar.h>
 
 using namespace Cedar::Matchers;
 using namespace Cedar::Doubles;
+
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wnonnull"
 
 @interface MPNativeAdRequest (Specs) <MPNativeCustomEventDelegate, MPAdServerCommunicatorDelegate>
 
@@ -257,3 +261,4 @@ describe(@"MPNativeAdRequest", ^{
 });
 
 SPEC_END
+#pragma clang diagnostic pop

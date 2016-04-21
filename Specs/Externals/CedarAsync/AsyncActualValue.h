@@ -1,4 +1,5 @@
 #import "Timing.h"
+#import <Cedar/Cedar.h>
 
 namespace CedarAsync {
     template<typename T> class AsyncActualValue;

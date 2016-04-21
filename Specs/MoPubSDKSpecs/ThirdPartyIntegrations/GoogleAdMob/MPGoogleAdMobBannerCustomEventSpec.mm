@@ -1,5 +1,6 @@
 #import "MPGoogleAdMobBannerCustomEvent.h"
 #import "FakeGADBannerView.h"
+#import <Cedar/Cedar.h>
 
 using namespace Cedar::Matchers;
 using namespace Cedar::Doubles;

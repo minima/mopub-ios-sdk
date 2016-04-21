@@ -12,6 +12,9 @@
 using namespace Cedar::Matchers;
 using namespace Cedar::Doubles;
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wnonnull"
+
 @interface MPTimer (Specs)
 
 @property (nonatomic, assign) BOOL isPaused;
@@ -330,3 +333,5 @@ describe(@"MPBannerAdManager", ^{
 });
 
 SPEC_END
+
+#pragma clang diagnostic pop

@@ -4,6 +4,7 @@
 #import "MPAdDestinationDisplayAgent.h"
 #import "MPNativeAdConstants.h"
 #import "MPGlobalSpecHelper.h"
+#import <Cedar/Cedar.h>
 
 #define kImpressionTrackerURLsKey   @"imptracker"
 #define kDefaultActionURLKey        @"clk"
@@ -66,7 +67,9 @@ describe(@"MPMoPubNativeAdAdapter", ^{
             [adAdapter.defaultActionURL absoluteString] should equal([validProperties objectForKey:kDefaultActionURLKey]);
             adAdapter.clickTrackerURLs should equal(clickTrackerURLs);
             adAdapter.impressionTrackerURLs should equal(impressionTrackerURLs);
-            [adAdapter.properties objectForKey:kAdDAAIconImageKey] should equal(@"MPDAAIcon");
+
+            NSString *daaIconString = [adAdapter.properties objectForKey:kAdDAAIconImageKey];
+            [daaIconString rangeOfString:@"MPDAAIcon.png"].location should_not equal(NSNotFound);
         });
 
         it(@"should load the click array tracker correctly", ^{

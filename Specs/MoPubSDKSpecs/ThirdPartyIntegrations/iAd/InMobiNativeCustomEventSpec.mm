@@ -7,6 +7,7 @@
 #import "MPStaticNativeAdRenderer.h"
 #import "FakeNativeAdRenderingClass.h"
 #import "MPStaticNativeAdRendererSettings.h"
+#import <Cedar/Cedar.h>
 
 using namespace Cedar::Matchers;
 using namespace Cedar::Doubles;

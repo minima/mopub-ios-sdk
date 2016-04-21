@@ -12,7 +12,7 @@
 #endif
 
 /*
- * Certified with version 1.4.7 of the Unity SDK.
+ * Certified with version 1.5.6 of the Unity SDK.
  */
 
 @interface UnityAdsRewardedVideoCustomEvent : MPRewardedVideoCustomEvent

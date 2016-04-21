@@ -1,6 +1,7 @@
 #import "InMobiBannerCustomEvent.h"
 #import "FakeIMAdView.h"
 #import "InMobi+Specs.h"
+#import <Cedar/Cedar.h>
 
 using namespace Cedar::Matchers;
 using namespace Cedar::Doubles;

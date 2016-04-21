@@ -1,6 +1,7 @@
 #import "InterstitialIntegrationSharedBehaviors.h"
 #import "MPInterstitialAdController.h"
 #import "MPAdConfigurationFactory.h"
+#import <Cedar/Cedar.h>
 
 NSString *anInterstitialThatStartsLoadingAnAdUnit = @"an interstitial that starts loading an ad unit";
 NSString *anInterstitialThatHasAlreadyLoaded = @"an interstitial that has already loaded";

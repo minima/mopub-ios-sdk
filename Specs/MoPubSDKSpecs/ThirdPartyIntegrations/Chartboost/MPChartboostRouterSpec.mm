@@ -2,6 +2,7 @@
 #import "ChartboostRewardedVideoCustomEvent.h"
 #import "ChartboostInterstitialCustomEvent.h"
 #import <Chartboost/Chartboost.h>
+#import <Cedar/Cedar.h>
 
 using namespace Cedar::Matchers;
 using namespace Cedar::Doubles;

@@ -1,5 +1,6 @@
 #import "MPNativeCache+Specs.h"
 #import "MPDiskLRUCache.h"
+#import <Cedar/Cedar.h>
 
 using namespace Cedar::Matchers;
 using namespace Cedar::Doubles;

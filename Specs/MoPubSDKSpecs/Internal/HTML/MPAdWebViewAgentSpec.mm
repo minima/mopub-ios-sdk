@@ -5,9 +5,13 @@
 #import "FakeMPAdAlertManager.h"
 #import "UIWebView+MPAdditions.h"
 #import "UIApplication+MPSpecs.h"
+#import <Cedar/Cedar.h>
 
 using namespace Cedar::Matchers;
 using namespace Cedar::Doubles;
+
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wnonnull"
 
 @interface MPAdWebViewAgent ()
 
@@ -429,3 +433,5 @@ describe(@"MPAdWebViewAgent", ^{
 });
 
 SPEC_END
+
+#pragma clang diagnostic pop

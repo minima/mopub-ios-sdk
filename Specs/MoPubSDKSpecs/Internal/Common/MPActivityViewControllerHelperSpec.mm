@@ -1,11 +1,12 @@
 #import "MPActivityViewControllerHelper.h"
+#import <Cedar/Cedar.h>
 
 using namespace Cedar::Matchers;
 using namespace Cedar::Doubles;
 
 SPEC_BEGIN(MPActivityViewControllerHelperSpec)
 
-describe(@"MPActivityViewControllerHelper", ^{
+xdescribe(@"MPActivityViewControllerHelper", ^{
     __block MPActivityViewControllerHelper *activityViewControllerHelper;
     __block id<MPActivityViewControllerHelperDelegate> delegate;
     __block UIViewController *presentingViewController;

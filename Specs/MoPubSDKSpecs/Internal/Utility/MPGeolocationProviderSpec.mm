@@ -3,6 +3,7 @@
 #import <CoreLocation/CoreLocation.h>
 #import "CLLocationManager+MPSpecs.h"
 #import "FakeCLLocationManager.h"
+#import <Cedar/Cedar.h>
 
 using namespace Cedar::Matchers;
 using namespace Cedar::Doubles;
@@ -11,6 +12,9 @@ extern NSTimeInterval kMPLocationUpdateDuration;
 extern NSTimeInterval kMPLocationUpdateInterval;
 
 static const NSTimeInterval kLeewayInterval = 1.0;
+
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wnonnull"
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -428,3 +432,5 @@ describe(@"MPGeolocationProvider", ^{
 });
 
 SPEC_END
+
+#pragma clang diagnostic pop

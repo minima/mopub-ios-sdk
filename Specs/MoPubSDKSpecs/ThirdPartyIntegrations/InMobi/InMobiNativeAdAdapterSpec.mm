@@ -3,6 +3,7 @@
 #import "MPNativeAdConstants.h"
 #import "MPStaticNativeAdImpressionTimer+Specs.h"
 #import "MPAdDestinationDisplayAgent.h"
+#import <Cedar/Cedar.h>
 
 using namespace Cedar::Matchers;
 using namespace Cedar::Doubles;

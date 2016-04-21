@@ -7,6 +7,7 @@
 #import "MPInternalUtils.h"
 #import "MPMediationSettingsProtocol+MPSpecs.h"
 #import "MPRewardedVideoAdManager+MPSpecs.h"
+#import <Cedar/Cedar.h>
 
 using namespace Cedar::Matchers;
 using namespace Cedar::Doubles;

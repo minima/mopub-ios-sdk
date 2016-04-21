@@ -12,6 +12,7 @@
 #import "CedarAsync.h"
 #import "FakeMPInstanceProvider.h"
 #import "FakeMPCoreInstanceProvider.h"
+#import <Cedar/Cedar.h>
 
 using namespace Cedar::Matchers;
 using namespace Cedar::Doubles;

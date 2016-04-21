@@ -61,6 +61,7 @@
     static dispatch_once_t once;
     dispatch_once(&once, ^{
         [Chartboost startWithAppId:appId appSignature:appSignature delegate:self];
+        [Chartboost setMediation:CBMediationMoPub withVersion:MP_SDK_VERSION];
     });
 }
 

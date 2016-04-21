@@ -5,6 +5,7 @@
 #import "MPRewardedVideoAdapter.h"
 #import "MoPub.h"
 #import "MPMediationSettingsProtocol+MPSpecs.h"
+#import <Cedar/Cedar.h>
 
 using namespace Cedar::Matchers;
 using namespace Cedar::Doubles;

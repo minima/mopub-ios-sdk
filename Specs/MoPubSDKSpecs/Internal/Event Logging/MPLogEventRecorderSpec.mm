@@ -2,6 +2,7 @@
 #import "MPLogEvent.h"
 #import "MPLogEventCommunicator.h"
 #import "MPLogEventRecorderSpecHelper.h"
+#import <Cedar/Cedar.h>
 
 using namespace Cedar::Matchers;
 using namespace Cedar::Doubles;

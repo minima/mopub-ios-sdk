@@ -117,6 +117,7 @@
 		4ADE5FD11B4FE836004C3673 /* MPRewardedVideoAdDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ADE5FCD1B4FE836004C3673 /* MPRewardedVideoAdDetailViewController.m */; };
 		4AF797D519A7F9E8007CE34D /* MPNativeAdPlacerCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E060FE6B1994000C00F4F33C /* MPNativeAdPlacerCollectionViewController.m */; };
 		4AF89A381B66CEAF006BE7A5 /* MMAdSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AF89A371B66CEAF006BE7A5 /* MMAdSDK.framework */; };
+		57159AF01CAAF2C100A865E0 /* TapjoyGlobalMediationSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 57159AEF1CAAF2C100A865E0 /* TapjoyGlobalMediationSettings.m */; };
 		571EF4281B7194D60035C9BB /* MPStaticNativeAdView.m in Sources */ = {isa = PBXBuildFile; fileRef = 571EF4271B7194D60035C9BB /* MPStaticNativeAdView.m */; };
 		571EF4291B7194D60035C9BB /* MPStaticNativeAdView.m in Sources */ = {isa = PBXBuildFile; fileRef = 571EF4271B7194D60035C9BB /* MPStaticNativeAdView.m */; };
 		572409A01A688C05009271B8 /* MPBannerAdManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 572408BC1A688C05009271B8 /* MPBannerAdManager.m */; };
@@ -546,14 +547,14 @@
 		B230612E1B8E8E52000D4045 /* MPPlayBtn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B230612C1B8E8E52000D4045 /* MPPlayBtn@2x.png */; };
 		B23061301B8E8E61000D4045 /* MPPlayBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = B230612F1B8E8E61000D4045 /* MPPlayBtn.png */; };
 		B23061311B8E8E61000D4045 /* MPPlayBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = B230612F1B8E8E61000D4045 /* MPPlayBtn.png */; };
-		B257A2E71BA38F1200F5D320 /* MPMutedBtn@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = B257A2E11BA38F1200F5D320 /* MPMutedBtn@1x.png */; };
-		B257A2E81BA38F1200F5D320 /* MPMutedBtn@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = B257A2E11BA38F1200F5D320 /* MPMutedBtn@1x.png */; };
+		B257A2E71BA38F1200F5D320 /* MPMutedBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = B257A2E11BA38F1200F5D320 /* MPMutedBtn.png */; };
+		B257A2E81BA38F1200F5D320 /* MPMutedBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = B257A2E11BA38F1200F5D320 /* MPMutedBtn.png */; };
 		B257A2E91BA38F1200F5D320 /* MPMutedBtn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B257A2E21BA38F1200F5D320 /* MPMutedBtn@2x.png */; };
 		B257A2EA1BA38F1200F5D320 /* MPMutedBtn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B257A2E21BA38F1200F5D320 /* MPMutedBtn@2x.png */; };
 		B257A2EB1BA38F1200F5D320 /* MPMutedBtn@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = B257A2E31BA38F1200F5D320 /* MPMutedBtn@3x.png */; };
 		B257A2EC1BA38F1200F5D320 /* MPMutedBtn@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = B257A2E31BA38F1200F5D320 /* MPMutedBtn@3x.png */; };
-		B257A2ED1BA38F1200F5D320 /* MPUnmutedBtn@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = B257A2E41BA38F1200F5D320 /* MPUnmutedBtn@1x.png */; };
-		B257A2EE1BA38F1200F5D320 /* MPUnmutedBtn@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = B257A2E41BA38F1200F5D320 /* MPUnmutedBtn@1x.png */; };
+		B257A2ED1BA38F1200F5D320 /* MPUnmutedBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = B257A2E41BA38F1200F5D320 /* MPUnmutedBtn.png */; };
+		B257A2EE1BA38F1200F5D320 /* MPUnmutedBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = B257A2E41BA38F1200F5D320 /* MPUnmutedBtn.png */; };
 		B257A2EF1BA38F1200F5D320 /* MPUnmutedBtn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B257A2E51BA38F1200F5D320 /* MPUnmutedBtn@2x.png */; };
 		B257A2F01BA38F1200F5D320 /* MPUnmutedBtn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B257A2E51BA38F1200F5D320 /* MPUnmutedBtn@2x.png */; };
 		B257A2F11BA38F1200F5D320 /* MPUnmutedBtn@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = B257A2E61BA38F1200F5D320 /* MPUnmutedBtn@3x.png */; };
@@ -660,6 +661,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3D3BC88B1CBEE8E100BDA2FA /* MPNativeAdRendererConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPNativeAdRendererConstants.h; sourceTree = "<group>"; };
 		4604B7BB1A002F0A002234E9 /* MoPubSampleApp with CEs-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "MoPubSampleApp with CEs-Info.plist"; path = "MoPubSampleApp/MoPubSampleApp with CEs-Info.plist"; sourceTree = "<group>"; };
 		4614B3F417E8D01D00812D2C /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		462E156D17F0F5D100408E17 /* MPMRectBannerAdDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPMRectBannerAdDetailViewController.h; sourceTree = "<group>"; };
@@ -719,6 +721,8 @@
 		4ADE5FCC1B4FE836004C3673 /* MPRewardedVideoAdDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPRewardedVideoAdDetailViewController.h; sourceTree = "<group>"; };
 		4ADE5FCD1B4FE836004C3673 /* MPRewardedVideoAdDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPRewardedVideoAdDetailViewController.m; sourceTree = "<group>"; };
 		4AF89A371B66CEAF006BE7A5 /* MMAdSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MMAdSDK.framework; sourceTree = "<group>"; };
+		57159AEE1CAAF2C100A865E0 /* TapjoyGlobalMediationSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TapjoyGlobalMediationSettings.h; sourceTree = "<group>"; };
+		57159AEF1CAAF2C100A865E0 /* TapjoyGlobalMediationSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TapjoyGlobalMediationSettings.m; sourceTree = "<group>"; };
 		571EF4261B7194D60035C9BB /* MPStaticNativeAdView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPStaticNativeAdView.h; sourceTree = "<group>"; };
 		571EF4271B7194D60035C9BB /* MPStaticNativeAdView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPStaticNativeAdView.m; sourceTree = "<group>"; };
 		572408BB1A688C05009271B8 /* MPBannerAdManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPBannerAdManager.h; sourceTree = "<group>"; };
@@ -1244,10 +1248,10 @@
 		B23061291B8E8E3F000D4045 /* MPPlayBtn@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MPPlayBtn@3x.png"; sourceTree = "<group>"; };
 		B230612C1B8E8E52000D4045 /* MPPlayBtn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MPPlayBtn@2x.png"; sourceTree = "<group>"; };
 		B230612F1B8E8E61000D4045 /* MPPlayBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MPPlayBtn.png; sourceTree = "<group>"; };
-		B257A2E11BA38F1200F5D320 /* MPMutedBtn@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MPMutedBtn@1x.png"; sourceTree = "<group>"; };
+		B257A2E11BA38F1200F5D320 /* MPMutedBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MPMutedBtn.png; sourceTree = "<group>"; };
 		B257A2E21BA38F1200F5D320 /* MPMutedBtn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MPMutedBtn@2x.png"; sourceTree = "<group>"; };
 		B257A2E31BA38F1200F5D320 /* MPMutedBtn@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MPMutedBtn@3x.png"; sourceTree = "<group>"; };
-		B257A2E41BA38F1200F5D320 /* MPUnmutedBtn@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MPUnmutedBtn@1x.png"; sourceTree = "<group>"; };
+		B257A2E41BA38F1200F5D320 /* MPUnmutedBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MPUnmutedBtn.png; sourceTree = "<group>"; };
 		B257A2E51BA38F1200F5D320 /* MPUnmutedBtn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MPUnmutedBtn@2x.png"; sourceTree = "<group>"; };
 		B257A2E61BA38F1200F5D320 /* MPUnmutedBtn@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MPUnmutedBtn@3x.png"; sourceTree = "<group>"; };
 		B28725B01B9F52E800C0D61B /* UIColor+MPAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+MPAdditions.h"; sourceTree = "<group>"; };
@@ -1724,6 +1728,7 @@
 		572409591A688C05009271B8 /* Internal */ = {
 			isa = PBXGroup;
 			children = (
+				3D3BC88B1CBEE8E100BDA2FA /* MPNativeAdRendererConstants.h */,
 				5724095A1A688C05009271B8 /* Categories */,
 				5724095E1A688C05009271B8 /* MPAdPlacerInvocation.h */,
 				5724095F1A688C05009271B8 /* MPAdPlacerInvocation.m */,
@@ -1777,10 +1782,10 @@
 				B20C81411BB21B50007F0E45 /* MPDAAIcon.png */,
 				B20C81421BB21B50007F0E45 /* MPDAAIcon@2x.png */,
 				B20C81431BB21B50007F0E45 /* MPDAAIcon@3x.png */,
-				B257A2E11BA38F1200F5D320 /* MPMutedBtn@1x.png */,
+				B257A2E11BA38F1200F5D320 /* MPMutedBtn.png */,
 				B257A2E21BA38F1200F5D320 /* MPMutedBtn@2x.png */,
 				B257A2E31BA38F1200F5D320 /* MPMutedBtn@3x.png */,
-				B257A2E41BA38F1200F5D320 /* MPUnmutedBtn@1x.png */,
+				B257A2E41BA38F1200F5D320 /* MPUnmutedBtn.png */,
 				B257A2E51BA38F1200F5D320 /* MPUnmutedBtn@2x.png */,
 				B257A2E61BA38F1200F5D320 /* MPUnmutedBtn@3x.png */,
 				B228D33A1B8FB57300123DD0 /* MPCloseBtn.png */,
@@ -2122,6 +2127,8 @@
 				57D322571BD9946A00ACF21E /* TapjoyInterstitialCustomEvent.m */,
 				57D322581BD9946A00ACF21E /* TapjoyRewardedVideoCustomEvent.h */,
 				57D322591BD9946A00ACF21E /* TapjoyRewardedVideoCustomEvent.m */,
+				57159AEE1CAAF2C100A865E0 /* TapjoyGlobalMediationSettings.h */,
+				57159AEF1CAAF2C100A865E0 /* TapjoyGlobalMediationSettings.m */,
 			);
 			path = Tapjoy;
 			sourceTree = "<group>";
@@ -2633,7 +2640,7 @@
 				B20C81471BB21B50007F0E45 /* MPDAAIcon@2x.png in Resources */,
 				57D3225A1BD9946A00ACF21E /* TapjoyResources.bundle in Resources */,
 				46B3342819F075680078078A /* MPManualAdViewController.xib in Resources */,
-				B257A2E81BA38F1200F5D320 /* MPMutedBtn@1x.png in Resources */,
+				B257A2E81BA38F1200F5D320 /* MPMutedBtn.png in Resources */,
 				B230612B1B8E8E3F000D4045 /* MPPlayBtn@3x.png in Resources */,
 				57EF00CA1BD96E18002634DE /* vg_mute_on.png in Resources */,
 				46B3342919F075680078078A /* MPNativeAdDetailViewController.xib in Resources */,
@@ -2650,7 +2657,7 @@
 				57EF00C81BD96E18002634DE /* vg_cta.png in Resources */,
 				B257A2EA1BA38F1200F5D320 /* MPMutedBtn@2x.png in Resources */,
 				B230612E1B8E8E52000D4045 /* MPPlayBtn@2x.png in Resources */,
-				B257A2EE1BA38F1200F5D320 /* MPUnmutedBtn@1x.png in Resources */,
+				B257A2EE1BA38F1200F5D320 /* MPUnmutedBtn.png in Resources */,
 				57EF00C91BD96E18002634DE /* vg_mute_off.png in Resources */,
 				B20C81451BB21B50007F0E45 /* MPDAAIcon.png in Resources */,
 				46B3342F19F075680078078A /* Default-568h@2x.png in Resources */,
@@ -2675,7 +2682,7 @@
 				B257A2F11BA38F1200F5D320 /* MPUnmutedBtn@3x.png in Resources */,
 				AED9E4CF16F798AF00EA71A7 /* MPBannerAdDetailViewController.xib in Resources */,
 				AE43414A16F9068000B73710 /* MPInterstitialAdDetailViewController.xib in Resources */,
-				B257A2E71BA38F1200F5D320 /* MPMutedBtn@1x.png in Resources */,
+				B257A2E71BA38F1200F5D320 /* MPMutedBtn.png in Resources */,
 				AE0021E91704C46400A220F0 /* MPManualAdViewController.xib in Resources */,
 				B257A2EF1BA38F1200F5D320 /* MPUnmutedBtn@2x.png in Resources */,
 				57240AD51A688C05009271B8 /* MPCloseButtonX@3x.png in Resources */,
@@ -2701,7 +2708,7 @@
 				B23061301B8E8E61000D4045 /* MPPlayBtn.png in Resources */,
 				B230612D1B8E8E52000D4045 /* MPPlayBtn@2x.png in Resources */,
 				B228D3411B8FB57300123DD0 /* MPCloseBtn@3x.png in Resources */,
-				B257A2ED1BA38F1200F5D320 /* MPUnmutedBtn@1x.png in Resources */,
+				B257A2ED1BA38F1200F5D320 /* MPUnmutedBtn.png in Resources */,
 				B257A2E91BA38F1200F5D320 /* MPMutedBtn@2x.png in Resources */,
 				B228D33F1B8FB57300123DD0 /* MPCloseBtn@2x.png in Resources */,
 				4A8DD10618C90636005E9389 /* MPNativeAdTableHeaderView.xib in Resources */,
@@ -2848,6 +2855,7 @@
 				46B333A119F075680078078A /* AppDelegate.m in Sources */,
 				5755DAF81AAA4E2300DC32EA /* MPInstanceProvider+AdColony.m in Sources */,
 				572409B31A688C05009271B8 /* MPAdBrowserController.m in Sources */,
+				57159AF01CAAF2C100A865E0 /* TapjoyGlobalMediationSettings.m in Sources */,
 				5755DB001AAA4E2300DC32EA /* ChartboostRewardedVideoCustomEvent.m in Sources */,
 				57AC6A171BB221130053C556 /* MOPUBPlayerView.m in Sources */,
 				57AC6A0F1BB221130053C556 /* MOPUBNativeVideoAdConfigValues.m in Sources */,

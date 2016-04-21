@@ -51,7 +51,8 @@ static NSString * const kAdBrowserControllerNibName = @"MPAdBrowserController";
 
 - (id)initWithURL:(NSURL *)URL HTMLString:(NSString *)HTMLString delegate:(id<MPAdBrowserControllerDelegate>)delegate
 {
-    if (self = [super initWithNibName:MPResourcePathForResource(kAdBrowserControllerNibName) bundle:nil]) {
+    if (self = [super initWithNibName:kAdBrowserControllerNibName bundle:MPResourceBundleForClass(self.class)])
+    {
         self.delegate = delegate;
         self.URL = URL;
         self.HTMLString = HTMLString;

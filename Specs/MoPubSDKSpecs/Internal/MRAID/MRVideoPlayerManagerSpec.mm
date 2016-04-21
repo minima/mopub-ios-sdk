@@ -1,5 +1,6 @@
 #import "MRVideoPlayerManager.h"
 #import <MediaPlayer/MediaPlayer.h>
+#import <Cedar/Cedar.h>
 
 using namespace Cedar::Matchers;
 using namespace Cedar::Doubles;

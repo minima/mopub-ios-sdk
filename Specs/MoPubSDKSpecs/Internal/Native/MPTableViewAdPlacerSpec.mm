@@ -12,6 +12,7 @@
 #import "MPNativeAdRendererConfiguration.h"
 #import "MPStaticNativeAdRendererSettings.h"
 #import "MPTableViewAdPlacerCell.h"
+#import <Cedar/Cedar.h>
 
 using namespace Cedar::Matchers;
 using namespace Cedar::Doubles;

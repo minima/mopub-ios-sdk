@@ -1,6 +1,7 @@
 #import "MOPUBNativeVideoAdAdapter.h"
 #import "MPNativeAdConstants.h"
 #import "MPStaticNativeAdImpressionTimer+Specs.h"
+#import <Cedar/Cedar.h>
 
 using namespace Cedar::Matchers;
 using namespace Cedar::Doubles;

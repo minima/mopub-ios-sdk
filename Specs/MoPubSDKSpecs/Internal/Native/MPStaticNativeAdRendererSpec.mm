@@ -6,6 +6,7 @@
 #import "FakeNativeAdRenderingClass.h"
 #import "MPNativeAdRendererImageHandler.h"
 #import "MPNativeAdRenderingImageLoader.h"
+#import <Cedar/Cedar.h>
 
 #define kImpressionTrackerURLsKey   @"imptracker"
 #define kDefaultActionURLKey        @"clk"
@@ -35,7 +36,7 @@ describe(@"MPStaticNativeAdRendererSpec", ^{
                               kAdIconImageKey : kMPSpecsTestImageURL,
                               kAdMainImageKey : kMPSpecsTestImageURL,
                               kAdCTATextKey : @"DO IT",
-                              kAdDAAIconImageKey : @"MPDAAIcon",
+                              kAdDAAIconImageKey : @"MPDAAIcon.png",
                               kImpressionTrackerURLsKey: @[@"http://www.mopub.com/a", @"http://www.mopub.com/b"],
                               kClickTrackerURLKey : @"http://www.mopub.com/c",
                               kDefaultActionURLKey : @"http://www.mopub.com/d"

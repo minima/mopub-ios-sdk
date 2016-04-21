@@ -1,6 +1,7 @@
 #import "MPAdView.h"
 #import "MPAdConfigurationFactory.h"
 #import "FakeGSBannerAdView.h"
+#import <Cedar/Cedar.h>
 
 using namespace Cedar::Matchers;
 using namespace Cedar::Doubles;

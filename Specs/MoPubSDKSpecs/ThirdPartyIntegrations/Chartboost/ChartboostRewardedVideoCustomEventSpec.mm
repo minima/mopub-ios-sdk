@@ -2,6 +2,7 @@
 #import "MPChartboostRouter+Specs.h"
 #import "MPRewardedVideoReward.h"
 #import "Chartboost+Specs.h"
+#import <Cedar/Cedar.h>
 
 using namespace Cedar::Matchers;
 using namespace Cedar::Doubles;

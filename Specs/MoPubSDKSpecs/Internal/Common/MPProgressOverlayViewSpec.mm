@@ -1,4 +1,5 @@
 #import "MPProgressOverlayView.h"
+#import <Cedar/Cedar.h>
 
 using namespace Cedar::Matchers;
 using namespace Cedar::Doubles;

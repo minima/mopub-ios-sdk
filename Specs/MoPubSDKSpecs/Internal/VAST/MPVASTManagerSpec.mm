@@ -6,6 +6,7 @@
 #import "MPVASTLinearAd.h"
 #import "MPVASTMediaFile.h"
 #import "MPVASTWrapper.h"
+#import <Cedar/Cedar.h>
 
 using namespace Cedar::Matchers;
 using namespace Cedar::Doubles;

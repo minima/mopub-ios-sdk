@@ -9,9 +9,13 @@
 #import "MPCollectionViewAdPlacerCell.h"
 #import "MPStaticNativeAdRenderer.h"
 #import "MPStaticNativeAdRendererSettings.h"
+#import <Cedar/Cedar.h>
 
 using namespace Cedar::Matchers;
 using namespace Cedar::Doubles;
+
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wnonnull"
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -766,3 +770,5 @@ describe(@"MPCollectionViewAdPlacer", ^{
 });
 
 SPEC_END
+
+#pragma clang diagnostic pop

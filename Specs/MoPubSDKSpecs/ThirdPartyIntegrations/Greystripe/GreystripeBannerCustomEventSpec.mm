@@ -2,6 +2,7 @@
 #import "GSMobileBannerAdView.h"
 #import "GSMediumRectangleAdView.h"
 #import "GSLeaderboardAdView.h"
+#import <Cedar/Cedar.h>
 
 using namespace Cedar::Matchers;
 using namespace Cedar::Doubles;

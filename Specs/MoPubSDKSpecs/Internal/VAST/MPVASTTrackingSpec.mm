@@ -6,6 +6,7 @@
 #import "MPVASTManager.h"
 #import "MPVASTTracking.h"
 #import "MPVideoConfig.h"
+#import <Cedar/Cedar.h>
 
 using namespace Cedar::Matchers;
 using namespace Cedar::Doubles;

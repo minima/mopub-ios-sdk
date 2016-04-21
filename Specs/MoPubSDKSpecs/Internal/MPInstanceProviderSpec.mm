@@ -6,6 +6,7 @@
 #import "MPBannerCustomEventAdapter.h"
 #import "MPAnalyticsTracker.h"
 #import "MPHTMLInterstitialViewController.h"
+#import <Cedar/Cedar.h>
 
 
 using namespace Cedar::Matchers;

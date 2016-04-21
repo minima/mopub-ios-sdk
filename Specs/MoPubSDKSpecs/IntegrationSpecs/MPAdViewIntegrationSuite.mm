@@ -3,6 +3,7 @@
 #import "MPAdConfigurationFactory.h"
 #import "FakeMPAdServerCommunicator.h"
 #import "NSErrorFactory.h"
+#import <Cedar/Cedar.h>
 
 using namespace Cedar::Matchers;
 using namespace Cedar::Doubles;

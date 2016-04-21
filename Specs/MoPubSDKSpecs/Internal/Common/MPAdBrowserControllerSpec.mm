@@ -1,5 +1,6 @@
 #import "MPAdBrowserController.h"
 #import "FakeMPLogEventRecorder.h"
+#import <Cedar/Cedar.h>
 
 
 @interface MPAdBrowserController (Spec)
@@ -13,7 +14,7 @@ using namespace Cedar::Doubles;
 
 SPEC_BEGIN(MPAdBrowserControllerSpec)
 
-describe(@"MPAdBrowserController", ^{
+xdescribe(@"MPAdBrowserController",  ^{
     __block UIViewController *presentingViewController;
     __block MPAdBrowserController *browser;
     __block id<CedarDouble, MPAdBrowserControllerDelegate> delegate;

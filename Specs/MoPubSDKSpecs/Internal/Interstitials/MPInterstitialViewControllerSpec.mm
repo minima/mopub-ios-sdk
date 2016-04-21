@@ -1,5 +1,6 @@
 #import "MPInterstitialViewController.h"
 #import "UIButton+MPAdditions.h"
+#import <Cedar/Cedar.h>
 
 using namespace Cedar::Matchers;
 using namespace Cedar::Doubles;

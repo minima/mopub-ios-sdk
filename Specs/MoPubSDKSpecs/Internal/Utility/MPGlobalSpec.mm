@@ -1,6 +1,7 @@
 #import "MPGlobal.h"
 #import "UIView+MPSpecs.h"
 #import "MPGlobalSpecHelper.h"
+#import <Cedar/Cedar.h>
 
 using namespace Cedar::Matchers;
 using namespace Cedar::Doubles;

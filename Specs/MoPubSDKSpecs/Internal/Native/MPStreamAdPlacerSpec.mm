@@ -13,9 +13,11 @@
 #import "MPMoPubNativeAdAdapter.h"
 #import "MPStaticNativeAdRendererSettings.h"
 #import "MPStaticNativeAdRenderer.h"
+#import "MPNativeAdRendererConstants.h"
 #import "MPStaticNativeAdRendererSettings.h"
 #import "MPNativeView.h"
 #import "MPNativeAdDelegate.h"
+#import <Cedar/Cedar.h>
 
 using namespace Cedar::Matchers;
 using namespace Cedar::Doubles;
@@ -51,6 +53,20 @@ CGSize gStubbedRenderingSize = CGSizeMake(70, 113);
 }
 
 @end
+
+@interface FakeMPDynamicHeightNativeAdRenderingClassView : UIView<MPNativeAdRendering>
+@end
+
+@implementation FakeMPDynamicHeightNativeAdRenderingClassView
+
+// just 2x the size to demonstrate that it is dynamic
+- (CGSize)sizeThatFits:(CGSize)size
+{
+    return CGSizeMake(size.width, size.width * 2);
+}
+
+@end
+
 
 @interface FakeMPNativeAdRenderingClass : NSObject <MPNativeAdRendering>
 
@@ -579,6 +595,46 @@ describe(@"MPStreamAdPlacer", ^{
                 [placer sizeForAdAtIndexPath:[NSIndexPath indexPathForItem:1 inSection:1] withMaximumWidth:3];
 
                 ad should have_received(@selector(updateAdViewSize:));
+            });
+        });
+
+        context(@"when the rendering class implements view size handler with dynamic height", ^{
+            __block UIView<MPNativeAdRendering> *customAdView;
+
+            beforeEach(^{
+                customAdView = [[FakeMPDynamicHeightNativeAdRenderingClassView alloc] init];
+                MPStaticNativeAdRendererSettings *rendererSettings = [[MPStaticNativeAdRendererSettings alloc] init];
+                rendererSettings.renderingViewClass = [FakeMPDynamicHeightNativeAdRenderingClassView class];
+                rendererSettings.viewSizeHandler = ^(CGFloat maxWidth) {
+                    return CGSizeMake(maxWidth, MPNativeViewDynamicDimension);
+                };
+                MPStaticNativeAdRenderer *renderer = [[MPStaticNativeAdRenderer alloc] initWithRendererSettings:rendererSettings];
+                rendererConfiguration = [MPStaticNativeAdRenderer rendererConfigurationWithRendererSettings:rendererSettings];
+                nativeAdRendererConfigurations = @[rendererConfiguration];
+                UIView *adContainerView = [[UIView alloc] init];
+
+                MPNativeAdData *adData = [[MPNativeAdData alloc] init];
+                MPNativeAd *ad = nice_fake_for([MPNativeAd class]);
+                ad stub_method(@selector(retrieveAdViewForSizeCalculationWithError:)).and_return(customAdView);
+                ad stub_method(@selector(renderer)).and_return(renderer);
+                adData.ad = ad;
+                placementData stub_method(@selector(adDataAtAdjustedIndexPath:)).and_return(adData);
+
+                NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+                placer = [MPStreamAdPlacer placerWithViewController:viewController adPositioning:positioning rendererConfigurations:nativeAdRendererConfigurations];
+                [placer renderAdAtIndexPath:indexPath inView:adContainerView];
+            });
+
+            it(@"should invoke sizeThatFits: on the rendering class to get height", ^{
+                spy_on(customAdView);
+
+                [placer sizeForAdAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0] withMaximumWidth:400];
+                customAdView should have_received("sizeThatFits:").with(CGSizeMake(400, CGFLOAT_MAX));
+            });
+
+            it(@"should return a dynamic height as determined by the ad view", ^{
+                CGSize adSize = [placer sizeForAdAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0] withMaximumWidth:400];
+                adSize should equal(CGSizeMake(400, 800));
             });
         });
 

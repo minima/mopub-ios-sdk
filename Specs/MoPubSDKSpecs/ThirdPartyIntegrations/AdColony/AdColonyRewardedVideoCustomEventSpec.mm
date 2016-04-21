@@ -3,6 +3,7 @@
 #import "AdColony+Specs.h"
 #import "AdColonyCustomEvent+MPSpecs.h"
 #import "MPAdColonyRouter+MPSpecs.h"
+#import <Cedar/Cedar.h>
 
 @interface AdColonyRewardedVideoCustomEvent () <AdColonyAdDelegate, MPAdColonyRouterDelegate>
 

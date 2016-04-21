@@ -1,6 +1,7 @@
 #import "MPInterstitialCustomEventAdapter.h"
 #import "MPAdConfigurationFactory.h"
 #import "FakeInterstitialCustomEvent.h"
+#import <Cedar/Cedar.h>
 
 using namespace Cedar::Matchers;
 using namespace Cedar::Doubles;

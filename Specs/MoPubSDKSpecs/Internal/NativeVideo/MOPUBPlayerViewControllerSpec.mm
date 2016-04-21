@@ -5,6 +5,7 @@
 #import "MPVideoConfig.h"
 #import "MOPUBNativeVideoAdConfigValues.h"
 #import "MPVASTTracking.h"
+#import <Cedar/Cedar.h>
 
 using namespace Cedar::Matchers;
 using namespace Cedar::Doubles;

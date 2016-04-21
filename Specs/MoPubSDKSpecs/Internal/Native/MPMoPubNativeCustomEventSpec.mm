@@ -6,6 +6,7 @@
 #import "MPNativeAdRendererConfiguration.h"
 #import "MPStaticNativeAdRenderer.h"
 #import "MPStaticNativeAdRendererSettings.h"
+#import <Cedar/Cedar.h>
 
 #define kImpressionTrackerURLsKey   @"imptracker"
 #define kDefaultActionURLKey        @"clk"

@@ -15,9 +15,10 @@
     MPLogInfo(@"Requesting Tapjoy interstitial");
     // Grab placement name defined in MoPub dashboard as custom event data
     NSString *name = info[@"name"];
-    
+
     if(name) {
-        _placement = [TJPlacement placementWithName:name delegate:self];
+        _placement = [TJPlacement placementWithName:name mediationAgent:@"mopub" mediationId:nil delegate:self];
+        _placement.adapterVersion = @"3.0";
         [_placement requestContent];
     }
     else {

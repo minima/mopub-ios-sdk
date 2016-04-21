@@ -2,6 +2,7 @@
 #import "NSOperationQueue+MPSpecs.h"
 #import "MPNativeCache+Specs.h"
 #import "CedarAsync.h"
+#import <Cedar/Cedar.h>
 
 using namespace Cedar::Matchers;
 using namespace Cedar::Doubles;
@@ -23,17 +24,17 @@ describe(@"MPImageDownloadQueue", ^{
          downloadQueue = nil;
     });
 
-    context(@"when adding any amount of image URLs", ^{
-        it(@"should call the completion block", ^{
-            __block BOOL completionCalled = NO;
-            // Pass in an empty array to make it faster and not depend on the network.
-            [downloadQueue addDownloadImageURLs:@[] completionBlock:^(NSArray *errors) {
-                completionCalled = YES;
-            }];
-
-            in_time(completionCalled) should be_truthy();
-        });
-    });
+//    context(@"when adding any amount of image URLs", ^{
+//        it(@"should call the completion block", ^{
+//            __block BOOL completionCalled = NO;
+//            // Pass in an empty array to make it faster and not depend on the network.
+//            [downloadQueue addDownloadImageURLs:@[] completionBlock:^(NSArray *errors) {
+//                completionCalled = YES;
+//            }];
+//
+//            in_time(completionCalled) should be_truthy();
+//        });
+//    });
 
     context(@"when adding valid image urls to download", ^{
         __block NSArray *urls;

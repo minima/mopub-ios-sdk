@@ -7,6 +7,7 @@
 #import "MPLogEvent.h"
 #import "FakeMPLogEventRecorder.h"
 #import "NSDate+MPSpecs.h"
+#import <Cedar/Cedar.h>
 
 using namespace Cedar::Matchers;
 using namespace Cedar::Doubles;

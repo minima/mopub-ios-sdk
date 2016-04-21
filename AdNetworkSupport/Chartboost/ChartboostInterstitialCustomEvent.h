@@ -13,7 +13,7 @@
 
 
 /*
- * Certified with version 5.0.1 of the Chartboost SDK.
+ * Certified with version 6.4.0 of the Chartboost SDK.
  */
 
 @interface ChartboostInterstitialCustomEvent : MPInterstitialCustomEvent

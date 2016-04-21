@@ -1,5 +1,6 @@
 #import "MPNativeAdRequestTargeting.h"
 #import "MPNativeAdConstants.h"
+#import <Cedar/Cedar.h>
 
 using namespace Cedar::Matchers;
 using namespace Cedar::Doubles;

@@ -25,7 +25,7 @@ BOOL MPViewIsVisible(UIView *view);
 BOOL MPViewIntersectsParentWindowWithPercent(UIView *view, CGFloat percentVisible);
 NSString *MPResourcePathForResource(NSString *resourceName);
 NSArray *MPConvertStringArrayToURLArray(NSArray *strArray);
-
+NSBundle *MPResourceBundleForClass(Class aClass);
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
 /*

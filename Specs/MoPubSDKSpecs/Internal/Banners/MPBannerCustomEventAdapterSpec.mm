@@ -1,6 +1,7 @@
 #import "MPBannerCustomEventAdapter.h"
 #import "MPAdConfigurationFactory.h"
 #import "FakeBannerCustomEvent.h"
+#import <Cedar/Cedar.h>
 
 using namespace Cedar::Matchers;
 using namespace Cedar::Doubles;

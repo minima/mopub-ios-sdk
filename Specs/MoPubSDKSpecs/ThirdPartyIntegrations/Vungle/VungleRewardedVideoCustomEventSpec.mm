@@ -3,6 +3,7 @@
 #import "VungleSDK+Specs.h"
 #import "MPVungleRouter.h"
 #import "VungleInstanceMediationSettings.h"
+#import <Cedar/Cedar.h>
 
 using namespace Cedar::Matchers;
 using namespace Cedar::Doubles;

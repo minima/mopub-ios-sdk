@@ -22,6 +22,7 @@ static CGFloat const kDaaIconSize = 16.0f;
 static CGFloat const kCloseButtonRightMargin = 16.0f;
 static CGFloat const kDefaultButtonTouchAreaInsets = 10.0f;
 
+static NSString * const kCloseButtonImage = @"MPCloseBtn.png";
 static NSString * const kCtaButtonTitleText = @"Learn More";
 static CGFloat const kCtaButtonTopMarginPortrait = 15.0f;
 static CGFloat const kCtaButtonTrailingMarginLandscape = 15.0f;
@@ -95,7 +96,7 @@ static CGFloat const kStallSpinnerSize = 35.0f;
     [self.view addSubview:self.daaButton];
 
     self.closeButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [self.closeButton setImage:[UIImage imageNamed:MPResourcePathForResource(@"MPCloseBtn")] forState:UIControlStateNormal];
+    [self.closeButton setImage:[UIImage imageNamed:MPResourcePathForResource(kCloseButtonImage)] forState:UIControlStateNormal];
     [self.closeButton addTarget:self action:@selector(closeButtonTapped) forControlEvents:UIControlEventTouchUpInside];
     self.closeButton.mp_TouchAreaInsets = UIEdgeInsetsMake(kDefaultButtonTouchAreaInsets, kDefaultButtonTouchAreaInsets, kDefaultButtonTouchAreaInsets, kDefaultButtonTouchAreaInsets);
     [self.closeButton sizeToFit];

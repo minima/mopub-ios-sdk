@@ -9,6 +9,7 @@
 #import "MPiAdInterstitialCustomEvent.h"
 #import "MPHTMLInterstitialCustomEvent.h"
 #import "MPMRAIDInterstitialCustomEvent.h"
+#import <Cedar/Cedar.h>
 
 using namespace Cedar::Matchers;
 using namespace Cedar::Doubles;

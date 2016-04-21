@@ -13,6 +13,7 @@
 #import "MPStaticNativeAdRendererSettings.h"
 #import "MPNativeView.h"
 #import "MPNativeAdAdapter.h"
+#import <Cedar/Cedar.h>
 
 using namespace Cedar::Matchers;
 using namespace Cedar::Doubles;
@@ -72,6 +73,22 @@ describe(@"MPNativeAd", ^{
                 nativeAdAdapter = nice_fake_for(@protocol(MPNativeAdAdapter));
                 starRatingNativeAd = [[MPNativeAd alloc] initWithAdAdapter:nativeAdAdapter];
                 nativeAd.renderer = renderer;
+            });
+        });
+    });
+
+    context(@"retrieveAdViewForSizeCalculationWithError:", ^{
+        __block NSError *error;
+        __block UIView *adView;
+
+        context(@"when an ad can be successfully rendered", ^{
+            beforeEach(^{
+                spy_on(renderer);
+                adView = [nativeAd retrieveAdViewForSizeCalculationWithError:&error];
+            });
+
+            it(@"retrieves registered ad view", ^{
+                [adView isKindOfClass:[FakeNativeAdRenderingClass class]] should be_truthy;
             });
         });
     });

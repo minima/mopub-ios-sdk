@@ -2,6 +2,7 @@
 #import "MPIdentityProvider.h"
 #import "MPGlobal.h"
 #import "MPAPIEndpoints.h"
+#import <Cedar/Cedar.h>
 
 using namespace Cedar::Matchers;
 using namespace Cedar::Doubles;

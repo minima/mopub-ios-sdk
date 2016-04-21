@@ -2,6 +2,7 @@
 #import "AdColony+Specs.h"
 #import "MPInstanceProvider+AdColony.h"
 #import "AdColonyCustomEvent+MPSpecs.h"
+#import <Cedar/Cedar.h>
 
 @class MPAdColonyRouter;
 

@@ -20,8 +20,8 @@ typedef struct {
 @property(assign) BOOL isTap;
 @property(assign) NSUInteger tapCount;
 @property(assign) UITouchPhase phase;
-@property(retain) UIView *view;
-@property(retain) UIWindow *window;
+@property(nonatomic) UIView *view;
+@property(nonatomic) UIWindow *window;
 @property(assign) NSTimeInterval timestamp;
 
 - (void)setGestureView:(UIView *)view;

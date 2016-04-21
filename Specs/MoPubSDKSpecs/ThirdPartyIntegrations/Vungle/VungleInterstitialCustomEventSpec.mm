@@ -1,6 +1,7 @@
 #import "VungleInterstitialCustomEvent.h"
 #import "VungleSDK+Specs.h"
 #import "MPVungleRouter.h"
+#import <Cedar/Cedar.h>
 
 #import <CoreLocation/CoreLocation.h>
 

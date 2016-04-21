@@ -3,6 +3,7 @@
 #import "Chartboost+Specs.h"
 #import "MPChartboostRouter.h"
 #import "MPInstanceProvider+Chartboost.h"
+#import <Cedar/Cedar.h>
 
 using namespace Cedar::Matchers;
 using namespace Cedar::Doubles;
