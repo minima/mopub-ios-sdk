@@ -14,6 +14,7 @@
 				570A002919D61D6900065388 /* ShellScript */,
 			);
 			dependencies = (
+				B260A0461CC97DEA007BCE76 /* PBXTargetDependency */,
 				57D322231BD98F1600ACF21E /* PBXTargetDependency */,
 				4ADE60391B5011E2004C3673 /* PBXTargetDependency */,
 				57CF564E19DE4814000D29C5 /* PBXTargetDependency */,
@@ -1449,6 +1450,7 @@
 		AEF9D6A6171CA8AD005AAA5A /* InMobiBannerCustomEventSpec.mm in Sources */ = {isa = PBXBuildFile; fileRef = AEF9D642171CA8AD005AAA5A /* InMobiBannerCustomEventSpec.mm */; };
 		AEF9D6A7171CA8AD005AAA5A /* MPMillennialBannerCustomEventSpec.mm in Sources */ = {isa = PBXBuildFile; fileRef = AEF9D644171CA8AD005AAA5A /* MPMillennialBannerCustomEventSpec.mm */; };
 		AEF9D6A8171CA8AD005AAA5A /* MPMillennialInterstitialCustomEventSpec.mm in Sources */ = {isa = PBXBuildFile; fileRef = AEF9D645171CA8AD005AAA5A /* MPMillennialInterstitialCustomEventSpec.mm */; };
+		B210EFD91CE6858C00945B8D /* MPRewardedVideo+Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = B210EFD81CE6858C00945B8D /* MPRewardedVideo+Internal.h */; };
 		B21CFCEA1C6E650B00C91685 /* MPMoPubRewardedVideoCustomEventSpec.mm in Sources */ = {isa = PBXBuildFile; fileRef = B21CFCE91C6E650B00C91685 /* MPMoPubRewardedVideoCustomEventSpec.mm */; };
 		B232BFF31C861EEF00D708CD /* MPActivityViewControllerHelper+TweetShare.m in Sources */ = {isa = PBXBuildFile; fileRef = 875390C51B04073F001F0550 /* MPActivityViewControllerHelper+TweetShare.m */; };
 		B23AB37F1BA1037D003DBB4F /* MOPUBPlayerViewControllerSpec.mm in Sources */ = {isa = PBXBuildFile; fileRef = B23AB37B1BA1037D003DBB4F /* MOPUBPlayerViewControllerSpec.mm */; };
@@ -1469,6 +1471,13 @@
 		B2678A601C98BF0A00A0290F /* MPActivityViewControllerHelperSpec.mm in Sources */ = {isa = PBXBuildFile; fileRef = 87CF210C1B0413920080E6BB /* MPActivityViewControllerHelperSpec.mm */; };
 		B2678A611C98BF2400A0290F /* MPActivityViewControllerHelper+TweetShareSpec.mm in Sources */ = {isa = PBXBuildFile; fileRef = 87CF213D1B0C045B0080E6BB /* MPActivityViewControllerHelper+TweetShareSpec.mm */; };
 		B2678A621C98BF2B00A0290F /* MPAdDestinationDisplayAgentSpec.mm in Sources */ = {isa = PBXBuildFile; fileRef = AEF9D60C171CA8AD005AAA5A /* MPAdDestinationDisplayAgentSpec.mm */; };
+		B277838B1CE3BA5C00BAB0B1 /* MPRewardedVideoConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = B27783891CE3BA5C00BAB0B1 /* MPRewardedVideoConnection.m */; };
+		B277838C1CE3BA5C00BAB0B1 /* MPRewardedVideoConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = B27783891CE3BA5C00BAB0B1 /* MPRewardedVideoConnection.m */; };
+		B277838D1CE3BA5C00BAB0B1 /* MPRewardedVideoConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = B27783891CE3BA5C00BAB0B1 /* MPRewardedVideoConnection.m */; };
+		B277838E1CE3BA5C00BAB0B1 /* MPRewardedVideoConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = B27783891CE3BA5C00BAB0B1 /* MPRewardedVideoConnection.m */; };
+		B277838F1CE3BA5C00BAB0B1 /* MPRewardedVideoConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = B27783891CE3BA5C00BAB0B1 /* MPRewardedVideoConnection.m */; };
+		B277839A1CE3BA8A00BAB0B1 /* MPRewardedVideoConnection.h in Headers */ = {isa = PBXBuildFile; fileRef = B27783881CE3BA5C00BAB0B1 /* MPRewardedVideoConnection.h */; };
+		B27783A11CE3D47400BAB0B1 /* MPRewardedVideoConnectionSpec.mm in Sources */ = {isa = PBXBuildFile; fileRef = B27783A01CE3D47400BAB0B1 /* MPRewardedVideoConnectionSpec.mm */; };
 		B28725E41B9FB5D200C0D61B /* UIButton+MPAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = B28725E01B9FB5D200C0D61B /* UIButton+MPAdditions.h */; };
 		B28725E51B9FB5D200C0D61B /* UIButton+MPAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = B28725E11B9FB5D200C0D61B /* UIButton+MPAdditions.m */; };
 		B28725E61B9FB5D200C0D61B /* UIButton+MPAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = B28725E11B9FB5D200C0D61B /* UIButton+MPAdditions.m */; };
@@ -1712,6 +1721,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = AEC40C88174C203700474D2D;
 			remoteInfo = "UIKit+PivotalSpecHelperStubs-StaticLib";
+		};
+		B260A0451CC97DEA007BCE76 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AEF1F32016EF9AD700273462 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 57CF54B219DE435F000D29C5;
+			remoteInfo = FacebookCustomEvent;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -2588,6 +2604,7 @@
 		AEF9D642171CA8AD005AAA5A /* InMobiBannerCustomEventSpec.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = InMobiBannerCustomEventSpec.mm; sourceTree = "<group>"; };
 		AEF9D644171CA8AD005AAA5A /* MPMillennialBannerCustomEventSpec.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MPMillennialBannerCustomEventSpec.mm; sourceTree = "<group>"; };
 		AEF9D645171CA8AD005AAA5A /* MPMillennialInterstitialCustomEventSpec.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MPMillennialInterstitialCustomEventSpec.mm; sourceTree = "<group>"; };
+		B210EFD81CE6858C00945B8D /* MPRewardedVideo+Internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MPRewardedVideo+Internal.h"; sourceTree = "<group>"; };
 		B21CFCE91C6E650B00C91685 /* MPMoPubRewardedVideoCustomEventSpec.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MPMoPubRewardedVideoCustomEventSpec.mm; sourceTree = "<group>"; };
 		B23AB37B1BA1037D003DBB4F /* MOPUBPlayerViewControllerSpec.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MOPUBPlayerViewControllerSpec.mm; sourceTree = "<group>"; };
 		B255C7C41C6C118500F01825 /* MPPrivateRewardedVideoCustomEventDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPPrivateRewardedVideoCustomEventDelegate.h; sourceTree = "<group>"; };
@@ -2603,6 +2620,9 @@
 		B257A3061BA3911300F5D320 /* MPUnmutedBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MPUnmutedBtn.png; sourceTree = "<group>"; };
 		B257A3071BA3911300F5D320 /* MPUnmutedBtn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MPUnmutedBtn@2x.png"; sourceTree = "<group>"; };
 		B257A3081BA3911300F5D320 /* MPUnmutedBtn@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MPUnmutedBtn@3x.png"; sourceTree = "<group>"; };
+		B27783881CE3BA5C00BAB0B1 /* MPRewardedVideoConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPRewardedVideoConnection.h; sourceTree = "<group>"; };
+		B27783891CE3BA5C00BAB0B1 /* MPRewardedVideoConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPRewardedVideoConnection.m; sourceTree = "<group>"; };
+		B27783A01CE3D47400BAB0B1 /* MPRewardedVideoConnectionSpec.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MPRewardedVideoConnectionSpec.mm; sourceTree = "<group>"; };
 		B28725E01B9FB5D200C0D61B /* UIButton+MPAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+MPAdditions.h"; sourceTree = "<group>"; };
 		B28725E11B9FB5D200C0D61B /* UIButton+MPAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+MPAdditions.m"; sourceTree = "<group>"; };
 		B28725E21B9FB5D200C0D61B /* UIColor+MPAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+MPAdditions.h"; sourceTree = "<group>"; };
@@ -3121,11 +3141,13 @@
 		5755DA091AA90B4700DC32EA /* RewardedVideo */ = {
 			isa = PBXGroup;
 			children = (
+				B210EFD81CE6858C00945B8D /* MPRewardedVideo+Internal.h */,
 				5755DA0A1AA90B4700DC32EA /* MPRewardedVideoAdapterSpec.mm */,
 				5755DA0B1AA90B4700DC32EA /* MPRewardedVideoAdManagerSpec.mm */,
 				5755DA0C1AA90B4700DC32EA /* MPRewardedVideoRewardSpec.mm */,
 				5755DA0D1AA90B4700DC32EA /* MPRewardedVideoSpec.mm */,
 				B21CFCE91C6E650B00C91685 /* MPMoPubRewardedVideoCustomEventSpec.mm */,
+				B27783A01CE3D47400BAB0B1 /* MPRewardedVideoConnectionSpec.mm */,
 			);
 			path = RewardedVideo;
 			sourceTree = "<group>";
@@ -3181,6 +3203,8 @@
 		57ACE3EE1AA7E8D900A05633 /* Internal */ = {
 			isa = PBXGroup;
 			children = (
+				B27783881CE3BA5C00BAB0B1 /* MPRewardedVideoConnection.h */,
+				B27783891CE3BA5C00BAB0B1 /* MPRewardedVideoConnection.m */,
 				B2E47F641C7E362A00DE5EA6 /* MPMoPubRewardedVideoCustomEvent.h */,
 				B2E47F651C7E362A00DE5EA6 /* MPMoPubRewardedVideoCustomEvent.m */,
 				B255C7C41C6C118500F01825 /* MPPrivateRewardedVideoCustomEventDelegate.h */,
@@ -4661,6 +4685,8 @@
 				A7A422971B603CB400024A3A /* MPVASTModel.h in Headers */,
 				570AFF6D19D6191000065388 /* MPClientAdPositioning.h in Headers */,
 				57AC69731BB21FA20053C556 /* MOPUBPlayerViewController.h in Headers */,
+				B210EFD91CE6858C00945B8D /* MPRewardedVideo+Internal.h in Headers */,
+				B277839A1CE3BA8A00BAB0B1 /* MPRewardedVideoConnection.h in Headers */,
 				570A00DD19D6325300065388 /* MPNativeAdData.h in Headers */,
 				7EE1D2EF1AA1413800F7AFFA /* MPLogEventRecorder.h in Headers */,
 				5786BFCF1A38EAFD004DC3F6 /* MRController.h in Headers */,
@@ -5801,6 +5827,7 @@
 				468BCDF219996C550054A051 /* MPNativeAdSourceQueue.m in Sources */,
 				A7A422991B603CB400024A3A /* MPVASTModel.m in Sources */,
 				A72F90DC19B7B1FF00A5601B /* MPNativePositionSource.m in Sources */,
+				B277838C1CE3BA5C00BAB0B1 /* MPRewardedVideoConnection.m in Sources */,
 				4AB5CCD119F55596005ABBC1 /* MPLogProvider.m in Sources */,
 				468BCDF319996C550054A051 /* MPIdentityProvider.m in Sources */,
 				7EB508461A9E448B0042603B /* MPLogEvent.m in Sources */,
@@ -5901,6 +5928,7 @@
 				5786BFCA1A38EAFD004DC3F6 /* MRExpandModalViewController.m in Sources */,
 				57AC696C1BB21FA20053C556 /* MOPUBPlayerManager.m in Sources */,
 				57ACE4071AA7E8D900A05633 /* MPRewardedVideoAdManager.m in Sources */,
+				B277838F1CE3BA5C00BAB0B1 /* MPRewardedVideoConnection.m in Sources */,
 				570AFF8319D6191000065388 /* MPTableViewAdPlacer.m in Sources */,
 				B28725EF1B9FB5D200C0D61B /* UIColor+MPAdditions.m in Sources */,
 				570AFF5319D6191000065388 /* MPAdPositioning.m in Sources */,
@@ -6209,6 +6237,7 @@
 				57ACE4091AA7E8D900A05633 /* MPRewardedVideo.m in Sources */,
 				578D287F1B9A406B002E3905 /* MPNativeAdRendererConfiguration.m in Sources */,
 				AE515F5C171F1B110086B464 /* MPMRAIDBannerCustomEvent.m in Sources */,
+				B277838B1CE3BA5C00BAB0B1 /* MPRewardedVideoConnection.m in Sources */,
 				A776A52E1B5DDF8A00095706 /* MPVASTInline.m in Sources */,
 				AE515F5D171F1B110086B464 /* MPMRAIDInterstitialCustomEvent.m in Sources */,
 				A77FBEF518C533B400531E8A /* MPNativeAdRequest.m in Sources */,
@@ -6637,6 +6666,7 @@
 				4AF54B52194A21600093F714 /* InMobiNativeAdAdapter.m in Sources */,
 				A72210EE1B8E1F4B0099DCF6 /* MPVASTStringUtilitiesSpec.mm in Sources */,
 				AEE38875171F4D300019601C /* MPiAdBannerCustomEvent.m in Sources */,
+				B27783A11CE3D47400BAB0B1 /* MPRewardedVideoConnectionSpec.mm in Sources */,
 				AEE38877171F4D300019601C /* MPiAdInterstitialCustomEvent.m in Sources */,
 				4ADF7BFD1AADF958001E33D4 /* MPVungleRouterSpec.mm in Sources */,
 				A7A9AC101974578E00C26A7E /* MPClientAdPositioning.m in Sources */,
@@ -6660,6 +6690,7 @@
 				AE6B13A2176F93BD00455F24 /* MRBridgeSpec.mm in Sources */,
 				570F75591982131400466F6F /* MPAdPlacerInvocation.m in Sources */,
 				57AC697D1BB21FA20053C556 /* MOPUBReplayView.m in Sources */,
+				B277838E1CE3BA5C00BAB0B1 /* MPRewardedVideoConnection.m in Sources */,
 				DE99CE787D9ABCDDF0BCF227 /* FakeEKEventStore.m in Sources */,
 				AE14FA4E1774D95D00ABF744 /* MPLastResortDelegate.m in Sources */,
 				4A71895818D25FC50056F068 /* NSJSONSerialization+MPAdditions.m in Sources */,
@@ -6783,6 +6814,7 @@
 				46EDEE6819832A3B00241385 /* MPNativeAdUtils.m in Sources */,
 				A7A422D01B66FB9700024A3A /* MPVASTDurationOffset.m in Sources */,
 				575828911A16F281009C7A85 /* MRController.m in Sources */,
+				B277838D1CE3BA5C00BAB0B1 /* MPRewardedVideoConnection.m in Sources */,
 				57D321E01BD98D2E00ACF21E /* TapjoyInterstitialCustomEvent.m in Sources */,
 				AEF9D558171CA895005AAA5A /* MPAdWebView.m in Sources */,
 				AEF9D55A171CA895005AAA5A /* MPAdWebViewAgent.m in Sources */,
@@ -6988,6 +7020,11 @@
 			isa = PBXTargetDependency;
 			name = "UIKit+PivotalSpecHelperStubs-StaticLib";
 			targetProxy = A7A731D618F5D38000E327C9 /* PBXContainerItemProxy */;
+		};
+		B260A0461CC97DEA007BCE76 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 57CF54B219DE435F000D29C5 /* FacebookCustomEvent */;
+			targetProxy = B260A0451CC97DEA007BCE76 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 

@@ -560,6 +560,8 @@
 		B257A2F11BA38F1200F5D320 /* MPUnmutedBtn@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = B257A2E61BA38F1200F5D320 /* MPUnmutedBtn@3x.png */; };
 		B257A2F21BA38F1200F5D320 /* MPUnmutedBtn@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = B257A2E61BA38F1200F5D320 /* MPUnmutedBtn@3x.png */; };
 		B26284151B83CACE00960F74 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46E5043F18035A26006A2FC3 /* CoreMedia.framework */; };
+		B27783771CE3B39D00BAB0B1 /* MPRewardedVideoConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = B27783761CE3B39D00BAB0B1 /* MPRewardedVideoConnection.m */; };
+		B27783781CE3B39D00BAB0B1 /* MPRewardedVideoConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = B27783761CE3B39D00BAB0B1 /* MPRewardedVideoConnection.m */; };
 		B28725B21B9F52E800C0D61B /* UIColor+MPAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = B28725B11B9F52E800C0D61B /* UIColor+MPAdditions.m */; };
 		B28725B31B9F52E800C0D61B /* UIColor+MPAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = B28725B11B9F52E800C0D61B /* UIColor+MPAdditions.m */; };
 		B28725D71B9F917F00C0D61B /* UIButton+MPAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = B28725D61B9F917F00C0D61B /* UIButton+MPAdditions.m */; };
@@ -1242,6 +1244,7 @@
 		B20C81411BB21B50007F0E45 /* MPDAAIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MPDAAIcon.png; sourceTree = "<group>"; };
 		B20C81421BB21B50007F0E45 /* MPDAAIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MPDAAIcon@2x.png"; sourceTree = "<group>"; };
 		B20C81431BB21B50007F0E45 /* MPDAAIcon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MPDAAIcon@3x.png"; sourceTree = "<group>"; };
+		B210EFC31CE6759400945B8D /* MPRewardedVideo+Internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MPRewardedVideo+Internal.h"; sourceTree = "<group>"; };
 		B228D33A1B8FB57300123DD0 /* MPCloseBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MPCloseBtn.png; sourceTree = "<group>"; };
 		B228D33B1B8FB57300123DD0 /* MPCloseBtn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MPCloseBtn@2x.png"; sourceTree = "<group>"; };
 		B228D33C1B8FB57300123DD0 /* MPCloseBtn@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MPCloseBtn@3x.png"; sourceTree = "<group>"; };
@@ -1254,6 +1257,8 @@
 		B257A2E41BA38F1200F5D320 /* MPUnmutedBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MPUnmutedBtn.png; sourceTree = "<group>"; };
 		B257A2E51BA38F1200F5D320 /* MPUnmutedBtn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MPUnmutedBtn@2x.png"; sourceTree = "<group>"; };
 		B257A2E61BA38F1200F5D320 /* MPUnmutedBtn@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MPUnmutedBtn@3x.png"; sourceTree = "<group>"; };
+		B27783751CE3B39D00BAB0B1 /* MPRewardedVideoConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPRewardedVideoConnection.h; sourceTree = "<group>"; };
+		B27783761CE3B39D00BAB0B1 /* MPRewardedVideoConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPRewardedVideoConnection.m; sourceTree = "<group>"; };
 		B28725B01B9F52E800C0D61B /* UIColor+MPAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+MPAdditions.h"; sourceTree = "<group>"; };
 		B28725B11B9F52E800C0D61B /* UIColor+MPAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+MPAdditions.m"; sourceTree = "<group>"; };
 		B28725D51B9F917F00C0D61B /* UIButton+MPAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+MPAdditions.h"; sourceTree = "<group>"; };
@@ -1840,6 +1845,9 @@
 				5755D61B1AA8F62900DC32EA /* MPRewardedVideoAdManager.h */,
 				5755D61C1AA8F62900DC32EA /* MPRewardedVideoAdManager.m */,
 				B2056EE21C5952450030419E /* MPPrivateRewardedVideoCustomEventDelegate.h */,
+				B27783751CE3B39D00BAB0B1 /* MPRewardedVideoConnection.h */,
+				B27783761CE3B39D00BAB0B1 /* MPRewardedVideoConnection.m */,
+				B210EFC31CE6759400945B8D /* MPRewardedVideo+Internal.h */,
 			);
 			path = Internal;
 			sourceTree = "<group>";
@@ -2940,6 +2948,7 @@
 				57240A911A688C05009271B8 /* MPNativeCache.m in Sources */,
 				572409E61A688C05009271B8 /* MPBaseInterstitialAdapter.m in Sources */,
 				46B333DA19F075680078078A /* MPNativeAdDetailViewController.m in Sources */,
+				B27783781CE3B39D00BAB0B1 /* MPRewardedVideoConnection.m in Sources */,
 				57240A611A688C05009271B8 /* MPUserInteractionGestureRecognizer.m in Sources */,
 				5755DAEC1AAA4E2300DC32EA /* AdColonyCustomEvent.m in Sources */,
 				46B333E619F075680078078A /* MPMRectBannerAdDetailViewController.m in Sources */,
@@ -3174,6 +3183,7 @@
 				57240A961A688C05009271B8 /* MPNativePositionSource.m in Sources */,
 				A7A422851B5F224400024A3A /* MPVASTCompanionAd.m in Sources */,
 				57240A2D1A688C05009271B8 /* NSHTTPURLResponse+MPAdditions.m in Sources */,
+				B27783771CE3B39D00BAB0B1 /* MPRewardedVideoConnection.m in Sources */,
 				57240A1E1A688C05009271B8 /* MRImageDownloader.m in Sources */,
 				57AC6A121BB221130053C556 /* MOPUBNativeVideoImpressionAgent.m in Sources */,
 			);

@@ -38,20 +38,21 @@ describe(@"MPUnityRouter", ^{
             });
 
             it(@"should attempt to play a rewarded video ad", ^{
-                [router presentRewardedVideoAdFromViewController:controller zoneId:nil settings:nil delegate:delegate];
-                SDK should have_received(@selector(show));
+                [router presentRewardedVideoAdFromViewController:controller customerId:@"customerId" zoneId:nil settings:nil delegate:delegate];
+                SDK should have_received(@selector(show:));
             });
+            xit(@"should attempt to play the rewarded video ad without a customerId", ^{});
         });
 
         context(@"when a rewarded video ad is already playing", ^{
             beforeEach(^{
                 SDK stub_method(@selector(canShow)).and_return(YES);
                 SDK stub_method(@selector(canShowAds)).and_return(YES);
-                [router presentRewardedVideoAdFromViewController:controller zoneId:nil settings:nil delegate:delegate];
+                [router presentRewardedVideoAdFromViewController:controller customerId:@"customerId" zoneId:nil settings:nil delegate:delegate];
             });
 
             it(@"should fail to play another rewarded video", ^{
-                [router presentRewardedVideoAdFromViewController:controller zoneId:nil settings:nil delegate:delegate];
+                [router presentRewardedVideoAdFromViewController:controller customerId:@"customerId" zoneId:nil settings:nil delegate:delegate];
                 delegate should have_received(@selector(unityAdsDidFailWithError:));
             });
         });
@@ -60,7 +61,7 @@ describe(@"MPUnityRouter", ^{
             beforeEach(^{
                 SDK stub_method(@selector(canShow)).and_return(YES);
                 SDK stub_method(@selector(canShowAds)).and_return(YES);
-                [router presentRewardedVideoAdFromViewController:controller zoneId:nil settings:nil delegate:delegate];
+                [router presentRewardedVideoAdFromViewController:controller customerId:@"customerId" zoneId:nil settings:nil delegate:delegate];
                 router.isAdPlaying should be_truthy;
             });
 
@@ -68,7 +69,7 @@ describe(@"MPUnityRouter", ^{
                 [router unityAdsVideoCompleted:@"reward" skipped:NO];
                 [router unityAdsDidHide];
                 router.isAdPlaying should be_falsy;
-                [router presentRewardedVideoAdFromViewController:controller zoneId:nil settings:nil delegate:delegate];
+                [router presentRewardedVideoAdFromViewController:controller customerId:@"customerId" zoneId:nil settings:nil delegate:delegate];
                 router.isAdPlaying should be_truthy;
             });
 
@@ -89,7 +90,7 @@ describe(@"MPUnityRouter", ^{
         });
 
         it(@"should not play a rewarded video ad", ^{
-            [router presentRewardedVideoAdFromViewController:controller zoneId:nil settings:nil delegate:delegate];
+            [router presentRewardedVideoAdFromViewController:controller customerId:@"customerId" zoneId:nil settings:nil delegate:delegate];
             delegate should have_received(@selector(unityAdsDidFailWithError:));
         });
     });

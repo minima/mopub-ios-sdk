@@ -63,7 +63,7 @@ describe(@"MPRewardedVideoAdManager", ^{
                 [adManager communicatorDidReceiveAdConfiguration:adConfiguration];
             });
 
-            [adManager loadRewardedVideoAdWithKeywords:nil location:nil];
+            [adManager loadRewardedVideoAdWithKeywords:nil location:nil customerId:@"customerId"];
         });
 
         it(@"should be loading", ^{
@@ -117,7 +117,7 @@ describe(@"MPRewardedVideoAdManager", ^{
                 [adManager communicatorDidFailWithError:nil];
             });
 
-            [adManager loadRewardedVideoAdWithKeywords:nil location:nil];
+            [adManager loadRewardedVideoAdWithKeywords:nil location:nil customerId:nil];
         });
 
         it(@"should not be loading", ^{
@@ -146,7 +146,7 @@ describe(@"MPRewardedVideoAdManager", ^{
             beforeEach(^{
                 adConfiguration = [MPAdConfigurationFactory defaultRewardedVideoConfiguration];
                 adConfiguration.networkType = kAdTypeClear;
-                [adManager loadRewardedVideoAdWithKeywords:nil location:nil];
+                [adManager loadRewardedVideoAdWithKeywords:nil location:nil customerId:@"customerId"];
             });
 
             it(@"should not forward the downloaded ad configuration to its adapter", ^{
@@ -171,7 +171,7 @@ describe(@"MPRewardedVideoAdManager", ^{
                 NSMutableDictionary *headers = [MPAdConfigurationFactory defaultRewardedVideoHeaders];
                 [headers setObject:@"1" forKey:@"X-Warmup"];
                 adConfiguration = [[MPAdConfiguration alloc] initWithHeaders:headers data:nil];
-                [adManager loadRewardedVideoAdWithKeywords:nil location:nil];
+                [adManager loadRewardedVideoAdWithKeywords:nil location:nil customerId:@"customerId"];
             });
 
             it(@"should not forward the downloaded ad configuration to its adapter", ^{

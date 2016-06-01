@@ -24,7 +24,7 @@ The MoPub SDK is distributed as source code that you can include in your applica
 
   Includes everything you need to serve HTML, MRAID, and Native MoPub advertisements.  No third party ad networks are included.
 
-The current version of the SDK is 4.6.0
+The current version of the SDK is 4.7.0
 
 ## Integrate
 
@@ -36,10 +36,7 @@ More detailed class documentation is available in the repo under the `ClassDocum
 
 Please view the [changelog](https://github.com/mopub/mopub-ios-sdk/blob/master/CHANGELOG.md) for details.
 
-- **Certified Chartboost version 6.4.0**
-- **Certified Tapjoy version 11.5.1**
-- **Bug fixes**
-	- Fixed resource loading issues when using cocoapods and frameworks
+- **Rewarded video server-side currency rewarding (Beta)**.
 
 
 ### IMPORTANT 4.0 UPGRADE INSTRUCTIONS

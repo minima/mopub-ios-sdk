@@ -54,6 +54,7 @@ NSString * const kAdTypeNativeVideo = @"json_video";
 // rewarded video
 NSString * const kRewardedVideoCurrencyNameHeaderKey = @"X-Rewarded-Video-Currency-Name";
 NSString * const kRewardedVideoCurrencyAmountHeaderKey = @"X-Rewarded-Video-Currency-Amount";
+NSString * const kRewardedVideoCompletionUrlHeaderKey = @"X-Rewarded-Video-Completion-Url";
 
 @interface MPAdConfiguration ()
 
@@ -147,6 +148,8 @@ NSString * const kRewardedVideoCurrencyAmountHeaderKey = @"X-Rewarded-Video-Curr
         } else {
             self.rewardedVideoReward = [[MPRewardedVideoReward alloc] initWithCurrencyType:currencyName amount:@(kMPRewardedVideoRewardCurrencyAmountUnspecified)];
         }
+
+        self.rewardedVideoCompletionUrl = [headers objectForKey:kRewardedVideoCompletionUrlHeaderKey];
     }
     return self;
 }

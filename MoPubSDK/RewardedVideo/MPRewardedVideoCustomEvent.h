@@ -91,7 +91,7 @@
  *
  * Due to the way ad mediation works, two ad units may load the same ad network for displaying ads. When one ad unit plays
  * an ad, the other ad unit may need to update its state and notify the application an ad may no longer be available as it
- * may have already played. If an ad becomes unavailable for this custom event, call 
+ * may have already played. If an ad becomes unavailable for this custom event, call
  * `[-rewardedVideoDidExpireForCustomEvent:]([MPRewardedVideoCustomEventDelegate rewardedVideoDidExpireForCustomEvent:])`
  * to notify the application that an ad is no longer available.
  *
@@ -264,6 +264,13 @@
  * kMPRewardedVideoRewardCurrencyTypeUnspecified.
  */
 - (void)rewardedVideoShouldRewardUserForCustomEvent:(MPRewardedVideoCustomEvent *)customEvent reward:(MPRewardedVideoReward *)reward;
+
+/**
+ * Call this method to get the customer ID associated with this custom event.
+ *
+ * @return The user's customer ID.
+ */
+- (NSString *)customerIdForRewardedVideoCustomEvent:(MPRewardedVideoCustomEvent *)customEvent;
 
 /** @name Impression and Click Tracking */
 

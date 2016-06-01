@@ -10,6 +10,7 @@
 #import "MPLogging.h"
 #import "VungleInstanceMediationSettings.h"
 #import "MPRewardedVideoError.h"
+#import "MPRewardedVideo.h"
 
 static NSString *gAppId = nil;
 static NSString *const kMPVungleRewardedAdCompletedView = @"completedView";
@@ -96,13 +97,16 @@ static NSString *const kMPVungleAdUserDidDownloadKey = @"didDownload";
     }
 }
 
-- (void)presentRewardedVideoAdFromViewController:(UIViewController *)viewController settings:(VungleInstanceMediationSettings *)settings delegate:(id<MPVungleRouterDelegate>)delegate
+- (void)presentRewardedVideoAdFromViewController:(UIViewController *)viewController customerId:(NSString *)customerId settings:(VungleInstanceMediationSettings *)settings delegate:(id<MPVungleRouterDelegate>)delegate
 {
     if (!self.isAdPlaying && self.isAdAvailable) {
         self.delegate = delegate;
         self.isAdPlaying = YES;
         NSDictionary *options;
-        if (settings && [settings.userIdentifier length]) {
+
+        if (customerId.length > 0) {
+            options = @{VunglePlayAdOptionKeyIncentivized : @(YES), VunglePlayAdOptionKeyUser : customerId};
+        } else if (settings && [settings.userIdentifier length]) {
             options = @{VunglePlayAdOptionKeyIncentivized : @(YES), VunglePlayAdOptionKeyUser : settings.userIdentifier};
         } else {
             options = @{VunglePlayAdOptionKeyIncentivized : @(YES)};

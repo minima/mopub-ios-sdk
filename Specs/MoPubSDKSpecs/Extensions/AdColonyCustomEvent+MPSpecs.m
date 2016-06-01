@@ -20,8 +20,8 @@ static BOOL gEnableAdColonyNetworkInit = NO;
 {
     Method original, swizzled;
 
-    original = class_getClassMethod(self, @selector(initializeAdColonyCustomEventWithAppId:allZoneIds:));
-    swizzled = class_getClassMethod(self, @selector(mp_initializeAdColonyCustomEventWithAppId:allZoneIds:));
+    original = class_getClassMethod(self, @selector(initializeAdColonyCustomEventWithAppId:allZoneIds:customerId:));
+    swizzled = class_getClassMethod(self, @selector(mp_initializeAdColonyCustomEventWithAppId:allZoneIds:customerId:));
     method_exchangeImplementations(original, swizzled);
 }
 
@@ -30,7 +30,7 @@ static BOOL gEnableAdColonyNetworkInit = NO;
     gEnableAdColonyNetworkInit = allow;
 }
 
-+ (void)mp_initializeAdColonyCustomEventWithAppId:(NSString *)appId allZoneIds:(NSArray *)allZoneIds
++ (void)mp_initializeAdColonyCustomEventWithAppId:(NSString *)appId allZoneIds:(NSArray *)allZoneIds customerId:(NSString *)customerId
 {
     gAppId = [appId copy];
     gAllZoneIds = allZoneIds;
@@ -38,7 +38,7 @@ static BOOL gEnableAdColonyNetworkInit = NO;
     ++gAdColonyInitCount;
 
     if (gEnableAdColonyNetworkInit) {
-        [self mp_initializeAdColonyCustomEventWithAppId:appId allZoneIds:allZoneIds];
+        [self mp_initializeAdColonyCustomEventWithAppId:appId allZoneIds:allZoneIds customerId:customerId];
     }
 }
 

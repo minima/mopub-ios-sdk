@@ -1,3 +1,6 @@
+## Version 4.7.0 (June 2nd, 2016)
+- **Rewarded video server-side currency rewarding (Beta)**.
+	
 ## Version 4.6.0 (April 21th, 2016)
 - **Certified Chartboost version 6.4.0**
 - **Certified Tapjoy version 11.5.1**

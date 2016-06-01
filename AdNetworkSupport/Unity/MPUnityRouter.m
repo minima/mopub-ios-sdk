@@ -9,6 +9,7 @@
 #import "UnityAdsInstanceMediationSettings.h"
 #import "MPInstanceProvider+Unity.h"
 #import "MPRewardedVideoError.h"
+#import "MPRewardedVideo.h"
 
 @interface MPUnityRouter ()
 
@@ -27,13 +28,13 @@
 {
     if (!self.isAdPlaying) {
         self.delegate = delegate;
-        
+
         static dispatch_once_t unityInitToken;
         dispatch_once(&unityInitToken, ^{
             [[UnityAds sharedInstance] startWithGameId:gameId];
             [[UnityAds sharedInstance] setDelegate:self];
         });
-        
+
         // Need to check immediately as an ad may be cached.
         if ([self isAdAvailableForZoneId:zoneId]) {
             [self.delegate unityAdsFetchCompleted];
@@ -51,7 +52,7 @@
      * the zone ID is set here because it needs to be set for canShow, canShowAds, and show
      * to work for the correct Unity Ad that cooresponds to the custom event. It's a little
      * bit of a weird side-effect to do it here, but it's the common denominator for requests
-     * and presentation of ads and helps ensure that we don't check the status of or show 
+     * and presentation of ads and helps ensure that we don't check the status of or show
      * an ad with the wrong zone ID (set from a different custom event).
      */
     if ([zoneId length] > 0) {
@@ -60,15 +61,17 @@
     return [[UnityAds sharedInstance] canShow] && [[UnityAds sharedInstance] canShowAds];
 }
 
-- (void)presentRewardedVideoAdFromViewController:(UIViewController *)viewController zoneId:(NSString *)zoneId settings:(UnityAdsInstanceMediationSettings *)settings delegate:(id<MPUnityRouterDelegate>)delegate
+- (void)presentRewardedVideoAdFromViewController:(UIViewController *)viewController customerId:(NSString *)customerId zoneId:(NSString *)zoneId settings:(UnityAdsInstanceMediationSettings *)settings delegate:(id<MPUnityRouterDelegate>)delegate
 {
     if (!self.isAdPlaying && [self isAdAvailableForZoneId:zoneId]) {
         self.isAdPlaying = YES;
-        
+
         self.delegate = delegate;
         [[UnityAds sharedInstance] setViewController:viewController];
-        
-        if ([settings.userIdentifier length] > 0) {
+
+        if (customerId.length >0) {
+            [[UnityAds sharedInstance] show:@{kUnityAdsOptionGamerSIDKey : customerId}];
+        } else if (settings.userIdentifier.length > 0) {
             [[UnityAds sharedInstance] show:@{kUnityAdsOptionGamerSIDKey : settings.userIdentifier}];
         } else {
             [[UnityAds sharedInstance] show];

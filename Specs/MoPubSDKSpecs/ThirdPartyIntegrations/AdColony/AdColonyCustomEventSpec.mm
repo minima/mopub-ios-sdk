@@ -37,7 +37,7 @@ describe(@"AdColonyCustomEvent", ^{
             settings.customId = @"jobber";
 
             [[MoPub sharedInstance] initializeRewardedVideoWithGlobalMediationSettings:@[settings] delegate:nil];
-            [AdColonyCustomEvent initializeAdColonyCustomEventWithAppId:appID1 allZoneIds:zoneIDs1];
+            [AdColonyCustomEvent initializeAdColonyCustomEventWithAppId:appID1 allZoneIds:zoneIDs1 customerId:nil];
         });
 
         afterEach(^{
@@ -45,7 +45,7 @@ describe(@"AdColonyCustomEvent", ^{
         });
 
         it(@"should only call Ad Colony's initialize method once", ^{
-            [AdColonyCustomEvent initializeAdColonyCustomEventWithAppId:appID2 allZoneIds:zoneIDs2];
+            [AdColonyCustomEvent initializeAdColonyCustomEventWithAppId:appID2 allZoneIds:zoneIDs2 customerId:@"customerId"];
 
             [AdColony mp_getAppId] should equal(appID1);
             [AdColony mp_getZoneIds] should equal(zoneIDs1);

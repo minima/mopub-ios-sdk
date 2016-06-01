@@ -45,7 +45,8 @@ static NSString *const kUnityAdsOptionZoneIdKey = @"zoneId";
     if ([self hasAdAvailable]) {
         UnityAdsInstanceMediationSettings *settings = [self.delegate instanceMediationSettingsForClass:[UnityAdsInstanceMediationSettings class]];
 
-        [[MPUnityRouter sharedRouter] presentRewardedVideoAdFromViewController:viewController zoneId:self.zoneId settings:settings delegate:self];
+        NSString *customerId = [self.delegate customerIdForRewardedVideoCustomEvent:self];
+        [[MPUnityRouter sharedRouter] presentRewardedVideoAdFromViewController:viewController customerId:customerId zoneId:self.zoneId settings:settings delegate:self];
     } else {
         MPLogInfo(@"Failed to show Unity rewarded video: Unity now claims that there is no available video ad.");
         NSError *error = [NSError errorWithDomain:MoPubRewardedVideoAdsSDKDomain code:MPRewardedVideoAdErrorNoAdsAvailable userInfo:nil];
