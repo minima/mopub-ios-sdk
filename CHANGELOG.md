@@ -1,3 +1,6 @@
+## Version 4.8.0 (August 1st, 2016)
+- **renamed MPError enums to avoid possible naming conflict with MediaPlayer framework errors**.
+
 ## Version 4.7.0 (June 2nd, 2016)
 - **Rewarded video server-side currency rewarding (Beta)**.
 	
