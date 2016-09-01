@@ -65,6 +65,7 @@
     self.didReceiveTapLabel.alpha = 0.1;
     self.shouldRewardLabel.alpha = 0.1;
 
+    self.info.keywords = self.keywordsTextField.text;
     // persist last used keywords if this is a saved ad
     if ([[MPAdPersistenceManager sharedManager] savedAdForID:self.info.ID] != nil) {
         [[MPAdPersistenceManager sharedManager] addSavedAd:self.info];
@@ -72,7 +73,7 @@
 
 
     // create Instance Mediation Settings as needed here
-    [MPRewardedVideo loadRewardedVideoAdWithAdUnitID:self.info.ID keywords:nil location:nil customerId:@"testCustomerId" mediationSettings:@[]];
+    [MPRewardedVideo loadRewardedVideoAdWithAdUnitID:self.info.ID keywords:self.info.keywords location:nil customerId:@"testCustomerId" mediationSettings:@[]];
 }
 
 - (IBAction)didTapShowButton:(id)sender

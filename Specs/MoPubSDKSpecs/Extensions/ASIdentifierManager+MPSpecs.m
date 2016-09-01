@@ -8,7 +8,10 @@
 #import "ASIdentifierManager+MPSpecs.h"
 #import <objc/runtime.h>
 
-static BOOL gUseNilForAdvertisingIdentifier;
+static NSString* const kMPSpecAllZeroedSampleAdvertisingIdentifier = @"00000000-0000-0000-0000-000000000000";
+
+
+static MPSpecAdvertisingIdentifierType gAdvertisingIdentifierType;
 
 @implementation ASIdentifierManager (MPSpecs)
 
@@ -41,15 +44,17 @@ static BOOL gUseNilForAdvertisingIdentifier;
     });
 }
 
-+ (void)useNilForAdvertisingIdentifier:(BOOL)useNil
++ (void)useAdvertisingIdentifierType:(MPSpecAdvertisingIdentifierType)type
 {
-    gUseNilForAdvertisingIdentifier = useNil;
+    gAdvertisingIdentifierType = type;
 }
 
 - (NSUUID *)test_advertisingIdentifier
 {
-    if (gUseNilForAdvertisingIdentifier) {
+    if (gAdvertisingIdentifierType == MPSpecAdvertisingIdentifierTypeNil) {
         return nil;
+    } else if (gAdvertisingIdentifierType == MPSpecAdvertisingIdentifierTypeAllZero) {
+        return [[NSUUID alloc] initWithUUIDString:kMPSpecAllZeroedSampleAdvertisingIdentifier];
     }
 
     return [self test_advertisingIdentifier];

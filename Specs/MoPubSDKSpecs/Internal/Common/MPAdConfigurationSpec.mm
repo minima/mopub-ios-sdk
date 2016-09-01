@@ -1,12 +1,10 @@
 #import "MPAdConfiguration.h"
-#import "MPiAdBannerCustomEvent.h"
 #import "MPGoogleAdMobBannerCustomEvent.h"
 #import "MPMillennialBannerCustomEvent.h"
 #import "MPHTMLBannerCustomEvent.h"
 #import "MPMRAIDBannerCustomEvent.h"
 #import "MPGoogleAdMobInterstitialCustomEvent.h"
 #import "MPMillennialInterstitialCustomEvent.h"
-#import "MPiAdInterstitialCustomEvent.h"
 #import "MPHTMLInterstitialCustomEvent.h"
 #import "MPMRAIDInterstitialCustomEvent.h"
 #import <Cedar/Cedar.h>
@@ -325,10 +323,6 @@ describe(@"MPAdConfiguration", ^{
     });
 
     it(@"should convert network/ad type to custom event class", ^{
-        headers = @{kAdTypeHeaderKey: @"iAd"};
-        configuration = [[MPAdConfiguration alloc] initWithHeaders:headers data:nil];
-        configuration.customEventClass should equal([MPiAdBannerCustomEvent class]);
-
         headers = @{kAdTypeHeaderKey: @"admob_native"};
         configuration = [[MPAdConfiguration alloc] initWithHeaders:headers data:nil];
         configuration.customEventClass should equal([MPGoogleAdMobBannerCustomEvent class]);
@@ -352,10 +346,6 @@ describe(@"MPAdConfiguration", ^{
         headers = @{kAdTypeHeaderKey: @"interstitial", kInterstitialAdTypeHeaderKey: @"millennial_full"};
         configuration = [[MPAdConfiguration alloc] initWithHeaders:headers data:nil];
         configuration.customEventClass should equal([MPMillennialInterstitialCustomEvent class]);
-
-        headers = @{kAdTypeHeaderKey: @"interstitial", kInterstitialAdTypeHeaderKey: @"iAd_full"};
-        configuration = [[MPAdConfiguration alloc] initWithHeaders:headers data:nil];
-        configuration.customEventClass should equal([MPiAdInterstitialCustomEvent class]);
 
         headers = @{kAdTypeHeaderKey: @"html", kOrientationTypeHeaderKey: @"l"};
         configuration = [[MPAdConfiguration alloc] initWithHeaders:headers data:nil];

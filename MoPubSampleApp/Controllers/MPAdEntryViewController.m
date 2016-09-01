@@ -13,6 +13,7 @@
 #import "MPInterstitialAdDetailViewController.h"
 #import "MPAdPersistenceManager.h"
 #import "MPNativeAdDetailViewController.h"
+#import "MPRewardedVideoAdDetailViewController.h"
 
 #import <QuartzCore/QuartzCore.h>
 
@@ -32,6 +33,7 @@
 
 @property (nonatomic, assign) MPAdInfoType selectedAdType;
 @property (nonatomic, strong) MPAdInfo *initialAdInfo;
+@property (nonatomic, strong) NSArray *sortedSupportedAdTypes;
 
 @end
 
@@ -46,9 +48,11 @@
 {
     self = [super initWithNibName:@"MPAdEntryViewController" bundle:nil];
     if (self) {
-        self.initialAdInfo = adInfo;
+        _initialAdInfo = adInfo;
         self.title = (adInfo.title != nil) ? adInfo.title : @"New Ad";
-        
+
+        _sortedSupportedAdTypes = [[MPAdInfo supportedAddedAdTypes].allKeys sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
+
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= MP_IOS_7_0
         if ([self respondsToSelector:@selector(setEdgesForExtendedLayout:)]) {
             self.edgesForExtendedLayout = UIRectEdgeNone;
@@ -61,10 +65,10 @@
 - (MPAdInfo *)adInfoForCurrentInput
 {
     MPAdInfo *info = [[MPAdInfo alloc] init];
-    info.title = (self.adNameTextField.text.length > 0) ? self.adNameTextField.text : [[MPAdInfo supportedAdTypeNames] objectAtIndex:self.selectedAdType];
+    info.title = (self.adNameTextField.text.length > 0) ? self.adNameTextField.text : self.adTypeButton.titleLabel.text;
     info.type = self.selectedAdType;
     info.ID = self.adUnitTextField.text;
-    
+
     return info;
 }
 
@@ -73,9 +77,9 @@
 - (void)showAd
 {
     UIViewController *detailViewController = nil;
-    
+
     MPAdInfo *info = [self adInfoForCurrentInput];
-    
+
     switch (info.type) {
         case MPAdInfoBanner:
             detailViewController = [[MPBannerAdDetailViewController alloc] initWithAdInfo:info];
@@ -92,10 +96,13 @@
         case MPAdInfoNative:
             detailViewController = [[MPNativeAdDetailViewController alloc] initWithAdInfo:info];
             break;
+        case MPAdInfoRewardedVideo:
+            detailViewController = [[MPRewardedVideoAdDetailViewController alloc] initWithAdInfo:info];
+            break;
         default:
             break;
     }
-    
+
     if (detailViewController) {
         [self.navigationController pushViewController:detailViewController animated:YES];
     }
@@ -104,7 +111,7 @@
 - (IBAction)showAndSaveBarButtonClicked:(id)sender
 {
     [[MPAdPersistenceManager sharedManager] addSavedAd:[self adInfoForCurrentInput]];
-    
+
     [self showAd];
 }
 
@@ -131,10 +138,10 @@
 - (void)animateInPicker
 {
     [self.adUnitTextField endEditing:YES];
-    
+
     self.pickerDoneButton.alpha = self.adTypePicker.alpha = self.pickerToolbar.alpha = 0;
     self.pickerDoneButton.hidden = self.adTypePicker.hidden = self.pickerToolbar.hidden = NO;
-    
+
     [UIView animateWithDuration:0.2
                      animations:^{
                          self.pickerDoneButton.alpha = 0.5;
@@ -173,7 +180,7 @@
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
     [textField endEditing:YES];
-    
+
     return YES;
 }
 
@@ -191,20 +198,21 @@
 
 - (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
 {
-    return [MPAdInfo supportedAdTypeNames].count;
+    return self.sortedSupportedAdTypes.count;
 }
 
 #pragma mark - UIPickerViewDelegate
 
 - (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
 {
-    return [[MPAdInfo supportedAdTypeNames] objectAtIndex:row];
+    return [self.sortedSupportedAdTypes objectAtIndex:row];
 }
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
 {
-    self.selectedAdType = row;
-    [self.adTypeButton setTitle:[[MPAdInfo supportedAdTypeNames] objectAtIndex:self.selectedAdType] forState:UIControlStateNormal];
+    self.selectedAdType = [[[MPAdInfo supportedAddedAdTypes] objectForKey:[self pickerView:pickerView titleForRow:row forComponent:component]] integerValue];
+
+    [self.adTypeButton setTitle:[self pickerView:pickerView titleForRow:row forComponent:component] forState:UIControlStateNormal];
 }
 
 #pragma mark - View Lifecycle
@@ -212,20 +220,20 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+
     self.selectedAdType = (self.initialAdInfo != nil) ? self.initialAdInfo.type : MPAdInfoBanner;
     self.adUnitTextField.text = self.initialAdInfo.ID;
     self.adNameTextField.text = self.initialAdInfo.title;
-    
+
     self.pickerDoneButton.hidden = self.adTypePicker.hidden = YES;
-   
+
     // add a border around this button on iOS 7
     if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")) {
         self.adTypeButton.layer.borderWidth = 1.0f;
         self.adTypeButton.layer.cornerRadius = 10.0f;
         self.adTypeButton.layer.borderColor = [UIColor colorWithRed:63 / 255.0f green:117 / 255.0f blue:1.0f alpha:1.0f].CGColor;
     }
-    
+
     [self updateActionButtonStates];
 }
 

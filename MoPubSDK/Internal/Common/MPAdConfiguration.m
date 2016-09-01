@@ -160,7 +160,6 @@ NSString * const kRewardedVideoCompletionUrlHeaderKey = @"X-Rewarded-Video-Compl
 
     NSMutableDictionary *convertedCustomEvents = [NSMutableDictionary dictionary];
     if (self.adType == MPAdTypeBanner) {
-        [convertedCustomEvents setObject:@"MPiAdBannerCustomEvent" forKey:@"iAd"];
         [convertedCustomEvents setObject:@"MPGoogleAdMobBannerCustomEvent" forKey:@"admob_native"];
         [convertedCustomEvents setObject:@"MPMillennialBannerCustomEvent" forKey:@"millennial_native"];
         [convertedCustomEvents setObject:@"MPHTMLBannerCustomEvent" forKey:@"html"];
@@ -168,7 +167,6 @@ NSString * const kRewardedVideoCompletionUrlHeaderKey = @"X-Rewarded-Video-Compl
         [convertedCustomEvents setObject:@"MOPUBNativeVideoCustomEvent" forKey:@"json_video"];
         [convertedCustomEvents setObject:@"MPMoPubNativeCustomEvent" forKey:@"json"];
     } else if (self.adType == MPAdTypeInterstitial) {
-        [convertedCustomEvents setObject:@"MPiAdInterstitialCustomEvent" forKey:@"iAd_full"];
         [convertedCustomEvents setObject:@"MPGoogleAdMobInterstitialCustomEvent" forKey:@"admob_full"];
         [convertedCustomEvents setObject:@"MPMillennialInterstitialCustomEvent" forKey:@"millennial_full"];
         [convertedCustomEvents setObject:@"MPHTMLInterstitialCustomEvent" forKey:@"html"];

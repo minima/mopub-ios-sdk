@@ -10,6 +10,7 @@
 #import "MPCoreInstanceProvider.h"
 #import "MPGeolocationProvider.h"
 #import "MPRewardedVideo.h"
+#import "MPIdentityProvider.h"
 
 #import "FABKitProtocol.h"
 #import "Fabric+FABKits.h"
@@ -44,8 +45,22 @@
 
 - (void)setLocationUpdatesEnabled:(BOOL)locationUpdatesEnabled
 {
-    _locationUpdatesEnabled = locationUpdatesEnabled;
     [[[MPCoreInstanceProvider sharedProvider] sharedMPGeolocationProvider] setLocationUpdatesEnabled:locationUpdatesEnabled];
+}
+
+- (BOOL)locationUpdatesEnabled
+{
+    return [[MPCoreInstanceProvider sharedProvider] sharedMPGeolocationProvider].locationUpdatesEnabled;
+}
+
+- (void)setFrequencyCappingIdUsageEnabled:(BOOL)frequencyCappingIdUsageEnabled
+{
+    [MPIdentityProvider setFrequencyCappingIdUsageEnabled:frequencyCappingIdUsageEnabled];
+}
+
+- (BOOL)frequencyCappingIdUsageEnabled
+{
+    return [MPIdentityProvider frequencyCappingIdUsageEnabled];
 }
 
 - (void)start

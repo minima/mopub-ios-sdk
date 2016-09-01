@@ -11,16 +11,16 @@
 
 @implementation MPAdInfo
 
-+ (NSArray *)supportedAdTypeNames
++ (NSDictionary *)supportedAddedAdTypes
 {
-    static NSArray *adTypeNames = nil;
+    static NSDictionary *adTypes = nil;
 
     static dispatch_once_t once;
     dispatch_once(&once, ^{
-        adTypeNames = @[@"Banner", @"Interstitial", @"MRect", @"Leaderboard", @"Native"];
+        adTypes = @{@"Banner":@(MPAdInfoBanner), @"Interstitial":@(MPAdInfoInterstitial), @"MRect":@(MPAdInfoMRectBanner), @"Leaderboard":@(MPAdInfoLeaderboardBanner), @"Native":@(MPAdInfoNative), @"Rewarded Video":@(MPAdInfoRewardedVideo)};
     });
 
-    return adTypeNames;
+    return adTypes;
 }
 
 + (NSArray *)bannerAds

@@ -18,9 +18,6 @@
 @interface MPInstanceProvider (ThirdPartyAdditions)
 
 #pragma mark - Third Party Integrations Category Interfaces
-#pragma mark iAd
-- (ADInterstitialAd *)buildADInterstitialAd;
-- (ADBannerView *)buildADBannerViewWithAdType:(ADAdType)adType;
 
 #pragma mark Chartboost
 - (Chartboost *)buildChartboost;
@@ -234,14 +231,6 @@
     }];
 }
 
-- (MRCalendarManager *)buildMRCalendarManagerWithDelegate:(id<MRCalendarManagerDelegate>)delegate
-{
-    return [self returnFake:self.fakeMRCalendarManager
-                     orCall:^{
-                         return [super buildMRCalendarManagerWithDelegate:delegate];
-                     }];
-}
-
 - (EKEventEditViewController *)buildEKEventEditViewControllerWithEditViewDelegate:(id <EKEventEditViewDelegate>)editViewDelegate
 {
     if (self.fakeEKEventEditViewController) {
@@ -257,14 +246,6 @@
     return [self returnFake:self.fakeEKEventStore
                      orCall:^{
                         return [super buildEKEventStore];
-                     }];
-}
-
-- (MRPictureManager *)buildMRPictureManagerWithDelegate:(id<MRPictureManagerDelegate>)delegate
-{
-    return [self returnFake:self.fakeMRPictureManager
-                     orCall:^{
-                         return [super buildMRPictureManagerWithDelegate:delegate];
                      }];
 }
 
@@ -340,38 +321,6 @@
 }
 
 #pragma mark - Third Party Integrations
-
-#pragma mark iAd
-
-- (ADBannerView *)buildADBannerViewWithAdType:(ADAdType)adType
-{
-    ADBannerView *returnValue;
-
-    switch (adType) {
-        case ADAdTypeBanner:
-            returnValue = self.fakeADBannerView;
-            break;
-        case ADAdTypeMediumRectangle:
-            returnValue = self.fakeADBannerViewMediumRectangle;
-            break;
-        default:
-            returnValue = self.fakeADBannerView;
-            break;
-    }
-
-    return [self returnFake:returnValue
-                     orCall:^{
-                         return [super buildADBannerViewWithAdType:adType];
-                     }];
-}
-
-- (ADInterstitialAd *)buildADInterstitialAd
-{
-    return [self returnFake:self.fakeADInterstitialAd
-                     orCall:^{
-                         return [super buildADInterstitialAd];
-                     }];
-}
 
 #pragma mark - Facebook
 

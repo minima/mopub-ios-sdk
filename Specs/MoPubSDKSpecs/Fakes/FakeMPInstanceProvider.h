@@ -9,7 +9,6 @@
 #import "FakeMPAdServerCommunicator.h"
 #import "FakeInterstitialAdapter.h"
 #import "FakeMPAnalyticsTracker.h"
-#import <iAd/iAd.h>
 #import <GoogleMobileAds/GoogleMobileAds.h>
 #import "FakeInterstitialCustomEvent.h"
 #import <Chartboost/Chartboost.h>
@@ -35,10 +34,8 @@
 #import "MPRewardedVideoAdapter.h"
 #import "MPRewardedVideoCustomEvent.h"
 
-@class MRCalendarManager;
 @class EKEventStore;
 @class EKEventEditViewController;
-@class MRPictureManager;
 @class MRVideoPlayerManager;
 @class MPMoviePlayerViewController;
 @class MRBundleManager;
@@ -74,10 +71,8 @@
 @property (nonatomic, strong) MRBridge *fakeMRBridge;
 @property (nonatomic, strong) MRBundleManager *fakeMRBundleManager;
 @property (nonatomic, strong) UIWebView *fakeUIWebView;
-@property (nonatomic, strong) MRCalendarManager *fakeMRCalendarManager;
 @property (nonatomic, strong) EKEventEditViewController *fakeEKEventEditViewController;
 @property (nonatomic, strong) EKEventStore *fakeEKEventStore;
-@property (nonatomic, strong) MRPictureManager *fakeMRPictureManager;
 @property (nonatomic, strong) MRImageDownloader *fakeImageDownloader;
 @property (nonatomic, strong) MRVideoPlayerManager *fakeMRVideoPlayerManager;
 @property (nonatomic, strong) MPMoviePlayerViewController *fakeMoviePlayerViewController;
@@ -90,11 +85,6 @@
 @property (nonatomic, strong) MPStreamAdPlacer *fakeStreamAdPlacer;
 
 #pragma mark - Third Party Integrations
-
-#pragma mark iAd
-@property (nonatomic, strong) ADBannerView *fakeADBannerView;
-@property (nonatomic, strong) ADBannerView *fakeADBannerViewMediumRectangle;
-@property (nonatomic, strong) ADInterstitialAd *fakeADInterstitialAd;
 
 #pragma mark Facebook
 @property (nonatomic, strong) FBAdView *fakeFBAdView;

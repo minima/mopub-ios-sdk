@@ -77,7 +77,6 @@
 		46B3345D19F0840D0078078A /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE902A3D171F55AE00991DF9 /* Social.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		46B3347F19F087010078078A /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE902A31171F559400991DF9 /* AddressBook.framework */; };
 		46B3348019F087010078078A /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE902A32171F559400991DF9 /* AddressBookUI.framework */; };
-		46B3348219F0870D0078078A /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46B3348119F0870D0078078A /* iAd.framework */; };
 		46B3348319F087180078078A /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE902A3B171F55A900991DF9 /* Twitter.framework */; };
 		46B3348419F087200078078A /* PassKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE902A39171F559F00991DF9 /* PassKit.framework */; };
 		46B3348619F0874E0078078A /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46B3348519F0874E0078078A /* MobileCoreServices.framework */; };
@@ -188,8 +187,6 @@
 		57240A071A688C05009271B8 /* MRBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 572409081A688C05009271B8 /* MRBridge.m */; };
 		57240A091A688C05009271B8 /* MRBundleManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5724090A1A688C05009271B8 /* MRBundleManager.m */; };
 		57240A0A1A688C05009271B8 /* MRBundleManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5724090A1A688C05009271B8 /* MRBundleManager.m */; };
-		57240A0C1A688C05009271B8 /* MRCalendarManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5724090C1A688C05009271B8 /* MRCalendarManager.m */; };
-		57240A0D1A688C05009271B8 /* MRCalendarManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5724090C1A688C05009271B8 /* MRCalendarManager.m */; };
 		57240A0F1A688C05009271B8 /* MRCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = 5724090E1A688C05009271B8 /* MRCommand.m */; };
 		57240A101A688C05009271B8 /* MRCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = 5724090E1A688C05009271B8 /* MRCommand.m */; };
 		57240A121A688C05009271B8 /* MRConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 572409101A688C05009271B8 /* MRConstants.m */; };
@@ -204,8 +201,6 @@
 		57240A1F1A688C05009271B8 /* MRImageDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 572409181A688C05009271B8 /* MRImageDownloader.m */; };
 		57240A211A688C05009271B8 /* MRNativeCommandHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 5724091A1A688C05009271B8 /* MRNativeCommandHandler.m */; };
 		57240A221A688C05009271B8 /* MRNativeCommandHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 5724091A1A688C05009271B8 /* MRNativeCommandHandler.m */; };
-		57240A241A688C05009271B8 /* MRPictureManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5724091C1A688C05009271B8 /* MRPictureManager.m */; };
-		57240A251A688C05009271B8 /* MRPictureManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5724091C1A688C05009271B8 /* MRPictureManager.m */; };
 		57240A271A688C05009271B8 /* MRProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = 5724091E1A688C05009271B8 /* MRProperty.m */; };
 		57240A281A688C05009271B8 /* MRProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = 5724091E1A688C05009271B8 /* MRProperty.m */; };
 		57240A2A1A688C05009271B8 /* MRVideoPlayerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 572409201A688C05009271B8 /* MRVideoPlayerManager.m */; };
@@ -361,14 +356,6 @@
 		5755DB201AAA4E2300DC32EA /* GreystripeInterstitialCustomEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 5755DA9C1AAA4E2300DC32EA /* GreystripeInterstitialCustomEvent.m */; };
 		5755DB221AAA4E2300DC32EA /* libGreystripeSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5755DAA61AAA4E2300DC32EA /* libGreystripeSDK.a */; };
 		5755DB241AAA4E2300DC32EA /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 5755DAA71AAA4E2300DC32EA /* README.md */; };
-		5755DB261AAA4E2300DC32EA /* MPiAdBannerCustomEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 5755DAAA1AAA4E2300DC32EA /* MPiAdBannerCustomEvent.m */; };
-		5755DB281AAA4E2300DC32EA /* MPiAdInterstitialCustomEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 5755DAAC1AAA4E2300DC32EA /* MPiAdInterstitialCustomEvent.m */; };
-		5755DB2A1AAA4E2300DC32EA /* InMobiBannerCustomEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 5755DAAF1AAA4E2300DC32EA /* InMobiBannerCustomEvent.m */; };
-		5755DB2C1AAA4E2300DC32EA /* InMobiInterstitialCustomEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 5755DAB11AAA4E2300DC32EA /* InMobiInterstitialCustomEvent.m */; };
-		5755DB2E1AAA4E2300DC32EA /* InMobiNativeAdAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 5755DAB31AAA4E2300DC32EA /* InMobiNativeAdAdapter.m */; };
-		5755DB301AAA4E2300DC32EA /* InMobiNativeCustomEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 5755DAB51AAA4E2300DC32EA /* InMobiNativeCustomEvent.m */; };
-		5755DB321AAA4E2300DC32EA /* libInMobi-4.4.1.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5755DAC21AAA4E2300DC32EA /* libInMobi-4.4.1.a */; };
-		5755DB341AAA4E2300DC32EA /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 5755DAC31AAA4E2300DC32EA /* README.md */; };
 		5755DB3C1AAA4E2300DC32EA /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 5755DACB1AAA4E2300DC32EA /* README.md */; };
 		5755DB401AAA4E2300DC32EA /* MPInstanceProvider+Vungle.m in Sources */ = {isa = PBXBuildFile; fileRef = 5755DACF1AAA4E2300DC32EA /* MPInstanceProvider+Vungle.m */; };
 		5755DB421AAA4E2300DC32EA /* MPVungleRouter.m in Sources */ = {isa = PBXBuildFile; fileRef = 5755DAD11AAA4E2300DC32EA /* MPVungleRouter.m */; };
@@ -677,7 +664,6 @@
 		46B3345719F083350078078A /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		46B3345919F083EC0078078A /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		46B3345B19F083F70078078A /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
-		46B3348119F0870D0078078A /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
 		46B3348519F0874E0078078A /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		46B9E8AD17E0D7EE00B78D11 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		46B9E8AF17E0D7F600B78D11 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
@@ -798,8 +784,6 @@
 		572409081A688C05009271B8 /* MRBridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MRBridge.m; sourceTree = "<group>"; };
 		572409091A688C05009271B8 /* MRBundleManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MRBundleManager.h; sourceTree = "<group>"; };
 		5724090A1A688C05009271B8 /* MRBundleManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MRBundleManager.m; sourceTree = "<group>"; };
-		5724090B1A688C05009271B8 /* MRCalendarManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MRCalendarManager.h; sourceTree = "<group>"; };
-		5724090C1A688C05009271B8 /* MRCalendarManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MRCalendarManager.m; sourceTree = "<group>"; };
 		5724090D1A688C05009271B8 /* MRCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MRCommand.h; sourceTree = "<group>"; };
 		5724090E1A688C05009271B8 /* MRCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MRCommand.m; sourceTree = "<group>"; };
 		5724090F1A688C05009271B8 /* MRConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MRConstants.h; sourceTree = "<group>"; };
@@ -814,8 +798,6 @@
 		572409181A688C05009271B8 /* MRImageDownloader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MRImageDownloader.m; sourceTree = "<group>"; };
 		572409191A688C05009271B8 /* MRNativeCommandHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MRNativeCommandHandler.h; sourceTree = "<group>"; };
 		5724091A1A688C05009271B8 /* MRNativeCommandHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MRNativeCommandHandler.m; sourceTree = "<group>"; };
-		5724091B1A688C05009271B8 /* MRPictureManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MRPictureManager.h; sourceTree = "<group>"; };
-		5724091C1A688C05009271B8 /* MRPictureManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MRPictureManager.m; sourceTree = "<group>"; };
 		5724091D1A688C05009271B8 /* MRProperty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MRProperty.h; sourceTree = "<group>"; };
 		5724091E1A688C05009271B8 /* MRProperty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MRProperty.m; sourceTree = "<group>"; };
 		5724091F1A688C05009271B8 /* MRVideoPlayerManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MRVideoPlayerManager.h; sourceTree = "<group>"; };
@@ -1014,31 +996,6 @@
 		5755DAA51AAA4E2300DC32EA /* GSSDKInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSSDKInfo.h; sourceTree = "<group>"; };
 		5755DAA61AAA4E2300DC32EA /* libGreystripeSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libGreystripeSDK.a; sourceTree = "<group>"; };
 		5755DAA71AAA4E2300DC32EA /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
-		5755DAA91AAA4E2300DC32EA /* MPiAdBannerCustomEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPiAdBannerCustomEvent.h; sourceTree = "<group>"; };
-		5755DAAA1AAA4E2300DC32EA /* MPiAdBannerCustomEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPiAdBannerCustomEvent.m; sourceTree = "<group>"; };
-		5755DAAB1AAA4E2300DC32EA /* MPiAdInterstitialCustomEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPiAdInterstitialCustomEvent.h; sourceTree = "<group>"; };
-		5755DAAC1AAA4E2300DC32EA /* MPiAdInterstitialCustomEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPiAdInterstitialCustomEvent.m; sourceTree = "<group>"; };
-		5755DAAE1AAA4E2300DC32EA /* InMobiBannerCustomEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InMobiBannerCustomEvent.h; sourceTree = "<group>"; };
-		5755DAAF1AAA4E2300DC32EA /* InMobiBannerCustomEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InMobiBannerCustomEvent.m; sourceTree = "<group>"; };
-		5755DAB01AAA4E2300DC32EA /* InMobiInterstitialCustomEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InMobiInterstitialCustomEvent.h; sourceTree = "<group>"; };
-		5755DAB11AAA4E2300DC32EA /* InMobiInterstitialCustomEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InMobiInterstitialCustomEvent.m; sourceTree = "<group>"; };
-		5755DAB21AAA4E2300DC32EA /* InMobiNativeAdAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InMobiNativeAdAdapter.h; sourceTree = "<group>"; };
-		5755DAB31AAA4E2300DC32EA /* InMobiNativeAdAdapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InMobiNativeAdAdapter.m; sourceTree = "<group>"; };
-		5755DAB41AAA4E2300DC32EA /* InMobiNativeCustomEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InMobiNativeCustomEvent.h; sourceTree = "<group>"; };
-		5755DAB51AAA4E2300DC32EA /* InMobiNativeCustomEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InMobiNativeCustomEvent.m; sourceTree = "<group>"; };
-		5755DAB71AAA4E2300DC32EA /* IMBanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMBanner.h; sourceTree = "<group>"; };
-		5755DAB81AAA4E2300DC32EA /* IMBannerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMBannerDelegate.h; sourceTree = "<group>"; };
-		5755DAB91AAA4E2300DC32EA /* IMConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMConstants.h; sourceTree = "<group>"; };
-		5755DABA1AAA4E2300DC32EA /* IMError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMError.h; sourceTree = "<group>"; };
-		5755DABB1AAA4E2300DC32EA /* IMIncentivisedDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMIncentivisedDelegate.h; sourceTree = "<group>"; };
-		5755DABC1AAA4E2300DC32EA /* IMInterstitial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMInterstitial.h; sourceTree = "<group>"; };
-		5755DABD1AAA4E2300DC32EA /* IMInterstitialDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMInterstitialDelegate.h; sourceTree = "<group>"; };
-		5755DABE1AAA4E2300DC32EA /* IMNative.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMNative.h; sourceTree = "<group>"; };
-		5755DABF1AAA4E2300DC32EA /* IMNativeDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMNativeDelegate.h; sourceTree = "<group>"; };
-		5755DAC01AAA4E2300DC32EA /* InMobi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InMobi.h; sourceTree = "<group>"; };
-		5755DAC11AAA4E2300DC32EA /* InMobiAnalytics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InMobiAnalytics.h; sourceTree = "<group>"; };
-		5755DAC21AAA4E2300DC32EA /* libInMobi-4.4.1.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libInMobi-4.4.1.a"; sourceTree = "<group>"; };
-		5755DAC31AAA4E2300DC32EA /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		5755DACB1AAA4E2300DC32EA /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		5755DACE1AAA4E2300DC32EA /* MPInstanceProvider+Vungle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MPInstanceProvider+Vungle.h"; sourceTree = "<group>"; };
 		5755DACF1AAA4E2300DC32EA /* MPInstanceProvider+Vungle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MPInstanceProvider+Vungle.m"; sourceTree = "<group>"; };
@@ -1290,7 +1247,6 @@
 				46B3341B19F075680078078A /* CoreTelephony.framework in Frameworks */,
 				46B3348419F087200078078A /* PassKit.framework in Frameworks */,
 				46B3348319F087180078078A /* Twitter.framework in Frameworks */,
-				46B3348219F0870D0078078A /* iAd.framework in Frameworks */,
 				46B3347F19F087010078078A /* AddressBook.framework in Frameworks */,
 				46B3348019F087010078078A /* AddressBookUI.framework in Frameworks */,
 				46B3345D19F0840D0078078A /* Social.framework in Frameworks */,
@@ -1301,7 +1257,6 @@
 				46B3345819F083350078078A /* MediaPlayer.framework in Frameworks */,
 				46B3345619F083250078078A /* CoreMedia.framework in Frameworks */,
 				46B3345519F083050078078A /* libz.1.2.5.dylib in Frameworks */,
-				5755DB321AAA4E2300DC32EA /* libInMobi-4.4.1.a in Frameworks */,
 				46B3341219F075680078078A /* Security.framework in Frameworks */,
 				46B3341319F075680078078A /* MessageUI.framework in Frameworks */,
 				46B3341419F075680078078A /* AVFoundation.framework in Frameworks */,
@@ -1596,8 +1551,6 @@
 				572409081A688C05009271B8 /* MRBridge.m */,
 				572409091A688C05009271B8 /* MRBundleManager.h */,
 				5724090A1A688C05009271B8 /* MRBundleManager.m */,
-				5724090B1A688C05009271B8 /* MRCalendarManager.h */,
-				5724090C1A688C05009271B8 /* MRCalendarManager.m */,
 				5724090D1A688C05009271B8 /* MRCommand.h */,
 				5724090E1A688C05009271B8 /* MRCommand.m */,
 				5724090F1A688C05009271B8 /* MRConstants.h */,
@@ -1612,8 +1565,6 @@
 				572409181A688C05009271B8 /* MRImageDownloader.m */,
 				572409191A688C05009271B8 /* MRNativeCommandHandler.h */,
 				5724091A1A688C05009271B8 /* MRNativeCommandHandler.m */,
-				5724091B1A688C05009271B8 /* MRPictureManager.h */,
-				5724091C1A688C05009271B8 /* MRPictureManager.m */,
 				5724091D1A688C05009271B8 /* MRProperty.h */,
 				5724091E1A688C05009271B8 /* MRProperty.m */,
 				5724091F1A688C05009271B8 /* MRVideoPlayerManager.h */,
@@ -1860,8 +1811,6 @@
 				5755DA781AAA4E2300DC32EA /* Facebook */,
 				5755DA841AAA4E2300DC32EA /* GoogleAdMob */,
 				5755DA981AAA4E2300DC32EA /* Greystripe */,
-				5755DAA81AAA4E2300DC32EA /* iAd */,
-				5755DAAD1AAA4E2300DC32EA /* InMobi */,
 				5755DAC41AAA4E2300DC32EA /* Millennial */,
 				4ADE5F561B4DC6DD004C3673 /* Unity */,
 				57D322501BD9946A00ACF21E /* Tapjoy */,
@@ -1997,53 +1946,6 @@
 				5755DAA51AAA4E2300DC32EA /* GSSDKInfo.h */,
 				5755DAA61AAA4E2300DC32EA /* libGreystripeSDK.a */,
 				5755DAA71AAA4E2300DC32EA /* README.md */,
-			);
-			path = SDK;
-			sourceTree = "<group>";
-		};
-		5755DAA81AAA4E2300DC32EA /* iAd */ = {
-			isa = PBXGroup;
-			children = (
-				5755DAA91AAA4E2300DC32EA /* MPiAdBannerCustomEvent.h */,
-				5755DAAA1AAA4E2300DC32EA /* MPiAdBannerCustomEvent.m */,
-				5755DAAB1AAA4E2300DC32EA /* MPiAdInterstitialCustomEvent.h */,
-				5755DAAC1AAA4E2300DC32EA /* MPiAdInterstitialCustomEvent.m */,
-			);
-			path = iAd;
-			sourceTree = "<group>";
-		};
-		5755DAAD1AAA4E2300DC32EA /* InMobi */ = {
-			isa = PBXGroup;
-			children = (
-				5755DAAE1AAA4E2300DC32EA /* InMobiBannerCustomEvent.h */,
-				5755DAAF1AAA4E2300DC32EA /* InMobiBannerCustomEvent.m */,
-				5755DAB01AAA4E2300DC32EA /* InMobiInterstitialCustomEvent.h */,
-				5755DAB11AAA4E2300DC32EA /* InMobiInterstitialCustomEvent.m */,
-				5755DAB21AAA4E2300DC32EA /* InMobiNativeAdAdapter.h */,
-				5755DAB31AAA4E2300DC32EA /* InMobiNativeAdAdapter.m */,
-				5755DAB41AAA4E2300DC32EA /* InMobiNativeCustomEvent.h */,
-				5755DAB51AAA4E2300DC32EA /* InMobiNativeCustomEvent.m */,
-				5755DAB61AAA4E2300DC32EA /* SDK */,
-			);
-			path = InMobi;
-			sourceTree = "<group>";
-		};
-		5755DAB61AAA4E2300DC32EA /* SDK */ = {
-			isa = PBXGroup;
-			children = (
-				5755DAB71AAA4E2300DC32EA /* IMBanner.h */,
-				5755DAB81AAA4E2300DC32EA /* IMBannerDelegate.h */,
-				5755DAB91AAA4E2300DC32EA /* IMConstants.h */,
-				5755DABA1AAA4E2300DC32EA /* IMError.h */,
-				5755DABB1AAA4E2300DC32EA /* IMIncentivisedDelegate.h */,
-				5755DABC1AAA4E2300DC32EA /* IMInterstitial.h */,
-				5755DABD1AAA4E2300DC32EA /* IMInterstitialDelegate.h */,
-				5755DABE1AAA4E2300DC32EA /* IMNative.h */,
-				5755DABF1AAA4E2300DC32EA /* IMNativeDelegate.h */,
-				5755DAC01AAA4E2300DC32EA /* InMobi.h */,
-				5755DAC11AAA4E2300DC32EA /* InMobiAnalytics.h */,
-				5755DAC21AAA4E2300DC32EA /* libInMobi-4.4.1.a */,
-				5755DAC31AAA4E2300DC32EA /* README.md */,
 			);
 			path = SDK;
 			sourceTree = "<group>";
@@ -2280,7 +2182,6 @@
 				4A9350511B66D7B500ABF4A3 /* libxml2.dylib */,
 				4A93504F1B66D78900ABF4A3 /* CoreBluetooth.framework */,
 				46B3348519F0874E0078078A /* MobileCoreServices.framework */,
-				46B3348119F0870D0078078A /* iAd.framework */,
 				46B3345B19F083F70078078A /* SystemConfiguration.framework */,
 				46B3345919F083EC0078078A /* QuartzCore.framework */,
 				46B3345719F083350078078A /* MediaPlayer.framework */,
@@ -2791,10 +2692,8 @@
 				57240A941A688C05009271B8 /* MPNativePositionResponseDeserializer.m in Sources */,
 				A7A422821B5F224400024A3A /* MPVASTCreative.m in Sources */,
 				57240A7F1A688C05009271B8 /* MPDiskLRUCache.m in Sources */,
-				5755DB341AAA4E2300DC32EA /* README.md in Sources */,
 				57240AAF1A688C05009271B8 /* MPNativeAdError.m in Sources */,
 				57F07A871BA255FA006DF2F3 /* MPNativeAd+Internal.m in Sources */,
-				57240A251A688C05009271B8 /* MRPictureManager.m in Sources */,
 				57240A641A688C05009271B8 /* MoPub.m in Sources */,
 				A722104F1B794FDE0099DCF6 /* MPVideoConfig.m in Sources */,
 				57240A1F1A688C05009271B8 /* MRImageDownloader.m in Sources */,
@@ -2818,7 +2717,6 @@
 				57240AA91A688C05009271B8 /* MPNativeAdConstants.m in Sources */,
 				57240A041A688C05009271B8 /* MPMRAIDInterstitialViewController.m in Sources */,
 				57240A761A688C05009271B8 /* MPInterstitialCustomEvent.m in Sources */,
-				5755DB2C1AAA4E2300DC32EA /* InMobiInterstitialCustomEvent.m in Sources */,
 				57240A3A1A688C05009271B8 /* UIWebView+MPAdditions.m in Sources */,
 				572409DD1A688C05009271B8 /* MPHTMLBannerCustomEvent.m in Sources */,
 				4A0144281B753997001B649C /* MPMillennialBannerCustomEvent.m in Sources */,
@@ -2836,8 +2734,6 @@
 				57240A6D1A688C05009271B8 /* MPBannerCustomEvent.m in Sources */,
 				5755DB541AAA4E2300DC32EA /* VungleInstanceMediationSettings.m in Sources */,
 				5755DAFE1AAA4E2300DC32EA /* ChartboostInterstitialCustomEvent.m in Sources */,
-				5755DB2A1AAA4E2300DC32EA /* InMobiBannerCustomEvent.m in Sources */,
-				57240A0D1A688C05009271B8 /* MRCalendarManager.m in Sources */,
 				571EF4291B7194D60035C9BB /* MPStaticNativeAdView.m in Sources */,
 				5755DB181AAA4E2300DC32EA /* MPGoogleAdMobInterstitialCustomEvent.m in Sources */,
 				57240A1C1A688C05009271B8 /* MRExpandModalViewController.m in Sources */,
@@ -2845,7 +2741,6 @@
 				57240A6A1A688C05009271B8 /* MPAdView.m in Sources */,
 				A7A422801B5F224400024A3A /* MPVASTWrapper.m in Sources */,
 				57AC6A0B1BB221130053C556 /* MOPUBFullscreenPlayerViewController.m in Sources */,
-				5755DB301AAA4E2300DC32EA /* InMobiNativeCustomEvent.m in Sources */,
 				572409D41A688C05009271B8 /* MPURLResolver.m in Sources */,
 				57240A461A688C05009271B8 /* MPGlobal.m in Sources */,
 				57240A281A688C05009271B8 /* MRProperty.m in Sources */,
@@ -2869,7 +2764,6 @@
 				57AC6A0F1BB221130053C556 /* MOPUBNativeVideoAdConfigValues.m in Sources */,
 				5755DB141AAA4E2300DC32EA /* README.md in Sources */,
 				57240A671A688C05009271B8 /* MPAdConversionTracker.m in Sources */,
-				5755DB281AAA4E2300DC32EA /* MPiAdInterstitialCustomEvent.m in Sources */,
 				57240A071A688C05009271B8 /* MRBridge.m in Sources */,
 				5755DAF01AAA4E2300DC32EA /* AdColonyInstanceMediationSettings.m in Sources */,
 				5755DAF21AAA4E2300DC32EA /* AdColonyInterstitialCustomEvent.m in Sources */,
@@ -2977,7 +2871,6 @@
 				B28725D81B9F917F00C0D61B /* UIButton+MPAdditions.m in Sources */,
 				57240A851A688C05009271B8 /* MPMoPubNativeAdAdapter.m in Sources */,
 				579532441BE13E4400065CA5 /* FacebookNativeCustomEvent.m in Sources */,
-				5755DB2E1AAA4E2300DC32EA /* InMobiNativeAdAdapter.m in Sources */,
 				5755DB421AAA4E2300DC32EA /* MPVungleRouter.m in Sources */,
 				57240A2E1A688C05009271B8 /* NSHTTPURLResponse+MPAdditions.m in Sources */,
 				572409F81A688C05009271B8 /* MPInstanceProvider.m in Sources */,
@@ -2990,7 +2883,6 @@
 				46B3340819F075680078078A /* (null) in Sources */,
 				4A0473141AB25BC300403C73 /* MPLogEvent.m in Sources */,
 				5755DB561AAA4E2300DC32EA /* VungleInterstitialCustomEvent.m in Sources */,
-				5755DB261AAA4E2300DC32EA /* MPiAdBannerCustomEvent.m in Sources */,
 				46B3340E19F075680078078A /* MPNativeAdTableHeaderView.m in Sources */,
 				A7A422841B5F224400024A3A /* MPVASTLinearAd.m in Sources */,
 				57240A161A688C05009271B8 /* MRController.m in Sources */,
@@ -3059,7 +2951,6 @@
 				5755D62C1AA8F62900DC32EA /* MPRewardedVideo.m in Sources */,
 				5755D6261AA8F62900DC32EA /* MPRewardedVideoAdapter.m in Sources */,
 				57240AB11A688C05009271B8 /* MPNativeAdRequest.m in Sources */,
-				57240A0C1A688C05009271B8 /* MRCalendarManager.m in Sources */,
 				57240A091A688C05009271B8 /* MRBundleManager.m in Sources */,
 				57AC6A0A1BB221130053C556 /* MOPUBFullscreenPlayerViewController.m in Sources */,
 				57240ABA1A688C05009271B8 /* MPNativeCustomEvent.m in Sources */,
@@ -3109,7 +3000,6 @@
 				57240A7B1A688C05009271B8 /* MPAdPlacerInvocation.m in Sources */,
 				57C784D61BCC4C6C00E4BB7D /* MPNativeVideoTableViewAdPlacerView.m in Sources */,
 				57FFAB86199C110D00F655CF /* MPCollectionViewAdPlacerView.m in Sources */,
-				57240A241A688C05009271B8 /* MRPictureManager.m in Sources */,
 				5731A7981BBDFAE600579ACE /* MPNativeAdRenderingImageLoader.m in Sources */,
 				4AF797D519A7F9E8007CE34D /* MPNativeAdPlacerCollectionViewController.m in Sources */,
 				572409E21A688C05009271B8 /* MPHTMLInterstitialViewController.m in Sources */,
