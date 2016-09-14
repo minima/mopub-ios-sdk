@@ -48,11 +48,6 @@
 @protocol MRBridgeDelegate;
 @protocol MPClosableViewDelegate;
 @class MRBundleManager;
-@class EKEventStore;
-@class EKEventEditViewController;
-@protocol EKEventEditViewDelegate;
-@class MRImageDownloader;
-@protocol MRImageDownloaderDelegate;
 @class MRVideoPlayerManager;
 @protocol MRVideoPlayerManagerDelegate;
 @class MPMoviePlayerViewController;
@@ -113,9 +108,6 @@
 - (MRController *)buildInterstitialMRControllerWithFrame:(CGRect)frame delegate:(id<MRControllerDelegate>)delegate;
 - (MRBridge *)buildMRBridgeWithWebView:(UIWebView *)webView delegate:(id<MRBridgeDelegate>)delegate;
 - (UIWebView *)buildUIWebViewWithFrame:(CGRect)frame;
-- (EKEventEditViewController *)buildEKEventEditViewControllerWithEditViewDelegate:(id<EKEventEditViewDelegate>)editViewDelegate;
-- (EKEventStore *)buildEKEventStore;
-- (MRImageDownloader *)buildMRImageDownloaderWithDelegate:(id<MRImageDownloaderDelegate>)delegate;
 - (MRVideoPlayerManager *)buildMRVideoPlayerManagerWithDelegate:(id<MRVideoPlayerManagerDelegate>)delegate;
 - (MPMoviePlayerViewController *)buildMPMoviePlayerViewControllerWithURL:(NSURL *)URL;
 - (MRNativeCommandHandler *)buildMRNativeCommandHandlerWithDelegate:(id<MRNativeCommandHandlerDelegate>)delegate;

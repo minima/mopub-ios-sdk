@@ -25,8 +25,6 @@
     "CoreLocation",
     "CoreMedia",
     "CoreTelephony",
-    "EventKit",
-    "EventKitUI",
     "Foundation",
     "MediaPlayer",
     "QuartzCore",
@@ -45,16 +43,6 @@
       "source_files": "MoPubSDK/**/*.{h,m}",
       "resources": "MoPubSDK/**/*.{png,bundle,xib,nib}",
       "private_header_files":"MoPubSDK/Internal/Fabric/*.{h,m}"
-    },
-    {
-      "name": "iAd",
-      "source_files": "AdNetworkSupport/iAd/*.{h,m}",
-      "dependencies": {
-        "mopub-ios-sdk/MoPubSDK": [
-
-        ]
-      },
-      "frameworks": "iAd"
     },
     {
       "name": "AdMob",

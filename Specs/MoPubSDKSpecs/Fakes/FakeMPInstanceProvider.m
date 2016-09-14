@@ -6,12 +6,9 @@
 //
 
 #import "FakeMPInstanceProvider.h"
-#import <EventKit/EventKit.h>
-#import <EventKitUI/EventKitUI.h>
 #import <MediaPlayer/MediaPlayer.h>
 #import "MPAdWebView.h"
 #import "FakeMPTimer.h"
-#import "MRImageDownloader.h"
 #import "MRBundleManager.h"
 #import <FBAudienceNetwork/FBAudienceNetwork.h>
 
@@ -229,35 +226,6 @@
     return [self returnFake:self.fakeUIWebView orCall:^id{
         return [super buildUIWebViewWithFrame:frame];
     }];
-}
-
-- (EKEventEditViewController *)buildEKEventEditViewControllerWithEditViewDelegate:(id <EKEventEditViewDelegate>)editViewDelegate
-{
-    if (self.fakeEKEventEditViewController) {
-        self.fakeEKEventEditViewController.editViewDelegate = editViewDelegate;
-        return self.fakeEKEventEditViewController;
-    } else {
-        return [super buildEKEventEditViewControllerWithEditViewDelegate:editViewDelegate];
-    }
-}
-
-- (EKEventStore *)buildEKEventStore
-{
-    return [self returnFake:self.fakeEKEventStore
-                     orCall:^{
-                        return [super buildEKEventStore];
-                     }];
-}
-
-- (MRImageDownloader *)buildMRImageDownloaderWithDelegate:(id<MRImageDownloaderDelegate>)delegate
-{
-    if (self.fakeImageDownloader) {
-        self.fakeImageDownloader.delegate = delegate;
-        return self.fakeImageDownloader;
-    } else {
-        return [super buildMRImageDownloaderWithDelegate:delegate];
-    }
-
 }
 
 - (MRVideoPlayerManager *)buildMRVideoPlayerManagerWithDelegate:(id<MRVideoPlayerManagerDelegate>)delegate

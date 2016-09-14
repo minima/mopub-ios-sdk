@@ -18,11 +18,8 @@
 #import "MPBannerCustomEvent.h"
 #import "MPBannerAdManager.h"
 #import "MPLogging.h"
-#import "MRImageDownloader.h"
 #import "MRBundleManager.h"
 #import "MRVideoPlayerManager.h"
-#import <EventKit/EventKit.h>
-#import <EventKitUI/EventKitUI.h>
 #import <MediaPlayer/MediaPlayer.h>
 #import "MRNativeCommandHandler.h"
 #import "MRBridge.h"
@@ -266,24 +263,6 @@ static MPInstanceProvider *sharedAdProvider = nil;
 - (UIWebView *)buildUIWebViewWithFrame:(CGRect)frame
 {
     return [[UIWebView alloc] initWithFrame:frame];
-}
-
-- (EKEventEditViewController *)buildEKEventEditViewControllerWithEditViewDelegate:(id<EKEventEditViewDelegate>)editViewDelegate
-{
-    EKEventEditViewController *controller = [[EKEventEditViewController alloc] init];
-    controller.editViewDelegate = editViewDelegate;
-    controller.eventStore = [self buildEKEventStore];
-    return controller;
-}
-
-- (EKEventStore *)buildEKEventStore
-{
-    return [[EKEventStore alloc] init];
-}
-
-- (MRImageDownloader *)buildMRImageDownloaderWithDelegate:(id<MRImageDownloaderDelegate>)delegate
-{
-    return [[MRImageDownloader alloc] initWithDelegate:delegate];
 }
 
 - (MRVideoPlayerManager *)buildMRVideoPlayerManagerWithDelegate:(id<MRVideoPlayerManagerDelegate>)delegate

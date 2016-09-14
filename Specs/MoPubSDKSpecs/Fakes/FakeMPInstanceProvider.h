@@ -34,8 +34,6 @@
 #import "MPRewardedVideoAdapter.h"
 #import "MPRewardedVideoCustomEvent.h"
 
-@class EKEventStore;
-@class EKEventEditViewController;
 @class MRVideoPlayerManager;
 @class MPMoviePlayerViewController;
 @class MRBundleManager;
@@ -71,9 +69,6 @@
 @property (nonatomic, strong) MRBridge *fakeMRBridge;
 @property (nonatomic, strong) MRBundleManager *fakeMRBundleManager;
 @property (nonatomic, strong) UIWebView *fakeUIWebView;
-@property (nonatomic, strong) EKEventEditViewController *fakeEKEventEditViewController;
-@property (nonatomic, strong) EKEventStore *fakeEKEventStore;
-@property (nonatomic, strong) MRImageDownloader *fakeImageDownloader;
 @property (nonatomic, strong) MRVideoPlayerManager *fakeMRVideoPlayerManager;
 @property (nonatomic, strong) MPMoviePlayerViewController *fakeMoviePlayerViewController;
 @property (nonatomic, strong) MRNativeCommandHandler *fakeNativeCommandHandler;

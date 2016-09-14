@@ -7,7 +7,6 @@
 //
 
 #import "MRProperty.h"
-#import <EventKit/EventKit.h>
 #import "MPConstants.h"
 #import "MPCoreInstanceProvider.h"
 
