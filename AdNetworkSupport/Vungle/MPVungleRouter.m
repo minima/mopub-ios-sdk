@@ -12,12 +12,17 @@
 #import "MPRewardedVideoError.h"
 #import "MPRewardedVideo.h"
 
+static NSString * const VunglePluginVersion = @"1_0_0";
+
 static NSString *gAppId = nil;
 static NSString *const kMPVungleRewardedAdCompletedView = @"completedView";
 static NSString *const kMPVungleAdUserDidDownloadKey = @"didDownload";
 
+static const NSTimeInterval VungleInitTimeout = 2.0;
+
 @interface MPVungleRouter ()
 
+@property (nonatomic, assign) BOOL isWaitingForInit;
 @property (nonatomic, assign) BOOL isAdPlaying;
 
 @end
@@ -64,16 +69,34 @@ static NSString *const kMPVungleAdUserDidDownloadKey = @"didDownload";
             appId = gAppId;
         }
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wundeclared-selector"
+        [[VungleSDK sharedSDK] performSelector:@selector(setPluginName:version:) withObject:@"mopub" withObject:VunglePluginVersion];
+#pragma clang diagnostic pop
+
         [[VungleSDK sharedSDK] startWithAppId:appId];
         [[VungleSDK sharedSDK] setDelegate:self];
+
+        self.isWaitingForInit = YES;
+        __weak MPVungleRouter *weakSelf = self;
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(VungleInitTimeout * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            MPVungleRouter *strongSelf = weakSelf;
+            if (strongSelf) {
+                if (strongSelf.isWaitingForInit) {
+                    strongSelf.isWaitingForInit = NO;
+                    [strongSelf.delegate vungleAdDidFailToLoad:nil];
+                }
+            }
+        });
     });
 
-    // Need to check immediately as an ad may be cached.
-    if ([[VungleSDK sharedSDK] isAdPlayable]) {
-        [self.delegate vungleAdDidLoad];
+    if (!self.isWaitingForInit) {
+        if ([[VungleSDK sharedSDK] isAdPlayable]) {
+            [self.delegate vungleAdDidLoad];
+        } else {
+            [self.delegate vungleAdDidFailToLoad:nil];
+        }
     }
-
-    // MoPub timeout will handle the case for an ad failing to load.
 }
 
 - (BOOL)isAdAvailable
@@ -125,8 +148,7 @@ static NSString *const kMPVungleAdUserDidDownloadKey = @"didDownload";
 
 - (void)clearDelegate:(id<MPVungleRouterDelegate>)delegate
 {
-    if (self.delegate == delegate)
-    {
+    if (self.delegate == delegate) {
         [self setDelegate:nil];
     }
 }
@@ -143,7 +165,8 @@ static NSString *const kMPVungleAdUserDidDownloadKey = @"didDownload";
 
 - (void)vungleSDKAdPlayableChanged:(BOOL)isAdPlayable
 {
-    if (isAdPlayable) {
+    if (self.isWaitingForInit && isAdPlayable) {
+        self.isWaitingForInit = NO;
         [self.delegate vungleAdDidLoad];
     }
 }

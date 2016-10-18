@@ -12,8 +12,10 @@
 #import "MPRewardedVideo.h"
 #import "MPIdentityProvider.h"
 
-#import "FABKitProtocol.h"
-#import "Fabric+FABKits.h"
+// If Fabric headers are integrated from multiple third party frameworks, there might be naming conflict.
+// Use relative path could solve the naming conflict.
+#import "Internal/Fabric/FABKitProtocol.h"
+#import "Internal/Fabric/Fabric+FABKits.h"
 
 @interface MoPub () <FABKit>
 

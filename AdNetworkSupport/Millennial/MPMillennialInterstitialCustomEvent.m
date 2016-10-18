@@ -1,13 +1,15 @@
+//
+//  MPMillennialInterstitialCustomEvent.m
+//
+//  Copyright (c) 2015 Millennial Media, Inc. All rights reserved.
+//
+
 #import "MPMillennialInterstitialCustomEvent.h"
 #import "MPInstanceProvider.h"
 #import "MPLogging.h"
 
-
-@interface MPInstanceProvider (MillennialInterstitials)
-
-- (MMInterstitialAd *)buildMMInterstitialWithPlacementId:(NSString *)placementId;
-
-@end
+static NSString *const kMoPubMMAdapterAdUnit = @"adUnitID";
+static NSString *const kMoPubMMAdapterDCN = @"dcn";
 
 @implementation MPInstanceProvider (MillennialInterstitials)
 
@@ -17,11 +19,8 @@
 
 @end
 
-////////////////////////////////////////////////////////////////////////////////////////////////////
-
 @interface MPMillennialInterstitialCustomEvent ()
 
-@property (nonatomic, copy) NSString *placementId;
 @property (nonatomic, assign) BOOL didDisplay;
 @property (nonatomic, assign) BOOL didTrackClick;
 @property (nonatomic, strong) MMInterstitialAd *interstitial;
@@ -31,62 +30,62 @@
 
 @implementation MPMillennialInterstitialCustomEvent
 
-@synthesize interstitial = _interstitial;
-@synthesize placementId = _placementId;
-@synthesize didDisplay = _didDisplay;
-@synthesize didTrackClick = _didTrackClick;
-
-- (BOOL)enableAutomaticImpressionAndClickTracking
-{
+- (BOOL)enableAutomaticImpressionAndClickTracking {
     return NO;
 }
 
-- (id)init
-{
+- (id)init {
     self = [super init];
     if (self) {
-        if ( ![[MMSDK sharedInstance] isInitialized] ) {
-            [[MMSDK sharedInstance] initializeWithSettings:[[MMAppSettings alloc] init] withUserSettings:[[MMUserSettings alloc] init]];
+        if ([[UIDevice currentDevice] systemVersion].floatValue >= 7.0) {
+            MMSDK *mmSDK = [MMSDK sharedInstance];
+            if ([mmSDK isInitialized] == NO) {
+                MMAppSettings *appSettings = [[MMAppSettings alloc] init];
+                [mmSDK initializeWithSettings:appSettings withUserSettings:nil];
+            }
+        } else {
+            self = nil; // No support below minimum OS.
         }
     }
     return self;
 }
 
-- (void)dealloc
-{
+- (void)dealloc {
     [self invalidate];
 }
 
-
-- (void)invalidate
-{
+- (void)invalidate {
     self.delegate = nil;
     self.interstitial = nil;
 }
 
-- (void)requestInterstitialWithCustomEventInfo:(NSDictionary *)info
-{
-    NSLog(@"Requesting Millennial interstitial");
+- (void)requestInterstitialWithCustomEventInfo:(NSDictionary<NSString *, id> *)info {
 
-    // If Custom Event Class Data contains DCN / Position, let's use that instead.
-    // { "dcn": "...", "adUnitID": "..."  }
-    self.placementId = [info objectForKey:@"adUnitID"];
+    MMSDK *mmSDK = [MMSDK sharedInstance];
 
-    [[MMSDK sharedInstance] appSettings].mediator = @"MPMillennialInterstitialCustomEvent";
-    if ( [info objectForKey:@"dcn"] ) {
-        [[[MMSDK sharedInstance] appSettings] setSiteId:[info objectForKey:@"dcn"]];
-    } else {
-        [[[MMSDK sharedInstance] appSettings] setSiteId:nil];
-    }
+    if (![mmSDK isInitialized]) {
 
-    if (!self.placementId || ![[MMSDK sharedInstance] isInitialized]) {
+        MPLogError(@"Millennial adapter not properly intialized yet.");
         [self.delegate interstitialCustomEvent:self didFailToLoadAdWithError:nil];
         return;
     }
 
-    [[MMSDK sharedInstance] setSendLocationIfAvailable:[[MoPub sharedInstance] locationUpdatesEnabled]];
+    NSString *placementId = info[kMoPubMMAdapterAdUnit];
 
-    self.interstitial = [[MPInstanceProvider sharedProvider] buildMMInterstitialWithPlacementId:self.placementId];
+    if (!placementId) {
+        MPLogError(@"Millennial received invalid placement ID. Request failed.");
+        [self.delegate interstitialCustomEvent:self didFailToLoadAdWithError:nil];
+        return;
+    }
+
+    [mmSDK appSettings].mediator = NSStringFromClass([MPMillennialInterstitialCustomEvent class]);
+    if (info[kMoPubMMAdapterDCN]) {
+        [mmSDK appSettings].siteId = info[kMoPubMMAdapterDCN];
+    } else {
+        [mmSDK appSettings].siteId = nil;
+    }
+
+    self.interstitial = [[MPInstanceProvider sharedProvider] buildMMInterstitialWithPlacementId:placementId];
     self.interstitial.delegate = self;
 
     [self.interstitial load:nil];
@@ -94,81 +93,78 @@
 
 - (void)showInterstitialFromRootViewController:(UIViewController *)rootViewController
 {
-    if ( !self.didDisplay ) {
+    if (!self.didDisplay) {
         [self.interstitial showFromViewController:rootViewController];
     } else {
-        MPLogWarn(@"Interstitial already displayed!");
+        MPLogWarn(@"Interstitial already displayed.");
     }
 }
 
-
-#pragma mark - MMInterstitialDelegate methods:
+#pragma mark - MMInterstitialDelegate
 
 - (void)interstitialAdLoadDidSucceed:(MMInterstitialAd *)ad {
-    MPLogInfo(@"Millennial interstitial did load");
-    [self.delegate interstitialCustomEvent:self didLoadAd:nil];
+    MPLogInfo(@"Millennial interstitial %@ did load.", ad);
+    [self.delegate interstitialCustomEvent:self didLoadAd:ad];
 }
 
-
 - (void)interstitialAd:(MMInterstitialAd *)ad loadDidFailWithError:(NSError *)error {
-    if ( error.code == MMSDKErrorInterstitialAdAlreadyLoaded ) {
-        MPLogInfo(@"Millennial interstitial already loaded-- not sending this request onto MM.");
-        [self.delegate interstitialCustomEvent:self didLoadAd:nil];
+    if (error.code == MMSDKErrorInterstitialAdAlreadyLoaded) {
+        MPLogInfo(@"Millennial interstitial %@ already loaded, ignoring this request.", ad);
+        [self.delegate interstitialCustomEvent:self didLoadAd:ad];
     } else {
-        MPLogError(@"Millennial interstitial ad failed with error (%d) %@", error.code, error.description);
-        [self.delegate interstitialCustomEvent:self didFailToLoadAdWithError:nil];
+        MPLogError(@"Millennial interstitial %@ failed with error (%d) %@.", ad, error.code, error.description);
+        [self.delegate interstitialCustomEvent:self didFailToLoadAdWithError:error];
     }
 }
 
 - (void)interstitialAdWillDisplay:(MMInterstitialAd *)ad {
-    MPLogInfo(@"Millennial interstial will display.");
+    MPLogInfo(@"Millennial interstial %@ will display.", ad);
     [self.delegate interstitialCustomEventWillAppear:self];
 }
 
 - (void)interstitialAdDidDisplay:(MMInterstitialAd *)ad {
-    MPLogInfo(@"Millennial interstitial did appear");
+    MPLogInfo(@"Millennial interstitial %@ did appear.", ad);
     [self.delegate interstitialCustomEventDidAppear:self];
     [self.delegate trackImpression];
     self.didDisplay = YES;
 }
 
 - (void)interstitialAd:(MMInterstitialAd *)ad showDidFailWithError:(NSError *)error {
-    MPLogInfo(@"Millennial -- show failed %i: %@", error.code, error.description);
+    MPLogInfo(@"Millennial interstitial %@ show failed %i: %@", ad, error.code, error.description);
     [self.delegate interstitialCustomEventDidExpire:self];
 }
 
 
 - (void)interstitialAdTapped:(MMInterstitialAd *)ad {
-    // Dedupe code might be unnecessary, but just in case...
     if (!self.didTrackClick) {
-        MPLogInfo(@"Millennial interstitial-- tracking click");
+        MPLogInfo(@"Millennial interstitial %@ tracking click.", ad);
         [self.delegate trackClick];
         self.didTrackClick = YES;
         [self.delegate interstitialCustomEventDidReceiveTapEvent:self];
     } else {
-        MPLogInfo(@"Millennial interstitial-- ignoring duplicate click");
+        MPLogInfo(@"Millennial interstitial %@ ignoring duplicate click.", ad);
     }
 }
 
 - (void)interstitialAdWillDismiss:(MMInterstitialAd *)ad {
-    MPLogInfo(@"Millennial interstitial will dismiss");
+    MPLogInfo(@"Millennial interstitial %@ will dismiss.", ad);
     [self.delegate interstitialCustomEventWillDisappear:self];
 }
 
 - (void)interstitialAdDidDismiss:(MMInterstitialAd *)ad {
-    MPLogInfo(@"Millennial interstitial did dismiss");
+    MPLogInfo(@"Millennial interstitial %@ did dismiss.", ad);
     [self.delegate interstitialCustomEventDidDisappear:self];
     [self.delegate interstitialCustomEventDidExpire:self];
     [self invalidate];
 }
 
 - (void)interstitialAdDidExpire:(MMInterstitialAd *)ad {
-    MPLogInfo(@"Millennial interstitial has expired.");
+    MPLogInfo(@"Millennial interstitial %@ has expired.", ad);
     [self.delegate interstitialCustomEventDidExpire:self];
 }
 
 - (void)interstitialAdWillLeaveApplication:(MMInterstitialAd *)ad {
-    MPLogInfo(@"Millennial interstitial leaving app...");
+    MPLogInfo(@"Millennial interstitial %@ leaving app.", ad);
     [self.delegate interstitialCustomEventWillLeaveApplication:self];
 }
 

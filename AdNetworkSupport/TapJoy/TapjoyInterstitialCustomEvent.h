@@ -6,7 +6,7 @@
 #endif
 
 /*
- * Certified with version 11.5.1 of the Tapjoy SDK.
+ * Certified with version 11.8.2 of the Tapjoy SDK.
  */
 
 @interface TapjoyInterstitialCustomEvent : MPInterstitialCustomEvent

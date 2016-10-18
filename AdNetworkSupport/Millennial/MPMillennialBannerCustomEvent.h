@@ -1,16 +1,19 @@
+//
+//  MPMillennialBannerCustomEvent.h
+//
+//  Copyright (c) 2015 Millennial Media, Inc. All rights reserved.
+//
 
 #if __has_include(<MoPub/MoPub.h>)
     #import <MoPub/MoPub.h>
 #else
-    #import "MPBannerCustomEvent.h"
     #import "MoPub.h"
 #endif
 
 #import <MMAdSDK/MMAdSDK.h>
-#import <MMAdSDK/MMInlineAd.h>
 
 /*
- * For MMSDK version 6.0
+ * For MMSDK version 6.3.1
  */
 
 @interface MPMillennialBannerCustomEvent : MPBannerCustomEvent <MMInlineDelegate>

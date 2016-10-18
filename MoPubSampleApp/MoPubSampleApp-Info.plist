@@ -20,7 +20,7 @@
 		</dict>
 	</dict>
 	<key>CFBundleIdentifier</key>
-	<string>com.mopub.${PRODUCT_NAME:rfc1034identifier}</string>
+	<string>com.mopub.samples.objc.${PRODUCT_NAME:rfc1034identifier}</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
@@ -54,8 +54,8 @@
 	</array>
 	<key>NSAppTransportSecurity</key>
 	<dict>
-  		<key>NSAllowsArbitraryLoads</key>
-      		<true/>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
 	</dict>
 </dict>
 </plist>

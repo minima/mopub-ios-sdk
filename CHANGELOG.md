@@ -1,3 +1,13 @@
+## Version 4.10.0 (October 18th, 2016)
+- **Certified FAN 4.15.1**
+- **Certified Chartboost 6.5.2**
+- **Certified Yahoo 7.6.4**
+- **Certified TapJoy support for 11.8.2**
+- **Certified Millennial support for 6.3.1**
+- **Certified Vungle 4.0.6**
+- **Bug fixes**
+  - Added support for the CocoaPods use_frameworks! directive
+
 ## Version 4.9.1 (September 14th, 2016)
 - **iOS 10 compatibility updates**
 	- Fixed an issue related to screen bounds calculation

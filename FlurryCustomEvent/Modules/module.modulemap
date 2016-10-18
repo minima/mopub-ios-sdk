@@ -1,0 +1,6 @@
+framework module FlurryCustomEvent {
+    umbrella header "FlurryCustomEvent.h"
+
+    export *
+    module * { export * }
+}

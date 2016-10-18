@@ -19,6 +19,10 @@
 #import "MOPUBNativeVideoAdRenderer.h"
 #import "MPNativeVideoView.h"
 
+#ifdef CUSTOM_EVENTS_ENABLED
+#import "FlurryNativeVideoAdRenderer.h"
+#endif
+
 NSString *const kNativeAdDefaultActionViewKey = @"kNativeAdDefaultActionButtonKey";
 
 @interface MPNativeAdDetailViewController () <UITextFieldDelegate, MPNativeAdDelegate>
@@ -84,6 +88,7 @@ NSString *const kNativeAdDefaultActionViewKey = @"kNativeAdDefaultActionButtonKe
     settings.renderingViewClass = [MPStaticNativeAdView class];
 
     MPNativeAdRendererConfiguration *config = [MPStaticNativeAdRenderer rendererConfigurationWithRendererSettings:settings];
+    NSMutableArray * configurations = [NSMutableArray arrayWithObject:config];
 
     // Video configuration. You don't need to create nativeVideoAdSettings and nativeVideoConfig unless you are using native video ads.
     MOPUBNativeVideoAdRendererSettings *nativeVideoAdSettings = [[MOPUBNativeVideoAdRendererSettings alloc] init];
@@ -91,9 +96,16 @@ NSString *const kNativeAdDefaultActionViewKey = @"kNativeAdDefaultActionButtonKe
     nativeVideoAdSettings.viewSizeHandler = ^(CGFloat maximumWidth) {
         return CGSizeMake(maximumWidth, 312.0f);
     };
-    MPNativeAdRendererConfiguration *nativeVideoConfig = [MOPUBNativeVideoAdRenderer rendererConfigurationWithRendererSettings:nativeVideoAdSettings];
 
-    MPNativeAdRequest *adRequest1 = [MPNativeAdRequest requestWithAdUnitIdentifier:self.info.ID rendererConfigurations:@[config, nativeVideoConfig]];
+    MPNativeAdRendererConfiguration *nativeVideoConfig = [MOPUBNativeVideoAdRenderer rendererConfigurationWithRendererSettings:nativeVideoAdSettings];
+    [configurations addObject:nativeVideoConfig];
+
+    #ifdef CUSTOM_EVENTS_ENABLED
+    MPNativeAdRendererConfiguration * flurryConfig = [FlurryNativeVideoAdRenderer rendererConfigurationWithRendererSettings:nativeVideoAdSettings];
+    [configurations addObject:flurryConfig];
+    #endif
+
+    MPNativeAdRequest *adRequest1 = [MPNativeAdRequest requestWithAdUnitIdentifier:self.info.ID rendererConfigurations:configurations];
     MPNativeAdRequestTargeting *targeting = [[MPNativeAdRequestTargeting alloc] init];
 
     targeting.keywords = self.keywordsTextField.text;

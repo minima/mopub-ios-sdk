@@ -103,6 +103,7 @@ static NSString *kDefaultCellIdentifier = @"MoPubSampleAppTableViewAdPlacerCell"
         return CGSizeMake(maximumWidth, 312.0f);
     };
     MPNativeAdRendererConfiguration *nativeAdConfig = [MPStaticNativeAdRenderer rendererConfigurationWithRendererSettings:nativeAdSettings];
+    nativeAdConfig.supportedCustomEvents = @[@"MPMoPubNativeCustomEvent", @"FlurryNativeCustomEvent"];
 
     // Native video ads. You don't need to create nativeVideoAdSettings and nativeVideoConfig unless you are using native video ads.
     MOPUBNativeVideoAdRendererSettings *nativeVideoAdSettings = [[MOPUBNativeVideoAdRendererSettings alloc] init];
