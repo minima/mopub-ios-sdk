@@ -43,10 +43,6 @@ NSString *const kFlurryAdSpaceName = @"adSpaceName";
     [FlurryMPConfig startSessionWithApiKey:apiKey];
     
     self.adNative = [[FlurryAdNative alloc] initWithSpace:adSpaceName];
-    FlurryAdTargeting *targeting = [[FlurryAdTargeting alloc] init];
-    targeting.testAdsEnabled = YES;
-    [self.adNative setTargeting:targeting];
-    
     self.adNative.adDelegate = self;
     [self.adNative fetchAd];
 }
