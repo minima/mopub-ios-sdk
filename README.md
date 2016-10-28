@@ -24,7 +24,7 @@ The MoPub SDK is distributed as source code that you can include in your applica
 
   Includes everything you need to serve HTML and MRAID advertisements.  Third party ad networks and Native MoPub advertisements are not included.
 
-The current version of the SDK is 4.10.0
+The current version of the SDK is 4.10.1
 
 ## Integrate
 
@@ -36,14 +36,8 @@ More detailed class documentation is available in the repo under the `ClassDocum
 
 Please view the [changelog](https://github.com/mopub/mopub-ios-sdk/blob/master/CHANGELOG.md) for details.
 
-- **Certified FAN 4.15.1**
-- **Certified Chartboost 6.5.2**
-- **Certified Yahoo 7.6.4**
-- **Certified TapJoy support for 11.8.2**
-- **Certified Millennial support for 6.3.1**
-- **Certified Vungle 4.0.6**
 - **Bug fixes**
-  - Added support for the CocoaPods use_frameworks! directive
+  - Fixed iOS 10 bug that causes SKStoreProductViewController to crash if the app does not list portrait as a supported orientation.
 
 
 ### IMPORTANT 4.0 UPGRADE INSTRUCTIONS

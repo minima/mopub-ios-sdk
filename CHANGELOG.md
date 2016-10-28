@@ -1,3 +1,7 @@
+## Version 4.10.1 (October 28th, 2016)
+- **Bug fixes**
+  - Fixed iOS 10 bug that causes SKStoreProductViewController to crash if the app does not list portrait as a supported orientation.
+
 ## Version 4.10.0 (October 18th, 2016)
 - **Certified FAN 4.15.1**
 - **Certified Chartboost 6.5.2**
