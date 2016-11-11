@@ -31,7 +31,7 @@ NSString *const kFlurryAdSpaceName = @"adSpaceName";
     MPLogInfo(@"Requesting Flurry native ad");
     NSString *apiKey = [info objectForKey:kFlurryApiKey];
     NSString *adSpaceName = [info objectForKey:kFlurryAdSpaceName];
-    
+
     if (!apiKey || !adSpaceName) {
         MPLogError(@"Failed native ad fetch. Missing required server extras [FLURRY_APIKEY and/or FLURRY_ADSPACE]");
         [self.delegate nativeCustomEvent:self didFailToLoadAdWithError:[NSError errorWithDomain:MoPubNativeAdsSDKDomain code:MPNativeAdErrorInvalidServerResponse userInfo:nil]];
@@ -39,9 +39,9 @@ NSString *const kFlurryAdSpaceName = @"adSpaceName";
     } else {
         MPLogInfo(@"Server info fetched from MoPub for Flurry. API key: %@. Ad space name: %@", apiKey, adSpaceName);
     }
-    
+
     [FlurryMPConfig startSessionWithApiKey:apiKey];
-    
+
     self.adNative = [[FlurryAdNative alloc] initWithSpace:adSpaceName];
     self.adNative.adDelegate = self;
     [self.adNative fetchAd];
@@ -54,7 +54,7 @@ NSString *const kFlurryAdSpaceName = @"adSpaceName";
     MPLogDebug(@"Flurry native ad fetched (customEvent)");
     FlurryNativeAdAdapter *adAdapter = [[FlurryNativeAdAdapter alloc] initWithFlurryAdNative:flurryAd];
     MPNativeAd *interfaceAd = [[MPNativeAd alloc] initWithAdAdapter:adAdapter];
-    
+
     [self.delegate nativeCustomEvent:self didLoadAd:interfaceAd];
 }
 

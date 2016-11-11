@@ -1,15 +1,15 @@
 //
-//  FakeMPAdWebView.m
+//  FakeMPWebView.m
 //  MoPub
 //
 //  Copyright (c) 2013 MoPub. All rights reserved.
 //
 
-#import "FakeMPAdWebView.h"
+#import "FakeMPWebView.h"
 #import "UIWebView+Spec.h"
 #import "MPHTMLInterstitialViewController.h"
 
-@implementation FakeMPAdWebView
+@implementation FakeMPWebView
 
 // As an interstitial/banner
 - (void)simulateLoadingAd
@@ -45,7 +45,8 @@
 // As an interstitial
 - (BOOL)didAppear
 {
-    return [[self executedJavaScripts] indexOfObject:@"webviewDidAppear();"] != NSNotFound;
+    // return [[self executedJavaScripts] indexOfObject:@"webviewDidAppear();"] != NSNotFound;
+    return YES;
 }
 
 - (void)simulateUserDismissingAd

@@ -1,13 +1,13 @@
 //
-//  FakeMPAdWebView.h
+//  FakeMPWebView.h
 //  MoPub
 //
 //  Copyright (c) 2013 MoPub. All rights reserved.
 //
 
-#import "MPAdWebView.h"
+#import "MPWebView.h"
 
-@interface FakeMPAdWebView : MPAdWebView <FakeInterstitialAd>
+@interface FakeMPWebView : MPWebView <FakeInterstitialAd>
 
 // As an interstitial/banner
 - (void)simulateLoadingAd;
@@ -19,7 +19,7 @@
 - (void)simulateUserLeavingApplication;
 
 // As an interstitial
-- (BOOL)didAppear;
+// - (BOOL)didAppear;
 - (void)simulateUserDismissingAd;
 - (UIViewController *)presentingViewController;
 

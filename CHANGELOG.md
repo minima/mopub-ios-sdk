@@ -1,3 +1,9 @@
+## Version 4.11.0 (November 10th, 2016)
+- **The MoPub SDK now uses WKWebView to display ads when possible. Backwards compatibility for old OS versions is retained using UIWebView.**
+- **Native video start tracker now fires immediately upon successful video playback.**
+- **Bug fixes**
+  - Native ads and native video ads now correctly fire impression trackers while scrolling.
+
 ## Version 4.10.1 (October 28th, 2016)
 - **Bug fixes**
   - Fixed iOS 10 bug that causes SKStoreProductViewController to crash if the app does not list portrait as a supported orientation.

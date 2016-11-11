@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2A6FF7171D8CA566000B353D /* MPWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A6FF7161D8CA566000B353D /* MPWebView.m */; };
+		2A86E7F21D710CE60087594C /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57EF00CD1BD96EB5002634DE /* WebKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		462E156F17F0F5D100408E17 /* MPMRectBannerAdDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 462E156E17F0F5D100408E17 /* MPMRectBannerAdDetailViewController.m */; };
 		467343F017FE3D6900D68BB6 /* MPAdPersistenceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 467343EF17FE3D6900D68BB6 /* MPAdPersistenceManager.m */; };
 		469A15F01AC1F0BA00D6F0EF /* MPSampleAppLogReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 469A15EF1AC1F0BA00D6F0EF /* MPSampleAppLogReader.m */; };
@@ -148,8 +150,6 @@
 		572409D11A688C05009271B8 /* MPProgressOverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 572408E01A688C05009271B8 /* MPProgressOverlayView.m */; };
 		572409D31A688C05009271B8 /* MPURLResolver.m in Sources */ = {isa = PBXBuildFile; fileRef = 572408E21A688C05009271B8 /* MPURLResolver.m */; };
 		572409D41A688C05009271B8 /* MPURLResolver.m in Sources */ = {isa = PBXBuildFile; fileRef = 572408E21A688C05009271B8 /* MPURLResolver.m */; };
-		572409D61A688C05009271B8 /* MPAdWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 572408E51A688C05009271B8 /* MPAdWebView.m */; };
-		572409D71A688C05009271B8 /* MPAdWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 572408E51A688C05009271B8 /* MPAdWebView.m */; };
 		572409D91A688C05009271B8 /* MPAdWebViewAgent.m in Sources */ = {isa = PBXBuildFile; fileRef = 572408E71A688C05009271B8 /* MPAdWebViewAgent.m */; };
 		572409DA1A688C05009271B8 /* MPAdWebViewAgent.m in Sources */ = {isa = PBXBuildFile; fileRef = 572408E71A688C05009271B8 /* MPAdWebViewAgent.m */; };
 		572409DC1A688C05009271B8 /* MPHTMLBannerCustomEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 572408E91A688C05009271B8 /* MPHTMLBannerCustomEvent.m */; };
@@ -555,6 +555,7 @@
 		BC6E4ECB1D91B10100014284 /* FlurryNativeAdAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = BC6E4EA61D91B06A00014284 /* FlurryNativeAdAdapter.m */; };
 		BC6E4ECC1D91B10400014284 /* FlurryNativeCustomEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = BC6E4EA81D91B06A00014284 /* FlurryNativeCustomEvent.m */; };
 		BC6E4ECD1D91B10700014284 /* FlurryNativeVideoAdRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = BC6E4EAA1D91B06A00014284 /* FlurryNativeVideoAdRenderer.m */; };
+		BCA881171DCBB81B00C3F8C2 /* MPWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A6FF7161D8CA566000B353D /* MPWebView.m */; };
 		BCD87F471DAC560B008234D3 /* MillennialNativeCustomEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = BCD87F301DAC55F5008234D3 /* MillennialNativeCustomEvent.m */; };
 		BCD87F481DAC560F008234D3 /* MillennialNativeAdAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = BCD87F2E1DAC55F5008234D3 /* MillennialNativeAdAdapter.m */; };
 		BCDDF74A1DA6C084001FEDC3 /* FlurryEmpty.m in Sources */ = {isa = PBXBuildFile; fileRef = BCDDF7461DA6C07C001FEDC3 /* FlurryEmpty.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -651,6 +652,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2A6FF7151D8CA566000B353D /* MPWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPWebView.h; sourceTree = "<group>"; };
+		2A6FF7161D8CA566000B353D /* MPWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPWebView.m; sourceTree = "<group>"; };
 		3D3BC88B1CBEE8E100BDA2FA /* MPNativeAdRendererConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPNativeAdRendererConstants.h; sourceTree = "<group>"; };
 		4604B7BB1A002F0A002234E9 /* MoPubSampleApp with CEs-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "MoPubSampleApp with CEs-Info.plist"; path = "MoPubSampleApp/MoPubSampleApp with CEs-Info.plist"; sourceTree = "<group>"; };
 		4614B3F417E8D01D00812D2C /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
@@ -748,8 +751,6 @@
 		572408E01A688C05009271B8 /* MPProgressOverlayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPProgressOverlayView.m; sourceTree = "<group>"; };
 		572408E11A688C05009271B8 /* MPURLResolver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPURLResolver.h; sourceTree = "<group>"; };
 		572408E21A688C05009271B8 /* MPURLResolver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPURLResolver.m; sourceTree = "<group>"; };
-		572408E41A688C05009271B8 /* MPAdWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPAdWebView.h; sourceTree = "<group>"; };
-		572408E51A688C05009271B8 /* MPAdWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPAdWebView.m; sourceTree = "<group>"; };
 		572408E61A688C05009271B8 /* MPAdWebViewAgent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPAdWebViewAgent.h; sourceTree = "<group>"; };
 		572408E71A688C05009271B8 /* MPAdWebViewAgent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPAdWebViewAgent.m; sourceTree = "<group>"; };
 		572408E81A688C05009271B8 /* MPHTMLBannerCustomEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPHTMLBannerCustomEvent.h; sourceTree = "<group>"; };
@@ -1337,6 +1338,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2A86E7F21D710CE60087594C /* WebKit.framework in Frameworks */,
 				B26284151B83CACE00960F74 /* CoreMedia.framework in Frameworks */,
 				46B9E8B317E0D81200B78D11 /* Security.framework in Frameworks */,
 				46B9E8B217E0D80400B78D11 /* MessageUI.framework in Frameworks */,
@@ -1552,8 +1554,6 @@
 		572408E31A688C05009271B8 /* HTML */ = {
 			isa = PBXGroup;
 			children = (
-				572408E41A688C05009271B8 /* MPAdWebView.h */,
-				572408E51A688C05009271B8 /* MPAdWebView.m */,
 				572408E61A688C05009271B8 /* MPAdWebViewAgent.h */,
 				572408E71A688C05009271B8 /* MPAdWebViewAgent.m */,
 				572408E81A688C05009271B8 /* MPHTMLBannerCustomEvent.h */,
@@ -1562,6 +1562,8 @@
 				572408EB1A688C05009271B8 /* MPHTMLInterstitialCustomEvent.m */,
 				572408EC1A688C05009271B8 /* MPHTMLInterstitialViewController.h */,
 				572408ED1A688C05009271B8 /* MPHTMLInterstitialViewController.m */,
+				2A6FF7151D8CA566000B353D /* MPWebView.h */,
+				2A6FF7161D8CA566000B353D /* MPWebView.m */,
 			);
 			path = HTML;
 			sourceTree = "<group>";
@@ -2982,6 +2984,7 @@
 				B2A7A63F1BA8C58300659ADD /* MOPUBNativeVideoAdRenderer.m in Sources */,
 				46B333EB19F075680078078A /* MPAdEntryViewController.m in Sources */,
 				57240AA01A688C05009271B8 /* MPClientAdPositioning.m in Sources */,
+				BCA881171DCBB81B00C3F8C2 /* MPWebView.m in Sources */,
 				46B333F519F075680078078A /* MPNativeAdPageView.m in Sources */,
 				572409C21A688C05009271B8 /* MPAdServerURLBuilder.m in Sources */,
 				A7A4228A1B5F224400024A3A /* MPVASTMediaFile.m in Sources */,
@@ -3011,7 +3014,6 @@
 				57240A341A688C05009271B8 /* NSURL+MPAdditions.m in Sources */,
 				57240AB81A688C05009271B8 /* MPNativeAdSource.m in Sources */,
 				5755DB1E1AAA4E2300DC32EA /* GreystripeBannerCustomEvent.m in Sources */,
-				572409D71A688C05009271B8 /* MPAdWebView.m in Sources */,
 				A7A422861B5F224400024A3A /* MPVASTCompanionAd.m in Sources */,
 				A7A422A81B603CC000024A3A /* MPVASTModel.m in Sources */,
 				46B3340819F075680078078A /* (null) in Sources */,
@@ -3043,7 +3045,6 @@
 				575F4A6C1B977714001352D7 /* MPStaticNativeAdRendererSettings.m in Sources */,
 				AED9E4BB16F7912900EA71A7 /* MPAdTableViewController.m in Sources */,
 				572409FD1A688C05009271B8 /* MPMRAIDBannerCustomEvent.m in Sources */,
-				572409D61A688C05009271B8 /* MPAdWebView.m in Sources */,
 				AED9E4C516F7934900EA71A7 /* MPAdInfo.m in Sources */,
 				57AC6A181BB221130053C556 /* MOPUBPlayerViewController.m in Sources */,
 				A76DE67E1B3B3511007DE20A /* MPURLActionInfo.m in Sources */,
@@ -3123,6 +3124,7 @@
 				57240A031A688C05009271B8 /* MPMRAIDInterstitialViewController.m in Sources */,
 				57AC6A161BB221130053C556 /* MOPUBPlayerView.m in Sources */,
 				57240A301A688C05009271B8 /* NSJSONSerialization+MPAdditions.m in Sources */,
+				2A6FF7171D8CA566000B353D /* MPWebView.m in Sources */,
 				4A8DD10118C90542005E9389 /* MPTableViewAdPlacerView.m in Sources */,
 				57240A9C1A688C05009271B8 /* MPAdPositioning.m in Sources */,
 				4A62566A19A7B45900ED18C8 /* MPNativeAdPlacerTableViewController.m in Sources */,

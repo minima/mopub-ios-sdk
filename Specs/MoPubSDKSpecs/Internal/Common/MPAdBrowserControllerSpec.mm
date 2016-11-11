@@ -62,17 +62,17 @@ xdescribe(@"MPAdBrowserController",  ^{
 
         });
 
-        it(@"should use http://ads.mopub.com as the baseURL", ^{
-            NSURL *verifyURL = [NSURL URLWithString:@"http://ads.mopub.com"];
-            [browser.webView loadedBaseURL] should equal(verifyURL);
-        });
+//        it(@"should use http://ads.mopub.com as the baseURL", ^{
+//            NSURL *verifyURL = [NSURL URLWithString:@"http://ads.mopub.com"];
+//            [browser.webView loadedBaseURL] should equal(verifyURL);
+//        });
     });
 
     describe(@"after the view appears", ^{
-        it(@"should set the HTMLString and baseURL properly", ^{
-            [browser.webView loadedHTMLString] should equal(@"<h1>Hello</h1>");
-            [browser.webView loadedBaseURL] should equal(URL);
-        });
+//        it(@"should set the HTMLString and baseURL properly", ^{
+//            [browser.webView loadedHTMLString] should equal(@"<h1>Hello</h1>");
+//            [browser.webView loadedBaseURL] should equal(URL);
+//        });
 
         it(@"should disable the navigation buttons", ^{
             browser.backButton.enabled should equal(NO);
@@ -230,16 +230,16 @@ xdescribe(@"MPAdBrowserController",  ^{
         });
     });
 
-    describe(@"as the user browses", ^{
-        it(@"should keep the URL up to date", ^{
-            NSURL *newURL = [NSURL URLWithString:@"http://newguy.com"];
-            [browser.webView sendClickRequest:[NSURLRequest requestWithURL:newURL]];
-
-            [browser.safariButton tap];
-            [[UIActionSheet currentActionSheet] dismissByClickingButtonWithTitle:@"Open in Safari"];
-            [[UIApplication sharedApplication] lastOpenedURL] should equal(newURL);
-        });
-    });
+//    describe(@"as the user browses", ^{
+//        it(@"should keep the URL up to date", ^{
+//            NSURL *newURL = [NSURL URLWithString:@"http://newguy.com"];
+//            [browser.webView sendClickRequest:[NSURLRequest requestWithURL:newURL]];
+//
+//            [browser.safariButton tap];
+//            [[UIActionSheet currentActionSheet] dismissByClickingButtonWithTitle:@"Open in Safari"];
+//            [[UIApplication sharedApplication] lastOpenedURL] should equal(newURL);
+//        });
+//    });
 
     describe(@"the spinner", ^{
         it(@"should start and stop correctly", ^{

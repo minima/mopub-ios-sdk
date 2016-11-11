@@ -73,17 +73,17 @@ describe(@"MPVideoTracker", ^{
             VASTData = dataFromXMLFileNamed(@"linear-tracking");
         });
 
-        it(@"should fire start tracker after 1 second", ^{
+        it(@"should fire start tracker immediately", ^{
             [videoConfig.startTrackers count] should equal(1);
             sharedFakeMPAnalyticsTracker.trackingRequestURLs should equal(@[]);
-            [tracker handleVideoEvent:MPVideoEventTypeTimeUpdate videoTimeOffset:2];
+            [tracker handleVideoEvent:MPVideoEventTypeTimeUpdate videoTimeOffset:0];
             sharedFakeMPAnalyticsTracker.trackingRequestURLs should equal(@[[[NSURL alloc] initWithString:@"http://myTrackingURL/start"]]);
         });
 
         it(@"should fire first quartile tracker after 25% progress", ^{
             [tracker handleVideoEvent:MPVideoEventTypeTimeUpdate videoTimeOffset:.5];
             [videoConfig.firstQuartileTrackers count] should equal(1);
-            sharedFakeMPAnalyticsTracker.trackingRequestURLs should equal(@[]);
+            sharedFakeMPAnalyticsTracker.trackingRequestURLs should equal(@[[[NSURL alloc] initWithString:@"http://myTrackingURL/start"]]);
             [tracker handleVideoEvent:MPVideoEventTypeTimeUpdate videoTimeOffset:8];
             sharedFakeMPAnalyticsTracker.trackingRequestURLs[1] should equal([[NSURL alloc] initWithString:@"http://myTrackingURL/firstQuartile"]);
         });
@@ -91,7 +91,7 @@ describe(@"MPVideoTracker", ^{
         it(@"should fire midpoint tracker after 50% progress", ^{
             [tracker handleVideoEvent:MPVideoEventTypeTimeUpdate videoTimeOffset:.5];
             [videoConfig.midpointTrackers count] should equal(1);
-            sharedFakeMPAnalyticsTracker.trackingRequestURLs should equal(@[]);
+            sharedFakeMPAnalyticsTracker.trackingRequestURLs should equal(@[[[NSURL alloc] initWithString:@"http://myTrackingURL/start"]]);
             [tracker handleVideoEvent:MPVideoEventTypeTimeUpdate videoTimeOffset:15];
             sharedFakeMPAnalyticsTracker.trackingRequestURLs[1] should equal([[NSURL alloc] initWithString:@"http://myTrackingURL/midpoint"]);
         });
@@ -99,7 +99,7 @@ describe(@"MPVideoTracker", ^{
         it(@"should fire third quartile tracker after 75% progress", ^{
             [tracker handleVideoEvent:MPVideoEventTypeTimeUpdate videoTimeOffset:.5];
             [videoConfig.thirdQuartileTrackers count] should equal(1);
-            sharedFakeMPAnalyticsTracker.trackingRequestURLs should equal(@[]);
+            sharedFakeMPAnalyticsTracker.trackingRequestURLs should equal(@[[[NSURL alloc] initWithString:@"http://myTrackingURL/start"]]);
             [tracker handleVideoEvent:MPVideoEventTypeTimeUpdate videoTimeOffset:23];
             sharedFakeMPAnalyticsTracker.trackingRequestURLs[1] should equal([[NSURL alloc] initWithString:@"http://myTrackingURL/thirdQuartile"]);
         });

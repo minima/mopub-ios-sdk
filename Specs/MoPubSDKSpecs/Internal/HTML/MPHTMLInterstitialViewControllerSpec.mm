@@ -1,5 +1,5 @@
 #import "MPHTMLInterstitialViewController.h"
-#import "MPAdWebView.h"
+#import "MPWebView.h"
 #import "MPAdConfigurationFactory.h"
 #import "MPInstanceProvider.h"
 #import <Cedar/Cedar.h>
@@ -11,7 +11,7 @@ SPEC_BEGIN(MPHTMLInterstitialViewControllerSpec)
 
 describe(@"MPHTMLInterstitialViewController", ^{
     __block MPHTMLInterstitialViewController *controller;
-    __block MPAdWebView *backingView;
+    __block MPWebView *backingView;
     __block MPAdConfiguration *configuration;
     __block id<CedarDouble, MPInterstitialViewControllerDelegate> delegate;
     __block UIViewController *presentingViewController;
@@ -22,8 +22,7 @@ describe(@"MPHTMLInterstitialViewController", ^{
         configuration = [MPAdConfigurationFactory defaultInterstitialConfiguration];
         delegate = nice_fake_for(@protocol(MPInterstitialViewControllerDelegate));
 
-        backingView = [[MPInstanceProvider sharedProvider] buildMPAdWebViewWithFrame:CGRectMake(0, 0, 50, 100)
-                                                                            delegate:nil];
+        backingView = [[MPWebView alloc] initWithFrame:CGRectMake(0, 0, 50, 100)];
         agent = nice_fake_for([MPAdWebViewAgent class]);
         agent stub_method("view").and_return(backingView);
         fakeProvider.fakeMPAdWebViewAgent = agent;

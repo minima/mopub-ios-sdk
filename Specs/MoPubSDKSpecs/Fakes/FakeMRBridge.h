@@ -9,7 +9,7 @@
 
 @class MRProperty;
 
-@interface FakeMRBridge : MRBridge <UIWebViewDelegate>
+@interface FakeMRBridge : MRBridge <MPWebViewDelegate>
 
 @property (nonatomic, assign) BOOL didFireReadyEvent;
 @property (nonatomic, strong) NSMutableSet *changedProperties;

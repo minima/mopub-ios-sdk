@@ -34,6 +34,8 @@ NSString * const kWidthHeaderKey = @"X-Width";
 NSString * const kDspCreativeIdKey = @"X-DspCreativeid";
 NSString * const kPrecacheRequiredKey = @"X-PrecacheRequired";
 NSString * const kIsVastVideoPlayerKey = @"X-VastVideoPlayer";
+//TODO: Remove `kForceUIWebViewKey` once WKWebView is proven
+NSString * const kForceUIWebViewKey = @"X-ForceUIWebView";
 
 NSString * const kInterstitialAdTypeHeaderKey = @"X-Fulladtype";
 NSString * const kOrientationTypeHeaderKey = @"X-Orientation";
@@ -120,6 +122,8 @@ NSString * const kRewardedVideoCompletionUrlHeaderKey = @"X-Rewarded-Video-Compl
         self.precacheRequired = [[headers objectForKey:kPrecacheRequiredKey] boolValue];
 
         self.isVastVideoPlayer = [[headers objectForKey:kIsVastVideoPlayerKey] boolValue];
+
+        self.forceUIWebView = [[headers objectForKey:kForceUIWebViewKey] boolValue];
 
         self.creationTimestamp = [NSDate date];
 

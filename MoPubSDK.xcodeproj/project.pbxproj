@@ -33,8 +33,16 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		2A65B0991D9C9292008E0CAD /* MPWebViewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A65B0981D9C9292008E0CAD /* MPWebViewTests.m */; };
+		2A7FC6AD1D8CA33000165D41 /* MPWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A7FC6AC1D8CA33000165D41 /* MPWebView.m */; };
+		2A83CE391DAEBBD800DC583D /* MPWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A7FC6AC1D8CA33000165D41 /* MPWebView.m */; };
+		2A83CE461DAEBBF500DC583D /* MPWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A7FC6AC1D8CA33000165D41 /* MPWebView.m */; };
+		2A83CE471DAEBBF600DC583D /* MPWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A7FC6AC1D8CA33000165D41 /* MPWebView.m */; };
+		2A83CE481DAEBBF600DC583D /* MPWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A7FC6AC1D8CA33000165D41 /* MPWebView.m */; };
 		2AAA8DFC1D95C77B006962E8 /* MoPubSDKTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AAA8DFB1D95C77B006962E8 /* MoPubSDKTests.m */; };
 		2AAA8DFE1D95C77B006962E8 /* libMoPubSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AE515F9C171F1B110086B464 /* libMoPubSDK.a */; };
+		2ABB28681D9DEC23007EBF12 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57FEAA4B1BD974B9005A94B6 /* WebKit.framework */; };
+		2ABCB5BC1DB7F87A008D5417 /* MPWebView+MPSpecs.m in Sources */ = {isa = PBXBuildFile; fileRef = 2ABCB5BB1DB7F87A008D5417 /* MPWebView+MPSpecs.m */; };
 		3DD2F5E81CBE9758003F2D81 /* MPNativeAdRendererConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = 3DD2F5DD1CBE970D003F2D81 /* MPNativeAdRendererConstants.h */; };
 		4608651F19A4369700FF1BA3 /* UIView+MPSpecs.m in Sources */ = {isa = PBXBuildFile; fileRef = 4608651E19A4369700FF1BA3 /* UIView+MPSpecs.m */; };
 		4611AD7417FA13E200F054CE /* MPAdAlertGestureRecognizerSpec.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4611AD7317FA13E200F054CE /* MPAdAlertGestureRecognizerSpec.mm */; };
@@ -95,7 +103,6 @@
 		468BCDC519996C550054A051 /* MPFacebookKeywordProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = AEF9D4E0171CA895005AAA5A /* MPFacebookKeywordProvider.m */; };
 		468BCDC619996C550054A051 /* MPProgressOverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = AEF9D4E3171CA895005AAA5A /* MPProgressOverlayView.m */; };
 		468BCDC719996C550054A051 /* MPURLResolver.m in Sources */ = {isa = PBXBuildFile; fileRef = AEF9D4E5171CA895005AAA5A /* MPURLResolver.m */; };
-		468BCDC819996C550054A051 /* MPAdWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = AEF9D4E8171CA895005AAA5A /* MPAdWebView.m */; };
 		468BCDC919996C550054A051 /* MPNativeAdUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 46EDEE6619832A3B00241385 /* MPNativeAdUtils.m */; };
 		468BCDCA19996C550054A051 /* MPAdWebViewAgent.m in Sources */ = {isa = PBXBuildFile; fileRef = AEF9D4EA171CA895005AAA5A /* MPAdWebViewAgent.m */; };
 		468BCDCB19996C550054A051 /* MPHTMLBannerCustomEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = AEF9D4EC171CA895005AAA5A /* MPHTMLBannerCustomEvent.m */; };
@@ -387,8 +394,6 @@
 		570AFFAA19D6192C00065388 /* MPInterstitialViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = AEF9D4F9171CA895005AAA5A /* MPInterstitialViewController.h */; };
 		570AFFAB19D6192C00065388 /* MPInterstitialViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AEF9D4FA171CA895005AAA5A /* MPInterstitialViewController.m */; };
 		570AFFAE19D6192C00065388 /* MPPrivateInterstitialCustomEventDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = AEF9D4FD171CA895005AAA5A /* MPPrivateInterstitialCustomEventDelegate.h */; };
-		570AFFAF19D6192C00065388 /* MPAdWebView.h in Headers */ = {isa = PBXBuildFile; fileRef = AEF9D4E7171CA895005AAA5A /* MPAdWebView.h */; };
-		570AFFB019D6192C00065388 /* MPAdWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = AEF9D4E8171CA895005AAA5A /* MPAdWebView.m */; };
 		570AFFB119D6192C00065388 /* MPAdWebViewAgent.h in Headers */ = {isa = PBXBuildFile; fileRef = AEF9D4E9171CA895005AAA5A /* MPAdWebViewAgent.h */; };
 		570AFFB219D6192C00065388 /* MPAdWebViewAgent.m in Sources */ = {isa = PBXBuildFile; fileRef = AEF9D4EA171CA895005AAA5A /* MPAdWebViewAgent.m */; };
 		570AFFB319D6192C00065388 /* MPHTMLBannerCustomEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = AEF9D4EB171CA895005AAA5A /* MPHTMLBannerCustomEvent.h */; };
@@ -1167,7 +1172,6 @@
 		AE515F4E171F1B110086B464 /* MPFacebookKeywordProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = AEF9D4E0171CA895005AAA5A /* MPFacebookKeywordProvider.m */; };
 		AE515F4F171F1B110086B464 /* MPProgressOverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = AEF9D4E3171CA895005AAA5A /* MPProgressOverlayView.m */; };
 		AE515F50171F1B110086B464 /* MPURLResolver.m in Sources */ = {isa = PBXBuildFile; fileRef = AEF9D4E5171CA895005AAA5A /* MPURLResolver.m */; };
-		AE515F51171F1B110086B464 /* MPAdWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = AEF9D4E8171CA895005AAA5A /* MPAdWebView.m */; };
 		AE515F52171F1B110086B464 /* MPAdWebViewAgent.m in Sources */ = {isa = PBXBuildFile; fileRef = AEF9D4EA171CA895005AAA5A /* MPAdWebViewAgent.m */; };
 		AE515F53171F1B110086B464 /* MPHTMLBannerCustomEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = AEF9D4EC171CA895005AAA5A /* MPHTMLBannerCustomEvent.m */; };
 		AE515F54171F1B110086B464 /* MPHTMLInterstitialCustomEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = AEF9D4EE171CA895005AAA5A /* MPHTMLInterstitialCustomEvent.m */; };
@@ -1261,8 +1265,6 @@
 		AEF9D555171CA895005AAA5A /* MPProgressOverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = AEF9D4E3171CA895005AAA5A /* MPProgressOverlayView.m */; };
 		AEF9D556171CA895005AAA5A /* MPURLResolver.m in Sources */ = {isa = PBXBuildFile; fileRef = AEF9D4E5171CA895005AAA5A /* MPURLResolver.m */; };
 		AEF9D557171CA895005AAA5A /* MPURLResolver.m in Sources */ = {isa = PBXBuildFile; fileRef = AEF9D4E5171CA895005AAA5A /* MPURLResolver.m */; };
-		AEF9D558171CA895005AAA5A /* MPAdWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = AEF9D4E8171CA895005AAA5A /* MPAdWebView.m */; };
-		AEF9D559171CA895005AAA5A /* MPAdWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = AEF9D4E8171CA895005AAA5A /* MPAdWebView.m */; };
 		AEF9D55A171CA895005AAA5A /* MPAdWebViewAgent.m in Sources */ = {isa = PBXBuildFile; fileRef = AEF9D4EA171CA895005AAA5A /* MPAdWebViewAgent.m */; };
 		AEF9D55B171CA895005AAA5A /* MPAdWebViewAgent.m in Sources */ = {isa = PBXBuildFile; fileRef = AEF9D4EA171CA895005AAA5A /* MPAdWebViewAgent.m */; };
 		AEF9D55C171CA895005AAA5A /* MPHTMLBannerCustomEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = AEF9D4EC171CA895005AAA5A /* MPHTMLBannerCustomEvent.m */; };
@@ -1332,7 +1334,7 @@
 		AEF9D64C171CA8AD005AAA5A /* FakeInterstitialAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = AEF9D5B3171CA8AD005AAA5A /* FakeInterstitialAdapter.m */; };
 		AEF9D64D171CA8AD005AAA5A /* FakeInterstitialCustomEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = AEF9D5B5171CA8AD005AAA5A /* FakeInterstitialCustomEvent.m */; };
 		AEF9D64E171CA8AD005AAA5A /* FakeMPAdServerCommunicator.m in Sources */ = {isa = PBXBuildFile; fileRef = AEF9D5B7171CA8AD005AAA5A /* FakeMPAdServerCommunicator.m */; };
-		AEF9D64F171CA8AD005AAA5A /* FakeMPAdWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = AEF9D5B9171CA8AD005AAA5A /* FakeMPAdWebView.m */; };
+		AEF9D64F171CA8AD005AAA5A /* FakeMPWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = AEF9D5B9171CA8AD005AAA5A /* FakeMPWebView.m */; };
 		AEF9D650171CA8AD005AAA5A /* FakeMPAnalyticsTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = AEF9D5BB171CA8AD005AAA5A /* FakeMPAnalyticsTracker.m */; };
 		AEF9D651171CA8AD005AAA5A /* FakeMPInstanceProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = AEF9D5BD171CA8AD005AAA5A /* FakeMPInstanceProvider.m */; };
 		AEF9D652171CA8AD005AAA5A /* FakeMPReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = AEF9D5BF171CA8AD005AAA5A /* FakeMPReachability.m */; };
@@ -1369,7 +1371,6 @@
 		AEF9D681171CA8AD005AAA5A /* MPProgressOverlayViewSpec.mm in Sources */ = {isa = PBXBuildFile; fileRef = AEF9D60F171CA8AD005AAA5A /* MPProgressOverlayViewSpec.mm */; };
 		AEF9D682171CA8AD005AAA5A /* MPURLResolverSpec.mm in Sources */ = {isa = PBXBuildFile; fileRef = AEF9D610171CA8AD005AAA5A /* MPURLResolverSpec.mm */; };
 		AEF9D683171CA8AD005AAA5A /* MPAdWebViewAgentSpec.mm in Sources */ = {isa = PBXBuildFile; fileRef = AEF9D612171CA8AD005AAA5A /* MPAdWebViewAgentSpec.mm */; };
-		AEF9D684171CA8AD005AAA5A /* MPAdWebViewSpec.mm in Sources */ = {isa = PBXBuildFile; fileRef = AEF9D613171CA8AD005AAA5A /* MPAdWebViewSpec.mm */; };
 		AEF9D685171CA8AD005AAA5A /* MPHTMLBannerCustomEventSpec.mm in Sources */ = {isa = PBXBuildFile; fileRef = AEF9D614171CA8AD005AAA5A /* MPHTMLBannerCustomEventSpec.mm */; };
 		AEF9D686171CA8AD005AAA5A /* MPHTMLInterstitialCustomEventSpec.mm in Sources */ = {isa = PBXBuildFile; fileRef = AEF9D615171CA8AD005AAA5A /* MPHTMLInterstitialCustomEventSpec.mm */; };
 		AEF9D687171CA8AD005AAA5A /* MPHTMLInterstitialViewControllerSpec.mm in Sources */ = {isa = PBXBuildFile; fileRef = AEF9D616171CA8AD005AAA5A /* MPHTMLInterstitialViewControllerSpec.mm */; };
@@ -1769,9 +1770,14 @@
 
 /* Begin PBXFileReference section */
 		228C5BC23B424BB6B3D75FE7 /* libPods-Specs.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Specs.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2A65B0981D9C9292008E0CAD /* MPWebViewTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPWebViewTests.m; sourceTree = "<group>"; };
+		2A7FC6AB1D8CA33000165D41 /* MPWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPWebView.h; sourceTree = "<group>"; };
+		2A7FC6AC1D8CA33000165D41 /* MPWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPWebView.m; sourceTree = "<group>"; };
 		2AAA8DF91D95C77B006962E8 /* MoPubSDKTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MoPubSDKTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2AAA8DFB1D95C77B006962E8 /* MoPubSDKTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MoPubSDKTests.m; sourceTree = "<group>"; };
 		2AAA8DFD1D95C77B006962E8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2ABCB5BA1DB7F87A008D5417 /* MPWebView+MPSpecs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MPWebView+MPSpecs.h"; sourceTree = "<group>"; };
+		2ABCB5BB1DB7F87A008D5417 /* MPWebView+MPSpecs.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MPWebView+MPSpecs.m"; sourceTree = "<group>"; };
 		3DD2F5DD1CBE970D003F2D81 /* MPNativeAdRendererConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPNativeAdRendererConstants.h; sourceTree = "<group>"; };
 		4608651D19A4369700FF1BA3 /* UIView+MPSpecs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+MPSpecs.h"; sourceTree = "<group>"; };
 		4608651E19A4369700FF1BA3 /* UIView+MPSpecs.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+MPSpecs.m"; sourceTree = "<group>"; };
@@ -2404,8 +2410,6 @@
 		AEF9D4E3171CA895005AAA5A /* MPProgressOverlayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPProgressOverlayView.m; sourceTree = "<group>"; };
 		AEF9D4E4171CA895005AAA5A /* MPURLResolver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPURLResolver.h; sourceTree = "<group>"; };
 		AEF9D4E5171CA895005AAA5A /* MPURLResolver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPURLResolver.m; sourceTree = "<group>"; };
-		AEF9D4E7171CA895005AAA5A /* MPAdWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPAdWebView.h; sourceTree = "<group>"; };
-		AEF9D4E8171CA895005AAA5A /* MPAdWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPAdWebView.m; sourceTree = "<group>"; };
 		AEF9D4E9171CA895005AAA5A /* MPAdWebViewAgent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPAdWebViewAgent.h; sourceTree = "<group>"; };
 		AEF9D4EA171CA895005AAA5A /* MPAdWebViewAgent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPAdWebViewAgent.m; sourceTree = "<group>"; };
 		AEF9D4EB171CA895005AAA5A /* MPHTMLBannerCustomEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPHTMLBannerCustomEvent.h; sourceTree = "<group>"; };
@@ -2488,8 +2492,8 @@
 		AEF9D5B5171CA8AD005AAA5A /* FakeInterstitialCustomEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FakeInterstitialCustomEvent.m; sourceTree = "<group>"; };
 		AEF9D5B6171CA8AD005AAA5A /* FakeMPAdServerCommunicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FakeMPAdServerCommunicator.h; sourceTree = "<group>"; };
 		AEF9D5B7171CA8AD005AAA5A /* FakeMPAdServerCommunicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FakeMPAdServerCommunicator.m; sourceTree = "<group>"; };
-		AEF9D5B8171CA8AD005AAA5A /* FakeMPAdWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FakeMPAdWebView.h; sourceTree = "<group>"; };
-		AEF9D5B9171CA8AD005AAA5A /* FakeMPAdWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FakeMPAdWebView.m; sourceTree = "<group>"; };
+		AEF9D5B8171CA8AD005AAA5A /* FakeMPWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FakeMPWebView.h; sourceTree = "<group>"; };
+		AEF9D5B9171CA8AD005AAA5A /* FakeMPWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FakeMPWebView.m; sourceTree = "<group>"; };
 		AEF9D5BA171CA8AD005AAA5A /* FakeMPAnalyticsTracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FakeMPAnalyticsTracker.h; sourceTree = "<group>"; };
 		AEF9D5BB171CA8AD005AAA5A /* FakeMPAnalyticsTracker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FakeMPAnalyticsTracker.m; sourceTree = "<group>"; };
 		AEF9D5BC171CA8AD005AAA5A /* FakeMPInstanceProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FakeMPInstanceProvider.h; sourceTree = "<group>"; };
@@ -2542,7 +2546,6 @@
 		AEF9D60F171CA8AD005AAA5A /* MPProgressOverlayViewSpec.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MPProgressOverlayViewSpec.mm; sourceTree = "<group>"; };
 		AEF9D610171CA8AD005AAA5A /* MPURLResolverSpec.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MPURLResolverSpec.mm; sourceTree = "<group>"; };
 		AEF9D612171CA8AD005AAA5A /* MPAdWebViewAgentSpec.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MPAdWebViewAgentSpec.mm; sourceTree = "<group>"; };
-		AEF9D613171CA8AD005AAA5A /* MPAdWebViewSpec.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MPAdWebViewSpec.mm; sourceTree = "<group>"; };
 		AEF9D614171CA8AD005AAA5A /* MPHTMLBannerCustomEventSpec.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MPHTMLBannerCustomEventSpec.mm; sourceTree = "<group>"; };
 		AEF9D615171CA8AD005AAA5A /* MPHTMLInterstitialCustomEventSpec.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MPHTMLInterstitialCustomEventSpec.mm; sourceTree = "<group>"; };
 		AEF9D616171CA8AD005AAA5A /* MPHTMLInterstitialViewControllerSpec.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MPHTMLInterstitialViewControllerSpec.mm; sourceTree = "<group>"; };
@@ -2652,6 +2655,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2ABB28681D9DEC23007EBF12 /* WebKit.framework in Frameworks */,
 				2AAA8DFE1D95C77B006962E8 /* libMoPubSDK.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2866,6 +2870,7 @@
 			isa = PBXGroup;
 			children = (
 				2AAA8DFB1D95C77B006962E8 /* MoPubSDKTests.m */,
+				2A65B0981D9C9292008E0CAD /* MPWebViewTests.m */,
 				2AAA8DFD1D95C77B006962E8 /* Info.plist */,
 			);
 			path = MoPubSDKTests;
@@ -3906,8 +3911,6 @@
 		AEF9D4E6171CA895005AAA5A /* HTML */ = {
 			isa = PBXGroup;
 			children = (
-				AEF9D4E7171CA895005AAA5A /* MPAdWebView.h */,
-				AEF9D4E8171CA895005AAA5A /* MPAdWebView.m */,
 				AEF9D4E9171CA895005AAA5A /* MPAdWebViewAgent.h */,
 				AEF9D4EA171CA895005AAA5A /* MPAdWebViewAgent.m */,
 				AEF9D4EB171CA895005AAA5A /* MPHTMLBannerCustomEvent.h */,
@@ -3916,6 +3919,8 @@
 				AEF9D4EE171CA895005AAA5A /* MPHTMLInterstitialCustomEvent.m */,
 				AEF9D4EF171CA895005AAA5A /* MPHTMLInterstitialViewController.h */,
 				AEF9D4F0171CA895005AAA5A /* MPHTMLInterstitialViewController.m */,
+				2A7FC6AB1D8CA33000165D41 /* MPWebView.h */,
+				2A7FC6AC1D8CA33000165D41 /* MPWebView.m */,
 			);
 			path = HTML;
 			sourceTree = "<group>";
@@ -4150,6 +4155,8 @@
 				575F4A3B1B9102D1001352D7 /* MPStaticNativeAdImpressionTimer+Specs.h */,
 				B2C14D881C98C3B600F3D554 /* CedarApplicationDelegate+MPSpecs.h */,
 				B2C14D891C98C3B600F3D554 /* CedarApplicationDelegate+MPSpecs.m */,
+				2ABCB5BA1DB7F87A008D5417 /* MPWebView+MPSpecs.h */,
+				2ABCB5BB1DB7F87A008D5417 /* MPWebView+MPSpecs.m */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -4173,8 +4180,8 @@
 				AEF9D5B5171CA8AD005AAA5A /* FakeInterstitialCustomEvent.m */,
 				AEF9D5B6171CA8AD005AAA5A /* FakeMPAdServerCommunicator.h */,
 				AEF9D5B7171CA8AD005AAA5A /* FakeMPAdServerCommunicator.m */,
-				AEF9D5B8171CA8AD005AAA5A /* FakeMPAdWebView.h */,
-				AEF9D5B9171CA8AD005AAA5A /* FakeMPAdWebView.m */,
+				AEF9D5B8171CA8AD005AAA5A /* FakeMPWebView.h */,
+				AEF9D5B9171CA8AD005AAA5A /* FakeMPWebView.m */,
 				AEF9D5BA171CA8AD005AAA5A /* FakeMPAnalyticsTracker.h */,
 				AEF9D5BB171CA8AD005AAA5A /* FakeMPAnalyticsTracker.m */,
 				AEF9D5BC171CA8AD005AAA5A /* FakeMPInstanceProvider.h */,
@@ -4377,7 +4384,6 @@
 			isa = PBXGroup;
 			children = (
 				AEF9D612171CA8AD005AAA5A /* MPAdWebViewAgentSpec.mm */,
-				AEF9D613171CA8AD005AAA5A /* MPAdWebViewSpec.mm */,
 				AEF9D614171CA8AD005AAA5A /* MPHTMLBannerCustomEventSpec.mm */,
 				AEF9D615171CA8AD005AAA5A /* MPHTMLInterstitialCustomEventSpec.mm */,
 				AEF9D616171CA8AD005AAA5A /* MPHTMLInterstitialViewControllerSpec.mm */,
@@ -4665,7 +4671,6 @@
 				57AC69551BB21FA20053C556 /* MOPUBNativeVideoAdConfigValues.h in Headers */,
 				570AFFF819D6193800065388 /* UIWebView+MPAdditions.h in Headers */,
 				570AFFA219D6192C00065388 /* MPPrivateBannerCustomEventDelegate.h in Headers */,
-				570AFFAF19D6192C00065388 /* MPAdWebView.h in Headers */,
 				57214D2B1A65BA380075BF95 /* MoPub.h in Headers */,
 				5786BFD11A38EAFD004DC3F6 /* MRBridge.h in Headers */,
 				570A00DB19D6325300065388 /* MPMoPubNativeCustomEvent.h in Headers */,
@@ -5750,6 +5755,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2A65B0991D9C9292008E0CAD /* MPWebViewTests.m in Sources */,
 				2AAA8DFC1D95C77B006962E8 /* MoPubSDKTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -5798,7 +5804,6 @@
 				468BCDC719996C550054A051 /* MPURLResolver.m in Sources */,
 				57ACE4041AA7E8D900A05633 /* MPRewardedVideoAdManager.m in Sources */,
 				57AC69751BB21FA20053C556 /* MOPUBPlayerViewController.m in Sources */,
-				468BCDC819996C550054A051 /* MPAdWebView.m in Sources */,
 				468BCDC919996C550054A051 /* MPNativeAdUtils.m in Sources */,
 				57AC696F1BB21FA20053C556 /* MOPUBPlayerView.m in Sources */,
 				468BCDCA19996C550054A051 /* MPAdWebViewAgent.m in Sources */,
@@ -5871,6 +5876,7 @@
 				468BCDEF19996C550054A051 /* MPAdPlacerInvocation.m in Sources */,
 				468BCDF019996C550054A051 /* MPGlobal.m in Sources */,
 				A776A50C1B5DDE0A00095706 /* MPXMLParser.m in Sources */,
+				2A83CE461DAEBBF500DC583D /* MPWebView.m in Sources */,
 				468BCDF119996C550054A051 /* MPNativeAdSource.m in Sources */,
 				57D647FC1A0B4E4400433CFE /* MRError.m in Sources */,
 				468BCDF219996C550054A051 /* MPNativeAdSourceQueue.m in Sources */,
@@ -5943,7 +5949,6 @@
 				570AFFF919D6193800065388 /* UIWebView+MPAdditions.m in Sources */,
 				57AC694E1BB21FA20053C556 /* MOPUBFullscreenPlayerViewController.m in Sources */,
 				570AFFAB19D6192C00065388 /* MPInterstitialViewController.m in Sources */,
-				570AFFB019D6192C00065388 /* MPAdWebView.m in Sources */,
 				B294E06C1BACDB1E00909531 /* MOPUBNativeVideoAdRendererSettings.m in Sources */,
 				570A00DE19D6325300065388 /* MPNativeAdData.m in Sources */,
 				57E6B8841BA25B4B001FE403 /* MPNativeAd+Internal.m in Sources */,
@@ -6017,6 +6022,7 @@
 				5786BFB21A38EACC004DC3F6 /* MPAdServerURLBuilder.m in Sources */,
 				570A00E519D6325300065388 /* MPNativeAdUtils.m in Sources */,
 				A7A422A21B603CB400024A3A /* MPVASTTrackingEvent.m in Sources */,
+				2A83CE481DAEBBF600DC583D /* MPWebView.m in Sources */,
 				570AFF7E19D6191000065388 /* MPNativeCustomEvent.m in Sources */,
 				578D288C1B9A410C002E3905 /* MPStaticNativeAdRendererSettings.m in Sources */,
 				5786BFC61A38EAEE004DC3F6 /* MPGeolocationProvider.m in Sources */,
@@ -6237,7 +6243,6 @@
 				AE515F50171F1B110086B464 /* MPURLResolver.m in Sources */,
 				57AC69681BB21FA20053C556 /* MOPUBPlayerManager.m in Sources */,
 				57ACE4031AA7E8D900A05633 /* MPRewardedVideoAdManager.m in Sources */,
-				AE515F51171F1B110086B464 /* MPAdWebView.m in Sources */,
 				B28725EB1B9FB5D200C0D61B /* UIColor+MPAdditions.m in Sources */,
 				B2E47F671C7E362A00DE5EA6 /* MPMoPubRewardedVideoCustomEvent.m in Sources */,
 				46EDEE6719832A3B00241385 /* MPNativeAdUtils.m in Sources */,
@@ -6278,6 +6283,7 @@
 				4614B0A5195B6B2200B39F8A /* MPUserInteractionGestureRecognizer.m in Sources */,
 				4A2E21301936845D004A7899 /* MPNativeCustomEvent.m in Sources */,
 				AE515F5E171F1B110086B464 /* MPMRAIDInterstitialViewController.m in Sources */,
+				2A7FC6AD1D8CA33000165D41 /* MPWebView.m in Sources */,
 				A77FBF0318C5343E00531E8A /* MPDiskLRUCache.m in Sources */,
 				4AE42F9D18D8FD2100DE4BF6 /* MPNativeCache.m in Sources */,
 				578D28881B9A410C002E3905 /* MPStaticNativeAdRendererSettings.m in Sources */,
@@ -6400,7 +6406,6 @@
 				571FA43C193FC4D300A36583 /* MPMoPubNativeCustomEvent.m in Sources */,
 				4A7DE8B01947CF3800226DEC /* IMNative+Specs.m in Sources */,
 				AEF9D557171CA895005AAA5A /* MPURLResolver.m in Sources */,
-				AEF9D559171CA895005AAA5A /* MPAdWebView.m in Sources */,
 				AEF9D55B171CA895005AAA5A /* MPAdWebViewAgent.m in Sources */,
 				AEF9D55D171CA895005AAA5A /* MPHTMLBannerCustomEvent.m in Sources */,
 				57AC693B1BB21FA20053C556 /* MOPUBActivityIndicatorView.m in Sources */,
@@ -6458,6 +6463,7 @@
 				AEF9D596171CA895005AAA5A /* MPTimer.m in Sources */,
 				4A2AEC631AA50000002AFB88 /* MPChartboostRouter+Specs.m in Sources */,
 				AEF9D598171CA895005AAA5A /* MPAdConversionTracker.m in Sources */,
+				2ABCB5BC1DB7F87A008D5417 /* MPWebView+MPSpecs.m in Sources */,
 				AEF9D59A171CA895005AAA5A /* MPAdView.m in Sources */,
 				AEF9D59C171CA895005AAA5A /* MPBannerCustomEvent.m in Sources */,
 				AEF9D59E171CA895005AAA5A /* MPInterstitialAdController.m in Sources */,
@@ -6492,7 +6498,7 @@
 				AEF9D64D171CA8AD005AAA5A /* FakeInterstitialCustomEvent.m in Sources */,
 				AEF9D64E171CA8AD005AAA5A /* FakeMPAdServerCommunicator.m in Sources */,
 				4614B0A7195B6B2200B39F8A /* MPUserInteractionGestureRecognizer.m in Sources */,
-				AEF9D64F171CA8AD005AAA5A /* FakeMPAdWebView.m in Sources */,
+				AEF9D64F171CA8AD005AAA5A /* FakeMPWebView.m in Sources */,
 				57ACDB551AA134AF00A05633 /* AdColonyCustomEvent+MPSpecs.m in Sources */,
 				AEF9D650171CA8AD005AAA5A /* FakeMPAnalyticsTracker.m in Sources */,
 				AEF9D651171CA8AD005AAA5A /* FakeMPInstanceProvider.m in Sources */,
@@ -6589,7 +6595,6 @@
 				57AC694D1BB21FA20053C556 /* MOPUBFullscreenPlayerViewController.m in Sources */,
 				AEF9D682171CA8AD005AAA5A /* MPURLResolverSpec.mm in Sources */,
 				AEF9D683171CA8AD005AAA5A /* MPAdWebViewAgentSpec.mm in Sources */,
-				AEF9D684171CA8AD005AAA5A /* MPAdWebViewSpec.mm in Sources */,
 				4ADE5FF01B4FFA38004C3673 /* MPInstanceProvider+Unity.m in Sources */,
 				B2678A551C98BCA000A0290F /* MPAdBrowserControllerSpec.mm in Sources */,
 				57697EE6193FE51B00E7DF5A /* NSOperationQueue+MPSpecs.m in Sources */,
@@ -6642,6 +6647,7 @@
 				4A0C4BE519A42A4D00DE956C /* MPStreamAdPlacementData+Specs.m in Sources */,
 				572A1B131934FFEC00E40F5A /* MPImageDownloadQueueSpec.mm in Sources */,
 				AEF9D699171CA8AD005AAA5A /* MPSessionTrackerSpec.mm in Sources */,
+				2A83CE391DAEBBD800DC583D /* MPWebView.m in Sources */,
 				A749F5CA1A32A30300B4E2FC /* MoPubSpec.mm in Sources */,
 				BCBC27AD1DAF0C9600021978 /* MillennialNativeAdAdapter.m in Sources */,
 				BC4053971DAF02CD003ECDBB /* FlurryNativeCustomEvent.m in Sources */,
@@ -6797,6 +6803,7 @@
 				BC40538D1DAF0289003ECDBB /* FacebookBannerCustomEvent.m in Sources */,
 				57ACDB8F1AA1358C00A05633 /* MPInstanceProvider+AdColony.m in Sources */,
 				AEF9D53F171CA895005AAA5A /* MPBannerAdManager.m in Sources */,
+				2A83CE471DAEBBF600DC583D /* MPWebView.m in Sources */,
 				4AB5CCD219F55596005ABBC1 /* MPLogProvider.m in Sources */,
 				AEF9D541171CA895005AAA5A /* MPBannerCustomEventAdapter.m in Sources */,
 				BC4053661DAEF47E003ECDBB /* FlurryAdsEmpty.m in Sources */,
@@ -6842,7 +6849,6 @@
 				575828911A16F281009C7A85 /* MRController.m in Sources */,
 				B277838D1CE3BA5C00BAB0B1 /* MPRewardedVideoConnection.m in Sources */,
 				57D321E01BD98D2E00ACF21E /* TapjoyInterstitialCustomEvent.m in Sources */,
-				AEF9D558171CA895005AAA5A /* MPAdWebView.m in Sources */,
 				AEF9D55A171CA895005AAA5A /* MPAdWebViewAgent.m in Sources */,
 				B2E3F5501BAB8529000BB32D /* MOPUBNativeVideoAdRenderer.m in Sources */,
 				573A83051B8E488400ED4067 /* MPTableViewAdPlacerCell.m in Sources */,
@@ -8137,6 +8143,7 @@
 				OTHER_CFLAGS = (
 					"-Wno-objc-protocol-method-implementation",
 					"$(inherited)",
+					"-DMOPUB_IS_CEDAR_TARGET",
 				);
 				OTHER_CPLUSPLUSFLAGS = (
 					"$(OTHER_CFLAGS)",
@@ -8197,8 +8204,10 @@
 				OTHER_CFLAGS = (
 					"-DNS_BLOCK_ASSERTIONS=1",
 					"$(inherited)",
+					"-DMOPUB_IS_CEDAR_TARGET",
 				);
 				"OTHER_CFLAGS[arch=*]" = (
+					"-DMOPUB_IS_CEDAR_TARGET",
 					"-DNS_BLOCK_ASSERTIONS=1",
 					"$(inherited)",
 				);

@@ -6,7 +6,7 @@
 //
 
 #import "MPInstanceProvider.h"
-#import "MPAdWebView.h"
+#import "MPWebView.h"
 #import "MPAdWebViewAgent.h"
 #import "MPInterstitialAdManager.h"
 #import "MPInterstitialCustomEventAdapter.h"
@@ -206,13 +206,6 @@ static MPInstanceProvider *sharedAdProvider = nil;
 
 #pragma mark - HTML Ads
 
-- (MPAdWebView *)buildMPAdWebViewWithFrame:(CGRect)frame delegate:(id<UIWebViewDelegate>)delegate
-{
-    MPAdWebView *webView = [[MPAdWebView alloc] initWithFrame:frame];
-    webView.delegate = delegate;
-    return webView;
-}
-
 - (MPAdWebViewAgent *)buildMPAdWebViewAgentWithAdWebViewFrame:(CGRect)frame delegate:(id<MPAdWebViewAgentDelegate>)delegate
 {
     return [[MPAdWebViewAgent alloc] initWithAdWebViewFrame:frame delegate:delegate];
@@ -220,7 +213,7 @@ static MPInstanceProvider *sharedAdProvider = nil;
 
 #pragma mark - MRAID
 
-- (MPClosableView *)buildMRAIDMPClosableViewWithFrame:(CGRect)frame webView:(UIWebView *)webView delegate:(id<MPClosableViewDelegate>)delegate
+- (MPClosableView *)buildMRAIDMPClosableViewWithFrame:(CGRect)frame webView:(MPWebView *)webView delegate:(id<MPClosableViewDelegate>)delegate
 {
     MPClosableView *adView = [[MPClosableView alloc] initWithFrame:frame closeButtonType:MPClosableViewCloseButtonTypeTappableWithImage];
     adView.delegate = delegate;
@@ -252,17 +245,12 @@ static MPInstanceProvider *sharedAdProvider = nil;
     return controller;
 }
 
-- (MRBridge *)buildMRBridgeWithWebView:(UIWebView *)webView delegate:(id<MRBridgeDelegate>)delegate
+- (MRBridge *)buildMRBridgeWithWebView:(MPWebView *)webView delegate:(id<MRBridgeDelegate>)delegate
 {
     MRBridge *bridge = [[MRBridge alloc] initWithWebView:webView];
     bridge.delegate = delegate;
     bridge.shouldHandleRequests = YES;
     return bridge;
-}
-
-- (UIWebView *)buildUIWebViewWithFrame:(CGRect)frame
-{
-    return [[UIWebView alloc] initWithFrame:frame];
 }
 
 - (MRVideoPlayerManager *)buildMRVideoPlayerManagerWithDelegate:(id<MRVideoPlayerManagerDelegate>)delegate

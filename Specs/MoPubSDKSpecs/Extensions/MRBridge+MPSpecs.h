@@ -7,9 +7,9 @@
 
 #import "MRBridge.h"
 
-@interface MRBridge (MPSpecs) <UIWebViewDelegate>
+@interface MRBridge (MPSpecs) <MPWebViewDelegate>
 
-@property (nonatomic, readonly) UIWebView *webView;
+@property (nonatomic, readonly) MPWebView *webView;
 @property (nonatomic, readonly) MRNativeCommandHandler *nativeCommandHandler;
 
 - (void)fireNativeCommandCompleteEvent:(NSString *)command;

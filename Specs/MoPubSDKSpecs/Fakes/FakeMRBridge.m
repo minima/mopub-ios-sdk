@@ -7,11 +7,10 @@
 
 #import "FakeMRBridge.h"
 #import "MRProperty.h"
-#import "UIWebView+MPAdditions.h"
 
 @implementation FakeMRBridge
 
-- (id)initWithWebView:(UIWebView *)webView
+- (id)initWithWebView:(MPWebView *)webView
 {
     self = [super initWithWebView:webView];
     if (self) {
