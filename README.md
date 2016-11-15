@@ -49,7 +49,7 @@ See our [upgrade document](https://github.com/mopub/mopub-ios-sdk/wiki/Upgrading
 
 ## Requirements
 
-iOS 6.0 and up
+iOS 7.0 and up
 
 ## License
 
