@@ -3254,7 +3254,6 @@
 					"$(SRCROOT)/Externals/**",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/MoPubSampleApp/MoPubSampleApp with CEs-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/AdNetworkSupport/GoogleAdMob/SDK",
@@ -3296,7 +3295,6 @@
 					"$(SRCROOT)/Externals/**",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/MoPubSampleApp/MoPubSampleApp with CEs-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/AdNetworkSupport/GoogleAdMob/SDK",
@@ -3336,7 +3334,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -3362,7 +3360,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -3388,7 +3386,6 @@
 					"$(SRCROOT)/Externals/**",
 				);
 				INFOPLIST_FILE = "MoPubSampleApp/MoPubSampleApp-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/AdNetworkSupport/GoogleAdMob/SDK",
@@ -3421,7 +3418,6 @@
 					"$(SRCROOT)/Externals/**",
 				);
 				INFOPLIST_FILE = "MoPubSampleApp/MoPubSampleApp-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/AdNetworkSupport/GoogleAdMob/SDK",

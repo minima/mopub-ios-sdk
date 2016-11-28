@@ -1,3 +1,8 @@
+## Version 4.11.1 (November 28th, 2016)
+- **App Transport Security Updates**
+	- Checks for "NSAllowsArbitraryLoadsInMedia" were changed to "NSAllowsArbitraryLoadsForMedia", per updated Apple documentation
+	- Resolves issue in which explicitly using NSAllowsArbitraryLoadsForMedia or NSAllowsArbitraryLoadsInWebContent causes HTTP clickthroughs not to resolve on iOS 10.1 or higher
+
 ## Version 4.11.0 (November 10th, 2016)
 - **The MoPub SDK now uses WKWebView to display ads when possible. Backwards compatibility for old OS versions is retained using UIWebView.**
 - **Native video start tracker now fires immediately upon successful video playback.**
