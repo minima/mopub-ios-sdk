@@ -40,6 +40,8 @@ Please view the [changelog](https://github.com/mopub/mopub-ios-sdk/blob/master/C
 	- Checks for "NSAllowsArbitraryLoadsInMedia" were changed to "NSAllowsArbitraryLoadsForMedia", per updated Apple documentation
 	- Resolves issue in which explicitly using NSAllowsArbitraryLoadsForMedia or NSAllowsArbitraryLoadsInWebContent causes HTTP clickthroughs not to resolve on iOS 10.1 or higher
 
+See the [Getting Started Guide](https://github.com/mopub/mopub-ios-sdk/wiki/Getting-Started#app-transport-security-settings) for instructions on setting up ATS in your app.  
+
 
 ### IMPORTANT 4.0 UPGRADE INSTRUCTIONS
 
