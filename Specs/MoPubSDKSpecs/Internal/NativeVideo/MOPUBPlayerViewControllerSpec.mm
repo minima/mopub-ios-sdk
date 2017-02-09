@@ -53,7 +53,7 @@ describe(@"MOPUBPlayerViewController", ^{
 
     beforeEach(^{
         MPVideoConfig *videoConfig = [[MPVideoConfig alloc] init];
-        MOPUBNativeVideoAdConfigValues *nativeVideoAdConfig = [[MOPUBNativeVideoAdConfigValues alloc] initWithPlayVisiblePercent:50 pauseVisiblePercent:25 impressionMinVisiblePercent:50 impressionVisible:2000 maxBufferingTime:2000];
+        MOPUBNativeVideoAdConfigValues *nativeVideoAdConfig = [[MOPUBNativeVideoAdConfigValues alloc] initWithPlayVisiblePercent:50 pauseVisiblePercent:25 impressionMinVisiblePercent:50 impressionVisible:2000 maxBufferingTime:2000 trackers:nil];
         videoConfig.mediaURL = [NSURL URLWithString:@""];
         controller = [[MOPUBPlayerViewController alloc] initWithVideoConfig:videoConfig nativeVideoAdConfig:nativeVideoAdConfig logEventProperties:nil];
         controller.vastTracking = [[MPVASTTracking alloc] initWithMPVideoConfig:videoConfig videoView:controller.playerView];

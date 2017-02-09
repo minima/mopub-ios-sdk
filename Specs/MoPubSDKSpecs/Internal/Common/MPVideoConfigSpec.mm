@@ -45,7 +45,7 @@ describe(@"MPVideoConfig", ^{
             // Wait for the parsing to finish.
             in_time(VASTResponse) should_not be_nil;
 
-            config = [[MPVideoConfig alloc] initWithVASTResponse:VASTResponse];
+            config = [[MPVideoConfig alloc] initWithVASTResponse:VASTResponse additionalTrackers:nil];
         });
 
 //        it(@"should append the wrapper's tracking events to any tracking events from post-wrapper ads", ^{
@@ -85,7 +85,7 @@ describe(@"MPVideoConfig", ^{
 
             it(@"MPVideoConfig should not throw an exception when processing it", ^{
                 ^{
-                    config = [[MPVideoConfig alloc] initWithVASTResponse:VASTResponse];
+                    config = [[MPVideoConfig alloc] initWithVASTResponse:VASTResponse additionalTrackers:nil];
                 } should_not raise_exception;
 
             });
@@ -103,7 +103,7 @@ describe(@"MPVideoConfig", ^{
                     // come back before proceeding with any test.
                     in_time(VASTResponse) should_not be_nil;
 
-                    config = [[MPVideoConfig alloc] initWithVASTResponse:VASTResponse];
+                    config = [[MPVideoConfig alloc] initWithVASTResponse:VASTResponse additionalTrackers:nil];
                 });
 
                 it(@"should extract the correct values", ^{
@@ -122,7 +122,8 @@ describe(@"MPVideoConfig", ^{
                     // come back before proceeding with any test.
                     in_time(VASTResponse) should_not be_nil;
 
-                    config = [[MPVideoConfig alloc] initWithVASTResponse:VASTResponse];
+                    config = [[MPVideoConfig alloc] initWithVASTResponse:VASTResponse additionalTrackers:nil
+                              ];
                 });
 
                 it(@"should not set any of the viewability properties", ^{
@@ -141,7 +142,7 @@ describe(@"MPVideoConfig", ^{
                     // come back before proceeding with any test.
                     in_time(VASTResponse) should_not be_nil;
 
-                    config = [[MPVideoConfig alloc] initWithVASTResponse:VASTResponse];
+                    config = [[MPVideoConfig alloc] initWithVASTResponse:VASTResponse additionalTrackers:nil];
                 });
 
                 it(@"should use the values from the first element that it sees", ^{
@@ -160,7 +161,7 @@ describe(@"MPVideoConfig", ^{
                     // come back before proceeding with any test.
                     in_time(VASTResponse) should_not be_nil;
 
-                    config = [[MPVideoConfig alloc] initWithVASTResponse:VASTResponse];
+                    config = [[MPVideoConfig alloc] initWithVASTResponse:VASTResponse additionalTrackers:nil];
                 });
 
                 it(@"should still be able to get the correct values", ^{

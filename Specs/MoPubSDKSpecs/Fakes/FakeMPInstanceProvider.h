@@ -12,11 +12,9 @@
 #import <GoogleMobileAds/GoogleMobileAds.h>
 #import "FakeInterstitialCustomEvent.h"
 #import <Chartboost/Chartboost.h>
-#import "FakeGSFullscreenAd.h"
 #import "IMInterstitial.h"
 #import "IMBanner.h"
 #import "MPInterstitialAdManager.h"
-#import "FakeGSBannerAdView.h"
 #import "MPBaseBannerAdapter.h"
 #import "FakeBannerCustomEvent.h"
 #import "FakeMPTimer.h"
@@ -90,10 +88,6 @@
 @property (nonatomic, strong) GADBannerView *fakeGADBannerView;
 @property (nonatomic, strong) GADRequest *fakeGADInterstitialRequest;
 @property (nonatomic, strong) GADInterstitial *fakeGADInterstitial;
-
-#pragma mark Greystripe
-@property (nonatomic, strong) FakeGSBannerAdView *fakeGSBannerAdView;
-@property (nonatomic, strong) FakeGSFullscreenAd *fakeGSFullscreenAd;
 
 #pragma mark InMobi
 @property (nonatomic, strong) IMBanner *fakeIMAdView;

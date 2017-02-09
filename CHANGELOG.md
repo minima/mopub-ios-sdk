@@ -1,3 +1,14 @@
+## Version 4.12.0 (February 9th, 2017)
+- **Features**
+- Rewarded ad units now support rich media.
+- Allow MoPub static native renderer to render Flurry native ads.
+- Removed size limit for native ad main images.
+
+- **Bug Fixes**
+- Native video selection logic now filters by supported MIME types.
+- Ad placer now supports section count.
+- Fix CFStringRef variable initialization.
+
 ## Version 4.11.1 (November 28th, 2016)
 - **App Transport Security Updates**
 	- Checks for "NSAllowsArbitraryLoadsInMedia" were changed to "NSAllowsArbitraryLoadsForMedia", per updated Apple documentation

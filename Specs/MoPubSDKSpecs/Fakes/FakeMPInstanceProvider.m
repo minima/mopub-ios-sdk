@@ -33,10 +33,6 @@
 - (GADRequest *)buildGADInterstitialRequest;
 - (GADInterstitial *)buildGADInterstitialAd;
 
-#pragma mark Greystripe
-- (GSBannerAdView *)buildGreystripeBannerAdViewWithDelegate:(id<GSAdDelegate>)delegate GUID:(NSString *)GUID size:(CGSize)size;
-- (GSFullscreenAd *)buildGSFullscreenAdWithDelegate:(id<GSAdDelegate>)delegate GUID:(NSString *)GUID;
-
 #pragma mark InMobi
 - (IMBanner *)buildIMBannerWithFrame:(CGRect)frame appId:(NSString *)appId adSize:(int)adSize;
 - (IMInterstitial *)buildIMInterstitialWithDelegate:(id<IMInterstitialDelegate>)delegate appId:(NSString *)appId;
@@ -346,30 +342,6 @@
                      orCall:^{
                          return [super buildGADInterstitialAd];
                      }];
-}
-
-#pragma mark Greystripe
-
-- (GSBannerAdView *)buildGreystripeBannerAdViewWithDelegate:(id<GSAdDelegate>)delegate GUID:(NSString *)GUID size:(CGSize)size;
-{
-    if (self.fakeGSBannerAdView) {
-        self.fakeGSBannerAdView.delegate = delegate;
-        self.fakeGSBannerAdView.GUID = GUID;
-        return self.fakeGSBannerAdView;
-    } else {
-        return [super buildGreystripeBannerAdViewWithDelegate:delegate GUID:GUID size:size];
-    }
-}
-
-- (GSFullscreenAd *)buildGSFullscreenAdWithDelegate:(id<GSAdDelegate>)delegate GUID:(NSString *)GUID
-{
-    if (self.fakeGSFullscreenAd) {
-        self.fakeGSFullscreenAd.delegate = delegate;
-        self.fakeGSFullscreenAd.GUID = GUID;
-        return self.fakeGSFullscreenAd;
-    } else {
-        return [super buildGSFullscreenAdWithDelegate:delegate GUID:GUID];
-    }
 }
 
 #pragma mark InMobi

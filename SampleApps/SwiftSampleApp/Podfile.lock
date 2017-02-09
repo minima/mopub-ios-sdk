@@ -1,0 +1,63 @@
+PODS:
+  - AdColony (2.6.2)
+  - ChartboostSDK (6.5.1)
+  - FBAudienceNetwork (4.15.1)
+  - Flurry-iOS-SDK/FlurryAds (7.6.6):
+    - Flurry-iOS-SDK/FlurrySDK
+  - Flurry-iOS-SDK/FlurrySDK (7.6.6)
+  - Google-Mobile-Ads-SDK (7.1.0)
+  - mopub-ios-sdk (4.11.1):
+    - mopub-ios-sdk/MoPubSDK (= 4.11.1)
+  - mopub-ios-sdk/AdColonyCustomEvents (4.11.1):
+    - AdColony (~> 2.0)
+    - mopub-ios-sdk/MoPubSDK
+  - mopub-ios-sdk/AdMobCustomEvents (4.11.1):
+    - Google-Mobile-Ads-SDK (= 7.1.0)
+    - mopub-ios-sdk/MoPubSDK
+  - mopub-ios-sdk/ChartboostCustomEvents (4.11.1):
+    - ChartboostSDK (~> 6.5)
+    - mopub-ios-sdk/MoPubSDK
+  - mopub-ios-sdk/FacebookCustomEvents (4.11.1):
+    - FBAudienceNetwork (~> 4.15.1)
+    - mopub-ios-sdk/MoPubSDK
+  - mopub-ios-sdk/FlurryCustomEvents (4.11.1):
+    - Flurry-iOS-SDK/FlurryAds (~> 7.6.4)
+    - Flurry-iOS-SDK/FlurrySDK (~> 7.6.4)
+    - mopub-ios-sdk/MoPubSDK
+  - mopub-ios-sdk/MoPubSDK (4.11.1)
+  - mopub-ios-sdk/TapjoyCustomEvents (4.11.1):
+    - mopub-ios-sdk/MoPubSDK
+    - TapjoySDK (= 11.5.1)
+  - mopub-ios-sdk/VungleCustomEvents (4.11.1):
+    - mopub-ios-sdk/MoPubSDK
+    - VungleSDK-iOS (~> 4.0.6)
+  - TapjoySDK (11.5.1)
+  - VungleSDK-iOS (4.0.6)
+
+DEPENDENCIES:
+  - mopub-ios-sdk (from `../../`)
+  - mopub-ios-sdk/AdColonyCustomEvents (from `../../`)
+  - mopub-ios-sdk/AdMobCustomEvents (from `../../`)
+  - mopub-ios-sdk/ChartboostCustomEvents (from `../../`)
+  - mopub-ios-sdk/FacebookCustomEvents (from `../../`)
+  - mopub-ios-sdk/FlurryCustomEvents (from `../../`)
+  - mopub-ios-sdk/TapjoyCustomEvents (from `../../`)
+  - mopub-ios-sdk/VungleCustomEvents (from `../../`)
+
+EXTERNAL SOURCES:
+  mopub-ios-sdk:
+    :path: "../../"
+
+SPEC CHECKSUMS:
+  AdColony: c91c627c389e8d26a22c05ce7585d83db0121c25
+  ChartboostSDK: a0b3b393cac97cd6dd75841bf5d78b46794c77ce
+  FBAudienceNetwork: 4e3859a04314972e6b3ab401784379fa8dfd56a6
+  Flurry-iOS-SDK: 97bbeec09cca666c2f1772f6e161c4f8ccff611e
+  Google-Mobile-Ads-SDK: 9b7c22345f13de4164e9e6d90ad49cce42124c3c
+  mopub-ios-sdk: 943541247abc41685332b62d4e476b4d623ed0f0
+  TapjoySDK: af2985b5de89af5b9ba61c762a7ecad76fc60c78
+  VungleSDK-iOS: d2b8ee974547810e7bac912411e8da32ced8ba08
+
+PODFILE CHECKSUM: a249b82bc975fd6b0adb4dbd94bde82e888c121b
+
+COCOAPODS: 1.1.1

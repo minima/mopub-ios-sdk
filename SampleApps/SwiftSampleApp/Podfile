@@ -1,0 +1,18 @@
+inhibit_all_warnings!
+install! 'cocoapods', :deterministic_uuids => false
+
+# Use the local MoPub SDK for all targets.
+pod 'mopub-ios-sdk', :path => '../../'
+
+target 'MoPubSwiftSampleApp' do
+end
+
+target 'MoPubSwiftSampleApp+CustomEvents' do
+  pod 'mopub-ios-sdk/AdColonyCustomEvents', :path => '../../'
+  pod 'mopub-ios-sdk/AdMobCustomEvents', :path => '../../'
+  pod 'mopub-ios-sdk/ChartboostCustomEvents', :path => '../../'
+  pod 'mopub-ios-sdk/FacebookCustomEvents', :path => '../../'
+  pod 'mopub-ios-sdk/FlurryCustomEvents', :path => '../../'
+  pod 'mopub-ios-sdk/TapjoyCustomEvents', :path => '../../'
+  pod 'mopub-ios-sdk/VungleCustomEvents', :path => '../../'
+end

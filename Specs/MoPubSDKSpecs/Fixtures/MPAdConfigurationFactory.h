@@ -38,5 +38,6 @@
 + (MPAdConfiguration *)defaultRewardedVideoConfiguration;
 + (MPAdConfiguration *)defaultRewardedVideoConfigurationWithReward;
 + (MPAdConfiguration *)defaultRewardedVideoConfigurationServerToServer;
++ (MPAdConfiguration *)defaultNativeVideoConfigurationWithVideoTrackers;
 
 @end

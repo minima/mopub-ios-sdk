@@ -7,7 +7,6 @@
 
 #import "MPSpecHelper.h"
 #import "MPInterstitialAdController.h"
-#import "GSSDKInfo.h"
 #import <MMAdSDK/MMSDK.h>
 #import "CedarAsync.h"
 #import "FakeMPInstanceProvider.h"
@@ -65,7 +64,6 @@ NSData *dataFromXMLFileNamed(NSString *name) {
         usleep(200000);
         beforeAllDidRun = YES;
         [MMSDK setLogLevel:MMLogLevelError];
-        [GSSDKInfo setGUID:@"GreystripeGUID"]; //silences greystripe complaints further down the line
     }
 
     fakeProvider = [[FakeMPInstanceProvider alloc] init];
