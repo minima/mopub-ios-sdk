@@ -32,22 +32,24 @@ typedef enum {
 
     @synchronized (instance) {
         if (instance.initState == INIT_STATE_INITIALIZED) {
-            callback();
+            if (callback) {
+                callback();
+            }
         } else {
             instance.callbacks = [instance.callbacks arrayByAddingObject:callback];
-            
+
             if (instance.initState != INIT_STATE_INITIALIZING) {
                 instance.initState = INIT_STATE_INITIALIZING;
 
                 AdColonyGlobalMediationSettings *settings = [[MoPub sharedInstance] globalMediationSettingsForClass:[AdColonyGlobalMediationSettings class]];
                 AdColonyAppOptions *options = [AdColonyAppOptions new];
-                
+
                 if (userId && userId.length > 0) {
                     options.userID = userId;
                 } else if (settings && settings.customId.length > 0) {
                     options.userID = settings.customId;
                 }
-                
+
                 [AdColony configureWithAppID:appId zoneIDs:allZoneIds options:options completion:^(NSArray<AdColonyZone *> * _Nonnull zones) {
                     @synchronized (instance) {
                         instance.initState = INIT_STATE_INITIALIZED;
