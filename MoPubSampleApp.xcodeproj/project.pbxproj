@@ -9,6 +9,11 @@
 /* Begin PBXBuildFile section */
 		2A6FF7171D8CA566000B353D /* MPWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A6FF7161D8CA566000B353D /* MPWebView.m */; };
 		2A86E7F21D710CE60087594C /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57EF00CD1BD96EB5002634DE /* WebKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		442B54EC1E57DAF900A74D44 /* MPInstanceProvider+Unity.m in Sources */ = {isa = PBXBuildFile; fileRef = 442B54E21E57DAF900A74D44 /* MPInstanceProvider+Unity.m */; };
+		442B54EE1E57DAF900A74D44 /* MPUnityRouter.m in Sources */ = {isa = PBXBuildFile; fileRef = 442B54E41E57DAF900A74D44 /* MPUnityRouter.m */; };
+		442B54F01E57DAF900A74D44 /* UnityAdsInstanceMediationSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 442B54E61E57DAF900A74D44 /* UnityAdsInstanceMediationSettings.m */; };
+		442B54F21E57DAF900A74D44 /* UnityAdsInterstitialCustomEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 442B54E81E57DAF900A74D44 /* UnityAdsInterstitialCustomEvent.m */; };
+		442B54F41E57DAF900A74D44 /* UnityAdsRewardedVideoCustomEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 442B54EA1E57DAF900A74D44 /* UnityAdsRewardedVideoCustomEvent.m */; };
 		462E156F17F0F5D100408E17 /* MPMRectBannerAdDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 462E156E17F0F5D100408E17 /* MPMRectBannerAdDetailViewController.m */; };
 		467343F017FE3D6900D68BB6 /* MPAdPersistenceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 467343EF17FE3D6900D68BB6 /* MPAdPersistenceManager.m */; };
 		469A15F01AC1F0BA00D6F0EF /* MPSampleAppLogReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 469A15EF1AC1F0BA00D6F0EF /* MPSampleAppLogReader.m */; };
@@ -103,12 +108,8 @@
 		4A8DD10618C90636005E9389 /* MPNativeAdTableHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4A8DD10518C90636005E9389 /* MPNativeAdTableHeaderView.xib */; };
 		4A9350501B66D78900ABF4A3 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A93504F1B66D78900ABF4A3 /* CoreBluetooth.framework */; };
 		4A9350521B66D7B500ABF4A3 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A9350511B66D7B500ABF4A3 /* libxml2.dylib */; };
-		4ADE5F681B4DC733004C3673 /* UnityAdsRewardedVideoCustomEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ADE5F671B4DC733004C3673 /* UnityAdsRewardedVideoCustomEvent.m */; };
 		4ADE5FB21B4FBC7E004C3673 /* UnityAds.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 4ADE5FB01B4FBC7E004C3673 /* UnityAds.bundle */; };
 		4ADE5FB31B4FBC7E004C3673 /* UnityAds.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4ADE5FB11B4FBC7E004C3673 /* UnityAds.framework */; };
-		4ADE5FB91B4FC89D004C3673 /* MPUnityRouter.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ADE5FB81B4FC89D004C3673 /* MPUnityRouter.m */; };
-		4ADE5FBC1B4FC8E4004C3673 /* MPInstanceProvider+Unity.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ADE5FBB1B4FC8E4004C3673 /* MPInstanceProvider+Unity.m */; };
-		4ADE5FBF1B4FD3C0004C3673 /* UnityAdsInstanceMediationSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ADE5FBE1B4FD3C0004C3673 /* UnityAdsInstanceMediationSettings.m */; };
 		4ADE5FCE1B4FE836004C3673 /* MPRewardedVideoAdDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4ADE5FCB1B4FE836004C3673 /* MPRewardedVideoAdDetailViewController.xib */; };
 		4ADE5FCF1B4FE836004C3673 /* MPRewardedVideoAdDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4ADE5FCB1B4FE836004C3673 /* MPRewardedVideoAdDetailViewController.xib */; };
 		4ADE5FD01B4FE836004C3673 /* MPRewardedVideoAdDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ADE5FCD1B4FE836004C3673 /* MPRewardedVideoAdDetailViewController.m */; };
@@ -660,6 +661,16 @@
 		2A6FF7151D8CA566000B353D /* MPWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPWebView.h; sourceTree = "<group>"; };
 		2A6FF7161D8CA566000B353D /* MPWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPWebView.m; sourceTree = "<group>"; };
 		3D3BC88B1CBEE8E100BDA2FA /* MPNativeAdRendererConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPNativeAdRendererConstants.h; sourceTree = "<group>"; };
+		442B54E11E57DAF900A74D44 /* MPInstanceProvider+Unity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MPInstanceProvider+Unity.h"; sourceTree = "<group>"; };
+		442B54E21E57DAF900A74D44 /* MPInstanceProvider+Unity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MPInstanceProvider+Unity.m"; sourceTree = "<group>"; };
+		442B54E31E57DAF900A74D44 /* MPUnityRouter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPUnityRouter.h; sourceTree = "<group>"; };
+		442B54E41E57DAF900A74D44 /* MPUnityRouter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPUnityRouter.m; sourceTree = "<group>"; };
+		442B54E51E57DAF900A74D44 /* UnityAdsInstanceMediationSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UnityAdsInstanceMediationSettings.h; sourceTree = "<group>"; };
+		442B54E61E57DAF900A74D44 /* UnityAdsInstanceMediationSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UnityAdsInstanceMediationSettings.m; sourceTree = "<group>"; };
+		442B54E71E57DAF900A74D44 /* UnityAdsInterstitialCustomEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UnityAdsInterstitialCustomEvent.h; sourceTree = "<group>"; };
+		442B54E81E57DAF900A74D44 /* UnityAdsInterstitialCustomEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UnityAdsInterstitialCustomEvent.m; sourceTree = "<group>"; };
+		442B54E91E57DAF900A74D44 /* UnityAdsRewardedVideoCustomEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UnityAdsRewardedVideoCustomEvent.h; sourceTree = "<group>"; };
+		442B54EA1E57DAF900A74D44 /* UnityAdsRewardedVideoCustomEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UnityAdsRewardedVideoCustomEvent.m; sourceTree = "<group>"; };
 		4604B7BB1A002F0A002234E9 /* MoPubSampleApp with CEs-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "MoPubSampleApp with CEs-Info.plist"; path = "MoPubSampleApp/MoPubSampleApp with CEs-Info.plist"; sourceTree = "<group>"; };
 		4614B3F417E8D01D00812D2C /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		462E156D17F0F5D100408E17 /* MPMRectBannerAdDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPMRectBannerAdDetailViewController.h; sourceTree = "<group>"; };
@@ -704,16 +715,8 @@
 		4A93504F1B66D78900ABF4A3 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
 		4A9350511B66D7B500ABF4A3 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
 		4AB8472C1A79B730003C23E6 /* MPForceableOrientationProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPForceableOrientationProtocol.h; sourceTree = "<group>"; };
-		4ADE5F661B4DC733004C3673 /* UnityAdsRewardedVideoCustomEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UnityAdsRewardedVideoCustomEvent.h; sourceTree = "<group>"; };
-		4ADE5F671B4DC733004C3673 /* UnityAdsRewardedVideoCustomEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UnityAdsRewardedVideoCustomEvent.m; sourceTree = "<group>"; };
 		4ADE5FB01B4FBC7E004C3673 /* UnityAds.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = UnityAds.bundle; sourceTree = "<group>"; };
 		4ADE5FB11B4FBC7E004C3673 /* UnityAds.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = UnityAds.framework; sourceTree = "<group>"; };
-		4ADE5FB71B4FC89D004C3673 /* MPUnityRouter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPUnityRouter.h; sourceTree = "<group>"; };
-		4ADE5FB81B4FC89D004C3673 /* MPUnityRouter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPUnityRouter.m; sourceTree = "<group>"; };
-		4ADE5FBA1B4FC8E4004C3673 /* MPInstanceProvider+Unity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MPInstanceProvider+Unity.h"; sourceTree = "<group>"; };
-		4ADE5FBB1B4FC8E4004C3673 /* MPInstanceProvider+Unity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MPInstanceProvider+Unity.m"; sourceTree = "<group>"; };
-		4ADE5FBD1B4FD3C0004C3673 /* UnityAdsInstanceMediationSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UnityAdsInstanceMediationSettings.h; sourceTree = "<group>"; };
-		4ADE5FBE1B4FD3C0004C3673 /* UnityAdsInstanceMediationSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UnityAdsInstanceMediationSettings.m; sourceTree = "<group>"; };
 		4ADE5FCB1B4FE836004C3673 /* MPRewardedVideoAdDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MPRewardedVideoAdDetailViewController.xib; sourceTree = "<group>"; };
 		4ADE5FCC1B4FE836004C3673 /* MPRewardedVideoAdDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPRewardedVideoAdDetailViewController.h; sourceTree = "<group>"; };
 		4ADE5FCD1B4FE836004C3673 /* MPRewardedVideoAdDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPRewardedVideoAdDetailViewController.m; sourceTree = "<group>"; };
@@ -1404,15 +1407,17 @@
 		4ADE5F561B4DC6DD004C3673 /* Unity */ = {
 			isa = PBXGroup;
 			children = (
+				442B54E11E57DAF900A74D44 /* MPInstanceProvider+Unity.h */,
+				442B54E21E57DAF900A74D44 /* MPInstanceProvider+Unity.m */,
+				442B54E31E57DAF900A74D44 /* MPUnityRouter.h */,
+				442B54E41E57DAF900A74D44 /* MPUnityRouter.m */,
+				442B54E51E57DAF900A74D44 /* UnityAdsInstanceMediationSettings.h */,
+				442B54E61E57DAF900A74D44 /* UnityAdsInstanceMediationSettings.m */,
+				442B54E71E57DAF900A74D44 /* UnityAdsInterstitialCustomEvent.h */,
+				442B54E81E57DAF900A74D44 /* UnityAdsInterstitialCustomEvent.m */,
+				442B54E91E57DAF900A74D44 /* UnityAdsRewardedVideoCustomEvent.h */,
+				442B54EA1E57DAF900A74D44 /* UnityAdsRewardedVideoCustomEvent.m */,
 				4ADE5FA01B4FBC66004C3673 /* SDK */,
-				4ADE5FBA1B4FC8E4004C3673 /* MPInstanceProvider+Unity.h */,
-				4ADE5FBB1B4FC8E4004C3673 /* MPInstanceProvider+Unity.m */,
-				4ADE5FB71B4FC89D004C3673 /* MPUnityRouter.h */,
-				4ADE5FB81B4FC89D004C3673 /* MPUnityRouter.m */,
-				4ADE5F661B4DC733004C3673 /* UnityAdsRewardedVideoCustomEvent.h */,
-				4ADE5F671B4DC733004C3673 /* UnityAdsRewardedVideoCustomEvent.m */,
-				4ADE5FBD1B4FD3C0004C3673 /* UnityAdsInstanceMediationSettings.h */,
-				4ADE5FBE1B4FD3C0004C3673 /* UnityAdsInstanceMediationSettings.m */,
 			);
 			name = Unity;
 			path = AdNetworkSupport/Unity;
@@ -2770,7 +2775,6 @@
 			files = (
 				57240AB21A688C05009271B8 /* MPNativeAdRequest.m in Sources */,
 				572409E91A688C05009271B8 /* MPInterstitialAdManager.m in Sources */,
-				4ADE5F681B4DC733004C3673 /* UnityAdsRewardedVideoCustomEvent.m in Sources */,
 				BC6E4ECB1D91B10100014284 /* FlurryNativeAdAdapter.m in Sources */,
 				57AC6A091BB221130053C556 /* MOPUBAVPlayerView.m in Sources */,
 				A76DE67F1B3B3511007DE20A /* MPURLActionInfo.m in Sources */,
@@ -2789,9 +2793,9 @@
 				57240A8E1A688C05009271B8 /* MPNativeAdUtils.m in Sources */,
 				572409D11A688C05009271B8 /* MPProgressOverlayView.m in Sources */,
 				57240ABE1A688C05009271B8 /* MPServerAdPositioning.m in Sources */,
-				4ADE5FBC1B4FC8E4004C3673 /* MPInstanceProvider+Unity.m in Sources */,
 				A7E95B181ACA9C3E00A26AFD /* MPQRunLoopOperation.m in Sources */,
 				A714FE761B699B1B000EAEC4 /* MPVASTStringUtilities.m in Sources */,
+				442B54EE1E57DAF900A74D44 /* MPUnityRouter.m in Sources */,
 				57240A5B1A688C05009271B8 /* MPStoreKitProvider.m in Sources */,
 				BCC963DD1DCA923F00C7098A /* MPCountdownTimerView.m in Sources */,
 				57240AAC1A688C05009271B8 /* MPNativeAdData.m in Sources */,
@@ -2801,9 +2805,11 @@
 				57240A941A688C05009271B8 /* MPNativePositionResponseDeserializer.m in Sources */,
 				A7A422821B5F224400024A3A /* MPVASTCreative.m in Sources */,
 				57240A7F1A688C05009271B8 /* MPDiskLRUCache.m in Sources */,
+				442B54F21E57DAF900A74D44 /* UnityAdsInterstitialCustomEvent.m in Sources */,
 				BCDDF74A1DA6C084001FEDC3 /* FlurryEmpty.m in Sources */,
 				57240AAF1A688C05009271B8 /* MPNativeAdError.m in Sources */,
 				57F07A871BA255FA006DF2F3 /* MPNativeAd+Internal.m in Sources */,
+				442B54EC1E57DAF900A74D44 /* MPInstanceProvider+Unity.m in Sources */,
 				57240A641A688C05009271B8 /* MoPub.m in Sources */,
 				A722104F1B794FDE0099DCF6 /* MPVideoConfig.m in Sources */,
 				A714FEC11B6AB0C8000EAEC4 /* MPVASTManager.m in Sources */,
@@ -2851,6 +2857,7 @@
 				571EF4291B7194D60035C9BB /* MPStaticNativeAdView.m in Sources */,
 				5755DB181AAA4E2300DC32EA /* MPGoogleAdMobInterstitialCustomEvent.m in Sources */,
 				57240A1C1A688C05009271B8 /* MRExpandModalViewController.m in Sources */,
+				442B54F01E57DAF900A74D44 /* UnityAdsInstanceMediationSettings.m in Sources */,
 				A7A4227C1B5F224400024A3A /* MPVASTAd.m in Sources */,
 				57240A6A1A688C05009271B8 /* MPAdView.m in Sources */,
 				A7A422801B5F224400024A3A /* MPVASTWrapper.m in Sources */,
@@ -2957,7 +2964,6 @@
 				5755DAEC1AAA4E2300DC32EA /* AdColonyCustomEvent.m in Sources */,
 				46B333E619F075680078078A /* MPMRectBannerAdDetailViewController.m in Sources */,
 				572409FE1A688C05009271B8 /* MPMRAIDBannerCustomEvent.m in Sources */,
-				4ADE5FB91B4FC89D004C3673 /* MPUnityRouter.m in Sources */,
 				B2A7A63F1BA8C58300659ADD /* MOPUBNativeVideoAdRenderer.m in Sources */,
 				BCA881081DCBB67400C3F8C2 /* NSBundle+MPAdditions.m in Sources */,
 				46B333EB19F075680078078A /* MPAdEntryViewController.m in Sources */,
@@ -2967,7 +2973,7 @@
 				572409C21A688C05009271B8 /* MPAdServerURLBuilder.m in Sources */,
 				A7A4228A1B5F224400024A3A /* MPVASTMediaFile.m in Sources */,
 				57240ACA1A688C05009271B8 /* MPTableViewAdPlacer.m in Sources */,
-				4ADE5FBF1B4FD3C0004C3673 /* UnityAdsInstanceMediationSettings.m in Sources */,
+				442B54F41E57DAF900A74D44 /* UnityAdsRewardedVideoCustomEvent.m in Sources */,
 				572409A41A688C05009271B8 /* MPBannerCustomEventAdapter.m in Sources */,
 				B294E0621BACDA3600909531 /* MOPUBNativeVideoAdRendererSettings.m in Sources */,
 				46B333FA19F075680078078A /* MPNativeAdPlacerPageViewController.m in Sources */,

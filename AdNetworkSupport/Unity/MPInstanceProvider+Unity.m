@@ -2,7 +2,7 @@
 //  MPInstanceProvider+Unity.m
 //  MoPubSDK
 //
-//  Copyright (c) 2015 MoPub. All rights reserved.
+//  Copyright (c) 2016 MoPub. All rights reserved.
 //
 
 #import "MPInstanceProvider+Unity.h"

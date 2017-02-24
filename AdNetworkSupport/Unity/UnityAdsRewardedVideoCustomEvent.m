@@ -1,8 +1,8 @@
 //
-//  UnityAdsRewardedVideoCustomEvent.h
+//  UnityAdsRewardedVideoCustomEvent.m
 //  MoPubSDK
 //
-//  Copyright (c) 2015 MoPub. All rights reserved.
+//  Copyright (c) 2016 MoPub. All rights reserved.
 //
 
 #import "UnityAdsRewardedVideoCustomEvent.h"
@@ -13,11 +13,12 @@
 #import "UnityAdsInstanceMediationSettings.h"
 
 static NSString *const kMPUnityRewardedVideoGameId = @"gameId";
+static NSString *const kUnityAdsOptionPlacementIdKey = @"placementId";
 static NSString *const kUnityAdsOptionZoneIdKey = @"zoneId";
 
 @interface UnityAdsRewardedVideoCustomEvent () <MPUnityRouterDelegate>
 
-@property (nonatomic, copy) NSString *zoneId;
+@property (nonatomic, copy) NSString *placementId;
 
 @end
 
@@ -31,13 +32,27 @@ static NSString *const kUnityAdsOptionZoneIdKey = @"zoneId";
 - (void)requestRewardedVideoWithCustomEventInfo:(NSDictionary *)info
 {
     NSString *gameId = [info objectForKey:kMPUnityRewardedVideoGameId];
-    self.zoneId = [info objectForKey:kUnityAdsOptionZoneIdKey];
-    [[MPUnityRouter sharedRouter] requestRewardedVideoAdWithGameId:gameId zoneId:self.zoneId delegate:self];
+    if (gameId == nil) {
+        [self.delegate rewardedVideoDidFailToLoadAdForCustomEvent:self error:[NSError errorWithDomain:MoPubRewardedVideoAdsSDKDomain code:MPRewardedVideoAdErrorInvalidCustomEvent userInfo:@{NSLocalizedDescriptionKey: @"Custom event class data did not contain gameId.", NSLocalizedRecoverySuggestionErrorKey: @"Update your MoPub custom event class data to contain a valid Unity Ads gameId."}]];
+        return;
+    }
+    
+    self.placementId = [info objectForKey:kUnityAdsOptionPlacementIdKey];
+    if (self.placementId == nil) {
+        self.placementId = [info objectForKey:kUnityAdsOptionZoneIdKey];
+    }
+    
+    if (self.placementId == nil) {
+        [self.delegate rewardedVideoDidFailToLoadAdForCustomEvent:self error:[NSError errorWithDomain:MoPubRewardedVideoAdsSDKDomain code:MPRewardedVideoAdErrorInvalidCustomEvent userInfo:@{NSLocalizedDescriptionKey: @"Custom event class data did not contain placementId.", NSLocalizedRecoverySuggestionErrorKey: @"Update your MoPub custom event class data to contain a valid Unity Ads placementId."}]];
+        return;
+    }
+    
+    [[MPUnityRouter sharedRouter] requestVideoAdWithGameId:gameId placementId:self.placementId delegate:self];
 }
 
 - (BOOL)hasAdAvailable
 {
-    return [[MPUnityRouter sharedRouter] isAdAvailableForZoneId:self.zoneId];
+    return [[MPUnityRouter sharedRouter] isAdAvailableForPlacementId:self.placementId];
 }
 
 - (void)presentRewardedVideoFromViewController:(UIViewController *)viewController
@@ -46,7 +61,7 @@ static NSString *const kUnityAdsOptionZoneIdKey = @"zoneId";
         UnityAdsInstanceMediationSettings *settings = [self.delegate instanceMediationSettingsForClass:[UnityAdsInstanceMediationSettings class]];
 
         NSString *customerId = [self.delegate customerIdForRewardedVideoCustomEvent:self];
-        [[MPUnityRouter sharedRouter] presentRewardedVideoAdFromViewController:viewController customerId:customerId zoneId:self.zoneId settings:settings delegate:self];
+        [[MPUnityRouter sharedRouter] presentVideoAdFromViewController:viewController customerId:customerId placementId:self.placementId settings:settings delegate:self];
     } else {
         MPLogInfo(@"Failed to show Unity rewarded video: Unity now claims that there is no available video ad.");
         NSError *error = [NSError errorWithDomain:MoPubRewardedVideoAdsSDKDomain code:MPRewardedVideoAdErrorNoAdsAvailable userInfo:nil];
@@ -70,46 +85,81 @@ static NSString *const kUnityAdsOptionZoneIdKey = @"zoneId";
 
 #pragma mark - MPUnityRouterDelegate
 
-- (void)unityAdsVideoCompleted:(NSString *)rewardItemKey skipped:(BOOL)skipped
+- (void)unityAdsReady:(NSString *)placementId
 {
-    if (!skipped) {
-        NSString *currencyType = kMPRewardedVideoRewardCurrencyTypeUnspecified;
-        if (rewardItemKey) {
-            currencyType = rewardItemKey;
-        }
-        MPRewardedVideoReward *reward = [[MPRewardedVideoReward alloc] initWithCurrencyType:currencyType amount:@(kMPRewardedVideoRewardCurrencyAmountUnspecified)];
-        [self.delegate rewardedVideoShouldRewardUserForCustomEvent:self reward:reward];
-    }
+    [self.delegate rewardedVideoDidLoadAdForCustomEvent:self];
 }
 
-- (void)unityAdsWillShow
+- (void)unityAdsDidError:(UnityAdsError)error withMessage:(NSString *)message
+{
+    NSString* unityErrorMessage;
+    switch (error) {
+        case kUnityAdsErrorNotInitialized:
+            unityErrorMessage = @"Unity Ads not initialized";
+            break;
+            
+        case kUnityAdsErrorInitializedFailed:
+            unityErrorMessage = @"Unity Ads initialize failed";
+            break;
+            
+        case kUnityAdsErrorInvalidArgument:
+            unityErrorMessage = @"Unity Ads initialize given an invalid argument";
+            break;
+            
+        case kUnityAdsErrorVideoPlayerError:
+            unityErrorMessage = @"Unity Ads video player failed";
+            break;
+            
+        case kUnityAdsErrorInitSanityCheckFail:
+            unityErrorMessage = @"Unity Ads initialized in an invalid environment";
+            break;
+            
+        case kUnityAdsErrorAdBlockerDetected:
+            unityErrorMessage = @"Unity Ads failed due to presence of ad blocker";
+            break;
+            
+        case kUnityAdsErrorFileIoError:
+            unityErrorMessage = @"Unity Ads file IO error";
+            break;
+            
+        case kUnityAdsErrorDeviceIdError:
+            unityErrorMessage = @"Unity Ads encountered a bad device identifier";
+            break;
+            
+        case kUnityAdsErrorShowError:
+            unityErrorMessage = @"Unity Ads failed while attempting to show an ad";
+            break;
+            
+        case kUnityAdsErrorInternalError:
+            unityErrorMessage = @"Unity Ads experienced an internal failure";
+            break;
+            
+        default:
+            unityErrorMessage = @"Unity Ads unknown error";
+            break;
+    }
+    [self.delegate rewardedVideoDidFailToLoadAdForCustomEvent:self error:[NSError errorWithDomain:MoPubRewardedVideoAdsSDKDomain code:MPRewardedVideoAdErrorUnknown userInfo:@{NSLocalizedDescriptionKey: unityErrorMessage}]];
+}
+
+- (void) unityAdsDidStart:(NSString *)placementId
 {
     [self.delegate rewardedVideoWillAppearForCustomEvent:self];
-}
-
-- (void)unityAdsDidShow
-{
     [self.delegate rewardedVideoDidAppearForCustomEvent:self];
 }
 
-- (void)unityAdsWillHide
+- (void) unityAdsDidFinish:(NSString *)placementId withFinishState:(UnityAdsFinishState)state
 {
+    if (state == kUnityAdsFinishStateCompleted) {
+        MPRewardedVideoReward *reward = [[MPRewardedVideoReward alloc] initWithCurrencyType:kMPRewardedVideoRewardCurrencyTypeUnspecified amount:@(kMPRewardedVideoRewardCurrencyAmountUnspecified)];
+        [self.delegate rewardedVideoShouldRewardUserForCustomEvent:self reward:reward];
+    }
     [self.delegate rewardedVideoWillDisappearForCustomEvent:self];
-}
-
-- (void)unityAdsDidHide
-{
     [self.delegate rewardedVideoDidDisappearForCustomEvent:self];
 }
 
-- (void)unityAdsWillLeaveApplication
+- (void) unityAdsDidClick:(NSString *)placementId
 {
-    [self.delegate rewardedVideoWillLeaveApplicationForCustomEvent:self];
-}
-
-- (void)unityAdsFetchCompleted
-{
-    [self.delegate rewardedVideoDidLoadAdForCustomEvent:self];
+    [self.delegate rewardedVideoDidReceiveTapEventForCustomEvent:self];
 }
 
 - (void)unityAdsDidFailWithError:(NSError *)error

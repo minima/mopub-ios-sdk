@@ -2,9 +2,10 @@
 //  MPUnityRouter.m
 //  MoPubSDK
 //
-//  Copyright (c) 2015 MoPub. All rights reserved.
+//  Copyright (c) 2016 MoPub. All rights reserved.
 //
 
+#import "MoPub.h"
 #import "MPUnityRouter.h"
 #import "UnityAdsInstanceMediationSettings.h"
 #import "MPInstanceProvider+Unity.h"
@@ -24,20 +25,23 @@
     return [[MPInstanceProvider sharedProvider] sharedMPUnityRouter];
 }
 
-- (void)requestRewardedVideoAdWithGameId:(NSString *)gameId zoneId:(NSString *)zoneId delegate:(id<MPUnityRouterDelegate>)delegate;
+- (void)requestVideoAdWithGameId:(NSString *)gameId placementId:(NSString *)placementId delegate:(id<MPUnityRouterDelegate>)delegate;
 {
     if (!self.isAdPlaying) {
         self.delegate = delegate;
 
         static dispatch_once_t unityInitToken;
         dispatch_once(&unityInitToken, ^{
-            [[UnityAds sharedInstance] startWithGameId:gameId];
-            [[UnityAds sharedInstance] setDelegate:self];
+            UADSMediationMetaData *mediationMetaData = [[UADSMediationMetaData alloc] init];
+            [mediationMetaData setName:@"MoPub"];
+            [mediationMetaData setVersion:[[MoPub sharedInstance] version]];
+            [mediationMetaData commit];
+            [UnityAds initialize:gameId delegate:self];
         });
 
         // Need to check immediately as an ad may be cached.
-        if ([self isAdAvailableForZoneId:zoneId]) {
-            [self.delegate unityAdsFetchCompleted];
+        if ([self isAdAvailableForPlacementId:placementId]) {
+            [self.delegate unityAdsReady:placementId];
         }
         // MoPub timeout will handle the case for an ad failing to load.
     } else {
@@ -46,36 +50,19 @@
     }
 }
 
-- (BOOL)isAdAvailableForZoneId:(NSString *)zoneId
+- (BOOL)isAdAvailableForPlacementId:(NSString *)placementId
 {
-    /*
-     * the zone ID is set here because it needs to be set for canShow, canShowAds, and show
-     * to work for the correct Unity Ad that cooresponds to the custom event. It's a little
-     * bit of a weird side-effect to do it here, but it's the common denominator for requests
-     * and presentation of ads and helps ensure that we don't check the status of or show
-     * an ad with the wrong zone ID (set from a different custom event).
-     */
-    if ([zoneId length] > 0) {
-        [[UnityAds sharedInstance] setZone:zoneId];
-    }
-    return [[UnityAds sharedInstance] canShow] && [[UnityAds sharedInstance] canShowAds];
+    return [UnityAds isReady:placementId];
 }
 
-- (void)presentRewardedVideoAdFromViewController:(UIViewController *)viewController customerId:(NSString *)customerId zoneId:(NSString *)zoneId settings:(UnityAdsInstanceMediationSettings *)settings delegate:(id<MPUnityRouterDelegate>)delegate
+- (void)presentVideoAdFromViewController:(UIViewController *)viewController customerId:(NSString *)customerId placementId:(NSString *)placementId settings:(UnityAdsInstanceMediationSettings *)settings delegate:(id<MPUnityRouterDelegate>)delegate
 {
-    if (!self.isAdPlaying && [self isAdAvailableForZoneId:zoneId]) {
+    if (!self.isAdPlaying && [self isAdAvailableForPlacementId:placementId]) {
         self.isAdPlaying = YES;
 
         self.delegate = delegate;
-        [[UnityAds sharedInstance] setViewController:viewController];
 
-        if (customerId.length >0) {
-            [[UnityAds sharedInstance] show:@{kUnityAdsOptionGamerSIDKey : customerId}];
-        } else if (settings.userIdentifier.length > 0) {
-            [[UnityAds sharedInstance] show:@{kUnityAdsOptionGamerSIDKey : settings.userIdentifier}];
-        } else {
-            [[UnityAds sharedInstance] show];
-        }
+        [UnityAds show:viewController placementId:placementId];
     } else {
         NSError *error = [NSError errorWithDomain:MoPubRewardedVideoAdsSDKDomain code:MPRewardedVideoAdErrorUnknown userInfo:nil];
         [delegate unityAdsDidFailWithError:error];
@@ -90,49 +77,29 @@
     }
 }
 
-#pragma mark - UnityAdsDelegate
+#pragma mark - UnityAdsExtendedDelegate
 
-- (void)unityAdsVideoCompleted:(NSString *)rewardItemKey skipped:(BOOL)skipped
+- (void)unityAdsReady:(NSString *)placementId
 {
-    [self.delegate unityAdsVideoCompleted:rewardItemKey skipped:skipped];
+    [self.delegate unityAdsReady:placementId];
 }
 
-- (void)unityAdsWillShow
-{
-    [self.delegate unityAdsWillShow];
+- (void)unityAdsDidError:(UnityAdsError)error withMessage:(NSString *)message {
+    [self.delegate unityAdsDidError:error withMessage:message];
 }
 
-- (void)unityAdsDidShow
-{
-    [self.delegate unityAdsDidShow];
+- (void)unityAdsDidStart:(NSString *)placementId {
+    [self.delegate unityAdsDidStart:placementId];
 }
 
-- (void)unityAdsWillHide
-{
-    [self.delegate unityAdsWillHide];
-}
-
-- (void)unityAdsDidHide
-{
-    [self.delegate unityAdsDidHide];
+- (void)unityAdsDidFinish:(NSString *)placementId withFinishState:(UnityAdsFinishState)state {
+    [self.delegate unityAdsDidFinish:placementId withFinishState:state];
     self.isAdPlaying = NO;
 }
 
-- (void)unityAdsWillLeaveApplication
+- (void)unityAdsDidClick:(NSString *)placementId
 {
-    [self.delegate unityAdsWillLeaveApplication];
-}
-
-- (void)unityAdsFetchCompleted
-{
-    [self.delegate unityAdsFetchCompleted];
-}
-
-- (void)unityAdsFetchFailed
-{
-    NSError *error = [NSError errorWithDomain:MoPubRewardedVideoAdsSDKDomain code:MPRewardedVideoAdErrorUnknown userInfo:nil];
-
-    [self.delegate unityAdsDidFailWithError:error];
+    [self.delegate unityAdsDidClick:placementId];
 }
 
 @end
