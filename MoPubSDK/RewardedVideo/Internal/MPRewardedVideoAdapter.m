@@ -127,6 +127,11 @@ static const NSString *kRewardedVideoApiVersion = @"1";
         finalCompletionUrlString = [NSString stringWithFormat:@"%@&customer_id=%@", finalCompletionUrlString, urlEncodedCustomerId];
     }
     finalCompletionUrlString = [NSString stringWithFormat:@"%@&nv=%@&v=%@", finalCompletionUrlString, [MP_SDK_VERSION mp_URLEncodedString], kRewardedVideoApiVersion];
+
+    if (self.configuration.selectedReward) {
+        finalCompletionUrlString = [NSString stringWithFormat:@"%@&rcn=%@&rca=%i", finalCompletionUrlString, [self.configuration.selectedReward.currencyType mp_URLEncodedString], [self.configuration.selectedReward.amount intValue]];
+    }
+
     return [NSURL URLWithString:finalCompletionUrlString];
 }
 
@@ -238,7 +243,7 @@ static const NSString *kRewardedVideoApiVersion = @"1";
     } else {
         // server to server not enabled. It uses client side rewarding.
         if (self.configuration) {
-            MPRewardedVideoReward *mopubConfiguredReward = self.configuration.rewardedVideoReward;
+            MPRewardedVideoReward *mopubConfiguredReward = self.configuration.selectedReward;
             // If reward is set in adConfig, use reward that's set in adConfig.
             // Currency type has to be defined in mopubConfiguredReward in order to use mopubConfiguredReward.
             if (mopubConfiguredReward && mopubConfiguredReward.currencyType != kMPRewardedVideoRewardCurrencyTypeUnspecified){

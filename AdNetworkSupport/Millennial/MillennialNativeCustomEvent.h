@@ -13,7 +13,8 @@
 #import <Foundation/Foundation.h>
 
 /*
- * For MMSDK version 6.3.1
+ * Please reference the Supported Mediation Partner page at http://bit.ly/2mqsuFH for the
+ * latest version and ad format certifications.
  */
 @interface MillennialNativeCustomEvent : MPNativeCustomEvent
 

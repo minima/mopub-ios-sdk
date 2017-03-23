@@ -217,6 +217,13 @@
         [self performActionForMoPubSpecificURL:URL];
         return NO;
     } else if ([self shouldIntercept:URL navigationType:navigationType]) {
+
+        // Disable intercept without user interaction
+        if (!self.userInteractedWithWebView) {
+            MPLogInfo(@"Redirect without user interaction detected");
+            return NO;
+        }
+
         [self interceptURL:URL];
         return NO;
     } else {

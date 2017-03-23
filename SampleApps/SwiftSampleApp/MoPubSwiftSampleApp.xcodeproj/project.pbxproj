@@ -71,7 +71,6 @@
 		BCD87F931DAD8D2E008234D3 /* MPUnityRouter.m in Sources */ = {isa = PBXBuildFile; fileRef = BCD87F891DAD8D2A008234D3 /* MPUnityRouter.m */; };
 		BCD87F941DAD8D2E008234D3 /* UnityAdsInstanceMediationSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = BCD87F8B1DAD8D2A008234D3 /* UnityAdsInstanceMediationSettings.m */; };
 		BCD87F951DAD8D2E008234D3 /* UnityAdsRewardedVideoCustomEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = BCD87F8D1DAD8D2A008234D3 /* UnityAdsRewardedVideoCustomEvent.m */; };
-		BCD87F9E1DAD8D45008234D3 /* UnityAds.bundle in Resources */ = {isa = PBXBuildFile; fileRef = BCD87F9A1DAD8D3F008234D3 /* UnityAds.bundle */; };
 		BCD87FA01DAD8D49008234D3 /* UnityAds.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BCD87F9B1DAD8D3F008234D3 /* UnityAds.framework */; };
 		BCD87FDF1DAD9103008234D3 /* MPMillennialBannerCustomEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = BCD87FD61DAD90DA008234D3 /* MPMillennialBannerCustomEvent.m */; };
 		BCD87FE01DAD9103008234D3 /* MPMillennialInterstitialCustomEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = BCD87FD81DAD90DA008234D3 /* MPMillennialInterstitialCustomEvent.m */; };
@@ -80,6 +79,7 @@
 		BCE919371D76417900A759CB /* MPNativeVideoAdDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCE919351D76417200A759CB /* MPNativeVideoAdDetailViewController.swift */; };
 		BCE9193B1D7641D600A759CB /* MPSampleVideoNativeAdView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCE9193A1D7641D600A759CB /* MPSampleVideoNativeAdView.swift */; };
 		BCE9193C1D76424E00A759CB /* MPSampleVideoNativeAdView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCE9193A1D7641D600A759CB /* MPSampleVideoNativeAdView.swift */; };
+		BCEEFD011E60F0AE0015E008 /* UnityAdsInterstitialCustomEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = BCEEFCFF1E60F09C0015E008 /* UnityAdsInterstitialCustomEvent.m */; };
 		E45B386BD3319473E28E6BC1 /* libPods-MoPubSwiftSampleApp+CustomEvents.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E025D6801443FF2E736864EA /* libPods-MoPubSwiftSampleApp+CustomEvents.a */; };
 /* End PBXBuildFile section */
 
@@ -147,7 +147,6 @@
 		BCD87F8B1DAD8D2A008234D3 /* UnityAdsInstanceMediationSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UnityAdsInstanceMediationSettings.m; path = ../../AdNetworkSupport/Unity/UnityAdsInstanceMediationSettings.m; sourceTree = "<group>"; };
 		BCD87F8C1DAD8D2A008234D3 /* UnityAdsRewardedVideoCustomEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UnityAdsRewardedVideoCustomEvent.h; path = ../../AdNetworkSupport/Unity/UnityAdsRewardedVideoCustomEvent.h; sourceTree = "<group>"; };
 		BCD87F8D1DAD8D2A008234D3 /* UnityAdsRewardedVideoCustomEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UnityAdsRewardedVideoCustomEvent.m; path = ../../AdNetworkSupport/Unity/UnityAdsRewardedVideoCustomEvent.m; sourceTree = "<group>"; };
-		BCD87F9A1DAD8D3F008234D3 /* UnityAds.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = UnityAds.bundle; path = ../../AdNetworkSupport/Unity/SDK/UnityAds.bundle; sourceTree = "<group>"; };
 		BCD87F9B1DAD8D3F008234D3 /* UnityAds.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UnityAds.framework; path = ../../AdNetworkSupport/Unity/SDK/UnityAds.framework; sourceTree = "<group>"; };
 		BCD87FB21DAD8F4E008234D3 /* MoPubSwiftSampleApp-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MoPubSwiftSampleApp-Bridging-Header.h"; sourceTree = "<group>"; };
 		BCD87FD61DAD90DA008234D3 /* MPMillennialBannerCustomEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MPMillennialBannerCustomEvent.m; path = ../../AdNetworkSupport/Millennial/MPMillennialBannerCustomEvent.m; sourceTree = "<group>"; };
@@ -156,6 +155,8 @@
 		BCD87FE51DAD9165008234D3 /* MoPubSwiftSampleApp-CustomEvent-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MoPubSwiftSampleApp-CustomEvent-Bridging-Header.h"; sourceTree = "<group>"; };
 		BCE919351D76417200A759CB /* MPNativeVideoAdDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MPNativeVideoAdDetailViewController.swift; sourceTree = "<group>"; };
 		BCE9193A1D7641D600A759CB /* MPSampleVideoNativeAdView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MPSampleVideoNativeAdView.swift; sourceTree = "<group>"; };
+		BCEEFCFE1E60F09C0015E008 /* UnityAdsInterstitialCustomEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UnityAdsInterstitialCustomEvent.h; path = ../../AdNetworkSupport/Unity/UnityAdsInterstitialCustomEvent.h; sourceTree = "<group>"; };
+		BCEEFCFF1E60F09C0015E008 /* UnityAdsInterstitialCustomEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UnityAdsInterstitialCustomEvent.m; path = ../../AdNetworkSupport/Unity/UnityAdsInterstitialCustomEvent.m; sourceTree = "<group>"; };
 		C8366036FDB115486D7483A3 /* Pods-MoPubSwiftSampleApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoPubSwiftSampleApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MoPubSwiftSampleApp/Pods-MoPubSwiftSampleApp.debug.xcconfig"; sourceTree = "<group>"; };
 		E025D6801443FF2E736864EA /* libPods-MoPubSwiftSampleApp+CustomEvents.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MoPubSwiftSampleApp+CustomEvents.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -365,11 +366,13 @@
 				BCD87F871DAD8D2A008234D3 /* MPInstanceProvider+Unity.m */,
 				BCD87F881DAD8D2A008234D3 /* MPUnityRouter.h */,
 				BCD87F891DAD8D2A008234D3 /* MPUnityRouter.m */,
+				BCDDF5671DA46075001FEDC3 /* SDK */,
 				BCD87F8A1DAD8D2A008234D3 /* UnityAdsInstanceMediationSettings.h */,
 				BCD87F8B1DAD8D2A008234D3 /* UnityAdsInstanceMediationSettings.m */,
+				BCEEFCFE1E60F09C0015E008 /* UnityAdsInterstitialCustomEvent.h */,
+				BCEEFCFF1E60F09C0015E008 /* UnityAdsInterstitialCustomEvent.m */,
 				BCD87F8C1DAD8D2A008234D3 /* UnityAdsRewardedVideoCustomEvent.h */,
 				BCD87F8D1DAD8D2A008234D3 /* UnityAdsRewardedVideoCustomEvent.m */,
-				BCDDF5671DA46075001FEDC3 /* SDK */,
 			);
 			name = Unity;
 			sourceTree = "<group>";
@@ -377,7 +380,6 @@
 		BCDDF5671DA46075001FEDC3 /* SDK */ = {
 			isa = PBXGroup;
 			children = (
-				BCD87F9A1DAD8D3F008234D3 /* UnityAds.bundle */,
 				BCD87F9B1DAD8D3F008234D3 /* UnityAds.framework */,
 			);
 			name = SDK;
@@ -439,10 +441,12 @@
 					57A22BA11AD317000064A85B = {
 						CreatedOnToolsVersion = 6.1.1;
 						LastSwiftMigration = 0800;
+						ProvisioningStyle = Automatic;
 					};
 					57CE73F11AD6F86D0003830D = {
 						DevelopmentTeam = 4S7XS533V3;
 						LastSwiftMigration = 0800;
+						ProvisioningStyle = Automatic;
 					};
 				};
 			};
@@ -480,7 +484,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BCD87F9E1DAD8D45008234D3 /* UnityAds.bundle in Resources */,
 				57CE74AE1AD6F86D0003830D /* Main.storyboard in Resources */,
 				57CE74B31AD6F86D0003830D /* LaunchScreen.xib in Resources */,
 				57CE74B91AD6F86D0003830D /* Images.xcassets in Resources */,
@@ -635,6 +638,7 @@
 				BCD87F921DAD8D2E008234D3 /* MPInstanceProvider+Unity.m in Sources */,
 				57CE74761AD6F86D0003830D /* MPAdDetailViewControllerProtocol.swift in Sources */,
 				BCE919371D76417900A759CB /* MPNativeVideoAdDetailViewController.swift in Sources */,
+				BCEEFD011E60F0AE0015E008 /* UnityAdsInterstitialCustomEvent.m in Sources */,
 				57CE74851AD6F86D0003830D /* AppDelegate.swift in Sources */,
 				57CE76291AD837150003830D /* MPUtility.swift in Sources */,
 				57CE74911AD6F86D0003830D /* MPInterstitialAdDetailViewController.swift in Sources */,
@@ -764,11 +768,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = "$(PROJECT_DIR)/MoPubSwiftSampleApp/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.mopub.samples.swift.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_DIR)/MoPubSwiftSampleApp/MoPubSwiftSampleApp-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 2.3;
@@ -781,11 +789,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = "$(PROJECT_DIR)/MoPubSwiftSampleApp/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.mopub.samples.swift.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_DIR)/MoPubSwiftSampleApp/MoPubSwiftSampleApp-Bridging-Header.h";
 				SWIFT_VERSION = 2.3;
 			};
@@ -799,6 +811,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/../../AdNetworkSupport/Millennial/SDK",
@@ -815,6 +828,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.mopub.samples.swift.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "MoPubSwiftSampleApp+CustomEvents";
 				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_DIR)/MoPubSwiftSampleApp/MoPubSwiftSampleApp-CustomEvent-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 2.3;
@@ -829,6 +843,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/../../AdNetworkSupport/Millennial/SDK",
@@ -841,6 +856,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.mopub.samples.swift.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "MoPubSwiftSampleApp+CustomEvents";
 				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_DIR)/MoPubSwiftSampleApp/MoPubSwiftSampleApp-CustomEvent-Bridging-Header.h";
 				SWIFT_VERSION = 2.3;
 			};

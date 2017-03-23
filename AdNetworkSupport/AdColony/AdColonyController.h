@@ -5,10 +5,6 @@
 //  Copyright (c) 2016 MoPub. All rights reserved.
 //
 
-/*
- * Certified with version 3.0.5 of the AdColony SDK.
- */
-
 #import "AdColonyInterstitialCustomEvent.h"
 #import "AdColonyRewardedVideoCustomEvent.h"
 #import "AdColonyInstanceMediationSettings.h"

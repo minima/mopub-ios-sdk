@@ -1,3 +1,12 @@
+## Version 4.13.0 (March 23rd, 2017)
+- **Features**
+- Added support for mediation of Google AdMob rewarded video demand (Google Mobile Ads SDK v7.19.0).
+- Google AdMob native ads mediation is now generally available (Google Mobile Ads SDK v7.19.0).
+- Updated the Tapjoy network mediation adapter to support Tapjoy SDK v11.10.0
+
+- **Bug Fixes**
+- Introduced additional preventative measures to improve creative quality.
+
 ## Version 4.12.0 (February 9th, 2017)
 - **Features**
 - Rewarded ad units now support rich media.

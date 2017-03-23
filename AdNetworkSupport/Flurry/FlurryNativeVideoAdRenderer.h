@@ -12,6 +12,10 @@
 @class MPNativeAdRendererConfiguration;
 @class MPStaticNativeAdRendererSettings;
 
+/*
+ * Please reference the Supported Mediation Partner page at http://bit.ly/2mqsuFH for the
+ * latest version and ad format certifications.
+ */
 @interface FlurryNativeVideoAdRenderer : NSObject <MPNativeAdRenderer>
 
 @property (nonatomic, readonly) MPNativeViewSizeHandler viewSizeHandler;

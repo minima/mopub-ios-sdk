@@ -12,9 +12,9 @@
 #endif
 
 /*
- * Certified with version 6.5.2 of the Chartboost SDK.
+ * Please reference the Supported Mediation Partner page at http://bit.ly/2mqsuFH for the
+ * latest version and ad format certifications.
  */
-
 @interface ChartboostRewardedVideoCustomEvent : MPRewardedVideoCustomEvent
 
 /**

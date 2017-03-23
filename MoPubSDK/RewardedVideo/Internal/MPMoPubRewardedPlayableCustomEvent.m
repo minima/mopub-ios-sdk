@@ -63,7 +63,7 @@ const NSTimeInterval kDefaultCountdownTimerIntervalInSeconds = 30;
     if (!self.userRewarded && (hasElasped || configuration.rewardedPlayableShouldRewardOnClick)) {
         MPLogInfo(@"MoPub rewarded playable user rewarded.");
 
-        [self.delegate rewardedVideoShouldRewardUserForCustomEvent:self reward:configuration.rewardedVideoReward];
+        [self.delegate rewardedVideoShouldRewardUserForCustomEvent:self reward:configuration.selectedReward];
         self.userRewarded = YES;
     }
 }
