@@ -119,7 +119,7 @@
         [self.view removeFromSuperview];
         self.view = nil;
     }
-    self.view = [[MPWebView alloc] initWithFrame:self.frame forceUIWebView:self.configuration.forceUIWebView];
+    self.view = [[MPWebView alloc] initWithFrame:self.frame];
     self.view.delegate = self;
     [self.view addGestureRecognizer:self.userInteractionRecognizer];
 

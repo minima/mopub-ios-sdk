@@ -12,7 +12,10 @@
 #import "math.h"
 #import "NSJSONSerialization+MPAdditions.h"
 #import "MPRewardedVideoReward.h"
+
+#if MP_HAS_NATIVE_PACKAGE
 #import "MPVASTTrackingEvent.h"
+#endif
 
 NSString * const kAdTypeHeaderKey = @"X-Adtype";
 NSString * const kAdUnitWarmingUpHeaderKey = @"X-Warmup";
@@ -35,8 +38,6 @@ NSString * const kWidthHeaderKey = @"X-Width";
 NSString * const kDspCreativeIdKey = @"X-DspCreativeid";
 NSString * const kPrecacheRequiredKey = @"X-PrecacheRequired";
 NSString * const kIsVastVideoPlayerKey = @"X-VastVideoPlayer";
-//TODO: Remove `kForceUIWebViewKey` once WKWebView is proven
-NSString * const kForceUIWebViewKey = @"X-ForceUIWebView";
 
 NSString * const kInterstitialAdTypeHeaderKey = @"X-Fulladtype";
 NSString * const kOrientationTypeHeaderKey = @"X-Orientation";
@@ -139,8 +140,6 @@ NSString * const kNativeVideoTrackerTextDictionaryKey = @"text";
 
         self.isVastVideoPlayer = [[headers objectForKey:kIsVastVideoPlayerKey] boolValue];
 
-        self.forceUIWebView = [[headers objectForKey:kForceUIWebViewKey] boolValue];
-
         self.creationTimestamp = [NSDate date];
 
         self.creativeId = [headers objectForKey:kCreativeIdHeaderKey];
@@ -156,8 +155,9 @@ NSString * const kNativeVideoTrackerTextDictionaryKey = @"text";
         self.nativeVideoImpressionVisible = [self timeIntervalFromMsHeaders:headers forKey:kNativeVideoImpressionVisibleMsHeaderKey];
 
         self.nativeVideoMaxBufferingTime = [self timeIntervalFromMsHeaders:headers forKey:kNativeVideoMaxBufferingTimeMsHeaderKey];
-
+#if MP_HAS_NATIVE_PACKAGE
         self.nativeVideoTrackers = [self nativeVideoTrackersFromHeaders:headers key:kNativeVideoTrackersHeaderKey];
+#endif
 
 
         // rewarded video
@@ -397,6 +397,7 @@ NSString * const kNativeVideoTrackerTextDictionaryKey = @"text";
     }
 }
 
+#if MP_HAS_NATIVE_PACKAGE
 - (NSDictionary *)nativeVideoTrackersFromHeaders:(NSDictionary *)headers key:(NSString *)key
 {
     NSDictionary *dictFromHeader = [self dictionaryFromHeaders:headers forKey:key];
@@ -433,6 +434,8 @@ NSString * const kNativeVideoTrackerTextDictionaryKey = @"text";
         videoTrackerDict[event] = trackers;
     }
 }
+
+#endif
 
 - (NSArray *)parseAvailableRewardsFromHeaders:(NSDictionary *)headers {
     // The X-Rewarded-Currencies header key doesn't exist. This is probably

@@ -92,8 +92,6 @@ extern NSString * const kAdTypeNativeVideo;
 @property (nonatomic, copy) NSString *rewardedVideoCompletionUrl;
 @property (nonatomic, assign) NSTimeInterval rewardedPlayableDuration;
 @property (nonatomic, assign) BOOL rewardedPlayableShouldRewardOnClick;
-//TODO: Remove `forceUIWebView` once WKWebView is proven
-@property (nonatomic, assign) BOOL forceUIWebView;
 
 - (id)initWithHeaders:(NSDictionary *)headers data:(NSData *)data;
 

@@ -1,3 +1,7 @@
+## Version 4.13.1 (April 6th, 2017)
+- **Bug Fixes**
+- Fixed compile error in the MoPub Base SDK Excluding Native bundle.
+
 ## Version 4.13.0 (March 23rd, 2017)
 - **Features**
 - Added support for mediation of Google AdMob rewarded video demand (Google Mobile Ads SDK v7.19.0).

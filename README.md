@@ -24,7 +24,7 @@ The MoPub SDK is distributed as source code that you can include in your applica
 
   Includes everything you need to serve HTML and MRAID advertisements.  Third party ad networks and Native MoPub advertisements are not included.
 
-The current version of the SDK is 4.13.0
+The current version of the SDK is 4.13.1
 
 ## Integrate
 
@@ -36,13 +36,8 @@ More detailed class documentation is available in the repo under the `ClassDocum
 
 Please view the [changelog](https://github.com/mopub/mopub-ios-sdk/blob/master/CHANGELOG.md) for details.
 
-- **Features**
-	- Added support for mediation of Google AdMob rewarded video demand (Google Mobile Ads SDK v7.19.0).
-	- Google AdMob native ads mediation is now generally available (Google Mobile Ads SDK v7.19.0).
-	- Updated the Tapjoy network mediation adapter to support Tapjoy SDK v11.10.0
-
 - **Bug Fixes**
-    - Introduced additional preventative measures to improve creative quality.
+    - Fixed compile error in the MoPub Base SDK Excluding Native bundle.
 
 See the [Getting Started Guide](https://github.com/mopub/mopub-ios-sdk/wiki/Getting-Started#app-transport-security-settings) for instructions on setting up ATS in your app.  
 
