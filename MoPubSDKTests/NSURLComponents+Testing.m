@@ -15,4 +15,9 @@
     return queryItem.value;
 }
 
+- (BOOL)hasQueryParameter:(NSString *)key {
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"name=%@", key];
+    return [self.queryItems filteredArrayUsingPredicate:predicate].count > 0;
+}
+
 @end

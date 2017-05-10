@@ -1,15 +1,20 @@
+require 'yaml'
 require 'rubygems'
 require 'tmpdir'
 require 'timeout'
 require 'pp'
 require 'fileutils'
-require './Scripts/screen_recorder'
-require './Scripts/network_testing'
-require './Scripts/sdk_downloader'
-
-puts ENV["PATH"]
 ENV["PATH"] += ":/usr/local/bin"
 
+if File.exists?('./Scripts/screen_recorder')
+  require './Scripts/screen_recorder'
+end
+if File.exists?('./Scripts/network_testing')
+  require './Scripts/network_testing'
+end
+if File.exists?('./Scripts/sdk_downloader')
+  require './Scripts/sdk_downloader'
+end
 if File.exists?('./Scripts/private/private.rb')
   require './Scripts/private/private.rb'
 end
@@ -45,9 +50,13 @@ def build_dir(effective_platform_name)
   File.join(BUILD_DIR, CONFIGURATION + effective_platform_name)
 end
 
-def output_file(target)
+def mk_build_dir
   output_dir = File.join(File.dirname(__FILE__), "build")
   FileUtils.mkdir_p(output_dir)
+end
+
+def output_file(target)
+  output_dir = File.join(File.dirname(__FILE__), "build")
   File.join(output_dir, "#{target}.output")
 end
 
@@ -63,7 +72,6 @@ def system_or_exit(cmd, outfile = nil)
 end
 
 def build(options)
-  clean!
   target = options[:target]
   configuration = options[:configuration] || CONFIGURATION
   if options[:destination]
@@ -79,7 +87,7 @@ def build(options)
   else
     sdk = "iphonesimulator#{available_sdk_versions.max}"
   end
-  out_file = output_file("mopub_#{options[:target].downcase}_#{sdk}")
+  out_file = output_file("mopub_#{options[:target].downcase.gsub(/\s+/, '')}_#{sdk}")
 
   if target == "MoPubSDKTests"
     workspace = options[:workspace]
@@ -89,7 +97,25 @@ def build(options)
     system_or_exit(%Q[xcodebuild -workspace #{workspace}.xcworkspace -scheme #{target} -configuration #{configuration} ARCHS=i386 #{destination} -sdk #{sdk} build SYMROOT=#{BUILD_DIR}], out_file)
   else
     project = options[:project]
-    system_or_exit(%Q[xcodebuild -project #{project}.xcodeproj -target #{target} -configuration #{configuration} ARCHS=i386 #{destination} -sdk #{sdk} build SYMROOT=#{BUILD_DIR}], out_file) 
+    system_or_exit(%Q[xcodebuild -project '#{project}.xcodeproj' -target '#{target}' -configuration '#{configuration}' ARCHS=i386 #{destination} -sdk '#{sdk}' build SYMROOT=#{BUILD_DIR}], out_file) 
+  end
+end
+
+def archive(config)
+  # perform archive
+  out_file = output_file("mopub_#{config[:scheme].downcase.gsub(/\s+/, '')}_archive")
+  system_or_exit(%Q[/usr/bin/xcodebuild -archivePath '#{BUILD_DIR}/#{config[:archive_path]}' -project '#{config[:project]}.xcodeproj' -scheme '#{config[:scheme]}' -configuration '#{config[:configuration]}' archive CODE_SIGN_IDENTITY='#{config[:code_sign_identity]}' PROVISIONING_PROFILE='#{config[:provision_profile]}' DEVELOPMENT_TEAM='#{config[:development_team]}'], out_file)
+end
+
+def package(config)
+  if File.exists?(config[:export_options_plist])
+    out_file = output_file("mopub_#{config[:scheme].downcase.gsub(/\s+/, '')}_package")
+    # perform packaging step with exportOptionsPlist
+    system_or_exit(%Q[/usr/bin/xcodebuild -exportArchive -exportOptionsPlist '#{config[:export_options_plist]}' -archivePath '#{BUILD_DIR}/#{config[:archive_path]}' -exportPath '#{BUILD_DIR}/#{config[:ipa_path]}'], out_file)
+    # move from scheme.ipa to ipa_path in config
+    sh "mv \"#{BUILD_DIR}/#{config[:ipa_path]}\" \"#{File.join(BUILD_DIR, "../")}/#{config[:ipa_path]}\" >> #{out_file}"
+  else
+    puts "#{config[:export_options_plist]} does not exist. Cannot package"
   end
 end
 
@@ -101,6 +127,36 @@ def available_sdk_versions
     available << match[1] if match and !match[1].start_with? "5." and !match[1].start_with? "6."
   end
   available
+end
+
+def symbolize_keys_deep!(h)
+  h.keys.each do |k|
+    ks    = k.respond_to?(:to_sym) ? k.to_sym : k
+    h[ks] = h.delete k # Preserve order even when k == ks
+    symbolize_keys_deep! h[ks] if h[ks].kind_of? Hash
+  end
+end
+
+def enterprise_transform
+  # plist
+  plist_file_names = ['MoPubSampleApp/MoPubSampleApp-Info.plist']
+  plist_file_names.each do |plist_file|
+    text = File.read(plist_file)
+    # bundle identifier
+    text.gsub!("com.mopub.samples.objc.", "com.twitter.qasamples.")
+
+    File.open(plist_file, "w") {|file| file.puts text }
+  end
+
+  #project file
+  project_file_names = ['MoPubSampleApp.xcodeproj/project.pbxproj']
+  project_file_names.each do |project_file|
+    text = File.read(project_file)
+    # change provisioning style so we can manage the provisioning profiles
+    text.gsub!("ProvisioningStyle = Automatic", "ProvisioningStyle = Manual")
+
+    File.open(project_file, "w") {|file| file.puts text }
+  end
 end
 
 desc "Build MoPubSDK on all SDKs then run tests"
@@ -119,6 +175,13 @@ task :trim_whitespace do
   system_or_exit(%Q[git status --short | awk '{if ($1 != "D" && $1 != "R") for (i=2; i<=NF; i++) printf("%s%s", $i, i<NF ? " " : ""); print ""}' | grep -e '.*.[mh]"*$' | xargs sed -i '' -e 's/	/    /g;s/ *$//g;'])
 end
 
+desc "Cleans the build directory"
+task :clean do
+  head "Cleaning Build Directory"
+  clean!
+  mk_build_dir
+end
+
 desc "Download Ad Network SDKs"
 task :download_sdks do
   head "Downloading Ad Network SDKs"
@@ -128,7 +191,7 @@ end
 
 namespace :mopubsdk do
   desc "Build MoPub SDK against all available SDK versions"
-  task :build do
+  task :build => ['clean'] do
     available_sdk_versions.each do |sdk_version|
       head "Building MoPubSDK for #{sdk_version}"
       build :project => "MoPubSDK", :target => "MoPubSDK", :sdk_version => sdk_version
@@ -143,7 +206,7 @@ namespace :mopubsdk do
   end
 
   desc "Run unit tests with specified iOS Simulator using argument 'simulator_version'"
-  task :unittest do
+  task :unittest => ['clean'] do
 
     simulator_version = ENV['simulator_version']
     if (!simulator_version)
@@ -157,11 +220,40 @@ namespace :mopubsdk do
   end
 end
 
-namespace :mopubsample do
-  desc "Build MoPub Sample App"
-  task :build do
-    head "Building MoPub Sample App"
-    build :project => "MoPubSampleApp", :target => "MoPubSampleApp"
+if File.exists?('xcodebuild.yml')
+  YAML::load(File.open('xcodebuild.yml')).each do |build_name, config|
+    symbolize_keys_deep!(config)
+    namespace build_name do
+      desc "Build #{config[:log_name]} "
+      task :build => ['clean'] do
+        head "Building #{config[:log_name]}"
+        build(config)
+      end
+
+      desc "Archive #{config[:log_name]}"
+      task :archive => ['clean', 'setup_build_environment'] do
+        head "Archiving #{config[:log_name]}"
+        archive(config)
+      end
+
+      desc "Package #{config[:log_name]} to IPA"
+      task :package => ['archive'] do
+        head "Packaging #{config[:log_name]} to IPA"
+        package(config)
+      end
+
+      task :setup_build_environment do
+        enterprise_transform
+      end
+    end
+  end
+else
+  namespace :mopubsample do
+    desc "Build MoPub Sample App"
+    task :build => ['clean'] do
+      head "Building MoPub Sample App"
+      build :project => "MoPubSampleApp", :target => "MoPubSampleApp"
+    end
   end
 end
 

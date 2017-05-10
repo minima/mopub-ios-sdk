@@ -96,7 +96,7 @@ static NSString * const     kAdUnitId      = @"db27f95103794600b7a976ce7a503ced"
 
     [self.customEvent presentRewardedVideoFromViewController:nil];
 
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)((kTestTimeout / 2.0) * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)((kTimerDuration / 2.0) * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [self.mockMRAIDInterstitial simulateTap];
     });
 
@@ -129,7 +129,7 @@ static NSString * const     kAdUnitId      = @"db27f95103794600b7a976ce7a503ced"
 
     [self.customEvent presentRewardedVideoFromViewController:nil];
 
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)((kTestTimeout / 2.0) * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)((kTimerDuration / 2.0) * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [self.mockMRAIDInterstitial simulateTap];
     });
 
@@ -161,7 +161,7 @@ static NSString * const     kAdUnitId      = @"db27f95103794600b7a976ce7a503ced"
     };
 
     [self.customEvent presentRewardedVideoFromViewController:nil];
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)((kTestTimeout / 2.0) * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)((kTimerDuration / 2.0) * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         XCTAssertTrue(self.customEvent.isCountdownActive);
         [self.mockMRAIDInterstitial simulateDismiss];
     });

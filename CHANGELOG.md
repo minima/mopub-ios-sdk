@@ -1,3 +1,15 @@
+## Version 4.14.0 (May 10th, 2017)
+- **Features**
+- For Rewarded ads, the client-side callback will now be invoked when using server-side rewarding.
+- Non-mediated interstitial, rewarded, and native ad placer ads will expire within 4 hours.
+
+- **Bug Fixes**
+- Fix old custom events that use the wrong native renderer.
+- Replace usage of typeof with __typeof__ for C99 and C11 compliance.
+- Fix CFBridgingRetain casting bug.
+- Native ad impression tracker will now fire while scrolling.
+- Fix HTML click tracker to fire when using window.location and window.open.
+
 ## Version 4.13.1 (April 6th, 2017)
 - **Bug Fixes**
 - Fixed compile error in the MoPub Base SDK Excluding Native bundle.

@@ -10,5 +10,6 @@
 @interface NSURLComponents (Testing)
 
 - (NSString *)valueForQueryParameter:(NSString *)key;
+- (BOOL)hasQueryParameter:(NSString *)key;
 
 @end

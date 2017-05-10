@@ -120,7 +120,6 @@ static MPRewardedVideoDelegateHandler * delegateHandler = nil;
     __block MPRewardedVideoReward * rewardForUser = nil;
     delegateHandler.shouldRewardUser = ^(MPRewardedVideoReward * reward) {
         rewardForUser = reward;
-        [expectation fulfill];
     };
 
     // Configure delegate that listens for S2S connection event.
@@ -137,7 +136,7 @@ static MPRewardedVideoDelegateHandler * delegateHandler = nil;
         XCTAssertNil(error);
     }];
 
-    XCTAssertNil(rewardForUser);
+    XCTAssertNotNil(rewardForUser);
     XCTAssertNotNil(s2sUrl);
 
     NSURLComponents * s2sUrlComponents = [NSURLComponents componentsWithURL:s2sUrl resolvingAgainstBaseURL:NO];
@@ -324,7 +323,6 @@ static MPRewardedVideoDelegateHandler * delegateHandler = nil;
     __block MPRewardedVideoReward * rewardForUser = nil;
     delegateHandler.shouldRewardUser = ^(MPRewardedVideoReward * reward) {
         rewardForUser = reward;
-        [expectation fulfill];
     };
 
     // Configure delegate that listens for S2S connection event.
@@ -342,12 +340,49 @@ static MPRewardedVideoDelegateHandler * delegateHandler = nil;
         XCTAssertNil(error);
     }];
 
-    XCTAssertNil(rewardForUser);
+    XCTAssertNotNil(rewardForUser);
     XCTAssertNotNil(s2sUrl);
 
     NSURLComponents * s2sUrlComponents = [NSURLComponents componentsWithURL:s2sUrl resolvingAgainstBaseURL:NO];
     XCTAssert([[s2sUrlComponents valueForQueryParameter:@"rcn"] isEqualToString:@"Diamonds"]);
     XCTAssert([[s2sUrlComponents valueForQueryParameter:@"rca"] isEqualToString:@"1"]);
+}
+
+- (void)testRewardedS2SNoRewardSpecified {
+    NSDictionary * headers = @{ kRewardedVideoCompletionUrlHeaderKey: @"https://test.com?verifier=123",
+                                };
+    MPAdConfiguration * config = [[MPAdConfiguration alloc] initWithHeaders:headers data:nil];
+
+    // Semaphore to wait for asynchronous method to finish before continuing the test.
+    XCTestExpectation * expectation = [self expectationWithDescription:@"Wait for reward completion block to fire."];
+
+    // Configure delegate handler to listen for the reward event.
+    __block MPRewardedVideoReward * rewardForUser = nil;
+    delegateHandler.shouldRewardUser = ^(MPRewardedVideoReward * reward) {
+        rewardForUser = reward;
+    };
+
+    // Configure delegate that listens for S2S connection event.
+    __block NSURL * s2sUrl = nil;
+    MPRewardedVideo.didSendServerToServerCallbackUrl = ^(NSURL * url) {
+        s2sUrl = url;
+        [expectation fulfill];
+    };
+
+    [MPRewardedVideo loadRewardedVideoAdWithAdUnitID:kTestAdUnitId withTestConfiguration:config];
+    NSArray * availableRewards = [MPRewardedVideo availableRewardsForAdUnitID:kTestAdUnitId];
+    [MPRewardedVideo presentRewardedVideoAdForAdUnitID:kTestAdUnitId fromViewController:[UIViewController new] withReward:availableRewards[0]];
+
+    [self waitForExpectationsWithTimeout:kTestTimeout handler:^(NSError * _Nullable error) {
+        XCTAssertNil(error);
+    }];
+
+    XCTAssertNotNil(rewardForUser);
+    XCTAssertNotNil(s2sUrl);
+
+    NSURLComponents * s2sUrlComponents = [NSURLComponents componentsWithURL:s2sUrl resolvingAgainstBaseURL:NO];
+    XCTAssertFalse([s2sUrlComponents hasQueryParameter:@"rcn"]);
+    XCTAssertFalse([s2sUrlComponents valueForQueryParameter:@"rca"]);
 }
 
 @end

@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		2A6FF7171D8CA566000B353D /* MPWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A6FF7161D8CA566000B353D /* MPWebView.m */; };
 		2A86E7F21D710CE60087594C /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57EF00CD1BD96EB5002634DE /* WebKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		2AFF1B621EC26FC300495994 /* MPRealTimeTimer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AFF1B611EC26FC300495994 /* MPRealTimeTimer.m */; };
+		2AFF1B631EC26FC300495994 /* MPRealTimeTimer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AFF1B611EC26FC300495994 /* MPRealTimeTimer.m */; };
 		442B54EC1E57DAF900A74D44 /* MPInstanceProvider+Unity.m in Sources */ = {isa = PBXBuildFile; fileRef = 442B54E21E57DAF900A74D44 /* MPInstanceProvider+Unity.m */; };
 		442B54EE1E57DAF900A74D44 /* MPUnityRouter.m in Sources */ = {isa = PBXBuildFile; fileRef = 442B54E41E57DAF900A74D44 /* MPUnityRouter.m */; };
 		442B54F01E57DAF900A74D44 /* UnityAdsInstanceMediationSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 442B54E61E57DAF900A74D44 /* UnityAdsInstanceMediationSettings.m */; };
@@ -662,6 +664,8 @@
 /* Begin PBXFileReference section */
 		2A6FF7151D8CA566000B353D /* MPWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPWebView.h; sourceTree = "<group>"; };
 		2A6FF7161D8CA566000B353D /* MPWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPWebView.m; sourceTree = "<group>"; };
+		2AFF1B601EC26FC300495994 /* MPRealTimeTimer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPRealTimeTimer.h; sourceTree = "<group>"; };
+		2AFF1B611EC26FC300495994 /* MPRealTimeTimer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPRealTimeTimer.m; sourceTree = "<group>"; };
 		3D3BC88B1CBEE8E100BDA2FA /* MPNativeAdRendererConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPNativeAdRendererConstants.h; sourceTree = "<group>"; };
 		442B54E11E57DAF900A74D44 /* MPInstanceProvider+Unity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MPInstanceProvider+Unity.h"; sourceTree = "<group>"; };
 		442B54E21E57DAF900A74D44 /* MPInstanceProvider+Unity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MPInstanceProvider+Unity.m"; sourceTree = "<group>"; };
@@ -1546,6 +1550,8 @@
 				A722104D1B794FDE0099DCF6 /* MPVideoConfig.m */,
 				A776A4D71B5DA88400095706 /* MPXMLParser.h */,
 				A776A4D81B5DA88400095706 /* MPXMLParser.m */,
+				2AFF1B601EC26FC300495994 /* MPRealTimeTimer.h */,
+				2AFF1B611EC26FC300495994 /* MPRealTimeTimer.m */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -2889,6 +2895,7 @@
 				579532411BE13E4400065CA5 /* FacebookBannerCustomEvent.m in Sources */,
 				57C784D71BCC4C6C00E4BB7D /* MPNativeVideoTableViewAdPlacerView.m in Sources */,
 				44F0E2D41E6AB17C00A059DA /* MPGoogleAdMobRewardedVideoCustomEvent.m in Sources */,
+				2AFF1B631EC26FC300495994 /* MPRealTimeTimer.m in Sources */,
 				57240A3D1A688C05009271B8 /* MPAnalyticsTracker.m in Sources */,
 				46B333A019F075680078078A /* main.m in Sources */,
 				572409E31A688C05009271B8 /* MPHTMLInterstitialViewController.m in Sources */,
@@ -3053,6 +3060,7 @@
 				AED9E4C516F7934900EA71A7 /* MPAdInfo.m in Sources */,
 				57AC6A181BB221130053C556 /* MOPUBPlayerViewController.m in Sources */,
 				A76DE67E1B3B3511007DE20A /* MPURLActionInfo.m in Sources */,
+				2AFF1B621EC26FC300495994 /* MPRealTimeTimer.m in Sources */,
 				AED9E4CC16F7987F00EA71A7 /* MPBannerAdDetailViewController.m in Sources */,
 				57240AA51A688C05009271B8 /* MPNativeAd.m in Sources */,
 				A7A4227B1B5F224400024A3A /* MPVASTAd.m in Sources */,
