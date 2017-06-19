@@ -81,6 +81,11 @@
     [self.delegate interstitialCustomEvent:self didLoadAd:interstitialAd];
 }
 
+- (void)interstitialAdWillLogImpression:(FBInterstitialAd *)interstitialAd
+{
+    MPLogInfo(@"Facebook intersitital ad is logging impressions for interstitials");
+}
+
 - (void)interstitialAd:(FBInterstitialAd *)interstitialAd didFailWithError:(NSError *)error
 {
     MPLogInfo(@"Facebook intersitital ad failed to load with error: %@", error.description);

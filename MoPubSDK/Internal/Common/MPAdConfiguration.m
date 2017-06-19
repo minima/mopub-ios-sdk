@@ -12,6 +12,7 @@
 #import "math.h"
 #import "NSJSONSerialization+MPAdditions.h"
 #import "MPRewardedVideoReward.h"
+#import "MOPUBExperimentProvider.h"
 
 #if MP_HAS_NATIVE_PACKAGE
 #import "MPVASTTrackingEvent.h"
@@ -73,11 +74,16 @@ NSString * const kNativeVideoTrackerUrlsHeaderKey = @"urls";
 NSString * const kNativeVideoTrackerEventDictionaryKey = @"event";
 NSString * const kNativeVideoTrackerTextDictionaryKey = @"text";
 
+// clickthrough experiment
+NSString * const kClickthroughExperimentBrowserAgent = @"X-Browser-Agent";
+static const NSInteger kMaximumVariantForClickthroughExperiment = 2;
+
 
 @interface MPAdConfiguration ()
 
 @property (nonatomic, copy) NSString *adResponseHTMLString;
 @property (nonatomic, strong, readwrite) NSArray *availableRewards;
+@property (nonatomic) MOPUBDisplayAgentType clickthroughExperimentBrowserAgent;
 
 - (MPAdType)adTypeFromHeaders:(NSDictionary *)headers;
 - (NSString *)networkTypeFromHeaders:(NSDictionary *)headers;
@@ -199,6 +205,10 @@ NSString * const kNativeVideoTrackerTextDictionaryKey = @"text";
         // rewarded playables
         self.rewardedPlayableDuration = [self timeIntervalFromHeaders:headers forKey:kRewardedPlayableDurationHeaderKey];
         self.rewardedPlayableShouldRewardOnClick = [[headers objectForKey:kRewardedPlayableRewardOnClickHeaderKey] boolValue];
+
+        // clickthrough experiment
+        self.clickthroughExperimentBrowserAgent = [self clickthroughExperimentVariantFromHeaders:headers forKey:kClickthroughExperimentBrowserAgent];
+        [MOPUBExperimentProvider setDisplayAgentFromAdServer:self.clickthroughExperimentBrowserAgent];
     }
     return self;
 }
@@ -464,6 +474,21 @@ NSString * const kNativeVideoTrackerTextDictionaryKey = @"text";
     }];
 
     return availableRewards;
+}
+
+- (MOPUBDisplayAgentType)clickthroughExperimentVariantFromHeaders:(NSDictionary *)headers forKey:(NSString *)key
+{
+    NSString *variantString = [headers objectForKey:key];
+    NSInteger variant = 0;
+    if (variantString) {
+        int parsedInt = -1;
+        BOOL isNumber = [[NSScanner scannerWithString:variantString] scanInt:&parsedInt];
+        if (isNumber && parsedInt >= 0 && parsedInt <= kMaximumVariantForClickthroughExperiment) {
+            variant = parsedInt;
+        }
+    }
+
+    return variant;
 }
 
 @end

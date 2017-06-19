@@ -1,3 +1,8 @@
+## Version 4.15.0 (June 19th, 2017)
+- **Bug Fixes**
+- Updated Facebook Audience Network banner and interstitial impression tracking
+- Allow taps to pass through the gradient overlays for rewarded videos
+
 ## Version 4.14.0 (May 10th, 2017)
 - **Features**
 - For Rewarded ads, the client-side callback will now be invoked when using server-side rewarding.

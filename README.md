@@ -24,7 +24,7 @@ The MoPub SDK is distributed as source code that you can include in your applica
 
   Includes everything you need to serve HTML and MRAID advertisements.  Third party ad networks and Native MoPub advertisements are not included.
 
-The current version of the SDK is 4.14.0
+The current version of the SDK is 4.15.0
 
 ## Integrate
 
@@ -36,16 +36,9 @@ More detailed class documentation is available in the repo under the `ClassDocum
 
 Please view the [changelog](https://github.com/mopub/mopub-ios-sdk/blob/master/CHANGELOG.md) for details.
 
-- **Features**
-    - For Rewarded ads, the client-side callback will now be invoked when using server-side rewarding.
-    - Non-mediated interstitial, rewarded, and native ad placer ads will expire within 4 hours.
-
 - **Bug Fixes**
-    - Fix old custom events that use the wrong native renderer.
-    - Replace usage of typeof with __typeof__ for C99 and C11 compliance.
-    - Fix CFBridgingRetain casting bug.
-    - Native ad impression tracker will now fire while scrolling.
-    - Fix HTML click tracker to fire when using window.location and window.open.
+    - Updated Facebook Audience Network banner and interstitial impression tracking
+    - Allow taps to pass through the gradient overlays for rewarded videos
 
 See the [Getting Started Guide](https://github.com/mopub/mopub-ios-sdk/wiki/Getting-Started#app-transport-security-settings) for instructions on setting up ATS in your app.  
 

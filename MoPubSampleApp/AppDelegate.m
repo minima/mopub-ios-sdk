@@ -15,6 +15,10 @@
 #import "MPLogging.h"
 #import <UIKit/UIKit.h>
 
+#if CUSTOM_EVENTS_ENABLED
+#import <FBAudienceNetwork/FBAudienceNetwork.h>
+#endif
+
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -32,6 +36,10 @@
     [[UITableViewHeaderFooterView appearance] setTintColor:[UIColor colorWithRed:0.4 green:0.4 blue:0.4 alpha:1]];
     navController.navigationBar.barStyle = UIBarStyleBlackOpaque;
     navController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName: [UIColor colorWithRed:0.86 green:0.86 blue:0.86 alpha:1]};
+
+#if CUSTOM_EVENTS_ENABLED
+    [FBAdSettings addTestDevice:[FBAdSettings testDeviceHash]];
+#endif
 
     return YES;
 }

@@ -10,6 +10,8 @@
 #import "MPAdConfigurationFactory.h"
 #import "MPVASTTrackingEvent.h"
 #import "MPRewardedVideoReward.h"
+#import "MOPUBExperimentProvider.h"
+#import "MPAdConfiguration+Testing.h"
 
 @interface MPAdConfigurationTests : XCTestCase
 

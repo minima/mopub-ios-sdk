@@ -107,17 +107,22 @@
 
 #pragma mark FBAdViewDelegate methods
 
-- (void)adView:(FBAdView *)adView didFailWithError:(NSError *)error;
+- (void)adView:(FBAdView *)adView didFailWithError:(NSError *)error
 {
     MPLogInfo(@"Facebook banner failed to load with error: %@", error.description);
     [self.delegate bannerCustomEvent:self didFailToLoadAdWithError:error];
 }
 
-- (void)adViewDidLoad:(FBAdView *)adView;
+- (void)adViewDidLoad:(FBAdView *)adView
 {
     MPLogInfo(@"Facebook banner ad did load");
-    [self.delegate trackImpression];
     [self.delegate bannerCustomEvent:self didLoadAd:adView];
+}
+
+- (void)adViewWillLogImpression:(FBAdView *)adView
+{
+    MPLogInfo(@"Facebook banner ad did log impression");
+    [self.delegate trackImpression];
 }
 
 - (void)adViewDidClick:(FBAdView *)adView

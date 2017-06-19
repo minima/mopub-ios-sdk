@@ -1,38 +1,38 @@
 PODS:
   - AdColony (3.1.1)
-  - ChartboostSDK (6.6.2)
-  - FBAudienceNetwork (4.15.1)
-  - Flurry-iOS-SDK/FlurryAds (7.6.6):
+  - ChartboostSDK (6.6.3)
+  - FBAudienceNetwork (4.23.0)
+  - Flurry-iOS-SDK/FlurryAds (8.1.0):
     - Flurry-iOS-SDK/FlurrySDK
-  - Flurry-iOS-SDK/FlurrySDK (7.6.6)
-  - Google-Mobile-Ads-SDK (7.18.0)
+  - Flurry-iOS-SDK/FlurrySDK (8.1.0)
+  - Google-Mobile-Ads-SDK (7.19.1)
   - mopub-ios-sdk (4.11.1):
     - mopub-ios-sdk/MoPubSDK (= 4.11.1)
   - mopub-ios-sdk/AdColonyCustomEvents (4.11.1):
     - AdColony (~> 3.0)
     - mopub-ios-sdk/MoPubSDK
   - mopub-ios-sdk/AdMobCustomEvents (4.11.1):
-    - Google-Mobile-Ads-SDK (~> 7.18.0)
+    - Google-Mobile-Ads-SDK (~> 7.19.0)
     - mopub-ios-sdk/MoPubSDK
   - mopub-ios-sdk/ChartboostCustomEvents (4.11.1):
-    - ChartboostSDK (~> 6.5)
+    - ChartboostSDK (~> 6.0)
     - mopub-ios-sdk/MoPubSDK
   - mopub-ios-sdk/FacebookCustomEvents (4.11.1):
-    - FBAudienceNetwork (~> 4.15.1)
+    - FBAudienceNetwork (~> 4.0)
     - mopub-ios-sdk/MoPubSDK
   - mopub-ios-sdk/FlurryCustomEvents (4.11.1):
-    - Flurry-iOS-SDK/FlurryAds (~> 7.6.4)
-    - Flurry-iOS-SDK/FlurrySDK (~> 7.6.4)
+    - Flurry-iOS-SDK/FlurryAds (~> 8.0)
+    - Flurry-iOS-SDK/FlurrySDK (~> 8.0)
     - mopub-ios-sdk/MoPubSDK
   - mopub-ios-sdk/MoPubSDK (4.11.1)
   - mopub-ios-sdk/TapjoyCustomEvents (4.11.1):
     - mopub-ios-sdk/MoPubSDK
-    - TapjoySDK (= 11.5.1)
+    - TapjoySDK (~> 11.0)
   - mopub-ios-sdk/VungleCustomEvents (4.11.1):
     - mopub-ios-sdk/MoPubSDK
-    - VungleSDK-iOS (~> 4.0.6)
-  - TapjoySDK (11.5.1)
-  - VungleSDK-iOS (4.0.9)
+    - VungleSDK-iOS (~> 4.0)
+  - TapjoySDK (11.10.2)
+  - VungleSDK-iOS (4.1.0)
 
 DEPENDENCIES:
   - mopub-ios-sdk (from `../../`)
@@ -50,13 +50,13 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   AdColony: 27bcddd3d79b24f61765dd799fcc666975f90daa
-  ChartboostSDK: 9248a129d363432b43eee0a18454dcf6f46f8d9d
-  FBAudienceNetwork: 4e3859a04314972e6b3ab401784379fa8dfd56a6
-  Flurry-iOS-SDK: 97bbeec09cca666c2f1772f6e161c4f8ccff611e
-  Google-Mobile-Ads-SDK: 658065b4cb5a299bea254c4d24bf7786b6d3e75d
-  mopub-ios-sdk: 9a45395400b42b2ea2e22b24d6f703945e88646b
-  TapjoySDK: af2985b5de89af5b9ba61c762a7ecad76fc60c78
-  VungleSDK-iOS: '053446955ef1fa777fd699b6bea6635cac604524'
+  ChartboostSDK: c0aefb3c25efcd1fa9a43fb45547ea98b323c95c
+  FBAudienceNetwork: 20a0e3d20e377dbb6708365e4c6d0711bf08ca97
+  Flurry-iOS-SDK: 51065be4436f3e21fc8d3d7bb0b7d6869df6333d
+  Google-Mobile-Ads-SDK: 43ac87810e4961f5093024d3525bfe022f956da3
+  mopub-ios-sdk: ec1bfa23bf2e72790a0dd6133ae1c3db4726bb5b
+  TapjoySDK: e12ca74dc0ff0ef18c252c9035975857ee1e032d
+  VungleSDK-iOS: 0dac102fa56e0a6f24444b4f500d1ccf2e43ea79
 
 PODFILE CHECKSUM: a249b82bc975fd6b0adb4dbd94bde82e888c121b
 
