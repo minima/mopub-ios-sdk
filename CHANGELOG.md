@@ -1,43 +1,43 @@
 ## Version 4.15.0 (June 19th, 2017)
 - **Bug Fixes**
-- Updated Facebook Audience Network banner and interstitial impression tracking
-- Allow taps to pass through the gradient overlays for rewarded videos
+  - Updated Facebook Audience Network banner and interstitial impression tracking
+  - Allow taps to pass through the gradient overlays for rewarded videos
 
 ## Version 4.14.0 (May 10th, 2017)
 - **Features**
-- For Rewarded ads, the client-side callback will now be invoked when using server-side rewarding.
-- Non-mediated interstitial, rewarded, and native ad placer ads will expire within 4 hours.
+  - For Rewarded ads, the client-side callback will now be invoked when using server-side rewarding.
+  - Non-mediated interstitial, rewarded, and native ad placer ads will expire within 4 hours.
 
 - **Bug Fixes**
-- Fix old custom events that use the wrong native renderer.
-- Replace usage of typeof with __typeof__ for C99 and C11 compliance.
-- Fix CFBridgingRetain casting bug.
-- Native ad impression tracker will now fire while scrolling.
-- Fix HTML click tracker to fire when using window.location and window.open.
+  - Fix old custom events that use the wrong native renderer.
+  - Replace usage of typeof with __typeof__ for C99 and C11 compliance.
+  - Fix CFBridgingRetain casting bug.
+  - Native ad impression tracker will now fire while scrolling.
+  - Fix HTML click tracker to fire when using window.location and window.open.
 
 ## Version 4.13.1 (April 6th, 2017)
 - **Bug Fixes**
-- Fixed compile error in the MoPub Base SDK Excluding Native bundle.
+  - Fixed compile error in the MoPub Base SDK Excluding Native bundle.
 
 ## Version 4.13.0 (March 23rd, 2017)
 - **Features**
-- Added support for mediation of Google AdMob rewarded video demand (Google Mobile Ads SDK v7.19.0).
-- Google AdMob native ads mediation is now generally available (Google Mobile Ads SDK v7.19.0).
-- Updated the Tapjoy network mediation adapter to support Tapjoy SDK v11.10.0
+  - Added support for mediation of Google AdMob rewarded video demand (Google Mobile Ads SDK v7.19.0).
+  - Google AdMob native ads mediation is now generally available (Google Mobile Ads SDK v7.19.0).
+  - Updated the Tapjoy network mediation adapter to support Tapjoy SDK v11.10.0
 
 - **Bug Fixes**
-- Introduced additional preventative measures to improve creative quality.
+  - Introduced additional preventative measures to improve creative quality.
 
 ## Version 4.12.0 (February 9th, 2017)
 - **Features**
-- Rewarded ad units now support rich media.
-- Allow MoPub static native renderer to render Flurry native ads.
-- Removed size limit for native ad main images.
+  - Rewarded ad units now support rich media.
+  - Allow MoPub static native renderer to render Flurry native ads.
+  - Removed size limit for native ad main images.
 
 - **Bug Fixes**
-- Native video selection logic now filters by supported MIME types.
-- Ad placer now supports section count.
-- Fix CFStringRef variable initialization.
+  - Native video selection logic now filters by supported MIME types.
+  - Ad placer now supports section count.
+  - Fix CFStringRef variable initialization.
 
 ## Version 4.11.1 (November 28th, 2016)
 - **App Transport Security Updates**
