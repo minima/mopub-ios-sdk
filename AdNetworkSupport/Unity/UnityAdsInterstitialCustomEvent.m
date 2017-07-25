@@ -16,6 +16,7 @@ static NSString *const kUnityAdsOptionZoneIdKey = @"zoneId";
 
 @interface UnityAdsInterstitialCustomEvent () <MPUnityRouterDelegate>
 
+@property BOOL loadRequested;
 @property (nonatomic, copy) NSString *placementId;
 
 @end
@@ -27,8 +28,8 @@ static NSString *const kUnityAdsOptionZoneIdKey = @"zoneId";
     [[MPUnityRouter sharedRouter] clearDelegate:self];
 }
 
-- (void)requestInterstitialWithCustomEventInfo:(NSDictionary *)info
-{
+- (void)requestInterstitialWithCustomEventInfo:(NSDictionary *)info {
+    self.loadRequested = YES;
     NSString *gameId = [info objectForKey:kMPUnityRewardedVideoGameId];
     self.placementId = [info objectForKey:kUnityAdsOptionPlacementIdKey];
     if (self.placementId == nil) {
@@ -74,7 +75,10 @@ static NSString *const kUnityAdsOptionZoneIdKey = @"zoneId";
 
 - (void)unityAdsReady:(NSString *)placementId
 {
-    [self.delegate interstitialCustomEvent:self didLoadAd:placementId];
+    if (self.loadRequested) {
+        [self.delegate interstitialCustomEvent:self didLoadAd:placementId];
+        self.loadRequested = NO;
+    }
 }
 
 - (void)unityAdsDidError:(UnityAdsError)error withMessage:(NSString *)message

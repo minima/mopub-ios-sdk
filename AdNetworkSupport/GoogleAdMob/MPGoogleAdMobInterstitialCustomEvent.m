@@ -84,7 +84,7 @@
     self.interstitial.delegate = nil;
 }
 
-#pragma mark - IMAdInterstitialDelegate
+#pragma mark - GADInterstitialDelegate
 
 - (void)interstitialDidReceiveAd:(GADInterstitial *)interstitial
 {
@@ -121,6 +121,7 @@
 {
     MPLogInfo(@"Google AdMob Interstitial will leave application");
     [self.delegate interstitialCustomEventDidReceiveTapEvent:self];
+    [self.delegate interstitialCustomEventWillLeaveApplication:self];
 }
 
 @end

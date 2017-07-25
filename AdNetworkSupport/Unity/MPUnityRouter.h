@@ -15,6 +15,8 @@
 @interface MPUnityRouter : NSObject <UnityAdsExtendedDelegate>
 
 @property (nonatomic, weak) id<MPUnityRouterDelegate> delegate;
+@property NSMutableDictionary* delegateMap;
+@property NSString* currentPlacementId;
 
 + (MPUnityRouter *)sharedRouter;
 
@@ -32,7 +34,9 @@
 - (void)unityAdsDidStart:(NSString *)placementId;
 - (void)unityAdsDidFinish:(NSString *)placementId withFinishState:(UnityAdsFinishState)state;
 - (void)unityAdsDidClick:(NSString *)placementId;
-
 - (void)unityAdsDidFailWithError:(NSError *)error;
+
+@optional
+- (void)unityAdsPlacementStateChanged:(NSString*)placementId oldState:(UnityAdsPlacementState)oldState newState:(UnityAdsPlacementState)newState;
 
 @end
