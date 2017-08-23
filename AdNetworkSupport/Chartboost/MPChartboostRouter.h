@@ -24,6 +24,7 @@
 @property (nonatomic, strong) NSMutableDictionary *rewardedVideoEvents;
 
 + (MPChartboostRouter *)sharedRouter;
+- (void)startWithAppId:(NSString *)appId appSignature:(NSString *)appSignature;
 
 
 /*

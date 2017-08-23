@@ -76,8 +76,12 @@
              [MPAdInfo infoWithTitle:@"Rewarded Rich Media Ad" ID:@"98c29e015e7346bd9c380b1467b33850" type:MPAdInfoRewardedVideo],
     // 3rd Party Networks
     #if CUSTOM_EVENTS_ENABLED
+             [MPAdInfo infoWithTitle:@"AdColony" ID:@"52aa460767374250a5aa5174c2345be3" type:MPAdInfoRewardedVideo],
+             [MPAdInfo infoWithTitle:@"AdMob" ID:@"c0698ac4fb2940379b5465335eeefc5a" type:MPAdInfoRewardedVideo],
              [MPAdInfo infoWithTitle:@"Chartboost" ID:@"8be0bb08fb4f4e90a86416c29c235d4a" type:MPAdInfoRewardedVideo],
+             [MPAdInfo infoWithTitle:@"Facebook" ID:@"5a138cf1a03643ca851647d2b2e20d0d" type:MPAdInfoRewardedVideo],
              [MPAdInfo infoWithTitle:@"Tapjoy" ID:@"58e30d62673e4c85b2098887a4218816" type:MPAdInfoRewardedVideo],
+             [MPAdInfo infoWithTitle:@"Unity Ads" ID:@"676a0fa97aca48cbbe489de5b2fa4cd1" type:MPAdInfoRewardedVideo],
              [MPAdInfo infoWithTitle:@"Vungle" ID:@"48274e80f11b496bb3532c4f59f28d12" type:MPAdInfoRewardedVideo],
     #endif
              ];
@@ -98,6 +102,7 @@
              [MPAdInfo infoWithTitle:@"Flurry Native Ad" ID:@"1023187dc1984ec28948b49220e1e3d4" type:MPAdInfoNative],
              [MPAdInfo infoWithTitle:@"Flurry Native Video Ad" ID:@"86fa46ac76c546178f1a5774bad66103" type:MPAdInfoNative],
              [MPAdInfo infoWithTitle:@"Flurry Native Ad (TableView Placer)" ID:@"1023187dc1984ec28948b49220e1e3d4" type:MPAdInfoNativeTableViewPlacer],
+             [MPAdInfo infoWithTitle:@"Google AdMob" ID:@"e1598f16673a409e95c66e79ba592aeb" type:MPAdInfoNative],
              [MPAdInfo infoWithTitle:@"Millennial" ID:@"b6191f80fa6f4241a942254df07f0b59" type:MPAdInfoNative],
     #endif
              ];

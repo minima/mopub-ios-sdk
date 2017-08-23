@@ -63,7 +63,7 @@ static NSString * const kSecondAdditionalCompleteTrackerUrl = @"mopub.com/comple
     XCTAssertEqual(videoConfig2.completionTrackers.count, 0);
 }
 
-// Test when there are trackers in vast but no trackers in additonalTrackers
+// Test when there are trackers in vast but no trackers in additonalTrackers. This test also ensures that trackers with no URLs are not included in the video config
 - (void)testNonEmptyVastEmptyAdditionalTrackers {
     XCTestExpectation *expectation = [self expectationWithDescription:@"Wait for fetching data from xml."];
 
@@ -81,6 +81,7 @@ static NSString * const kSecondAdditionalCompleteTrackerUrl = @"mopub.com/comple
 
     // linear-tracking.xml has 1 for each of the following trackers: start, firstQuartile, midpoint, thirdQuartile, and complete.
     MPVideoConfig *videoConfig = [[MPVideoConfig alloc] initWithVASTResponse:vastResponse additionalTrackers:nil];
+    XCTAssertEqual(videoConfig.creativeViewTrackers.count, 1);
     XCTAssertEqual(videoConfig.startTrackers.count, 1);
     XCTAssertEqual(videoConfig.firstQuartileTrackers.count, 1);
     XCTAssertEqual(videoConfig.midpointTrackers.count, 1);
@@ -89,6 +90,7 @@ static NSString * const kSecondAdditionalCompleteTrackerUrl = @"mopub.com/comple
 
     // additionalTrackers are not nil but there is nothing inside
     MPVideoConfig *videoConfig2 = [[MPVideoConfig alloc] initWithVASTResponse:vastResponse additionalTrackers:[NSDictionary new]];
+    XCTAssertEqual(videoConfig.creativeViewTrackers.count, 1);
     XCTAssertEqual(videoConfig2.startTrackers.count, 1);
     XCTAssertEqual(videoConfig2.firstQuartileTrackers.count, 1);
     XCTAssertEqual(videoConfig2.midpointTrackers.count, 1);

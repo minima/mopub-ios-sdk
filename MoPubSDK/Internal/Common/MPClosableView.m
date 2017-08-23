@@ -51,7 +51,7 @@ CGRect MPClosableViewCustomCloseButtonFrame(CGSize size, MPClosableViewCloseButt
 
 @interface MPClosableView () <UIGestureRecognizerDelegate>
 
-@property (nonatomic, strong) UIButton *closeButton;
+@property (nonatomic, strong, readwrite) UIButton *closeButton;
 @property (nonatomic, strong) UIImage *closeButtonImage;
 @property (nonatomic, strong) MPUserInteractionGestureRecognizer *userInteractionRecognizer;
 @property (nonatomic, assign) BOOL wasTapped;

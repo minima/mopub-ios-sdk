@@ -7,10 +7,13 @@
 
 #import <XCTest/XCTest.h>
 #import "MPAdConfiguration.h"
+#import "MPAPIEndpoints.h"
 #import "MPRewardedVideoAdManager.h"
 #import "MPRewardedVideoAdManager+Testing.h"
 #import "MPRewardedVideoDelegateHandler.h"
 #import "MPRewardedVideoReward.h"
+#import "MPMockAdServerCommunicator.h"
+#import "NSURLComponents+Testing.h"
 
 static NSString * const kTestAdUnitId = @"967f82c7-c059-4ae8-8cb6-41c34265b1ef";
 static const NSTimeInterval kTestTimeout   = 2; // seconds
@@ -247,6 +250,30 @@ static const NSTimeInterval kTestTimeout   = 2; // seconds
 
     XCTAssertNil(rewardForUser);
     XCTAssertTrue(didFail);
+}
+
+#pragma mark - Viewability
+
+- (void)testViewabilityQueryParameter {
+    // Rewarded video ads should send a viewability query parameter.
+    MPMockAdServerCommunicator * mockAdServerCommunicator = nil;
+    MPRewardedVideoAdManager * rewardedAd = [[MPRewardedVideoAdManager alloc] initWithAdUnitID:kTestAdUnitId delegate:nil];
+    rewardedAd.communicator = ({
+        MPMockAdServerCommunicator * mock = [[MPMockAdServerCommunicator alloc] initWithDelegate:rewardedAd];
+        mockAdServerCommunicator = mock;
+        mock;
+    });
+    [rewardedAd loadRewardedVideoAdWithKeywords:@"" location:nil customerId:@""];
+
+    XCTAssertNotNil(mockAdServerCommunicator);
+    XCTAssertNotNil(mockAdServerCommunicator.lastUrlLoaded);
+
+    NSURL * url = mockAdServerCommunicator.lastUrlLoaded;
+    NSURLComponents * urlComponents = [NSURLComponents componentsWithURL:url resolvingAgainstBaseURL:MOPUB_BASE_HOSTNAME];
+
+    NSString * viewabilityQueryParamValue = [urlComponents valueForQueryParameter:@"vv"];
+    XCTAssertNotNil(viewabilityQueryParamValue);
+    XCTAssertTrue([viewabilityQueryParamValue isEqualToString:@"1"]);
 }
 
 @end

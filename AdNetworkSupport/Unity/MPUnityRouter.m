@@ -23,7 +23,7 @@
 - (id) init {
     self = [super init];
     self.delegateMap = [[NSMutableDictionary alloc] init];
-    
+
     return self;
 }
 
@@ -32,19 +32,23 @@
     return [[MPInstanceProvider sharedProvider] sharedMPUnityRouter];
 }
 
+- (void)initializeWithGameId:(NSString *)gameId
+{
+    static dispatch_once_t unityInitToken;
+    dispatch_once(&unityInitToken, ^{
+        UADSMediationMetaData *mediationMetaData = [[UADSMediationMetaData alloc] init];
+        [mediationMetaData setName:@"MoPub"];
+        [mediationMetaData setVersion:[[MoPub sharedInstance] version]];
+        [mediationMetaData commit];
+        [UnityAds initialize:gameId delegate:self];
+    });
+}
+
 - (void)requestVideoAdWithGameId:(NSString *)gameId placementId:(NSString *)placementId delegate:(id<MPUnityRouterDelegate>)delegate;
 {
     if (!self.isAdPlaying) {
         [self.delegateMap setObject:delegate forKey:placementId];
-        
-        static dispatch_once_t unityInitToken;
-        dispatch_once(&unityInitToken, ^{
-            UADSMediationMetaData *mediationMetaData = [[UADSMediationMetaData alloc] init];
-            [mediationMetaData setName:@"MoPub"];
-            [mediationMetaData setVersion:[[MoPub sharedInstance] version]];
-            [mediationMetaData commit];
-            [UnityAds initialize:gameId delegate:self];
-        });
+        [self initializeWithGameId:gameId];
 
         // Need to check immediately as an ad may be cached.
         if ([self isAdAvailableForPlacementId:placementId]) {

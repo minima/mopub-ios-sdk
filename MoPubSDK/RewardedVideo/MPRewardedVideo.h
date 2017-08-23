@@ -23,6 +23,14 @@
 @interface MPRewardedVideo : NSObject
 
 /**
+ * Initializes the rewarded networks in order.
+ *
+ * @param rewardedNetworks An ordered array of `MPRewardedVideoNetwork` values. If the parameter is empty or `nil`,
+ * nothing will happen.
+ */
++ (void)initializeWithOrder:(NSArray<NSString *> *)rewardedNetworks;
+
+/**
  * Loads a rewarded video ad for the given ad unit ID.
  *
  * The mediation settings array should contain ad network specific objects for networks that may be loaded for the given ad unit ID.

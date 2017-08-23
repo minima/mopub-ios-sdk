@@ -1,3 +1,30 @@
+## Version 4.16.0 (August 23, 2017)
+- **Features**
+  - Added viewability support for Integral Ad Science (IAS) and Moat, two of the leading independent viewability measurement providers
+    - To disable this feature, see note below on [Disabling Viewability Measurement](#disableViewability).
+  - New app launch rewarded video initialization method for mediated network SDKs
+- **Bug Fixes**
+  - Fixed native video crash caused by empty VAST tracking event
+  - Prevent interstitials from firing clicks without user interaction
+### <a name="disableViewability"></a>Disabling Viewability Measurement
+There are a few options for opting out of viewability measurement: 
+##### Opting Out in a Manual Integration
+Before dragging the MoPubSDK folder into your Xcode project, simply delete the “Moat” folder to opt out of Moat or the “Avid” folder to opt out of IAS in MoPubSDK/Viewability/. If you would like to opt out of both, delete both folders.
+##### Opting Out in a CocoaPods Integration
+Including `pod 'mopub-ios-sdk'` in your Podfile will include both IAS and Moat SDKs, as well as the MoPub SDK. In order to opt out:
+- `pod 'mopub-ios-sdk/Avid'` will include the IAS SDK, but not the Moat SDK, as well as the MoPub SDK.
+- `pod 'mopub-ios-sdk/Moat'` will include the Moat SDK, but not the IAS SDK, as well as the MoPub SDK.
+- `pod 'mopub-ios-sdk/Core'` will only include the MoPub SDK, with viewability measurement totally disabled.
+
+Make sure to run `pod update` once your Podfile is set up to your preferences.
+##### Software Disable
+If you would like to opt out of viewability measurement but do not want to modify the MoPub SDK, a function is provided for your convenience. As soon as possible after calling `[[MoPub sharedInstance] start]`, call `[[MoPub sharedInstance] disableViewability:(vendors)]`. In place of “(vendors)”, `MPViewabilityOptionIAS` will disable IAS but leave Moat enabled, `MPViewabilityOptionMoat` will disable Moat but leave IAS enabled, and `MPViewabilityOptionAll` will disable all viewability measurement.
+
+### Disclosure
+MoPub v4.16 SDK integrates technology from our partners Integral Ad Science, Inc. (“IAS”) and Moat, Inc. (“Moat”) in order to support viewability measurement and other proprietary reporting that [IAS](https://integralads.com/capabilities/viewability/) and [Moat](https://moat.com/analytics) provide to their advertiser and publisher clients. You have the option to remove or disable this technology by following the opt-out instructions [above](#disableViewability).  
+
+If you do not remove or disable IAS's and/or Moat’s technology in accordance with these instructions, you agree that IAS's [privacy policy](https://integralads.com/privacy-policy/) and [license](https://integralads.com/sdk-license-agreement) and Moat’s [privacy policy](https://moat.com/privacy),  [terms](https://moat.com/terms), and [license](https://moat.com/sdklicense.txt), respectively, apply to your integration of these partners' technologies into your application.
+
 ## Version 4.15.0 (June 19th, 2017)
 - **Bug Fixes**
   - Updated Facebook Audience Network banner and interstitial impression tracking

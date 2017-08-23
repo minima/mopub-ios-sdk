@@ -21,6 +21,7 @@
 
 #ifdef CUSTOM_EVENTS_ENABLED
 #import "FlurryNativeVideoAdRenderer.h"
+#import "MPGoogleAdMobNativeRenderer.h"
 #endif
 
 NSString *const kNativeAdDefaultActionViewKey = @"kNativeAdDefaultActionButtonKey";
@@ -102,7 +103,8 @@ NSString *const kNativeAdDefaultActionViewKey = @"kNativeAdDefaultActionButtonKe
 
     #ifdef CUSTOM_EVENTS_ENABLED
     MPNativeAdRendererConfiguration * flurryConfig = [FlurryNativeVideoAdRenderer rendererConfigurationWithRendererSettings:nativeVideoAdSettings];
-    [configurations addObject:flurryConfig];
+    MPNativeAdRendererConfiguration *admobConfig = [MPGoogleAdMobNativeRenderer rendererConfigurationWithRendererSettings:settings];
+    [configurations addObjectsFromArray:@[admobConfig, flurryConfig]];
     #endif
 
     MPNativeAdRequest *adRequest1 = [MPNativeAdRequest requestWithAdUnitIdentifier:self.info.ID rendererConfigurations:configurations];

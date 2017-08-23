@@ -20,6 +20,7 @@
 
 + (MPUnityRouter *)sharedRouter;
 
+- (void)initializeWithGameId:(NSString *)gameId;
 - (void)requestVideoAdWithGameId:(NSString *)gameId placementId:(NSString *)placementId delegate:(id<MPUnityRouterDelegate>)delegate;
 - (BOOL)isAdAvailableForPlacementId:(NSString *)placementId;
 - (void)presentVideoAdFromViewController:(UIViewController *)viewController customerId:(NSString *)customerId placementId:(NSString *)placementId settings:(UnityAdsInstanceMediationSettings *)settings delegate:(id<MPUnityRouterDelegate>)delegate;

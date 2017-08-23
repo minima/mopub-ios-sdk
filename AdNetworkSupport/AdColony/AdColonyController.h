@@ -25,4 +25,6 @@
  */
 + (void)initializeAdColonyCustomEventWithAppId:(NSString *)appId allZoneIds:(NSArray *)allZoneIds userId:(NSString *)userId callback:(void(^)())callback;
 
++ (void)setUserId:(NSString *)userId;
+
 @end

@@ -68,6 +68,9 @@ textEncodingName:(NSString *)encodingName
 @property (nonatomic, readonly) BOOL allowsPictureInPictureMediaPlayback;
 #endif
 
++ (void)forceWKWebView:(BOOL)shouldForce;
++ (BOOL)isForceWKWebView;
+
 - (void)loadHTMLString:(NSString *)string
                baseURL:(NSURL *)baseURL;
 

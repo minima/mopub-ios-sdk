@@ -12,188 +12,273 @@
 #import "MPRewardedVideoError.h"
 #import "MPRewardedVideo.h"
 
-static NSString * const VunglePluginVersion = @"1_0_0";
+static NSString *const VunglePluginVersion = @"5.1.0";
 
-static NSString *gAppId = nil;
-static NSString *const kMPVungleRewardedAdCompletedView = @"completedView";
-static NSString *const kMPVungleAdUserDidDownloadKey = @"didDownload";
+static NSString *const kVungleAppIdKey = @"appId";
+static NSString *const kVunglePlacementIdKey = @"pid";
+static NSString *const kVunglePlacementIdsKey = @"pids";
 
-static const NSTimeInterval VungleInitTimeout = 2.0;
+typedef NS_ENUM(NSUInteger, SDKInitializeState) {
+    SDKInitializeStateNotInitialized,
+    SDKInitializeStateInitializing,
+    SDKInitializeStateInitialized
+};
 
 @interface MPVungleRouter ()
 
-@property (nonatomic, assign) BOOL isWaitingForInit;
+@property (nonatomic, copy) NSString *vungleAppID;
 @property (nonatomic, assign) BOOL isAdPlaying;
+@property (nonatomic, assign) SDKInitializeState sdkInitializeState;
+
+@property (nonatomic, strong) NSMutableDictionary *delegatesDic;
+@property (nonatomic, strong) NSMutableDictionary *waitingListDic;
 
 @end
 
 @implementation MPVungleRouter
 
-+ (void)setAppId:(NSString *)appId
-{
-    gAppId = [appId copy];
+
+- (instancetype)init {
+    if (self = [super init]) {
+        self.sdkInitializeState = SDKInitializeStateNotInitialized;
+
+        self.delegatesDic = [NSMutableDictionary dictionary];
+        self.waitingListDic = [NSMutableDictionary dictionary];
+        self.isAdPlaying = NO;
+    }
+    return self;
 }
 
-+ (MPVungleRouter *)sharedRouter
-{
++ (MPVungleRouter *)sharedRouter {
     return [[MPInstanceProvider sharedProvider] sharedMPVungleRouter];
 }
 
-- (void)requestInterstitialAdWithCustomEventInfo:(NSDictionary *)info delegate:(id<MPVungleRouterDelegate>)delegate
-{
-    if (!self.isAdPlaying) {
-        [self requestAdWithCustomEventInfo:info delegate:delegate];
-    } else {
-        [delegate vungleAdDidFailToLoad:nil];
+- (void)initializeSdkWithInfo:(NSDictionary *)info {
+    NSString *appId = [info objectForKey:kVungleAppIdKey];
+    if (!self.vungleAppID) {
+        self.vungleAppID = appId;
     }
-}
 
-- (void)requestRewardedVideoAdWithCustomEventInfo:(NSDictionary *)info delegate:(id<MPVungleRouterDelegate>)delegate
-{
-    if (!self.isAdPlaying) {
-        [self requestAdWithCustomEventInfo:info delegate:delegate];
-    } else {
-        NSError *error = [NSError errorWithDomain:MoPubRewardedVideoAdsSDKDomain code:MPRewardedVideoAdErrorUnknown userInfo:nil];
-        [delegate vungleAdDidFailToLoad:error];
-    }
-}
-
-- (void)requestAdWithCustomEventInfo:(NSDictionary *)info delegate:(id<MPVungleRouterDelegate>)delegate
-{
-    self.delegate = delegate;
+    NSString *placementIdsString = [[info objectForKey:kVunglePlacementIdsKey] stringByReplacingOccurrencesOfString:@" " withString:@""];
+    NSArray *placementIdsArray = [placementIdsString componentsSeparatedByString:@","];
 
     static dispatch_once_t vungleInitToken;
     dispatch_once(&vungleInitToken, ^{
-        NSString *appId = [info objectForKey:@"appId"];
-        if ([appId length] == 0) {
-            appId = gAppId;
-        }
-
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wundeclared-selector"
         [[VungleSDK sharedSDK] performSelector:@selector(setPluginName:version:) withObject:@"mopub" withObject:VunglePluginVersion];
 #pragma clang diagnostic pop
 
-        [[VungleSDK sharedSDK] startWithAppId:appId];
+        self.sdkInitializeState = SDKInitializeStateInitializing;
+        NSError * error = nil;
+        [[VungleSDK sharedSDK] startWithAppId:appId placements:placementIdsArray error:&error];
         [[VungleSDK sharedSDK] setDelegate:self];
-
-        self.isWaitingForInit = YES;
-        __weak MPVungleRouter *weakSelf = self;
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(VungleInitTimeout * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            MPVungleRouter *strongSelf = weakSelf;
-            if (strongSelf) {
-                if (strongSelf.isWaitingForInit) {
-                    strongSelf.isWaitingForInit = NO;
-                    [strongSelf.delegate vungleAdDidFailToLoad:nil];
-                }
-            }
-        });
     });
+}
 
-    if (!self.isWaitingForInit) {
-        if ([[VungleSDK sharedSDK] isAdPlayable]) {
-            [self.delegate vungleAdDidLoad];
-        } else {
-            [self.delegate vungleAdDidFailToLoad:nil];
+- (void)requestInterstitialAdWithCustomEventInfo:(NSDictionary *)info delegate:(id<MPVungleRouterDelegate>)delegate {
+    if ([self validateInfoData:info]) {
+        if (self.sdkInitializeState == SDKInitializeStateNotInitialized) {
+            [self.waitingListDic setObject:delegate forKey:[info objectForKey:kVunglePlacementIdKey]];
+            [self requestAdWithCustomEventInfo:info delegate:delegate];
+        }
+        else if (self.sdkInitializeState == SDKInitializeStateInitializing) {
+            [self.waitingListDic setObject:delegate forKey:[info objectForKey:kVunglePlacementIdKey]];
+        }
+        else if (self.sdkInitializeState == SDKInitializeStateInitialized) {
+            [self requestAdWithCustomEventInfo:info delegate:delegate];
+        }
+    }
+    else {
+        [delegate vungleAdDidFailToLoad:nil];
+    }
+}
+
+- (void)requestRewardedVideoAdWithCustomEventInfo:(NSDictionary *)info delegate:(id<MPVungleRouterDelegate>)delegate {
+    if ([self validateInfoData:info]) {
+        if (self.sdkInitializeState == SDKInitializeStateNotInitialized) {
+            [self.waitingListDic setObject:delegate forKey:[info objectForKey:kVunglePlacementIdKey]];
+            [self requestAdWithCustomEventInfo:info delegate:delegate];
+        }
+        else if (self.sdkInitializeState == SDKInitializeStateInitializing) {
+            [self.waitingListDic setObject:delegate forKey:[info objectForKey:kVunglePlacementIdKey]];
+        }
+        else if (self.sdkInitializeState == SDKInitializeStateInitialized) {
+            [self requestAdWithCustomEventInfo:info delegate:delegate];
+        }
+    }
+    else {
+        NSError *error = [NSError errorWithDomain:MoPubRewardedVideoAdsSDKDomain code:MPRewardedVideoAdErrorUnknown userInfo:nil];
+        [delegate vungleAdDidFailToLoad:error];
+    }
+}
+
+- (void)requestAdWithCustomEventInfo:(NSDictionary *)info delegate:(id<MPVungleRouterDelegate>)delegate {
+    [self initializeSdkWithInfo:info];
+
+    NSString *placementId = [info objectForKey:kVunglePlacementIdKey];
+    [self.delegatesDic setObject:delegate forKey:placementId];
+
+    NSError *error = nil;
+    if ([[VungleSDK sharedSDK] loadPlacementWithID:placementId error:&error]) {
+        NSLog(@"Vungle: Start to load an ad for Placement ID :%@", placementId);
+    } else {
+        if (error) {
+            NSLog(@"Vungle: Unable to load an ad for Placement ID :%@, Error %@", placementId, error);
         }
     }
 }
 
-- (BOOL)isAdAvailable
-{
-    return [[VungleSDK sharedSDK] isAdPlayable];
+- (BOOL)isAdAvailableForPlacementId:(NSString *) placementId {
+    return [[VungleSDK sharedSDK] isAdCachedForPlacementID:placementId];
 }
 
-- (void)presentInterstitialAdFromViewController:(UIViewController *)viewController withDelegate:(id<MPVungleRouterDelegate>)delegate
-{
-    if (!self.isAdPlaying && self.isAdAvailable) {
-        self.delegate = delegate;
+- (void)presentInterstitialAdFromViewController:(UIViewController *)viewController forPlacementId:(NSString *)placementId {
+    if (!self.isAdPlaying && [self isAdAvailableForPlacementId:placementId]) {
         self.isAdPlaying = YES;
-
-        BOOL success = [[VungleSDK sharedSDK] playAd:viewController error:nil];
-
+        NSError *error;
+        BOOL success = [[VungleSDK sharedSDK] playAd:viewController options:nil placementID:placementId error:&error];
         if (!success) {
-            [delegate vungleAdDidFailToPlay:nil];
+            [[self.delegatesDic objectForKey:placementId] vungleAdDidFailToPlay:nil];
+            self.isAdPlaying = NO;
         }
     } else {
-        [delegate vungleAdDidFailToPlay:nil];
+        [[self.delegatesDic objectForKey:placementId] vungleAdDidFailToPlay:nil];
     }
 }
 
-- (void)presentRewardedVideoAdFromViewController:(UIViewController *)viewController customerId:(NSString *)customerId settings:(VungleInstanceMediationSettings *)settings delegate:(id<MPVungleRouterDelegate>)delegate
-{
-    if (!self.isAdPlaying && self.isAdAvailable) {
-        self.delegate = delegate;
+- (void)presentRewardedVideoAdFromViewController:(UIViewController *)viewController customerId:(NSString *)customerId settings:(VungleInstanceMediationSettings *)settings forPlacementId:(NSString *)placementId {
+    if (!self.isAdPlaying && [self isAdAvailableForPlacementId:placementId]) {
         self.isAdPlaying = YES;
         NSDictionary *options;
-
         if (customerId.length > 0) {
-            options = @{VunglePlayAdOptionKeyIncentivized : @(YES), VunglePlayAdOptionKeyUser : customerId};
+            options = @{VunglePlayAdOptionKeyUser : customerId};
         } else if (settings && [settings.userIdentifier length]) {
-            options = @{VunglePlayAdOptionKeyIncentivized : @(YES), VunglePlayAdOptionKeyUser : settings.userIdentifier};
-        } else {
-            options = @{VunglePlayAdOptionKeyIncentivized : @(YES)};
+            options = @{VunglePlayAdOptionKeyUser : settings.userIdentifier};
         }
 
-        BOOL success = [[VungleSDK sharedSDK] playAd:viewController withOptions:options error:nil];
-
+        BOOL success = [[VungleSDK sharedSDK] playAd:viewController options:options placementID:placementId error:nil];
         if (!success) {
-            [delegate vungleAdDidFailToPlay:nil];
+            [[self.delegatesDic objectForKey:placementId] vungleAdDidFailToPlay:nil];
+            self.isAdPlaying = NO;
         }
     } else {
         NSError *error = [NSError errorWithDomain:MoPubRewardedVideoAdsSDKDomain code:MPRewardedVideoAdErrorNoAdsAvailable userInfo:nil];
-        [delegate vungleAdDidFailToPlay:error];
+        [[self.delegatesDic objectForKey:placementId] vungleAdDidFailToPlay:error];
     }
 }
 
-- (void)clearDelegate:(id<MPVungleRouterDelegate>)delegate
-{
-    if (self.delegate == delegate) {
-        [self setDelegate:nil];
-    }
-}
 
 #pragma mark - private
 
-- (void)vungleAdDidFinish
-{
-    [self.delegate vungleAdWillDisappear];
+- (BOOL)validateInfoData:(NSDictionary *)info {
+    BOOL isValid = YES;
+
+    NSString *appId = [info objectForKey:kVungleAppIdKey];
+    if ([appId length] == 0) {
+        isValid = NO;
+        MPLogError(@"Vungle: AppID is empty. Setup appID on MoPub dashboard.");
+    }
+    else {
+        if (self.vungleAppID && ![self.vungleAppID isEqualToString:appId]) {
+            isValid = NO;
+            MPLogError(@"Vungle: AppID is different from the one used for initialization. Make sure you set the same network App ID for all AdUnits in this application on MoPub dashboard.");
+        }
+    }
+
+    NSString *placementId = [info objectForKey:kVunglePlacementIdKey];
+    if ([placementId length] == 0) {
+        isValid = NO;
+        MPLogError(@"Vungle: PlacementID is empty. Setup placementID on MoPub dashboard.");
+    }
+
+    NSString *placementIdsString = [[info objectForKey:kVunglePlacementIdsKey] stringByReplacingOccurrencesOfString:@" " withString:@""];
+    NSArray *placementIdsArray = [placementIdsString componentsSeparatedByString:@","];
+    if (placementIdsArray.count == 0) {
+        isValid = NO;
+        MPLogError(@"Vungle: All PlacementIDs is empty. Setup all placementIDs on MoPub dashboard.");
+    }
+    else {
+        BOOL foundIdInArray = NO;
+        for (NSString *pid in placementIdsArray) {
+            if([pid isEqualToString:placementId]) {
+                foundIdInArray = YES;
+            }
+        }
+        if (!foundIdInArray) {
+            isValid = NO;
+            MPLogError(@"Vungle: PlacementID:%@ is not found in PlacmentIDs. Add this placementID in placementIDs data in network setting on MoPub dashboard.", placementId);
+        }
+    }
+
+    if (isValid) {
+        MPLogInfo(@"Vungle: Info data for the Ad Unit is valid.");
+    }
+
+    return isValid;
+}
+
+- (void)clearDelegateForPlacementId:(NSString *)placementId {
+    if (placementId != nil) {
+        [self.delegatesDic removeObjectForKey:placementId];
+    }
+}
+
+- (void)clearWaitingList {
+    for (id key in self.waitingListDic) {
+        id<MPVungleRouterDelegate> delegateInstance = [self.waitingListDic objectForKey:key];
+        [self.delegatesDic setObject:delegateInstance forKey:key];
+
+        NSError *error = nil;
+        if ([[VungleSDK sharedSDK] loadPlacementWithID:key error:&error]) {
+            MPLogInfo(@"Vungle: Start to load an ad for Placement ID :%@", key);
+        }
+        else {
+            if (error) {
+                MPLogInfo(@"Vungle: Unable to load an ad for Placement ID :%@, Error %@", key, error);
+            }
+        }
+    }
+
+    [self.waitingListDic removeAllObjects];
+}
+
+
+#pragma mark - VungleSDKDelegate Methods
+
+- (void) vungleSDKDidInitialize {
+    MPLogInfo(@"Vungle: the SDK has been initialized successfully.");
+
+    self.sdkInitializeState = SDKInitializeStateInitialized;
+    [self clearWaitingList];
+}
+
+- (void)vungleAdPlayabilityUpdate:(BOOL)isAdPlayable placementID:(NSString *)placementID {
+    if (isAdPlayable) {
+        [[self.delegatesDic objectForKey:placementID] vungleAdDidLoad];
+    }
+    else {
+        if (!self.isAdPlaying) {
+            [[self.delegatesDic objectForKey:placementID] vungleAdDidFailToLoad:nil];
+        }
+    }
+}
+
+- (void)vungleWillShowAdForPlacementID:(nullable NSString *)placementID {
+    [[self.delegatesDic objectForKey:placementID] vungleAdWillAppear];
+}
+
+- (void)vungleWillCloseAdWithViewInfo:(VungleViewInfo *)info placementID:(NSString *)placementID {
+    if ([info.didDownload isEqual:@YES]) {
+        [[self.delegatesDic objectForKey:placementID] vungleAdWasTapped];
+    }
+
+    if ([info.completedView boolValue] && [[self.delegatesDic objectForKey:placementID] respondsToSelector:@selector(vungleAdShouldRewardUser)]) {
+        [[self.delegatesDic objectForKey:placementID] vungleAdShouldRewardUser];
+    }
+
+    [[self.delegatesDic objectForKey:placementID] vungleAdWillDisappear];
     self.isAdPlaying = NO;
-}
-
-#pragma mark - VungleSDKDelegate
-
-- (void)vungleSDKAdPlayableChanged:(BOOL)isAdPlayable
-{
-    if (self.isWaitingForInit && isAdPlayable) {
-        self.isWaitingForInit = NO;
-        [self.delegate vungleAdDidLoad];
-    }
-}
-
-- (void)vungleSDKwillShowAd
-{
-    [self.delegate vungleAdWillAppear];
-}
-
-- (void)vungleSDKwillCloseAdWithViewInfo:(NSDictionary *)viewInfo willPresentProductSheet:(BOOL)willPresentProductSheet
-{
-    if ([viewInfo[kMPVungleAdUserDidDownloadKey] isEqual:@YES]) {
-        [self.delegate vungleAdWasTapped];
-    }
-
-    if ([[viewInfo objectForKey:kMPVungleRewardedAdCompletedView] boolValue] && [self.delegate respondsToSelector:@selector(vungleAdShouldRewardUser)]) {
-        [self.delegate vungleAdShouldRewardUser];
-    }
-
-    if (!willPresentProductSheet) {
-        [self vungleAdDidFinish];
-    }
-}
-
-- (void)vungleSDKwillCloseProductSheet:(id)productSheet
-{
-    [self vungleAdDidFinish];
 }
 
 @end

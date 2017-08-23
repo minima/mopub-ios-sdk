@@ -4,6 +4,7 @@
 #import "MPLogging.h"
 #import "MPRewardedVideoError.h"
 #import "MPRewardedVideoReward.h"
+#import "MPRewardedVideoCustomEvent+Caching.h"
 
 @interface MPGoogleAdMobRewardedVideoCustomEvent () <GADRewardBasedVideoAdDelegate>
 
@@ -11,14 +12,22 @@
 
 @implementation MPGoogleAdMobRewardedVideoCustomEvent
 
-- (void)requestRewardedVideoWithCustomEventInfo:(NSDictionary *)info {
-  NSString *applicationID = [info objectForKey:@"appid"];
+- (void)initializeSdkWithParameters:(NSDictionary *)parameters {
+  NSString *applicationID = [parameters objectForKey:@"appid"];
   if (applicationID) {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
       [GADMobileAds configureWithApplicationID:applicationID];
     });
   }
+}
+
+- (void)requestRewardedVideoWithCustomEventInfo:(NSDictionary *)info {
+  [self initializeSdkWithParameters:info];
+
+  // Cache the network initialization parameters
+  [self setCachedInitializationParameters:info];
+
   NSString *adUnitID = [info objectForKey:@"adunit"];
   if (!adUnitID) {
     NSError *error = [NSError errorWithDomain:MoPubRewardedVideoAdsSDKDomain

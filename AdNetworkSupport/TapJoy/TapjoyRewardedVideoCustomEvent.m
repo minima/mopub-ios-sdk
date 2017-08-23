@@ -7,6 +7,7 @@
 #import "MPRewardedVideoReward.h"
 #import "TapjoyGlobalMediationSettings.h"
 #import "MoPub.h"
+#import "MPRewardedVideoCustomEvent+Caching.h"
 
 @interface TapjoyRewardedVideoCustomEvent () <TJPlacementDelegate, TJCVideoAdDelegate>
 @property (nonatomic, strong) TJPlacement *placement;
@@ -60,9 +61,19 @@
     }
 }
 
+- (void)initializeSdkWithParameters:(NSDictionary *)parameters {
+    // Attempt to establish a connection to Tapjoy
+    if (![Tapjoy isConnected]) {
+        [self initializeWithCustomNetworkInfo:parameters];
+    }
+}
+
 - (void)requestRewardedVideoWithCustomEventInfo:(NSDictionary *)info {
     // Grab placement name defined in MoPub dashboard as custom event data
     self.placementName = info[@"name"];
+
+    // Cache network initialization info
+    [self setCachedInitializationParameters:info];
 
     // Adapter is making connect call on behalf of publisher, wait for success before requesting content.
     if (self.isConnecting) {

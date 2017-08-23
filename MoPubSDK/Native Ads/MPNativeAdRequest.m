@@ -78,7 +78,8 @@
                                     versionParameterName:@"nsv"
                                                  version:MP_SDK_VERSION
                                                  testing:NO
-                                           desiredAssets:[self.targeting.desiredAssets allObjects]];
+                                           desiredAssets:[self.targeting.desiredAssets allObjects]
+                                             viewability:NO];
 
         [self assignCompletionHandler:handler];
 
@@ -98,7 +99,8 @@
                                                  version:MP_SDK_VERSION
                                                  testing:NO
                                            desiredAssets:[self.targeting.desiredAssets allObjects]
-                                              adSequence:adSequence];
+                                              adSequence:adSequence
+                                             viewability:NO];
 
         [self assignCompletionHandler:handler];
 

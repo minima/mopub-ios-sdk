@@ -12,11 +12,30 @@
 #import "MPRewardedVideoReward.h"
 #import <Chartboost/Chartboost.h>
 #import "MPRewardedVideoError.h"
+#import "MPRewardedVideoCustomEvent+Caching.h"
 
 @interface ChartboostRewardedVideoCustomEvent () <ChartboostDelegate>
 @end
 
 @implementation ChartboostRewardedVideoCustomEvent
+
+- (void)initializeSdkWithParameters:(NSDictionary *)parameters
+{
+    NSString *appId = [parameters objectForKey:@"appId"];
+    NSString *appSignature = [parameters objectForKey:@"appSignature"];
+
+    if (appId == nil) {
+        MPLogInfo(@"No appId found in initialization parameters.");
+        return;
+    }
+
+    if (appSignature == nil) {
+        MPLogInfo(@"No appSignature found in initialization parameters.");
+        return;
+    }
+
+    [[MPChartboostRouter sharedRouter] startWithAppId:appId appSignature:appSignature];
+}
 
 - (void)requestRewardedVideoWithCustomEventInfo:(NSDictionary *)info
 {
@@ -26,6 +45,9 @@
 
     NSString *location = [info objectForKey:@"location"];
     self.location = location ? location : CBLocationDefault;
+
+    // Cache the network SDK initialization parameters
+    [self setCachedInitializationParameters:info];
 
     MPLogInfo(@"Requesting Chartboost rewarded video.");
     [[MPChartboostRouter sharedRouter] cacheRewardedAdWithAppId:appId appSignature:appSignature location:self.location forChartboostRewardedVideoCustomEvent:self];

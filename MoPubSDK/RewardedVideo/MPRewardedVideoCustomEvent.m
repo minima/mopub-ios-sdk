@@ -10,6 +10,12 @@
 
 @implementation MPRewardedVideoCustomEvent
 
+- (void)initializeSdkWithParameters:(NSDictionary *)parameters
+{
+    // The default implementation of this method does nothing. Subclasses must override this method
+    // and implement code to initialize the underlying SDK here.
+}
+
 - (void)requestRewardedVideoWithCustomEventInfo:(NSDictionary *)info
 {
     // The default implementation of this method does nothing. Subclasses must override this method

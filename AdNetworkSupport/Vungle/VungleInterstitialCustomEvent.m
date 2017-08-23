@@ -13,51 +13,48 @@
 
 // If you need to play ads with vungle options, you may modify playVungleAdFromRootViewController and create an options dictionary and call the playAd:withOptions: method on the vungle SDK.
 
+
+static NSString *const kVunglePlacementIdKey = @"pid";
+
+
 @interface VungleInterstitialCustomEvent () <MPVungleRouterDelegate>
 
 @property (nonatomic, assign) BOOL handledAdAvailable;
+@property (nonatomic, copy) NSString *placementId;
 
 @end
 
 @implementation VungleInterstitialCustomEvent
 
-+ (void)setAppId:(NSString *)appId
-{
-    MPLogWarn(@"+setAppId for class VungleInterstitialCustomEvent is deprecated. Use the appId parameter when configuring your network in the MoPub website.");
-    [MPVungleRouter setAppId:appId];
-}
 
 #pragma mark - MPInterstitialCustomEvent Subclass Methods
 
 - (void)requestInterstitialWithCustomEventInfo:(NSDictionary *)info
 {
+    self.placementId = [info objectForKey:kVunglePlacementIdKey];
+
     self.handledAdAvailable = NO;
     [[MPVungleRouter sharedRouter] requestInterstitialAdWithCustomEventInfo:info delegate:self];
 }
 
 - (void)showInterstitialFromRootViewController:(UIViewController *)rootViewController
 {
-    if ([[MPVungleRouter sharedRouter] isAdAvailable]) {
-        [[MPVungleRouter sharedRouter] presentInterstitialAdFromViewController:rootViewController withDelegate:self];
+    if ([[MPVungleRouter sharedRouter] isAdAvailableForPlacementId:self.placementId]) {
+        [[MPVungleRouter sharedRouter] presentInterstitialAdFromViewController:rootViewController forPlacementId:self.placementId];
     } else {
         MPLogInfo(@"Failed to show Vungle video interstitial: Vungle now claims that there is no available video ad.");
         [self.delegate interstitialCustomEvent:self didFailToLoadAdWithError:nil];
     }
 }
 
-- (void)dealloc
-{
-    [[MPVungleRouter sharedRouter] clearDelegate:self];
-}
-
 - (void)invalidate
 {
-    [[MPVungleRouter sharedRouter] clearDelegate:self];
+    [[MPVungleRouter sharedRouter] clearDelegateForPlacementId:self.placementId];
 }
 
 - (void)handleVungleAdViewWillClose
 {
-    MPLogInfo(@"Vungle video interstitial did disappear");
+    MPLogInfo(@"Vungle video interstitial will disappear");
 
     [self.delegate interstitialCustomEventWillDisappear:self];
     [self.delegate interstitialCustomEventDidDisappear:self];

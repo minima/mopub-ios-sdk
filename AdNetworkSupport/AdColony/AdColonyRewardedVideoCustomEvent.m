@@ -12,6 +12,9 @@
 #import "MoPub.h"
 #import "MPLogging.h"
 #import "MPRewardedVideoReward.h"
+#import "MPRewardedVideoCustomEvent+Caching.h"
+
+#define ADCOLONY_INITIALIZATION_TIMEOUT dispatch_time(DISPATCH_TIME_NOW, 30 * NSEC_PER_SEC)
 
 @interface AdColonyRewardedVideoCustomEvent ()
 
@@ -22,13 +25,31 @@
 
 @implementation AdColonyRewardedVideoCustomEvent
 
-- (void)requestRewardedVideoWithCustomEventInfo:(NSDictionary *)info {
-    NSString *appId = [info objectForKey:@"appId"];
+- (void)initializeSdkWithParameters:(NSDictionary *)parameters {
+    // Do not wait for the callback since this method may be run on app
+    // launch on the main thread.
+    [self initializeSdkWithParameters:parameters callback:^{
+        MPLogInfo(@"AdColony SDK initialization complete");
+    }];
+}
+
+- (void)initializeSdkWithParameters:(NSDictionary *)parameters callback:(void(^)())completionCallback {
+    NSString *appId = [parameters objectForKey:@"appId"];
     if (appId == nil) {
         MPLogError(@"Invalid setup. Use the appId parameter when configuring your network in the MoPub website.");
         return;
     }
 
+    NSArray *allZoneIds = [parameters objectForKey:@"allZoneIds"];
+    if (allZoneIds.count == 0) {
+        MPLogError(@"Invalid setup. Use the allZoneIds parameter when configuring your network in the MoPub website.");
+        return;
+    }
+
+    [AdColonyController initializeAdColonyCustomEventWithAppId:appId allZoneIds:allZoneIds userId:nil callback:completionCallback];
+}
+
+- (void)requestRewardedVideoWithCustomEventInfo:(NSDictionary *)info {
     NSArray *allZoneIds = [info objectForKey:@"allZoneIds"];
     if (allZoneIds.count == 0) {
         MPLogError(@"Invalid setup. Use the allZoneIds parameter when configuring your network in the MoPub website.");
@@ -40,9 +61,14 @@
         zoneId = allZoneIds[0];
     }
 
-    NSString *customerId = [self.delegate customerIdForRewardedVideoCustomEvent:self];
+    // Cache the initialization parameters
+    [self setCachedInitializationParameters:info];
 
-    [AdColonyController initializeAdColonyCustomEventWithAppId:appId allZoneIds:allZoneIds userId:customerId callback:^{
+    // Update the user ID
+    NSString *customerId = [self.delegate customerIdForRewardedVideoCustomEvent:self];
+    [AdColonyController setUserId:customerId];
+
+    [self initializeSdkWithParameters:info callback:^{
 
         AdColonyInstanceMediationSettings *settings = [self.delegate instanceMediationSettingsForClass:[AdColonyInstanceMediationSettings class]];
         BOOL showPrePopup = (settings) ? settings.showPrePopup : NO;

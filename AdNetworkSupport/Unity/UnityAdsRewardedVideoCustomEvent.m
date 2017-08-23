@@ -10,6 +10,7 @@
 #import "MPRewardedVideoReward.h"
 #import "MPRewardedVideoError.h"
 #import "MPLogging.h"
+#import "MPRewardedVideoCustomEvent+Caching.h"
 #import "UnityAdsInstanceMediationSettings.h"
 
 static NSString *const kMPUnityRewardedVideoGameId = @"gameId";
@@ -29,6 +30,16 @@ static NSString *const kUnityAdsOptionZoneIdKey = @"zoneId";
     [[MPUnityRouter sharedRouter] clearDelegate:self];
 }
 
+- (void)initializeSdkWithParameters:(NSDictionary *)parameters {
+    NSString *gameId = [parameters objectForKey:kMPUnityRewardedVideoGameId];
+    if (gameId == nil) {
+        NSLog(@"Initialization parameters did not contain gameId.");
+        return;
+    }
+
+    [[MPUnityRouter sharedRouter] initializeWithGameId:gameId];
+}
+
 - (void)requestRewardedVideoWithCustomEventInfo:(NSDictionary *)info
 {
     NSString *gameId = [info objectForKey:kMPUnityRewardedVideoGameId];
@@ -36,17 +47,20 @@ static NSString *const kUnityAdsOptionZoneIdKey = @"zoneId";
         [self.delegate rewardedVideoDidFailToLoadAdForCustomEvent:self error:[NSError errorWithDomain:MoPubRewardedVideoAdsSDKDomain code:MPRewardedVideoAdErrorInvalidCustomEvent userInfo:@{NSLocalizedDescriptionKey: @"Custom event class data did not contain gameId.", NSLocalizedRecoverySuggestionErrorKey: @"Update your MoPub custom event class data to contain a valid Unity Ads gameId."}]];
         return;
     }
-    
+
+    // Only need to cache game ID for SDK initialization
+    [self setCachedInitializationParameters:@{ kMPUnityRewardedVideoGameId: gameId }];
+
     self.placementId = [info objectForKey:kUnityAdsOptionPlacementIdKey];
     if (self.placementId == nil) {
         self.placementId = [info objectForKey:kUnityAdsOptionZoneIdKey];
     }
-    
+
     if (self.placementId == nil) {
         [self.delegate rewardedVideoDidFailToLoadAdForCustomEvent:self error:[NSError errorWithDomain:MoPubRewardedVideoAdsSDKDomain code:MPRewardedVideoAdErrorInvalidCustomEvent userInfo:@{NSLocalizedDescriptionKey: @"Custom event class data did not contain placementId.", NSLocalizedRecoverySuggestionErrorKey: @"Update your MoPub custom event class data to contain a valid Unity Ads placementId."}]];
         return;
     }
-    
+
     [[MPUnityRouter sharedRouter] requestVideoAdWithGameId:gameId placementId:self.placementId delegate:self];
 }
 
@@ -97,43 +111,43 @@ static NSString *const kUnityAdsOptionZoneIdKey = @"zoneId";
         case kUnityAdsErrorNotInitialized:
             unityErrorMessage = @"Unity Ads not initialized";
             break;
-            
+
         case kUnityAdsErrorInitializedFailed:
             unityErrorMessage = @"Unity Ads initialize failed";
             break;
-            
+
         case kUnityAdsErrorInvalidArgument:
             unityErrorMessage = @"Unity Ads initialize given an invalid argument";
             break;
-            
+
         case kUnityAdsErrorVideoPlayerError:
             unityErrorMessage = @"Unity Ads video player failed";
             break;
-            
+
         case kUnityAdsErrorInitSanityCheckFail:
             unityErrorMessage = @"Unity Ads initialized in an invalid environment";
             break;
-            
+
         case kUnityAdsErrorAdBlockerDetected:
             unityErrorMessage = @"Unity Ads failed due to presence of ad blocker";
             break;
-            
+
         case kUnityAdsErrorFileIoError:
             unityErrorMessage = @"Unity Ads file IO error";
             break;
-            
+
         case kUnityAdsErrorDeviceIdError:
             unityErrorMessage = @"Unity Ads encountered a bad device identifier";
             break;
-            
+
         case kUnityAdsErrorShowError:
             unityErrorMessage = @"Unity Ads failed while attempting to show an ad";
             break;
-            
+
         case kUnityAdsErrorInternalError:
             unityErrorMessage = @"Unity Ads experienced an internal failure";
             break;
-            
+
         default:
             unityErrorMessage = @"Unity Ads unknown error";
             break;

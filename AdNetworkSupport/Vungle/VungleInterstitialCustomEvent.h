@@ -35,6 +35,5 @@
  * your app ID in your network settings for Vungle. See the Custom Native Network Setup guide for more
  * information. https://dev.twitter.com/mopub/ad-networks/network-setup-custom-native
  */
-+ (void)setAppId:(NSString *)appId;
 
 @end

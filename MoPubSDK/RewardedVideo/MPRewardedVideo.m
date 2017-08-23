@@ -12,6 +12,8 @@
 #import "MPRewardedVideoError.h"
 #import "MPRewardedVideoConnection.h"
 #import "MPRewardedVideo+Internal.h"
+#import "MPRewardedVideoCustomEvent.h"
+#import "MPRewardedVideoCustomEvent+Caching.h"
 
 static MPRewardedVideo *gSharedInstance = nil;
 
@@ -35,6 +37,44 @@ static MPRewardedVideo *gSharedInstance = nil;
     }
 
     return self;
+}
+
++ (void)initializeWithOrder:(NSArray<NSString *> *)rewardedNetworks
+{
+    // Nothing to initialize
+    if (rewardedNetworks.count == 0) {
+        return;
+    }
+
+    // Weed out any duplicate networks while preserving initialization order.
+    NSOrderedSet * orderedNetworks = [NSOrderedSet orderedSetWithArray:rewardedNetworks];
+
+    @synchronized (self) {
+        // Grab a reference to the `MPRewardedVideoCustomEvent` class since
+        // we will be using it for comparisons.
+        Class baseClass = [MPRewardedVideoCustomEvent class];
+
+        // Iterates over all of the rewarded networks and attempt to
+        // retrieve the rewarded class object if it exists in the
+        // runtime.
+        // Before using the class, the following checks are performed:
+        // 1. The class is not `nil`
+        // 2. The class is a subclass of `MPRewardedVideoCustomEvent`
+        for (NSString * network in orderedNetworks) {
+            Class networkClass = NSClassFromString(network);
+
+            if (networkClass != Nil && [networkClass isSubclassOfClass:baseClass]) {
+                NSDictionary * parameters = [MPRewardedVideoCustomEvent cachedInitializationParametersForNetwork:network];
+
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    MPRewardedVideoCustomEvent * networkCustomEvent = (MPRewardedVideoCustomEvent *)[networkClass new];
+                    [networkCustomEvent initializeSdkWithParameters:parameters];
+
+                    MPLogInfo(@"Loaded %@", network);
+                });
+            }
+        }
+    } // End sychronized
 }
 
 + (void)loadRewardedVideoAdWithAdUnitID:(NSString *)adUnitID withMediationSettings:(NSArray *)mediationSettings

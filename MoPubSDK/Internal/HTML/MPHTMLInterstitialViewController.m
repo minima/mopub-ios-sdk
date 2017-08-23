@@ -9,6 +9,7 @@
 #import "MPWebView.h"
 #import "MPAdDestinationDisplayAgent.h"
 #import "MPInstanceProvider.h"
+#import "MPViewabilityTracker.h"
 
 @interface MPHTMLInterstitialViewController ()
 
@@ -52,6 +53,8 @@
     self.backingView.autoresizingMask = UIViewAutoresizingFlexibleWidth |
     UIViewAutoresizingFlexibleHeight;
     [self.view addSubview:self.backingView];
+
+    [self.backingViewAgent.viewabilityTracker registerFriendlyObstructionView:self.closeButton];
 }
 
 - (void)willPresentInterstitial

@@ -11,6 +11,7 @@
 #import "MPRewardedVideo.h"
 #import "MPRewardedVideo+Testing.h"
 #import "MPRewardedVideoDelegateHandler.h"
+#import "MPStubCustomEvent.h"
 #import "NSURLComponents+Testing.h"
 
 static NSString * const kTestAdUnitId    = @"967f82c7-c059-4ae8-8cb6-41c34265b1ef";
@@ -383,6 +384,51 @@ static MPRewardedVideoDelegateHandler * delegateHandler = nil;
     NSURLComponents * s2sUrlComponents = [NSURLComponents componentsWithURL:s2sUrl resolvingAgainstBaseURL:NO];
     XCTAssertFalse([s2sUrlComponents hasQueryParameter:@"rcn"]);
     XCTAssertFalse([s2sUrlComponents valueForQueryParameter:@"rca"]);
+}
+
+#pragma mark - Network SDK Initialization
+
+- (void)testNetworkSDKInitializationSuccess {
+    [MPStubCustomEvent resetInitialization];
+    XCTAssertFalse([MPStubCustomEvent isInitialized]);
+
+    [MPRewardedVideo initializeWithOrder:@[@"MPStubCustomEvent"]];
+
+    // Wait for SDKs to initialize
+    XCTestExpectation * expectation = [self expectationWithDescription:@"Expect timer to fire"];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)((kTestTimeout / 2.0) * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [expectation fulfill];
+    });
+
+    [self waitForExpectationsWithTimeout:kTestTimeout handler:^(NSError *error) {
+        XCTAssertNil(error);
+    }];
+
+    XCTAssertTrue([MPStubCustomEvent isInitialized]);
+}
+
+- (void)testNoNetworkSDKInitialization {
+    [MPStubCustomEvent resetInitialization];
+    XCTAssertFalse([MPStubCustomEvent isInitialized]);
+
+    [MPRewardedVideo initializeWithOrder:nil];
+    XCTAssertFalse([MPStubCustomEvent isInitialized]);
+}
+
+- (void)testUnknownNetworkSDKInitialization {
+    [MPStubCustomEvent resetInitialization];
+    XCTAssertFalse([MPStubCustomEvent isInitialized]);
+
+    [MPRewardedVideo initializeWithOrder:@[@"badf00d"]];
+    XCTAssertFalse([MPStubCustomEvent isInitialized]);
+}
+
+- (void)testIntentionallyBadNetworkSDKInitialization {
+    [MPStubCustomEvent resetInitialization];
+    XCTAssertFalse([MPStubCustomEvent isInitialized]);
+
+    [MPRewardedVideo initializeWithOrder:@[@"MPRewardedVideo"]];
+    XCTAssertFalse([MPStubCustomEvent isInitialized]);
 }
 
 @end

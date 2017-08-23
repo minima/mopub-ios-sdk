@@ -67,11 +67,6 @@
 		BC6462AA1DA2DFB80046E206 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC6462A91DA2DFB80046E206 /* UIKit.framework */; };
 		BCBC27DD1DB159A900021978 /* MillennialNativeAdAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = BCBC27D11DB1599A00021978 /* MillennialNativeAdAdapter.m */; };
 		BCBC27DE1DB159A900021978 /* MillennialNativeCustomEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = BCBC27D31DB1599A00021978 /* MillennialNativeCustomEvent.m */; };
-		BCD87F921DAD8D2E008234D3 /* MPInstanceProvider+Unity.m in Sources */ = {isa = PBXBuildFile; fileRef = BCD87F871DAD8D2A008234D3 /* MPInstanceProvider+Unity.m */; };
-		BCD87F931DAD8D2E008234D3 /* MPUnityRouter.m in Sources */ = {isa = PBXBuildFile; fileRef = BCD87F891DAD8D2A008234D3 /* MPUnityRouter.m */; };
-		BCD87F941DAD8D2E008234D3 /* UnityAdsInstanceMediationSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = BCD87F8B1DAD8D2A008234D3 /* UnityAdsInstanceMediationSettings.m */; };
-		BCD87F951DAD8D2E008234D3 /* UnityAdsRewardedVideoCustomEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = BCD87F8D1DAD8D2A008234D3 /* UnityAdsRewardedVideoCustomEvent.m */; };
-		BCD87FA01DAD8D49008234D3 /* UnityAds.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BCD87F9B1DAD8D3F008234D3 /* UnityAds.framework */; };
 		BCD87FDF1DAD9103008234D3 /* MPMillennialBannerCustomEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = BCD87FD61DAD90DA008234D3 /* MPMillennialBannerCustomEvent.m */; };
 		BCD87FE01DAD9103008234D3 /* MPMillennialInterstitialCustomEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = BCD87FD81DAD90DA008234D3 /* MPMillennialInterstitialCustomEvent.m */; };
 		BCD87FE31DAD9107008234D3 /* MMAdSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BCD87FDC1DAD90F5008234D3 /* MMAdSDK.framework */; };
@@ -79,7 +74,6 @@
 		BCE919371D76417900A759CB /* MPNativeVideoAdDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCE919351D76417200A759CB /* MPNativeVideoAdDetailViewController.swift */; };
 		BCE9193B1D7641D600A759CB /* MPSampleVideoNativeAdView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCE9193A1D7641D600A759CB /* MPSampleVideoNativeAdView.swift */; };
 		BCE9193C1D76424E00A759CB /* MPSampleVideoNativeAdView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCE9193A1D7641D600A759CB /* MPSampleVideoNativeAdView.swift */; };
-		BCEEFD011E60F0AE0015E008 /* UnityAdsInterstitialCustomEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = BCEEFCFF1E60F09C0015E008 /* UnityAdsInterstitialCustomEvent.m */; };
 		E45B386BD3319473E28E6BC1 /* libPods-MoPubSwiftSampleApp+CustomEvents.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E025D6801443FF2E736864EA /* libPods-MoPubSwiftSampleApp+CustomEvents.a */; };
 /* End PBXBuildFile section */
 
@@ -139,15 +133,6 @@
 		BCBC27D71DB1599A00021978 /* MPMillennialInterstitialCustomEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MPMillennialInterstitialCustomEvent.h; path = ../../AdNetworkSupport/Millennial/MPMillennialInterstitialCustomEvent.h; sourceTree = "<group>"; };
 		BCBC27D81DB1599A00021978 /* MPMillennialInterstitialCustomEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MPMillennialInterstitialCustomEvent.m; path = ../../AdNetworkSupport/Millennial/MPMillennialInterstitialCustomEvent.m; sourceTree = "<group>"; };
 		BCBC27E21DB159D800021978 /* MMAdSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MMAdSDK.framework; path = ../../AdNetworkSupport/Millennial/SDK/MMAdSDK.framework; sourceTree = "<group>"; };
-		BCD87F861DAD8D2A008234D3 /* MPInstanceProvider+Unity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "MPInstanceProvider+Unity.h"; path = "../../AdNetworkSupport/Unity/MPInstanceProvider+Unity.h"; sourceTree = "<group>"; };
-		BCD87F871DAD8D2A008234D3 /* MPInstanceProvider+Unity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "MPInstanceProvider+Unity.m"; path = "../../AdNetworkSupport/Unity/MPInstanceProvider+Unity.m"; sourceTree = "<group>"; };
-		BCD87F881DAD8D2A008234D3 /* MPUnityRouter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MPUnityRouter.h; path = ../../AdNetworkSupport/Unity/MPUnityRouter.h; sourceTree = "<group>"; };
-		BCD87F891DAD8D2A008234D3 /* MPUnityRouter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MPUnityRouter.m; path = ../../AdNetworkSupport/Unity/MPUnityRouter.m; sourceTree = "<group>"; };
-		BCD87F8A1DAD8D2A008234D3 /* UnityAdsInstanceMediationSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UnityAdsInstanceMediationSettings.h; path = ../../AdNetworkSupport/Unity/UnityAdsInstanceMediationSettings.h; sourceTree = "<group>"; };
-		BCD87F8B1DAD8D2A008234D3 /* UnityAdsInstanceMediationSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UnityAdsInstanceMediationSettings.m; path = ../../AdNetworkSupport/Unity/UnityAdsInstanceMediationSettings.m; sourceTree = "<group>"; };
-		BCD87F8C1DAD8D2A008234D3 /* UnityAdsRewardedVideoCustomEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UnityAdsRewardedVideoCustomEvent.h; path = ../../AdNetworkSupport/Unity/UnityAdsRewardedVideoCustomEvent.h; sourceTree = "<group>"; };
-		BCD87F8D1DAD8D2A008234D3 /* UnityAdsRewardedVideoCustomEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UnityAdsRewardedVideoCustomEvent.m; path = ../../AdNetworkSupport/Unity/UnityAdsRewardedVideoCustomEvent.m; sourceTree = "<group>"; };
-		BCD87F9B1DAD8D3F008234D3 /* UnityAds.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UnityAds.framework; path = ../../AdNetworkSupport/Unity/SDK/UnityAds.framework; sourceTree = "<group>"; };
 		BCD87FB21DAD8F4E008234D3 /* MoPubSwiftSampleApp-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MoPubSwiftSampleApp-Bridging-Header.h"; sourceTree = "<group>"; };
 		BCD87FD61DAD90DA008234D3 /* MPMillennialBannerCustomEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MPMillennialBannerCustomEvent.m; path = ../../AdNetworkSupport/Millennial/MPMillennialBannerCustomEvent.m; sourceTree = "<group>"; };
 		BCD87FD81DAD90DA008234D3 /* MPMillennialInterstitialCustomEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MPMillennialInterstitialCustomEvent.m; path = ../../AdNetworkSupport/Millennial/MPMillennialInterstitialCustomEvent.m; sourceTree = "<group>"; };
@@ -155,8 +140,6 @@
 		BCD87FE51DAD9165008234D3 /* MoPubSwiftSampleApp-CustomEvent-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MoPubSwiftSampleApp-CustomEvent-Bridging-Header.h"; sourceTree = "<group>"; };
 		BCE919351D76417200A759CB /* MPNativeVideoAdDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MPNativeVideoAdDetailViewController.swift; sourceTree = "<group>"; };
 		BCE9193A1D7641D600A759CB /* MPSampleVideoNativeAdView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MPSampleVideoNativeAdView.swift; sourceTree = "<group>"; };
-		BCEEFCFE1E60F09C0015E008 /* UnityAdsInterstitialCustomEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UnityAdsInterstitialCustomEvent.h; path = ../../AdNetworkSupport/Unity/UnityAdsInterstitialCustomEvent.h; sourceTree = "<group>"; };
-		BCEEFCFF1E60F09C0015E008 /* UnityAdsInterstitialCustomEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UnityAdsInterstitialCustomEvent.m; path = ../../AdNetworkSupport/Unity/UnityAdsInterstitialCustomEvent.m; sourceTree = "<group>"; };
 		C8366036FDB115486D7483A3 /* Pods-MoPubSwiftSampleApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoPubSwiftSampleApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MoPubSwiftSampleApp/Pods-MoPubSwiftSampleApp.debug.xcconfig"; sourceTree = "<group>"; };
 		E025D6801443FF2E736864EA /* libPods-MoPubSwiftSampleApp+CustomEvents.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MoPubSwiftSampleApp+CustomEvents.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -194,7 +177,6 @@
 				BC64628A1DA2DEBE0046E206 /* AddressBookUI.framework in Frameworks */,
 				BC6462881DA2DE830046E206 /* AddressBook.framework in Frameworks */,
 				BC6462861DA2DE760046E206 /* PassKit.framework in Frameworks */,
-				BCD87FA01DAD8D49008234D3 /* UnityAds.framework in Frameworks */,
 				E45B386BD3319473E28E6BC1 /* libPods-MoPubSwiftSampleApp+CustomEvents.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -328,7 +310,6 @@
 			isa = PBXGroup;
 			children = (
 				BCD87FDB1DAD90E0008234D3 /* Millennial */,
-				BCDDF5551DA45FFD001FEDC3 /* Unity */,
 			);
 			name = AdNetworkSupport;
 			path = ../AdNetworkSupport;
@@ -357,32 +338,6 @@
 				BCBC27E11DB159C200021978 /* SDK */,
 			);
 			name = Millennial;
-			sourceTree = "<group>";
-		};
-		BCDDF5551DA45FFD001FEDC3 /* Unity */ = {
-			isa = PBXGroup;
-			children = (
-				BCD87F861DAD8D2A008234D3 /* MPInstanceProvider+Unity.h */,
-				BCD87F871DAD8D2A008234D3 /* MPInstanceProvider+Unity.m */,
-				BCD87F881DAD8D2A008234D3 /* MPUnityRouter.h */,
-				BCD87F891DAD8D2A008234D3 /* MPUnityRouter.m */,
-				BCDDF5671DA46075001FEDC3 /* SDK */,
-				BCD87F8A1DAD8D2A008234D3 /* UnityAdsInstanceMediationSettings.h */,
-				BCD87F8B1DAD8D2A008234D3 /* UnityAdsInstanceMediationSettings.m */,
-				BCEEFCFE1E60F09C0015E008 /* UnityAdsInterstitialCustomEvent.h */,
-				BCEEFCFF1E60F09C0015E008 /* UnityAdsInterstitialCustomEvent.m */,
-				BCD87F8C1DAD8D2A008234D3 /* UnityAdsRewardedVideoCustomEvent.h */,
-				BCD87F8D1DAD8D2A008234D3 /* UnityAdsRewardedVideoCustomEvent.m */,
-			);
-			name = Unity;
-			sourceTree = "<group>";
-		};
-		BCDDF5671DA46075001FEDC3 /* SDK */ = {
-			isa = PBXGroup;
-			children = (
-				BCD87F9B1DAD8D3F008234D3 /* UnityAds.framework */,
-			);
-			name = SDK;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -550,7 +505,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		C079CBC2897D5EBF909F4773 /* [CP] Check Pods Manifest.lock */ = {
@@ -565,7 +520,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		F89F88211599F98F730C1FC8 /* [CP] Copy Pods Resources */ = {
@@ -624,10 +579,7 @@
 				57CE74461AD6F86D0003830D /* MPRewardedVideoAdDetailViewController.swift in Sources */,
 				57CE74551AD6F86D0003830D /* MPNativeAdDetailViewController.swift in Sources */,
 				57CE761F1AD72E160003830D /* ASIdentifierManager+SampleApp.swift in Sources */,
-				BCD87F941DAD8D2E008234D3 /* UnityAdsInstanceMediationSettings.m in Sources */,
 				57CE74561AD6F86D0003830D /* MPAdInfo.swift in Sources */,
-				BCD87F951DAD8D2E008234D3 /* UnityAdsRewardedVideoCustomEvent.m in Sources */,
-				BCD87F931DAD8D2E008234D3 /* MPUnityRouter.m in Sources */,
 				BCD87FDF1DAD9103008234D3 /* MPMillennialBannerCustomEvent.m in Sources */,
 				57AC6AB71BB3132C0053C556 /* MPVideoAdView.swift in Sources */,
 				57CE745D1AD6F86D0003830D /* MPCollectionViewAdPlacerDetailViewController.swift in Sources */,
@@ -635,10 +587,8 @@
 				57CE74721AD6F86D0003830D /* MPStaticNativeAdView.swift in Sources */,
 				BCBC27DD1DB159A900021978 /* MillennialNativeAdAdapter.m in Sources */,
 				57CE74731AD6F86D0003830D /* MPTableViewAdPlacerDetailViewController.swift in Sources */,
-				BCD87F921DAD8D2E008234D3 /* MPInstanceProvider+Unity.m in Sources */,
 				57CE74761AD6F86D0003830D /* MPAdDetailViewControllerProtocol.swift in Sources */,
 				BCE919371D76417900A759CB /* MPNativeVideoAdDetailViewController.swift in Sources */,
-				BCEEFD011E60F0AE0015E008 /* UnityAdsInterstitialCustomEvent.m in Sources */,
 				57CE74851AD6F86D0003830D /* AppDelegate.swift in Sources */,
 				57CE76291AD837150003830D /* MPUtility.swift in Sources */,
 				57CE74911AD6F86D0003830D /* MPInterstitialAdDetailViewController.swift in Sources */,

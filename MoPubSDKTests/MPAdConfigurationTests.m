@@ -12,12 +12,18 @@
 #import "MPRewardedVideoReward.h"
 #import "MOPUBExperimentProvider.h"
 #import "MPAdConfiguration+Testing.h"
+#import "MPViewabilityTracker.h"
 
 @interface MPAdConfigurationTests : XCTestCase
 
 @end
 
 @implementation MPAdConfigurationTests
+
+- (void)setUp {
+    [super setUp];
+    [MPViewabilityTracker initialize];
+}
 
 #pragma mark - Rewarded Ads
 
@@ -148,6 +154,132 @@
     XCTAssertEqual(((NSArray *)config.nativeVideoTrackers[MPVASTTrackingEventTypeMidpoint]).count, 2);
     XCTAssertEqual(((NSArray *)config.nativeVideoTrackers[MPVASTTrackingEventTypeThirdQuartile]).count, 2);
     XCTAssertEqual(((NSArray *)config.nativeVideoTrackers[MPVASTTrackingEventTypeComplete]).count, 2);
+}
+
+#pragma mark - Clickthrough experiments test
+
+- (void)testClickthroughExperimentDefault {
+    MPAdConfiguration * config = [[MPAdConfiguration alloc] initWithHeaders:nil data:nil];
+    XCTAssertEqual(config.clickthroughExperimentBrowserAgent, MOPUBDisplayAgentTypeInApp);
+    XCTAssertEqual([MOPUBExperimentProvider displayAgentType], MOPUBDisplayAgentTypeInApp);
+}
+
+- (void)testClickthroughExperimentInApp {
+    NSDictionary * headers = @{ kClickthroughExperimentBrowserAgent: @"0"};
+    MPAdConfiguration * config = [[MPAdConfiguration alloc] initWithHeaders:headers data:nil];
+    XCTAssertEqual(config.clickthroughExperimentBrowserAgent, MOPUBDisplayAgentTypeInApp);
+    XCTAssertEqual([MOPUBExperimentProvider displayAgentType], MOPUBDisplayAgentTypeInApp);
+}
+
+- (void)testClickthroughExperimentNativeBrowser {
+    NSDictionary * headers = @{ kClickthroughExperimentBrowserAgent: @"1"};
+    MPAdConfiguration * config = [[MPAdConfiguration alloc] initWithHeaders:headers data:nil];
+    XCTAssertEqual(config.clickthroughExperimentBrowserAgent, MOPUBDisplayAgentTypeNativeSafari);
+    XCTAssertEqual([MOPUBExperimentProvider displayAgentType], MOPUBDisplayAgentTypeNativeSafari);
+}
+
+- (void)testClickthroughExperimentSafariViewController {
+    NSDictionary * headers = @{ kClickthroughExperimentBrowserAgent: @"2"};
+    MPAdConfiguration * config = [[MPAdConfiguration alloc] initWithHeaders:headers data:nil];
+    XCTAssertEqual(config.clickthroughExperimentBrowserAgent, MOPUBDisplayAgentTypeSafariViewController);
+    XCTAssertEqual([MOPUBExperimentProvider displayAgentType], MOPUBDisplayAgentTypeSafariViewController);
+}
+
+#pragma mark - Viewability
+
+- (void)testDisableAllViewability {
+    // IAS should be initially enabled
+    XCTAssertTrue([MPViewabilityTracker enabledViewabilityVendors] == MPViewabilityOptionIAS);
+
+    // {
+    //   "X-Disable-Viewability": 3
+    // }
+    NSDictionary * headers = @{ kViewabilityDisableHeaderKey: @"3" };
+    MPAdConfiguration * config = [[MPAdConfiguration alloc] initWithHeaders:headers data:nil];
+
+    XCTAssertNotNil(config);
+
+    // All viewability vendors should be disabled
+    XCTAssertTrue([MPViewabilityTracker enabledViewabilityVendors] == MPViewabilityOptionNone);
+}
+
+- (void)testDisableNoViewability {
+    // IAS should be initially enabled
+    XCTAssertTrue([MPViewabilityTracker enabledViewabilityVendors] == MPViewabilityOptionIAS);
+
+    // {
+    //   "X-Disable-Viewability": 0
+    // }
+    NSDictionary * headers = @{ kViewabilityDisableHeaderKey: @"0" };
+    MPAdConfiguration * config = [[MPAdConfiguration alloc] initWithHeaders:headers data:nil];
+
+    XCTAssertNotNil(config);
+
+    // IAS should still be enabled
+    XCTAssertTrue([MPViewabilityTracker enabledViewabilityVendors] == MPViewabilityOptionIAS);
+}
+
+- (void)testEnableAlreadyDisabledViewability {
+    // IAS should be initially enabled
+    XCTAssertTrue([MPViewabilityTracker enabledViewabilityVendors] == MPViewabilityOptionIAS);
+
+    // {
+    //   "X-Disable-Viewability": 3
+    // }
+    NSDictionary * headers = @{ kViewabilityDisableHeaderKey: @"3" };
+    MPAdConfiguration * config = [[MPAdConfiguration alloc] initWithHeaders:headers data:nil];
+
+    XCTAssertNotNil(config);
+
+    // All viewability vendors should be disabled
+    XCTAssertTrue([MPViewabilityTracker enabledViewabilityVendors] == MPViewabilityOptionNone);
+
+    // Reset local variables for reuse.
+    headers = nil;
+    config = nil;
+
+    // {
+    //   "X-Disable-Viewability": 0
+    // }
+    headers = @{ kViewabilityDisableHeaderKey: @"0" };
+    config = [[MPAdConfiguration alloc] initWithHeaders:headers data:nil];
+
+    XCTAssertNotNil(config);
+
+    // All viewability vendors should still be disabled
+    XCTAssertTrue([MPViewabilityTracker enabledViewabilityVendors] == MPViewabilityOptionNone);
+}
+
+- (void)testInvalidViewabilityHeaderValue {
+    // IAS should be initially enabled
+    XCTAssertTrue([MPViewabilityTracker enabledViewabilityVendors] == MPViewabilityOptionIAS);
+
+    // {
+    //   "X-Disable-Viewability": 3aaaa
+    // }
+    NSDictionary * headers = @{ kViewabilityDisableHeaderKey: @"3aaaa" };
+    MPAdConfiguration * config = [[MPAdConfiguration alloc] initWithHeaders:headers data:nil];
+
+    XCTAssertNotNil(config);
+
+    // IAS should still be enabled
+    XCTAssertTrue([MPViewabilityTracker enabledViewabilityVendors] == MPViewabilityOptionIAS);
+}
+
+- (void)testEmptyViewabilityHeaderValue {
+    // IAS should be initially enabled
+    XCTAssertTrue([MPViewabilityTracker enabledViewabilityVendors] == MPViewabilityOptionIAS);
+
+    // {
+    //   "X-Disable-Viewability": ""
+    // }
+    NSDictionary * headers = @{ kViewabilityDisableHeaderKey: @"" };
+    MPAdConfiguration * config = [[MPAdConfiguration alloc] initWithHeaders:headers data:nil];
+
+    XCTAssertNotNil(config);
+
+    // IAS should still be enabled
+    XCTAssertTrue([MPViewabilityTracker enabledViewabilityVendors] == MPViewabilityOptionIAS);
 }
 
 @end

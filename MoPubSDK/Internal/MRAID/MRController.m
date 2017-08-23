@@ -24,6 +24,8 @@
 #import "UIWebView+MPAdditions.h"
 #import "MPForceableOrientationProtocol.h"
 #import "MPAPIEndPoints.h"
+#import "MoPub.h"
+#import "MPViewabilityTracker.h"
 
 static const NSTimeInterval kAdPropertyUpdateTimerInterval = 1.0;
 static const NSTimeInterval kMRAIDResizeAnimationTimeInterval = 0.3;
@@ -75,6 +77,9 @@ static NSString *const kMRAIDCommandResize = @"resize";
 
 @property (nonatomic, copy) void (^forceOrientationAfterAnimationBlock)();
 
+@property (nonatomic, strong) MPWebView *mraidWebView;
+@property (nonatomic, strong) MPViewabilityTracker *viewabilityTracker;
+
 @end
 
 @implementation MRController
@@ -107,7 +112,6 @@ static NSString *const kMRAIDCommandResize = @"resize";
         _resizeBackgroundView = [[UIView alloc] initWithFrame:adViewFrame];
         _resizeBackgroundView.backgroundColor = [UIColor clearColor];
 
-
         _destinationDisplayAgent = [[MPCoreInstanceProvider sharedProvider] buildMPAdDestinationDisplayAgentWithDelegate:self];
 
         _adAlertManager = [[MPCoreInstanceProvider sharedProvider] buildMPAdAlertManagerWithDelegate:self];
@@ -119,6 +123,8 @@ static NSString *const kMRAIDCommandResize = @"resize";
 
 - (void)dealloc
 {
+    [self.viewabilityTracker stopTracking];
+
     // Transfer delegation to the expand modal view controller in the event the modal is still being presented so it can dismiss itself.
     _expansionContentView.delegate = _expandModalViewController;
 
@@ -136,12 +142,12 @@ static NSString *const kMRAIDCommandResize = @"resize";
     self.isAdVastVideoPlayer = configuration.isVastVideoPlayer;
     self.shouldUseUIWebView = self.isAdVastVideoPlayer;
 
-    MPWebView *webView = [self buildMRAIDWebViewWithFrame:self.mraidDefaultAdFrame
-                                           forceUIWebView:self.shouldUseUIWebView];
+    self.mraidWebView = [self buildMRAIDWebViewWithFrame:self.mraidDefaultAdFrame
+                                          forceUIWebView:self.shouldUseUIWebView];
 
-    self.mraidBridge = [[MPInstanceProvider sharedProvider] buildMRBridgeWithWebView:webView delegate:self];
+    self.mraidBridge = [[MPInstanceProvider sharedProvider] buildMRBridgeWithWebView:self.mraidWebView delegate:self];
     self.mraidAdView = [[MPInstanceProvider sharedProvider] buildMRAIDMPClosableViewWithFrame:self.mraidDefaultAdFrame
-                                                                                      webView:webView
+                                                                                      webView:self.mraidWebView
                                                                                      delegate:self];
     if (self.placementType == MRAdViewPlacementTypeInterstitial) {
         self.mraidAdView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
@@ -161,6 +167,8 @@ static NSString *const kMRAIDCommandResize = @"resize";
     [self.mraidBridge loadHTMLString:HTML
                              baseURL:[NSURL URLWithString:[MPAPIEndpoints baseURL]]
      ];
+
+    [self init3rdPartyViewabilityTrackers];
 }
 
 - (void)handleMRAIDInterstitialDidPresentWithViewController:(MPMRAIDInterstitialViewController *)viewController
@@ -168,6 +176,13 @@ static NSString *const kMRAIDCommandResize = @"resize";
     self.interstitialViewController = viewController;
     [self enableRequestHandling];
     [self checkViewability];
+
+    // If viewability tracking has been deferred (i.e., if this is a non-banner ad), start tracking here now that the
+    // ad has been presented. If viewability tracking was not deferred, we're already tracking and there's no need to
+    // call start tracking.
+    if ([self shouldDeferViewability]) {
+        [self.viewabilityTracker startTracking];
+    }
 }
 
 - (void)enableRequestHandling
@@ -231,6 +246,20 @@ static NSString *const kMRAIDCommandResize = @"resize";
 }
 
 #pragma mark - Private
+
+- (void)init3rdPartyViewabilityTrackers
+{
+    self.viewabilityTracker = [[MPViewabilityTracker alloc]
+                               initWithAdView:self.mraidWebView
+                               isVideo:self.isAdVastVideoPlayer
+                               startTrackingImmediately:![self shouldDeferViewability]];
+    [self.viewabilityTracker registerFriendlyObstructionView:self.mraidAdView.closeButton];
+}
+
+- (BOOL)shouldDeferViewability
+{
+    return (self.placementType == MRAdViewPlacementTypeInterstitial);
+}
 
 - (void)initAdAlertManager:(id<MPAdAlertManagerProtocol>)adAlertManager forAdView:(MPClosableView *)adView
 {

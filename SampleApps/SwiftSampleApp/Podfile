@@ -14,5 +14,6 @@ target 'MoPubSwiftSampleApp+CustomEvents' do
   pod 'mopub-ios-sdk/FacebookCustomEvents', :path => '../../'
   pod 'mopub-ios-sdk/FlurryCustomEvents', :path => '../../'
   pod 'mopub-ios-sdk/TapjoyCustomEvents', :path => '../../'
+  pod 'mopub-ios-sdk/UnityAdsCustomEvents', :path => '../../'
   pod 'mopub-ios-sdk/VungleCustomEvents', :path => '../../'
 end

@@ -11,6 +11,7 @@
 #import "MPRetryingHTTPOperation.h"
 #import "MPNetworkManager.h"
 #import "MPCoreInstanceProvider.h"
+#import "NSString+MPAdditions.h"
 
 static NSString *const kAnalyticsURL = @"https://analytics.mopub.com/i/jot/exchange_client_event";
 

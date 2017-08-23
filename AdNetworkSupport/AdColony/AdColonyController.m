@@ -22,6 +22,7 @@ typedef enum {
 
 @property (atomic, assign) InitState initState;
 @property (atomic, retain) NSArray *callbacks;
+@property (atomic, strong) NSSet *currentAllZoneIds;
 
 @end
 
@@ -31,7 +32,10 @@ typedef enum {
     AdColonyController *instance = [AdColonyController sharedInstance];
 
     @synchronized (instance) {
-        if (instance.initState == INIT_STATE_INITIALIZED) {
+        NSSet * allZoneIdsSet = [NSSet setWithArray:allZoneIds];
+        BOOL zoneIdsSame = [instance.currentAllZoneIds isEqualToSet:allZoneIdsSet];
+
+        if (instance.initState == INIT_STATE_INITIALIZED && zoneIdsSame) {
             if (callback) {
                 callback();
             }
@@ -50,6 +54,8 @@ typedef enum {
                     options.userID = settings.customId;
                 }
 
+                instance.currentAllZoneIds = allZoneIdsSet;
+
                 [AdColony configureWithAppID:appId zoneIDs:allZoneIds options:options completion:^(NSArray<AdColonyZone *> * _Nonnull zones) {
                     @synchronized (instance) {
                         instance.initState = INIT_STATE_INITIALIZED;
@@ -61,6 +67,19 @@ typedef enum {
             }
         }
     }
+}
+
++ (void)setUserId:(NSString *)userId {
+    AdColonyGlobalMediationSettings *settings = [[MoPub sharedInstance] globalMediationSettingsForClass:[AdColonyGlobalMediationSettings class]];
+    AdColonyAppOptions *options = [AdColonyAppOptions new];
+
+    if (userId.length > 0) {
+        options.userID = userId;
+    } else if (settings && settings.customId.length > 0) {
+        options.userID = settings.customId;
+    }
+
+    [AdColony setAppOptions:options];
 }
 
 + (AdColonyController *)sharedInstance {

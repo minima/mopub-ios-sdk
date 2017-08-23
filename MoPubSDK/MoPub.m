@@ -10,7 +10,9 @@
 #import "MPCoreInstanceProvider.h"
 #import "MPGeolocationProvider.h"
 #import "MPRewardedVideo.h"
+#import "MPRewardedVideoCustomEvent+Caching.h"
 #import "MPIdentityProvider.h"
+#import "MPWebView.h"
 #import "MOPUBExperimentProvider.h"
 
 @interface MoPub ()
@@ -46,6 +48,16 @@
     [MPIdentityProvider setFrequencyCappingIdUsageEnabled:frequencyCappingIdUsageEnabled];
 }
 
+- (void)setForceWKWebView:(BOOL)forceWKWebView
+{
+    [MPWebView forceWKWebView:forceWKWebView];
+}
+
+- (BOOL)forceWKWebView
+{
+    return [MPWebView isForceWKWebView];
+}
+
 - (void)setClickthroughDisplayAgentType:(MOPUBDisplayAgentType)displayAgentType
 {
     [MOPUBExperimentProvider setDisplayAgentType:displayAgentType];
@@ -58,7 +70,6 @@
 
 - (void)start
 {
-
 }
 
 // Keep -version and -bundleIdentifier methods around for Fabric backwards compatibility.
@@ -74,8 +85,17 @@
 
 - (void)initializeRewardedVideoWithGlobalMediationSettings:(NSArray *)globalMediationSettings delegate:(id<MPRewardedVideoDelegate>)delegate
 {
+    NSArray * allCachedNetworks = [MPRewardedVideoCustomEvent allCachedNetworks];
+    [self initializeRewardedVideoWithGlobalMediationSettings:globalMediationSettings delegate:delegate networkInitializationOrder:allCachedNetworks];
+}
+
+- (void)initializeRewardedVideoWithGlobalMediationSettings:(NSArray *)globalMediationSettings
+                                                  delegate:(id<MPRewardedVideoDelegate>)delegate
+                                networkInitializationOrder:(NSArray<NSString *> *)order
+{
     // initializeWithDelegate: is a known private initialization method on MPRewardedVideo. So we forward the initialization call to that class.
     [MPRewardedVideo performSelector:@selector(initializeWithDelegate:) withObject:delegate];
+    [MPRewardedVideo initializeWithOrder:order];
     self.globalMediationSettings = globalMediationSettings;
 }
 
@@ -90,6 +110,11 @@
     }
 
     return nil;
+}
+
+- (void)disableViewability:(MPViewabilityOption)vendors
+{
+    [MPViewabilityTracker disableViewability:vendors];
 }
 
 @end

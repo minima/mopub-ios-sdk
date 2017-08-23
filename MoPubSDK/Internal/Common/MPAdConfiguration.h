@@ -57,6 +57,8 @@ extern NSString * const kAdTypeNativeVideo;
 
 extern NSString * const kClickthroughExperimentBrowserAgent;
 
+extern NSString * const kViewabilityDisableHeaderKey;
+
 @interface MPAdConfiguration : NSObject
 
 @property (nonatomic, assign) MPAdType adType;

@@ -17,6 +17,7 @@
 @end
 
 @implementation MPRewardedVideoAdManager (Testing)
+@dynamic communicator;
 
 - (void)loadWithConfiguration:(MPAdConfiguration *)config {
     self.adapter = [[MPMockRewardedVideoAdapter alloc] initWithDelegate:self configuration:config];

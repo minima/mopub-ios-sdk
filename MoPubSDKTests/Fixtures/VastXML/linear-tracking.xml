@@ -12,11 +12,15 @@
                         <Duration>00:00:30</Duration>
                         <TrackingEvents>
                             <Tracking event="creativeView">http://myTrackingURL/creativeView</Tracking>
+                            <Tracking event="creativeView" />
                             <Tracking event="start">http://myTrackingURL/start</Tracking>
+                            <Tracking event="start"></Tracking>
                             <Tracking event="midpoint">http://myTrackingURL/midpoint</Tracking>
                             <Tracking event="firstQuartile">http://myTrackingURL/firstQuartile</Tracking>
+                            <Tracking event="firstQuartile"></Tracking>
                             <Tracking event="thirdQuartile">http://myTrackingURL/thirdQuartile</Tracking>
                             <Tracking event="complete">http://myTrackingURL/complete</Tracking>
+                            <Tracking event="complete" />
                         </TrackingEvents>
                         <VideoClicks>
                             <ClickThrough>http://www.tremormedia.com/video</ClickThrough>

@@ -20,6 +20,9 @@
 #import "NSURL+MPAdditions.h"
 #import "MPInternalUtils.h"
 #import "MPAPIEndPoints.h"
+#import "MoPub.h"
+#import "MPViewabilityTracker.h"
+#import "NSString+MPAdditions.h"
 
 #ifndef NSFoundationVersionNumber_iOS_6_1
 #define NSFoundationVersionNumber_iOS_6_1 993.00
@@ -36,7 +39,7 @@
 @property (nonatomic, assign) BOOL userInteractedWithWebView;
 @property (nonatomic, strong) MPUserInteractionGestureRecognizer *userInteractionRecognizer;
 @property (nonatomic, assign) CGRect frame;
-@property (nonatomic, assign) BOOL hasPerformedInitialLoad;
+@property (nonatomic, strong, readwrite) MPViewabilityTracker *viewabilityTracker;
 
 - (void)performActionForMoPubSpecificURL:(NSURL *)URL;
 - (BOOL)shouldIntercept:(NSURL *)URL navigationType:(UIWebViewNavigationType)navigationType;
@@ -75,6 +78,7 @@
 
 - (void)dealloc
 {
+    [self.viewabilityTracker stopTracking];
     self.userInteractionRecognizer.delegate = nil;
     [self.userInteractionRecognizer removeTarget:self action:nil];
     [self.destinationDisplayAgent cancel];
@@ -143,6 +147,8 @@
                       baseURL:[NSURL URLWithString:[MPAPIEndpoints baseURL]]
      ];
 
+    [self init3rdPartyViewabilityTrackers];
+
     [self initAdAlertManager];
 }
 
@@ -150,6 +156,11 @@
 {
     switch (event) {
         case MPAdWebViewEventAdDidAppear:
+            // interstitial has been presented, start viewability trackers
+            if ([self shouldDeferViewability]) {
+                [self.viewabilityTracker startTracking];
+            }
+
             [self.view stringByEvaluatingJavaScriptFromString:@"webviewDidAppear();"];
             break;
         case MPAdWebViewEventAdDidDisappear:
@@ -232,20 +243,6 @@
     [self.view disableJavaScriptDialogs];
 }
 
-- (void)webViewDidFinishLoad:(MPWebView *)webView
-{
-    if (!self.hasPerformedInitialLoad) {
-        // excuse interstitials from user tapped check since it's already a takeover experience
-        // and certain videos may delay tap gesture recognition
-        if (self.configuration.adType == MPAdTypeInterstitial) {
-            self.userInteractedWithWebView = YES;
-        }
-
-        self.hasPerformedInitialLoad = YES;
-    }
-}
-
-
 #pragma mark - MoPub-specific URL handlers
 - (void)performActionForMoPubSpecificURL:(NSURL *)URL
 {
@@ -297,6 +294,16 @@
 }
 
 #pragma mark - Utility
+
+- (void)init3rdPartyViewabilityTrackers
+{
+    self.viewabilityTracker = [[MPViewabilityTracker alloc] initWithAdView:self.view isVideo:self.configuration.isVastVideoPlayer startTrackingImmediately:![self shouldDeferViewability]];
+}
+
+- (BOOL)shouldDeferViewability
+{
+    return (self.configuration.adType == MPAdTypeInterstitial);
+}
 
 - (void)initAdAlertManager
 {

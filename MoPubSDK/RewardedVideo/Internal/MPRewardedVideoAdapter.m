@@ -21,6 +21,7 @@
 #import "MPMoPubRewardedVideoCustomEvent.h"
 #import "MPMoPubRewardedPlayableCustomEvent.h"
 #import "MPRealTimeTimer.h"
+#import "NSString+MPAdditions.h"
 
 static const NSString *kRewardedVideoApiVersion = @"1";
 

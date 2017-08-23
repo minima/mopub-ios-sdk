@@ -20,6 +20,8 @@ static NSString *const kMoPubScalesPageToFitScript = @"var meta = document.creat
 
 static NSString *const kMoPubFrameKeyPathString = @"frame";
 
+static BOOL gForceWKWebView = NO;
+
 @interface MPWebView () <UIWebViewDelegate, WKNavigationDelegate, WKUIDelegate, UIScrollViewDelegate>
 
 @property (weak, nonatomic) WKWebView *wkWebView;
@@ -65,7 +67,7 @@ static NSString *const kMoPubFrameKeyPathString = @"frame";
     // set up web view
     UIView *webView;
 
-    if (!forceUIWebView && [WKWebView class]) {
+    if ((gForceWKWebView || !forceUIWebView) && [WKWebView class]) {
         WKUserContentController *contentController = [[WKUserContentController alloc] init];
         WKWebViewConfiguration *config = [[WKWebViewConfiguration alloc] init];
         config.allowsInlineMediaPlayback = kMoPubAllowsInlineMediaPlaybackDefault;
@@ -226,6 +228,16 @@ textEncodingName:(NSString *)encodingName
         }
 #endif
     }
+}
+
++ (void)forceWKWebView:(BOOL)shouldForce
+{
+    gForceWKWebView = shouldForce;
+}
+
++ (BOOL)isForceWKWebView
+{
+    return gForceWKWebView;
 }
 
 - (void)loadHTMLString:(NSString *)string
