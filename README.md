@@ -17,7 +17,7 @@ To file an issue with our team, email [support@mopub.com](mailto:support@mopub.c
 Thank you for submitting pull requests to the MoPub iOS GitHub repository. Our team regularly monitors and investigates all submissions for inclusion in our official SDK releases. Please note that MoPub does not directly merge these pull requests at this time. Please reach out to your account team or [support@mopub.com](mailto:support@mopub.com) if you have further questions.
 
 ## Disclosure
-MoPub v4.16 SDK integrates technology from our partners Integral Ad Science, Inc. (“IAS”) and Moat, Inc. (“Moat”) in order to support viewability measurement and other proprietary reporting that [IAS](https://integralads.com/capabilities/viewability/) and [Moat](https://moat.com/analytics) provide to their advertiser and publisher clients. You have the option to remove or disable this technology by following the opt-out instructions [below](#disableViewability).  
+MoPub v4.16 SDK integrates technology from our partners Integral Ad Science, Inc. (“IAS”) and Moat, Inc. (“Moat”) in order to support viewability measurement and other proprietary reporting that [IAS](https://integralads.com/capabilities/viewability/) and [Moat](https://moat.com/analytics) provide to their advertiser and publisher clients. You have the option to remove or disable this technology by following the opt-out instructions [below](#disableViewability).
 
 If you do not remove or disable IAS's and/or Moat’s technology in accordance with these instructions, you agree that IAS's [privacy policy](https://integralads.com/privacy-policy/) and [license](https://integralads.com/sdk-license-agreement) and Moat’s [privacy policy](https://moat.com/privacy),  [terms](https://moat.com/terms), and [license](https://moat.com/sdklicense.txt), respectively, apply to your integration of these partners' technologies into your application.
 
@@ -53,12 +53,14 @@ Please view the [changelog](https://github.com/mopub/mopub-ios-sdk/blob/master/C
     - Fixed native video crash caused by empty VAST tracking event
     - Prevent interstitials from firing clicks without user interaction
 
-See the [Getting Started Guide](https://github.com/mopub/mopub-ios-sdk/wiki/Getting-Started#app-transport-security-settings) for instructions on setting up ATS in your app.  
+See the [Getting Started Guide](https://github.com/mopub/mopub-ios-sdk/wiki/Getting-Started#app-transport-security-settings) for instructions on setting up ATS in your app.
 
 ### <a name="disableViewability"></a>Disabling Viewability Measurement
-There are a few options for opting out of viewability measurement: 
+There are a few options for opting out of viewability measurement:
 ##### Opting Out in a Manual Integration
-Before dragging the MoPubSDK folder into your Xcode project, simply delete the “Moat” folder to opt out of Moat or the “Avid” folder to opt out of IAS in MoPubSDK/Viewability/. If you would like to opt out of both, delete both folders.
+Before dragging the MoPubSDK folder from Finder into your Xcode project, navigate to MoPubSDK/Viewability/ in Finder, and remove the “Moat” folder to opt-out of Moat or the “Avid” folder to opt-out of IAS. If you would like to opt-out of both vendors, remove both folders.
+
+Note: even if the Moat and/or Avid folders do not exist in the Xcode Project Navigator, if they do exist in your computer's filesystem, build errors can occur. To avoid build errors, be sure that the folders and the contained files have been removed from the MoPub SDK's "Viewability" folder in your computer's filesystem, and that there are no references to these files or folders in your Xcode project.
 ##### Opting Out in a CocoaPods Integration
 Including `pod 'mopub-ios-sdk'` in your Podfile will include both IAS and Moat SDKs, as well as the MoPub SDK. In order to opt out:
 - `pod 'mopub-ios-sdk/Avid'` will include the IAS SDK, but not the Moat SDK, as well as the MoPub SDK.
