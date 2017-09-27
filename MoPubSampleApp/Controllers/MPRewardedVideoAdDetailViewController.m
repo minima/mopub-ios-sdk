@@ -14,6 +14,7 @@
 @interface MPRewardedVideoAdDetailViewController () <MPRewardedVideoDelegate, UIPickerViewDataSource, UIPickerViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *keywordsTextField;
+@property (weak, nonatomic) IBOutlet UITextField *customDataTextField;
 @property (weak, nonatomic) IBOutlet UIPickerView *rewardPickerView;
 @property (nonatomic, assign) NSInteger selectedRewardIndex;
 @property (nonatomic, strong) MPAdInfo *info;
@@ -28,11 +29,9 @@
     if (self) {
         self.info = adInfo;
 
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= MP_IOS_7_0
         if ([self respondsToSelector:@selector(setEdgesForExtendedLayout:)]) {
             self.edgesForExtendedLayout = UIRectEdgeNone;
         }
-#endif
     }
     return self;
 }
@@ -87,7 +86,7 @@
     if ([MPRewardedVideo hasAdAvailableForAdUnitID:self.info.ID]) {
         NSArray * rewards = [MPRewardedVideo availableRewardsForAdUnitID:self.info.ID];
         MPRewardedVideoReward * reward = rewards[self.selectedRewardIndex];
-        [MPRewardedVideo presentRewardedVideoAdForAdUnitID:self.info.ID fromViewController:self withReward:reward];
+        [MPRewardedVideo presentRewardedVideoAdForAdUnitID:self.info.ID fromViewController:self withReward:reward customData:self.customDataTextField.text];
     }
 }
 

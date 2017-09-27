@@ -53,11 +53,9 @@
 
         _sortedSupportedAdTypes = [[MPAdInfo supportedAddedAdTypes].allKeys sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
 
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= MP_IOS_7_0
         if ([self respondsToSelector:@selector(setEdgesForExtendedLayout:)]) {
             self.edgesForExtendedLayout = UIRectEdgeNone;
         }
-#endif
     }
     return self;
 }

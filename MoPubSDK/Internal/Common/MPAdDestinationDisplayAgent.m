@@ -26,10 +26,7 @@ static NSString * const kDisplayAgentErrorDomain = @"com.mopub.displayagent";
 @property (nonatomic, strong) MPProgressOverlayView *overlayView;
 @property (nonatomic, assign) BOOL isLoadingDestination;
 @property (nonatomic) MOPUBDisplayAgentType displayAgentType;
-
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= MP_IOS_6_0
 @property (nonatomic, strong) SKStoreProductViewController *storeKitController;
-#endif
 
 @property (nonatomic, strong) MPAdBrowserController *browserController;
 @property (nonatomic, strong) SFSafariViewController *safariController;
@@ -67,13 +64,13 @@ static NSString * const kDisplayAgentErrorDomain = @"com.mopub.displayagent";
     [self dismissAllModalContent];
 
     self.overlayView.delegate = nil;
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= MP_IOS_6_0
+
     // XXX: If this display agent is deallocated while a StoreKit controller is still on-screen,
     // nil-ing out the controller's delegate would leave us with no way to dismiss the controller
     // in the future. Therefore, we change the controller's delegate to a singleton object which
     // implements SKStoreProductViewControllerDelegate and is always around.
     self.storeKitController.delegate = [MPLastResortDelegate sharedDelegate];
-#endif
+
     self.browserController.delegate = nil;
 
 }
@@ -308,7 +305,6 @@ static NSString * const kDisplayAgentErrorDomain = @"com.mopub.displayagent";
 
 - (void)presentStoreKitControllerWithItemIdentifier:(NSString *)identifier fallbackURL:(NSURL *)URL
 {
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= MP_IOS_6_0
     self.storeKitController = [MPStoreKitProvider buildController];
     self.storeKitController.delegate = self;
 
@@ -318,7 +314,6 @@ static NSString * const kDisplayAgentErrorDomain = @"com.mopub.displayagent";
 
     [self hideOverlay];
     [[self.delegate viewControllerForPresentingModalView] presentViewController:self.storeKitController animated:MP_ANIMATED completion:nil];
-#endif
 }
 
 #pragma mark - <MPSKStoreProductViewControllerDelegate>

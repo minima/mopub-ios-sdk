@@ -43,11 +43,9 @@ static NSString *kDefaultCellIdentifier = @"MoPubSampleAppTableViewAdPlacerCell"
         self.adInfo = info;
         self.contentItems = [NSMutableArray array];
 
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= MP_IOS_7_0
         if ([self respondsToSelector:@selector(setEdgesForExtendedLayout:)]) {
             self.edgesForExtendedLayout = UIRectEdgeNone;
         }
-#endif
     }
     return self;
 }

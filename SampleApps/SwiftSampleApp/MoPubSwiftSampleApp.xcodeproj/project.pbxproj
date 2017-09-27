@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		528C5706EC7DF9313EE96F03 /* libPods-MoPubSwiftSampleApp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 91B0A26A8E2BD47B55198D46 /* libPods-MoPubSwiftSampleApp.a */; };
 		57A22BA81AD317000064A85B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A22BA71AD317000064A85B /* AppDelegate.swift */; };
 		57A22BAD1AD317000064A85B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 57A22BAB1AD317000064A85B /* Main.storyboard */; };
 		57A22BAF1AD317000064A85B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 57A22BAE1AD317000064A85B /* Images.xcassets */; };
@@ -75,11 +74,13 @@
 		BCE9193B1D7641D600A759CB /* MPSampleVideoNativeAdView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCE9193A1D7641D600A759CB /* MPSampleVideoNativeAdView.swift */; };
 		BCE9193C1D76424E00A759CB /* MPSampleVideoNativeAdView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCE9193A1D7641D600A759CB /* MPSampleVideoNativeAdView.swift */; };
 		E45B386BD3319473E28E6BC1 /* libPods-MoPubSwiftSampleApp+CustomEvents.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E025D6801443FF2E736864EA /* libPods-MoPubSwiftSampleApp+CustomEvents.a */; };
+		FC7C6A6051BB2F6A6B709BFB /* Pods_MoPubSwiftSampleApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5305A00CADC201359ECECA7A /* Pods_MoPubSwiftSampleApp.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		258A944FAD6DAA2BB9162F4B /* Pods-MoPubSwiftSampleApp+CustomEvents.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoPubSwiftSampleApp+CustomEvents.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MoPubSwiftSampleApp+CustomEvents/Pods-MoPubSwiftSampleApp+CustomEvents.debug.xcconfig"; sourceTree = "<group>"; };
 		3EA4814667D7277BA008986B /* Pods-MoPubSwiftSampleApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoPubSwiftSampleApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-MoPubSwiftSampleApp/Pods-MoPubSwiftSampleApp.release.xcconfig"; sourceTree = "<group>"; };
+		5305A00CADC201359ECECA7A /* Pods_MoPubSwiftSampleApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MoPubSwiftSampleApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		57A22BA21AD317000064A85B /* MoPubSwiftSampleApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MoPubSwiftSampleApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		57A22BA61AD317000064A85B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		57A22BA71AD317000064A85B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -102,7 +103,6 @@
 		57CE761D1AD72E160003830D /* ASIdentifierManager+SampleApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ASIdentifierManager+SampleApp.swift"; sourceTree = "<group>"; };
 		57CE76221AD8347B0003830D /* MPAdTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MPAdTableViewController.swift; sourceTree = "<group>"; };
 		57CE76271AD837150003830D /* MPUtility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MPUtility.swift; sourceTree = "<group>"; };
-		91B0A26A8E2BD47B55198D46 /* libPods-MoPubSwiftSampleApp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MoPubSwiftSampleApp.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AD7BF4DB662C55C7B4581A36 /* Pods-MoPubSwiftSampleApp+CustomEvents.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoPubSwiftSampleApp+CustomEvents.release.xcconfig"; path = "Pods/Target Support Files/Pods-MoPubSwiftSampleApp+CustomEvents/Pods-MoPubSwiftSampleApp+CustomEvents.release.xcconfig"; sourceTree = "<group>"; };
 		BC6462851DA2DE760046E206 /* PassKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PassKit.framework; path = System/Library/Frameworks/PassKit.framework; sourceTree = SDKROOT; };
 		BC6462871DA2DE830046E206 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
@@ -149,7 +149,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				528C5706EC7DF9313EE96F03 /* libPods-MoPubSwiftSampleApp.a in Frameworks */,
+				FC7C6A6051BB2F6A6B709BFB /* Pods_MoPubSwiftSampleApp.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -206,8 +206,8 @@
 				BC6462A51DA2DFA70046E206 /* SystemConfiguration.framework */,
 				BC6462A71DA2DFAC0046E206 /* Twitter.framework */,
 				BC6462A91DA2DFB80046E206 /* UIKit.framework */,
-				91B0A26A8E2BD47B55198D46 /* libPods-MoPubSwiftSampleApp.a */,
 				E025D6801443FF2E736864EA /* libPods-MoPubSwiftSampleApp+CustomEvents.a */,
+				5305A00CADC201359ECECA7A /* Pods_MoPubSwiftSampleApp.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -454,9 +454,32 @@
 			files = (
 			);
 			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-MoPubSwiftSampleApp/Pods-MoPubSwiftSampleApp-resources.sh",
+				"${PODS_ROOT}/../../../MoPubSDK/Internal/Common/MPAdBrowserController.xib",
+				"${PODS_ROOT}/../../../MoPubSDK/Resources/MPCloseBtn.png",
+				"${PODS_ROOT}/../../../MoPubSDK/Resources/MPCloseBtn@2x.png",
+				"${PODS_ROOT}/../../../MoPubSDK/Resources/MPCloseBtn@3x.png",
+				"${PODS_ROOT}/../../../MoPubSDK/Resources/MPCloseButtonX.png",
+				"${PODS_ROOT}/../../../MoPubSDK/Resources/MPCloseButtonX@2x.png",
+				"${PODS_ROOT}/../../../MoPubSDK/Resources/MPCloseButtonX@3x.png",
+				"${PODS_ROOT}/../../../MoPubSDK/Resources/MPCountdownTimer.html",
+				"${PODS_ROOT}/../../../MoPubSDK/Resources/MPDAAIcon.png",
+				"${PODS_ROOT}/../../../MoPubSDK/Resources/MPDAAIcon@2x.png",
+				"${PODS_ROOT}/../../../MoPubSDK/Resources/MPDAAIcon@3x.png",
+				"${PODS_ROOT}/../../../MoPubSDK/Resources/MPMutedBtn.png",
+				"${PODS_ROOT}/../../../MoPubSDK/Resources/MPMutedBtn@2x.png",
+				"${PODS_ROOT}/../../../MoPubSDK/Resources/MPMutedBtn@3x.png",
+				"${PODS_ROOT}/../../../MoPubSDK/Resources/MPPlayBtn.png",
+				"${PODS_ROOT}/../../../MoPubSDK/Resources/MPPlayBtn@2x.png",
+				"${PODS_ROOT}/../../../MoPubSDK/Resources/MPPlayBtn@3x.png",
+				"${PODS_ROOT}/../../../MoPubSDK/Resources/MPUnmutedBtn.png",
+				"${PODS_ROOT}/../../../MoPubSDK/Resources/MPUnmutedBtn@2x.png",
+				"${PODS_ROOT}/../../../MoPubSDK/Resources/MPUnmutedBtn@3x.png",
+				"${PODS_ROOT}/../../../MoPubSDK/Resources/MRAID.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -499,13 +522,16 @@
 			files = (
 			);
 			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-MoPubSwiftSampleApp+CustomEvents-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		C079CBC2897D5EBF909F4773 /* [CP] Check Pods Manifest.lock */ = {
@@ -514,13 +540,16 @@
 			files = (
 			);
 			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-MoPubSwiftSampleApp-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		F89F88211599F98F730C1FC8 /* [CP] Copy Pods Resources */ = {
@@ -529,9 +558,34 @@
 			files = (
 			);
 			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-MoPubSwiftSampleApp+CustomEvents/Pods-MoPubSwiftSampleApp+CustomEvents-resources.sh",
+				"${PODS_ROOT}/../../../MoPubSDK/Internal/Common/MPAdBrowserController.xib",
+				"${PODS_ROOT}/../../../MoPubSDK/Resources/MPCloseBtn.png",
+				"${PODS_ROOT}/../../../MoPubSDK/Resources/MPCloseBtn@2x.png",
+				"${PODS_ROOT}/../../../MoPubSDK/Resources/MPCloseBtn@3x.png",
+				"${PODS_ROOT}/../../../MoPubSDK/Resources/MPCloseButtonX.png",
+				"${PODS_ROOT}/../../../MoPubSDK/Resources/MPCloseButtonX@2x.png",
+				"${PODS_ROOT}/../../../MoPubSDK/Resources/MPCloseButtonX@3x.png",
+				"${PODS_ROOT}/../../../MoPubSDK/Resources/MPCountdownTimer.html",
+				"${PODS_ROOT}/../../../MoPubSDK/Resources/MPDAAIcon.png",
+				"${PODS_ROOT}/../../../MoPubSDK/Resources/MPDAAIcon@2x.png",
+				"${PODS_ROOT}/../../../MoPubSDK/Resources/MPDAAIcon@3x.png",
+				"${PODS_ROOT}/../../../MoPubSDK/Resources/MPMutedBtn.png",
+				"${PODS_ROOT}/../../../MoPubSDK/Resources/MPMutedBtn@2x.png",
+				"${PODS_ROOT}/../../../MoPubSDK/Resources/MPMutedBtn@3x.png",
+				"${PODS_ROOT}/../../../MoPubSDK/Resources/MPPlayBtn.png",
+				"${PODS_ROOT}/../../../MoPubSDK/Resources/MPPlayBtn@2x.png",
+				"${PODS_ROOT}/../../../MoPubSDK/Resources/MPPlayBtn@3x.png",
+				"${PODS_ROOT}/../../../MoPubSDK/Resources/MPUnmutedBtn.png",
+				"${PODS_ROOT}/../../../MoPubSDK/Resources/MPUnmutedBtn@2x.png",
+				"${PODS_ROOT}/../../../MoPubSDK/Resources/MPUnmutedBtn@3x.png",
+				"${PODS_ROOT}/../../../MoPubSDK/Resources/MRAID.bundle",
+				"${PODS_ROOT}/TapjoySDK/TapjoySDK_iOS_v11.11.0/Libraries/Tapjoy.embeddedframework/Resources/TapjoyResources.bundle",
+				"${PODS_ROOT}/TapjoySDK/TapjoySDK_iOS_v11.11.0/Libraries/Tapjoy.embeddedframework/Tapjoy.framework/Versions/A/Resources/TapjoyResources.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;

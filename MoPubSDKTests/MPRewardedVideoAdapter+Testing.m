@@ -11,5 +11,5 @@
 
 @dynamic hasTrackedImpression;
 @dynamic hasExpired;
-
+@dynamic urlEncodedCustomData;
 @end

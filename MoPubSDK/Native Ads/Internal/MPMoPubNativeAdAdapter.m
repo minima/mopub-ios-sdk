@@ -11,6 +11,7 @@
 #import "MPStaticNativeAdImpressionTimer.h"
 #import "MPNativeAdConstants.h"
 #import "MPGlobal.h"
+#import "MPNativeAdConfigValues.h"
 
 static const NSTimeInterval kMoPubRequiredSecondsForImpression = 1.0;
 static const CGFloat kMoPubRequiredViewVisibilityPercentage = 0.5;
@@ -68,7 +69,15 @@ static const CGFloat kMoPubRequiredViewVisibilityPercentage = 0.5;
 
         _defaultActionURL = [NSURL URLWithString:[properties objectForKey:kDefaultActionURLKey]];
 
-        [properties removeObjectsForKeys:[NSArray arrayWithObjects:kImpressionTrackerURLsKey, kClickTrackerURLKey, kDefaultActionURLKey, nil]];
+        // Grab the config, figure out requiredSecondsForImpression and requiredViewVisibilityPercentage,
+        // and set up the timer.
+        MPNativeAdConfigValues *config = properties[kNativeAdConfigKey];
+        NSTimeInterval requiredSecondsForImpression = config.isImpressionMinVisibleSecondsValid ? config.impressionMinVisibleSeconds : kMoPubRequiredSecondsForImpression;
+        CGFloat requiredViewVisibilityPercentage = config.isImpressionMinVisiblePercentValid ? (config.impressionMinVisiblePercent / 100.0) : kMoPubRequiredViewVisibilityPercentage;
+        _impressionTimer = [[MPStaticNativeAdImpressionTimer alloc] initWithRequiredSecondsForImpression:requiredSecondsForImpression requiredViewVisibilityPercentage:requiredViewVisibilityPercentage];
+        _impressionTimer.delegate = self;
+
+        [properties removeObjectsForKeys:@[kImpressionTrackerURLsKey, kClickTrackerURLKey, kDefaultActionURLKey, kNativeAdConfigKey]];
         _properties = properties;
 
         if (!valid) {
@@ -91,8 +100,6 @@ static const CGFloat kMoPubRequiredViewVisibilityPercentage = 0.5;
         }
 
         _destinationDisplayAgent = [[MPCoreInstanceProvider sharedProvider] buildMPAdDestinationDisplayAgentWithDelegate:self];
-        _impressionTimer = [[MPStaticNativeAdImpressionTimer alloc] initWithRequiredSecondsForImpression:kMoPubRequiredSecondsForImpression requiredViewVisibilityPercentage:kMoPubRequiredViewVisibilityPercentage];
-        _impressionTimer.delegate = self;
     }
 
     return self;

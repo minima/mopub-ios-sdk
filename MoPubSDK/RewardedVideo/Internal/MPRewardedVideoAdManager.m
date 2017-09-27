@@ -89,12 +89,7 @@
     }
 }
 
-- (void)presentRewardedVideoAdFromViewController:(UIViewController *)viewController
-{
-    [self presentRewardedVideoAdFromViewController:viewController withReward:nil];
-}
-
-- (void)presentRewardedVideoAdFromViewController:(UIViewController *)viewController withReward:(MPRewardedVideoReward *)reward
+- (void)presentRewardedVideoAdFromViewController:(UIViewController *)viewController withReward:(MPRewardedVideoReward *)reward customData:(NSString *)customData
 {
     // Don't allow the ad to be shown if it isn't ready.
     if (!self.ready) {
@@ -139,7 +134,7 @@
         }
     }
 
-    [self.adapter presentRewardedVideoFromViewController:viewController];
+    [self.adapter presentRewardedVideoFromViewController:viewController customData:customData];
 }
 
 - (void)handleAdPlayedForCustomEventNetwork

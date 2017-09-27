@@ -1,11 +1,11 @@
 PODS:
-  - AdColony (3.1.1)
+  - AdColony (3.2.0)
   - ChartboostSDK (6.6.3)
   - FBAudienceNetwork (4.25.0)
-  - Flurry-iOS-SDK/FlurryAds (8.1.0):
+  - Flurry-iOS-SDK/FlurryAds (8.2.0):
     - Flurry-iOS-SDK/FlurrySDK
-  - Flurry-iOS-SDK/FlurrySDK (8.1.0)
-  - Google-Mobile-Ads-SDK (7.22.0)
+  - Flurry-iOS-SDK/FlurrySDK (8.2.0)
+  - Google-Mobile-Ads-SDK (7.23.0)
   - mopub-ios-sdk (4.11.1):
     - mopub-ios-sdk/MoPubSDK (= 4.11.1)
   - mopub-ios-sdk/AdColonyCustomEvents (4.11.1):
@@ -29,7 +29,6 @@ PODS:
     - mopub-ios-sdk/Core
   - mopub-ios-sdk/Moat (4.11.1):
     - mopub-ios-sdk/Core
-    - MPUBMoatMobileAppKit (= 3.2.1)
   - mopub-ios-sdk/MoPubSDK (4.11.1):
     - mopub-ios-sdk/Avid
     - mopub-ios-sdk/Core
@@ -43,10 +42,9 @@ PODS:
   - mopub-ios-sdk/VungleCustomEvents (4.11.1):
     - mopub-ios-sdk/Core
     - VungleSDK-iOS (~> 5.0)
-  - MPUBMoatMobileAppKit (3.2.1)
   - TapjoySDK (11.11.0)
   - UnityAds (2.1.0)
-  - VungleSDK-iOS (5.1.0)
+  - VungleSDK-iOS (5.1.1)
 
 DEPENDENCIES:
   - mopub-ios-sdk (from `../../`)
@@ -61,20 +59,19 @@ DEPENDENCIES:
 
 EXTERNAL SOURCES:
   mopub-ios-sdk:
-    :path: ../../
+    :path: "../../"
 
 SPEC CHECKSUMS:
-  AdColony: 27bcddd3d79b24f61765dd799fcc666975f90daa
+  AdColony: c470eed14e66670550c54de109d096040467a445
   ChartboostSDK: c0aefb3c25efcd1fa9a43fb45547ea98b323c95c
   FBAudienceNetwork: b0e2a46cca38ca0d17d8aebcc4765d628203ee9b
-  Flurry-iOS-SDK: 51065be4436f3e21fc8d3d7bb0b7d6869df6333d
-  Google-Mobile-Ads-SDK: 1bdf1a4244d0553b1840239874c209c01aef055f
-  mopub-ios-sdk: 525cba7218d36a14a66a00230cbd635d2691550f
-  MPUBMoatMobileAppKit: f93733fbb17a5387228f4e29f1cd07c934d63cab
+  Flurry-iOS-SDK: 5907f4767bbe538ced4d39f1268096730193b471
+  Google-Mobile-Ads-SDK: a43dc8efdb566c74d00ac6934c781de969348d80
+  mopub-ios-sdk: 5af491dd558259533f2c747637dc84ebd290ed13
   TapjoySDK: 19107f83dc69195451a298000b04851105e95e3f
   UnityAds: 99645a5b7011c96d1e9204f8540ce66ea1b7dfb4
-  VungleSDK-iOS: c4d55906035371baa4190162d57929cf5811c61f
+  VungleSDK-iOS: 18369c6d5456928a2fb752fa2413d0da8c359548
 
-PODFILE CHECKSUM: 77f25639bf61e5ab38c697e91d2659c7f2bee4ec
+PODFILE CHECKSUM: b45c4cf0cd481b50da4b8a29ff5640bf7de18324
 
-COCOAPODS: 1.2.1
+COCOAPODS: 1.1.1

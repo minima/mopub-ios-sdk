@@ -282,4 +282,34 @@
     XCTAssertTrue([MPViewabilityTracker enabledViewabilityVendors] == MPViewabilityOptionIAS);
 }
 
+#pragma mark - Static Native Ads
+
+- (void)testMinVisiblePercentParseSuccess {
+    NSDictionary *headers = @{ @"X-Impression-Min-Visible-Percent": @"50" };
+    MPAdConfiguration *config = [[MPAdConfiguration alloc] initWithHeaders:headers data:nil];
+
+    XCTAssertEqual(config.nativeImpressionMinVisiblePercent, 50);
+}
+
+- (void)testMinVisiblePercentParseNoHeader {
+    NSDictionary *headers = @{};
+    MPAdConfiguration *config = [[MPAdConfiguration alloc] initWithHeaders:headers data:nil];
+
+    XCTAssertEqual(config.nativeImpressionMinVisiblePercent, -1);
+}
+
+- (void)testMinVisibleTimeIntervalParseSuccess {
+    NSDictionary *headers = @{ @"X-Impression-Visible-Ms": @"1500" };
+    MPAdConfiguration *config = [[MPAdConfiguration alloc] initWithHeaders:headers data:nil];
+
+    XCTAssertEqual(config.nativeImpressionMinVisibleTimeInterval, 1.5);
+}
+
+- (void)testMinVisibleTimeIntervalParseNoHeader {
+    NSDictionary *headers = @{};
+    MPAdConfiguration *config = [[MPAdConfiguration alloc] initWithHeaders:headers data:nil];
+
+    XCTAssertEqual(config.nativeImpressionMinVisibleTimeInterval, -1);
+}
+
 @end

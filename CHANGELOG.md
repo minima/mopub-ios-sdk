@@ -1,3 +1,9 @@
+## Version 4.17.0 (September 27, 2017)
+- **Features**
+    - Rewarded videos can now optionally pass back custom data to the publisher's reward server.
+    - Updated the minimum iOS version of the SDK to iOS 8.
+    - Update Facebook adapter with non whitespace clickable policy.
+
 ## Version 4.16.0 (August 23, 2017)
 - **Features**
   - Added viewability support for Integral Ad Science (IAS) and Moat, two of the leading independent viewability measurement providers

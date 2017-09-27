@@ -44,7 +44,7 @@ static const NSTimeInterval kTestTimeout   = 2; // seconds
 
     MPRewardedVideoAdManager * rewardedAd = [[MPRewardedVideoAdManager alloc] initWithAdUnitID:kTestAdUnitId delegate:delegateHandler];
     [rewardedAd loadWithConfiguration:config];
-    [rewardedAd presentRewardedVideoAdFromViewController:nil];
+    [rewardedAd presentRewardedVideoAdFromViewController:nil withReward:nil customData:nil];
 
     [self waitForExpectationsWithTimeout:kTestTimeout handler:^(NSError * _Nullable error) {
         XCTAssertNil(error);
@@ -77,7 +77,7 @@ static const NSTimeInterval kTestTimeout   = 2; // seconds
 
     MPRewardedVideoAdManager * rewardedAd = [[MPRewardedVideoAdManager alloc] initWithAdUnitID:kTestAdUnitId delegate:delegateHandler];
     [rewardedAd loadWithConfiguration:config];
-    [rewardedAd presentRewardedVideoAdFromViewController:nil];
+    [rewardedAd presentRewardedVideoAdFromViewController:nil withReward:nil customData:nil];
 
     [self waitForExpectationsWithTimeout:kTestTimeout handler:^(NSError * _Nullable error) {
         XCTAssertNil(error);
@@ -112,7 +112,7 @@ static const NSTimeInterval kTestTimeout   = 2; // seconds
 
     MPRewardedVideoAdManager * rewardedAd = [[MPRewardedVideoAdManager alloc] initWithAdUnitID:kTestAdUnitId delegate:delegateHandler];
     [rewardedAd loadWithConfiguration:config];
-    [rewardedAd presentRewardedVideoAdFromViewController:nil withReward:rewardedAd.availableRewards[1]];
+    [rewardedAd presentRewardedVideoAdFromViewController:nil withReward:rewardedAd.availableRewards[1] customData:nil];
 
     [self waitForExpectationsWithTimeout:kTestTimeout handler:^(NSError * _Nullable error) {
         XCTAssertNil(error);
@@ -155,7 +155,7 @@ static const NSTimeInterval kTestTimeout   = 2; // seconds
 
     MPRewardedVideoAdManager * rewardedAd = [[MPRewardedVideoAdManager alloc] initWithAdUnitID:kTestAdUnitId delegate:delegateHandler];
     [rewardedAd loadWithConfiguration:config];
-    [rewardedAd presentRewardedVideoAdFromViewController:nil];
+    [rewardedAd presentRewardedVideoAdFromViewController:nil withReward:nil customData:nil];
 
     [self waitForExpectationsWithTimeout:kTestTimeout handler:^(NSError * _Nullable error) {
         XCTAssertNil(error);
@@ -197,7 +197,7 @@ static const NSTimeInterval kTestTimeout   = 2; // seconds
 
     MPRewardedVideoAdManager * rewardedAd = [[MPRewardedVideoAdManager alloc] initWithAdUnitID:kTestAdUnitId delegate:delegateHandler];
     [rewardedAd loadWithConfiguration:config];
-    [rewardedAd presentRewardedVideoAdFromViewController:nil withReward:nil];
+    [rewardedAd presentRewardedVideoAdFromViewController:nil withReward:nil customData:nil];
 
     [self waitForExpectationsWithTimeout:kTestTimeout handler:^(NSError * _Nullable error) {
         XCTAssertNil(error);
@@ -242,7 +242,7 @@ static const NSTimeInterval kTestTimeout   = 2; // seconds
 
     MPRewardedVideoAdManager * rewardedAd = [[MPRewardedVideoAdManager alloc] initWithAdUnitID:kTestAdUnitId delegate:delegateHandler];
     [rewardedAd loadWithConfiguration:config];
-    [rewardedAd presentRewardedVideoAdFromViewController:nil withReward:badReward];
+    [rewardedAd presentRewardedVideoAdFromViewController:nil withReward:badReward customData:nil];
 
     [self waitForExpectationsWithTimeout:kTestTimeout handler:^(NSError * _Nullable error) {
         XCTAssertNil(error);

@@ -219,7 +219,7 @@ textEncodingName:(NSString *)encodingName
                 textEncodingName:encodingName
                          baseURL:baseURL];
     } else {
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 90000
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= MP_IOS_9_0
         if ([self.wkWebView respondsToSelector:@selector(loadData:MIMEType:characterEncodingName:baseURL:)]) {
             [self.wkWebView loadData:data
                             MIMEType:MIMEType
@@ -299,7 +299,7 @@ textEncodingName:(NSString *)encodingName
     }
 }
 
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 90000
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= MP_IOS_9_0
 - (void)setAllowsLinkPreview:(BOOL)allowsLinkPreview {
     if (self.uiWebView) {
         if ([self.uiWebView respondsToSelector:@selector(setAllowsLinkPreview:)]) {
@@ -398,13 +398,13 @@ textEncodingName:(NSString *)encodingName
     if (self.uiWebView) {
         return self.uiWebView.mediaPlaybackRequiresUserAction;
     } else {
-#if __IPHONE_OS_VERSION_MIN_REQUIRED < 90000
+#if __IPHONE_OS_VERSION_MIN_REQUIRED < MP_IOS_9_0
         if (![self.wkWebView.configuration respondsToSelector:@selector(requiresUserActionForMediaPlayback)]) {
             return self.wkWebView.configuration.mediaPlaybackRequiresUserAction;
         }
 #endif
 
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 90000
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= MP_IOS_9_0
         return self.wkWebView.configuration.requiresUserActionForMediaPlayback;
 #else
         return NO; // avoid compiler error under 8.4 SDK
@@ -416,13 +416,13 @@ textEncodingName:(NSString *)encodingName
     if (self.uiWebView) {
         return self.uiWebView.mediaPlaybackAllowsAirPlay;
     } else {
-#if __IPHONE_OS_VERSION_MIN_REQUIRED < 90000
+#if __IPHONE_OS_VERSION_MIN_REQUIRED < MP_IOS_9_0
         if (![self.wkWebView.configuration respondsToSelector:@selector(allowsAirPlayForMediaPlayback)]) {
             return self.wkWebView.configuration.mediaPlaybackAllowsAirPlay;
         }
 #endif
 
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 90000
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= MP_IOS_9_0
         return self.wkWebView.configuration.allowsAirPlayForMediaPlayback;
 #else
         return NO; // avoid compiler error under 8.4 SDK
@@ -430,7 +430,7 @@ textEncodingName:(NSString *)encodingName
     }
 }
 
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 90000
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= MP_IOS_9_0
 - (BOOL)allowsPictureInPictureMediaPlayback {
     if (self.uiWebView) {
         if ([self.uiWebView respondsToSelector:@selector(allowsPictureInPictureMediaPlayback)]) {
@@ -591,7 +591,7 @@ windowFeatures:(WKWindowFeatures *)windowFeatures {
 - (void)webView:(WKWebView *)webView
 runJavaScriptAlertPanelWithMessage:(NSString *)message
 initiatedByFrame:(WKFrameInfo *)frame
-#if __IPHONE_OS_VERSION_MAX_ALLOWED < 90000 // This pre-processor code is to be sure we can compile under both iOS 8 and 9 SDKs
+#if __IPHONE_OS_VERSION_MAX_ALLOWED < MP_IOS_9_0 // This pre-processor code is to be sure we can compile under both iOS 8 and 9 SDKs
 completionHandler:(void (^)())completionHandler {
 #else
 completionHandler:(void (^)(void))completionHandler {

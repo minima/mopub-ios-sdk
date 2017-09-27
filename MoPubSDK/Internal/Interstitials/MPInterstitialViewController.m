@@ -191,7 +191,6 @@ static NSString * const kCloseButtonXImageName = @"MPCloseButtonX.png";
 
 #pragma mark - Autorotation (iOS 6.0 and above)
 
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= MP_IOS_6_0
 - (BOOL)shouldAutorotate
 {
     return YES;
@@ -252,7 +251,6 @@ static NSString * const kCloseButtonXImageName = @"MPCloseButtonX.png";
         return UIInterfaceOrientationLandscapeRight;
     }
 }
-#endif
 
 #pragma mark - Autorotation (before iOS 6.0)
 

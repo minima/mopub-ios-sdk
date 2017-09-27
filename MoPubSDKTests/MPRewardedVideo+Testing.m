@@ -82,6 +82,13 @@ static void(^sDidSendServerToServerCallbackUrl)(NSURL * url) = nil;
     [adManager loadWithConfiguration:config];
 }
 
++ (MPRewardedVideoAdManager *)adManagerForAdUnitId:(NSString *)adUnitID {
+    MPRewardedVideo *sharedInstance = [MPRewardedVideo sharedInstance];
+    MPRewardedVideoAdManager * adManager = sharedInstance.rewardedVideoAdManagers[adUnitID];
+
+    return adManager;
+}
+
 #pragma mark - Swizzles
 
 - (void)testing_startRewardedVideoConnectionWithUrl:(NSURL *)url {

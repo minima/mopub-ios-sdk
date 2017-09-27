@@ -24,6 +24,7 @@
 #import "NSString+MPAdditions.h"
 
 static const NSString *kRewardedVideoApiVersion = @"1";
+static const NSUInteger kExcessiveCustomDataLength = 8196;
 
 @interface MPRewardedVideoAdapter () <MPRewardedVideoCustomEventDelegate>
 
@@ -37,6 +38,7 @@ static const NSString *kRewardedVideoApiVersion = @"1";
 // Since we only notify the application of one success per load, we also only notify the application of one expiration per success.
 @property (nonatomic, assign) BOOL hasExpired;
 @property (nonatomic, strong) MPRealTimeTimer *expirationTimer;
+@property (nonatomic, copy) NSString * urlEncodedCustomData;
 
 @end
 
@@ -86,8 +88,20 @@ static const NSString *kRewardedVideoApiVersion = @"1";
     return [self.rewardedVideoCustomEvent hasAdAvailable];
 }
 
-- (void)presentRewardedVideoFromViewController:(UIViewController *)viewController
+- (void)presentRewardedVideoFromViewController:(UIViewController *)viewController customData:(NSString *)customData
 {
+    NSUInteger customDataLength = customData.length;
+    // Only persist the custom data field if it's non-empty and there is a server-to-server
+    // callback URL. The persisted custom data will be url encoded.
+    if (customDataLength > 0 && self.configuration.rewardedVideoCompletionUrl != nil) {
+        // Warn about excessive custom data length, but allow the custom data to be sent anyway
+        if (customDataLength > kExcessiveCustomDataLength) {
+            MPLogWarn(@"Custom data length %ld exceeds the receommended maximum length of %ld characters.", customDataLength, kExcessiveCustomDataLength);
+        }
+
+        self.urlEncodedCustomData = [customData mp_URLEncodedString];
+    }
+
     [self.rewardedVideoCustomEvent presentRewardedVideoFromViewController:viewController];
 }
 
@@ -136,6 +150,17 @@ static const NSString *kRewardedVideoApiVersion = @"1";
 
     if (self.configuration.selectedReward && ![self.configuration.selectedReward.currencyType isEqualToString:kMPRewardedVideoRewardCurrencyTypeUnspecified]) {
         finalCompletionUrlString = [NSString stringWithFormat:@"%@&rcn=%@&rca=%i", finalCompletionUrlString, [self.configuration.selectedReward.currencyType mp_URLEncodedString], [self.configuration.selectedReward.amount intValue]];
+    }
+
+    // Append URL encoded custom event class name
+    if (self.rewardedVideoCustomEvent != nil) {
+        NSString * networkClassName = [NSStringFromClass([self.rewardedVideoCustomEvent class]) mp_URLEncodedString];
+        finalCompletionUrlString = [NSString stringWithFormat:@"%@&cec=%@", finalCompletionUrlString, networkClassName];
+    }
+
+    // Append URL encoded custom data
+    if (self.urlEncodedCustomData != nil) {
+        finalCompletionUrlString = [NSString stringWithFormat:@"%@&rcd=%@", finalCompletionUrlString, self.urlEncodedCustomData];
     }
 
     return [NSURL URLWithString:finalCompletionUrlString];

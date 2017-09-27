@@ -33,7 +33,7 @@ The MoPub SDK is distributed as source code that you can include in your applica
 
   Includes everything you need to serve HTML and MRAID advertisements.  Third party ad networks and Native MoPub advertisements are not included.
 
-The current version of the SDK is 4.16.0
+The current version of the SDK is 4.17.0
 
 ## Integrate
 
@@ -46,21 +46,16 @@ More detailed class documentation is available in the repo under the `ClassDocum
 Please view the [changelog](https://github.com/mopub/mopub-ios-sdk/blob/master/CHANGELOG.md) for details.
 
 - **Features**
-    - Added viewability support for Integral Ad Science (IAS) and Moat, two of the leading independent viewability measurement providers
-        - To disable this feature, see note below on [Disabling Viewability Measurement](#disableViewability).
-    - New app launch rewarded video initialization method for mediated network SDKs
-- **Bug Fixes**
-    - Fixed native video crash caused by empty VAST tracking event
-    - Prevent interstitials from firing clicks without user interaction
+    - Rewarded videos can now optionally pass back custom data to the publisher's reward server.
+    - Updated the minimum iOS version of the SDK to iOS 8.
+    - Update Facebook adapter with non whitespace clickable policy.
 
-See the [Getting Started Guide](https://github.com/mopub/mopub-ios-sdk/wiki/Getting-Started#app-transport-security-settings) for instructions on setting up ATS in your app.
+See the [Getting Started Guide](https://github.com/mopub/mopub-ios-sdk/wiki/Getting-Started#app-transport-security-settings) for instructions on setting up ATS in your app.  
 
 ### <a name="disableViewability"></a>Disabling Viewability Measurement
-There are a few options for opting out of viewability measurement:
+There are a few options for opting out of viewability measurement: 
 ##### Opting Out in a Manual Integration
-Before dragging the MoPubSDK folder from Finder into your Xcode project, navigate to MoPubSDK/Viewability/ in Finder, and remove the “Moat” folder to opt-out of Moat or the “Avid” folder to opt-out of IAS. If you would like to opt-out of both vendors, remove both folders.
-
-Note: even if the Moat and/or Avid folders do not exist in the Xcode Project Navigator, if they do exist in your computer's filesystem, build errors can occur. To avoid build errors, be sure that the folders and the contained files have been removed from the MoPub SDK's "Viewability" folder in your computer's filesystem, and that there are no references to these files or folders in your Xcode project.
+Before dragging the MoPubSDK folder into your Xcode project, simply delete the “Moat” folder to opt out of Moat or the “Avid” folder to opt out of IAS in MoPubSDK/Viewability/. If you would like to opt out of both, delete both folders.
 ##### Opting Out in a CocoaPods Integration
 Including `pod 'mopub-ios-sdk'` in your Podfile will include both IAS and Moat SDKs, as well as the MoPub SDK. In order to opt out:
 - `pod 'mopub-ios-sdk/Avid'` will include the IAS SDK, but not the Moat SDK, as well as the MoPub SDK.
@@ -78,7 +73,7 @@ See our [upgrade document](https://github.com/mopub/mopub-ios-sdk/wiki/Upgrading
 
 ## Requirements
 
-iOS 7.0 and up
+iOS 8.0 and up
 
 ## License
 

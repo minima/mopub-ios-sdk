@@ -106,10 +106,11 @@
     [self removeStaticImpressionTimer];
 
     // Set up a static impression timer that will fire the mopub impression if the video fails to play prior to meeting the video impression tracking requirements.
-    MOPUBNativeVideoAdConfigValues *nativeVideoAdConfig = [self.properties objectForKey:kNativeVideoAdConfigKey];
+    MOPUBNativeVideoAdConfigValues *nativeVideoAdConfig = [self.properties objectForKey:kNativeAdConfigKey];
 
     // impressionMinVisiblePercent is an integer (a value of 50 means 50%) while the impression timer takes in a float (.50 means 50%) so we have to multiply it by .01f.
-    self.staticImpressionTimer = [[MPStaticNativeAdImpressionTimer alloc] initWithRequiredSecondsForImpression:nativeVideoAdConfig.impressionVisible requiredViewVisibilityPercentage:nativeVideoAdConfig.impressionMinVisiblePercent*0.01f];
+    self.staticImpressionTimer = [[MPStaticNativeAdImpressionTimer alloc] initWithRequiredSecondsForImpression:nativeVideoAdConfig.impressionMinVisibleSeconds
+                                                                              requiredViewVisibilityPercentage:nativeVideoAdConfig.impressionMinVisiblePercent*0.01f];
     self.staticImpressionTimer.delegate = self;
 
     [self.staticImpressionTimer startTrackingView:view];

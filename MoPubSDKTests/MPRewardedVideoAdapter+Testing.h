@@ -13,5 +13,6 @@
 
 @property (nonatomic, assign) BOOL hasTrackedImpression;
 @property (nonatomic, assign) BOOL hasExpired;
+@property (nonatomic, copy) NSString * urlEncodedCustomData;
 
 @end

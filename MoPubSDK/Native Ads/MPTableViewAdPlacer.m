@@ -808,13 +808,11 @@ static char kAdPlacerKey;
     }
 
     if (!indexPath || adjustedIndexPath) {
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= MP_IOS_6_0
         if ([self respondsToSelector:@selector(dequeueReusableCellWithIdentifier:forIndexPath:)]) {
             return [self dequeueReusableCellWithIdentifier:identifier forIndexPath:adjustedIndexPath];
         } else {
             return [self dequeueReusableCellWithIdentifier:identifier];
         }
-#endif
     } else {
         return nil;
     }

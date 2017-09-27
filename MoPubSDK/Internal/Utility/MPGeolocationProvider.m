@@ -132,11 +132,7 @@ const NSTimeInterval kMPLocationUpdateInterval = 10.0 * 60.0;
 
 - (BOOL)isAuthorizedStatus:(CLAuthorizationStatus)status
 {
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 80000
     return (status == kCLAuthorizationStatusAuthorizedAlways) || (status == kCLAuthorizationStatusAuthorizedWhenInUse);
-#else
-    return status == kCLAuthorizationStatusAuthorized;
-#endif
 }
 
 /**
@@ -252,10 +248,8 @@ const NSTimeInterval kMPLocationUpdateInterval = 10.0 * 60.0;
         case kCLAuthorizationStatusRestricted:
             self.authorizedForLocationServices = NO;
             break;
-        case kCLAuthorizationStatusAuthorized: // same as kCLAuthorizationStatusAuthorizedAlways
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 80000
+        case kCLAuthorizationStatusAuthorizedAlways:
         case kCLAuthorizationStatusAuthorizedWhenInUse:
-#endif
             self.authorizedForLocationServices = YES;
             break;
         default:
