@@ -12,6 +12,10 @@
 #endif
 
 /*
+ * Certified with AdColony 3.2.1
+ */
+
+/*
  * Please reference the Supported Mediation Partner page at http://bit.ly/2mqsuFH for the
  * latest version and ad format certifications.
  */
