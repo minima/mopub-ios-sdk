@@ -12,8 +12,7 @@
 #endif
 
 /*
- * Please reference the Supported Mediation Partner page at http://bit.ly/2mqsuFH for the
- * latest version and ad format certifications.
+ * Certified with Vungle 5.3.0
  *
  * The Vungle SDK does not provide an "application will leave" callback, thus this custom event
  * will not invoke the rewardedVideoWillLeaveApplicationForCustomEvent: delegate method.

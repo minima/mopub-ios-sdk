@@ -109,28 +109,28 @@
 {
     @synchronized(self) {
         MPQRunLoopOperationState oldState;
-        
+
         // The following check is really important.  The state can only go forward, and there
         // should be no redundant changes to the state (that is, newState must never be
         // equal to _state).
-        
-        assert(newState > _state);
-        
+
+        NSAssert(newState > _state, @"newState must always be greater than state");
+
         // inited    -> executing = update isExecuting
         // inited    -> finished  = update isFinished
         // executing -> finished  = update both isExecuting and isFinished
-        
+
         oldState = _state;
-        
+
         if ((newState == MPQRunLoopOperationStateExecuting) || (oldState == MPQRunLoopOperationStateExecuting)) {
             [self willChangeValueForKey:@"isExecuting"];
         }
         if (newState == MPQRunLoopOperationStateFinished) {
             [self willChangeValueForKey:@"isFinished"];
         }
-        
+
         _state = newState;
-        
+
         if (newState == MPQRunLoopOperationStateFinished) {
             [self didChangeValueForKey:@"isFinished"];
         }
@@ -144,7 +144,7 @@
 {
     NSAssert([self isActualRunLoopThread], @"-startOnRunLoopThread must be called on the run loop thread.");
     NSAssert(self.state == MPQRunLoopOperationStateExecuting, @"The operation should be in the executing state.");
-    
+
     if (self.isCancelled) {
         // We were cancelled before we even got running. Flip the finished state immediately.
         [self finishWithError:[NSError errorWithDomain:NSCocoaErrorDomain code:NSUserCancelledError userInfo:nil]];
@@ -156,7 +156,7 @@
 - (void)cancelOnRunLoopThread
 {
     NSAssert([self isActualRunLoopThread], @"-cancelOnRunLoopThread must be called on the run loop thread.");
-    
+
     // We know that a) state was kQRunLoopOperationStateExecuting when we were
     // scheduled (that's enforced by -cancel), and b) the state can't go
     // backwards (that's enforced by -setState), so we know the state must
@@ -164,7 +164,7 @@
     // We also know that the transition from executing to finished always
     // happens on the run loop thread.  Thus, we don't need to lock here.
     // We can look at state and, if we're executing, trigger a cancellation.
-    
+
     if (self.state == MPQRunLoopOperationStateExecuting) {
         [self finishWithError:[NSError errorWithDomain:NSCocoaErrorDomain code:NSUserCancelledError userInfo:nil]];
     }
@@ -173,16 +173,16 @@
 - (void)finishWithError:(NSError *)error
 {
     NSAssert([self isActualRunLoopThread], @"-finishWithError: must be called on the run loop thread.");
-    
+
     // `error` may be nil, since this method serves as the "exit" point for the operation and will
     // get called in both the success and the failure cases.
-    
+
     if (!self.error) {
         self.error = error;
     }
-    
+
     [self operationWillFinish];
-    
+
     self.state = MPQRunLoopOperationStateFinished;
 }
 
@@ -222,7 +222,7 @@
 - (void)start
 {
     NSAssert(self.state == MPQRunLoopOperationStateInited, @"-start cannot be called on an executing or finished operation.");
-    
+
     // We have to change the state here, otherwise isExecuting won't necessarily return
     // true by the time we return from -start.  Also, we don't test for cancellation
     // here because that would a) result in us sending isFinished notifications on a
@@ -230,7 +230,7 @@
     // which expects to run on our run loop thread.  Finally, we don't have to worry
     // about races with other threads calling -start.  Only one thread is allowed to
     // start us at a time
-    
+
     self.state = MPQRunLoopOperationStateExecuting;
     [self performSelector:@selector(startOnRunLoopThread) onThread:self.actualRunLoopThread withObject:nil waitUntilDone:NO modes:[self.actualRunLoopModes allObjects]];
 }
@@ -239,24 +239,24 @@
 {
     BOOL shouldRunCancelOnRunLoopThread;
     BOOL wasAlreadyCancelled;
-    
+
     // We need to synchronise here to avoid state changes to isCancelled and state
     // while we're running.
-    
+
     @synchronized(self) {
         wasAlreadyCancelled = self.isCancelled;
-        
+
         // Call our super class so that isCancelled starts returning true immediately.
         [super cancel];
-        
+
         // If we were the one to set isCancelled (that is, we won the race with regards
         // other threads calling -cancel) and we're actually running (that is, we lost
         // the race with other threads calling -start and the run loop thread finishing),
         // we schedule to run on the run loop thread.
-        
+
         shouldRunCancelOnRunLoopThread = !wasAlreadyCancelled && self.state == MPQRunLoopOperationStateExecuting;
     }
-    
+
     if (shouldRunCancelOnRunLoopThread) {
         [self performSelector:@selector(cancelOnRunLoopThread) onThread:[self actualRunLoopThread] withObject:nil waitUntilDone:NO modes:[self.actualRunLoopModes allObjects]];
     }

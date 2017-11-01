@@ -11,7 +11,6 @@
 #import "MPInstanceProvider.h"
 #import "MPRewardedVideoError.h"
 #import "MPRewardedVideoConnection.h"
-#import "MPRewardedVideo+Internal.h"
 #import "MPRewardedVideoCustomEvent.h"
 #import "MPRewardedVideoCustomEvent+Caching.h"
 

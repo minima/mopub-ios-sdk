@@ -7,13 +7,16 @@
 #import "MillennialNativeAdAdapter.h"
 #import "MPNativeAdConstants.h"
 #import "MPStaticNativeAdImpressionTimer.h"
-#import "MMNativeAd+ClientMediation.h"
+
+NSString * const kAdMainImageViewKey = @"mmmainimage";
+NSString * const kAdIconImageViewKey = @"mmiconimage";
+NSString * const kDisclaimerKey = @"mmdisclaimer";
 
 @interface MillennialNativeAdAdapter() <MPStaticNativeAdImpressionTimerDelegate>
 
-@property (nonatomic, strong) MPStaticNativeAdImpressionTimer *impressionTimer;
+@property (nonatomic) MPStaticNativeAdImpressionTimer *impressionTimer;
 @property (nonatomic, strong) MMNativeAd *mmNativeAd;
-@property (nonatomic, strong) NSDictionary *mmAdproperties;
+@property (nonatomic, strong) NSDictionary<NSString *, id> *mmAdProperties;
 
 @end
 
@@ -21,38 +24,42 @@
 
 - (instancetype)initWithMMNativeAd:(MMNativeAd *)ad {
     if (self = [super init]) {
-        NSMutableDictionary *properties = [NSMutableDictionary dictionary];
+        NSMutableDictionary<NSString *, id> *properties = [NSMutableDictionary dictionary];
 
         if (ad.title.text) {
-            [properties setObject:ad.title.text forKey:kAdTitleKey];
+            properties[kAdTitleKey] = ad.title.text;
         }
 
         if (ad.body.text) {
-            [properties setObject:ad.body.text forKey:kAdTextKey];
+            properties[kAdTextKey] = ad.body.text;
         }
 
         if (ad.callToActionButton.titleLabel.text) {
-            [properties setObject:ad.callToActionButton.titleLabel.text forKey:kAdCTATextKey];
+            properties[kAdCTATextKey] = ad.callToActionButton.titleLabel.text;
         }
 
         if (ad.rating.text) {
-            [properties setObject:@(ad.rating.text.integerValue) forKey:kAdStarRatingKey];
+            properties[kAdStarRatingKey] = @(ad.rating.text.integerValue);
         }
 
-        if (ad.mainImageInfo[MMNativeImageInfoURLKey]) {
-            [properties setObject:[NSString stringWithFormat:@"%@", ad.mainImageInfo[MMNativeImageInfoURLKey]] forKey:kAdMainImageKey];
+        if (ad.mainImageView.image) {
+            properties[kAdMainImageViewKey] = ad.mainImageView;
         }
 
-        if (ad.iconImageInfo[MMNativeImageInfoURLKey]) {
-            [properties setObject:[NSString stringWithFormat:@"%@", ad.iconImageInfo[MMNativeImageInfoURLKey]] forKey:kAdIconImageKey];
+        if (ad.iconImageView.image) {
+            properties[kAdIconImageViewKey] = ad.iconImageView;
         }
 
-        self.mmNativeAd = ad;
-        self.mmAdproperties = properties;
+        if (ad.disclaimer.text) {
+            properties[kDisclaimerKey] = ad.disclaimer.text;
+        }
+
+        _mmNativeAd = ad;
+        _mmAdProperties = properties;
 
         // Impression tracking
-        self.impressionTimer = [[MPStaticNativeAdImpressionTimer alloc] initWithRequiredSecondsForImpression:0.0 requiredViewVisibilityPercentage:0.5];
-        self.impressionTimer.delegate = self;
+        _impressionTimer = [[MPStaticNativeAdImpressionTimer alloc] initWithRequiredSecondsForImpression:0.0 requiredViewVisibilityPercentage:0.5];
+        _impressionTimer.delegate = self;
 
     }
     return self;
@@ -61,7 +68,7 @@
 #pragma mark - MPNativeAdAdapter
 
 - (NSDictionary *)properties {
-    return self.mmAdproperties;
+    return self.mmAdProperties;
 }
 
 - (NSURL *)defaultActionURL {

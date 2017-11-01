@@ -341,15 +341,6 @@
                                         angle];
     [self.view stringByEvaluatingJavaScriptFromString:orientationEventScript];
 
-    // XXX: If the UIWebView is rotated off-screen (which may happen with interstitials), its
-    // content may render off-center upon display. We compensate by setting the viewport meta tag's
-    // 'width' attribute to be the size of the webview.
-    NSString *viewportUpdateScript = [NSString stringWithFormat:
-                                      @"document.querySelector('meta[name=viewport]')"
-                                      @".setAttribute('content', 'width=%f;', false);",
-                                      self.view.frame.size.width];
-    [self.view stringByEvaluatingJavaScriptFromString:viewportUpdateScript];
-
     // XXX: In iOS 7, off-screen UIWebViews will fail to render certain image creatives.
     // Specifically, creatives that only contain an <img> tag whose src attribute uses a 302
     // redirect will not be rendered at all. One workaround is to temporarily change the web view's

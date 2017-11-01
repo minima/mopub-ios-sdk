@@ -43,7 +43,7 @@
     [ads addObject:[MPAdInfo infoWithTitle:@"Facebook" ID:@"446dfa864dcb4469965267694a940f3d" type:MPAdInfoBanner]];
     [ads addObject:[MPAdInfo infoWithTitle:@"Flurry RTB Banner Ad" ID:@"b827dff81325466e95cc6d475f207fb3" type:MPAdInfoBanner]];
     [ads addObject:[MPAdInfo infoWithTitle:@"Google AdMob" ID:@"01535a569c8e11e281c11231392559e4" type:MPAdInfoBanner]];
-    [ads addObject:[MPAdInfo infoWithTitle:@"Millennial" ID:@"1aa442709c9f11e281c11231392559e4" type:MPAdInfoBanner]];
+    [ads addObject:[MPAdInfo infoWithTitle:@"Millennial" ID:@"b506db1f3e054c78bff513f188727748" type:MPAdInfoBanner]];
 #endif
 
     return ads;
@@ -62,7 +62,7 @@
              [MPAdInfo infoWithTitle:@"Flurry Interstitial Ad" ID:@"5124d5ff5e3944d2ab8ad496b87a0978" type:MPAdInfoInterstitial],
              [MPAdInfo infoWithTitle:@"Flurry RTB Interstitial Ad" ID:@"49960150e2874e9294105af00a77b85c" type:MPAdInfoInterstitial],
              [MPAdInfo infoWithTitle:@"Google AdMob" ID:@"16ae389a932d11e281c11231392559e4" type:MPAdInfoInterstitial],
-             [MPAdInfo infoWithTitle:@"Millennial" ID:@"de4205fc932411e295fa123138070049" type:MPAdInfoInterstitial],
+             [MPAdInfo infoWithTitle:@"Millennial" ID:@"93c3fc00fbb54825b6a33b20927315f7" type:MPAdInfoInterstitial],
              [MPAdInfo infoWithTitle:@"Tapjoy" ID:@"8f66c17adff74e189555247bc1bd26c4" type:MPAdInfoInterstitial],
              [MPAdInfo infoWithTitle:@"Vungle" ID:@"20e01fce81f611e295fa123138070049" type:MPAdInfoInterstitial],
     #endif
@@ -80,6 +80,7 @@
              [MPAdInfo infoWithTitle:@"AdMob" ID:@"c0698ac4fb2940379b5465335eeefc5a" type:MPAdInfoRewardedVideo],
              [MPAdInfo infoWithTitle:@"Chartboost" ID:@"8be0bb08fb4f4e90a86416c29c235d4a" type:MPAdInfoRewardedVideo],
              [MPAdInfo infoWithTitle:@"Facebook" ID:@"5a138cf1a03643ca851647d2b2e20d0d" type:MPAdInfoRewardedVideo],
+             [MPAdInfo infoWithTitle:@"Millennial" ID:@"1908cd1ff0934f69bac04c316accc854" type:MPAdInfoRewardedVideo],
              [MPAdInfo infoWithTitle:@"Tapjoy" ID:@"58e30d62673e4c85b2098887a4218816" type:MPAdInfoRewardedVideo],
              [MPAdInfo infoWithTitle:@"Unity Ads" ID:@"676a0fa97aca48cbbe489de5b2fa4cd1" type:MPAdInfoRewardedVideo],
              [MPAdInfo infoWithTitle:@"Vungle" ID:@"48274e80f11b496bb3532c4f59f28d12" type:MPAdInfoRewardedVideo],
@@ -103,7 +104,7 @@
              [MPAdInfo infoWithTitle:@"Flurry Native Video Ad" ID:@"86fa46ac76c546178f1a5774bad66103" type:MPAdInfoNative],
              [MPAdInfo infoWithTitle:@"Flurry Native Ad (TableView Placer)" ID:@"1023187dc1984ec28948b49220e1e3d4" type:MPAdInfoNativeTableViewPlacer],
              [MPAdInfo infoWithTitle:@"Google AdMob" ID:@"e1598f16673a409e95c66e79ba592aeb" type:MPAdInfoNative],
-             [MPAdInfo infoWithTitle:@"Millennial" ID:@"b6191f80fa6f4241a942254df07f0b59" type:MPAdInfoNative],
+             [MPAdInfo infoWithTitle:@"Millennial" ID:@"69b2d2cfda6a4d07aefa1847066c89ab" type:MPAdInfoNative],
     #endif
              ];
 }

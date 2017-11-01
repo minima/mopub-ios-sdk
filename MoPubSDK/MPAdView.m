@@ -47,6 +47,7 @@
         self.allowedNativeAdOrientation = MPNativeAdOrientationAny;
         self.adUnitId = (adUnitId) ? adUnitId : DEFAULT_PUB_ID;
         self.adManager = [[MPInstanceProvider sharedProvider] buildMPBannerAdManagerWithDelegate:self];
+        self.userInteractionEnabled = NO;
     }
     return self;
 }
@@ -63,6 +64,10 @@
     [self.adContentView removeFromSuperview];
     _adContentView = view;
     [self addSubview:view];
+
+    if (view != nil) {
+        self.userInteractionEnabled = YES;
+    }
 }
 
 - (CGSize)adContentViewSize

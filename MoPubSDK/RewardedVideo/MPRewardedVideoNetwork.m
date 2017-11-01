@@ -12,6 +12,7 @@ const struct MPRewardedVideoNetworkConstants MPRewardedVideoNetwork = {
     .AdMob = @"MPGoogleAdMobRewardedVideoCustomEvent",
     .Chartboost = @"ChartboostRewardedVideoCustomEvent",
     .Facebook = @"FacebookRewardedVideoCustomEvent",
+    .Millennial = @"MPMillennialRewardedVideoCustomEvent",
     .Tapjoy = @"TapjoyRewardedVideoCustomEvent",
     .Unity = @"UnityAdsRewardedVideoCustomEvent",
     .Vungle = @"VungleRewardedVideoCustomEvent",

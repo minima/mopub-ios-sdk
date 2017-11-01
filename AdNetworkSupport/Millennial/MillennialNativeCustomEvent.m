@@ -8,9 +8,9 @@
 #import "MillennialNativeAdAdapter.h"
 #import "MPNativeAdError.h"
 #import "MPLogging.h"
+#import "MMAdapterVersion.h"
 
 #import <MMAdSDK/MMAdSDK.h>
-#import "MMNativeAd+ClientMediation.h"
 
 static NSString *const kMoPubMMAdapterAdUnit = @"adUnitID";
 static NSString *const kMoPubMMAdapterDCN = @"dcn";
@@ -25,37 +25,48 @@ static NSString *const kMoPubMMAdapterDCN = @"dcn";
 
 - (id)init {
     if (self = [super init]) {
-        if ([[UIDevice currentDevice] systemVersion].floatValue >= 7.0) {
+        if([[UIDevice currentDevice] systemVersion].floatValue >= 8.0) {
             MMSDK *mmSDK = [MMSDK sharedInstance];
-            if (![mmSDK isInitialized]) {
+            if(![mmSDK isInitialized]) {
                 MMAppSettings *appSettings = [[MMAppSettings alloc] init];
                 [mmSDK initializeWithSettings:appSettings withUserSettings:nil];
+                MPLogDebug(@"Millennial adapter version: %@", self.version);
             }
         }
     }
     return self;
 }
 
-- (void)dealloc {
+-(void) dealloc {
     self.nativeAd.delegate = nil;
 }
 
-- (void)requestAdWithCustomEventInfo:(NSDictionary *)info {
-
+-(void)requestAdWithCustomEventInfo:(NSDictionary *)info {
+    __strong __typeof__(self.delegate) delegate = self.delegate;
     MMSDK *mmSDK = [MMSDK sharedInstance];
 
     if (![mmSDK isInitialized]) {
-        MPLogError(@"Millennial adapter not properly intialized yet.");
-        [self.delegate nativeCustomEvent:self didFailToLoadAdWithError:nil];
+        NSError *error = [NSError errorWithDomain:MMSDKErrorDomain
+                                             code:MMSDKErrorNotInitialized
+                                         userInfo:@{
+                                                    NSLocalizedDescriptionKey:[NSString stringWithFormat:@"Millennial adapter not properly intialized yet."]
+                                                    }];
+        MPLogError(@"%@", [error localizedDescription]);
+        [delegate nativeCustomEvent:self didFailToLoadAdWithError:error];
         return;
     }
 
-    NSLog(@"Requesting Millennial native ad.");
+    MPLogDebug(@"Requesting Millennial native ad with event info %@.", info);
 
     NSString *placementId = info[kMoPubMMAdapterAdUnit];
     if (!placementId) {
-        MPLogError(@"Millennial received invalid APID. Request failed.");
-        [self.delegate nativeCustomEvent:self didFailToLoadAdWithError:nil];
+        NSError *error = [NSError errorWithDomain:MMSDKErrorDomain
+                                             code:MMSDKErrorServerResponseNoContent
+                                         userInfo:@{
+                                                    NSLocalizedDescriptionKey:[NSString stringWithFormat:@"Millennial received no placement ID. Request failed."]
+                                                    }];
+        MPLogError(@"%@", [error localizedDescription]);
+        [delegate nativeCustomEvent:self didFailToLoadAdWithError:error];
         return;
     }
 
@@ -71,6 +82,16 @@ static NSString *const kMoPubMMAdapterDCN = @"dcn";
     [self.nativeAd load:nil];
 }
 
+-(MMCreativeInfo*)creativeInfo
+{
+    return self.nativeAd.creativeInfo;
+}
+
+-(NSString*)version
+{
+    return kMMAdapterVersion;
+}
+
 #pragma mark - MMNativeAdDelegate
 
 - (UIViewController *)viewControllerForPresentingModalView {
@@ -78,29 +99,10 @@ static NSString *const kMoPubMMAdapterDCN = @"dcn";
 }
 
 - (void)nativeAdRequestDidSucceed:(MMNativeAd *)ad {
-    MPLogInfo(@"Millennial native ad %@ did load successfully.", ad);
+    MPLogDebug(@"Millennial native ad loaded, creative ID %@", self.creativeInfo.creativeId);
     MillennialNativeAdAdapter *adapter = [[MillennialNativeAdAdapter alloc] initWithMMNativeAd:self.nativeAd];
     MPNativeAd *mpNativeAd = [[MPNativeAd alloc] initWithAdAdapter:adapter];
-
-    NSMutableArray *imageURLs = [NSMutableArray array];
-
-    if (ad.mainImageInfo[MMNativeImageInfoURLKey]) {
-        [imageURLs addObject:ad.mainImageInfo[MMNativeImageInfoURLKey]];
-    }
-
-    if (ad.iconImageInfo[MMNativeImageInfoURLKey]) {
-        [imageURLs addObject:ad.iconImageInfo[MMNativeImageInfoURLKey]];
-    }
-
-    [super precacheImagesWithURLs:imageURLs completionBlock:^(NSArray *errors) {
-        if (errors) {
-            MPLogError(@"Failed caching URLs for Millennial native ad with errors: %@", errors);
-            [self.delegate nativeCustomEvent:self didFailToLoadAdWithError:MPNativeAdNSErrorForImageDownloadFailure()];
-            return;
-        } else {
-            [self.delegate nativeCustomEvent:self didLoadAd:mpNativeAd];
-        }
-    }];
+    [self.delegate nativeCustomEvent:self didLoadAd:mpNativeAd];
 }
 
 - (void)nativeAd:(MMNativeAd *)ad requestDidFailWithError:(NSError *)error {

@@ -12,7 +12,7 @@
 #import "MPRewardedVideoError.h"
 #import "MPRewardedVideo.h"
 
-static NSString *const VunglePluginVersion = @"5.1.0";
+static NSString *const VunglePluginVersion = @"5.3.0";
 
 static NSString *const kVungleAppIdKey = @"appId";
 static NSString *const kVunglePlacementIdKey = @"pid";

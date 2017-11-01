@@ -294,7 +294,7 @@ static const NSUInteger kExcessiveCustomDataLength = 8196;
 
         // If reward is set in adConfig, use reward that's set in adConfig.
         // Currency type has to be defined in mopubConfiguredReward in order to use mopubConfiguredReward.
-        if (mopubConfiguredReward && mopubConfiguredReward.currencyType != kMPRewardedVideoRewardCurrencyTypeUnspecified) {
+        if (mopubConfiguredReward && ![mopubConfiguredReward.currencyType isEqualToString:kMPRewardedVideoRewardCurrencyTypeUnspecified]) {
             reward = mopubConfiguredReward;
         }
     }

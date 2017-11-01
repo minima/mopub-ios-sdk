@@ -109,7 +109,7 @@
 
 - (void)adView:(FBAdView *)adView didFailWithError:(NSError *)error
 {
-    MPLogInfo(@"Facebook banner failed to load with error: %@", error.description);
+    MPLogInfo(@"Facebook banner failed to load with error: %@", error.localizedDescription);
     [self.delegate bannerCustomEvent:self didFailToLoadAdWithError:error];
 }
 

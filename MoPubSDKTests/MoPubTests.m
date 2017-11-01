@@ -28,6 +28,7 @@ static NSTimeInterval const kTestTimeout = 2;
     [MPRewardedVideoCustomEvent clearCache];
 
     [MoPub sharedInstance].forceWKWebView = NO;
+    [MoPub sharedInstance].logLevel = MPLogLevelInfo;
 }
 
 #pragma mark - Rewarded Video
@@ -166,6 +167,14 @@ static NSTimeInterval const kTestTimeout = 2;
 
     XCTAssertNotNil(controller.mraidWebView.wkWebView);
     XCTAssertNil(controller.mraidWebView.uiWebView);
+}
+
+#pragma mark - Logging
+
+- (void)testSetLogLevel {
+    [MoPub sharedInstance].logLevel = MPLogLevelFatal;
+
+    XCTAssertTrue([MoPub sharedInstance].logLevel == MPLogLevelFatal);
 }
 
 @end

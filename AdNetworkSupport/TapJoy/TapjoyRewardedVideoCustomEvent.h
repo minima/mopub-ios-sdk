@@ -6,8 +6,7 @@
 #endif
 
 /*
- * Please reference the Supported Mediation Partner page at http://bit.ly/2mqsuFH for the
- * latest version and ad format certifications.
+ * Certified with Tapjpy version 11.11.0
  */
 @interface TapjoyRewardedVideoCustomEvent : MPRewardedVideoCustomEvent
 

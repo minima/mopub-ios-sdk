@@ -17,6 +17,7 @@ extern const struct MPRewardedVideoNetworkConstants {
     __unsafe_unretained NSString * AdMob;
     __unsafe_unretained NSString * Chartboost;
     __unsafe_unretained NSString * Facebook;
+    __unsafe_unretained NSString * Millennial;
     __unsafe_unretained NSString * Tapjoy;
     __unsafe_unretained NSString * Unity;
     __unsafe_unretained NSString * Vungle;

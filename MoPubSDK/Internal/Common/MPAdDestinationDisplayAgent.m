@@ -206,8 +206,10 @@ static NSString * const kDisplayAgentErrorDomain = @"com.mopub.displayagent";
         case MOPUBDisplayAgentTypeInApp:
         case MOPUBDisplayAgentTypeSafariViewController:
             if ([MPAdDestinationDisplayAgent shouldUseSafariViewController]) {
-                self.safariController = [[SFSafariViewController alloc] initWithURL:URL];
-                self.safariController.delegate = self;
+                if (@available(iOS 9.0, *)) {
+                    self.safariController = [[SFSafariViewController alloc] initWithURL:URL];
+                    self.safariController.delegate = self;
+                }
             } else {
                 if (actionType == MPURLActionTypeOpenInWebView) {
                     self.browserController = [[MPAdBrowserController alloc] initWithURL:URL
@@ -367,8 +369,8 @@ static NSString * const kDisplayAgentErrorDomain = @"com.mopub.displayagent";
 + (BOOL)shouldUseSafariViewController
 {
     MOPUBDisplayAgentType displayAgentType = [MOPUBExperimentProvider displayAgentType];
-    if ([SFSafariViewController class] && displayAgentType == MOPUBDisplayAgentTypeSafariViewController) {
-        return YES;
+    if (@available(iOS 9.0, *)) {
+        return (displayAgentType == MOPUBDisplayAgentTypeSafariViewController);
     }
 
     return NO;

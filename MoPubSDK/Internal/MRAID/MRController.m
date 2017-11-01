@@ -75,7 +75,7 @@ static NSString *const kMRAIDCommandResize = @"resize";
 
 @property (nonatomic, assign) UIInterfaceOrientation currentInterfaceOrientation;
 
-@property (nonatomic, copy) void (^forceOrientationAfterAnimationBlock)();
+@property (nonatomic, copy) void (^forceOrientationAfterAnimationBlock)(void);
 
 @property (nonatomic, strong) MPWebView *mraidWebView;
 @property (nonatomic, strong) MPViewabilityTracker *viewabilityTracker;
@@ -467,7 +467,7 @@ static NSString *const kMRAIDCommandResize = @"resize";
     [self presentExpandModalViewControllerWithView:view animated:animated completion:nil];
 }
 
-- (void)presentExpandModalViewControllerWithView:(MPClosableView *)view animated:(BOOL)animated completion:(void (^)())completionBlock
+- (void)presentExpandModalViewControllerWithView:(MPClosableView *)view animated:(BOOL)animated completion:(void (^)(void))completionBlock
 {
     [self willBeginAnimatingAdSize];
 

@@ -18,6 +18,16 @@ static NSString * const kAdBrowserControllerNibName = @"MPAdBrowserController";
 
 @interface MPAdBrowserController ()
 
+@property (weak, nonatomic) IBOutlet UINavigationBar *navigationBar;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *navigationBarYConstraint;
+
+@property (weak, nonatomic) IBOutlet UIToolbar *browserControlToolbar;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *browserControlToolbarBottomConstraint;
+
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *webViewTopConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *webViewLeadingConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *webViewTrailingConstraint;
+
 @property (nonatomic, strong) UIActionSheet *actionSheet;
 @property (nonatomic, strong) NSString *HTMLString;
 @property (nonatomic, assign) int webViewLoadCount;
@@ -28,23 +38,7 @@ static NSString * const kAdBrowserControllerNibName = @"MPAdBrowserController";
 
 @end
 
-////////////////////////////////////////////////////////////////////////////////////////////////////
-
 @implementation MPAdBrowserController
-
-@synthesize webView = _webView;
-@synthesize backButton = _backButton;
-@synthesize forwardButton = _forwardButton;
-@synthesize refreshButton = _refreshButton;
-@synthesize safariButton = _safariButton;
-@synthesize doneButton = _doneButton;
-@synthesize spinnerItem = _spinnerItem;
-@synthesize spinner = _spinner;
-@synthesize actionSheet = _actionSheet;
-@synthesize delegate = _delegate;
-@synthesize URL = _URL;
-@synthesize webViewLoadCount = _webViewLoadCount;
-@synthesize HTMLString = _HTMLString;
 
 #pragma mark -
 #pragma mark Lifecycle
@@ -58,10 +52,6 @@ static NSString * const kAdBrowserControllerNibName = @"MPAdBrowserController";
         self.HTMLString = HTMLString;
 
         MPLogDebug(@"Ad browser (%p) initialized with URL: %@", self, self.URL);
-
-        self.webView = [[MPWebView alloc] initWithFrame:CGRectZero];
-        self.webView.autoresizingMask = UIViewAutoresizingFlexibleWidth |
-        UIViewAutoresizingFlexibleHeight;
 
         self.spinner = [[UIActivityIndicatorView alloc] initWithFrame:CGRectZero];
         [self.spinner sizeToFit];
@@ -100,6 +90,39 @@ static NSString * const kAdBrowserControllerNibName = @"MPAdBrowserController";
     self.forwardButton.title = nil;
     self.spinnerItem.customView = self.spinner;
     self.spinnerItem.title = nil;
+
+    // If iOS 11, set up autolayout constraints so that the toolbar and web view stay within the safe area
+    // Note: The web view has to be constrained to the safe area on top for the notch in Portait and leading/trailing
+    // for the notch in Landscape. Only the bottom of the toolbar needs to be constrained because Apple will move
+    // the buttons into the safe area automatically in Landscape, and otherwise it's preferable for the toolbar to
+    // stretch the length of the unsafe area as well.
+    if (@available(iOS 11, *)) {
+        // Disable the old constraints
+        self.navigationBarYConstraint.active = NO;
+        self.browserControlToolbarBottomConstraint.active = NO;
+        self.webViewTopConstraint.active = NO;
+        self.webViewLeadingConstraint.active = NO;
+        self.webViewTrailingConstraint.active = NO;
+
+        // Set new constraints based on the safe area layout guide
+        self.navigationBarYConstraint = [self.navigationBar.bottomAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.topAnchor]; // put nav bar just above safe area
+        self.browserControlToolbarBottomConstraint = [self.browserControlToolbar.bottomAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.bottomAnchor];
+        self.webViewTopConstraint = [self.webView.topAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.topAnchor];
+        self.webViewLeadingConstraint = [self.webView.leadingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.leadingAnchor];
+        self.webViewTrailingConstraint = [self.webView.trailingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.trailingAnchor];
+
+        // Enable the new constraints
+        [NSLayoutConstraint activateConstraints:@[
+                                                  self.navigationBarYConstraint,
+                                                  self.browserControlToolbarBottomConstraint,
+                                                  self.webViewTopConstraint,
+                                                  self.webViewLeadingConstraint,
+                                                  self.webViewTrailingConstraint,
+                                                  ]];
+    }
+
+    // Set web view background color to white so scrolling at extremes won't have a gray background
+    self.webView.backgroundColor = [UIColor whiteColor];
 }
 
 - (void)viewWillAppear:(BOOL)animated

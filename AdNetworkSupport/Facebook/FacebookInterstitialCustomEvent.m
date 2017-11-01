@@ -88,7 +88,7 @@
 
 - (void)interstitialAd:(FBInterstitialAd *)interstitialAd didFailWithError:(NSError *)error
 {
-    MPLogInfo(@"Facebook intersitital ad failed to load with error: %@", error.description);
+    MPLogInfo(@"Facebook intersitital ad failed to load with error: %@", error.localizedDescription);
     [self.delegate interstitialCustomEvent:self didFailToLoadAdWithError:nil];
 }
 

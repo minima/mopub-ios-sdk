@@ -26,25 +26,23 @@
         MPLogError(@"Invalid setup. Use the appId parameter when configuring your network in the MoPub website.");
         return;
     }
-    
+
     NSArray *allZoneIds = [info objectForKey:@"allZoneIds"];
     if (allZoneIds.count == 0) {
         MPLogError(@"Invalid setup. Use the allZoneIds parameter when configuring your network in the MoPub website.");
         return;
     }
-    
+
     NSString *zoneId = [info objectForKey:@"zoneId"];
     if (zoneId == nil) {
         zoneId = allZoneIds[0];
     }
-    
-    NSString *userId = [info objectForKey:@"userId"];
-    
-    [AdColonyController initializeAdColonyCustomEventWithAppId:appId allZoneIds:allZoneIds userId:userId callback:^{
+
+    [AdColonyController initializeAdColonyCustomEventWithAppId:appId allZoneIds:allZoneIds userId:nil callback:^{
         __weak AdColonyInterstitialCustomEvent *weakSelf = self;
         [AdColony requestInterstitialInZone:zoneId options:nil success:^(AdColonyInterstitial * _Nonnull ad) {
             weakSelf.ad = ad;
-            
+
             [ad setOpen:^{
                 MPLogInfo(@"AdColony zone %@ started", zoneId);
                 [weakSelf.delegate interstitialCustomEventDidAppear:weakSelf];
@@ -66,14 +64,14 @@
                 MPLogInfo(@"AdColony zone %@ ad clicked", zoneId);
                 [weakSelf.delegate interstitialCustomEventDidReceiveTapEvent:weakSelf];
             }];
-            
+
             [weakSelf.delegate interstitialCustomEvent:weakSelf didLoadAd:(id)ad];
         } failure:^(AdColonyAdRequestError * _Nonnull error) {
             MPLogInfo(@"Failed to load AdColony video interstitial: %@", error);
             weakSelf.ad = nil;
             [weakSelf.delegate interstitialCustomEvent:weakSelf didFailToLoadAdWithError:error];
         }];
-        
+
     }];
 }
 

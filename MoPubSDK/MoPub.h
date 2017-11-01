@@ -15,6 +15,7 @@
 #import "MPInterstitialAdController.h"
 #import "MPInterstitialCustomEvent.h"
 #import "MPInterstitialCustomEventDelegate.h"
+#import "MPLogLevel.h"
 #import "MPMediationSettingsProtocol.h"
 #import "MPRewardedVideo.h"
 #import "MPRewardedVideoNetwork.h"
@@ -102,6 +103,11 @@
  * Forces the usage of WKWebView (if able).
  */
 @property (nonatomic, assign) BOOL forceWKWebView;
+
+/**
+ * SDK log level. The default value is `MPLogLevelInfo`.
+ */
+@property (nonatomic, assign) MPLogLevel logLevel;
 
 /** @name Rewarded Video */
 /**

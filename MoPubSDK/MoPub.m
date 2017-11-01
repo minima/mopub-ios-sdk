@@ -9,6 +9,7 @@
 #import "MPConstants.h"
 #import "MPCoreInstanceProvider.h"
 #import "MPGeolocationProvider.h"
+#import "MPLogging.h"
 #import "MPRewardedVideo.h"
 #import "MPRewardedVideoCustomEvent+Caching.h"
 #import "MPIdentityProvider.h"
@@ -58,6 +59,16 @@
     return [MPWebView isForceWKWebView];
 }
 
+- (void)setLogLevel:(MPLogLevel)level
+{
+    MPLogSetLevel(level);
+}
+
+- (MPLogLevel)logLevel
+{
+    return MPLogGetLevel();
+}
+
 - (void)setClickthroughDisplayAgentType:(MOPUBDisplayAgentType)displayAgentType
 {
     [MOPUBExperimentProvider setDisplayAgentType:displayAgentType];
@@ -93,8 +104,11 @@
                                                   delegate:(id<MPRewardedVideoDelegate>)delegate
                                 networkInitializationOrder:(NSArray<NSString *> *)order
 {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wundeclared-selector"
     // initializeWithDelegate: is a known private initialization method on MPRewardedVideo. So we forward the initialization call to that class.
     [MPRewardedVideo performSelector:@selector(initializeWithDelegate:) withObject:delegate];
+#pragma clang diagnostic pop
     [MPRewardedVideo initializeWithOrder:order];
     self.globalMediationSettings = globalMediationSettings;
 }

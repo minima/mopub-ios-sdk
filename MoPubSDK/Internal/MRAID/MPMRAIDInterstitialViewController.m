@@ -115,6 +115,15 @@
     self.interstitialView.frame = self.view.bounds;
     self.interstitialView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     [self.view addSubview:self.interstitialView];
+    if (@available(iOS 9.0, *)) {
+        self.interstitialView.translatesAutoresizingMaskIntoConstraints = NO;
+        [NSLayoutConstraint activateConstraints:@[
+                                                  [self.interstitialView.topAnchor constraintEqualToAnchor:self.view.topAnchor],
+                                                  [self.interstitialView.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor],
+                                                  [self.interstitialView.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor],
+                                                  [self.interstitialView.bottomAnchor constraintEqualToAnchor:self.view.bottomAnchor],
+                                                  ]];
+    }
 
     if ([self.delegate respondsToSelector:@selector(interstitialDidLoadAd:)]) {
         [self.delegate interstitialDidLoadAd:self];

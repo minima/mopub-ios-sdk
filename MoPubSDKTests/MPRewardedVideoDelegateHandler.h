@@ -15,16 +15,16 @@
  * - MPRewardedVideoDelegate
  */
 @interface MPRewardedVideoDelegateHandler : NSObject <MPRewardedVideoAdManagerDelegate, MPRewardedVideoDelegate>
-@property (nonatomic, copy) void(^didLoadAd)();
-@property (nonatomic, copy) void(^didFailToLoadAd)();
-@property (nonatomic, copy) void(^didExpireAd)();
-@property (nonatomic, copy) void(^didFailToPlayAd)();
-@property (nonatomic, copy) void(^willAppear)();
-@property (nonatomic, copy) void(^didAppear)();
-@property (nonatomic, copy) void(^willDisappear)();
-@property (nonatomic, copy) void(^didDisappear)();
-@property (nonatomic, copy) void(^didReceiveTap)();
-@property (nonatomic, copy) void(^willLeaveApp)();
+@property (nonatomic, copy) void(^didLoadAd)(void);
+@property (nonatomic, copy) void(^didFailToLoadAd)(void);
+@property (nonatomic, copy) void(^didExpireAd)(void);
+@property (nonatomic, copy) void(^didFailToPlayAd)(void);
+@property (nonatomic, copy) void(^willAppear)(void);
+@property (nonatomic, copy) void(^didAppear)(void);
+@property (nonatomic, copy) void(^willDisappear)(void);
+@property (nonatomic, copy) void(^didDisappear)(void);
+@property (nonatomic, copy) void(^didReceiveTap)(void);
+@property (nonatomic, copy) void(^willLeaveApp)(void);
 @property (nonatomic, copy) void(^shouldRewardUser)(MPRewardedVideoReward *);
 
 /**

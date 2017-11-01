@@ -158,7 +158,7 @@
  */
 - (void)rewardedVideoAd:(FBRewardedVideoAd *)rewardedVideoAd didFailWithError:(NSError *)error
 {
-    MPLogInfo(@"Facebook rewarded video ad failed to load with error.");
+    MPLogInfo(@"Facebook rewarded video ad failed to load with error: %@", error.localizedDescription);
     [self.delegate rewardedVideoDidFailToLoadAdForCustomEvent:self error:error];
 }
 

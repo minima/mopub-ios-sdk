@@ -32,7 +32,7 @@ static NSString *const kMOATSendAdStoppedJavascript = @"MoTracker.sendMoatAdStop
 - (instancetype)initWithAdView:(MPWebView *)webView isVideo:(BOOL)isVideo startTrackingImmediately:(BOOL)startTracking {
     if (self = [super init]) {
         _isTracking = NO;
-        
+
 #ifdef __HAS_MOAT_FRAMEWORK_
         static dispatch_once_t sMoatSharedInstanceStarted;
         dispatch_once(&sMoatSharedInstanceStarted, ^{
@@ -41,16 +41,16 @@ static NSString *const kMOATSendAdStoppedJavascript = @"MoTracker.sendMoatAdStop
             options.locationServicesEnabled = NO;
             options.IDFACollectionEnabled = NO;
             options.debugLoggingEnabled = NO;
-            
+
             // start with options
             [[MPUBMoatAnalytics sharedInstance] startWithOptions:options];
         });
-        
+
         // While the viewability SDKs have features that allow the developer to pass in a container view, WKWebView is
         // not always in MPWebView's view hierarchy. Pass in the contained web view to be safe, as we don't know for
         // sure *how* or *when* MPWebView is traversed.
         UIView *view = webView.containedWebView;
-        
+
         _moatWebTracker = [MPUBMoatWebTracker trackerWithWebComponent:view];
         _webView = webView;
         _isVideo = isVideo;
@@ -58,7 +58,7 @@ static NSString *const kMOATSendAdStoppedJavascript = @"MoTracker.sendMoatAdStop
             NSString * adViewClassName = NSStringFromClass([view class]);
             MPLogError(@"Couldn't attach Moat to %@.", adViewClassName);
         }
-        
+
         if (startTracking) {
             [_moatWebTracker startTracking];
             _isTracking = YES;
@@ -66,7 +66,7 @@ static NSString *const kMOATSendAdStoppedJavascript = @"MoTracker.sendMoatAdStop
         }
 #endif
     }
-    
+
     return self;
 }
 
@@ -88,7 +88,7 @@ static NSString *const kMOATSendAdStoppedJavascript = @"MoTracker.sendMoatAdStop
     // Only stop tracking if:
     // 1. Moat is currently tracking
     if (self.isTracking) {
-        void (^moatEndTrackingBlock)() = ^{
+        void (^moatEndTrackingBlock)(void) = ^{
             [self.moatWebTracker stopTracking];
             if (self.moatWebTracker) {
                 MPLogInfo(@"[Viewability] MOAT tracking stopped");
@@ -105,11 +105,11 @@ static NSString *const kMOATSendAdStoppedJavascript = @"MoTracker.sendMoatAdStop
         } else {
             moatEndTrackingBlock();
         }
-        
+
         // Mark Moat as not tracking
         self.isTracking = NO;
     }
-#endif    
+#endif
 }
 
 - (void)registerFriendlyObstructionView:(UIView *)view {

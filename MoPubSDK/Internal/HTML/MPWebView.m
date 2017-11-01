@@ -16,7 +16,6 @@ static BOOL const kMoPubRequiresUserActionForMediaPlaybackDefault = NO;
 static BOOL const kMoPubAllowsLinkPreviewDefault = NO;
 
 static NSString *const kMoPubJavaScriptDisableDialogScript = @"window.alert = function() { }; window.prompt = function() { }; window.confirm = function() { };";
-static NSString *const kMoPubScalesPageToFitScript = @"var meta = document.createElement('meta'); meta.setAttribute('name', 'viewport'); meta.setAttribute('content', 'width=device-width, initial-scale=1.0, user-scalable=no'); document.getElementsByTagName('head')[0].appendChild(meta);";
 
 static NSString *const kMoPubFrameKeyPathString = @"frame";
 
@@ -26,6 +25,8 @@ static BOOL gForceWKWebView = NO;
 
 @property (weak, nonatomic) WKWebView *wkWebView;
 @property (weak, nonatomic) UIWebView *uiWebView;
+
+@property (nonatomic, assign) BOOL hasMovedToWindow;
 
 @end
 
@@ -71,7 +72,7 @@ static BOOL gForceWKWebView = NO;
         WKUserContentController *contentController = [[WKUserContentController alloc] init];
         WKWebViewConfiguration *config = [[WKWebViewConfiguration alloc] init];
         config.allowsInlineMediaPlayback = kMoPubAllowsInlineMediaPlaybackDefault;
-        if ([config respondsToSelector:@selector(requiresUserActionForMediaPlayback)]) {
+        if (@available(iOS 9.0, *)) {
             config.requiresUserActionForMediaPlayback = kMoPubRequiresUserActionForMediaPlaybackDefault;
         } else {
             config.mediaPlaybackRequiresUserAction = kMoPubRequiresUserActionForMediaPlaybackDefault;
@@ -102,6 +103,7 @@ static BOOL gForceWKWebView = NO;
         self.uiWebView = uiWebView;
 
         [self addSubview:webView];
+        [self setAutolayoutConstraintsForWebView:webView];
     }
 
     webView.backgroundColor = [UIColor clearColor];
@@ -161,17 +163,16 @@ static UIView *gOffscreenView = nil;
     // If using WKWebView, and if MPWebView is in the view hierarchy, and if the WKWebView is in the offscreen view currently,
     // move our WKWebView to self and deallocate OffscreenView if no other MPWebView is using it.
     if (self.wkWebView
+        && !self.hasMovedToWindow
         && self.window != nil
         && [self.wkWebView.superview isEqual:gOffscreenView]) {
         self.wkWebView.frame = self.bounds;
         [self addSubview:self.wkWebView];
+        [self setAutolayoutConstraintsForWebView:self.wkWebView];
+        self.hasMovedToWindow = YES;
 
         // Don't keep OffscreenView if we don't need it; it can always be re-allocated again later
         [self cleanUpOffscreenView];
-    } else if (self.wkWebView
-               && self.window == nil
-               && [self.wkWebView.superview isEqual:self]) {
-        [self retainWKWebViewOffscreen:self.wkWebView];
     }
 }
 
@@ -187,6 +188,18 @@ static UIView *gOffscreenView = nil;
     if ([keyPath isEqualToString:kMoPubFrameKeyPathString]
         && [self.wkWebView.superview isEqual:gOffscreenView]) {
         self.wkWebView.frame = self.bounds;
+    }
+}
+
+- (void)setAutolayoutConstraintsForWebView:(UIView *)webView {
+    if (@available(iOS 9.0, *)) {
+        webView.translatesAutoresizingMaskIntoConstraints = NO;
+        [NSLayoutConstraint activateConstraints:@[
+                                                  [webView.topAnchor constraintEqualToAnchor:self.topAnchor],
+                                                  [webView.leadingAnchor constraintEqualToAnchor:self.leadingAnchor],
+                                                  [webView.trailingAnchor constraintEqualToAnchor:self.trailingAnchor],
+                                                  [webView.bottomAnchor constraintEqualToAnchor:self.bottomAnchor],
+                                                  ]];
     }
 }
 
@@ -218,15 +231,11 @@ textEncodingName:(NSString *)encodingName
                         MIMEType:MIMEType
                 textEncodingName:encodingName
                          baseURL:baseURL];
-    } else {
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= MP_IOS_9_0
-        if ([self.wkWebView respondsToSelector:@selector(loadData:MIMEType:characterEncodingName:baseURL:)]) {
-            [self.wkWebView loadData:data
-                            MIMEType:MIMEType
-               characterEncodingName:encodingName
-                             baseURL:baseURL];
-        }
-#endif
+    } else if (@available(iOS 9.0, *)) {
+        [self.wkWebView loadData:data
+                        MIMEType:MIMEType
+           characterEncodingName:encodingName
+                         baseURL:baseURL];
     }
 }
 
@@ -299,33 +308,27 @@ textEncodingName:(NSString *)encodingName
     }
 }
 
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= MP_IOS_9_0
 - (void)setAllowsLinkPreview:(BOOL)allowsLinkPreview {
-    if (self.uiWebView) {
-        if ([self.uiWebView respondsToSelector:@selector(setAllowsLinkPreview:)]) {
+    if (@available(iOS 9.0, *)) {
+        if (self.uiWebView) {
             self.uiWebView.allowsLinkPreview = allowsLinkPreview;
-        }
-    } else {
-        if ([self.wkWebView respondsToSelector:@selector(setAllowsLinkPreview:)]) {
+        } else {
             self.wkWebView.allowsLinkPreview = allowsLinkPreview;
         }
     }
 }
 
 - (BOOL)allowsLinkPreview {
-    if (self.uiWebView) {
-        if ([self.uiWebView respondsToSelector:@selector(allowsLinkPreview)]) {
+    if (@available(iOS 9.0, *)) {
+        if (self.uiWebView) {
             return self.uiWebView.allowsLinkPreview;
-        }
-    } else {
-        if ([self.wkWebView respondsToSelector:@selector(allowsLinkPreview)]) {
+        } else {
             return self.wkWebView.allowsLinkPreview;
         }
     }
 
     return NO;
 }
-#endif
 
 - (void)setScalesPageToFit:(BOOL)scalesPageToFit {
     if (self.uiWebView) {
@@ -338,14 +341,6 @@ textEncodingName:(NSString *)encodingName
         } else {
             // Make sure the scroll view can't scroll (prevent double tap to zoom)
             self.wkWebView.scrollView.delegate = self;
-
-            // Inject the user script to scale the page if needed
-            if (self.wkWebView.configuration.userContentController.userScripts.count == 0) {
-                WKUserScript *viewportScript = [[WKUserScript alloc] initWithSource:kMoPubScalesPageToFitScript
-                                                                      injectionTime:WKUserScriptInjectionTimeAtDocumentEnd
-                                                                   forMainFrameOnly:YES];
-                [self.wkWebView.configuration.userContentController addUserScript:viewportScript];
-            }
         }
     }
 }
@@ -398,17 +393,13 @@ textEncodingName:(NSString *)encodingName
     if (self.uiWebView) {
         return self.uiWebView.mediaPlaybackRequiresUserAction;
     } else {
-#if __IPHONE_OS_VERSION_MIN_REQUIRED < MP_IOS_9_0
-        if (![self.wkWebView.configuration respondsToSelector:@selector(requiresUserActionForMediaPlayback)]) {
+        if (@available(iOS 9.0, *)) {
+            return self.wkWebView.configuration.requiresUserActionForMediaPlayback;
+        } else if (![self.wkWebView.configuration respondsToSelector:@selector(requiresUserActionForMediaPlayback)]) {
             return self.wkWebView.configuration.mediaPlaybackRequiresUserAction;
+        } else {
+            return NO;
         }
-#endif
-
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= MP_IOS_9_0
-        return self.wkWebView.configuration.requiresUserActionForMediaPlayback;
-#else
-        return NO; // avoid compiler error under 8.4 SDK
-#endif
     }
 }
 
@@ -416,35 +407,27 @@ textEncodingName:(NSString *)encodingName
     if (self.uiWebView) {
         return self.uiWebView.mediaPlaybackAllowsAirPlay;
     } else {
-#if __IPHONE_OS_VERSION_MIN_REQUIRED < MP_IOS_9_0
-        if (![self.wkWebView.configuration respondsToSelector:@selector(allowsAirPlayForMediaPlayback)]) {
+        if (@available(iOS 9.0, *)) {
+            return self.wkWebView.configuration.allowsAirPlayForMediaPlayback;
+        } else if (![self.wkWebView.configuration respondsToSelector:@selector(allowsAirPlayForMediaPlayback)]) {
             return self.wkWebView.configuration.mediaPlaybackAllowsAirPlay;
+        } else {
+            return NO;
         }
-#endif
-
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= MP_IOS_9_0
-        return self.wkWebView.configuration.allowsAirPlayForMediaPlayback;
-#else
-        return NO; // avoid compiler error under 8.4 SDK
-#endif
     }
 }
 
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= MP_IOS_9_0
 - (BOOL)allowsPictureInPictureMediaPlayback {
-    if (self.uiWebView) {
-        if ([self.uiWebView respondsToSelector:@selector(allowsPictureInPictureMediaPlayback)]) {
+    if (@available(iOS 9.0, *)) {
+        if (self.uiWebView) {
             return self.uiWebView.allowsPictureInPictureMediaPlayback;
-        }
-    } else {
-        if ([self.wkWebView.configuration respondsToSelector:@selector(allowsPictureInPictureMediaPlayback)]) {
+        } else {
             return self.wkWebView.configuration.allowsPictureInPictureMediaPlayback;
         }
     }
 
     return NO;
 }
-#endif
 
 #pragma mark - UIWebViewDelegate
 

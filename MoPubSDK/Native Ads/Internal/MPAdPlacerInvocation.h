@@ -38,9 +38,9 @@
  * This will return nil if there is an ad at the index path or the target doesn't respond to the selector.
  *
  * @param target The object's original data source or delegate.
- * @param with2ArgSelector The method we want to execute on the target if an ad doesn't exist.
- * @param firstArg The first argument to the selector.
- * @param secondArg The second argument to the selector.
+ * @param selector The method we want to execute on the target if an ad doesn't exist.
+ * @param arg1 The first argument to the selector.
+ * @param indexPath The second argument to the selector.
  * @param streamAdPlacer The MPStreamAdPlacer backing your UI collection that can translate index paths to their originals.
  *
  * @return The invocation with all the parameters passed into the method.
@@ -56,10 +56,10 @@
  * This will return nil if there is an ad at the index path or the target doesn't respond to the selector.
  *
  * @param target The object's original data source or delegate.
- * @param with3ArgSelector The method we want to execute on the target if an ad doesn't exist.
- * @param firstArg The first argument to the selector.
- * @param secondArg The second argument to the selector.
- * @param thirdArg The third argument to the selector.
+ * @param selector The method we want to execute on the target if an ad doesn't exist.
+ * @param arg1 The first argument to the selector.
+ * @param arg2 The second argument to the selector.
+ * @param indexPath The third argument to the selector.
  * @param streamAdPlacer The MPStreamAdPlacer backing your UI collection that can translate index paths to their originals.
  *
  * @return The invocation with all the parameters passed into the method.
@@ -76,10 +76,10 @@
  * This will return nil if there is an ad at the index path or the target doesn't respond to the selector.
  *
  * @param target The object's original data source or delegate.
- * @param with3ArgSelector The method we want to execute on the target if an ad doesn't exist.
- * @param firstArg The first argument to the selector.
- * @param secondArg The second argument to the selector.
- * @param thirdArg The third argument to the selector.
+ * @param selector The method we want to execute on the target if an ad doesn't exist.
+ * @param arg1 The first argument to the selector.
+ * @param arg2 The second argument to the selector.
+ * @param indexPath The third argument to the selector.
  * @param streamAdPlacer The MPStreamAdPlacer backing your UI collection that can translate index paths to their originals.
  *
  * @return The invocation with all the parameters passed into the method.

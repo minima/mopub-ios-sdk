@@ -1,3 +1,21 @@
+## Version 4.18.0 (November 1, 2017)
+- **Features**
+    - iPhone X compatibility improvements including moving the close button into safe area.
+
+- **Bug Fixes**
+  - Fixed a bug with unspecified rewarded video currencies.
+  - Fixed C99 compilation bug.
+
+- **Ad Network Mediation Updates**
+  - AdColony 3.2.1
+  - AdMob 7.24.1
+  - AOL 6.6.0 (formerly Millennial)
+  - Chartboost 7.0
+  - Facebook Audience Network 4.26.0
+  - Tapjoy 11.11.0
+  - Unity Ads 2.1.1
+  - Vungle 5.3.0
+
 ## Version 4.17.0 (September 27, 2017)
 - **Features**
     - Rewarded videos can now optionally pass back custom data to the publisher's reward server.

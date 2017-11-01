@@ -64,11 +64,6 @@
 		BC6462A61DA2DFA70046E206 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC6462A51DA2DFA70046E206 /* SystemConfiguration.framework */; };
 		BC6462A81DA2DFAC0046E206 /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC6462A71DA2DFAC0046E206 /* Twitter.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		BC6462AA1DA2DFB80046E206 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC6462A91DA2DFB80046E206 /* UIKit.framework */; };
-		BCBC27DD1DB159A900021978 /* MillennialNativeAdAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = BCBC27D11DB1599A00021978 /* MillennialNativeAdAdapter.m */; };
-		BCBC27DE1DB159A900021978 /* MillennialNativeCustomEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = BCBC27D31DB1599A00021978 /* MillennialNativeCustomEvent.m */; };
-		BCD87FDF1DAD9103008234D3 /* MPMillennialBannerCustomEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = BCD87FD61DAD90DA008234D3 /* MPMillennialBannerCustomEvent.m */; };
-		BCD87FE01DAD9103008234D3 /* MPMillennialInterstitialCustomEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = BCD87FD81DAD90DA008234D3 /* MPMillennialInterstitialCustomEvent.m */; };
-		BCD87FE31DAD9107008234D3 /* MMAdSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BCD87FDC1DAD90F5008234D3 /* MMAdSDK.framework */; };
 		BCE919361D76417200A759CB /* MPNativeVideoAdDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCE919351D76417200A759CB /* MPNativeVideoAdDetailViewController.swift */; };
 		BCE919371D76417900A759CB /* MPNativeVideoAdDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCE919351D76417200A759CB /* MPNativeVideoAdDetailViewController.swift */; };
 		BCE9193B1D7641D600A759CB /* MPSampleVideoNativeAdView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCE9193A1D7641D600A759CB /* MPSampleVideoNativeAdView.swift */; };
@@ -123,20 +118,7 @@
 		BC6462A51DA2DFA70046E206 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		BC6462A71DA2DFAC0046E206 /* Twitter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Twitter.framework; path = System/Library/Frameworks/Twitter.framework; sourceTree = SDKROOT; };
 		BC6462A91DA2DFB80046E206 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
-		BCBC27D01DB1599A00021978 /* MillennialNativeAdAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MillennialNativeAdAdapter.h; path = ../../AdNetworkSupport/Millennial/MillennialNativeAdAdapter.h; sourceTree = "<group>"; };
-		BCBC27D11DB1599A00021978 /* MillennialNativeAdAdapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MillennialNativeAdAdapter.m; path = ../../AdNetworkSupport/Millennial/MillennialNativeAdAdapter.m; sourceTree = "<group>"; };
-		BCBC27D21DB1599A00021978 /* MillennialNativeCustomEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MillennialNativeCustomEvent.h; path = ../../AdNetworkSupport/Millennial/MillennialNativeCustomEvent.h; sourceTree = "<group>"; };
-		BCBC27D31DB1599A00021978 /* MillennialNativeCustomEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MillennialNativeCustomEvent.m; path = ../../AdNetworkSupport/Millennial/MillennialNativeCustomEvent.m; sourceTree = "<group>"; };
-		BCBC27D41DB1599A00021978 /* MMNativeAd+ClientMediation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "MMNativeAd+ClientMediation.h"; path = "../../AdNetworkSupport/Millennial/MMNativeAd+ClientMediation.h"; sourceTree = "<group>"; };
-		BCBC27D51DB1599A00021978 /* MPMillennialBannerCustomEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MPMillennialBannerCustomEvent.h; path = ../../AdNetworkSupport/Millennial/MPMillennialBannerCustomEvent.h; sourceTree = "<group>"; };
-		BCBC27D61DB1599A00021978 /* MPMillennialBannerCustomEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MPMillennialBannerCustomEvent.m; path = ../../AdNetworkSupport/Millennial/MPMillennialBannerCustomEvent.m; sourceTree = "<group>"; };
-		BCBC27D71DB1599A00021978 /* MPMillennialInterstitialCustomEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MPMillennialInterstitialCustomEvent.h; path = ../../AdNetworkSupport/Millennial/MPMillennialInterstitialCustomEvent.h; sourceTree = "<group>"; };
-		BCBC27D81DB1599A00021978 /* MPMillennialInterstitialCustomEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MPMillennialInterstitialCustomEvent.m; path = ../../AdNetworkSupport/Millennial/MPMillennialInterstitialCustomEvent.m; sourceTree = "<group>"; };
-		BCBC27E21DB159D800021978 /* MMAdSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MMAdSDK.framework; path = ../../AdNetworkSupport/Millennial/SDK/MMAdSDK.framework; sourceTree = "<group>"; };
 		BCD87FB21DAD8F4E008234D3 /* MoPubSwiftSampleApp-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MoPubSwiftSampleApp-Bridging-Header.h"; sourceTree = "<group>"; };
-		BCD87FD61DAD90DA008234D3 /* MPMillennialBannerCustomEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MPMillennialBannerCustomEvent.m; path = ../../AdNetworkSupport/Millennial/MPMillennialBannerCustomEvent.m; sourceTree = "<group>"; };
-		BCD87FD81DAD90DA008234D3 /* MPMillennialInterstitialCustomEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MPMillennialInterstitialCustomEvent.m; path = ../../AdNetworkSupport/Millennial/MPMillennialInterstitialCustomEvent.m; sourceTree = "<group>"; };
-		BCD87FDC1DAD90F5008234D3 /* MMAdSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MMAdSDK.framework; path = ../../AdNetworkSupport/Millennial/SDK/MMAdSDK.framework; sourceTree = "<group>"; };
 		BCD87FE51DAD9165008234D3 /* MoPubSwiftSampleApp-CustomEvent-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MoPubSwiftSampleApp-CustomEvent-Bridging-Header.h"; sourceTree = "<group>"; };
 		BCE919351D76417200A759CB /* MPNativeVideoAdDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MPNativeVideoAdDetailViewController.swift; sourceTree = "<group>"; };
 		BCE9193A1D7641D600A759CB /* MPSampleVideoNativeAdView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MPSampleVideoNativeAdView.swift; sourceTree = "<group>"; };
@@ -165,7 +147,6 @@
 				BC6462A01DA2DF870046E206 /* QuartzCore.framework in Frameworks */,
 				BC64629E1DA2DF7A0046E206 /* MobileCoreServices.framework in Frameworks */,
 				BC64629C1DA2DF730046E206 /* MessageUI.framework in Frameworks */,
-				BCD87FE31DAD9107008234D3 /* MMAdSDK.framework in Frameworks */,
 				BC64629A1DA2DF680046E206 /* EventKitUI.framework in Frameworks */,
 				BC6462981DA2DF630046E206 /* EventKit.framework in Frameworks */,
 				BC6462961DA2DF4F0046E206 /* MediaPlayer.framework in Frameworks */,
@@ -226,7 +207,6 @@
 		57A22B991AD317000064A85B = {
 			isa = PBXGroup;
 			children = (
-				57CE762C1AD83C280003830D /* AdNetworkSupport */,
 				57A22BA41AD317000064A85B /* MoPubSwiftSampleApp */,
 				57A22BA31AD317000064A85B /* Products */,
 				48A411F8736D04269EAA92A3 /* Frameworks */,
@@ -306,40 +286,6 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
-		57CE762C1AD83C280003830D /* AdNetworkSupport */ = {
-			isa = PBXGroup;
-			children = (
-				BCD87FDB1DAD90E0008234D3 /* Millennial */,
-			);
-			name = AdNetworkSupport;
-			path = ../AdNetworkSupport;
-			sourceTree = "<group>";
-		};
-		BCBC27E11DB159C200021978 /* SDK */ = {
-			isa = PBXGroup;
-			children = (
-				BCBC27E21DB159D800021978 /* MMAdSDK.framework */,
-			);
-			name = SDK;
-			sourceTree = "<group>";
-		};
-		BCD87FDB1DAD90E0008234D3 /* Millennial */ = {
-			isa = PBXGroup;
-			children = (
-				BCBC27D01DB1599A00021978 /* MillennialNativeAdAdapter.h */,
-				BCBC27D11DB1599A00021978 /* MillennialNativeAdAdapter.m */,
-				BCBC27D21DB1599A00021978 /* MillennialNativeCustomEvent.h */,
-				BCBC27D31DB1599A00021978 /* MillennialNativeCustomEvent.m */,
-				BCBC27D41DB1599A00021978 /* MMNativeAd+ClientMediation.h */,
-				BCBC27D51DB1599A00021978 /* MPMillennialBannerCustomEvent.h */,
-				BCBC27D61DB1599A00021978 /* MPMillennialBannerCustomEvent.m */,
-				BCBC27D71DB1599A00021978 /* MPMillennialInterstitialCustomEvent.h */,
-				BCBC27D81DB1599A00021978 /* MPMillennialInterstitialCustomEvent.m */,
-				BCBC27E11DB159C200021978 /* SDK */,
-			);
-			name = Millennial;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -390,17 +336,17 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0700;
-				LastUpgradeCheck = 0800;
+				LastUpgradeCheck = 0900;
 				ORGANIZATIONNAME = MoPub;
 				TargetAttributes = {
 					57A22BA11AD317000064A85B = {
 						CreatedOnToolsVersion = 6.1.1;
-						LastSwiftMigration = 0830;
+						LastSwiftMigration = 0900;
 						ProvisioningStyle = Automatic;
 					};
 					57CE73F11AD6F86D0003830D = {
 						DevelopmentTeam = 4S7XS533V3;
-						LastSwiftMigration = 0830;
+						LastSwiftMigration = 0900;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -507,9 +453,12 @@
 			files = (
 			);
 			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-MoPubSwiftSampleApp/Pods-MoPubSwiftSampleApp-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/mopub-ios-sdk.common/MoPub.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MoPub.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -531,7 +480,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		C079CBC2897D5EBF909F4773 /* [CP] Check Pods Manifest.lock */ = {
@@ -549,7 +498,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		F89F88211599F98F730C1FC8 /* [CP] Copy Pods Resources */ = {
@@ -625,21 +574,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				BCE9193C1D76424E00A759CB /* MPSampleVideoNativeAdView.swift in Sources */,
-				BCD87FE01DAD9103008234D3 /* MPMillennialInterstitialCustomEvent.m in Sources */,
 				57CE74001AD6F86D0003830D /* MPCollectionViewAdPlacerView.swift in Sources */,
 				57CE741B1AD6F86D0003830D /* MPBannerAdDetailViewController.swift in Sources */,
 				57CE742A1AD6F86D0003830D /* MPTableViewAdPlacerView.swift in Sources */,
-				BCBC27DE1DB159A900021978 /* MillennialNativeCustomEvent.m in Sources */,
 				57CE74461AD6F86D0003830D /* MPRewardedVideoAdDetailViewController.swift in Sources */,
 				57CE74551AD6F86D0003830D /* MPNativeAdDetailViewController.swift in Sources */,
 				57CE761F1AD72E160003830D /* ASIdentifierManager+SampleApp.swift in Sources */,
 				57CE74561AD6F86D0003830D /* MPAdInfo.swift in Sources */,
-				BCD87FDF1DAD9103008234D3 /* MPMillennialBannerCustomEvent.m in Sources */,
 				57AC6AB71BB3132C0053C556 /* MPVideoAdView.swift in Sources */,
 				57CE745D1AD6F86D0003830D /* MPCollectionViewAdPlacerDetailViewController.swift in Sources */,
 				57CE76241AD8347B0003830D /* MPAdTableViewController.swift in Sources */,
 				57CE74721AD6F86D0003830D /* MPStaticNativeAdView.swift in Sources */,
-				BCBC27DD1DB159A900021978 /* MillennialNativeAdAdapter.m in Sources */,
 				57CE74731AD6F86D0003830D /* MPTableViewAdPlacerDetailViewController.swift in Sources */,
 				57CE74761AD6F86D0003830D /* MPAdDetailViewControllerProtocol.swift in Sources */,
 				BCE919371D76417900A759CB /* MPNativeVideoAdDetailViewController.swift in Sources */,
@@ -679,14 +624,20 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -730,14 +681,20 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -776,14 +733,14 @@
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = "$(PROJECT_DIR)/MoPubSwiftSampleApp/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.mopub.samples.swift.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_DIR)/MoPubSwiftSampleApp/MoPubSwiftSampleApp-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -797,13 +754,13 @@
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = "$(PROJECT_DIR)/MoPubSwiftSampleApp/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.mopub.samples.swift.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_DIR)/MoPubSwiftSampleApp/MoPubSwiftSampleApp-Bridging-Header.h";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};
@@ -827,7 +784,6 @@
 				);
 				INFOPLIST_FILE = "$(PROJECT_DIR)/MoPubSwiftSampleApp/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_SWIFT_FLAGS = "-D CUSTOM_EVENTS_ENABLED";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.mopub.samples.swift.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "MoPubSwiftSampleApp+CustomEvents";
@@ -835,7 +791,8 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_DIR)/MoPubSwiftSampleApp/MoPubSwiftSampleApp-CustomEvent-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -855,14 +812,14 @@
 				);
 				INFOPLIST_FILE = "$(PROJECT_DIR)/MoPubSwiftSampleApp/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_SWIFT_FLAGS = "-D CUSTOM_EVENTS_ENABLED";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.mopub.samples.swift.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "MoPubSwiftSampleApp+CustomEvents";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_DIR)/MoPubSwiftSampleApp/MoPubSwiftSampleApp-CustomEvent-Bridging-Header.h";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};

@@ -1,7 +1,8 @@
 //
-//  MillennialNativeCustomEvent.h
+//  MPMillennialRewardedVideoCustomEvent.h
 //
-//  Copyright (c) 2015 Millennial Media, Inc. All rights reserved.
+//  Created by Terence Worley on 8/25/16
+//  Copyright (c) 2016 MillennialMedia. All rights reserved.
 //
 
 #if __has_include(<MoPub/MoPub.h>)
@@ -10,15 +11,13 @@
 #import "MoPub.h"
 #endif
 
-#import <Foundation/Foundation.h>
 #import <MMAdSDK/MMAdSDK.h>
 
 /*
  * Certified with Millennial Media 6.6.0
  */
-@interface MillennialNativeCustomEvent : MPNativeCustomEvent
+@interface MPMillennialRewardedVideoCustomEvent : MPRewardedVideoCustomEvent
 
 @property (nonatomic, readonly) MMCreativeInfo* creativeInfo;
-@property (nonatomic, readonly) NSString* version;
 
 @end

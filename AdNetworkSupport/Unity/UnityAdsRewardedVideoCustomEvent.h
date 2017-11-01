@@ -12,8 +12,7 @@
 #endif
 
 /*
- * Please reference the Supported Mediation Partner page at http://bit.ly/2mqsuFH for the
- * latest version and ad format certifications.
+ * Certified with Unity Ads 2.1.1
  */
 @interface UnityAdsRewardedVideoCustomEvent : MPRewardedVideoCustomEvent
 

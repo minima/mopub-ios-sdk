@@ -71,7 +71,7 @@
 /// Returns an ad view rendered using provided |adapter|. Sets an |error| if any error is
 /// encountered.
 - (UIView *)retrieveViewWithAdapter:(id<MPNativeAdAdapter>)adapter error:(NSError **)error {
-  if (!adapter) {
+  if (!adapter || ![adapter isKindOfClass:[MPGoogleAdMobNativeAdAdapter class]]) {
     if (error) {
       *error = MPNativeAdNSErrorForRenderValueTypeError();
     }

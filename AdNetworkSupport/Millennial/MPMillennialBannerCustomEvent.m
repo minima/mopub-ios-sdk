@@ -8,27 +8,14 @@
 #import "MPLogging.h"
 #import "MPAdConfiguration.h"
 #import "MPInstanceProvider.h"
-
-#define MM_SIZE_320x50  CGSizeMake(320, 50)
-#define MM_SIZE_300x250 CGSizeMake(300, 250)
-#define MM_SIZE_728x90  CGSizeMake(728, 90)
+#import "MMAdapterVersion.h"
 
 static NSString *const kMoPubMMAdapterAdUnit = @"adUnitID";
 static NSString *const kMoPubMMAdapterDCN = @"dcn";
 
-@implementation MPInstanceProvider (MillennialBanners)
-
-- (MMInlineAd *)buildMMInlineAdWithSize:(CGSize)size placementId:(NSString *)placementId {
-    return [[MMInlineAd alloc] initWithPlacementId:placementId size:size];
-}
-
-@end
-
 @interface MPMillennialBannerCustomEvent ()
 
-@property (nonatomic, assign) BOOL didTrackImpression;
 @property (nonatomic, assign) BOOL didTrackClick;
-
 @property (nonatomic, strong) MMInlineAd *mmInlineAd;
 
 @end
@@ -42,11 +29,12 @@ static NSString *const kMoPubMMAdapterDCN = @"dcn";
 - (id)init {
     self = [super init];
     if (self) {
-        if ([[UIDevice currentDevice] systemVersion].floatValue >= 7.0) {
+        if([[UIDevice currentDevice] systemVersion].floatValue >= 8.0) {
             MMSDK *mmSDK = [MMSDK sharedInstance];
-            if ([mmSDK isInitialized] == NO) {
+            if(![mmSDK isInitialized]) {
                 MMAppSettings *appSettings = [[MMAppSettings alloc] init];
                 [mmSDK initializeWithSettings:appSettings withUserSettings:nil];
+                MPLogDebug(@"Millennial adapter version: %@", self.version);
             }
         }
     }
@@ -59,21 +47,32 @@ static NSString *const kMoPubMMAdapterDCN = @"dcn";
 }
 
 - (void)requestAdWithSize:(CGSize)size customEventInfo:(NSDictionary *)info {
-
+    __strong __typeof__(self.delegate) delegate = self.delegate;
     MMSDK *mmSDK = [MMSDK sharedInstance];
 
-    if ([mmSDK isInitialized] == NO) {
-        MPLogError(@"Millennial adapter not properly intialized yet.");
-        [self.delegate bannerCustomEvent:self didFailToLoadAdWithError:nil];
+    if (![mmSDK isInitialized]) {
+        NSError *error = [NSError errorWithDomain:MMSDKErrorDomain
+                                             code:MMSDKErrorNotInitialized
+                                         userInfo:@{
+                                                    NSLocalizedDescriptionKey:[NSString stringWithFormat:@"Millennial adapter not properly intialized yet."]
+                                                    }];
+        MPLogError(@"%@", [error localizedDescription]);
+        [delegate bannerCustomEvent:self didFailToLoadAdWithError:error];
+
         return;
     }
 
-    MPLogInfo(@"Requesting Millennial banner.");
+    MPLogDebug(@"Requesting Millennial banner with event info %@.", info);
 
     NSString *placementId = info[kMoPubMMAdapterAdUnit];
     if (!placementId) {
-        MPLogError(@"Millennial received invalid placement ID. Request failed.");
-        [self.delegate bannerCustomEvent:self didFailToLoadAdWithError:nil];
+        NSError *error = [NSError errorWithDomain:MMSDKErrorDomain
+                                             code:MMSDKErrorServerResponseNoContent
+                                         userInfo:@{
+                                                    NSLocalizedDescriptionKey:[NSString stringWithFormat:@"Millennial received no placement ID. Request failed."]
+                                                    }];
+        MPLogError(@"%@", [error localizedDescription]);
+        [delegate bannerCustomEvent:self didFailToLoadAdWithError:error];
         return;
     }
 
@@ -84,28 +83,23 @@ static NSString *const kMoPubMMAdapterDCN = @"dcn";
         [mmSDK appSettings].siteId = nil;
     }
 
-    self.mmInlineAd = [[MPInstanceProvider sharedProvider] buildMMInlineAdWithSize:size placementId:placementId];
+    self.mmInlineAd = [[MMInlineAd alloc] initWithPlacementId:placementId size:size];
     self.mmInlineAd.delegate = self;
     self.mmInlineAd.refreshInterval = -1;
 
-    [self.mmInlineAd.view setFrame:[self frameFromCustomEventInfo:info]];
+    [self.mmInlineAd.view setFrame:CGRectMake(0, 0, size.width, size.height)];
     [self.mmInlineAd request:nil];
 
 }
 
-- (CGSize)sizeFromCustomEventInfo:(NSDictionary *)info {
-    CGFloat width = [info[@"adWidth"] floatValue];
-    CGFloat height = [info[@"adHeight"] floatValue];
-    return CGSizeMake(width, height);
+-(MMCreativeInfo*)creativeInfo
+{
+    return self.mmInlineAd.creativeInfo;
 }
 
-- (CGRect)frameFromCustomEventInfo:(NSDictionary *)info {
-    CGSize size = [self sizeFromCustomEventInfo:info];
-    if (!CGSizeEqualToSize(size, MM_SIZE_300x250) && !CGSizeEqualToSize(size, MM_SIZE_728x90)) {
-        size.width = MM_SIZE_320x50.width;
-        size.height = MM_SIZE_320x50.height;
-    }
-    return CGRectMake(0, 0, size.width, size.height);
+-(NSString*)version
+{
+    return kMMAdapterVersion;
 }
 
 #pragma mark - MMInlineAdDelegate methods
@@ -116,38 +110,38 @@ static NSString *const kMoPubMMAdapterDCN = @"dcn";
 
 - (void)inlineAdContentTapped:(MMInlineAd *)ad {
     if (!self.didTrackClick) {
-        MPLogInfo(@"Millennial banner %@ was clicked.", ad);
+        MPLogDebug(@"Millennial banner %@ was clicked.", ad);
         [self.delegate trackClick];
         self.didTrackClick = YES;
-    } else {
-        MPLogInfo(@"Millennial banner %@ ignoring duplicate click.", ad);
     }
 }
 
 - (void)inlineAdWillPresentModal:(MMInlineAd *)ad {
-    MPLogInfo(@"Millennial banner %@ will present modal.", ad);
+    MPLogDebug(@"Millennial banner %@ will present modal.", ad);
     [self.delegate bannerCustomEventWillBeginAction:self];
 }
 
 - (void)inlineAdDidCloseModal:(MMInlineAd *)ad {
-    MPLogInfo(@"Millennial banner %@ did dismiss modal.", ad);
+    MPLogDebug(@"Millennial banner %@ did dismiss modal.", ad);
     [self.delegate bannerCustomEventDidFinishAction:self];
 }
 
+-(void)inlineAdWillLeaveApplication:(MMInlineAd *)ad
+{
+    MPLogDebug(@"Millennial banner %@ will leave application", ad);
+    [self.delegate bannerCustomEventWillLeaveApplication:self];
+}
+
 - (void)inlineAdRequestDidSucceed:(MMInlineAd *)ad {
-    MPLogInfo(@"Millennial banner %@ did load.", ad);
-    [self.delegate bannerCustomEvent:self didLoadAd:ad.view];
-    [self didDisplayAd];
-    if (!self.didTrackImpression) {
-        [self.delegate trackImpression];
-        self.didTrackImpression = YES;
-    }
+    __strong __typeof__(self.delegate) delegate = self.delegate;
+    MPLogDebug(@"Millennial banner %@ did load, creative ID %@", ad, self.creativeInfo.creativeId);
+    [delegate bannerCustomEvent:self didLoadAd:ad.view];
+    [delegate trackImpression];
 }
 
 - (void)inlineAd:(MMInlineAd *)ad requestDidFailWithError:(NSError *)error {
-    MPLogError(@"Millennial banner %@ failed with error (%d) %@", ad, error.code, error.description);
+    MPLogWarn(@"Millennial banner %@ failed with error (%d) %@", ad, error.code, error.description);
     [self.delegate bannerCustomEvent:self didFailToLoadAdWithError:error];
 }
-
 
 @end
