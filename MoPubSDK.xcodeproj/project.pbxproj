@@ -746,7 +746,6 @@
 		BCF0FA991DC9536B00ADFE4F /* MPCountdownTimerView.m in Sources */ = {isa = PBXBuildFile; fileRef = BCF0FA981DC9536B00ADFE4F /* MPCountdownTimerView.m */; };
 		BCF0FA9B1DC9538700ADFE4F /* MPCountdownTimerView.m in Sources */ = {isa = PBXBuildFile; fileRef = BCF0FA981DC9536B00ADFE4F /* MPCountdownTimerView.m */; };
 		BCF0FA9C1DC9538800ADFE4F /* MPCountdownTimerView.m in Sources */ = {isa = PBXBuildFile; fileRef = BCF0FA981DC9536B00ADFE4F /* MPCountdownTimerView.m */; };
-		BCFBA4241FA129FD00C1C869 /* MPMillennialRewardedVideoCustomEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = BCFBA4211FA129DF00C1C869 /* MPMillennialRewardedVideoCustomEvent.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1423,8 +1422,6 @@
 		BCF0FA8A1DC9512900ADFE4F /* MPCountdownTimer.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = MPCountdownTimer.html; sourceTree = "<group>"; };
 		BCF0FA971DC9536B00ADFE4F /* MPCountdownTimerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPCountdownTimerView.h; sourceTree = "<group>"; };
 		BCF0FA981DC9536B00ADFE4F /* MPCountdownTimerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPCountdownTimerView.m; sourceTree = "<group>"; };
-		BCFBA4201FA129DE00C1C869 /* MPMillennialRewardedVideoCustomEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPMillennialRewardedVideoCustomEvent.h; sourceTree = "<group>"; };
-		BCFBA4211FA129DF00C1C869 /* MPMillennialRewardedVideoCustomEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPMillennialRewardedVideoCustomEvent.m; sourceTree = "<group>"; };
 		BCFBA4221FA129DF00C1C869 /* MMAdapterVersion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMAdapterVersion.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -2067,8 +2064,6 @@
 				AEE3885E171F4D300019601C /* MPMillennialBannerCustomEvent.m */,
 				AEE3885F171F4D300019601C /* MPMillennialInterstitialCustomEvent.h */,
 				AEE38860171F4D300019601C /* MPMillennialInterstitialCustomEvent.m */,
-				BCFBA4201FA129DE00C1C869 /* MPMillennialRewardedVideoCustomEvent.h */,
-				BCFBA4211FA129DF00C1C869 /* MPMillennialRewardedVideoCustomEvent.m */,
 				A73AB4A717AB379500D98ED7 /* SDK */,
 			);
 			path = Millennial;
@@ -3323,7 +3318,6 @@
 				57AC69841BB21FC30053C556 /* UIView+MPAdditions.m in Sources */,
 				46EDEE6819832A3B00241385 /* MPNativeAdUtils.m in Sources */,
 				BC40539D1DAF02CE003ECDBB /* FlurryNativeCustomEvent.m in Sources */,
-				BCFBA4241FA129FD00C1C869 /* MPMillennialRewardedVideoCustomEvent.m in Sources */,
 				A7A422D01B66FB9700024A3A /* MPVASTDurationOffset.m in Sources */,
 				575828911A16F281009C7A85 /* MRController.m in Sources */,
 				B277838D1CE3BA5C00BAB0B1 /* MPRewardedVideoConnection.m in Sources */,

@@ -544,7 +544,6 @@
 		B2F8D16C1F88099E00EBDB21 /* AdColony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B2F8D16B1F88097000EBDB21 /* AdColony.framework */; };
 		BC0CFDEE1F26BD3200048B62 /* libFlurry_8.1.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BC0CFDEC1F26BD2D00048B62 /* libFlurry_8.1.0.a */; };
 		BC0CFDF11F26BD4600048B62 /* libFlurryAds_8.1.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BC0CFDEF1F26BD4200048B62 /* libFlurryAds_8.1.0.a */; };
-		BC2457D91FA12BAD00D02E50 /* MPMillennialRewardedVideoCustomEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = BC2457D61FA12B9900D02E50 /* MPMillennialRewardedVideoCustomEvent.m */; };
 		BC2937B61E60EB430027754A /* AdColonyController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC2937A81E60EB3F0027754A /* AdColonyController.m */; };
 		BC2937B81E60EB4F0027754A /* AdColonyGlobalMediationSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = BC2937AA1E60EB3F0027754A /* AdColonyGlobalMediationSettings.m */; };
 		BC2937B91E60EB4F0027754A /* AdColonyInstanceMediationSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = BC2937AC1E60EB3F0027754A /* AdColonyInstanceMediationSettings.m */; };
@@ -1157,8 +1156,6 @@
 		BC0CFDEC1F26BD2D00048B62 /* libFlurry_8.1.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libFlurry_8.1.0.a; path = Flurry/SDK/Flurry/libFlurry_8.1.0.a; sourceTree = "<group>"; };
 		BC0CFDEF1F26BD4200048B62 /* libFlurryAds_8.1.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libFlurryAds_8.1.0.a; path = Flurry/SDK/FlurryAds/libFlurryAds_8.1.0.a; sourceTree = "<group>"; };
 		BC18A2F91F98156200977249 /* MPLogLevel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPLogLevel.h; sourceTree = "<group>"; };
-		BC2457D51FA12B9900D02E50 /* MPMillennialRewardedVideoCustomEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPMillennialRewardedVideoCustomEvent.h; sourceTree = "<group>"; };
-		BC2457D61FA12B9900D02E50 /* MPMillennialRewardedVideoCustomEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPMillennialRewardedVideoCustomEvent.m; sourceTree = "<group>"; };
 		BC2457D71FA12B9B00D02E50 /* MMAdapterVersion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMAdapterVersion.h; sourceTree = "<group>"; };
 		BC2937A71E60EB3F0027754A /* AdColonyController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdColonyController.h; sourceTree = "<group>"; };
 		BC2937A81E60EB3F0027754A /* AdColonyController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AdColonyController.m; sourceTree = "<group>"; };
@@ -1984,8 +1981,6 @@
 				4A0144251B753997001B649C /* MPMillennialBannerCustomEvent.m */,
 				4A0144261B753997001B649C /* MPMillennialInterstitialCustomEvent.h */,
 				4A0144271B753997001B649C /* MPMillennialInterstitialCustomEvent.m */,
-				BC2457D51FA12B9900D02E50 /* MPMillennialRewardedVideoCustomEvent.h */,
-				BC2457D61FA12B9900D02E50 /* MPMillennialRewardedVideoCustomEvent.m */,
 				5755DAC91AAA4E2300DC32EA /* SDK */,
 			);
 			path = Millennial;
@@ -2795,7 +2790,6 @@
 				BCA881171DCBB81B00C3F8C2 /* MPWebView.m in Sources */,
 				BC2937B91E60EB4F0027754A /* AdColonyInstanceMediationSettings.m in Sources */,
 				46B333F519F075680078078A /* MPNativeAdPageView.m in Sources */,
-				BC2457D91FA12BAD00D02E50 /* MPMillennialRewardedVideoCustomEvent.m in Sources */,
 				44A51A6B1E70BB5B0052AC98 /* MillennialNativeAdAdapter.m in Sources */,
 				572409C21A688C05009271B8 /* MPAdServerURLBuilder.m in Sources */,
 				A7A4228A1B5F224400024A3A /* MPVASTMediaFile.m in Sources */,
