@@ -85,7 +85,8 @@ See our [upgrade document](https://github.com/mopub/mopub-ios-sdk/wiki/Upgrading
 
 ## Requirements
 
-iOS 8.0 and up
+- iOS 8.0 and up
+- Xcode 9.0 and up
 
 ## License
 
