@@ -7,6 +7,12 @@
 
 #import <Foundation/Foundation.h>
 
+// Valid dictionary keys used for `MPAdInfo` initialization.
+extern NSString * const kAdInfoIdKey;       // Non-nil, non-empty `NSString`
+extern NSString * const kAdInfoFormatKey;   // Non-nil, non-empty `NSString`
+extern NSString * const kAdInfoKeywordsKey; // Optional comma-delimited `NSString`
+extern NSString * const kAdInfoNameKey;     // Optional name for the ad unit as a `NSString`
+
 typedef NS_ENUM(NSInteger, MPAdInfoType) {
     MPAdInfoBanner,
     MPAdInfoInterstitial,
@@ -31,6 +37,7 @@ typedef NS_ENUM(NSInteger, MPAdInfoType) {
 + (NSArray *)rewardedVideoAds;
 + (NSArray *)nativeAds;
 + (MPAdInfo *)infoWithTitle:(NSString *)title ID:(NSString *)ID type:(MPAdInfoType)type;
++ (MPAdInfo *)infoWithDictionary:(NSDictionary *)dict;
 + (NSDictionary *)supportedAddedAdTypes;
 
 @end

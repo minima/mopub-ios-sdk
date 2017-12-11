@@ -252,6 +252,28 @@ static const NSTimeInterval kTestTimeout   = 2; // seconds
     XCTAssertTrue(didFail);
 }
 
+- (void)testPresentationFailure {
+    // Semaphore to wait for asynchronous method to finish before continuing the test.
+    XCTestExpectation * expectation = [self expectationWithDescription:@"Wait for reward completion block to fire."];
+
+    // Configure delegate handler to listen for the error event.
+    __block BOOL didFail = NO;
+    MPRewardedVideoDelegateHandler * delegateHandler = [MPRewardedVideoDelegateHandler new];
+    delegateHandler.didFailToPlayAd = ^() {
+        didFail = YES;
+        [expectation fulfill];
+    };
+
+    MPRewardedVideoAdManager * rewardedAd = [[MPRewardedVideoAdManager alloc] initWithAdUnitID:kTestAdUnitId delegate:delegateHandler];
+    [rewardedAd presentRewardedVideoAdFromViewController:nil withReward:nil customData:nil];
+
+    [self waitForExpectationsWithTimeout:kTestTimeout handler:^(NSError * _Nullable error) {
+        XCTAssertNil(error);
+    }];
+
+    XCTAssertTrue(didFail);
+}
+
 #pragma mark - Viewability
 
 - (void)testViewabilityQueryParameter {

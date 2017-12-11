@@ -106,6 +106,47 @@
     [self.tableView reloadData];
 }
 
+- (void)loadAd:(MPAdInfo *)info
+{
+    UIViewController *detailViewController = nil;
+
+    switch (info.type) {
+        case MPAdInfoBanner:
+            detailViewController = [[MPBannerAdDetailViewController alloc] initWithAdInfo:info];
+            break;
+        case MPAdInfoMRectBanner:
+            detailViewController = [[MPMRectBannerAdDetailViewController alloc] initWithAdInfo:info];
+            break;
+        case MPAdInfoLeaderboardBanner:
+            detailViewController = [[MPLeaderboardBannerAdDetailViewController alloc] initWithAdInfo:info];
+            break;
+        case MPAdInfoInterstitial:
+            detailViewController = [[MPInterstitialAdDetailViewController alloc] initWithAdInfo:info];
+            break;
+        case MPAdInfoRewardedVideo:
+            detailViewController = [[MPRewardedVideoAdDetailViewController alloc] initWithAdInfo:info];
+            break;
+        case MPAdInfoNative:
+            detailViewController = [[MPNativeAdDetailViewController alloc] initWithAdInfo:info];
+            break;
+        case MPAdInfoNativeInCollectionView:
+            detailViewController = [[MPNativeAdPlacerCollectionViewController alloc] initWithAdInfo:info];
+            break;
+        case MPAdInfoNativeTableViewPlacer:
+            detailViewController = [[MPNativeAdPlacerTableViewController alloc] initWithAdInfo:info];
+            break;
+        case MPAdInfoNativePageViewControllerPlacer:
+            detailViewController = [[MPNativeAdPlacerPageViewController alloc] initWithAdInfo:info];
+            break;
+        default:
+            break;
+    }
+
+    if (detailViewController) {
+        [self.navigationController pushViewController:detailViewController animated:YES];
+    }
+}
+
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -149,43 +190,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     MPAdInfo *info = [self infoAtIndexPath:indexPath];
-    UIViewController *detailViewController = nil;
-
-    switch (info.type) {
-        case MPAdInfoBanner:
-            detailViewController = [[MPBannerAdDetailViewController alloc] initWithAdInfo:info];
-            break;
-        case MPAdInfoMRectBanner:
-            detailViewController = [[MPMRectBannerAdDetailViewController alloc] initWithAdInfo:info];
-            break;
-        case MPAdInfoLeaderboardBanner:
-            detailViewController = [[MPLeaderboardBannerAdDetailViewController alloc] initWithAdInfo:info];
-            break;
-        case MPAdInfoInterstitial:
-            detailViewController = [[MPInterstitialAdDetailViewController alloc] initWithAdInfo:info];
-            break;
-        case MPAdInfoRewardedVideo:
-            detailViewController = [[MPRewardedVideoAdDetailViewController alloc] initWithAdInfo:info];
-            break;
-        case MPAdInfoNative:
-            detailViewController = [[MPNativeAdDetailViewController alloc] initWithAdInfo:info];
-            break;
-        case MPAdInfoNativeInCollectionView:
-            detailViewController = [[MPNativeAdPlacerCollectionViewController alloc] initWithAdInfo:info];
-            break;
-        case MPAdInfoNativeTableViewPlacer:
-            detailViewController = [[MPNativeAdPlacerTableViewController alloc] initWithAdInfo:info];
-            break;
-        case MPAdInfoNativePageViewControllerPlacer:
-            detailViewController = [[MPNativeAdPlacerPageViewController alloc] initWithAdInfo:info];
-            break;
-        default:
-            break;
-    }
-
-    if (detailViewController) {
-        [self.navigationController pushViewController:detailViewController animated:YES];
-    }
+    [self loadAd:info];
 }
 
 - (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath

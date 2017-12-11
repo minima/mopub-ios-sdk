@@ -6,15 +6,15 @@
 
 #import "MillennialNativeAdAdapter.h"
 #import "MPNativeAdConstants.h"
-#import "MPStaticNativeAdImpressionTimer.h"
+#import "MPAdImpressionTimer.h"
 
 NSString * const kAdMainImageViewKey = @"mmmainimage";
 NSString * const kAdIconImageViewKey = @"mmiconimage";
 NSString * const kDisclaimerKey = @"mmdisclaimer";
 
-@interface MillennialNativeAdAdapter() <MPStaticNativeAdImpressionTimerDelegate>
+@interface MillennialNativeAdAdapter() <MPAdImpressionTimerDelegate>
 
-@property (nonatomic) MPStaticNativeAdImpressionTimer *impressionTimer;
+@property (nonatomic) MPAdImpressionTimer *impressionTimer;
 @property (nonatomic, strong) MMNativeAd *mmNativeAd;
 @property (nonatomic, strong) NSDictionary<NSString *, id> *mmAdProperties;
 
@@ -58,7 +58,7 @@ NSString * const kDisclaimerKey = @"mmdisclaimer";
         _mmAdProperties = properties;
 
         // Impression tracking
-        _impressionTimer = [[MPStaticNativeAdImpressionTimer alloc] initWithRequiredSecondsForImpression:0.0 requiredViewVisibilityPercentage:0.5];
+        _impressionTimer = [[MPAdImpressionTimer alloc] initWithRequiredSecondsForImpression:0.0 requiredViewVisibilityPercentage:0.5];
         _impressionTimer.delegate = self;
 
     }
@@ -87,7 +87,7 @@ NSString * const kDisclaimerKey = @"mmdisclaimer";
     [self.impressionTimer startTrackingView:view];
 }
 
-- (void)trackImpression {
+- (void)adViewWillLogImpression:(UIView *)adView {
     [self.delegate nativeAdWillLogImpression:self];
 
     // Handle the impression

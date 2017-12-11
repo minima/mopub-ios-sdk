@@ -14,7 +14,7 @@
 #endif
 
 /*
- * Certified with Flurry 8.0.0
+ * Certified with Flurry 8.2.2
  */
 @interface FlurryBannerCustomEvent : MPBannerCustomEvent <FlurryAdBannerDelegate>
 

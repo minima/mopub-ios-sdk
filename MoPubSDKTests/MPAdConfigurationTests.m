@@ -284,6 +284,20 @@
 
 #pragma mark - Static Native Ads
 
+- (void)testMinVisiblePixelsParseSuccess {
+    NSDictionary *headers = @{ @"X-Native-Impression-Min-Px": @"50" };
+    MPAdConfiguration *config = [[MPAdConfiguration alloc] initWithHeaders:headers data:nil];
+
+    XCTAssertEqual(config.nativeImpressionMinVisiblePixels, 50.0);
+}
+
+- (void)testMinVisiblePixelsParseNoHeader {
+    NSDictionary *headers = @{};
+    MPAdConfiguration *config = [[MPAdConfiguration alloc] initWithHeaders:headers data:nil];
+
+    XCTAssertEqual(config.nativeImpressionMinVisiblePixels, -1.0);
+}
+
 - (void)testMinVisiblePercentParseSuccess {
     NSDictionary *headers = @{ @"X-Impression-Min-Visible-Percent": @"50" };
     MPAdConfiguration *config = [[MPAdConfiguration alloc] initWithHeaders:headers data:nil];
@@ -310,6 +324,33 @@
     MPAdConfiguration *config = [[MPAdConfiguration alloc] initWithHeaders:headers data:nil];
 
     XCTAssertEqual(config.nativeImpressionMinVisibleTimeInterval, -1);
+}
+
+#pragma mark - Banner Impression Headers
+
+- (void)testVisibleImpressionHeader {
+    NSDictionary * headers = @{ kBannerImpressionVisableMsHeaderKey: @"0", kBannerImpressionMinPixelHeaderKey:@"1"};
+    MPAdConfiguration * config = [[MPAdConfiguration alloc] initWithHeaders:headers data:nil];
+    XCTAssertEqual(config.impressionMinVisiblePixels, 1);
+    XCTAssertEqual(config.impressionMinVisibleTimeInSec, 0);
+}
+
+- (void)testVisibleImpressionEnabled {
+    NSDictionary * headers = @{ kBannerImpressionVisableMsHeaderKey: @"0", kBannerImpressionMinPixelHeaderKey:@"1"};
+    MPAdConfiguration * config = [[MPAdConfiguration alloc] initWithHeaders:headers data:nil];
+    XCTAssertTrue(config.visibleImpressionTrackingEnabled);
+}
+
+- (void)testVisibleImpressionEnabledNoHeader {
+    NSDictionary * headers = @{};
+    MPAdConfiguration * config = [[MPAdConfiguration alloc] initWithHeaders:headers data:nil];
+    XCTAssertFalse(config.visibleImpressionTrackingEnabled);
+}
+
+- (void)testVisibleImpressionNotEnabled {
+    NSDictionary * headers = @{kBannerImpressionVisableMsHeaderKey: @"0", kBannerImpressionMinPixelHeaderKey:@"0"};
+    MPAdConfiguration * config = [[MPAdConfiguration alloc] initWithHeaders:headers data:nil];
+    XCTAssertFalse(config.visibleImpressionTrackingEnabled);
 }
 
 @end

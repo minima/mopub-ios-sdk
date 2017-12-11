@@ -7,7 +7,7 @@
 #import "MPRewardedVideoCustomEvent.h"
 
 /*
- * Certified with Facebook Audience Network 4.26
+ * Certified with Facebook Audience Network 4.26.1
  */
 @interface FacebookRewardedVideoCustomEvent : MPRewardedVideoCustomEvent
 

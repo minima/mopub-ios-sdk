@@ -6,10 +6,10 @@
 //
 
 #import "MPMoPubNativeAdAdapter.h"
-#import "MPStaticNativeAdImpressionTimer.h"
+#import "MPAdImpressionTimer.h"
 
 @interface MPMoPubNativeAdAdapter (Testing)
 
-@property (nonatomic) MPStaticNativeAdImpressionTimer *impressionTimer;
+@property (nonatomic) MPAdImpressionTimer *impressionTimer;
 
 @end

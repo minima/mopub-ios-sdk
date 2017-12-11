@@ -28,7 +28,7 @@
     if (self) {
         _adNative = adNative;
         _adNative.adDelegate = self;
-        
+
         _properties = [self convertAssetsToProperties:adNative];
     }
     return self;
@@ -50,7 +50,7 @@
                                                  @"appRating": kAdStarRatingKey,
                                                  @"callToAction": kAdCTATextKey
                                                  };
-    
+
     NSMutableDictionary *props = [NSMutableDictionary dictionary];
     for (int ix = 0; ix < adNative.assetList.count; ++ix) {
         FlurryAdNativeAsset* asset = [adNative.assetList objectAtIndex:ix];
@@ -67,12 +67,12 @@
         } else {
             value = asset.value;
         }
-        
+
         if (key && value) {
             [props setObject:value forKey:key];
         }
     }
-    
+
     return [props copy];
 }
 
@@ -108,12 +108,13 @@
 
 - (void)willAttachToView:(UIView *)view
 {
-    self.adNative.trackingView = view;
     self.adNative.viewControllerForPresentation = [self.delegate viewControllerForPresentingModalView];
     // Can only set FlurryAdNative#videoViewContainer after setting viewControllerForPresentation
     if ([self.adNative isVideoAd]) {
         self.adNative.videoViewContainer = self.videoViewContainer;
     }
+
+    self.adNative.trackingView = view;
 }
 
 - (void)didDetachFromView:(UIView *)view

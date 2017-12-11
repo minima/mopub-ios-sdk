@@ -1,13 +1,11 @@
 PODS:
   - AdColony (3.2.1)
-  - ChartboostSDK (7.0.1)
-  - FBAudienceNetwork (4.26.0):
-    - KVOController
-  - Flurry-iOS-SDK/FlurryAds (8.3.0):
+  - ChartboostSDK (7.0.3)
+  - FBAudienceNetwork (4.26.1)
+  - Flurry-iOS-SDK/FlurryAds (8.3.2):
     - Flurry-iOS-SDK/FlurrySDK
-  - Flurry-iOS-SDK/FlurrySDK (8.3.0)
-  - Google-Mobile-Ads-SDK (7.24.1)
-  - KVOController (1.2.0)
+  - Flurry-iOS-SDK/FlurrySDK (8.3.2)
+  - Google-Mobile-Ads-SDK (7.26.0)
   - MMAdSDK (6.6.0)
   - mopub-ios-sdk (4.11.1):
     - mopub-ios-sdk/MoPubSDK (= 4.11.1)
@@ -48,8 +46,8 @@ PODS:
   - mopub-ios-sdk/VungleCustomEvents (4.11.1):
     - mopub-ios-sdk/Core
     - VungleSDK-iOS (~> 5.0)
-  - TapjoySDK (11.11.0)
-  - UnityAds (2.1.1)
+  - TapjoySDK (11.11.1)
+  - UnityAds (2.1.2)
   - VungleSDK-iOS (5.3.0)
 
 DEPENDENCIES:
@@ -70,15 +68,14 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   AdColony: e657145620acd54033e38cc18902eed01d3c456d
-  ChartboostSDK: 952e9eeb3d50720c3a8153a6758263533120cc88
-  FBAudienceNetwork: c3488041a9aa3f716d2edb3ceec8929e54c8f95a
-  Flurry-iOS-SDK: bd60421d26f3826edd1686770673f7b65990c057
-  Google-Mobile-Ads-SDK: ed8004a7265b424568dc84f3d2bbe3ea3fff958f
-  KVOController: d72ace34afea42468329623b3379ab3cd1d286b6
+  ChartboostSDK: 1b56e5e3350323c3d6805536dcdd7d151de3f259
+  FBAudienceNetwork: 224f561f2af4982aa5558feef5d88b7cd27ead14
+  Flurry-iOS-SDK: 499b7ac3b8d83dda274206c1f1f2335d3fab87f6
+  Google-Mobile-Ads-SDK: 22d4a6fe18d526adcc12a86d8cc2d53872700966
   MMAdSDK: 0e6bf6f3483d29b8a107ed14f84a3ca741c66682
   mopub-ios-sdk: 83c8128275cee6fd286edf76534169cbc107a214
-  TapjoySDK: 19107f83dc69195451a298000b04851105e95e3f
-  UnityAds: be7606ebc8e44a08d630ac10672b621b80119dbb
+  TapjoySDK: 55b624c62f4494c6c38cb4ee92bacfd3bb5bdd6c
+  UnityAds: 7ff4f1f17ab02b50f92646a353db25d23a4694af
   VungleSDK-iOS: af3aa92d0f4a923505a9416646ffef5250592150
 
 PODFILE CHECKSUM: 12353f69e3b24fefd049c704abf83a5897f79ca4
