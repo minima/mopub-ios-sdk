@@ -6,9 +6,9 @@
   - Resolve WKWebView sizing and alignment issues on iPhoneX
 
 - **Ad Network Mediation Updates**
-  - Facebook Audience Network 4.26.1
-  - Flurry 8.1.0
-  - Millennial/AOL 6.6.0
+  - Certitified Facebook Audience Network 4.26.1
+  - Certified Flurry 8.1.0
+  - Added support for Millennial/AOL Rewarded Video adapters for 6.6.0
 
 ## Version 4.18.0 (November 1, 2017)
 - **Features**
