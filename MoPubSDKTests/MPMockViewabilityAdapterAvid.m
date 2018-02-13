@@ -13,11 +13,11 @@
 
 @implementation MPViewabilityAdapterAvid
 
-- (instancetype)initWithAdView:(MPWebView *)webView isVideo:(BOOL)isVideo startTrackingImmediately:(BOOL)startTracking {
+- (instancetype)initWithAdView:(UIView *)webView isVideo:(BOOL)isVideo startTrackingImmediately:(BOOL)startTracking {
     if (self = [super init]) {
         _isTracking = startTracking;
     }
-    
+
     return self;
 }
 
@@ -30,7 +30,7 @@
 }
 
 - (void)registerFriendlyObstructionView:(UIView *)view {
-    
+
 }
 
 @end

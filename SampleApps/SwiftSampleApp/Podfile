@@ -10,13 +10,13 @@ target 'MoPubSwiftSampleApp' do
 end
 
 target 'MoPubSwiftSampleApp+CustomEvents' do
-  pod 'mopub-ios-sdk/AdColonyCustomEvents', :path => '../../'
-  pod 'mopub-ios-sdk/AdMobCustomEvents', :path => '../../'
-  pod 'mopub-ios-sdk/ChartboostCustomEvents', :path => '../../'
-  pod 'mopub-ios-sdk/FacebookCustomEvents', :path => '../../'
-  pod 'mopub-ios-sdk/FlurryCustomEvents', :path => '../../'
-  pod 'mopub-ios-sdk/MillennialCustomEvents', :path => '../../'
-  pod 'mopub-ios-sdk/TapjoyCustomEvents', :path => '../../'
-  pod 'mopub-ios-sdk/UnityAdsCustomEvents', :path => '../../'
-  pod 'mopub-ios-sdk/VungleCustomEvents', :path => '../../'
+  pod 'MoPub-AdColony-Adapters'
+  pod 'MoPub-Google-Adapters'
+  pod 'MoPub-Chartboost-Adapters'
+  pod 'MoPub-Facebook-Adapters'
+  pod 'MoPub-Flurry-Adapters'
+  pod 'MoPub-Aol-Adapters'
+  pod 'MoPub-TapJoy-Adapters'
+  pod 'MoPub-Unity-Adapters'
+  pod 'MoPub-Vungle-Adapters'
 end

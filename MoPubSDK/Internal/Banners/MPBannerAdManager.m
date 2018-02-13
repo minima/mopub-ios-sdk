@@ -14,6 +14,7 @@
 #import "MPTimer.h"
 #import "MPConstants.h"
 #import "MPLogging.h"
+#import "MPBannerCustomEventAdapter.h"
 
 @interface MPBannerAdManager ()
 
@@ -228,8 +229,8 @@
         return;
     }
 
-    self.requestingAdapter = [[MPInstanceProvider sharedProvider] buildBannerAdapterForConfiguration:configuration
-                                                                                            delegate:self];
+    self.requestingAdapter = [[MPBannerCustomEventAdapter alloc] initWithConfiguration:configuration
+                                                                              delegate:self];
     if (!self.requestingAdapter) {
         [self loadAdWithURL:self.requestingConfiguration.failoverURL];
         return;

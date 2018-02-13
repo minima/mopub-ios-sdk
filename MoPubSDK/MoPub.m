@@ -15,6 +15,7 @@
 #import "MPIdentityProvider.h"
 #import "MPWebView.h"
 #import "MOPUBExperimentProvider.h"
+#import "MPViewabilityTracker.h"
 
 @interface MoPub ()
 

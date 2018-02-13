@@ -12,6 +12,7 @@
 #import "MPConstants.h"
 #import "MPReachability.h"
 #import "MPGeolocationProvider.h"
+#import "MPAdConfiguration.h"
 
 NSUInteger const IOS_APP_PLATFORM_ID = 1;
 NSUInteger const IOS_SDK_PRODUCT_ID = 0;

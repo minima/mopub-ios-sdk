@@ -10,7 +10,6 @@
 #import "MPBannerCustomEvent.h"
 #import "MPHTMLBannerCustomEvent.h"
 #import "MPMRAIDBannerCustomEvent.h"
-#import "FacebookBannerCustomEvent.h"
 #import "MPBannerCustomEventAdapter+Testing.h"
 
 @interface MPBannerCustomEventAdapterTests : XCTestCase

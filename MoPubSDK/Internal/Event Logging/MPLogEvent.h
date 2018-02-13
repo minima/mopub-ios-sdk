@@ -5,8 +5,7 @@
 //  Copyright (c) 2015 MoPub. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-#import "MPAdConfiguration.h"
+#import <UIKit/UIKit.h>
 
 #ifndef NS_ENUM
 #define NS_ENUM(_type, _name) enum _name : _type _name; enum _name : _type
@@ -36,6 +35,8 @@ extern NSString *const MPLogEventNameClickthroughDwellTime;
 extern NSString *const MPLogEventCategoryRequests;
 extern NSString *const MPLogEventCategoryNativeVideo;
 extern NSString *const MPLogEventCategoryAdInteractions;
+
+@class MPAdConfiguration;
 
 /* MPAdConfigurationLogEventProperties
  *

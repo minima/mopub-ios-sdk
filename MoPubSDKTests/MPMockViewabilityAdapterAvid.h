@@ -15,7 +15,7 @@
 @interface MPViewabilityAdapterAvid : NSObject <MPViewabilityAdapter>
 @property (nonatomic, readonly) BOOL isTracking;
 
-- (instancetype)initWithAdView:(MPWebView *)webView isVideo:(BOOL)isVideo startTrackingImmediately:(BOOL)startTracking;
+- (instancetype)initWithAdView:(UIView *)webView isVideo:(BOOL)isVideo startTrackingImmediately:(BOOL)startTracking;
 - (void)startTracking;
 - (void)stopTracking;
 - (void)registerFriendlyObstructionView:(UIView *)view;

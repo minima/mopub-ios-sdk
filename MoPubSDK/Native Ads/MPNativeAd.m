@@ -78,8 +78,15 @@
 - (UIView *)retrieveAdViewWithError:(NSError **)error
 {
     // We always return the same MPNativeView (self.associatedView) so we need to remove its subviews
-    // before attaching the new ad view to it.
-    [[self.associatedView subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
+    // before attaching the new ad view to it. Also need to reset the `hasAttachedToView` state
+    // variable back to `NO` since all of the subviews should be removed.
+    for (UIView * view in self.associatedView.subviews) {
+        [view removeFromSuperview];
+    }
+
+    if (self.associatedView.subviews.count == 0) {
+        self.hasAttachedToView = NO;
+    }
 
     UIView *adView = [self.renderer retrieveViewWithAdapter:self.adAdapter error:error];
 

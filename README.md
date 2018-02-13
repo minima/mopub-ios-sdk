@@ -33,7 +33,7 @@ The MoPub SDK is distributed as source code that you can include in your applica
 
   Includes everything you need to serve HTML and MRAID advertisements.  Third party ad networks and Native MoPub advertisements are not included.
 
-The current version of the SDK is 4.19.0
+The current version of the SDK is 4.20.0
 
 ## Integrate
 
@@ -46,15 +46,10 @@ More detailed class documentation is available in the repo under the `ClassDocum
 Please view the [changelog](https://github.com/mopub/mopub-ios-sdk/blob/master/CHANGELOG.md) for details.
 
 - **Bug Fixes**
-	- Ensure proper viewability initialization before ad content is loaded
-	- Fire appropriate error delegate when rewarded video ad view is not ready to be shown
-	- Resolve video playback sizing issue when creative MoPubForceOrientation is set to "Device"
-	- Resolve WKWebView sizing and alignment issues on iPhoneX
+	- Fixed ad expiration check for rewarded ad formats
 
 - **Ad Network Mediation Updates**
-	- Facebook Audience Network 4.26.1
-	- Flurry 8.1.0
-	- Millennial/AOL 6.6.0
+	- Network mediation adapters are now in a separate repository to enable an independent release cadence and faster updates to the adapters. Please find the new location [here](https://github.com/mopub/mopub-ios-mediation).
 
 See the [Getting Started Guide](https://github.com/mopub/mopub-ios-sdk/wiki/Getting-Started#app-transport-security-settings) for instructions on setting up ATS in your app.  
 

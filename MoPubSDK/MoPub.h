@@ -7,22 +7,30 @@
 
 #import "MPConstants.h"
 
+#import "MOPUBDisplayAgentType.h"
 #import "MPAdConversionTracker.h"
-#import "MPAdDestinationDisplayAgent.h"
 #import "MPAdView.h"
 #import "MPBannerCustomEvent.h"
 #import "MPBannerCustomEventDelegate.h"
+#import "MPGlobal.h"
+#import "MPIdentityProvider.h"
 #import "MPInterstitialAdController.h"
 #import "MPInterstitialCustomEvent.h"
 #import "MPInterstitialCustomEventDelegate.h"
+#import "MPLogging.h"
+#import "MPLogEvent.h"
+#import "MPLogEventRecorder.h"
 #import "MPLogLevel.h"
+#import "MPLogProvider.h"
 #import "MPMediationSettingsProtocol.h"
 #import "MPRewardedVideo.h"
 #import "MPRewardedVideoNetwork.h"
 #import "MPRewardedVideoReward.h"
 #import "MPRewardedVideoCustomEvent.h"
+#import "MPRewardedVideoCustomEvent+Caching.h"
 #import "MPRewardedVideoError.h"
-#import "MPViewabilityTracker.h"
+#import "MPViewabilityAdapter.h"
+#import "MPViewabilityOption.h"
 
 #if MP_HAS_NATIVE_PACKAGE
 #import "MPNativeAd.h"
@@ -47,6 +55,7 @@
 #import "MOPUBNativeVideoAdRendererSettings.h"
 #import "MOPUBNativeVideoAdRenderer.h"
 #import "MPNativeAdRenderingImageLoader.h"
+#import "MPStreamAdPlacer.h"
 #endif
 
 // Import these frameworks for module support.

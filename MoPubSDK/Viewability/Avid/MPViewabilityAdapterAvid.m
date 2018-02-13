@@ -24,10 +24,10 @@
 
 @implementation MPViewabilityAdapterAvid
 
-- (instancetype)initWithAdView:(MPWebView *)webView isVideo:(BOOL)isVideo startTrackingImmediately:(BOOL)startTracking {
+- (instancetype)initWithAdView:(UIView *)webView isVideo:(BOOL)isVideo startTrackingImmediately:(BOOL)startTracking {
     if (self = [super init]) {
         _isTracking = NO;
-        
+
 #ifdef __HAS_AVID_LIB_
         MoPub_ExternalAvidAdSessionContext * avidAdSessionContext = [MoPub_ExternalAvidAdSessionContext contextWithPartnerVersion:[[MoPub sharedInstance] version] isDeferred:!startTracking];
         if (isVideo) {
@@ -36,19 +36,16 @@
         else {
             _avidAdSession = [MoPub_AvidAdSessionManager startAvidDisplayAdSessionWithContext:avidAdSessionContext];
         }
-        
-        // While the viewability SDKs have features that allow the developer to pass in a container view, WKWebView is
-        // not always in MPWebView's view hierarchy. Pass in the contained web view to be safe, as we don't know for
-        // sure *how* or *when* MPWebView is traversed.
-        [_avidAdSession registerAdView:webView.containedWebView];
-        
+
+        [_avidAdSession registerAdView:webView];
+
         if (startTracking) {
             _isTracking = YES;
             MPLogInfo(@"[Viewability] IAS tracking started");
         }
 #endif
     }
-    
+
     return self;
 }
 
@@ -75,7 +72,7 @@
             MPLogInfo(@"[Viewability] IAS tracking stopped");
         }
     }
-    
+
     // Mark IAS as not tracking
     self.isTracking = NO;
 #endif

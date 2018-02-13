@@ -1,3 +1,10 @@
+## Version 4.20.0 (February 20, 2018)
+- **Bug Fixes**
+  - Fixed ad expiration check for rewarded ad formats
+
+- **Ad Network Mediation Updates**
+  - Network mediation adapters are now in a separate repository to enable an independent release cadence and faster updates to the adapters. Please find the new location [here](https://github.com/mopub/mopub-ios-mediation).
+
 ## Version 4.19.0 (December 11, 2017)
 - **Bug Fixes**
   - Ensure proper viewability initialization before ad content is loaded

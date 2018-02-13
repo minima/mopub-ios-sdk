@@ -62,6 +62,11 @@
 
 - (BOOL)hasAdAvailable
 {
+    //An Ad is not ready or has expired.
+    if (!self.ready) {
+        return NO;
+    }
+
     // If we've already played an ad, return NO since we allow one play per load.
     if (self.playedAd) {
         return NO;

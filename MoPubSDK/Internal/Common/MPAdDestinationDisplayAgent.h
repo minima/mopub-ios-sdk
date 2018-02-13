@@ -11,12 +11,7 @@
 #import "MPProgressOverlayView.h"
 #import "MPAdBrowserController.h"
 #import "MPStoreKitProvider.h"
-
-typedef NS_ENUM(NSInteger, MOPUBDisplayAgentType) {
-    MOPUBDisplayAgentTypeInApp = 0,
-    MOPUBDisplayAgentTypeNativeSafari,
-    MOPUBDisplayAgentTypeSafariViewController
-};
+#import "MOPUBDisplayAgentType.h"
 
 @protocol MPAdDestinationDisplayAgentDelegate;
 
