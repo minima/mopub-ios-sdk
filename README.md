@@ -33,7 +33,7 @@ The MoPub SDK is distributed as source code that you can include in your applica
 
   Includes everything you need to serve HTML and MRAID advertisements.  Third party ad networks and Native MoPub advertisements are not included.
 
-The current version of the SDK is 4.20.0
+The current version of the SDK is 4.20.1
 
 ## Integrate
 
@@ -46,15 +46,12 @@ More detailed class documentation is available in the repo under the `ClassDocum
 Please view the [changelog](https://github.com/mopub/mopub-ios-sdk/blob/master/CHANGELOG.md) for details.
 
 - **Bug Fixes**
-	- Fixed ad expiration check for rewarded ad formats
-
-- **Ad Network Mediation Updates**
-	- Network mediation adapters are now in a separate repository to enable an independent release cadence and faster updates to the adapters. Please find the new location [here](https://github.com/mopub/mopub-ios-mediation).
+	- Fixes compatibility issues with some fullscreen ads on iPhone X
 
 See the [Getting Started Guide](https://github.com/mopub/mopub-ios-sdk/wiki/Getting-Started#app-transport-security-settings) for instructions on setting up ATS in your app.  
 
 ### <a name="disableViewability"></a>Disabling Viewability Measurement
-There are a few options for opting out of viewability measurement: 
+There are a few options for opting out of viewability measurement:
 ##### Opting Out in a Manual Integration
 Before dragging the MoPubSDK folder into your Xcode project, simply delete the “Moat” folder to opt out of Moat or the “Avid” folder to opt out of IAS in MoPubSDK/Viewability/. If you would like to opt out of both, delete both folders.
 ##### Opting Out in a CocoaPods Integration

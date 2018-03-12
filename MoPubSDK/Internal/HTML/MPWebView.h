@@ -53,6 +53,16 @@ typedef void (^MPWebViewJavascriptEvaluationCompletionHandler)(id result, NSErro
 
 @property (weak, nonatomic) id<MPWebViewDelegate> delegate;
 
+// When set to `YES`, `shouldConformToSafeArea` sets constraints on the WKWebView to always stay within the safe area
+// using the MPWebView's safeAreaLayoutGuide. Otherwise, the WKWebView will be constrained directly to MPWebView's
+// anchors to fill the whole container. Default is `NO`.
+//
+// This property has no effect on versions of iOS less than 11 or phones other than iPhone X.
+//
+// This property has no effect on UIWebView-based MPWebViews, as UIWebView only supports springs and struts, however
+// this should not be an issue because UIWebView doesn't seem to be glitchy with the safe area.
+@property (nonatomic, assign) BOOL shouldConformToSafeArea;
+
 @property (nonatomic, readonly, getter=isLoading) BOOL loading;
 
 // These methods and properties are non-functional below iOS 9. If you call or try to set them, they'll do nothing.

@@ -1,3 +1,7 @@
+## Version 4.20.1 (March 12, 2018)
+- **Bug Fixes**
+  - Fixes compatibility issues with some fullscreen ads on iPhone X
+
 ## Version 4.20.0 (February 20, 2018)
 - **Bug Fixes**
   - Fixed ad expiration check for rewarded ad formats

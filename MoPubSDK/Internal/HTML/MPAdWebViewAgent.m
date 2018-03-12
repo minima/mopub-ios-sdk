@@ -125,6 +125,7 @@
         self.view = nil;
     }
     self.view = [[MPWebView alloc] initWithFrame:self.frame];
+    self.view.shouldConformToSafeArea = [self isInterstitialAd];
     self.view.delegate = self;
     [self.view addGestureRecognizer:self.userInteractionRecognizer];
 

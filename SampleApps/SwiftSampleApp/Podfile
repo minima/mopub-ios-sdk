@@ -11,12 +11,12 @@ end
 
 target 'MoPubSwiftSampleApp+CustomEvents' do
   pod 'MoPub-AdColony-Adapters'
-  pod 'MoPub-Google-Adapters'
+  pod 'MoPub-AdMob-Adapters'
   pod 'MoPub-Chartboost-Adapters'
-  pod 'MoPub-Facebook-Adapters'
+  pod 'MoPub-FacebookAudienceNetwork-Adapters'
   pod 'MoPub-Flurry-Adapters'
-  pod 'MoPub-Aol-Adapters'
+  pod 'MoPub-OnebyAOL-Adapters'
   pod 'MoPub-TapJoy-Adapters'
-  pod 'MoPub-Unity-Adapters'
+  pod 'MoPub-UnityAds-Adapters'
   pod 'MoPub-Vungle-Adapters'
 end

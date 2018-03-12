@@ -144,6 +144,7 @@ static NSString *const kMRAIDCommandResize = @"resize";
 
     self.mraidWebView = [self buildMRAIDWebViewWithFrame:self.mraidDefaultAdFrame
                                           forceUIWebView:self.shouldUseUIWebView];
+    self.mraidWebView.shouldConformToSafeArea = [self isInterstitialAd];
 
     self.mraidBridge = [[MPInstanceProvider sharedProvider] buildMRBridgeWithWebView:self.mraidWebView delegate:self];
     self.mraidAdView = [[MPInstanceProvider sharedProvider] buildMRAIDMPClosableViewWithFrame:self.mraidDefaultAdFrame

@@ -26,6 +26,8 @@ static BOOL gForceWKWebView = NO;
 @property (weak, nonatomic) WKWebView *wkWebView;
 @property (weak, nonatomic) UIWebView *uiWebView;
 
+@property (strong, nonatomic) NSArray<NSLayoutConstraint *> *wkWebViewLayoutConstraints;
+
 @property (nonatomic, assign) BOOL hasMovedToWindow;
 
 @end
@@ -113,6 +115,9 @@ static BOOL gForceWKWebView = NO;
     // set default scalesPageToFit
     self.scalesPageToFit = NO;
 
+    // set default `shouldConformToSafeArea`
+    self.shouldConformToSafeArea = NO;
+
     // configure like the old MPAdWebView
     self.backgroundColor = [UIColor clearColor];
     self.opaque = NO;
@@ -167,6 +172,7 @@ static UIView *gOffscreenView = nil;
         && [self.wkWebView.superview isEqual:gOffscreenView]) {
         self.wkWebView.frame = self.bounds;
         [self addSubview:self.wkWebView];
+        [self constrainWebViewShouldUseSafeArea:self.shouldConformToSafeArea];
         self.hasMovedToWindow = YES;
 
         // Don't keep OffscreenView if we don't need it; it can always be re-allocated again later
@@ -216,6 +222,42 @@ static UIView *gOffscreenView = nil;
     [self.wkWebView removeFromSuperview];
     // Deallocate OffscreenView if needed
     [self cleanUpOffscreenView];
+}
+
+- (void)setShouldConformToSafeArea:(BOOL)shouldConformToSafeArea {
+    _shouldConformToSafeArea = shouldConformToSafeArea;
+
+    if (self.hasMovedToWindow) {
+        [self constrainWebViewShouldUseSafeArea:shouldConformToSafeArea];
+    }
+}
+
+- (void)constrainWebViewShouldUseSafeArea:(BOOL)shouldUseSafeArea {
+    if (@available(iOS 11.0, *)) {
+        self.wkWebView.translatesAutoresizingMaskIntoConstraints = NO;
+
+        if (self.wkWebViewLayoutConstraints) {
+            [NSLayoutConstraint deactivateConstraints:self.wkWebViewLayoutConstraints];
+        }
+
+        if (shouldUseSafeArea) {
+            self.wkWebViewLayoutConstraints = @[
+                                                [self.wkWebView.topAnchor constraintEqualToAnchor:self.safeAreaLayoutGuide.topAnchor],
+                                                [self.wkWebView.leadingAnchor constraintEqualToAnchor:self.safeAreaLayoutGuide.leadingAnchor],
+                                                [self.wkWebView.trailingAnchor constraintEqualToAnchor:self.safeAreaLayoutGuide.trailingAnchor],
+                                                [self.wkWebView.bottomAnchor constraintEqualToAnchor:self.safeAreaLayoutGuide.bottomAnchor],
+                                                ];
+        } else {
+            self.wkWebViewLayoutConstraints = @[
+                                                [self.wkWebView.topAnchor constraintEqualToAnchor:self.topAnchor],
+                                                [self.wkWebView.leadingAnchor constraintEqualToAnchor:self.leadingAnchor],
+                                                [self.wkWebView.trailingAnchor constraintEqualToAnchor:self.trailingAnchor],
+                                                [self.wkWebView.bottomAnchor constraintEqualToAnchor:self.bottomAnchor],
+                                                ];
+        }
+
+        [NSLayoutConstraint activateConstraints:self.wkWebViewLayoutConstraints];
+    }
 }
 
 - (BOOL)isLoading {
