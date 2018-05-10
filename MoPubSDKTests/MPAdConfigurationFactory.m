@@ -83,7 +83,6 @@
               kFailUrlHeaderKey: @"http://ads.mopub.com/m/failURL",
               kHeightHeaderKey: @"50",
               kImpressionTrackerHeaderKey: @"http://ads.mopub.com/m/impressionTracker",
-              kInterceptLinksHeaderKey: @"1",
               kLaunchpageHeaderKey: @"http://publisher.com",
               kRefreshTimeHeaderKey: @"30",
               kWidthHeaderKey: @"320"
@@ -131,7 +130,6 @@
               kClickthroughHeaderKey: @"http://ads.mopub.com/m/clickThroughTracker?a=1",
               kFailUrlHeaderKey: @"http://ads.mopub.com/m/failURL",
               kImpressionTrackerHeaderKey: @"http://ads.mopub.com/m/impressionTracker",
-              kInterceptLinksHeaderKey: @"1",
               kLaunchpageHeaderKey: @"http://publisher.com",
               kInterstitialAdTypeHeaderKey: kAdTypeHtml,
               kOrientationTypeHeaderKey: @"p"
@@ -207,7 +205,6 @@
               kClickthroughHeaderKey: @"http://ads.mopub.com/m/clickThroughTracker?a=1",
               kFailUrlHeaderKey: @"http://ads.mopub.com/m/failURL",
               kImpressionTrackerHeaderKey: @"http://ads.mopub.com/m/impressionTracker",
-              kInterceptLinksHeaderKey: @"1",
               kLaunchpageHeaderKey: @"http://publisher.com",
               kInterstitialAdTypeHeaderKey: kAdTypeHtml,
               } mutableCopy];

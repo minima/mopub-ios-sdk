@@ -10,6 +10,10 @@
 #import "MPRewardedVideoAdManager+Testing.h"
 
 @interface MPRewardedVideo (Testing)
+@property (nonatomic, strong) NSMapTable<NSString *, id<MPRewardedVideoDelegate>> * delegateTable;
+@property (nonatomic, strong) NSMutableDictionary * rewardedVideoAdManagers;
+
++ (MPRewardedVideo *)sharedInstance;
 + (void)setDidSendServerToServerCallbackUrl:(void(^)(NSURL * url))callback;
 + (void(^)(NSURL * url))didSendServerToServerCallbackUrl;
 

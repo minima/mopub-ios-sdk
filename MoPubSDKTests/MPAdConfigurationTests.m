@@ -13,6 +13,8 @@
 #import "MOPUBExperimentProvider.h"
 #import "MPAdConfiguration+Testing.h"
 #import "MPViewabilityTracker.h"
+#import "MPConsentManager+Testing.h"
+#import "MPConsentAdServerKeys.h"
 
 @interface MPAdConfigurationTests : XCTestCase
 
@@ -351,6 +353,203 @@
     NSDictionary * headers = @{kBannerImpressionVisableMsHeaderKey: @"0", kBannerImpressionMinPixelHeaderKey:@"0"};
     MPAdConfiguration * config = [[MPAdConfiguration alloc] initWithHeaders:headers data:nil];
     XCTAssertFalse(config.visibleImpressionTrackingEnabled);
+}
+
+#pragma mark - Consent Headers
+
+- (void)testConsentForceExplicitNoHeader {
+    // Reset consent manager state
+    [[MPConsentManager sharedManager] setUpConsentManagerForTesting];
+
+    NSDictionary * before = @{
+                              @"is_whitelisted": @"0",
+                              @"is_gdpr_region": @"1",
+                              @"call_again_after_secs": @"10",
+                              @"current_privacy_policy_link": @"http://www.mopub.com/privacy",
+                              @"current_privacy_policy_version": @"3.0.0",
+                              @"current_vendor_list_link": @"http://www.mopub.com/vendors",
+                              @"current_vendor_list_version": @"4.0.0",
+                              @"current_vendor_list_iab_format": @"yyyyy",
+                              @"current_vendor_list_iab_hash": @"hash",
+                              };
+
+    // Update consent
+    MPConsentManager * manager = MPConsentManager.sharedManager;
+    BOOL success = [manager updateConsentStateWithParameters:before];
+    XCTAssertTrue(success);
+    XCTAssert(manager.currentStatus == MPConsentStatusUnknown);
+
+    // Set to consented
+    success = [manager setCurrentStatus:MPConsentStatusConsented reason:@"unit test" shouldBroadcast:YES];
+    XCTAssertTrue(success);
+    XCTAssert(manager.currentStatus == MPConsentStatusConsented);
+
+    // Force explicit no via ad configuration
+    NSDictionary * headers = @{kForceExplicitNoKey: @"1", kConsentChangedReasonKey: @"unit test"};
+    MPAdConfiguration * config = [[MPAdConfiguration alloc] initWithHeaders:headers data:nil];
+    XCTAssertNotNil(config);
+
+    // Assert that the consent status is denied
+    XCTAssert(manager.currentStatus == MPConsentStatusDenied);
+    XCTAssertNil(manager.consentedIabVendorList);
+    XCTAssertNil(manager.consentedPrivacyPolicyVersion);
+    XCTAssertNil(manager.consentedVendorListVersion);
+}
+
+- (void)testConsentForceInvalidateConsentHeader {
+    // Reset consent manager state
+    [[MPConsentManager sharedManager] setUpConsentManagerForTesting];
+
+    NSDictionary * before = @{
+                              @"is_whitelisted": @"1",
+                              @"is_gdpr_region": @"1",
+                              @"call_again_after_secs": @"10",
+                              @"current_privacy_policy_link": @"http://www.mopub.com/privacy",
+                              @"current_privacy_policy_version": @"3.0.0",
+                              @"current_vendor_list_link": @"http://www.mopub.com/vendors",
+                              @"current_vendor_list_version": @"4.0.0",
+                              @"current_vendor_list_iab_format": @"yyyyy",
+                              @"current_vendor_list_iab_hash": @"hash",
+                              };
+
+    // Update consent
+    MPConsentManager * manager = MPConsentManager.sharedManager;
+    BOOL success = [manager updateConsentStateWithParameters:before];
+    XCTAssertTrue(success);
+    XCTAssert(manager.currentStatus == MPConsentStatusUnknown);
+
+    // Set to denied
+    success = [manager setCurrentStatus:MPConsentStatusDenied reason:@"unit test" shouldBroadcast:YES];
+    XCTAssertTrue(success);
+    XCTAssert(manager.currentStatus == MPConsentStatusDenied);
+
+    // Force reacquire consent via ad configuration
+    NSDictionary * headers = @{kInvalidateConsentKey: @"1", kConsentChangedReasonKey: @"unit test"};
+    MPAdConfiguration * config = [[MPAdConfiguration alloc] initWithHeaders:headers data:nil];
+    XCTAssertNotNil(config);
+
+    // Assert that the consent status is unknown
+    XCTAssert(manager.currentStatus == MPConsentStatusUnknown);
+    XCTAssertNil(manager.consentedIabVendorList);
+    XCTAssertNil(manager.consentedPrivacyPolicyVersion);
+    XCTAssertNil(manager.consentedVendorListVersion);
+}
+
+- (void)testConsentForceExplicitNoHeaderTakesPriorityOverInvalidateConsentHeader {
+    // Reset consent manager state
+    [[MPConsentManager sharedManager] setUpConsentManagerForTesting];
+
+    NSDictionary * before = @{
+                              @"is_whitelisted": @"0",
+                              @"is_gdpr_region": @"1",
+                              @"call_again_after_secs": @"10",
+                              @"current_privacy_policy_link": @"http://www.mopub.com/privacy",
+                              @"current_privacy_policy_version": @"3.0.0",
+                              @"current_vendor_list_link": @"http://www.mopub.com/vendors",
+                              @"current_vendor_list_version": @"4.0.0",
+                              @"current_vendor_list_iab_format": @"yyyyy",
+                              @"current_vendor_list_iab_hash": @"hash",
+                              };
+
+    // Update consent
+    MPConsentManager * manager = MPConsentManager.sharedManager;
+    BOOL success = [manager updateConsentStateWithParameters:before];
+    XCTAssertTrue(success);
+    XCTAssert(manager.currentStatus == MPConsentStatusUnknown);
+
+    // Set to consented
+    success = [manager setCurrentStatus:MPConsentStatusConsented reason:@"unit test" shouldBroadcast:YES];
+    XCTAssertTrue(success);
+    XCTAssert(manager.currentStatus == MPConsentStatusConsented);
+
+    // Force explicit no AND reacquire consent via ad configuration
+    NSDictionary * headers = @{kInvalidateConsentKey: @"1", kForceExplicitNoKey: @"1", kConsentChangedReasonKey: @"unit test"};
+    MPAdConfiguration * config = [[MPAdConfiguration alloc] initWithHeaders:headers data:nil];
+    XCTAssertNotNil(config);
+
+    // Assert that the consent status is denied
+    XCTAssert(manager.currentStatus == MPConsentStatusDenied);
+    XCTAssertNil(manager.consentedIabVendorList);
+    XCTAssertNil(manager.consentedPrivacyPolicyVersion);
+    XCTAssertNil(manager.consentedVendorListVersion);
+}
+
+- (void)testConsentForceExplicitNoHeaderDoesNothingWhenMalformed {
+    // Reset consent manager state
+    [[MPConsentManager sharedManager] setUpConsentManagerForTesting];
+
+    NSDictionary * before = @{
+                              @"is_whitelisted": @"0",
+                              @"is_gdpr_region": @"1",
+                              @"call_again_after_secs": @"10",
+                              @"current_privacy_policy_link": @"http://www.mopub.com/privacy",
+                              @"current_privacy_policy_version": @"3.0.0",
+                              @"current_vendor_list_link": @"http://www.mopub.com/vendors",
+                              @"current_vendor_list_version": @"4.0.0",
+                              @"current_vendor_list_iab_format": @"yyyyy",
+                              @"current_vendor_list_iab_hash": @"hash",
+                              };
+
+    // Update consent
+    MPConsentManager * manager = MPConsentManager.sharedManager;
+    BOOL success = [manager updateConsentStateWithParameters:before];
+    XCTAssertTrue(success);
+    XCTAssert(manager.currentStatus == MPConsentStatusUnknown);
+
+    // Set to consented
+    success = [manager setCurrentStatus:MPConsentStatusConsented reason:@"unit test" shouldBroadcast:YES];
+    XCTAssertTrue(success);
+    XCTAssert(manager.currentStatus == MPConsentStatusConsented);
+
+    // Give malformed value to force explicit no header
+    NSDictionary * headers = @{kForceExplicitNoKey: @"asdfasdflj", kConsentChangedReasonKey: @"unit test"};
+    MPAdConfiguration * config = [[MPAdConfiguration alloc] initWithHeaders:headers data:nil];
+    XCTAssertNotNil(config);
+
+    // Assert that the consent status is denied
+    XCTAssert(manager.currentStatus == MPConsentStatusConsented);
+    XCTAssertNotNil(manager.consentedIabVendorList);
+    XCTAssertNotNil(manager.consentedPrivacyPolicyVersion);
+    XCTAssertNotNil(manager.consentedVendorListVersion);
+}
+
+- (void)testConsentInvalidateConsentHeaderDoesNothingWhenMalformed {
+    // Reset consent manager state
+    [[MPConsentManager sharedManager] setUpConsentManagerForTesting];
+
+    NSDictionary * before = @{
+                              @"is_whitelisted": @"0",
+                              @"is_gdpr_region": @"1",
+                              @"call_again_after_secs": @"10",
+                              @"current_privacy_policy_link": @"http://www.mopub.com/privacy",
+                              @"current_privacy_policy_version": @"3.0.0",
+                              @"current_vendor_list_link": @"http://www.mopub.com/vendors",
+                              @"current_vendor_list_version": @"4.0.0",
+                              @"current_vendor_list_iab_format": @"yyyyy",
+                              @"current_vendor_list_iab_hash": @"hash",
+                              };
+
+    // Update consent
+    MPConsentManager * manager = MPConsentManager.sharedManager;
+    BOOL success = [manager updateConsentStateWithParameters:before];
+    XCTAssertTrue(success);
+    XCTAssert(manager.currentStatus == MPConsentStatusUnknown);
+
+    // Set to consented
+    success = [manager setCurrentStatus:MPConsentStatusConsented reason:@"unit test" shouldBroadcast:YES];
+    XCTAssertTrue(success);
+    XCTAssert(manager.currentStatus == MPConsentStatusConsented);
+
+    // Give malformed value to force explicit no header
+    NSDictionary * headers = @{kInvalidateConsentKey: @"asdfasdflj", kConsentChangedReasonKey: @"unit test"};
+    MPAdConfiguration * config = [[MPAdConfiguration alloc] initWithHeaders:headers data:nil];
+    XCTAssertNotNil(config);
+
+    // Assert that the consent status is denied
+    XCTAssert(manager.currentStatus == MPConsentStatusConsented);
+    XCTAssertNotNil(manager.consentedIabVendorList);
+    XCTAssertNotNil(manager.consentedPrivacyPolicyVersion);
+    XCTAssertNotNil(manager.consentedVendorListVersion);
 }
 
 @end

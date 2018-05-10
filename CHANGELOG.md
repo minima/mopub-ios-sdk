@@ -1,3 +1,14 @@
+## Version 5.0.0 (May 14, 2018)
+- **Features**
+  - General Data Protection Regulation (GDPR) update to support a way for publishers to determine GDPR applicability and to obtain and manage consent from users in European Economic Area, the United Kingdom, or Switzerland to serve personalize ads.
+  - New SDK initialization method to initialize consent management and rewarded video ad networks. Required for receiving personalized ads. In future versions of the SDK, initialization will be required to receive ads.
+  - Updated the networking stack to use `NSURLSession` in place of the deprecated `NSURLConnection`.
+  - Updated ad requests to use POST instead of GET.
+
+- **Bug Fixes**
+  - Renamed the `/MoPubSDK/Native Ads/` folder to `/MoPubSDK/NativeAds/`.
+  - Removed the usage of deprecated `shouldAutorotateToInterfaceOrientation`.
+
 ## Version 4.20.1 (March 12, 2018)
 - **Bug Fixes**
   - Fixes compatibility issues with some fullscreen ads on iPhone X

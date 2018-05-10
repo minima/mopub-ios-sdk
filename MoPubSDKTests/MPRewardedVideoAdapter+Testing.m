@@ -7,9 +7,14 @@
 
 #import "MPRewardedVideoAdapter+Testing.h"
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wincomplete-implementation"
+
 @implementation MPRewardedVideoAdapter (Testing)
 
 @dynamic hasTrackedImpression;
 @dynamic hasExpired;
 @dynamic urlEncodedCustomData;
 @end
+
+#pragma clang diagnostic pop

@@ -11,13 +11,14 @@
 #import "MPRewardedVideoAdManager+Testing.h"
 
 @interface MPRewardedVideo() <MPRewardedVideoAdManagerDelegate>
-// Redeclared methods and properties from MPRewardedVideo so we can access them in this category.
-+ (MPRewardedVideo *)sharedInstance;
-@property (nonatomic, strong) NSMutableDictionary *rewardedVideoAdManagers;
 - (void)startRewardedVideoConnectionWithUrl:(NSURL *)url;
 @end
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wincomplete-implementation"
 @implementation MPRewardedVideo (Testing)
+@dynamic delegateTable;
+@dynamic rewardedVideoAdManagers;
 
 #pragma mark - Properties
 static void(^sDidSendServerToServerCallbackUrl)(NSURL * url) = nil;
@@ -98,3 +99,4 @@ static void(^sDidSendServerToServerCallbackUrl)(NSURL * url) = nil;
 }
 
 @end
+#pragma clang diagnostic pop

@@ -15,6 +15,9 @@
 @property (nonatomic, assign) BOOL playedAd;
 @end
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wprotocol"
+
 @implementation MPRewardedVideoAdManager (Testing)
 @dynamic communicator;
 @dynamic adapter;
@@ -27,3 +30,5 @@
 }
 
 @end
+
+#pragma clang diagnostic pop

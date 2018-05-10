@@ -44,12 +44,16 @@
     self.showButton.hidden = YES;
     self.rewardPickerView.dataSource = self;
     self.rewardPickerView.delegate = self;
-
-    [[MoPub sharedInstance] initializeRewardedVideoWithGlobalMediationSettings:@[] delegate:self];
-
     self.keywordsTextField.text = self.info.keywords;
 
+    [MPRewardedVideo setDelegate:self forAdUnitId:self.info.ID];
+
     [super viewDidLoad];
+}
+
+- (void)dealloc
+{
+    [MPRewardedVideo removeDelegateForAdUnitId:self.info.ID];
 }
 
 - (IBAction)didTapLoadButton:(id)sender
@@ -78,7 +82,7 @@
 
 
     // create Instance Mediation Settings as needed here
-    [MPRewardedVideo loadRewardedVideoAdWithAdUnitID:self.info.ID keywords:self.info.keywords location:nil customerId:@"testCustomerId" mediationSettings:@[]];
+    [MPRewardedVideo loadRewardedVideoAdWithAdUnitID:self.info.ID keywords:self.info.keywords userDataKeywords:nil location:nil customerId:@"testCustomerId" mediationSettings:@[]];
 }
 
 - (IBAction)didTapShowButton:(id)sender

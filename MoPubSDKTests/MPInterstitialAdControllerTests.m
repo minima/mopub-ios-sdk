@@ -45,7 +45,7 @@
     XCTAssertNotNil(self.mockAdServerCommunicator.lastUrlLoaded);
 
     NSURL * url = self.mockAdServerCommunicator.lastUrlLoaded;
-    NSURLComponents * urlComponents = [NSURLComponents componentsWithURL:url resolvingAgainstBaseURL:MOPUB_BASE_HOSTNAME];
+    NSURLComponents * urlComponents = [NSURLComponents componentsWithURL:url resolvingAgainstBaseURL:YES];
 
     NSString * viewabilityQueryParamValue = [urlComponents valueForQueryParameter:@"vv"];
     XCTAssertNotNil(viewabilityQueryParamValue);

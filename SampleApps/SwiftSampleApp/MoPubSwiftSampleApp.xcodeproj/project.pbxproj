@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		425A274AA0F4F65B9A2E4FA5 /* Pods_MoPubSwiftSampleApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D0DD05041053D9B7EB4B2DA /* Pods_MoPubSwiftSampleApp.framework */; };
 		57A22BA81AD317000064A85B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A22BA71AD317000064A85B /* AppDelegate.swift */; };
 		57A22BAD1AD317000064A85B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 57A22BAB1AD317000064A85B /* Main.storyboard */; };
 		57A22BAF1AD317000064A85B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 57A22BAE1AD317000064A85B /* Images.xcassets */; };
@@ -44,7 +43,6 @@
 		57CE76241AD8347B0003830D /* MPAdTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CE76221AD8347B0003830D /* MPAdTableViewController.swift */; };
 		57CE76281AD837150003830D /* MPUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CE76271AD837150003830D /* MPUtility.swift */; };
 		57CE76291AD837150003830D /* MPUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CE76271AD837150003830D /* MPUtility.swift */; };
-		B798145DAC123509E23EFD8E /* libPods-MoPubSwiftSampleApp+CustomEvents.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 795630B5805669E7FEAE0E03 /* libPods-MoPubSwiftSampleApp+CustomEvents.a */; };
 		BC6462861DA2DE760046E206 /* PassKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC6462851DA2DE760046E206 /* PassKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		BC6462881DA2DE830046E206 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC6462871DA2DE830046E206 /* AddressBook.framework */; };
 		BC64628A1DA2DEBE0046E206 /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC6462891DA2DEBE0046E206 /* AddressBookUI.framework */; };
@@ -66,10 +64,14 @@
 		BC6462AA1DA2DFB80046E206 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC6462A91DA2DFB80046E206 /* UIKit.framework */; };
 		BCE9193B1D7641D600A759CB /* MPSampleVideoNativeAdView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCE9193A1D7641D600A759CB /* MPSampleVideoNativeAdView.swift */; };
 		BCE9193C1D76424E00A759CB /* MPSampleVideoNativeAdView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCE9193A1D7641D600A759CB /* MPSampleVideoNativeAdView.swift */; };
+		E45B386BD3319473E28E6BC1 /* libPods-MoPubSwiftSampleApp+CustomEvents.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E025D6801443FF2E736864EA /* libPods-MoPubSwiftSampleApp+CustomEvents.a */; };
+		FC7C6A6051BB2F6A6B709BFB /* Pods_MoPubSwiftSampleApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5305A00CADC201359ECECA7A /* Pods_MoPubSwiftSampleApp.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		1D0DD05041053D9B7EB4B2DA /* Pods_MoPubSwiftSampleApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MoPubSwiftSampleApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		258A944FAD6DAA2BB9162F4B /* Pods-MoPubSwiftSampleApp+CustomEvents.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoPubSwiftSampleApp+CustomEvents.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MoPubSwiftSampleApp+CustomEvents/Pods-MoPubSwiftSampleApp+CustomEvents.debug.xcconfig"; sourceTree = "<group>"; };
+		3EA4814667D7277BA008986B /* Pods-MoPubSwiftSampleApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoPubSwiftSampleApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-MoPubSwiftSampleApp/Pods-MoPubSwiftSampleApp.release.xcconfig"; sourceTree = "<group>"; };
+		5305A00CADC201359ECECA7A /* Pods_MoPubSwiftSampleApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MoPubSwiftSampleApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		57A22BA21AD317000064A85B /* MoPubSwiftSampleApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MoPubSwiftSampleApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		57A22BA61AD317000064A85B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		57A22BA71AD317000064A85B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -91,10 +93,7 @@
 		57CE74C41AD6F86D0003830D /* MoPubSwiftSampleApp+CustomEvents.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MoPubSwiftSampleApp+CustomEvents.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		57CE76221AD8347B0003830D /* MPAdTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MPAdTableViewController.swift; sourceTree = "<group>"; };
 		57CE76271AD837150003830D /* MPUtility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MPUtility.swift; sourceTree = "<group>"; };
-		6521AD46F910E5BED95B0D1A /* Pods-MoPubSwiftSampleApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoPubSwiftSampleApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MoPubSwiftSampleApp/Pods-MoPubSwiftSampleApp.debug.xcconfig"; sourceTree = "<group>"; };
-		795630B5805669E7FEAE0E03 /* libPods-MoPubSwiftSampleApp+CustomEvents.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MoPubSwiftSampleApp+CustomEvents.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		7EF7CFE4A1D05C8D64203581 /* Pods-MoPubSwiftSampleApp+CustomEvents.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoPubSwiftSampleApp+CustomEvents.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MoPubSwiftSampleApp+CustomEvents/Pods-MoPubSwiftSampleApp+CustomEvents.debug.xcconfig"; sourceTree = "<group>"; };
-		9AD95AA13128A9EFB90D0055 /* Pods-MoPubSwiftSampleApp+CustomEvents.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoPubSwiftSampleApp+CustomEvents.release.xcconfig"; path = "Pods/Target Support Files/Pods-MoPubSwiftSampleApp+CustomEvents/Pods-MoPubSwiftSampleApp+CustomEvents.release.xcconfig"; sourceTree = "<group>"; };
+		AD7BF4DB662C55C7B4581A36 /* Pods-MoPubSwiftSampleApp+CustomEvents.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoPubSwiftSampleApp+CustomEvents.release.xcconfig"; path = "Pods/Target Support Files/Pods-MoPubSwiftSampleApp+CustomEvents/Pods-MoPubSwiftSampleApp+CustomEvents.release.xcconfig"; sourceTree = "<group>"; };
 		BC6462851DA2DE760046E206 /* PassKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PassKit.framework; path = System/Library/Frameworks/PassKit.framework; sourceTree = SDKROOT; };
 		BC6462871DA2DE830046E206 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
 		BC6462891DA2DEBE0046E206 /* AddressBookUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBookUI.framework; path = System/Library/Frameworks/AddressBookUI.framework; sourceTree = SDKROOT; };
@@ -117,7 +116,8 @@
 		BCD87FB21DAD8F4E008234D3 /* MoPubSwiftSampleApp-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MoPubSwiftSampleApp-Bridging-Header.h"; sourceTree = "<group>"; };
 		BCD87FE51DAD9165008234D3 /* MoPubSwiftSampleApp-CustomEvent-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MoPubSwiftSampleApp-CustomEvent-Bridging-Header.h"; sourceTree = "<group>"; };
 		BCE9193A1D7641D600A759CB /* MPSampleVideoNativeAdView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MPSampleVideoNativeAdView.swift; sourceTree = "<group>"; };
-		EC52642BCCA6A12FD4DF8435 /* Pods-MoPubSwiftSampleApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoPubSwiftSampleApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-MoPubSwiftSampleApp/Pods-MoPubSwiftSampleApp.release.xcconfig"; sourceTree = "<group>"; };
+		C8366036FDB115486D7483A3 /* Pods-MoPubSwiftSampleApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoPubSwiftSampleApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MoPubSwiftSampleApp/Pods-MoPubSwiftSampleApp.debug.xcconfig"; sourceTree = "<group>"; };
+		E025D6801443FF2E736864EA /* libPods-MoPubSwiftSampleApp+CustomEvents.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MoPubSwiftSampleApp+CustomEvents.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -125,7 +125,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				425A274AA0F4F65B9A2E4FA5 /* Pods_MoPubSwiftSampleApp.framework in Frameworks */,
+				FC7C6A6051BB2F6A6B709BFB /* Pods_MoPubSwiftSampleApp.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -152,7 +152,7 @@
 				BC64628A1DA2DEBE0046E206 /* AddressBookUI.framework in Frameworks */,
 				BC6462881DA2DE830046E206 /* AddressBook.framework in Frameworks */,
 				BC6462861DA2DE760046E206 /* PassKit.framework in Frameworks */,
-				B798145DAC123509E23EFD8E /* libPods-MoPubSwiftSampleApp+CustomEvents.a in Frameworks */,
+				E45B386BD3319473E28E6BC1 /* libPods-MoPubSwiftSampleApp+CustomEvents.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -181,10 +181,21 @@
 				BC6462A51DA2DFA70046E206 /* SystemConfiguration.framework */,
 				BC6462A71DA2DFAC0046E206 /* Twitter.framework */,
 				BC6462A91DA2DFB80046E206 /* UIKit.framework */,
-				1D0DD05041053D9B7EB4B2DA /* Pods_MoPubSwiftSampleApp.framework */,
-				795630B5805669E7FEAE0E03 /* libPods-MoPubSwiftSampleApp+CustomEvents.a */,
+				E025D6801443FF2E736864EA /* libPods-MoPubSwiftSampleApp+CustomEvents.a */,
+				5305A00CADC201359ECECA7A /* Pods_MoPubSwiftSampleApp.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		539251359168531AB6BD539A /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				C8366036FDB115486D7483A3 /* Pods-MoPubSwiftSampleApp.debug.xcconfig */,
+				3EA4814667D7277BA008986B /* Pods-MoPubSwiftSampleApp.release.xcconfig */,
+				258A944FAD6DAA2BB9162F4B /* Pods-MoPubSwiftSampleApp+CustomEvents.debug.xcconfig */,
+				AD7BF4DB662C55C7B4581A36 /* Pods-MoPubSwiftSampleApp+CustomEvents.release.xcconfig */,
+			);
+			name = Pods;
 			sourceTree = "<group>";
 		};
 		57A22B991AD317000064A85B = {
@@ -193,7 +204,7 @@
 				57A22BA41AD317000064A85B /* MoPubSwiftSampleApp */,
 				57A22BA31AD317000064A85B /* Products */,
 				48A411F8736D04269EAA92A3 /* Frameworks */,
-				5C6F1507A98A23E79245848C /* Pods */,
+				539251359168531AB6BD539A /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -267,17 +278,6 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
-		5C6F1507A98A23E79245848C /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				6521AD46F910E5BED95B0D1A /* Pods-MoPubSwiftSampleApp.debug.xcconfig */,
-				EC52642BCCA6A12FD4DF8435 /* Pods-MoPubSwiftSampleApp.release.xcconfig */,
-				7EF7CFE4A1D05C8D64203581 /* Pods-MoPubSwiftSampleApp+CustomEvents.debug.xcconfig */,
-				9AD95AA13128A9EFB90D0055 /* Pods-MoPubSwiftSampleApp+CustomEvents.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -285,12 +285,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 57A22BC11AD317000064A85B /* Build configuration list for PBXNativeTarget "MoPubSwiftSampleApp" */;
 			buildPhases = (
-				CD6A15D3474C788CB23DE989 /* [CP] Check Pods Manifest.lock */,
+				C079CBC2897D5EBF909F4773 /* [CP] Check Pods Manifest.lock */,
 				57A22B9E1AD317000064A85B /* Sources */,
 				57A22B9F1AD317000064A85B /* Frameworks */,
 				57A22BA01AD317000064A85B /* Resources */,
-				814D5AFE7F7D078434ED9786 /* [CP] Embed Pods Frameworks */,
-				CA2752FB596C520FD09DBB39 /* [CP] Copy Pods Resources */,
+				81A576604598392C57E13F4B /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -305,12 +304,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 57CE74C11AD6F86D0003830D /* Build configuration list for PBXNativeTarget "MoPubSwiftSampleApp+CustomEvents" */;
 			buildPhases = (
-				CE6F6E85ECE2A509CD959CE2 /* [CP] Check Pods Manifest.lock */,
+				B0E45430A2011DAA1E1F435A /* [CP] Check Pods Manifest.lock */,
 				57CE73F21AD6F86D0003830D /* Sources */,
 				57CE74971AD6F86D0003830D /* Frameworks */,
 				57CE74AB1AD6F86D0003830D /* Resources */,
-				92D390FAFAA4ED2AD44846DB /* [CP] Embed Pods Frameworks */,
-				4A9CA82FDFA47343BC2E0984 /* [CP] Copy Pods Resources */,
+				F89F88211599F98F730C1FC8 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -386,7 +384,61 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		4A9CA82FDFA47343BC2E0984 /* [CP] Copy Pods Resources */ = {
+		81A576604598392C57E13F4B /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-MoPubSwiftSampleApp/Pods-MoPubSwiftSampleApp-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/mopub-ios-sdk-framework/MoPub.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MoPub.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MoPubSwiftSampleApp/Pods-MoPubSwiftSampleApp-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B0E45430A2011DAA1E1F435A /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-MoPubSwiftSampleApp+CustomEvents-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C079CBC2897D5EBF909F4773 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-MoPubSwiftSampleApp-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F89F88211599F98F730C1FC8 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -414,8 +466,8 @@
 				"${PODS_ROOT}/../../../MoPubSDK/Resources/MPUnmutedBtn@2x.png",
 				"${PODS_ROOT}/../../../MoPubSDK/Resources/MPUnmutedBtn@3x.png",
 				"${PODS_ROOT}/../../../MoPubSDK/Resources/MRAID.bundle",
-				"${PODS_ROOT}/TapjoySDK/TapjoySDK_iOS_v11.11.1/Libraries/Tapjoy.embeddedframework/Resources/TapjoyResources.bundle",
-				"${PODS_ROOT}/TapjoySDK/TapjoySDK_iOS_v11.11.1/Libraries/Tapjoy.embeddedframework/Tapjoy.framework/Versions/A/Resources/TapjoyResources.bundle",
+				"${PODS_ROOT}/TapjoySDK/TapjoySDK_iOS_v11.12.1/Libraries/Tapjoy.embeddedframework/Resources/TapjoyResources.bundle",
+				"${PODS_ROOT}/TapjoySDK/TapjoySDK_iOS_v11.12.1/Libraries/Tapjoy.embeddedframework/Tapjoy.framework/Versions/A/Resources/TapjoyResources.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
@@ -445,90 +497,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MoPubSwiftSampleApp+CustomEvents/Pods-MoPubSwiftSampleApp+CustomEvents-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		814D5AFE7F7D078434ED9786 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-MoPubSwiftSampleApp/Pods-MoPubSwiftSampleApp-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/mopub-ios-sdk-framework/MoPub.framework",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MoPub.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MoPubSwiftSampleApp/Pods-MoPubSwiftSampleApp-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		92D390FAFAA4ED2AD44846DB /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MoPubSwiftSampleApp+CustomEvents/Pods-MoPubSwiftSampleApp+CustomEvents-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		CA2752FB596C520FD09DBB39 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MoPubSwiftSampleApp/Pods-MoPubSwiftSampleApp-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		CD6A15D3474C788CB23DE989 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-MoPubSwiftSampleApp-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		CE6F6E85ECE2A509CD959CE2 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-MoPubSwiftSampleApp+CustomEvents-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -711,7 +679,7 @@
 		};
 		57A22BC21AD317000064A85B /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6521AD46F910E5BED95B0D1A /* Pods-MoPubSwiftSampleApp.debug.xcconfig */;
+			baseConfigurationReference = C8366036FDB115486D7483A3 /* Pods-MoPubSwiftSampleApp.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -732,7 +700,7 @@
 		};
 		57A22BC31AD317000064A85B /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = EC52642BCCA6A12FD4DF8435 /* Pods-MoPubSwiftSampleApp.release.xcconfig */;
+			baseConfigurationReference = 3EA4814667D7277BA008986B /* Pods-MoPubSwiftSampleApp.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -752,7 +720,7 @@
 		};
 		57CE74C21AD6F86D0003830D /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7EF7CFE4A1D05C8D64203581 /* Pods-MoPubSwiftSampleApp+CustomEvents.debug.xcconfig */;
+			baseConfigurationReference = 258A944FAD6DAA2BB9162F4B /* Pods-MoPubSwiftSampleApp+CustomEvents.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -784,7 +752,7 @@
 		};
 		57CE74C31AD6F86D0003830D /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9AD95AA13128A9EFB90D0055 /* Pods-MoPubSwiftSampleApp+CustomEvents.release.xcconfig */;
+			baseConfigurationReference = AD7BF4DB662C55C7B4581A36 /* Pods-MoPubSwiftSampleApp+CustomEvents.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;

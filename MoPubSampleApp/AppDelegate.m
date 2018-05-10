@@ -12,15 +12,9 @@
 #import "MPIdentityProvider.h"
 #import "MPAdConversionTracker.h"
 #import "MPAdInfo.h"
-#import "MPLogEvent.h"
-#import "MPLogEventRecorder.h"
 #import "MPLogging.h"
 #import "MoPub.h"
 #import <UIKit/UIKit.h>
-
-#if CUSTOM_EVENTS_ENABLED
-#import <FBAudienceNetwork/FBAudienceNetwork.h>
-#endif
 
 @interface AppDelegate()
 @property (nonatomic, strong) MPAdTableViewController * adTable;
@@ -45,11 +39,13 @@
     navController.navigationBar.barStyle = UIBarStyleBlackOpaque;
     navController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName: [UIColor colorWithRed:0.86 green:0.86 blue:0.86 alpha:1]};
 
-    [[MoPub sharedInstance] start];
-
-#if CUSTOM_EVENTS_ENABLED
-    [FBAdSettings addTestDevice:[FBAdSettings testDeviceHash]];
-#endif
+    MPMoPubConfiguration * sdkConfig = [[MPMoPubConfiguration alloc] initWithAdUnitIdForAppInitialization: @"0ac59b0996d947309c33f59d6676399f"];
+    sdkConfig.globalMediationSettings = @[];
+    sdkConfig.mediatedNetworks = @[];
+    sdkConfig.advancedBidders = nil;
+    [[MoPub sharedInstance] initializeSdkWithConfiguration:sdkConfig completion:^{
+        NSLog(@"SDK initialization complete");
+    }];
 
     return YES;
 }

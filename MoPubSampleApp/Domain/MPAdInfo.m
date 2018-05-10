@@ -43,14 +43,6 @@ NSString * const kAdInfoNameKey = @"name";
         [ads addObject:[MPAdInfo infoWithTitle:@"HTML Leaderboard Banner Ad" ID:@"d456ea115eec497ab33e02531a5efcbc" type:MPAdInfoLeaderboardBanner]];
     }
 
-    // 3rd Party Networks
-#if CUSTOM_EVENTS_ENABLED
-    [ads addObject:[MPAdInfo infoWithTitle:@"Facebook" ID:@"446dfa864dcb4469965267694a940f3d" type:MPAdInfoBanner]];
-    [ads addObject:[MPAdInfo infoWithTitle:@"Flurry" ID:@"b827dff81325466e95cc6d475f207fb3" type:MPAdInfoBanner]];
-    [ads addObject:[MPAdInfo infoWithTitle:@"Google AdMob" ID:@"c9c2ea9a8e1249b68496978b072d2fd2" type:MPAdInfoBanner]];
-    [ads addObject:[MPAdInfo infoWithTitle:@"Millennial" ID:@"b506db1f3e054c78bff513f188727748" type:MPAdInfoBanner]];
-#endif
-
     return ads;
 }
 
@@ -59,18 +51,6 @@ NSString * const kAdInfoNameKey = @"name";
     return @[
              [MPAdInfo infoWithTitle:@"HTML Interstitial Ad" ID:@"4f117153f5c24fa6a3a92b818a5eb630" type:MPAdInfoInterstitial],
              [MPAdInfo infoWithTitle:@"MRAID Interstitial Ad" ID:@"3aba0056add211e281c11231392559e4" type:MPAdInfoInterstitial],
-
-    // 3rd Party Networks
-    #if CUSTOM_EVENTS_ENABLED
-             [MPAdInfo infoWithTitle:@"Chartboost" ID:@"a425ff78959911e295fa123138070049" type:MPAdInfoInterstitial],
-             [MPAdInfo infoWithTitle:@"Facebook" ID:@"cec4c5ea0ff140d3a15264da23449f97" type:MPAdInfoInterstitial],
-             [MPAdInfo infoWithTitle:@"Flurry" ID:@"5124d5ff5e3944d2ab8ad496b87a0978" type:MPAdInfoInterstitial],
-             [MPAdInfo infoWithTitle:@"Flurry RTB" ID:@"49960150e2874e9294105af00a77b85c" type:MPAdInfoInterstitial],
-             [MPAdInfo infoWithTitle:@"Google AdMob" ID:@"744e217f8adc4dec89c87481c9c4006a" type:MPAdInfoInterstitial],
-             [MPAdInfo infoWithTitle:@"Millennial" ID:@"93c3fc00fbb54825b6a33b20927315f7" type:MPAdInfoInterstitial],
-             [MPAdInfo infoWithTitle:@"Tapjoy" ID:@"8f66c17adff74e189555247bc1bd26c4" type:MPAdInfoInterstitial],
-             [MPAdInfo infoWithTitle:@"Vungle" ID:@"20e01fce81f611e295fa123138070049" type:MPAdInfoInterstitial],
-    #endif
              ];
 }
 
@@ -79,17 +59,6 @@ NSString * const kAdInfoNameKey = @"name";
     return @[
              [MPAdInfo infoWithTitle:@"Rewarded Video Ad" ID:@"8f000bd5e00246de9c789eed39ff6096" type:MPAdInfoRewardedVideo],
              [MPAdInfo infoWithTitle:@"Rewarded Rich Media Ad" ID:@"98c29e015e7346bd9c380b1467b33850" type:MPAdInfoRewardedVideo],
-    // 3rd Party Networks
-    #if CUSTOM_EVENTS_ENABLED
-             [MPAdInfo infoWithTitle:@"AdColony" ID:@"52aa460767374250a5aa5174c2345be3" type:MPAdInfoRewardedVideo],
-             [MPAdInfo infoWithTitle:@"AdMob" ID:@"0ceacb73895748ceadf0048a1f989855" type:MPAdInfoRewardedVideo],
-             [MPAdInfo infoWithTitle:@"Chartboost" ID:@"8be0bb08fb4f4e90a86416c29c235d4a" type:MPAdInfoRewardedVideo],
-             [MPAdInfo infoWithTitle:@"Facebook" ID:@"5a138cf1a03643ca851647d2b2e20d0d" type:MPAdInfoRewardedVideo],
-             [MPAdInfo infoWithTitle:@"Millennial" ID:@"1908cd1ff0934f69bac04c316accc854" type:MPAdInfoRewardedVideo],
-             [MPAdInfo infoWithTitle:@"Tapjoy" ID:@"58e30d62673e4c85b2098887a4218816" type:MPAdInfoRewardedVideo],
-             [MPAdInfo infoWithTitle:@"Unity Ads" ID:@"676a0fa97aca48cbbe489de5b2fa4cd1" type:MPAdInfoRewardedVideo],
-             [MPAdInfo infoWithTitle:@"Vungle" ID:@"48274e80f11b496bb3532c4f59f28d12" type:MPAdInfoRewardedVideo],
-    #endif
              ];
 }
 
@@ -101,15 +70,6 @@ NSString * const kAdInfoNameKey = @"name";
              [MPAdInfo infoWithTitle:@"Native Ad (CollectionView Placer)" ID:@"76a3fefaced247959582d2d2df6f4757" type:MPAdInfoNativeInCollectionView],
              [MPAdInfo infoWithTitle:@"Native Ad (TableView Placer)" ID:@"76a3fefaced247959582d2d2df6f4757" type:MPAdInfoNativeTableViewPlacer],
              [MPAdInfo infoWithTitle:@"Native Video Ad (TableView Placer)" ID:@"b2b67c2a8c0944eda272ed8e4ddf7ed4" type:MPAdInfoNativeTableViewPlacer],
-
-    // 3rd Party Networks
-    #if CUSTOM_EVENTS_ENABLED
-             [MPAdInfo infoWithTitle:@"Facebook" ID:@"1ceee46ba9744155aed48ee6277ecbd6" type:MPAdInfoNative],
-             [MPAdInfo infoWithTitle:@"Flurry Native Ad" ID:@"1023187dc1984ec28948b49220e1e3d4" type:MPAdInfoNative],
-             [MPAdInfo infoWithTitle:@"Flurry Native Ad (TableView Placer)" ID:@"1023187dc1984ec28948b49220e1e3d4" type:MPAdInfoNativeTableViewPlacer],
-             [MPAdInfo infoWithTitle:@"Google AdMob" ID:@"e1598f16673a409e95c66e79ba592aeb" type:MPAdInfoNative],
-             [MPAdInfo infoWithTitle:@"Millennial" ID:@"69b2d2cfda6a4d07aefa1847066c89ab" type:MPAdInfoNative],
-    #endif
              ];
 }
 

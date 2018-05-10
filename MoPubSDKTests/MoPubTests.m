@@ -7,8 +7,9 @@
 
 #import <XCTest/XCTest.h>
 #import "MoPub.h"
+#import "MoPub+Testing.h"
 #import "MPAdConfiguration.h"
-#import "MPRewardedVideoCustomEvent+Caching.h"
+#import "MPMediationManager.h"
 #import "MPMockAdColonyRewardedVideoCustomEvent.h"
 #import "MPMockChartboostRewardedVideoCustomEvent.h"
 #import "MPWebView+Testing.h"
@@ -25,7 +26,7 @@ static NSTimeInterval const kTestTimeout = 2;
 
 - (void)setUp {
     [super setUp];
-    [MPRewardedVideoCustomEvent clearCache];
+    [MPMediationManager.sharedManager clearCache];
 
     [MoPub sharedInstance].forceWKWebView = NO;
     [MoPub sharedInstance].logLevel = MPLogLevelInfo;
@@ -41,17 +42,20 @@ static NSTimeInterval const kTestTimeout = 2;
     XCTAssertFalse([MPMockChartboostRewardedVideoCustomEvent isSdkInitialized]);
 
     // Put data into the cache to simulate having been cache prior.
-    [MPRewardedVideoCustomEvent setCachedInitializationParameters:@{ @"appId": @"aaaa" } forNetwork:@"MPMockAdColonyRewardedVideoCustomEvent"];
-    [MPRewardedVideoCustomEvent setCachedInitializationParameters:@{ @"appId": @"bbbb" } forNetwork:@"MPMockChartboostRewardedVideoCustomEvent"];
+    [MPMediationManager.sharedManager setCachedInitializationParameters:@{ @"appId": @"aaaa" } forNetwork:MPMockAdColonyRewardedVideoCustomEvent.class];
+    [MPMediationManager.sharedManager setCachedInitializationParameters:@{ @"appId": @"bbbb" } forNetwork:MPMockChartboostRewardedVideoCustomEvent.class];
 
     // Initialize
-    [[MoPub sharedInstance] initializeRewardedVideoWithGlobalMediationSettings:nil delegate:nil];
+    MPMoPubConfiguration * config = [[MPMoPubConfiguration alloc] initWithAdUnitIdForAppInitialization:@"fake_adunit_id"];
+    config.advancedBidders = nil;
+    config.globalMediationSettings = nil;
+    config.mediatedNetworks = MoPub.sharedInstance.allCachedNetworks;
 
     // Wait for SDKs to initialize
     XCTestExpectation * expectation = [self expectationWithDescription:@"Expect timer to fire"];
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)((kTestTimeout / 2.0) * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    [MoPub.sharedInstance setSdkWithConfiguration:config completion:^{
         [expectation fulfill];
-    });
+    }];
 
     [self waitForExpectationsWithTimeout:kTestTimeout handler:^(NSError *error) {
         XCTAssertNil(error);
@@ -70,17 +74,20 @@ static NSTimeInterval const kTestTimeout = 2;
     XCTAssertFalse([MPMockChartboostRewardedVideoCustomEvent isSdkInitialized]);
 
     // Put data into the cache to simulate having been cache prior.
-    [MPRewardedVideoCustomEvent setCachedInitializationParameters:@{ @"appId": @"aaaa" } forNetwork:@"MPMockAdColonyRewardedVideoCustomEvent"];
-    [MPRewardedVideoCustomEvent setCachedInitializationParameters:@{ @"appId": @"bbbb" } forNetwork:@"MPMockChartboostRewardedVideoCustomEvent"];
+    [MPMediationManager.sharedManager setCachedInitializationParameters:@{ @"appId": @"aaaa" } forNetwork:MPMockAdColonyRewardedVideoCustomEvent.class];
+    [MPMediationManager.sharedManager setCachedInitializationParameters:@{ @"appId": @"bbbb" } forNetwork:MPMockChartboostRewardedVideoCustomEvent.class];
 
     // Initialize
-    [[MoPub sharedInstance] initializeRewardedVideoWithGlobalMediationSettings:nil delegate:nil networkInitializationOrder:@[@"MPMockAdColonyRewardedVideoCustomEvent"]];
+    MPMoPubConfiguration * config = [[MPMoPubConfiguration alloc] initWithAdUnitIdForAppInitialization:@"fake_adunit_id"];
+    config.advancedBidders = nil;
+    config.globalMediationSettings = nil;
+    config.mediatedNetworks = @[MPMockAdColonyRewardedVideoCustomEvent.class];
 
     // Wait for SDKs to initialize
     XCTestExpectation * expectation = [self expectationWithDescription:@"Expect timer to fire"];
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)((kTestTimeout / 2.0) * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    [MoPub.sharedInstance setSdkWithConfiguration:config completion:^{
         [expectation fulfill];
-    });
+    }];
 
     [self waitForExpectationsWithTimeout:kTestTimeout handler:^(NSError *error) {
         XCTAssertNil(error);
@@ -99,11 +106,56 @@ static NSTimeInterval const kTestTimeout = 2;
     XCTAssertFalse([MPMockChartboostRewardedVideoCustomEvent isSdkInitialized]);
 
     // Put data into the cache to simulate having been cache prior.
-    [MPRewardedVideoCustomEvent setCachedInitializationParameters:@{ @"appId": @"aaaa" } forNetwork:@"MPMockAdColonyRewardedVideoCustomEvent"];
-    [MPRewardedVideoCustomEvent setCachedInitializationParameters:@{ @"appId": @"bbbb" } forNetwork:@"MPMockChartboostRewardedVideoCustomEvent"];
+    [MPMediationManager.sharedManager setCachedInitializationParameters:@{ @"appId": @"aaaa" } forNetwork:MPMockAdColonyRewardedVideoCustomEvent.class];
+    [MPMediationManager.sharedManager setCachedInitializationParameters:@{ @"appId": @"bbbb" } forNetwork:MPMockChartboostRewardedVideoCustomEvent.class];
 
     // Initialize
-    [[MoPub sharedInstance] initializeRewardedVideoWithGlobalMediationSettings:nil delegate:nil networkInitializationOrder:nil];
+    MPMoPubConfiguration * config = [[MPMoPubConfiguration alloc] initWithAdUnitIdForAppInitialization:@"fake_adunit_id"];
+    config.advancedBidders = nil;
+    config.globalMediationSettings = nil;
+    config.mediatedNetworks = @[];
+
+    // Wait for SDKs to initialize
+    XCTestExpectation * expectation = [self expectationWithDescription:@"Expect timer to fire"];
+    [MoPub.sharedInstance setSdkWithConfiguration:config completion:^{
+        [expectation fulfill];
+    }];
+
+    [self waitForExpectationsWithTimeout:kTestTimeout handler:^(NSError *error) {
+        XCTAssertNil(error);
+    }];
+
+    // Verify initialized sdks
+    XCTAssertFalse([MPMockAdColonyRewardedVideoCustomEvent isSdkInitialized]);
+    XCTAssertFalse([MPMockChartboostRewardedVideoCustomEvent isSdkInitialized]);
+}
+
+- (void)testNoInitializingNetworkFromCacheWithNil {
+    // Reset initialized state
+    [MPMockAdColonyRewardedVideoCustomEvent reset];
+    [MPMockChartboostRewardedVideoCustomEvent reset];
+    XCTAssertFalse([MPMockAdColonyRewardedVideoCustomEvent isSdkInitialized]);
+    XCTAssertFalse([MPMockChartboostRewardedVideoCustomEvent isSdkInitialized]);
+
+    // Put data into the cache to simulate having been cache prior.
+    [MPMediationManager.sharedManager setCachedInitializationParameters:@{ @"appId": @"aaaa" } forNetwork:MPMockAdColonyRewardedVideoCustomEvent.class];
+    [MPMediationManager.sharedManager setCachedInitializationParameters:@{ @"appId": @"bbbb" } forNetwork:MPMockChartboostRewardedVideoCustomEvent.class];
+
+    // Initialize
+    MPMoPubConfiguration * config = [[MPMoPubConfiguration alloc] initWithAdUnitIdForAppInitialization:@"fake_adunit_id"];
+    config.advancedBidders = nil;
+    config.globalMediationSettings = nil;
+    config.mediatedNetworks = nil;
+
+    // Wait for SDKs to initialize
+    XCTestExpectation * expectation = [self expectationWithDescription:@"Expect timer to fire"];
+    [MoPub.sharedInstance setSdkWithConfiguration:config completion:^{
+        [expectation fulfill];
+    }];
+
+    [self waitForExpectationsWithTimeout:kTestTimeout handler:^(NSError *error) {
+        XCTAssertNil(error);
+    }];
 
     // Verify initialized sdks
     XCTAssertFalse([MPMockAdColonyRewardedVideoCustomEvent isSdkInitialized]);
@@ -118,11 +170,24 @@ static NSTimeInterval const kTestTimeout = 2;
     XCTAssertFalse([MPMockChartboostRewardedVideoCustomEvent isSdkInitialized]);
 
     // Put data into the cache to simulate having been cache prior.
-    [MPRewardedVideoCustomEvent setCachedInitializationParameters:@{ @"appId": @"aaaa" } forNetwork:@"MPMockAdColonyRewardedVideoCustomEvent"];
-    [MPRewardedVideoCustomEvent setCachedInitializationParameters:@{ @"appId": @"bbbb" } forNetwork:@"MPMockChartboostRewardedVideoCustomEvent"];
+    [MPMediationManager.sharedManager setCachedInitializationParameters:@{ @"appId": @"aaaa" } forNetwork:MPMockAdColonyRewardedVideoCustomEvent.class];
+    [MPMediationManager.sharedManager setCachedInitializationParameters:@{ @"appId": @"bbbb" } forNetwork:MPMockChartboostRewardedVideoCustomEvent.class];
 
     // Initialize
-    [[MoPub sharedInstance] initializeRewardedVideoWithGlobalMediationSettings:nil delegate:nil networkInitializationOrder:@[@"NON_EXISTANT_REWARDED_CLASS"]];
+    MPMoPubConfiguration * config = [[MPMoPubConfiguration alloc] initWithAdUnitIdForAppInitialization:@"fake_adunit_id"];
+    config.advancedBidders = nil;
+    config.globalMediationSettings = nil;
+    config.mediatedNetworks = @[MPRewardedVideo.class];
+
+    // Wait for SDKs to initialize
+    XCTestExpectation * expectation = [self expectationWithDescription:@"Expect timer to fire"];
+    [MoPub.sharedInstance setSdkWithConfiguration:config completion:^{
+        [expectation fulfill];
+    }];
+
+    [self waitForExpectationsWithTimeout:kTestTimeout handler:^(NSError *error) {
+        XCTAssertNil(error);
+    }];
 
     // Verify initialized sdks
     XCTAssertFalse([MPMockAdColonyRewardedVideoCustomEvent isSdkInitialized]);
