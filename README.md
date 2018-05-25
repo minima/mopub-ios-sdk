@@ -61,7 +61,7 @@ See the [Getting Started Guide](https://github.com/mopub/mopub-ios-sdk/wiki/Gett
 
 Please see the [Getting Started Guide](https://developers.mopub.com/docs/ios/getting-started/) for instructions on upgrading from SDK 4.X to SDK 5.0.
 
-For GDPR-specific upgrading instructions, also see the [GDPR Integration Guide](https://developers.mopub.com/docs/publisher/gdpr).
+For GDPR-specific upgrading instructions, also see the [GDPR Integration Guide](https://developers.mopub.com/docs/publisher/gdpr-guide).
 
 ### <a name="disableViewability"></a>Disabling Viewability Measurement
 There are a few options for opting out of viewability measurement:
