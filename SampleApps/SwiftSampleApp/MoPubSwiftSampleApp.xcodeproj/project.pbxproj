@@ -466,8 +466,8 @@
 				"${PODS_ROOT}/../../../MoPubSDK/Resources/MPUnmutedBtn@2x.png",
 				"${PODS_ROOT}/../../../MoPubSDK/Resources/MPUnmutedBtn@3x.png",
 				"${PODS_ROOT}/../../../MoPubSDK/Resources/MRAID.bundle",
-				"${PODS_ROOT}/TapjoySDK/TapjoySDK_iOS_v11.12.1/Libraries/Tapjoy.embeddedframework/Resources/TapjoyResources.bundle",
-				"${PODS_ROOT}/TapjoySDK/TapjoySDK_iOS_v11.12.1/Libraries/Tapjoy.embeddedframework/Tapjoy.framework/Versions/A/Resources/TapjoyResources.bundle",
+				"${PODS_ROOT}/TapjoySDK/TapjoySDK_iOS_v11.12.0/Libraries/Tapjoy.embeddedframework/Resources/TapjoyResources.bundle",
+				"${PODS_ROOT}/TapjoySDK/TapjoySDK_iOS_v11.12.0/Libraries/Tapjoy.embeddedframework/Tapjoy.framework/Versions/A/Resources/TapjoyResources.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (

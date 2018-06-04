@@ -14,7 +14,7 @@
 #import "MPAdConfiguration+Testing.h"
 #import "MPViewabilityTracker.h"
 #import "MPConsentManager+Testing.h"
-#import "MPConsentAdServerKeys.h"
+#import "MPAdServerKeys.h"
 
 @interface MPAdConfigurationTests : XCTestCase
 

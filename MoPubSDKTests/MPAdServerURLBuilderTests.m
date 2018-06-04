@@ -70,7 +70,7 @@ static NSString * const kConsentedVendorListVersionStorageKey    = @"com.mopub.m
 - (void)testAdvancedBiddingNotInitialized {
     MPAdvancedBiddingManager.sharedManager.bidders = [NSMutableDictionary dictionary];
     MPAdvancedBiddingManager.sharedManager.advancedBiddingEnabled = YES;
-    NSString * queryParam = [MPAdServerURLBuilder queryParameterForAdvancedBidding];
+    NSString * queryParam = [MPAdServerURLBuilder advancedBiddingValue];
 
     XCTAssertNil(queryParam);
 }
@@ -88,31 +88,23 @@ static NSString * const kConsentedVendorListVersionStorageKey    = @"com.mopub.m
         XCTAssertNil(error);
     }];
 
-    NSString * queryParam = [MPAdServerURLBuilder queryParameterForAdvancedBidding];
+    NSString * queryParam = [MPAdServerURLBuilder advancedBiddingValue];
 
     XCTAssertNil(queryParam);
 }
 
 #pragma mark - Consent
 
-- (void)testConsentStatusAdQueryParam {
-    NSString * consentStatus = [NSString stringFromConsentStatus:MPConsentManager.sharedManager.currentStatus];
-    XCTAssertNotNil(consentStatus);
-
-    NSString * expectedQueryParam = [NSString stringWithFormat:@"&current_consent_status=%@&gdpr_applies=1", consentStatus];
-    NSString * queryParam = [MPAdServerURLBuilder queryParameterForConsent];
-    XCTAssertNotNil(queryParam);
-    XCTAssert([queryParam isEqualToString:expectedQueryParam]);
-}
-
 - (void)testConsentStatusInAdRequest {
     NSString * consentStatus = [NSString stringFromConsentStatus:MPConsentManager.sharedManager.currentStatus];
     XCTAssertNotNil(consentStatus);
 
-    NSString * expectedQueryParam = [NSString stringWithFormat:@"&current_consent_status=%@&gdpr_applies=1", consentStatus];
+    NSString * expectedQueryParamCurrentConsentStatus = [NSString stringWithFormat:@"current_consent_status=%@", consentStatus];
+    NSString * expectedQueryParamGDPRApplies = @"gdpr_applies=1";
     NSURL * request = [MPAdServerURLBuilder URLWithAdUnitID:@"1234" keywords:nil userDataKeywords:nil location:nil];
     XCTAssertNotNil(request);
-    XCTAssert([request.query containsString:expectedQueryParam]);
+    XCTAssert([request.query containsString:expectedQueryParamCurrentConsentStatus]);
+    XCTAssert([request.query containsString:expectedQueryParamGDPRApplies]);
 }
 
 - (void)testQueryParameterEncodingSuccess {

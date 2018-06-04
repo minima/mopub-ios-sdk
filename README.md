@@ -33,7 +33,7 @@ The MoPub SDK is distributed as source code that you can include in your applica
 
   Includes everything you need to serve HTML and MRAID advertisements.  Third party ad networks and Native MoPub advertisements are not included.
 
-The current version of the SDK is 5.0.0
+The current version of the SDK is 5.1.0
 
 ## Integrate
 
@@ -46,14 +46,10 @@ More detailed class documentation is available in the repo under the `ClassDocum
 Please view the [changelog](https://github.com/mopub/mopub-ios-sdk/blob/master/CHANGELOG.md) for details.
 
 - **Features**
-	- General Data Protection Regulation (GDPR) update to support a way for publishers to determine GDPR applicability and to obtain and manage consent from users in the European Economic Area, the United Kingdom, or Switzerland to serve personalized ads.
-	- New SDK initialization method to initialize consent management and rewarded video ad networks. Required for receiving personalized ads. In future versions of the SDK, initialization will be required to receive ads.
-	- Updated the networking stack to use `NSURLSession` in place of the deprecated `NSURLConnection`.
-	- Updated ad requests to use POST instead of GET.
-
-- **Bug Fixes**
-	- Renamed the `/MoPubSDK/Native Ads/` folder to `/MoPubSDK/NativeAds/`.
-	- Removed the usage of deprecated `shouldAutorotateToInterfaceOrientation`.
+	- Updated `MPReachability` to be IPv6 compliant.
+	- Allow publishers to determine which users should be treated as GDPR compliant users through the new API `forceGDPRApplicable`.
+	- Alert a publisher (through logs) when they are trying to use the new GDPR consent flow without being whitelisted.
+	- Banner refresh will only occur after an impression.
 
 See the [Getting Started Guide](https://github.com/mopub/mopub-ios-sdk/wiki/Getting-Started#app-transport-security-settings) for instructions on setting up ATS in your app.
 
@@ -61,7 +57,7 @@ See the [Getting Started Guide](https://github.com/mopub/mopub-ios-sdk/wiki/Gett
 
 Please see the [Getting Started Guide](https://developers.mopub.com/docs/ios/getting-started/) for instructions on upgrading from SDK 4.X to SDK 5.0.
 
-For GDPR-specific upgrading instructions, also see the [GDPR Integration Guide](https://developers.mopub.com/docs/publisher/gdpr-guide).
+For GDPR-specific upgrading instructions, also see the [GDPR Integration Guide](https://developers.mopub.com/docs/publisher/gdpr).
 
 ### <a name="disableViewability"></a>Disabling Viewability Measurement
 There are a few options for opting out of viewability measurement:

@@ -15,7 +15,6 @@ target 'MoPubSwiftSampleApp+CustomEvents' do
   pod 'MoPub-Chartboost-Adapters'
   pod 'MoPub-FacebookAudienceNetwork-Adapters'
   pod 'MoPub-Flurry-Adapters'
-  pod 'MoPub-OnebyAOL-Adapters'
   pod 'MoPub-TapJoy-Adapters'
   pod 'MoPub-UnityAds-Adapters'
   pod 'MoPub-Vungle-Adapters'

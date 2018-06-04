@@ -1,54 +1,50 @@
 PODS:
   - AdColony (3.3.0)
-  - ChartboostSDK (7.1.2)
+  - ChartboostSDK (7.2.0)
   - FBAudienceNetwork (4.28.1)
   - Flurry-iOS-SDK/FlurryAds (8.4.0):
     - Flurry-iOS-SDK/FlurrySDK
   - Flurry-iOS-SDK/FlurrySDK (8.4.0)
   - Google-Mobile-Ads-SDK (7.30.0)
-  - MMAdSDK (6.6.0)
-  - MoPub-AdColony-Adapters (3.3.0.3):
+  - MoPub-AdColony-Adapters (3.3.0.4):
     - AdColony (= 3.3.0)
-    - mopub-ios-sdk (~> 4.0)
-  - MoPub-AdMob-Adapters (7.30.0.0):
+    - mopub-ios-sdk (~> 5.0)
+  - MoPub-AdMob-Adapters (7.30.0.1):
     - Google-Mobile-Ads-SDK (= 7.30.0)
-    - mopub-ios-sdk (~> 4.0)
-  - MoPub-Chartboost-Adapters (7.1.2.1):
-    - ChartboostSDK (= 7.1.2)
-    - mopub-ios-sdk (~> 4.0)
-  - MoPub-FacebookAudienceNetwork-Adapters (4.28.1.1):
+    - mopub-ios-sdk (~> 5.0)
+  - MoPub-Chartboost-Adapters (7.2.0.0):
+    - ChartboostSDK (= 7.2.0)
+    - mopub-ios-sdk (~> 5.0)
+  - MoPub-FacebookAudienceNetwork-Adapters (4.28.1.2):
     - FBAudienceNetwork (= 4.28.1)
-    - mopub-ios-sdk (~> 4.0)
-  - MoPub-Flurry-Adapters (8.4.0.1):
+    - mopub-ios-sdk (~> 5.0)
+  - MoPub-Flurry-Adapters (8.4.0.2):
     - Flurry-iOS-SDK/FlurryAds (= 8.4.0)
     - Flurry-iOS-SDK/FlurrySDK (= 8.4.0)
-    - mopub-ios-sdk (~> 4.0)
-  - mopub-ios-sdk (4.19.0):
-    - mopub-ios-sdk/MoPubSDK (= 4.19.0)
-  - mopub-ios-sdk/Avid (4.19.0):
+    - mopub-ios-sdk (~> 5.0)
+  - mopub-ios-sdk (5.0.0):
+    - mopub-ios-sdk/MoPubSDK (= 5.0.0)
+  - mopub-ios-sdk/Avid (5.0.0):
     - mopub-ios-sdk/Core
-  - mopub-ios-sdk/Core (4.19.0)
-  - mopub-ios-sdk/Moat (4.19.0):
+  - mopub-ios-sdk/Core (5.0.0)
+  - mopub-ios-sdk/Moat (5.0.0):
     - mopub-ios-sdk/Core
-  - mopub-ios-sdk/MoPubSDK (4.19.0):
+  - mopub-ios-sdk/MoPubSDK (5.0.0):
     - mopub-ios-sdk/Avid
     - mopub-ios-sdk/Core
     - mopub-ios-sdk/Moat
-  - MoPub-OnebyAOL-Adapters (6.6.0.3):
-    - MMAdSDK (~> 6.6.0)
-    - mopub-ios-sdk (~> 4.0)
-  - MoPub-TapJoy-Adapters (11.12.0.0):
-    - mopub-ios-sdk (~> 4.0)
-    - TapjoySDK (~> 11.12.0)
-  - MoPub-UnityAds-Adapters (2.2.0.2):
-    - mopub-ios-sdk (~> 4.0)
+  - MoPub-TapJoy-Adapters (11.12.0.1):
+    - mopub-ios-sdk (~> 5.0)
+    - TapjoySDK (= 11.12.0)
+  - MoPub-UnityAds-Adapters (2.2.0.3):
+    - mopub-ios-sdk (~> 5.0)
     - UnityAds (= 2.2.0)
-  - MoPub-Vungle-Adapters (5.4.0.1):
-    - mopub-ios-sdk (~> 4.0)
-    - VungleSDK-iOS (= 5.4.0)
-  - TapjoySDK (11.12.1)
+  - MoPub-Vungle-Adapters (6.2.0.0):
+    - mopub-ios-sdk (~> 5.0)
+    - VungleSDK-iOS (= 6.2.0)
+  - TapjoySDK (11.12.0)
   - UnityAds (2.2.0)
-  - VungleSDK-iOS (5.4.0)
+  - VungleSDK-iOS (6.2.0)
 
 DEPENDENCIES:
   - MoPub-AdColony-Adapters
@@ -57,25 +53,22 @@ DEPENDENCIES:
   - MoPub-FacebookAudienceNetwork-Adapters
   - MoPub-Flurry-Adapters
   - mopub-ios-sdk (from `../../`)
-  - MoPub-OnebyAOL-Adapters
   - MoPub-TapJoy-Adapters
   - MoPub-UnityAds-Adapters
   - MoPub-Vungle-Adapters
 
 SPEC REPOS:
-  https://github.com/CocoaPods/Specs.git:
+  https://github.com/cocoapods/specs.git:
     - AdColony
     - ChartboostSDK
     - FBAudienceNetwork
     - Flurry-iOS-SDK
     - Google-Mobile-Ads-SDK
-    - MMAdSDK
     - MoPub-AdColony-Adapters
     - MoPub-AdMob-Adapters
     - MoPub-Chartboost-Adapters
     - MoPub-FacebookAudienceNetwork-Adapters
     - MoPub-Flurry-Adapters
-    - MoPub-OnebyAOL-Adapters
     - MoPub-TapJoy-Adapters
     - MoPub-UnityAds-Adapters
     - MoPub-Vungle-Adapters
@@ -89,25 +82,23 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   AdColony: c738aa4305856bf324cc48339ea319f3afdb913c
-  ChartboostSDK: d80d64d322d397a1953a495849b8778ab9d63ff8
+  ChartboostSDK: 15386cd16c8a5d07bb75432d0fafafd6134eedb1
   FBAudienceNetwork: c0cda151bb2f7b55d1e045e59ebc81f3153989b2
   Flurry-iOS-SDK: 0c4488af4e4289e2678f81755d3e9c204c0e8bba
   Google-Mobile-Ads-SDK: 7404f68120ae8682afeb5af001fbf4aad731c78e
-  MMAdSDK: 0e6bf6f3483d29b8a107ed14f84a3ca741c66682
-  MoPub-AdColony-Adapters: 1adbffce9fdaf5f09b2ed4abf43129a73a2a89b5
-  MoPub-AdMob-Adapters: dd5513427d09f5546ab56f2ac925b37af7f43c07
-  MoPub-Chartboost-Adapters: e1478f46873e2189a56410e18e811b3cdad5efbe
-  MoPub-FacebookAudienceNetwork-Adapters: 7e08341df12d227521808f56f323aef8a0fc9368
-  MoPub-Flurry-Adapters: eb1f63c1ce33340b2dc49b4ea449e1fa334f2c77
-  mopub-ios-sdk: 10c6aba4fd0df9c3156e7a29b9a4187d40000400
-  MoPub-OnebyAOL-Adapters: d58a25ec47aada2c6cb8da86188f8d2737ebedc1
-  MoPub-TapJoy-Adapters: 31ca2c8c6b7f87d9a5470f888754e9124468ef8e
-  MoPub-UnityAds-Adapters: 6304621037126312fb624ac94fa716a9ced14d20
-  MoPub-Vungle-Adapters: b84ca4a4409f281a1bac8c9bf373148f4c53c949
-  TapjoySDK: ba5645758cc46f1e7c49714767df92473dd183aa
+  MoPub-AdColony-Adapters: 85a5bb03bfdcb40e908e3e283841b6ef33abc2f8
+  MoPub-AdMob-Adapters: 8c64f7987c258dda4d23cc7b42f6901532e5dae8
+  MoPub-Chartboost-Adapters: 5ba94acc3ba605766a421fdf8c445d906a2f7d94
+  MoPub-FacebookAudienceNetwork-Adapters: f2ac17b2aa03313a74dec159663c2e169bd5a4ea
+  MoPub-Flurry-Adapters: f12ed44a97c767c0734f0a405b1bfe195b2a43f3
+  mopub-ios-sdk: b2a02a0e8b475510b98f238f347a6c7ae5efdb5d
+  MoPub-TapJoy-Adapters: da8b7c5bc92abf40fe313020f6b5f361a5f04d6b
+  MoPub-UnityAds-Adapters: ba23da1db84777704ed934e38d3202e161132162
+  MoPub-Vungle-Adapters: ef7f3580ffd7a4f09e643eea06a99699b1a60a4f
+  TapjoySDK: 812e434cbc6ff4b172141f3c53f67ece4e04c728
   UnityAds: 60dc4d370fcafbb31314f83c890c406821dc3dd6
-  VungleSDK-iOS: bf5bb77eedc065e28c34d8613b027ef9cc3053c2
+  VungleSDK-iOS: a8665f4e826ad688135429f4618df4235f8738c7
 
-PODFILE CHECKSUM: 48dcfb441619934f4c9f1006bdc15dc3a6adcd49
+PODFILE CHECKSUM: c3465670d080e4797cba247f3751f93e9b186e01
 
-COCOAPODS: 1.5.0
+COCOAPODS: 1.5.2

@@ -208,7 +208,7 @@ static NSTimeInterval const kTestTimeout = 2;
 
     MPAdConfiguration * config = [[MPAdConfiguration alloc] initWithHeaders:headers data:nil];
 
-    MRController * controller = [[MRController alloc] initWithAdViewFrame:CGRectZero adPlacementType:MRAdViewPlacementTypeInterstitial];
+    MRController * controller = [[MRController alloc] initWithAdViewFrame:CGRectZero adPlacementType:MRAdViewPlacementTypeInterstitial delegate:nil];
     [controller loadAdWithConfiguration:config];
 
     XCTAssertNil(controller.mraidWebView.wkWebView);
@@ -227,7 +227,7 @@ static NSTimeInterval const kTestTimeout = 2;
 
     MPAdConfiguration * config = [[MPAdConfiguration alloc] initWithHeaders:headers data:nil];
 
-    MRController * controller = [[MRController alloc] initWithAdViewFrame:CGRectZero adPlacementType:MRAdViewPlacementTypeInterstitial];
+    MRController * controller = [[MRController alloc] initWithAdViewFrame:CGRectZero adPlacementType:MRAdViewPlacementTypeInterstitial delegate:nil];
     [controller loadAdWithConfiguration:config];
 
     XCTAssertNotNil(controller.mraidWebView.wkWebView);

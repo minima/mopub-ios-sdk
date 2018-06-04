@@ -18,11 +18,14 @@ static NSString * const kLastChangedMsStorageKey                 = @"com.mopub.m
 static NSString * const kLastChangedReasonStorageKey             = @"com.mopub.mopub-ios-sdk.last.changed.reason";
 NSString * const kIfaForConsentStorageKey                        = @"com.mopub.mopub-ios-sdk.ifa.for.consent";
 static NSString * const kShouldReacquireConsentStorageKey        = @"com.mopub.mopub-ios-sdk.should.reacquire.consent";
+static NSString * const kForceGDPRAppliesStorageKey              = @"com.mopub.mopub-ios-sdk.gdpr.force.applies.true";
 
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wincomplete-implementation"
 #pragma clang diagnostic ignored "-Wobjc-protocol-method-implementation"
 @implementation MPConsentManager (Testing)
+
+@dynamic rawIsGDPRApplicable;
 
 // Override the default implementation to avoid the networking part of the code.
 - (void)synchronizeConsentWithCompletion:(void (^ _Nonnull)(NSError * error))completion {
@@ -42,7 +45,11 @@ static NSString * const kShouldReacquireConsentStorageKey        = @"com.mopub.m
     [defaults setObject:nil forKey:kLastChangedMsStorageKey];
     [defaults setObject:nil forKey:kLastChangedReasonStorageKey];
     [defaults setObject:nil forKey:kShouldReacquireConsentStorageKey];
-    [defaults synchronize];
+    [defaults setObject:nil forKey:kForceGDPRAppliesStorageKey];
+}
+
+- (void)setIsGDPRApplicable:(MPBool)isGDPRApplicable {
+    [[NSUserDefaults standardUserDefaults] setInteger:isGDPRApplicable forKey:kGDPRAppliesStorageKey];
 }
 
 @end
