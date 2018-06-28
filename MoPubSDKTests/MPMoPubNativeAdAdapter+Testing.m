@@ -7,8 +7,12 @@
 
 #import "MPMoPubNativeAdAdapter+Testing.h"
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wincomplete-implementation"
 @implementation MPMoPubNativeAdAdapter (Testing)
 
 @dynamic impressionTimer;
+@dynamic destinationDisplayAgent;
 
 @end
+#pragma clang diagnostic pop

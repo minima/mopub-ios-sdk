@@ -7,10 +7,12 @@
 
 #import "MOPUBNativeVideoAdAdapter.h"
 #import "MPAdImpressionTimer.h"
+#import "MPAdDestinationDisplayAgent.h"
 
 @interface MOPUBNativeVideoAdAdapter (Testing)
 
 @property (nonatomic) MPAdImpressionTimer *impressionTimer;
+@property (nonatomic, strong) MPAdDestinationDisplayAgent *destinationDisplayAgent;
 
 @end
 

@@ -45,6 +45,10 @@ static NSString * const kCloseButtonXImageName = @"MPCloseButtonX.png";
     self.view.backgroundColor = [UIColor blackColor];
 }
 
+- (BOOL)prefersHomeIndicatorAutoHidden {
+    return YES;
+}
+
 #pragma mark - Public
 
 - (void)presentInterstitialFromViewController:(UIViewController *)controller

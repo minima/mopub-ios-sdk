@@ -14,6 +14,7 @@
 #import "NSURLComponents+Testing.h"
 #import "MPStubAdvancedBidder.h"
 #import "NSString+MPConsentStatus.h"
+#import "MPAdServerKeys.h"
 
 static NSString *const kTestAdUnitId = @"";
 static NSString *const kTestKeywords = @"";
@@ -22,6 +23,7 @@ static NSString * const kGDPRAppliesStorageKey                   = @"com.mopub.m
 static NSString * const kConsentedIabVendorListStorageKey        = @"com.mopub.mopub-ios-sdk.consented.iab.vendor.list";
 static NSString * const kConsentedPrivacyPolicyVersionStorageKey = @"com.mopub.mopub-ios-sdk.consented.privacy.policy.version";
 static NSString * const kConsentedVendorListVersionStorageKey    = @"com.mopub.mopub-ios-sdk.consented.vendor.list.version";
+static NSString * const kLastChangedMsStorageKey                 = @"com.mopub.mopub-ios-sdk.last.changed.ms";
 
 @interface MPAdServerURLBuilderTests : XCTestCase
 
@@ -38,6 +40,7 @@ static NSString * const kConsentedVendorListVersionStorageKey    = @"com.mopub.m
     [defaults setObject:nil forKey:kConsentedIabVendorListStorageKey];
     [defaults setObject:nil forKey:kConsentedPrivacyPolicyVersionStorageKey];
     [defaults setObject:nil forKey:kConsentedVendorListVersionStorageKey];
+    [defaults setObject:nil forKey:kLastChangedMsStorageKey];
     [defaults synchronize];
 }
 
@@ -149,6 +152,42 @@ static NSString * const kConsentedVendorListVersionStorageKey    = @"com.mopub.m
 
     // Check for current consent status
     XCTAssert([URLString containsString:@"current_consent_status="]);
+}
+
+- (void)testNilLastChangedMs {
+    // Nil out last changed ms field
+    [NSUserDefaults.standardUserDefaults setObject:nil forKey:kLastChangedMsStorageKey];
+
+    NSURL * url = [MPAdServerURLBuilder consentSynchronizationUrl];
+    XCTAssertNotNil(url);
+    XCTAssertFalse([url.absoluteString containsString:kLastChangedMsKey]);
+}
+
+- (void)testNegativeLastChangedMs {
+    // Nil out last changed ms field
+    [NSUserDefaults.standardUserDefaults setDouble:(-200000) forKey:kLastChangedMsStorageKey];
+
+    NSURL * url = [MPAdServerURLBuilder consentSynchronizationUrl];
+    XCTAssertNotNil(url);
+    XCTAssertFalse([url.absoluteString containsString:kLastChangedMsKey]);
+}
+
+- (void)testZeroLastChangedMs {
+    // Nil out last changed ms field
+    [NSUserDefaults.standardUserDefaults setDouble:0 forKey:kLastChangedMsStorageKey];
+
+    NSURL * url = [MPAdServerURLBuilder consentSynchronizationUrl];
+    XCTAssertNotNil(url);
+    XCTAssertFalse([url.absoluteString containsString:kLastChangedMsKey]);
+}
+
+- (void)testInvalidLastChangedMs {
+    // Nil out last changed ms field
+    [NSUserDefaults.standardUserDefaults setObject:@"" forKey:kLastChangedMsStorageKey];
+
+    NSURL * url = [MPAdServerURLBuilder consentSynchronizationUrl];
+    XCTAssertNotNil(url);
+    XCTAssertFalse([url.absoluteString containsString:kLastChangedMsKey]);
 }
 
 @end

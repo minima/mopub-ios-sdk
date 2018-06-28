@@ -98,7 +98,9 @@
  If a consent dialog is loaded, this method will present it modally from the given `viewController`. If no consent
  dialog is loaded this method will do nothing. `completion` is called upon successful presentation; it is not called otherwise.
  */
-- (void)showConsentDialogFromViewController:(UIViewController * _Nonnull)viewController completion:(void (^_Nullable)(void))completion;
+- (void)showConsentDialogFromViewController:(UIViewController * _Nonnull)viewController
+                                    didShow:(void (^ _Nullable)(void))didShow
+                                 didDismiss:(void (^ _Nullable)(void))didDismiss;
 
 @end
 

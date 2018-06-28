@@ -33,7 +33,7 @@ The MoPub SDK is distributed as source code that you can include in your applica
 
   Includes everything you need to serve HTML and MRAID advertisements.  Third party ad networks and Native MoPub advertisements are not included.
 
-The current version of the SDK is 5.1.0
+The current version of the SDK is 5.2.0
 
 ## Integrate
 
@@ -46,10 +46,11 @@ More detailed class documentation is available in the repo under the `ClassDocum
 Please view the [changelog](https://github.com/mopub/mopub-ios-sdk/blob/master/CHANGELOG.md) for details.
 
 - **Features**
-	- Updated `MPReachability` to be IPv6 compliant.
-	- Allow publishers to determine which users should be treated as GDPR compliant users through the new API `forceGDPRApplicable`.
-	- Alert a publisher (through logs) when they are trying to use the new GDPR consent flow without being whitelisted.
-	- Banner refresh will only occur after an impression.
+	- SDK initialization is required for ads to load.
+	- Added callback to the consent dialog when it is dismissed.
+- **Bug Fixes**
+	- Synchronized access to shared `NSMutableDictionary` in `MPHTTPNetworkSession`.
+	- Video ads using Device orientation now appear aligned correctly on iPhone X.
 
 See the [Getting Started Guide](https://github.com/mopub/mopub-ios-sdk/wiki/Getting-Started#app-transport-security-settings) for instructions on setting up ATS in your app.
 

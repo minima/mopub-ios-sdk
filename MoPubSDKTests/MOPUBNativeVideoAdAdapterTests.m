@@ -7,15 +7,67 @@
 
 #import <XCTest/XCTest.h>
 #import "MOPUBNativeVideoAdAdapter+Testing.h"
+#import "MPAdConfigurationFactory.h"
 #import "MPAdImpressionTimer+Testing.h"
+#import "MPGlobal.h"
 #import "MPNativeAdConstants.h"
 #import "MOPUBNativeVideoAdConfigValues.h"
+#import "MPMockAdDestinationDisplayAgent.h"
 
 @interface MOPUBNativeVideoAdAdapterTests : XCTestCase
 
 @end
 
 @implementation MOPUBNativeVideoAdAdapterTests
+
+#pragma mark - Privacy Icon Overrides
+
+- (void)testPrivacyIconNoOverrideSuccess {
+    NSMutableDictionary * properties = [MPAdConfigurationFactory defaultNativeProperties];
+    properties[kAdPrivacyIconImageUrlKey] = nil;
+
+    MOPUBNativeVideoAdAdapter * adapter = [[MOPUBNativeVideoAdAdapter alloc] initWithAdProperties:properties];
+
+    // Verify that the default icon path to resource is used.
+    XCTAssert([[adapter.properties objectForKey:kAdPrivacyIconImageUrlKey] isEqualToString:MPResourcePathForResource(kPrivacyIconImageName)]);
+    XCTAssertNotNil([adapter.properties objectForKey:kAdPrivacyIconUIImageKey]);
+}
+
+- (void)testPrivacyIconOverrideSuccess {
+    NSMutableDictionary * properties = [MPAdConfigurationFactory defaultNativeProperties];
+    properties[kAdPrivacyIconImageUrlKey] = @"http://www.mopub.com/unittest.jpg";
+
+    MOPUBNativeVideoAdAdapter * adapter = [[MOPUBNativeVideoAdAdapter alloc] initWithAdProperties:properties];
+
+    // Verify that the override URL has not been overwritten by the default icon
+    // path to resource.
+    XCTAssert([[adapter.properties objectForKey:kAdPrivacyIconImageUrlKey] isEqualToString:@"http://www.mopub.com/unittest.jpg"]);
+    XCTAssertNil([adapter.properties objectForKey:kAdPrivacyIconUIImageKey]);
+}
+
+- (void)testPrivacyClickthroughNoOverrideSuccess {
+    NSMutableDictionary * properties = [MPAdConfigurationFactory defaultNativeProperties];
+    properties[kAdPrivacyIconClickUrlKey] = nil;
+
+    MOPUBNativeVideoAdAdapter * adapter = [[MOPUBNativeVideoAdAdapter alloc] initWithAdProperties:properties];
+    MPMockAdDestinationDisplayAgent * displayAgent = [MPMockAdDestinationDisplayAgent new];
+    adapter.destinationDisplayAgent = displayAgent;
+
+    [adapter displayContentForDAAIconTap];
+    XCTAssert([displayAgent.lastDisplayDestinationUrl.absoluteString isEqualToString:kPrivacyIconTapDestinationURL]);
+}
+
+- (void)testPrivacyClickthroughOverrideSuccess {
+    NSMutableDictionary * properties = [MPAdConfigurationFactory defaultNativeProperties];
+    properties[kAdPrivacyIconClickUrlKey] = @"http://www.mopub.com/unittest/success";
+
+    MOPUBNativeVideoAdAdapter * adapter = [[MOPUBNativeVideoAdAdapter alloc] initWithAdProperties:properties];
+    MPMockAdDestinationDisplayAgent * displayAgent = [MPMockAdDestinationDisplayAgent new];
+    adapter.destinationDisplayAgent = displayAgent;
+
+    [adapter displayContentForDAAIconTap];
+    XCTAssert([displayAgent.lastDisplayDestinationUrl.absoluteString isEqualToString:@"http://www.mopub.com/unittest/success"]);
+}
 
 #pragma mark - Testing impression tracking header rules
 

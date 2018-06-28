@@ -10,5 +10,6 @@
 @implementation MOPUBNativeVideoAdAdapter (Testing)
 
 @dynamic impressionTimer;
+@dynamic destinationDisplayAgent;
 
 @end

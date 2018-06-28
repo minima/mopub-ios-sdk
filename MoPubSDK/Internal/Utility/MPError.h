@@ -21,6 +21,7 @@ typedef enum {
     MOPUBErrorUnableToParseJSONAdResponse,
     MOPUBErrorUnexpectedNetworkResponse,
     MOPUBErrorNoNetworkData,
+    MOPUBErrorSDKNotInitialized,
 } MOPUBErrorCode;
 
 @interface MOPUBError : NSError

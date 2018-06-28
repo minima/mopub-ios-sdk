@@ -9,4 +9,6 @@
 
 @interface MPSessionTracker : NSObject
 
++ (void)initializeNotificationObservers;
+
 @end

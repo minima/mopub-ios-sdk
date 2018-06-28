@@ -25,6 +25,6 @@ typedef void (^MOPUBFullScreenPlayerViewControllerDismissBlock)(UIView *original
 
 @property (nonatomic, weak) id<MOPUBFullscreenPlayerViewControllerDelegate> delegate;
 
-- (instancetype)initWithVideoPlayer:(MOPUBPlayerViewController *)playerController dismissBlock:(MOPUBFullScreenPlayerViewControllerDismissBlock)dismiss;
+- (instancetype)initWithVideoPlayer:(MOPUBPlayerViewController *)playerController nativeAdProperties:(NSDictionary *)properties dismissBlock:(MOPUBFullScreenPlayerViewControllerDismissBlock)dismiss;
 
 @end

@@ -75,6 +75,7 @@ static NSString * const kMultiAdResponsesAdMarkupKey = @"adm";
     // Check to be sure the SDK is initialized before starting the request
     if (!MoPub.sharedInstance.isSdkInitialized) {
         [self failLoadForSDKInit];
+        return;
     }
 
     // Generate request
@@ -113,7 +114,13 @@ static NSString * const kMultiAdResponsesAdMarkupKey = @"adm";
 }
 
 - (void)failLoadForSDKInit {
-    MPLogError(@"Warning: Ad requested before initializing MoPub SDK. MoPub SDK 5.2.0 will require initializeSdkWithConfiguration:completion: to be called on MoPub.sharedInstance before attempting to load ads. Please update your integration as soon as possible.");
+    NSString * errorString = @"Ad prevented from loading. Error: Ad requested before initializing MoPub SDK. The MoPub SDK requires initializeSdkWithConfiguration:completion: to be called on MoPub.sharedInstance before attempting to load ads. Please update your integration.";
+    MPLogError(errorString);
+
+    NSError *error = [NSError errorWithDomain:kMOPUBErrorDomain
+                                         code:MOPUBErrorSDKNotInitialized
+                                     userInfo:@{ NSLocalizedDescriptionKey : errorString }];
+    [self didFailWithError:error];
 }
 
 #pragma mark - Handlers

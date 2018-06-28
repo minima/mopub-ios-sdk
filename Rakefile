@@ -91,7 +91,7 @@ def build(options)
 
   if target == "MoPubSDKTests"
     project = options[:project]
-    system_or_exit(%Q[xcodebuild -project '#{project}.xcodeproj' -scheme #{target} -configuration #{configuration} ARCHS=i386 #{destination} -sdk #{sdk} test SYMROOT=#{BUILD_DIR}], out_file)
+    system_or_exit(%Q[xcodebuild -project '#{project}.xcodeproj' -scheme #{target} -configuration #{configuration} #{destination} -sdk #{sdk} test SYMROOT=#{BUILD_DIR}], out_file)
   elsif options[:workspace]
     workspace = options[:workspace]
     system_or_exit(%Q[xcodebuild -workspace #{workspace}.xcworkspace -scheme #{target} -configuration #{configuration} ARCHS=i386 #{destination} -sdk #{sdk} build SYMROOT=#{BUILD_DIR}], out_file)
@@ -219,7 +219,7 @@ namespace :mopubsdk do
     end
 
     head "Running unit tests in iOS Simulator version #{simulator_version}"
-    build :project => "MoPubSDK", :target => "MoPubSDKTests", :destination => "'platform=iOS Simulator,name=iPad'"
+    build :project => "MoPubSDK", :target => "MoPubSDKTests", :destination => "'platform=iOS Simulator,name=iPhone 8'"
 
     head "SUCCESS"
   end

@@ -103,6 +103,14 @@ static NSString * const kMacroReplaceLanguageCode = @"%%LANGUAGE%%";
  */
 @property (nonatomic, assign, readwrite) NSTimeInterval syncFrequency;
 
+/**
+ Block to be executed after the consent dialog dismisses. Typically will be nil, but
+ if a consent dialog view controller is currently presented, and the publisher set a
+ block to be executed once the view controller dismisses, that block is stored here
+ while it's waiting to be executed.
+ */
+@property (nonatomic, copy) void (^consentDialogDidDismissCompletionBlock)(void);
+
 @end
 
 @implementation MPConsentManager
@@ -325,11 +333,16 @@ static NSString * const kMacroReplaceLanguageCode = @"%%LANGUAGE%%";
     }];
 }
 
-- (void)showConsentDialogFromViewController:(UIViewController *)viewController completion:(void (^)(void))completion {
+- (void)showConsentDialogFromViewController:(UIViewController *)viewController
+                                    didShow:(void (^)(void))didShow
+                                 didDismiss:(void (^)(void))didDismiss {
     if (self.isConsentDialogLoaded) {
         [viewController presentViewController:self.consentDialogViewController
                                      animated:YES
-                                   completion:completion];
+                                   completion:didShow];
+
+        // Save @c didDismiss block for later
+        self.consentDialogDidDismissCompletionBlock = didDismiss;
     }
 }
 
@@ -360,7 +373,19 @@ static NSString * const kMacroReplaceLanguageCode = @"%%LANGUAGE%%";
 }
 
 - (void)consentDialogViewControllerWillDisappear:(MPConsentDialogViewController *)consentDialogViewController {
+    // Nil out the consent dialog view controller here so the same dialog instance is not accidentally reused
+    // if attempted to be loaded again too early
     self.consentDialogViewController = nil;
+}
+
+- (void)consentDialogViewControllerDidDismiss:(MPConsentDialogViewController *)consentDialogViewController {
+    // Execute @c consentDialogWillDismissCompletionBlock if needed
+    if (self.consentDialogDidDismissCompletionBlock) {
+        self.consentDialogDidDismissCompletionBlock();
+
+        // Set completion block to @c nil once done running it
+        self.consentDialogDidDismissCompletionBlock = nil;
+    }
 }
 
 #pragma mark - Foreground / Background Notification Listeners

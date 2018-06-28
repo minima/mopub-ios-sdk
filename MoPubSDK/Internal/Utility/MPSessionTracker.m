@@ -17,7 +17,7 @@
 
 @implementation MPSessionTracker
 
-+ (void)load
++ (void)initializeNotificationObservers
 {
     if (SESSION_TRACKING_ENABLED) {
         [[NSNotificationCenter defaultCenter] addObserver:self
