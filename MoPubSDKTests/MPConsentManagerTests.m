@@ -6,10 +6,12 @@
 //
 
 #import <XCTest/XCTest.h>
+#import "MPAdServerKeys.h"
 #import "MPAdServerURLBuilder.h"
 #import "MPConsentManager.h"
 #import "MPConsentManager+Testing.h"
 #import "MPConsentError.h"
+#import "MPURL.h"
 
 @interface MPConsentManagerTests : XCTestCase
 
@@ -1049,7 +1051,7 @@
     MPConsentManager * manager = MPConsentManager.sharedManager;
     manager.adUnitIdUsedForConsent = @"abcdefg";
 
-    NSURL * url = [MPAdServerURLBuilder consentSynchronizationUrl];
+    MPURL * url = [MPAdServerURLBuilder consentSynchronizationUrl];
     XCTAssertNotNil(url);
 }
 
@@ -1092,21 +1094,20 @@
     XCTAssert([manager.iabVendorListHash isEqualToString:@"hash"]);
 
     // Generate the URL
-    NSURL * syncUrl = [MPAdServerURLBuilder consentSynchronizationUrl];
+    MPURL * syncUrl = [MPAdServerURLBuilder consentSynchronizationUrl];
     XCTAssertNotNil(syncUrl);
 
     // Validate the query parameters; really only care about the existence of the keys
-    NSString * queryString = syncUrl.query;
-    XCTAssert([queryString containsString:@"id=123456"]);
-    XCTAssert([queryString containsString:@"current_consent_status=explicit_yes"]);
-    XCTAssert([queryString containsString:@"last_changed_ms="]);
-    XCTAssert([queryString containsString:@"nv="]);
-    XCTAssert([queryString containsString:@"gdpr_applies="]);
-    XCTAssert([queryString containsString:@"consent_change_reason="]);
-    XCTAssert([queryString containsString:@"consented_privacy_policy_version=3.0.0"]);
-    XCTAssert([queryString containsString:@"consented_vendor_list_version=4.0.0"]);
-    XCTAssert([queryString containsString:@"cached_vendor_list_iab_hash=hash"]);
-    XCTAssert([queryString containsString:@"extras=i%27m%20extra%21"]);
+    XCTAssert([[syncUrl stringForPOSTDataKey:kAdServerIDKey] isEqualToString:@"123456"]);
+    XCTAssert([[syncUrl stringForPOSTDataKey:kCurrentConsentStatusKey] isEqualToString:@"explicit_yes"]);
+    XCTAssertNotNil([syncUrl stringForPOSTDataKey:kLastChangedMsKey]);
+    XCTAssertNotNil([syncUrl stringForPOSTDataKey:kSDKVersionKey]);
+    XCTAssertNotNil([syncUrl stringForPOSTDataKey:kGDPRAppliesKey]);
+    XCTAssertNotNil([syncUrl stringForPOSTDataKey:kConsentChangedReasonKey]);
+    XCTAssert([[syncUrl stringForPOSTDataKey:kConsentedPrivacyPolicyVersionKey] isEqualToString:@"3.0.0"]);
+    XCTAssert([[syncUrl stringForPOSTDataKey:kConsentedVendorListVersionKey] isEqualToString:@"4.0.0"]);
+    XCTAssert([[syncUrl stringForPOSTDataKey:kCachedIabVendorListHashKey] isEqualToString:@"hash"]);
+    XCTAssert([[syncUrl stringForPOSTDataKey:kExtrasKey] isEqualToString:@"i'm extra!"]);
 }
 
 - (void)testAutomaticAdUnitIdPopulation {
@@ -1120,7 +1121,7 @@
 #pragma clang diagnostic pop
     XCTAssertNil(manager.adUnitIdUsedForConsent);
 
-    NSURL * url = [MPAdServerURLBuilder URLWithAdUnitID:@"abc123" keywords:nil userDataKeywords:nil location:nil];
+    MPURL * url = [MPAdServerURLBuilder URLWithAdUnitID:@"abc123" keywords:nil userDataKeywords:nil location:nil];
     XCTAssertNotNil(url);
     XCTAssertNotNil(manager.adUnitIdUsedForConsent);
     XCTAssert([manager.adUnitIdUsedForConsent isEqualToString:@"abc123"]);

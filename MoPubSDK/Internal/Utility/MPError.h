@@ -20,12 +20,16 @@ typedef enum {
     MOPUBErrorAdapterHasNoInventory = 18,
     MOPUBErrorUnableToParseJSONAdResponse,
     MOPUBErrorUnexpectedNetworkResponse,
+    MOPUBErrorHTTPResponseNot200,
     MOPUBErrorNoNetworkData,
     MOPUBErrorSDKNotInitialized,
+    MOPUBErrorAdRequestTimedOut,
+    MOPUBErrorNoRenderer,
 } MOPUBErrorCode;
 
 @interface MOPUBError : NSError
 
 + (MOPUBError *)errorWithCode:(MOPUBErrorCode)code;
++ (MOPUBError *)errorWithCode:(MOPUBErrorCode)code localizedDescription:(NSString *)description;
 
 @end

@@ -14,15 +14,20 @@
 #import "MPRewardedVideoError.h"
 #import "MPLogging.h"
 #import "MoPub.h"
+#import "NSMutableArray+MPAdditions.h"
+#import "NSDate+MPAdditions.h"
+#import "NSError+MPAdditions.h"
 
 @interface MPRewardedVideoAdManager () <MPAdServerCommunicatorDelegate, MPRewardedVideoAdapterDelegate>
 
 @property (nonatomic, strong) MPRewardedVideoAdapter *adapter;
 @property (nonatomic, strong) MPAdServerCommunicator *communicator;
 @property (nonatomic, strong) MPAdConfiguration *configuration;
+@property (nonatomic, strong) NSMutableArray<MPAdConfiguration *> *remainingConfigurations;
 @property (nonatomic, assign) BOOL loading;
 @property (nonatomic, assign) BOOL playedAd;
 @property (nonatomic, assign) BOOL ready;
+@property (nonatomic, assign) NSTimeInterval adapterLoadStartTimestamp;
 
 @end
 
@@ -164,21 +169,14 @@
         return;
     }
 
-    MPLogInfo(@"Rewarded video manager is loading ad with MoPub server URL: %@", URL);
-
     self.loading = YES;
     [self.communicator loadURL:URL];
 }
 
-#pragma mark - MPAdServerCommunicatorDelegate
+- (void)fetchAdWithConfiguration:(MPAdConfiguration *)configuration {
+    MPLogInfo(@"Rewarded video ad is fetching ad network type: %@", configuration.networkType);
 
-- (void)communicatorDidReceiveAdConfigurations:(NSArray<MPAdConfiguration *> *)configurations
-{
-    self.configuration = configurations.firstObject;
-
-    MPLogInfo(@"Rewarded video ad is fetching ad network type: %@", self.configuration.networkType);
-
-    if (self.configuration.adUnitWarmingUp) {
+    if (configuration.adUnitWarmingUp) {
         MPLogInfo(kMPWarmingUpErrorLogFormatWithAdUnitID, self.adUnitID);
         self.loading = NO;
         NSError *error = [NSError errorWithDomain:MoPubRewardedVideoAdsSDKDomain code:MPRewardedVideoAdErrorAdUnitWarmingUp userInfo:nil];
@@ -186,7 +184,7 @@
         return;
     }
 
-    if ([self.configuration.networkType isEqualToString:kAdTypeClear]) {
+    if ([configuration.networkType isEqualToString:kAdTypeClear]) {
         MPLogInfo(kMPClearErrorLogFormatWithAdUnitID, self.adUnitID);
         self.loading = NO;
         NSError *error = [NSError errorWithDomain:MoPubRewardedVideoAdsSDKDomain code:MPRewardedVideoAdErrorNoAdsAvailable userInfo:nil];
@@ -194,16 +192,41 @@
         return;
     }
 
+    // Notify Ad Server of the adapter load. This is fire and forget.
+    [self.communicator sendBeforeLoadUrlWithConfiguration:configuration];
+
+    // Record the start time of the adapter load.
+    self.adapterLoadStartTimestamp = NSDate.now.timeIntervalSince1970;
+
     MPRewardedVideoAdapter *adapter = [[MPRewardedVideoAdapter alloc] initWithDelegate:self];
 
-    if (!adapter) {
+    if (adapter == nil) {
         NSError *error = [NSError errorWithDomain:MoPubRewardedVideoAdsSDKDomain code:MPRewardedVideoAdErrorUnknown userInfo:nil];
         [self rewardedVideoDidFailToLoadForAdapter:nil error:error];
         return;
     }
 
     self.adapter = adapter;
-    [self.adapter getAdWithConfiguration:self.configuration];
+    [self.adapter getAdWithConfiguration:configuration];
+}
+
+#pragma mark - MPAdServerCommunicatorDelegate
+
+- (void)communicatorDidReceiveAdConfigurations:(NSArray<MPAdConfiguration *> *)configurations
+{
+    self.remainingConfigurations = [configurations mutableCopy];
+    self.configuration = [self.remainingConfigurations removeFirst];
+
+    // There are no configurations to try. Consider this a clear response by the server.
+    if (self.remainingConfigurations.count == 0 && self.configuration == nil) {
+        MPLogInfo(kMPClearErrorLogFormatWithAdUnitID, self.adUnitID);
+        self.loading = NO;
+        NSError *error = [NSError errorWithDomain:MoPubRewardedVideoAdsSDKDomain code:MPRewardedVideoAdErrorNoAdsAvailable userInfo:nil];
+        [self.delegate rewardedVideoDidFailToLoadForAdManager:self error:error];
+        return;
+    }
+
+    [self fetchAdWithConfiguration:self.configuration];
 }
 
 - (void)communicatorDidFailWithError:(NSError *)error
@@ -229,16 +252,45 @@
 
 - (void)rewardedVideoDidLoadForAdapter:(MPRewardedVideoAdapter *)adapter
 {
+    self.remainingConfigurations = nil;
     self.ready = YES;
     self.loading = NO;
+
+    // Record the end of the adapter load and send off the fire and forget after-load-url tracker.
+    NSTimeInterval duration = NSDate.now.timeIntervalSince1970 - self.adapterLoadStartTimestamp;
+    [self.communicator sendAfterLoadUrlWithConfiguration:self.configuration adapterLoadDuration:duration adapterLoadResult:MPAfterLoadResultAdLoaded];
+
     [self.delegate rewardedVideoDidLoadForAdManager:self];
 }
 
 - (void)rewardedVideoDidFailToLoadForAdapter:(MPRewardedVideoAdapter *)adapter error:(NSError *)error
 {
-    self.ready = NO;
-    self.loading = NO;
-    [self loadAdWithURL:self.configuration.failoverURL];
+    // Record the end of the adapter load and send off the fire and forget after-load-url tracker
+    // with the appropriate error code result.
+    NSTimeInterval duration = NSDate.now.timeIntervalSince1970 - self.adapterLoadStartTimestamp;
+    MPAfterLoadResult result = (error.isAdRequestTimedOutError ? MPAfterLoadResultTimeout : (adapter == nil ? MPAfterLoadResultMissingAdapter : MPAfterLoadResultError));
+    [self.communicator sendAfterLoadUrlWithConfiguration:self.configuration adapterLoadDuration:duration adapterLoadResult:result];
+
+    // There are more ad configurations to try.
+    if (self.remainingConfigurations.count > 0) {
+        self.configuration = [self.remainingConfigurations removeFirst];
+        [self fetchAdWithConfiguration:self.configuration];
+    }
+    // No more configurations to try. Send new request to Ads server to get more Ads.
+    else if (self.configuration.nextURL != nil) {
+        self.ready = NO;
+        self.loading = NO;
+        [self loadAdWithURL:self.configuration.nextURL];
+    }
+    // No more configurations to try and no more pages to load.
+    else {
+        self.ready = NO;
+        self.loading = NO;
+
+        MPLogInfo(kMPClearErrorLogFormatWithAdUnitID, self.adUnitID);
+        NSError *error = [NSError errorWithDomain:MoPubRewardedVideoAdsSDKDomain code:MPRewardedVideoAdErrorNoAdsAvailable userInfo:nil];
+        [self.delegate rewardedVideoDidFailToLoadForAdManager:self error:error];
+    }
 }
 
 - (void)rewardedVideoDidExpireForAdapter:(MPRewardedVideoAdapter *)adapter

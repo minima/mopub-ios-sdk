@@ -19,6 +19,6 @@
 
 + (void)setUsesHTTPS:(BOOL)usesHTTPS;
 + (NSString *)baseURL;
-+ (NSString *)baseURLStringWithPath:(NSString *)path;
++ (NSURLComponents *)baseURLComponentsWithPath:(NSString *)path;
 
 @end

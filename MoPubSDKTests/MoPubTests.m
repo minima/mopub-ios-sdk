@@ -201,12 +201,12 @@ static NSTimeInterval const kTestTimeout = 2;
     [MoPub sharedInstance].forceWKWebView = NO;
 
     // Verify that UIWebView was used instead of WKWebView for video ads
-    NSDictionary * headers = @{ kAdTypeHeaderKey: @"rewarded_video",
+    NSDictionary * headers = @{ kAdTypeMetadataKey: @"rewarded_video",
                                 kIsVastVideoPlayerKey: @(1),
-                                kRewardedCurrenciesHeaderKey: @"{ \"rewards\": [ { \"name\": \"Coins\", \"amount\": 8 }, { \"name\": \"Diamonds\", \"amount\": 1 }, { \"name\": \"Energy\", \"amount\": 20 } ] }"
+                                kRewardedCurrenciesMetadataKey: @{ @"rewards": @[ @{ @"name": @"Coins", @"amount": @(8) }, @{ @"name": @"Diamonds", @"amount": @(1) }, @{ @"name": @"Energy", @"amount": @(20) } ] }
                                 };
 
-    MPAdConfiguration * config = [[MPAdConfiguration alloc] initWithHeaders:headers data:nil];
+    MPAdConfiguration * config = [[MPAdConfiguration alloc] initWithMetadata:headers data:nil];
 
     MRController * controller = [[MRController alloc] initWithAdViewFrame:CGRectZero adPlacementType:MRAdViewPlacementTypeInterstitial delegate:nil];
     [controller loadAdWithConfiguration:config];
@@ -220,12 +220,12 @@ static NSTimeInterval const kTestTimeout = 2;
     [MoPub sharedInstance].forceWKWebView = YES;
 
     // Verify that WKWebView was used instead of UIWebView for video ads
-    NSDictionary * headers = @{ kAdTypeHeaderKey: @"rewarded_video",
+    NSDictionary * headers = @{ kAdTypeMetadataKey: @"rewarded_video",
                                 kIsVastVideoPlayerKey: @(1),
-                                kRewardedCurrenciesHeaderKey: @"{ \"rewards\": [ { \"name\": \"Coins\", \"amount\": 8 }, { \"name\": \"Diamonds\", \"amount\": 1 }, { \"name\": \"Energy\", \"amount\": 20 } ] }"
+                                kRewardedCurrenciesMetadataKey: @{ @"rewards": @[ @{ @"name": @"Coins", @"amount": @(8) }, @{ @"name": @"Diamonds", @"amount": @(1) }, @{ @"name": @"Energy", @"amount": @(20) } ] }
                                 };
 
-    MPAdConfiguration * config = [[MPAdConfiguration alloc] initWithHeaders:headers data:nil];
+    MPAdConfiguration * config = [[MPAdConfiguration alloc] initWithMetadata:headers data:nil];
 
     MRController * controller = [[MRController alloc] initWithAdViewFrame:CGRectZero adPlacementType:MRAdViewPlacementTypeInterstitial delegate:nil];
     [controller loadAdWithConfiguration:config];

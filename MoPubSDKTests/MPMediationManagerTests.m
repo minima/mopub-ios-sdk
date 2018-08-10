@@ -119,14 +119,14 @@ static const NSTimeInterval kTestTimeout = 2; // seconds
     [MPMediationManager.sharedManager setCachedInitializationParameters:params forNetwork:nil];
 #pragma clang diagnostic pop
 
-    NSDictionary * cachedParams = [MPMediationManager.sharedManager cachedInitializationParametersForNetwork:MPStubMediatedNetwork.class];
+    NSDictionary * cachedParams = [MPMediationManager.sharedManager cachedInitializationParametersForNetwork:MPStubMediatedNetworkTwo.class];
     XCTAssertNil(cachedParams);
 }
 
 - (void)testSetCacheNoParams {
-    [MPMediationManager.sharedManager setCachedInitializationParameters:nil forNetwork:MPStubMediatedNetwork.class];
+    [MPMediationManager.sharedManager setCachedInitializationParameters:nil forNetwork:MPStubMediatedNetworkTwo.class];
 
-    NSDictionary * cachedParams = [MPMediationManager.sharedManager cachedInitializationParametersForNetwork:MPStubMediatedNetwork.class];
+    NSDictionary * cachedParams = [MPMediationManager.sharedManager cachedInitializationParametersForNetwork:MPStubMediatedNetworkTwo.class];
     XCTAssertNil(cachedParams);
 }
 

@@ -6,7 +6,10 @@
 //
 
 #import <XCTest/XCTest.h>
+#import "MPAdConfigurationFactory.h"
+#import "MPConstants.h"
 #import "MPConstants+Testing.h"
+#import "MPError.h"
 #import "MPRewardedVideoAdapter.h"
 #import "MPRewardedVideoAdapterDelegateHandler.h"
 #import "MPRewardedVideoAdapter+Testing.h"
@@ -115,6 +118,41 @@ static NSTimeInterval const kTestTimeout = 2;
     XCTAssertFalse(self.adapter.hasTrackedImpression);
     XCTAssertFalse(didExpire);
     XCTAssertFalse(self.adapter.hasExpired);
+}
+
+#pragma mark - Timeout
+
+- (void)testTimeoutOverrideSuccess {
+    XCTestExpectation * expectation = [self expectationWithDescription:@"Wait for timeout"];
+
+    // Generate the ad configurations
+    MPAdConfiguration * config = [MPAdConfigurationFactory defaultRewardedVideoConfigurationWithCustomEventClassName:@"MPMockRewardedVideoCustomEvent" additionalMetadata:@{kAdTimeoutMetadataKey: @(1000)}];
+
+    // Configure handler
+    __block BOOL didTimeout = NO;
+    MPRewardedVideoAdapterDelegateHandler * handler = MPRewardedVideoAdapterDelegateHandler.new;
+    handler.rewardedVideoDidFailToLoad = ^(MPRewardedVideoAdapter * adapter, NSError * error) {
+        if (error != nil && error.code == MOPUBErrorAdRequestTimedOut) {
+            didTimeout = YES;
+        }
+
+        [expectation fulfill];
+    };
+
+    // Adapter contains the timeout logic
+    MPRewardedVideoAdapter * adapter = [MPRewardedVideoAdapter new];
+    adapter.configuration = config;
+    adapter.delegate = handler;
+    [adapter startTimeoutTimer];
+
+    [self waitForExpectationsWithTimeout:REWARDED_VIDEO_TIMEOUT_INTERVAL handler:^(NSError * _Nullable error) {
+        if (error != nil) {
+            XCTFail(@"Timed out");
+        }
+    }];
+
+    // Verify error was timeout
+    XCTAssertTrue(didTimeout);
 }
 
 @end

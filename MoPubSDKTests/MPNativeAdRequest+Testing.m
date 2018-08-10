@@ -11,6 +11,7 @@
 #pragma clang diagnostic ignored "-Wprotocol"
 
 @implementation MPNativeAdRequest (Testing)
+@dynamic adConfiguration;
 @dynamic communicator;
 @end
 

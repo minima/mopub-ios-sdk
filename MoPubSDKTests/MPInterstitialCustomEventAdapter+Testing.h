@@ -10,7 +10,9 @@
 @interface MPInterstitialCustomEventAdapter (Testing)
 
 - (void)interstitialCustomEvent:(MPInterstitialCustomEvent *)customEvent didLoadAd:(id)ad;
+- (void)startTimeoutTimer;
 
+@property (nonatomic, strong) MPAdConfiguration * configuration;
 @property (nonatomic, assign) BOOL hasTrackedImpression;
 
 @end

@@ -85,3 +85,11 @@ NSString * const kLanguageKey                      = @"language";
 #pragma mark - Consent Dialog Endpoint: Response Keys
 
 NSString * const kDialogHTMLKey                    = @"dialog_html";
+
+#pragma mark - Rewarded Keys
+
+NSString * const kCustomerIdKey                    = @"customer_id";
+NSString * const kRewardedCurrencyNameKey          = @"rcn";
+NSString * const kRewardedCurrencyAmountKey        = @"rca";
+NSString * const kRewardedCustomEventNameKey       = @"cec";
+NSString * const kRewardedCustomDataKey            = @"rcd";

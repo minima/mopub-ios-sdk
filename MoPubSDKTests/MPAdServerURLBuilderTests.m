@@ -14,7 +14,11 @@
 #import "NSURLComponents+Testing.h"
 #import "MPStubAdvancedBidder.h"
 #import "NSString+MPConsentStatus.h"
+#import "NSString+MPAdditions.h"
 #import "MPAdServerKeys.h"
+#import "MPStubAdvancedBidder.h"
+#import "MPIdentityProvider.h"
+#import "MPURL.h"
 
 static NSString *const kTestAdUnitId = @"";
 static NSString *const kTestKeywords = @"";
@@ -46,26 +50,24 @@ static NSString * const kLastChangedMsStorageKey                 = @"com.mopub.m
 
 #pragma mark - Viewability
 
-- (void)testViewabilityQueryParameterPresent {
+- (void)testViewabilityPresentInPOSTData {
     // By default, IAS should be enabled
-    NSURL * url = [MPAdServerURLBuilder URLWithAdUnitID:kTestAdUnitId keywords:kTestKeywords userDataKeywords:nil location:nil];
-    NSURLComponents * urlComponents = [NSURLComponents componentsWithURL:url resolvingAgainstBaseURL:YES];
+    MPURL * url = [MPAdServerURLBuilder URLWithAdUnitID:kTestAdUnitId keywords:kTestKeywords userDataKeywords:nil location:nil];
+    XCTAssertNotNil(url);
 
-    NSString * viewabilityQueryParamValue = [urlComponents valueForQueryParameter:@"vv"];
-    XCTAssertNotNil(viewabilityQueryParamValue);
-    XCTAssertTrue([viewabilityQueryParamValue isEqualToString:@"1"]);
+    NSString * viewabilityValue = [url stringForPOSTDataKey:kViewabilityStatusKey];
+    XCTAssertTrue([viewabilityValue isEqualToString:@"1"]);
 }
 
 - (void)testViewabilityDisabled {
     // By default, IAS should be enabled so we should disable all vendors
     [MPViewabilityTracker disableViewability:(MPViewabilityOptionIAS | MPViewabilityOptionMoat)];
 
-    NSURL * url = [MPAdServerURLBuilder URLWithAdUnitID:kTestAdUnitId keywords:kTestKeywords userDataKeywords:nil location:nil];
-    NSURLComponents * urlComponents = [NSURLComponents componentsWithURL:url resolvingAgainstBaseURL:YES];
+    MPURL * url = [MPAdServerURLBuilder URLWithAdUnitID:kTestAdUnitId keywords:kTestKeywords userDataKeywords:nil location:nil];
+    XCTAssertNotNil(url);
 
-    NSString * viewabilityQueryParamValue = [urlComponents valueForQueryParameter:@"vv"];
-    XCTAssertNotNil(viewabilityQueryParamValue);
-    XCTAssertTrue([viewabilityQueryParamValue isEqualToString:@"0"]);
+    NSString * viewabilityValue = [url stringForPOSTDataKey:kViewabilityStatusKey];
+    XCTAssertTrue([viewabilityValue isEqualToString:@"0"]);
 }
 
 #pragma mark - Advanced Bidding
@@ -96,98 +98,139 @@ static NSString * const kLastChangedMsStorageKey                 = @"com.mopub.m
     XCTAssertNil(queryParam);
 }
 
+#pragma mark - Open Endpoint
+
+- (void)testExpectedPOSTParamsSessionTracking {
+    MPURL * url = [MPAdServerURLBuilder sessionTrackingURL];
+
+    // Check for session tracking parameter
+    NSString * sessionValue = [url stringForPOSTDataKey:kOpenEndpointSessionTrackingKey];
+    XCTAssert([sessionValue isEqualToString:@"1"]);
+
+    // Check for IDFA
+    NSString * idfaValue = [url stringForPOSTDataKey:kIdfaKey];
+    XCTAssertNotNil(idfaValue);
+
+    // Check for SDK version
+    NSString * versionValue = [url stringForPOSTDataKey:kSDKVersionKey];
+    XCTAssertNotNil(versionValue);
+
+    // Check for current consent status
+    NSString * consentValue = [url stringForPOSTDataKey:kCurrentConsentStatusKey];
+    XCTAssertNotNil(consentValue);
+}
+
+- (void)testExpectedPOSTParamsConversionTracking {
+    NSString * appID = @"0123456789";
+    MPURL * url = [MPAdServerURLBuilder conversionTrackingURLForAppID:appID];
+
+    // Check for lack of session tracking parameter
+    NSString * sessionValue = [url stringForPOSTDataKey:kOpenEndpointSessionTrackingKey];
+    XCTAssertNil(sessionValue);
+
+    // Check for IDFA
+    NSString * idfaValue = [url stringForPOSTDataKey:kIdfaKey];
+    XCTAssertNotNil(idfaValue);
+
+    // Check for ID
+    NSString * idValue = [url stringForPOSTDataKey:kAdServerIDKey];
+    XCTAssert([idValue isEqualToString:appID]);
+
+    // Check for SDK version
+    NSString * versionValue = [url stringForPOSTDataKey:kSDKVersionKey];
+    XCTAssertNotNil(versionValue);
+
+    // Check for current consent status
+    NSString * consentValue = [url stringForPOSTDataKey:kCurrentConsentStatusKey];
+    XCTAssertNotNil(consentValue);
+}
+
 #pragma mark - Consent
 
 - (void)testConsentStatusInAdRequest {
     NSString * consentStatus = [NSString stringFromConsentStatus:MPConsentManager.sharedManager.currentStatus];
     XCTAssertNotNil(consentStatus);
 
-    NSString * expectedQueryParamCurrentConsentStatus = [NSString stringWithFormat:@"current_consent_status=%@", consentStatus];
-    NSString * expectedQueryParamGDPRApplies = @"gdpr_applies=1";
-    NSURL * request = [MPAdServerURLBuilder URLWithAdUnitID:@"1234" keywords:nil userDataKeywords:nil location:nil];
+    MPURL * request = [MPAdServerURLBuilder URLWithAdUnitID:@"1234" keywords:nil userDataKeywords:nil location:nil];
     XCTAssertNotNil(request);
-    XCTAssert([request.query containsString:expectedQueryParamCurrentConsentStatus]);
-    XCTAssert([request.query containsString:expectedQueryParamGDPRApplies]);
-}
 
-- (void)testQueryParameterEncodingSuccess {
-    NSString * param = [MPAdServerURLBuilder queryItemForKey:@"a" value:@"i'm extra!"];
-    XCTAssert([param isEqualToString:@"a=i%27m%20extra%21"]);
-}
+    NSString * consentValue = [request stringForPOSTDataKey:kCurrentConsentStatusKey];
+    NSString * gdprAppliesValue = [request stringForPOSTDataKey:kGDPRAppliesKey];
 
-#pragma mark - Open Endpoint
-
-- (void)testExpectedQueryParamsSessionTracking {
-    NSString *URLString = [MPAdServerURLBuilder sessionTrackingURL].absoluteString;
-
-    // Check for session tracking parameter
-    XCTAssert([URLString containsString:@"st=1"]);
-
-    // Check for IDFA
-    XCTAssert([URLString containsString:@"udid="]);
-
-    // Check for SDK version
-    XCTAssert([URLString containsString:@"nv="]);
-
-    // Check for current consent status
-    XCTAssert([URLString containsString:@"current_consent_status="]);
-}
-
-- (void)testExpectedQueryParamsConversionTracking {
-    NSString *appID = @"0123456789";
-    NSString *URLString = [MPAdServerURLBuilder conversionTrackingURLForAppID:appID].absoluteString;
-
-    // Check for lack of session tracking parameter
-    XCTAssertFalse([URLString containsString:@"st=1"]);
-
-    // Check for IDFA
-    XCTAssert([URLString containsString:@"udid="]);
-
-    // Check for ID
-    NSString *idParamString = [NSString stringWithFormat:@"id=%@", appID];
-    XCTAssert([URLString containsString:idParamString]);
-
-    // Check for SDK version
-    XCTAssert([URLString containsString:@"nv="]);
-
-    // Check for current consent status
-    XCTAssert([URLString containsString:@"current_consent_status="]);
+    XCTAssert([consentValue isEqualToString:consentStatus]);
+    XCTAssert([gdprAppliesValue isEqualToString:@"1"]);
 }
 
 - (void)testNilLastChangedMs {
     // Nil out last changed ms field
     [NSUserDefaults.standardUserDefaults setObject:nil forKey:kLastChangedMsStorageKey];
 
-    NSURL * url = [MPAdServerURLBuilder consentSynchronizationUrl];
+    MPURL * url = [MPAdServerURLBuilder consentSynchronizationUrl];
     XCTAssertNotNil(url);
-    XCTAssertFalse([url.absoluteString containsString:kLastChangedMsKey]);
+
+    NSString * lastChangeValue = [url stringForPOSTDataKey:kLastChangedMsKey];
+    XCTAssertNil(lastChangeValue);
 }
 
 - (void)testNegativeLastChangedMs {
-    // Nil out last changed ms field
+    // Set negative value for last changed ms field
     [NSUserDefaults.standardUserDefaults setDouble:(-200000) forKey:kLastChangedMsStorageKey];
 
-    NSURL * url = [MPAdServerURLBuilder consentSynchronizationUrl];
+    MPURL * url = [MPAdServerURLBuilder consentSynchronizationUrl];
     XCTAssertNotNil(url);
-    XCTAssertFalse([url.absoluteString containsString:kLastChangedMsKey]);
+
+    NSString * lastChangeValue = [url stringForPOSTDataKey:kLastChangedMsKey];
+    XCTAssertNil(lastChangeValue);
 }
 
 - (void)testZeroLastChangedMs {
-    // Nil out last changed ms field
+    // Zero out last changed ms field
     [NSUserDefaults.standardUserDefaults setDouble:0 forKey:kLastChangedMsStorageKey];
 
-    NSURL * url = [MPAdServerURLBuilder consentSynchronizationUrl];
+    MPURL * url = [MPAdServerURLBuilder consentSynchronizationUrl];
     XCTAssertNotNil(url);
-    XCTAssertFalse([url.absoluteString containsString:kLastChangedMsKey]);
+
+    NSString * lastChangeValue = [url stringForPOSTDataKey:kLastChangedMsKey];
+    XCTAssertNil(lastChangeValue);
 }
 
 - (void)testInvalidLastChangedMs {
-    // Nil out last changed ms field
+    // Set invalid last changed ms field
     [NSUserDefaults.standardUserDefaults setObject:@"" forKey:kLastChangedMsStorageKey];
 
-    NSURL * url = [MPAdServerURLBuilder consentSynchronizationUrl];
+    MPURL * url = [MPAdServerURLBuilder consentSynchronizationUrl];
     XCTAssertNotNil(url);
-    XCTAssertFalse([url.absoluteString containsString:kLastChangedMsKey]);
+
+    NSString * lastChangeValue = [url stringForPOSTDataKey:kLastChangedMsKey];
+    XCTAssertNil(lastChangeValue);
+}
+
+- (void)testValidLastChangedMs {
+    // Set valid last changed ms field
+    [NSUserDefaults.standardUserDefaults setDouble:1532021932 forKey:kLastChangedMsStorageKey];
+
+    MPURL * url = [MPAdServerURLBuilder consentSynchronizationUrl];
+    XCTAssertNotNil(url);
+
+    NSString * lastChangeValue = [url stringForPOSTDataKey:kLastChangedMsKey];
+    XCTAssert([lastChangeValue isEqualToString:@"1532021932"]);
+}
+
+#pragma mark - URL String Parsing
+
+- (NSString *)queryParameterValueForKey:(NSString *)key inUrl:(NSString *)url {
+    NSString * prefix = [NSString stringWithFormat:@"%@=", key];
+
+    // Extract the query parameter using string parsing instead of
+    // using `NSURLComponents` and `NSURLQueryItem` since they automatically decode
+    // query item values.
+    NSString * queryItemPair = [[url componentsSeparatedByString:@"&"] filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(id  _Nullable evaluatedObject, NSDictionary<NSString *,id> * _Nullable bindings) {
+        NSString * component = (NSString *)evaluatedObject;
+        return [component hasPrefix:prefix];
+    }]].firstObject;
+
+    NSString * value = [queryItemPair componentsSeparatedByString:@"="][1];
+    return value;
 }
 
 @end

@@ -9,6 +9,10 @@
 #import "MPConstants.h"
 #import "MPCoreInstanceProvider.h"
 
+// URL scheme constants
+static NSString * const kUrlSchemeHttp = @"http";
+static NSString * const kUrlSchemeHttps = @"https";
+
 @implementation MPAPIEndpoints
 
 static BOOL sUsesHTTPS = YES;
@@ -27,17 +31,14 @@ static BOOL sUsesHTTPS = YES;
     return [@"http://" stringByAppendingString:MOPUB_BASE_HOSTNAME];
 }
 
-+ (NSString *)baseURLScheme
++ (NSURLComponents *)baseURLComponentsWithPath:(NSString *)path
 {
-    return sUsesHTTPS ? @"https://" : @"http://";
-}
+    NSURLComponents * components = [[NSURLComponents alloc] init];
+    components.scheme = (sUsesHTTPS ? kUrlSchemeHttps : kUrlSchemeHttp);
+    components.host = MOPUB_BASE_HOSTNAME;
+    components.path = path;
 
-+ (NSString *)baseURLStringWithPath:(NSString *)path
-{
-    return [NSString stringWithFormat:@"%@%@%@",
-            [[self class] baseURLScheme],
-            MOPUB_BASE_HOSTNAME,
-            path];
+    return components;
 }
 
 @end

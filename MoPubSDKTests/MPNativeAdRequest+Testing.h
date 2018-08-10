@@ -9,5 +9,8 @@
 #import "MPAdServerCommunicator.h"
 
 @interface MPNativeAdRequest (Testing) <MPAdServerCommunicatorDelegate>
+@property (nonatomic, strong) MPAdConfiguration *adConfiguration;
 @property (nonatomic, strong) MPAdServerCommunicator * communicator;
+
+- (void)startTimeoutTimer;
 @end

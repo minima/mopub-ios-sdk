@@ -8,12 +8,147 @@
 #import <XCTest/XCTest.h>
 #import "MPHTTPNetworkSession.h"
 #import "MPHTTPNetworkSession+Testing.h"
+#import "NSURLSessionTask+Testing.h"
+
+static NSString * const kTestURL = @"https://www.mopub.com";
 
 @interface MPHTTPNetworkSessionTests : XCTestCase
 
 @end
 
 @implementation MPHTTPNetworkSessionTests
+
+#pragma mark - Status Codes
+
+- (void)testStatusCode200 {
+    // Test URL
+    NSURL * testURL = [NSURL URLWithString:kTestURL];
+
+    // Fake request
+    MPHTTPNetworkSession * session = MPHTTPNetworkSession.sharedInstance;
+    NSURLRequest * request = [[NSURLRequest alloc] initWithURL:testURL];
+    NSURLSessionDataTask * task = [session.sharedSession dataTaskWithRequest:request];
+
+    // Fake response
+    task.response = [[NSHTTPURLResponse alloc] initWithURL:testURL statusCode:200 HTTPVersion:nil headerFields:nil];
+
+    // Setup handler
+    __block BOOL didError = NO;
+    MPHTTPNetworkTaskData * taskData = [[MPHTTPNetworkTaskData alloc] initWithResponseHandler:^(NSData * _Nonnull data, NSHTTPURLResponse * _Nonnull response) {
+        didError = NO;
+    } errorHandler:^(NSError * _Nonnull error) {
+        didError = YES;
+    } shouldRedirectWithNewRequest:^BOOL(NSURLSessionTask * _Nonnull task, NSURLRequest * _Nonnull newRequest) {
+        return YES;
+    }];
+
+    // Fake response data
+    taskData.responseData = [NSMutableData dataWithData:[kTestURL dataUsingEncoding:NSUTF8StringEncoding]];
+
+    // Fake network completion
+    [session setSessionData:taskData forTask:task];
+    [session URLSession:nil task:task didCompleteWithError:nil];
+
+    XCTAssertFalse(didError);
+}
+
+- (void)testStatusCode302 {
+    // Test URL
+    NSURL * testURL = [NSURL URLWithString:kTestURL];
+
+    // Fake request
+    MPHTTPNetworkSession * session = MPHTTPNetworkSession.sharedInstance;
+    NSURLRequest * request = [[NSURLRequest alloc] initWithURL:testURL];
+    NSURLSessionDataTask * task = [session.sharedSession dataTaskWithRequest:request];
+
+    // Fake response
+    task.response = [[NSHTTPURLResponse alloc] initWithURL:testURL statusCode:302 HTTPVersion:nil headerFields:nil];
+
+    // Setup handler
+    __block BOOL didError = NO;
+    MPHTTPNetworkTaskData * taskData = [[MPHTTPNetworkTaskData alloc] initWithResponseHandler:^(NSData * _Nonnull data, NSHTTPURLResponse * _Nonnull response) {
+        didError = NO;
+    } errorHandler:^(NSError * _Nonnull error) {
+        didError = YES;
+    } shouldRedirectWithNewRequest:^BOOL(NSURLSessionTask * _Nonnull task, NSURLRequest * _Nonnull newRequest) {
+        return YES;
+    }];
+
+    // Fake response data
+    taskData.responseData = [NSMutableData dataWithData:[kTestURL dataUsingEncoding:NSUTF8StringEncoding]];
+
+    // Fake network completion
+    [session setSessionData:taskData forTask:task];
+    [session URLSession:nil task:task didCompleteWithError:nil];
+
+    XCTAssertFalse(didError);
+}
+
+- (void)testStatusCode400Fail {
+    // Test URL
+    NSURL * testURL = [NSURL URLWithString:kTestURL];
+
+    // Fake request
+    MPHTTPNetworkSession * session = MPHTTPNetworkSession.sharedInstance;
+    NSURLRequest * request = [[NSURLRequest alloc] initWithURL:testURL];
+    NSURLSessionDataTask * task = [session.sharedSession dataTaskWithRequest:request];
+
+    // Fake response
+    task.response = [[NSHTTPURLResponse alloc] initWithURL:testURL statusCode:400 HTTPVersion:nil headerFields:nil];
+
+    // Setup handler
+    __block BOOL didError = NO;
+    MPHTTPNetworkTaskData * taskData = [[MPHTTPNetworkTaskData alloc] initWithResponseHandler:^(NSData * _Nonnull data, NSHTTPURLResponse * _Nonnull response) {
+        didError = NO;
+    } errorHandler:^(NSError * _Nonnull error) {
+        didError = YES;
+    } shouldRedirectWithNewRequest:^BOOL(NSURLSessionTask * _Nonnull task, NSURLRequest * _Nonnull newRequest) {
+        return YES;
+    }];
+
+    // Fake response data
+    taskData.responseData = [NSMutableData dataWithData:[kTestURL dataUsingEncoding:NSUTF8StringEncoding]];
+
+    // Fake network completion
+    [session setSessionData:taskData forTask:task];
+    [session URLSession:nil task:task didCompleteWithError:nil];
+
+    XCTAssertTrue(didError);
+}
+
+- (void)testStatusCode500Fail {
+    // Test URL
+    NSURL * testURL = [NSURL URLWithString:kTestURL];
+
+    // Fake request
+    MPHTTPNetworkSession * session = MPHTTPNetworkSession.sharedInstance;
+    NSURLRequest * request = [[NSURLRequest alloc] initWithURL:testURL];
+    NSURLSessionDataTask * task = [session.sharedSession dataTaskWithRequest:request];
+
+    // Fake response
+    task.response = [[NSHTTPURLResponse alloc] initWithURL:testURL statusCode:500 HTTPVersion:nil headerFields:nil];
+
+    // Setup handler
+    __block BOOL didError = NO;
+    MPHTTPNetworkTaskData * taskData = [[MPHTTPNetworkTaskData alloc] initWithResponseHandler:^(NSData * _Nonnull data, NSHTTPURLResponse * _Nonnull response) {
+        didError = NO;
+    } errorHandler:^(NSError * _Nonnull error) {
+        didError = YES;
+    } shouldRedirectWithNewRequest:^BOOL(NSURLSessionTask * _Nonnull task, NSURLRequest * _Nonnull newRequest) {
+        return YES;
+    }];
+
+    // Fake response data
+    taskData.responseData = [NSMutableData dataWithData:[kTestURL dataUsingEncoding:NSUTF8StringEncoding]];
+
+    // Fake network completion
+    [session setSessionData:taskData forTask:task];
+    [session URLSession:nil task:task didCompleteWithError:nil];
+
+    XCTAssertTrue(didError);
+}
+
+#pragma mark - Thread Safety
 
 - (void)testThreadSafeSessionAccess {
     MPHTTPNetworkSession * session = MPHTTPNetworkSession.sharedInstance;

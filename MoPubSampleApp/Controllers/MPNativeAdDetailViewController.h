@@ -6,12 +6,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MPViewController.h"
 
 @class MPAdInfo;
 
 extern NSString *const kNativeAdDefaultActionViewKey;
 
-@interface MPNativeAdDetailViewController : UIViewController
+@interface MPNativeAdDetailViewController : MPViewController
 
 - (id)initWithAdInfo:(MPAdInfo *)info;
 

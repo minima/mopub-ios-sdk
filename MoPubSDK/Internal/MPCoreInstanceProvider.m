@@ -170,13 +170,6 @@ static MPCoreInstanceProvider *sharedProvider = nil;
     return gestureRecognizer;
 }
 
-- (MPAnalyticsTracker *)sharedMPAnalyticsTracker
-{
-    return [self singletonForClass:[MPAnalyticsTracker class] provider:^id{
-        return [MPAnalyticsTracker tracker];
-    }];
-}
-
 - (MPATSSetting)appTransportSecuritySettings
 {
     // Keep track of ATS settings statically, as they'll never change in the lifecycle of the application.

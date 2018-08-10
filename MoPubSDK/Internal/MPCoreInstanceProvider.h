@@ -52,7 +52,6 @@ typedef NS_OPTIONS(NSUInteger, MPATSSetting) {
 - (CLLocationManager *)buildCLLocationManager;
 - (id<MPAdAlertManagerProtocol>)buildMPAdAlertManagerWithDelegate:(id)delegate;
 - (MPAdAlertGestureRecognizer *)buildMPAdAlertGestureRecognizerWithTarget:(id)target action:(SEL)action;
-- (MPAnalyticsTracker *)sharedMPAnalyticsTracker;
 - (MPATSSetting)appTransportSecuritySettings;
 
 // This call may return nil and may not update if the user hot-swaps the device's sim card.

@@ -98,7 +98,7 @@
     [self.delegate bannerCustomEventWillLeaveApplication:self];
 }
 
-- (void)trackMPXAndThirdPartyImpressions
+- (void)trackImpressionsIncludedInMarkup
 {
     [self.bannerAgent invokeJavaScriptForEvent:MPAdWebViewEventAdDidAppear];
 }

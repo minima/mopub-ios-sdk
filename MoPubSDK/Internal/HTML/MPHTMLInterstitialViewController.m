@@ -102,11 +102,14 @@
 
 #pragma mark - Autorotation
 
-- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
+- (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
 {
-    [super didRotateFromInterfaceOrientation:fromInterfaceOrientation];
+    [coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext> context) {
+        UIInterfaceOrientation orientation = [[UIApplication sharedApplication] statusBarOrientation];
+        [self.backingViewAgent rotateToOrientation:orientation];
+     } completion:nil];
 
-    [self.backingViewAgent rotateToOrientation:self.interfaceOrientation];
+    [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
 }
 
 #pragma mark - MPAdWebViewAgentDelegate

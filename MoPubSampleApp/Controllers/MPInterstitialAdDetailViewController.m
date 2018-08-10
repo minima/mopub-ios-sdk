@@ -73,6 +73,7 @@
         [[MPAdPersistenceManager sharedManager] addSavedAd:self.info];
     }
 
+    [self startTimer];
     [self.interstitial loadAd];
 }
 
@@ -97,6 +98,7 @@
 
 - (void)interstitialDidLoadAd:(MPInterstitialAdController *)interstitial
 {
+    [self endTimer];
     [self.spinner stopAnimating];
     self.showButton.hidden = NO;
     self.loadButton.enabled = YES;
@@ -104,6 +106,7 @@
 
 - (void)interstitialDidFailToLoadAd:(MPInterstitialAdController *)interstitial
 {
+    [self endTimer];
     self.failLabel.hidden = NO;
     self.loadButton.enabled = YES;
     [self.spinner stopAnimating];

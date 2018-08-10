@@ -23,6 +23,13 @@
 #import "MPNativeAdRenderer.h"
 #import "MPMoPubNativeCustomEvent.h"
 #import "MPNativeAdRendererConfiguration.h"
+#import "NSMutableArray+MPAdditions.h"
+#import "MPTimer.h"
+#import "MPError.h"
+#import "NSDate+MPAdditions.h"
+#import "NSError+MPAdditions.h"
+
+static NSString * const kNativeAdErrorDomain = @"com.mopub.NativeAd";
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -35,8 +42,11 @@
 @property (nonatomic, copy) MPNativeAdRequestHandler completionHandler;
 @property (nonatomic, strong) MPNativeCustomEvent *nativeCustomEvent;
 @property (nonatomic, strong) MPAdConfiguration *adConfiguration;
+@property (nonatomic, strong) NSMutableArray<MPAdConfiguration *> *remainingConfigurations;
 @property (nonatomic) id<MPNativeAdRenderer> customEventRenderer;
 @property (nonatomic, assign) BOOL loading;
+@property (nonatomic, strong) MPTimer *timeoutTimer;
+@property (nonatomic, assign) NSTimeInterval adapterLoadStartTimestamp;
 
 @end
 
@@ -127,8 +137,6 @@
         return;
     }
 
-    MPLogInfo(@"Starting ad request with URL: %@", self.URL);
-
     self.loading = YES;
     [self.communicator loadURL:URL];
 }
@@ -138,6 +146,8 @@
     if (configuration.customEventClass) {
         MPLogInfo(@"Looking for custom event class named %@.", configuration.customEventClass);
     }
+
+     [self startTimeoutTimer];
 
     // For MoPub native ads, set the classData to be the adResponseData
     if ((configuration.customEventClass == [MPMoPubNativeCustomEvent class]) || (configuration.customEventClass == [MOPUBNativeVideoCustomEvent class])) {
@@ -177,8 +187,11 @@
     }
 
     if (customEventRendererConfig == nil) {
-        MPLogError(@"Could not find renderer configuration for custom event class: %@", NSStringFromClass(configuration.customEventClass));
-        [self failAdRequest];
+        NSString * noRendererErrorMessage = [NSString stringWithFormat:@"Could not find renderer configuration for custom event class: %@", NSStringFromClass(configuration.customEventClass)];
+        NSError * noRendererError = [MOPUBError errorWithCode:MOPUBErrorNoRenderer localizedDescription:noRendererErrorMessage];
+        MPLogError(noRendererErrorMessage);
+
+        [self nativeCustomEvent:nil didFailToLoadAdWithError:noRendererError];
         return;
     }
     // Create a renderer from the config.
@@ -186,8 +199,11 @@
 
     MPNativeCustomEvent *customEvent = [[configuration.customEventClass alloc] init];
     if (![customEvent isKindOfClass:[MPNativeCustomEvent class]]) {
-        MPLogError(@"**** Custom Event Class: %@ does not extend MPNativeCustomEvent ****", NSStringFromClass(configuration.customEventClass));
-        [self failAdRequest];
+        NSString * invalidCustomEventErrorMessage = [NSString stringWithFormat:@"Custom Event Class: %@ does not extend MPNativeCustomEvent", NSStringFromClass(configuration.customEventClass)];
+        NSError * invalidCustomEventError = [MOPUBError errorWithCode:MOPUBErrorNoRenderer localizedDescription:invalidCustomEventErrorMessage];
+        MPLogError(invalidCustomEventErrorMessage);
+
+        [self nativeCustomEvent:nil didFailToLoadAdWithError:invalidCustomEventError];
         return;
     }
     customEvent.delegate = self;
@@ -197,18 +213,19 @@
 }
 
 - (void)failAdRequest {
-    if (self.adConfiguration.failoverURL == nil || [[self.adConfiguration.failoverURL absoluteString] length] == 0) {
+    if (self.adConfiguration.nextURL == nil || [[self.adConfiguration.nextURL absoluteString] length] == 0) {
         [self completeAdRequestWithAdObject:nil error:MPNativeAdNSErrorForInvalidAdServerResponse(nil)];
         return;
     }
 
     self.loading = NO;
-    [self loadAdWithURL:self.adConfiguration.failoverURL];
+    [self loadAdWithURL:self.adConfiguration.nextURL];
 }
 
 - (void)completeAdRequestWithAdObject:(MPNativeAd *)adObject error:(NSError *)error
 {
     self.loading = NO;
+    self.remainingConfigurations = nil;
 
     adObject.renderer = self.customEventRenderer;
 
@@ -228,26 +245,45 @@
     }
 }
 
-#pragma mark - <MPAdServerCommunicatorDelegate>
-
-- (void)communicatorDidReceiveAdConfigurations:(NSArray<MPAdConfiguration *> *)configurations
-{
-    self.adConfiguration = configurations.firstObject;
-
-    if (self.adConfiguration.adUnitWarmingUp) {
+- (void)fetchAdWithConfiguration:(MPAdConfiguration *)configuration {
+    if (configuration.adUnitWarmingUp) {
         MPLogInfo(kMPWarmingUpErrorLogFormatWithAdUnitID, self.adUnitIdentifier);
         [self completeAdRequestWithAdObject:nil error:MPNativeAdNSErrorForAdUnitWarmingUp()];
         return;
     }
 
-    if ([self.adConfiguration.networkType isEqualToString:kAdTypeClear]) {
+    if ([configuration.networkType isEqualToString:kAdTypeClear]) {
         MPLogInfo(kMPClearErrorLogFormatWithAdUnitID, self.adUnitIdentifier);
         [self completeAdRequestWithAdObject:nil error:MPNativeAdNSErrorForNoInventory()];
         return;
     }
 
     MPLogInfo(@"Received data from MoPub to construct native ad.\n");
+
+    // Notify Ad Server of the adapter load. This is fire and forget.
+    [self.communicator sendBeforeLoadUrlWithConfiguration:configuration];
+
+    // Record the start time of the adapter load.
+    self.adapterLoadStartTimestamp = NSDate.now.timeIntervalSince1970;
+
     [self getAdWithConfiguration:self.adConfiguration];
+}
+
+#pragma mark - <MPAdServerCommunicatorDelegate>
+
+- (void)communicatorDidReceiveAdConfigurations:(NSArray<MPAdConfiguration *> *)configurations
+{
+    self.remainingConfigurations = [configurations mutableCopy];
+    self.adConfiguration = [self.remainingConfigurations removeFirst];
+
+    // There are no configurations to try. Consider this a clear response by the server.
+    if (self.remainingConfigurations.count == 0 && self.adConfiguration == nil) {
+        MPLogInfo(kMPClearErrorLogFormatWithAdUnitID, self.adUnitIdentifier);
+        [self completeAdRequestWithAdObject:nil error:MPNativeAdNSErrorForNoInventory()];
+        return;
+    }
+
+    [self fetchAdWithConfiguration:self.adConfiguration];
 }
 
 - (void)communicatorDidFailWithError:(NSError *)error
@@ -261,33 +297,74 @@
 
 - (void)nativeCustomEvent:(MPNativeCustomEvent *)event didLoadAd:(MPNativeAd *)adObject
 {
+    // Record the end of the adapter load and send off the fire and forget after-load-url tracker.
+    NSTimeInterval duration = NSDate.now.timeIntervalSince1970 - self.adapterLoadStartTimestamp;
+    [self.communicator sendAfterLoadUrlWithConfiguration:self.adConfiguration adapterLoadDuration:duration adapterLoadResult:MPAfterLoadResultAdLoaded];
+
     // Add the click tracker url from the header to our set.
     if (self.adConfiguration.clickTrackingURL) {
         [adObject.clickTrackerURLs addObject:self.adConfiguration.clickTrackingURL];
     }
 
     // Add the impression tracker url from the header to our set.
-    if (self.adConfiguration.impressionTrackingURL) {
-        [adObject.impressionTrackerURLs addObject:self.adConfiguration.impressionTrackingURL];
+    if (self.adConfiguration.impressionTrackingURLs) {
+        [adObject.impressionTrackerURLs addObjectsFromArray:self.adConfiguration.impressionTrackingURLs];
     }
 
     // Error if we don't have click trackers or impression trackers.
     if (adObject.clickTrackerURLs.count < 1 || adObject.impressionTrackerURLs.count < 1) {
         [self completeAdRequestWithAdObject:nil error:MPNativeAdNSErrorForInvalidAdServerResponse(@"Invalid ad trackers")];
-    } else {
+    }
+    else {
         [self completeAdRequestWithAdObject:adObject error:nil];
     }
 }
 
 - (void)nativeCustomEvent:(MPNativeCustomEvent *)event didFailToLoadAdWithError:(NSError *)error
 {
-    if ([[self.adConfiguration.failoverURL absoluteString] length]) {
+    // Record the end of the adapter load and send off the fire and forget after-load-url tracker
+    // with the appropriate error code result.
+    NSTimeInterval duration = NSDate.now.timeIntervalSince1970 - self.adapterLoadStartTimestamp;
+    MPAfterLoadResult result = (error.isAdRequestTimedOutError ? MPAfterLoadResultTimeout : (event == nil ? MPAfterLoadResultMissingAdapter : MPAfterLoadResultError));
+    [self.communicator sendAfterLoadUrlWithConfiguration:self.adConfiguration adapterLoadDuration:duration adapterLoadResult:result];
+
+    // There are more ad configurations to try.
+    if (self.remainingConfigurations.count > 0) {
+        self.adConfiguration = [self.remainingConfigurations removeFirst];
+        [self fetchAdWithConfiguration:self.adConfiguration];
+    }
+    // No more configurations to try. Fail over and let Ad Server get more ads
+    else if (self.adConfiguration.nextURL != nil) {
         self.loading = NO;
-        [self loadAdWithURL:self.adConfiguration.failoverURL];
-    } else {
-        [self completeAdRequestWithAdObject:nil error:error];
+        [self loadAdWithURL:self.adConfiguration.nextURL];
+    }
+    // Nothing left to try.
+    else {
+        self.loading = NO;
+
+        MPLogInfo(kMPClearErrorLogFormatWithAdUnitID, self.adUnitIdentifier);
+        [self completeAdRequestWithAdObject:nil error:MPNativeAdNSErrorForNoInventory()];
     }
 }
 
+- (void)startTimeoutTimer
+{
+    NSTimeInterval timeInterval = (self.adConfiguration && self.adConfiguration.adTimeoutInterval >= 0) ? self.adConfiguration.adTimeoutInterval : NATIVE_TIMEOUT_INTERVAL;
+
+    if (timeInterval > 0) {
+        self.timeoutTimer = [[MPCoreInstanceProvider sharedProvider] buildMPTimerWithTimeInterval:timeInterval
+                                                                                           target:self
+                                                                                         selector:@selector(timeout)
+                                                                                          repeats:NO];
+
+        [self.timeoutTimer scheduleNow];
+    }
+}
+
+- (void)timeout
+{
+    NSError * error = [MOPUBError errorWithCode:MOPUBErrorAdRequestTimedOut localizedDescription:@"Native ad request timed out"];
+    [self nativeCustomEvent:self.nativeCustomEvent didFailToLoadAdWithError:error];
+}
 
 @end

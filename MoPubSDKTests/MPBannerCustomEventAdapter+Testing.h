@@ -18,5 +18,6 @@
 - (void)setHasTrackedImpression:(BOOL)hasTrackedImpression;
 
 - (BOOL)shouldTrackImpressionOnDisplay;
+- (void)startTimeoutTimer;
 
 @end

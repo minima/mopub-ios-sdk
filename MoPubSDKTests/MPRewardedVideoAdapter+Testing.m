@@ -12,9 +12,10 @@
 
 @implementation MPRewardedVideoAdapter (Testing)
 
+@dynamic configuration;
 @dynamic hasTrackedImpression;
 @dynamic hasExpired;
-@dynamic urlEncodedCustomData;
+@dynamic customData;
 @end
 
 #pragma clang diagnostic pop

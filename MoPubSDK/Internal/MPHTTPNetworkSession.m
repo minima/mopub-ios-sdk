@@ -223,6 +223,16 @@ didCompleteWithError:(nullable NSError *)error {
         return;
     }
 
+    // Validate response code is not an error (>= 400)
+    // See https://en.wikipedia.org/wiki/List_of_HTTP_status_codes for all valid status codes.
+    if (httpResponse.statusCode >= 400) {
+        NSString * not200ResponseMessage = [NSString stringWithFormat:@"HTTP status code %ld.", (long)httpResponse.statusCode];
+        NSError * not200ResponseError = [NSError errorWithDomain:kMoPubSDKNetworkDomain code:MOPUBErrorHTTPResponseNot200 userInfo:@{ NSLocalizedDescriptionKey: not200ResponseMessage }];
+        MPLogError(@"Network request failed with: %@", not200ResponseError.localizedDescription);
+        safe_block(taskData.errorHandler, not200ResponseError);
+        return;
+    }
+
     // Validate that there is data
     if (taskData.responseData == nil) {
         NSError * noDataError = [NSError errorWithDomain:kMoPubSDKNetworkDomain code:MOPUBErrorNoNetworkData userInfo:@{ NSLocalizedDescriptionKey: @"no data found in the NSHTTPURLResponse" }];

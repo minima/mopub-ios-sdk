@@ -85,3 +85,11 @@ extern NSString * const kLanguageKey;
 #pragma mark - Consent Dialog Endpoint: Response Keys
 
 extern NSString * const kDialogHTMLKey;
+
+#pragma mark - Rewarded Keys
+
+extern NSString * const kCustomerIdKey;
+extern NSString * const kRewardedCurrencyNameKey;
+extern NSString * const kRewardedCurrencyAmountKey;
+extern NSString * const kRewardedCustomEventNameKey;
+extern NSString * const kRewardedCustomDataKey;

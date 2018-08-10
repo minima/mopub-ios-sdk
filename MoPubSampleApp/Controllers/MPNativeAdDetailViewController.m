@@ -105,7 +105,9 @@ NSString *const kNativeAdDefaultActionViewKey = @"kNativeAdDefaultActionButtonKe
         [[MPAdPersistenceManager sharedManager] addSavedAd:self.info];
     }
 
+    [self startTimer];
     [adRequest1 startWithCompletionHandler:^(MPNativeAdRequest *request, MPNativeAd *response, NSError *error) {
+        [self endTimer];
         if (error) {
             NSLog(@"================> %@", error);
             [self configureAdLoadFail];

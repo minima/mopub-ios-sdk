@@ -88,7 +88,7 @@
     [self.delegate bannerCustomEventDidFinishAction:self];
 }
 
-- (void)trackMPXAndThirdPartyImpressions
+- (void)trackImpressionsIncludedInMarkup
 {
     [self.mraidController.mraidWebView stringByEvaluatingJavaScriptFromString:@"webviewDidAppear();"];
 }

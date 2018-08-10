@@ -12,6 +12,7 @@
 
 @implementation MPInterstitialCustomEventAdapter (Testing)
 
+@dynamic configuration;
 @dynamic hasTrackedImpression;
 
 @end

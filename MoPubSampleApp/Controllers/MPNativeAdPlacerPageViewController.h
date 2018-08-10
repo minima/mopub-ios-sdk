@@ -6,10 +6,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MPViewController.h"
 
 @class MPAdInfo;
 
-@interface MPNativeAdPlacerPageViewController : UIViewController
+@interface MPNativeAdPlacerPageViewController : MPViewController
 
 - (instancetype)initWithAdInfo:(MPAdInfo *)info;
 

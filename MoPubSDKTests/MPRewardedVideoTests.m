@@ -7,12 +7,14 @@
 
 #import <XCTest/XCTest.h>
 #import "MPAdConfiguration.h"
+#import "MPAdServerKeys.h"
 #import "MoPub.h"
 #import "MPRewardedVideo.h"
 #import "MPRewardedVideo+Testing.h"
 #import "MPRewardedVideoAdapter+Testing.h"
 #import "MPRewardedVideoDelegateHandler.h"
 #import "MPStubCustomEvent.h"
+#import "MPURL.h"
 #import "NSURLComponents+Testing.h"
 
 static NSString * const kTestAdUnitId    = @"967f82c7-c059-4ae8-8cb6-41c34265b1ef";
@@ -137,10 +139,10 @@ static const NSTimeInterval kTestTimeout = 2; // seconds
 
 - (void)testRewardedSingleCurrencyPresentationSuccess {
     // Setup rewarded ad configuration
-    NSDictionary * headers = @{ kRewardedVideoCurrencyNameHeaderKey: @"Diamonds",
-                                kRewardedVideoCurrencyAmountHeaderKey: @"3",
+    NSDictionary * headers = @{ kRewardedVideoCurrencyNameMetadataKey: @"Diamonds",
+                                kRewardedVideoCurrencyAmountMetadataKey: @"3",
                                 };
-    MPAdConfiguration * config = [[MPAdConfiguration alloc] initWithHeaders:headers data:nil];
+    MPAdConfiguration * config = [[MPAdConfiguration alloc] initWithMetadata:headers data:nil];
 
     // Semaphore to wait for asynchronous method to finish before continuing the test.
     XCTestExpectation * expectation = [self expectationWithDescription:@"Wait for reward completion block to fire."];
@@ -180,8 +182,8 @@ static const NSTimeInterval kTestTimeout = 2; // seconds
     //     { "name": "Coins", "amount": 8 }
     //   ]
     // }
-    NSDictionary * headers = @{ kRewardedCurrenciesHeaderKey: @"{ \"rewards\": [ { \"name\": \"Coins\", \"amount\": 8 } ] }" };
-    MPAdConfiguration * config = [[MPAdConfiguration alloc] initWithHeaders:headers data:nil];
+    NSDictionary * headers = @{ kRewardedCurrenciesMetadataKey: @{ @"rewards": @[ @{ @"name": @"Coins", @"amount": @(8) } ] } };
+    MPAdConfiguration * config = [[MPAdConfiguration alloc] initWithMetadata:headers data:nil];
 
     // Semaphore to wait for asynchronous method to finish before continuing the test.
     XCTestExpectation * expectation = [self expectationWithDescription:@"Wait for reward completion block to fire."];
@@ -221,10 +223,10 @@ static const NSTimeInterval kTestTimeout = 2; // seconds
     //     { "name": "Coins", "amount": 8 }
     //   ]
     // }
-    NSDictionary * headers = @{ kRewardedVideoCompletionUrlHeaderKey: @"https://test.com?verifier=123",
-                                kRewardedCurrenciesHeaderKey: @"{ \"rewards\": [ { \"name\": \"Coins\", \"amount\": 8 } ] }"
+    NSDictionary * headers = @{ kRewardedVideoCompletionUrlMetadataKey: @"https://test.com?verifier=123",
+                                kRewardedCurrenciesMetadataKey: @{ @"rewards": @[ @{ @"name": @"Coins", @"amount": @(8) } ] }
                               };
-    MPAdConfiguration * config = [[MPAdConfiguration alloc] initWithHeaders:headers data:nil];
+    MPAdConfiguration * config = [[MPAdConfiguration alloc] initWithMetadata:headers data:nil];
 
     // Semaphore to wait for asynchronous method to finish before continuing the test.
     XCTestExpectation * expectation = [self expectationWithDescription:@"Wait for reward completion block to fire."];
@@ -260,9 +262,10 @@ static const NSTimeInterval kTestTimeout = 2; // seconds
     XCTAssertNotNil(rewardForUser);
     XCTAssertNotNil(s2sUrl);
 
-    NSURLComponents * s2sUrlComponents = [NSURLComponents componentsWithURL:s2sUrl resolvingAgainstBaseURL:NO];
-    XCTAssert([[s2sUrlComponents valueForQueryParameter:@"rcn"] isEqualToString:@"Coins"]);
-    XCTAssert([[s2sUrlComponents valueForQueryParameter:@"rca"] isEqualToString:@"8"]);
+    MPURL * s2sMoPubUrl = [s2sUrl isKindOfClass:[MPURL class]] ? (MPURL *)s2sUrl : nil;
+    XCTAssertNotNil(s2sMoPubUrl);
+    XCTAssert([[s2sMoPubUrl stringForPOSTDataKey:kRewardedCurrencyNameKey] isEqualToString:@"Coins"]);
+    XCTAssert([[s2sMoPubUrl stringForPOSTDataKey:kRewardedCurrencyAmountKey] isEqualToString:@"8"]);
 
     [MPRewardedVideo removeDelegateForAdUnitId:adUnitId];
 }
@@ -277,8 +280,8 @@ static const NSTimeInterval kTestTimeout = 2; // seconds
     //     { "name": "Energy", "amount": 20 }
     //   ]
     // }
-    NSDictionary * headers = @{ kRewardedCurrenciesHeaderKey: @"{ \"rewards\": [ { \"name\": \"Coins\", \"amount\": 8 }, { \"name\": \"Diamonds\", \"amount\": 1 }, { \"name\": \"Energy\", \"amount\": 20 } ] }" };
-    MPAdConfiguration * config = [[MPAdConfiguration alloc] initWithHeaders:headers data:nil];
+    NSDictionary * headers = @{ kRewardedCurrenciesMetadataKey: @{ @"rewards": @[ @{ @"name": @"Coins", @"amount": @(8) }, @{ @"name": @"Diamonds", @"amount": @(1) }, @{ @"name": @"Energy", @"amount": @(20) } ] } };
+    MPAdConfiguration * config = [[MPAdConfiguration alloc] initWithMetadata:headers data:nil];
 
     // Semaphore to wait for asynchronous method to finish before continuing the test.
     XCTestExpectation * expectation = [self expectationWithDescription:@"Wait for reward completion block to fire."];
@@ -316,8 +319,8 @@ static const NSTimeInterval kTestTimeout = 2; // seconds
     //     { "name": "Energy", "amount": 20 }
     //   ]
     // }
-    NSDictionary * headers = @{ kRewardedCurrenciesHeaderKey: @"{ \"rewards\": [ { \"name\": \"Coins\", \"amount\": 8 }, { \"name\": \"Diamonds\", \"amount\": 1 }, { \"name\": \"Energy\", \"amount\": 20 } ] }" };
-    MPAdConfiguration * config = [[MPAdConfiguration alloc] initWithHeaders:headers data:nil];
+    NSDictionary * headers = @{ kRewardedCurrenciesMetadataKey: @{ @"rewards": @[ @{ @"name": @"Coins", @"amount": @(8) }, @{ @"name": @"Diamonds", @"amount": @(1) }, @{ @"name": @"Energy", @"amount": @(20) } ] } };
+    MPAdConfiguration * config = [[MPAdConfiguration alloc] initWithMetadata:headers data:nil];
 
     // Semaphore to wait for asynchronous method to finish before continuing the test.
     XCTestExpectation * expectation = [self expectationWithDescription:@"Wait for reward completion block to fire."];
@@ -361,8 +364,8 @@ static const NSTimeInterval kTestTimeout = 2; // seconds
     //     { "name": "Energy", "amount": 20 }
     //   ]
     // }
-    NSDictionary * headers = @{ kRewardedCurrenciesHeaderKey: @"{ \"rewards\": [ { \"name\": \"Coins\", \"amount\": 8 }, { \"name\": \"Diamonds\", \"amount\": 1 }, { \"name\": \"Energy\", \"amount\": 20 } ] }" };
-    MPAdConfiguration * config = [[MPAdConfiguration alloc] initWithHeaders:headers data:nil];
+    NSDictionary * headers = @{ kRewardedCurrenciesMetadataKey: @{ @"rewards": @[ @{ @"name": @"Coins", @"amount": @(8) }, @{ @"name": @"Diamonds", @"amount": @(1) }, @{ @"name": @"Energy", @"amount": @(20) } ] } };
+    MPAdConfiguration * config = [[MPAdConfiguration alloc] initWithMetadata:headers data:nil];
 
     // Semaphore to wait for asynchronous method to finish before continuing the test.
     XCTestExpectation * expectation = [self expectationWithDescription:@"Wait for reward completion block to fire."];
@@ -409,10 +412,10 @@ static const NSTimeInterval kTestTimeout = 2; // seconds
     //     { "name": "Energy", "amount": 20 }
     //   ]
     // }
-    NSDictionary * headers = @{ kRewardedVideoCompletionUrlHeaderKey: @"https://test.com?verifier=123",
-                                kRewardedCurrenciesHeaderKey: @"{ \"rewards\": [ { \"name\": \"Coins\", \"amount\": 8 }, { \"name\": \"Diamonds\", \"amount\": 1 }, { \"name\": \"Energy\", \"amount\": 20 } ] }"
+    NSDictionary * headers = @{ kRewardedVideoCompletionUrlMetadataKey: @"https://test.com?verifier=123",
+                                kRewardedCurrenciesMetadataKey: @{ @"rewards": @[ @{ @"name": @"Coins", @"amount": @(8) }, @{ @"name": @"Diamonds", @"amount": @(1) }, @{ @"name": @"Energy", @"amount": @(20) } ] }
                               };
-    MPAdConfiguration * config = [[MPAdConfiguration alloc] initWithHeaders:headers data:nil];
+    MPAdConfiguration * config = [[MPAdConfiguration alloc] initWithMetadata:headers data:nil];
 
     // Semaphore to wait for asynchronous method to finish before continuing the test.
     XCTestExpectation * expectation = [self expectationWithDescription:@"Wait for reward completion block to fire."];
@@ -444,17 +447,18 @@ static const NSTimeInterval kTestTimeout = 2; // seconds
     XCTAssertNotNil(rewardForUser);
     XCTAssertNotNil(s2sUrl);
 
-    NSURLComponents * s2sUrlComponents = [NSURLComponents componentsWithURL:s2sUrl resolvingAgainstBaseURL:NO];
-    XCTAssert([[s2sUrlComponents valueForQueryParameter:@"rcn"] isEqualToString:@"Diamonds"]);
-    XCTAssert([[s2sUrlComponents valueForQueryParameter:@"rca"] isEqualToString:@"1"]);
+    MPURL * s2sMoPubUrl = [s2sUrl isKindOfClass:[MPURL class]] ? (MPURL *)s2sUrl : nil;
+    XCTAssertNotNil(s2sMoPubUrl);
+    XCTAssert([[s2sMoPubUrl stringForPOSTDataKey:kRewardedCurrencyNameKey] isEqualToString:@"Diamonds"]);
+    XCTAssert([[s2sMoPubUrl stringForPOSTDataKey:kRewardedCurrencyAmountKey] isEqualToString:@"1"]);
 
     [MPRewardedVideo removeDelegateForAdUnitId:adUnitId];
 }
 
 - (void)testRewardedS2SNoRewardSpecified {
-    NSDictionary * headers = @{ kRewardedVideoCompletionUrlHeaderKey: @"https://test.com?verifier=123",
+    NSDictionary * headers = @{ kRewardedVideoCompletionUrlMetadataKey: @"https://test.com?verifier=123",
                                 };
-    MPAdConfiguration * config = [[MPAdConfiguration alloc] initWithHeaders:headers data:nil];
+    MPAdConfiguration * config = [[MPAdConfiguration alloc] initWithMetadata:headers data:nil];
 
     // Semaphore to wait for asynchronous method to finish before continuing the test.
     XCTestExpectation * expectation = [self expectationWithDescription:@"Wait for reward completion block to fire."];
@@ -500,11 +504,11 @@ static const NSTimeInterval kTestTimeout = 2; // seconds
     NSString * customData = [@"" stringByPaddingToLength:512 withString:@"test" startingAtIndex:0];
 
     // Setup rewarded ad configuration
-    NSDictionary * headers = @{ kRewardedVideoCurrencyNameHeaderKey: @"Diamonds",
-                                kRewardedVideoCurrencyAmountHeaderKey: @"3",
-                                kRewardedVideoCompletionUrlHeaderKey: @"https://test.com?verifier=123",
+    NSDictionary * headers = @{ kRewardedVideoCurrencyNameMetadataKey: @"Diamonds",
+                                kRewardedVideoCurrencyAmountMetadataKey: @"3",
+                                kRewardedVideoCompletionUrlMetadataKey: @"https://test.com?verifier=123",
                                 };
-    MPAdConfiguration * config = [[MPAdConfiguration alloc] initWithHeaders:headers data:nil];
+    MPAdConfiguration * config = [[MPAdConfiguration alloc] initWithMetadata:headers data:nil];
 
     // Semaphore to wait for asynchronous method to finish before continuing the test.
     XCTestExpectation * expectation = [self expectationWithDescription:@"Wait for reward completion block to fire."];
@@ -527,8 +531,9 @@ static const NSTimeInterval kTestTimeout = 2; // seconds
 
     XCTAssertNotNil(s2sUrl);
 
-    NSString * encodedCustomDataQueryParam = [NSString stringWithFormat:@"rcd=%@", customData];
-    XCTAssert([s2sUrl.absoluteString containsString:encodedCustomDataQueryParam]);
+    MPURL * s2sMoPubUrl = [s2sUrl isKindOfClass:[MPURL class]] ? (MPURL *)s2sUrl : nil;
+    XCTAssertNotNil(s2sMoPubUrl);
+    XCTAssert([[s2sMoPubUrl stringForPOSTDataKey:kRewardedCustomDataKey] isEqualToString:customData]);
 }
 
 - (void)testCustomDataExcessiveDataLength {
@@ -536,11 +541,11 @@ static const NSTimeInterval kTestTimeout = 2; // seconds
     NSString * customData = [@"" stringByPaddingToLength:8200 withString:@"test" startingAtIndex:0];
 
     // Setup rewarded ad configuration
-    NSDictionary * headers = @{ kRewardedVideoCurrencyNameHeaderKey: @"Diamonds",
-                                kRewardedVideoCurrencyAmountHeaderKey: @"3",
-                                kRewardedVideoCompletionUrlHeaderKey: @"https://test.com?verifier=123",
+    NSDictionary * headers = @{ kRewardedVideoCurrencyNameMetadataKey: @"Diamonds",
+                                kRewardedVideoCurrencyAmountMetadataKey: @"3",
+                                kRewardedVideoCompletionUrlMetadataKey: @"https://test.com?verifier=123",
                               };
-    MPAdConfiguration * config = [[MPAdConfiguration alloc] initWithHeaders:headers data:nil];
+    MPAdConfiguration * config = [[MPAdConfiguration alloc] initWithMetadata:headers data:nil];
 
     // Semaphore to wait for asynchronous method to finish before continuing the test.
     XCTestExpectation * expectation = [self expectationWithDescription:@"Wait for reward completion block to fire."];
@@ -563,19 +568,20 @@ static const NSTimeInterval kTestTimeout = 2; // seconds
 
     XCTAssertNotNil(s2sUrl);
 
-    NSString * encodedCustomDataQueryParam = [NSString stringWithFormat:@"rcd=%@", customData];
-    XCTAssert([s2sUrl.absoluteString containsString:encodedCustomDataQueryParam]);
+    MPURL * s2sMoPubUrl = [s2sUrl isKindOfClass:[MPURL class]] ? (MPURL *)s2sUrl : nil;
+    XCTAssertNotNil(s2sMoPubUrl);
+    XCTAssert([[s2sMoPubUrl stringForPOSTDataKey:kRewardedCustomDataKey] isEqualToString:customData]);
 
     [MPRewardedVideo removeDelegateForAdUnitId:adUnitId];
 }
 
 - (void)testCustomDataNil {
     // Setup rewarded ad configuration
-    NSDictionary * headers = @{ kRewardedVideoCurrencyNameHeaderKey: @"Diamonds",
-                                kRewardedVideoCurrencyAmountHeaderKey: @"3",
-                                kRewardedVideoCompletionUrlHeaderKey: @"https://test.com?verifier=123",
+    NSDictionary * headers = @{ kRewardedVideoCurrencyNameMetadataKey: @"Diamonds",
+                                kRewardedVideoCurrencyAmountMetadataKey: @"3",
+                                kRewardedVideoCompletionUrlMetadataKey: @"https://test.com?verifier=123",
                                 };
-    MPAdConfiguration * config = [[MPAdConfiguration alloc] initWithHeaders:headers data:nil];
+    MPAdConfiguration * config = [[MPAdConfiguration alloc] initWithMetadata:headers data:nil];
 
     // Semaphore to wait for asynchronous method to finish before continuing the test.
     XCTestExpectation * expectation = [self expectationWithDescription:@"Wait for reward completion block to fire."];
@@ -602,11 +608,11 @@ static const NSTimeInterval kTestTimeout = 2; // seconds
 
 - (void)testCustomDataEmpty {
     // Setup rewarded ad configuration
-    NSDictionary * headers = @{ kRewardedVideoCurrencyNameHeaderKey: @"Diamonds",
-                                kRewardedVideoCurrencyAmountHeaderKey: @"3",
-                                kRewardedVideoCompletionUrlHeaderKey: @"https://test.com?verifier=123",
+    NSDictionary * headers = @{ kRewardedVideoCurrencyNameMetadataKey: @"Diamonds",
+                                kRewardedVideoCurrencyAmountMetadataKey: @"3",
+                                kRewardedVideoCompletionUrlMetadataKey: @"https://test.com?verifier=123",
                                 };
-    MPAdConfiguration * config = [[MPAdConfiguration alloc] initWithHeaders:headers data:nil];
+    MPAdConfiguration * config = [[MPAdConfiguration alloc] initWithMetadata:headers data:nil];
 
     // Semaphore to wait for asynchronous method to finish before continuing the test.
     XCTestExpectation * expectation = [self expectationWithDescription:@"Wait for reward completion block to fire."];
@@ -631,16 +637,16 @@ static const NSTimeInterval kTestTimeout = 2; // seconds
     XCTAssert(![s2sUrl.absoluteString containsString:@"rcd="]);
 }
 
-- (void)testCustomDataURIEncoded {
+- (void)testCustomDataInPOSTData {
     // Custom data in need of URI encoding
     NSString * customData = @"{ \"key\": \"some value with spaces\" }";
 
     // Setup rewarded ad configuration
-    NSDictionary * headers = @{ kRewardedVideoCurrencyNameHeaderKey: @"Diamonds",
-                                kRewardedVideoCurrencyAmountHeaderKey: @"3",
-                                kRewardedVideoCompletionUrlHeaderKey: @"https://test.com?verifier=123",
+    NSDictionary * headers = @{ kRewardedVideoCurrencyNameMetadataKey: @"Diamonds",
+                                kRewardedVideoCurrencyAmountMetadataKey: @"3",
+                                kRewardedVideoCompletionUrlMetadataKey: @"https://test.com?verifier=123",
                                 };
-    MPAdConfiguration * config = [[MPAdConfiguration alloc] initWithHeaders:headers data:nil];
+    MPAdConfiguration * config = [[MPAdConfiguration alloc] initWithMetadata:headers data:nil];
 
     // Semaphore to wait for asynchronous method to finish before continuing the test.
     XCTestExpectation * expectation = [self expectationWithDescription:@"Wait for reward completion block to fire."];
@@ -663,9 +669,9 @@ static const NSTimeInterval kTestTimeout = 2; // seconds
 
     XCTAssertNotNil(s2sUrl);
 
-    NSString * uriEncodedCustomData = @"%7B%20%22key%22%3A%20%22some%20value%20with%20spaces%22%20%7D";
-    NSString * expectedQueryParam = [NSString stringWithFormat:@"rcd=%@", uriEncodedCustomData];
-    XCTAssert([s2sUrl.absoluteString containsString:expectedQueryParam]);
+    MPURL * s2sMoPubUrl = [s2sUrl isKindOfClass:[MPURL class]] ? (MPURL *)s2sUrl : nil;
+    XCTAssertNotNil(s2sMoPubUrl);
+    XCTAssert([[s2sMoPubUrl stringForPOSTDataKey:kRewardedCustomDataKey] isEqualToString:customData]);
 }
 
 - (void)testCustomDataLocalReward {
@@ -673,10 +679,10 @@ static const NSTimeInterval kTestTimeout = 2; // seconds
     NSString * customData = [@"" stringByPaddingToLength:512 withString:@"test" startingAtIndex:0];
 
     // Setup rewarded ad configuration
-    NSDictionary * headers = @{ kRewardedVideoCurrencyNameHeaderKey: @"Diamonds",
-                                kRewardedVideoCurrencyAmountHeaderKey: @"3",
+    NSDictionary * headers = @{ kRewardedVideoCurrencyNameMetadataKey: @"Diamonds",
+                                kRewardedVideoCurrencyAmountMetadataKey: @"3",
                                 };
-    MPAdConfiguration * config = [[MPAdConfiguration alloc] initWithHeaders:headers data:nil];
+    MPAdConfiguration * config = [[MPAdConfiguration alloc] initWithMetadata:headers data:nil];
 
     // Semaphore to wait for asynchronous method to finish before continuing the test.
     XCTestExpectation * expectation = [self expectationWithDescription:@"Wait for reward completion block to fire."];
@@ -711,19 +717,19 @@ static const NSTimeInterval kTestTimeout = 2; // seconds
 
     XCTAssertNil(s2sUrl);
     XCTAssertNotNil(adapter);
-    XCTAssertNil(adapter.urlEncodedCustomData);
+    XCTAssertNil(adapter.customData);
 
     [MPRewardedVideo removeDelegateForAdUnitId:adUnitId];
 }
 
 - (void)testNetworkIdentifierInRewardCallback {
     // Setup rewarded ad configuration
-    NSDictionary * headers = @{ kCustomEventClassNameHeaderKey: @"MPMockChartboostRewardedVideoCustomEvent",
-                                kRewardedVideoCurrencyNameHeaderKey: @"Diamonds",
-                                kRewardedVideoCurrencyAmountHeaderKey: @"3",
-                                kRewardedVideoCompletionUrlHeaderKey: @"https://test.com?verifier=123",
+    NSDictionary * headers = @{ kCustomEventClassNameMetadataKey: @"MPMockChartboostRewardedVideoCustomEvent",
+                                kRewardedVideoCurrencyNameMetadataKey: @"Diamonds",
+                                kRewardedVideoCurrencyAmountMetadataKey: @"3",
+                                kRewardedVideoCompletionUrlMetadataKey: @"https://test.com?verifier=123",
                                 };
-    MPAdConfiguration * config = [[MPAdConfiguration alloc] initWithHeaders:headers data:nil];
+    MPAdConfiguration * config = [[MPAdConfiguration alloc] initWithMetadata:headers data:nil];
 
     // Semaphore to wait for asynchronous method to finish before continuing the test.
     XCTestExpectation * expectation = [self expectationWithDescription:@"Wait for reward completion block to fire."];
@@ -745,18 +751,21 @@ static const NSTimeInterval kTestTimeout = 2; // seconds
     }];
 
     XCTAssertNotNil(s2sUrl);
-    XCTAssert([s2sUrl.absoluteString containsString:@"cec=MPMockChartboostRewardedVideoCustomEvent"]);
+
+    MPURL * s2sMoPubUrl = [s2sUrl isKindOfClass:[MPURL class]] ? (MPURL *)s2sUrl : nil;
+    XCTAssertNotNil(s2sMoPubUrl);
+    XCTAssert([[s2sMoPubUrl stringForPOSTDataKey:kRewardedCustomEventNameKey] isEqualToString:@"MPMockChartboostRewardedVideoCustomEvent"]);
 }
 
 - (void)testMoPubNetworkIdentifierInRewardCallback {
     // Setup rewarded ad configuration
-    NSDictionary * headers = @{ kAdTypeHeaderKey: @"rewarded_video",
-                                kCustomEventClassNameHeaderKey: @"rewarded_video",
-                                kRewardedVideoCurrencyNameHeaderKey: @"Diamonds",
-                                kRewardedVideoCurrencyAmountHeaderKey: @"3",
-                                kRewardedVideoCompletionUrlHeaderKey: @"https://test.com?verifier=123",
+    NSDictionary * headers = @{ kAdTypeMetadataKey: @"rewarded_video",
+                                kCustomEventClassNameMetadataKey: @"rewarded_video",
+                                kRewardedVideoCurrencyNameMetadataKey: @"Diamonds",
+                                kRewardedVideoCurrencyAmountMetadataKey: @"3",
+                                kRewardedVideoCompletionUrlMetadataKey: @"https://test.com?verifier=123",
                                 };
-    MPAdConfiguration * config = [[MPAdConfiguration alloc] initWithHeaders:headers data:nil];
+    MPAdConfiguration * config = [[MPAdConfiguration alloc] initWithMetadata:headers data:nil];
 
     // Semaphore to wait for asynchronous method to finish before continuing the test.
     XCTestExpectation * expectation = [self expectationWithDescription:@"Wait for reward completion block to fire."];
@@ -778,7 +787,10 @@ static const NSTimeInterval kTestTimeout = 2; // seconds
     }];
 
     XCTAssertNotNil(s2sUrl);
-    XCTAssert([s2sUrl.absoluteString containsString:@"cec=MPMoPubRewardedVideoCustomEvent"]);
+
+    MPURL * s2sMoPubUrl = [s2sUrl isKindOfClass:[MPURL class]] ? (MPURL *)s2sUrl : nil;
+    XCTAssertNotNil(s2sMoPubUrl);
+    XCTAssert([[s2sMoPubUrl stringForPOSTDataKey:kRewardedCustomEventNameKey] isEqualToString:@"MPMoPubRewardedVideoCustomEvent"]);
 }
 
 @end

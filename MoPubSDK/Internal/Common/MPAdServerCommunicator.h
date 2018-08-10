@@ -24,6 +24,11 @@
 - (void)loadURL:(NSURL *)URL;
 - (void)cancel;
 
+- (void)sendBeforeLoadUrlWithConfiguration:(MPAdConfiguration *)configuration;
+- (void)sendAfterLoadUrlWithConfiguration:(MPAdConfiguration *)configuration
+                      adapterLoadDuration:(NSTimeInterval)duration
+                        adapterLoadResult:(MPAfterLoadResult)result;
+
 @end
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////

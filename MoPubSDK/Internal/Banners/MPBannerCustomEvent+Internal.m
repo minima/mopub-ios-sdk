@@ -9,7 +9,7 @@
 
 @implementation MPBannerCustomEvent (Internal)
 
-- (void)trackMPXAndThirdPartyImpressions
+- (void)trackImpressionsIncludedInMarkup
 {
     // no-op.
 }

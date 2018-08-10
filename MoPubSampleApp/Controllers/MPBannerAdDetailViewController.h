@@ -7,10 +7,11 @@
 
 #import <UIKit/UIKit.h>
 #import "MPAdView.h"
+#import "MPViewController.h"
 
 @class MPAdInfo;
 
-@interface MPBannerAdDetailViewController : UIViewController <MPAdViewDelegate>
+@interface MPBannerAdDetailViewController : MPViewController <MPAdViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *IDLabel;

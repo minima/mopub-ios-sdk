@@ -6,10 +6,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MPViewController.h"
 
 @class MPAdInfo;
 
-@interface MPRewardedVideoAdDetailViewController : UIViewController
+@interface MPRewardedVideoAdDetailViewController : MPViewController
 
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *IDLabel;

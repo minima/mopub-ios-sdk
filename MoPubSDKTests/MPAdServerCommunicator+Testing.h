@@ -12,6 +12,6 @@
 @property (nonatomic, assign, readwrite) BOOL loading;
 
 // Expose private methods from `MPAdServerCommunicator`
-- (void)didFinishLoadingWithData:(NSData *)data headers:(NSDictionary *)headers;
+- (void)didFinishLoadingWithData:(NSData *)data;
 
 @end

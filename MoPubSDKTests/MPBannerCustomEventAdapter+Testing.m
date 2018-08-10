@@ -8,6 +8,8 @@
 #import "MPBannerCustomEventAdapter+Testing.h"
 #import "MPBannerCustomEvent.h"
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wincomplete-implementation"
 @implementation MPBannerCustomEventAdapter (Testing)
 
 @dynamic configuration;
@@ -21,3 +23,4 @@
 }
 
 @end
+#pragma clang diagnostic pop

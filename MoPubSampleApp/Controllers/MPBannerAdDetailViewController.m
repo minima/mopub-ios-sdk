@@ -72,6 +72,8 @@
     self.adView.accessibilityLabel = @"banner";
     self.adView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     [self.adViewContainer addSubview:self.adView];
+
+    [self.adView stopAutomaticallyRefreshingContents];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -92,6 +94,7 @@
     self.loadAdButton.enabled = NO;
     self.failLabel.hidden = YES;
     [self.spinner startAnimating];
+    [self startTimer];
     [self.adView loadAd];
 }
 
@@ -120,6 +123,7 @@
     self.loadAdButton.enabled = YES;
 
     [self.spinner stopAnimating];
+    [self endTimer];
 }
 
 - (void)adViewDidFailToLoadAd:(MPAdView *)view
@@ -128,6 +132,8 @@
 
     [self.spinner stopAnimating];
     self.failLabel.hidden = NO;
+
+    [self endTimer];
 }
 
 @end

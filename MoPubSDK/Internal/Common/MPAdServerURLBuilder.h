@@ -6,6 +6,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "MPURL.h"
 
 @class CLLocation;
 
@@ -14,25 +15,25 @@
 /**
  * Returns an NSURL object given an endpoint and a dictionary of query parameters/values
  */
-+ (NSURL *)URLWithEndpointPath:(NSString *)endpointPath queryParameters:(NSDictionary *)parameters;
++ (MPURL *)URLWithEndpointPath:(NSString *)endpointPath postData:(NSDictionary *)parameters;
 
 @end
 
 @interface MPAdServerURLBuilder (Ad)
 
-+ (NSURL *)URLWithAdUnitID:(NSString *)adUnitID
++ (MPURL *)URLWithAdUnitID:(NSString *)adUnitID
                   keywords:(NSString *)keywords
           userDataKeywords:(NSString *)userDataKeywords
                   location:(CLLocation *)location;
 
-+ (NSURL *)URLWithAdUnitID:(NSString *)adUnitID
++ (MPURL *)URLWithAdUnitID:(NSString *)adUnitID
                   keywords:(NSString *)keywords
           userDataKeywords:(NSString *)userDataKeywords
                   location:(CLLocation *)location
              desiredAssets:(NSArray *)assets
                viewability:(BOOL)viewability;
 
-+ (NSURL *)URLWithAdUnitID:(NSString *)adUnitID
++ (MPURL *)URLWithAdUnitID:(NSString *)adUnitID
                   keywords:(NSString *)keywords
           userDataKeywords:(NSString *)userDataKeywords
                   location:(CLLocation *)location
@@ -49,13 +50,13 @@
  @param appID The App ID to be included in the URL.
  @returns URL to the open endpoint configuring for conversion tracking.
  */
-+ (NSURL *)conversionTrackingURLForAppID:(NSString *)appID;
++ (MPURL *)conversionTrackingURLForAppID:(NSString *)appID;
 
 /**
  Constructs the session tracking URL using current consent state and SDK state.
  @returns URL to the open endpoint configuring for session tracking.
  */
-+ (NSURL *)sessionTrackingURL;
++ (MPURL *)sessionTrackingURL;
 
 @end
 
@@ -66,12 +67,47 @@
  state.
  @returns URL to the consent synchronization endpoint.
  */
-+ (NSURL *)consentSynchronizationUrl;
++ (MPURL *)consentSynchronizationUrl;
 
 /**
  Constructs the URL to fetch the consent dialog using the current consent manager state.
  @returns URL to the consent dialog endpoint
  */
-+ (NSURL *)consentDialogURL;
++ (MPURL *)consentDialogURL;
+
+@end
+
+@interface MPAdServerURLBuilder (Native)
+
+/**
+ Constructs the URL to fetch the native ad positions for the given ad unit ID.
+ @param adUnitId Native ad unit ID to fetch positioning information.
+ @return URL for the native position request if successful; otherwise @c nil.
+ */
++ (MPURL *)nativePositionUrlForAdUnitId:(NSString *)adUnitId;
+
+@end
+
+@interface MPAdServerURLBuilder (Rewarded)
+
+/**
+ Appends additional reward information to the source rewarded completion.
+ @param sourceUrl The source rewarded completion URL given by the server.
+ @param customerId Optional customer ID to associate with the reward.
+ @param rewardType Optional reward type to associate with the customer.
+ Both @c rewardType and @c rewardAmount must be present in order for them to be added.
+ @param rewardAmount Optional reward amount to associate with the reward type.
+ Both @c rewardType and @c rewardAmount must be present in order for them to be added.
+ @param customEventName Optional name of the custom event class used to render the rewarded ad.
+ @param additionalData Optional additional data passed in by the publisher to be sent back to
+ their reward server.
+ @return Expandeded URL if successful; otherwise @c nil.
+ */
++ (MPURL *)rewardedCompletionUrl:(NSString *)sourceUrl
+                  withCustomerId:(NSString *)customerId
+                      rewardType:(NSString *)rewardType
+                    rewardAmount:(NSNumber *)rewardAmount
+                 customEventName:(NSString *)customEventName
+                  additionalData:(NSString *)additionalData;
 
 @end

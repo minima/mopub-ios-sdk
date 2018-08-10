@@ -240,7 +240,7 @@ static const NSInteger kStartTrackerTime = 0;
         for (VASTTrackingURL *vastTrackingURL in vastEventTracker.trackingEvents) {
             [cleanedTrackingURLs addObject:[MPVASTMacroProcessor macroExpandedURLForURL:vastTrackingURL.url errorCode:nil videoTimeOffset:timeOffset videoAssetURL:self.videoConfig.mediaURL]];
         }
-        [[[MPCoreInstanceProvider sharedProvider] sharedMPAnalyticsTracker] sendTrackingRequestForURLs:cleanedTrackingURLs];
+        [[MPAnalyticsTracker sharedTracker] sendTrackingRequestForURLs:cleanedTrackingURLs];
     }
     vastEventTracker.trackersFired = YES;
 }

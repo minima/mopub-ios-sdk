@@ -13,8 +13,11 @@
 #import "MOPUBExperimentProvider.h"
 #import "MPAdConfiguration+Testing.h"
 #import "MPViewabilityTracker.h"
-#import "MPConsentManager+Testing.h"
 #import "MPAdServerKeys.h"
+
+extern NSString * const kNativeImpressionVisibleMsMetadataKey;
+extern NSString * const kNativeImpressionMinVisiblePercentMetadataKey;
+extern NSString * const kNativeImpressionMinVisiblePixelsMetadataKey;
 
 @interface MPAdConfigurationTests : XCTestCase
 
@@ -29,39 +32,46 @@
 
 #pragma mark - Rewarded Ads
 
-- (void)testRewardedPlayableDurationParseSuccess {
-    NSDictionary * headers = @{ kRewardedPlayableDurationHeaderKey: @"30" };
-    MPAdConfiguration * config = [[MPAdConfiguration alloc] initWithHeaders:headers data:nil];
+- (void)testRewardedPlayableDurationParseStringInputSuccess {
+    NSDictionary * headers = @{ kRewardedPlayableDurationMetadataKey: @"30" };
+    MPAdConfiguration * config = [[MPAdConfiguration alloc] initWithMetadata:headers data:nil];
+
+    XCTAssertEqual(config.rewardedPlayableDuration, 30);
+}
+
+- (void)testRewardedPlayableDurationParseNumberInputSuccess {
+    NSDictionary * headers = @{ kRewardedPlayableDurationMetadataKey: @(30) };
+    MPAdConfiguration * config = [[MPAdConfiguration alloc] initWithMetadata:headers data:nil];
 
     XCTAssertEqual(config.rewardedPlayableDuration, 30);
 }
 
 - (void)testRewardedPlayableDurationParseNoHeader {
     NSDictionary * headers = @{ };
-    MPAdConfiguration * config = [[MPAdConfiguration alloc] initWithHeaders:headers data:nil];
+    MPAdConfiguration * config = [[MPAdConfiguration alloc] initWithMetadata:headers data:nil];
 
     XCTAssertEqual(config.rewardedPlayableDuration, -1);
 }
 
 - (void)testRewardedPlayableRewardOnClickParseSuccess {
-    NSDictionary * headers = @{ kRewardedPlayableRewardOnClickHeaderKey: @"true" };
-    MPAdConfiguration * config = [[MPAdConfiguration alloc] initWithHeaders:headers data:nil];
+    NSDictionary * headers = @{ kRewardedPlayableRewardOnClickMetadataKey: @"true" };
+    MPAdConfiguration * config = [[MPAdConfiguration alloc] initWithMetadata:headers data:nil];
 
     XCTAssertEqual(config.rewardedPlayableShouldRewardOnClick, true);
 }
 
 - (void)testRewardedPlayableRewardOnClickParseNoHeader {
     NSDictionary * headers = @{ };
-    MPAdConfiguration * config = [[MPAdConfiguration alloc] initWithHeaders:headers data:nil];
+    MPAdConfiguration * config = [[MPAdConfiguration alloc] initWithMetadata:headers data:nil];
 
     XCTAssertEqual(config.rewardedPlayableShouldRewardOnClick, false);
 }
 
 - (void)testRewardedSingleCurrencyParseSuccess {
-    NSDictionary * headers = @{ kRewardedVideoCurrencyNameHeaderKey: @"Diamonds",
-                                kRewardedVideoCurrencyAmountHeaderKey: @"3",
+    NSDictionary * headers = @{ kRewardedVideoCurrencyNameMetadataKey: @"Diamonds",
+                                kRewardedVideoCurrencyAmountMetadataKey: @"3",
                                };
-    MPAdConfiguration * config = [[MPAdConfiguration alloc] initWithHeaders:headers data:nil];
+    MPAdConfiguration * config = [[MPAdConfiguration alloc] initWithMetadata:headers data:nil];
 
     XCTAssertNotNil(config.availableRewards);
     XCTAssertNotNil(config.selectedReward);
@@ -79,8 +89,8 @@
     //     { "name": "Energy", "amount": 20 }
     //   ]
     // }
-    NSDictionary * headers = @{ kRewardedCurrenciesHeaderKey: @"{ \"rewards\": [ { \"name\": \"Coins\", \"amount\": 8 }, { \"name\": \"Diamonds\", \"amount\": 1 }, { \"name\": \"Energy\", \"amount\": 20 } ] }" };
-    MPAdConfiguration * config = [[MPAdConfiguration alloc] initWithHeaders:headers data:nil];
+    NSDictionary * headers = @{ kRewardedCurrenciesMetadataKey: @{ @"rewards": @[ @{ @"name": @"Coins", @"amount": @(8) }, @{ @"name": @"Diamonds", @"amount": @(1) }, @{ @"name@": @"Energy", @"amount": @(20) } ] } };
+    MPAdConfiguration * config = [[MPAdConfiguration alloc] initWithMetadata:headers data:nil];
 
     XCTAssertNotNil(config.availableRewards);
     XCTAssertNotNil(config.selectedReward);
@@ -94,8 +104,8 @@
     // {
     //   "rewards": []
     // }
-    NSDictionary * headers = @{ kRewardedCurrenciesHeaderKey: @"{ \"rewards\": [] }" };
-    MPAdConfiguration * config = [[MPAdConfiguration alloc] initWithHeaders:headers data:nil];
+    NSDictionary * headers = @{ kRewardedCurrenciesMetadataKey: @{ @"rewards": @[] } };
+    MPAdConfiguration * config = [[MPAdConfiguration alloc] initWithMetadata:headers data:nil];
 
     XCTAssertNotNil(config.availableRewards);
     XCTAssertNotNil(config.selectedReward);
@@ -109,8 +119,8 @@
     // {
     //   "rewards": [ { "n": "Coins", "a": 8 } ]
     // }
-    NSDictionary * headers = @{ kRewardedCurrenciesHeaderKey: @"{ \"rewards\": [ { \"n\": \"Coins\", \"a\": 8 } ] }" };
-    MPAdConfiguration * config = [[MPAdConfiguration alloc] initWithHeaders:headers data:nil];
+    NSDictionary * headers = @{ kRewardedCurrenciesMetadataKey: @{ @"rewards": @[ @{ @"n": @"Coins", @"a": @(8) } ] } };
+    MPAdConfiguration * config = [[MPAdConfiguration alloc] initWithMetadata:headers data:nil];
 
     XCTAssertNotNil(config.availableRewards);
     XCTAssertNotNil(config.selectedReward);
@@ -121,11 +131,11 @@
 }
 
 - (void)testRewardedMultiCurrencyParseFailoverToSingleCurrencySuccess {
-    NSDictionary * headers = @{ kRewardedVideoCurrencyNameHeaderKey: @"Diamonds",
-                                kRewardedVideoCurrencyAmountHeaderKey: @"3",
-                                kRewardedCurrenciesHeaderKey: @"{ }"
+    NSDictionary * headers = @{ kRewardedVideoCurrencyNameMetadataKey: @"Diamonds",
+                                kRewardedVideoCurrencyAmountMetadataKey: @"3",
+                                kRewardedCurrenciesMetadataKey: @{ }
                                 };
-    MPAdConfiguration * config = [[MPAdConfiguration alloc] initWithHeaders:headers data:nil];
+    MPAdConfiguration * config = [[MPAdConfiguration alloc] initWithMetadata:headers data:nil];
 
     XCTAssertNotNil(config.availableRewards);
     XCTAssertNotNil(config.selectedReward);
@@ -161,28 +171,28 @@
 #pragma mark - Clickthrough experiments test
 
 - (void)testClickthroughExperimentDefault {
-    MPAdConfiguration * config = [[MPAdConfiguration alloc] initWithHeaders:nil data:nil];
+    MPAdConfiguration * config = [[MPAdConfiguration alloc] initWithMetadata:nil data:nil];
     XCTAssertEqual(config.clickthroughExperimentBrowserAgent, MOPUBDisplayAgentTypeInApp);
     XCTAssertEqual([MOPUBExperimentProvider displayAgentType], MOPUBDisplayAgentTypeInApp);
 }
 
 - (void)testClickthroughExperimentInApp {
     NSDictionary * headers = @{ kClickthroughExperimentBrowserAgent: @"0"};
-    MPAdConfiguration * config = [[MPAdConfiguration alloc] initWithHeaders:headers data:nil];
+    MPAdConfiguration * config = [[MPAdConfiguration alloc] initWithMetadata:headers data:nil];
     XCTAssertEqual(config.clickthroughExperimentBrowserAgent, MOPUBDisplayAgentTypeInApp);
     XCTAssertEqual([MOPUBExperimentProvider displayAgentType], MOPUBDisplayAgentTypeInApp);
 }
 
 - (void)testClickthroughExperimentNativeBrowser {
     NSDictionary * headers = @{ kClickthroughExperimentBrowserAgent: @"1"};
-    MPAdConfiguration * config = [[MPAdConfiguration alloc] initWithHeaders:headers data:nil];
+    MPAdConfiguration * config = [[MPAdConfiguration alloc] initWithMetadata:headers data:nil];
     XCTAssertEqual(config.clickthroughExperimentBrowserAgent, MOPUBDisplayAgentTypeNativeSafari);
     XCTAssertEqual([MOPUBExperimentProvider displayAgentType], MOPUBDisplayAgentTypeNativeSafari);
 }
 
 - (void)testClickthroughExperimentSafariViewController {
     NSDictionary * headers = @{ kClickthroughExperimentBrowserAgent: @"2"};
-    MPAdConfiguration * config = [[MPAdConfiguration alloc] initWithHeaders:headers data:nil];
+    MPAdConfiguration * config = [[MPAdConfiguration alloc] initWithMetadata:headers data:nil];
     XCTAssertEqual(config.clickthroughExperimentBrowserAgent, MOPUBDisplayAgentTypeSafariViewController);
     XCTAssertEqual([MOPUBExperimentProvider displayAgentType], MOPUBDisplayAgentTypeSafariViewController);
 }
@@ -196,8 +206,8 @@
     // {
     //   "X-Disable-Viewability": 3
     // }
-    NSDictionary * headers = @{ kViewabilityDisableHeaderKey: @"3" };
-    MPAdConfiguration * config = [[MPAdConfiguration alloc] initWithHeaders:headers data:nil];
+    NSDictionary * headers = @{ kViewabilityDisableMetadataKey: @"3" };
+    MPAdConfiguration * config = [[MPAdConfiguration alloc] initWithMetadata:headers data:nil];
 
     XCTAssertNotNil(config);
 
@@ -212,8 +222,8 @@
     // {
     //   "X-Disable-Viewability": 0
     // }
-    NSDictionary * headers = @{ kViewabilityDisableHeaderKey: @"0" };
-    MPAdConfiguration * config = [[MPAdConfiguration alloc] initWithHeaders:headers data:nil];
+    NSDictionary * headers = @{ kViewabilityDisableMetadataKey: @"0" };
+    MPAdConfiguration * config = [[MPAdConfiguration alloc] initWithMetadata:headers data:nil];
 
     XCTAssertNotNil(config);
 
@@ -228,8 +238,8 @@
     // {
     //   "X-Disable-Viewability": 3
     // }
-    NSDictionary * headers = @{ kViewabilityDisableHeaderKey: @"3" };
-    MPAdConfiguration * config = [[MPAdConfiguration alloc] initWithHeaders:headers data:nil];
+    NSDictionary * headers = @{ kViewabilityDisableMetadataKey: @"3" };
+    MPAdConfiguration * config = [[MPAdConfiguration alloc] initWithMetadata:headers data:nil];
 
     XCTAssertNotNil(config);
 
@@ -243,8 +253,8 @@
     // {
     //   "X-Disable-Viewability": 0
     // }
-    headers = @{ kViewabilityDisableHeaderKey: @"0" };
-    config = [[MPAdConfiguration alloc] initWithHeaders:headers data:nil];
+    headers = @{ kViewabilityDisableMetadataKey: @"0" };
+    config = [[MPAdConfiguration alloc] initWithMetadata:headers data:nil];
 
     XCTAssertNotNil(config);
 
@@ -259,8 +269,8 @@
     // {
     //   "X-Disable-Viewability": 3aaaa
     // }
-    NSDictionary * headers = @{ kViewabilityDisableHeaderKey: @"3aaaa" };
-    MPAdConfiguration * config = [[MPAdConfiguration alloc] initWithHeaders:headers data:nil];
+    NSDictionary * headers = @{ kViewabilityDisableMetadataKey: @"aaaa" };
+    MPAdConfiguration * config = [[MPAdConfiguration alloc] initWithMetadata:headers data:nil];
 
     XCTAssertNotNil(config);
 
@@ -275,8 +285,8 @@
     // {
     //   "X-Disable-Viewability": ""
     // }
-    NSDictionary * headers = @{ kViewabilityDisableHeaderKey: @"" };
-    MPAdConfiguration * config = [[MPAdConfiguration alloc] initWithHeaders:headers data:nil];
+    NSDictionary * headers = @{ kViewabilityDisableMetadataKey: @"" };
+    MPAdConfiguration * config = [[MPAdConfiguration alloc] initWithMetadata:headers data:nil];
 
     XCTAssertNotNil(config);
 
@@ -287,43 +297,43 @@
 #pragma mark - Static Native Ads
 
 - (void)testMinVisiblePixelsParseSuccess {
-    NSDictionary *headers = @{ @"X-Native-Impression-Min-Px": @"50" };
-    MPAdConfiguration *config = [[MPAdConfiguration alloc] initWithHeaders:headers data:nil];
+    NSDictionary *headers = @{ kNativeImpressionMinVisiblePixelsMetadataKey: @"50" };
+    MPAdConfiguration *config = [[MPAdConfiguration alloc] initWithMetadata:headers data:nil];
 
     XCTAssertEqual(config.nativeImpressionMinVisiblePixels, 50.0);
 }
 
 - (void)testMinVisiblePixelsParseNoHeader {
     NSDictionary *headers = @{};
-    MPAdConfiguration *config = [[MPAdConfiguration alloc] initWithHeaders:headers data:nil];
+    MPAdConfiguration *config = [[MPAdConfiguration alloc] initWithMetadata:headers data:nil];
 
     XCTAssertEqual(config.nativeImpressionMinVisiblePixels, -1.0);
 }
 
 - (void)testMinVisiblePercentParseSuccess {
-    NSDictionary *headers = @{ @"X-Impression-Min-Visible-Percent": @"50" };
-    MPAdConfiguration *config = [[MPAdConfiguration alloc] initWithHeaders:headers data:nil];
+    NSDictionary *headers = @{ kNativeImpressionMinVisiblePercentMetadataKey: @"50" };
+    MPAdConfiguration *config = [[MPAdConfiguration alloc] initWithMetadata:headers data:nil];
 
     XCTAssertEqual(config.nativeImpressionMinVisiblePercent, 50);
 }
 
 - (void)testMinVisiblePercentParseNoHeader {
     NSDictionary *headers = @{};
-    MPAdConfiguration *config = [[MPAdConfiguration alloc] initWithHeaders:headers data:nil];
+    MPAdConfiguration *config = [[MPAdConfiguration alloc] initWithMetadata:headers data:nil];
 
     XCTAssertEqual(config.nativeImpressionMinVisiblePercent, -1);
 }
 
 - (void)testMinVisibleTimeIntervalParseSuccess {
-    NSDictionary *headers = @{ @"X-Impression-Visible-Ms": @"1500" };
-    MPAdConfiguration *config = [[MPAdConfiguration alloc] initWithHeaders:headers data:nil];
+    NSDictionary *headers = @{ kNativeImpressionVisibleMsMetadataKey: @"1500" };
+    MPAdConfiguration *config = [[MPAdConfiguration alloc] initWithMetadata:headers data:nil];
 
     XCTAssertEqual(config.nativeImpressionMinVisibleTimeInterval, 1.5);
 }
 
 - (void)testMinVisibleTimeIntervalParseNoHeader {
     NSDictionary *headers = @{};
-    MPAdConfiguration *config = [[MPAdConfiguration alloc] initWithHeaders:headers data:nil];
+    MPAdConfiguration *config = [[MPAdConfiguration alloc] initWithMetadata:headers data:nil];
 
     XCTAssertEqual(config.nativeImpressionMinVisibleTimeInterval, -1);
 }
@@ -331,225 +341,78 @@
 #pragma mark - Banner Impression Headers
 
 - (void)testVisibleImpressionHeader {
-    NSDictionary * headers = @{ kBannerImpressionVisableMsHeaderKey: @"0", kBannerImpressionMinPixelHeaderKey:@"1"};
-    MPAdConfiguration * config = [[MPAdConfiguration alloc] initWithHeaders:headers data:nil];
+    NSDictionary * headers = @{ kBannerImpressionVisableMsMetadataKey: @"0", kBannerImpressionMinPixelMetadataKey:@"1"};
+    MPAdConfiguration * config = [[MPAdConfiguration alloc] initWithMetadata:headers data:nil];
     XCTAssertEqual(config.impressionMinVisiblePixels, 1);
     XCTAssertEqual(config.impressionMinVisibleTimeInSec, 0);
 }
 
 - (void)testVisibleImpressionEnabled {
-    NSDictionary * headers = @{ kBannerImpressionVisableMsHeaderKey: @"0", kBannerImpressionMinPixelHeaderKey:@"1"};
-    MPAdConfiguration * config = [[MPAdConfiguration alloc] initWithHeaders:headers data:nil];
+    NSDictionary * headers = @{ kBannerImpressionVisableMsMetadataKey: @"0", kBannerImpressionMinPixelMetadataKey:@"1"};
+    MPAdConfiguration * config = [[MPAdConfiguration alloc] initWithMetadata:headers data:nil];
     XCTAssertTrue(config.visibleImpressionTrackingEnabled);
 }
 
 - (void)testVisibleImpressionEnabledNoHeader {
     NSDictionary * headers = @{};
-    MPAdConfiguration * config = [[MPAdConfiguration alloc] initWithHeaders:headers data:nil];
+    MPAdConfiguration * config = [[MPAdConfiguration alloc] initWithMetadata:headers data:nil];
     XCTAssertFalse(config.visibleImpressionTrackingEnabled);
 }
 
 - (void)testVisibleImpressionNotEnabled {
-    NSDictionary * headers = @{kBannerImpressionVisableMsHeaderKey: @"0", kBannerImpressionMinPixelHeaderKey:@"0"};
-    MPAdConfiguration * config = [[MPAdConfiguration alloc] initWithHeaders:headers data:nil];
+    NSDictionary * headers = @{kBannerImpressionVisableMsMetadataKey: @"0", kBannerImpressionMinPixelMetadataKey:@"0"};
+    MPAdConfiguration * config = [[MPAdConfiguration alloc] initWithMetadata:headers data:nil];
     XCTAssertFalse(config.visibleImpressionTrackingEnabled);
 }
 
-#pragma mark - Consent Headers
+#pragma mark - Multiple Impression Tracking URLs
 
-- (void)testConsentForceExplicitNoHeader {
-    // Reset consent manager state
-    [[MPConsentManager sharedManager] setUpConsentManagerForTesting];
+- (void)testMultipleImpressionTrackingURLs {
+    NSDictionary * headers = @{ kImpressionTrackersMetadataKey: @[@"https://google.com", @"https://mopub.com", @"https://twitter.com"] };
+    MPAdConfiguration * config = [[MPAdConfiguration alloc] initWithMetadata:headers data:nil];
 
-    NSDictionary * before = @{
-                              @"is_whitelisted": @"0",
-                              @"is_gdpr_region": @"1",
-                              @"call_again_after_secs": @"10",
-                              @"current_privacy_policy_link": @"http://www.mopub.com/privacy",
-                              @"current_privacy_policy_version": @"3.0.0",
-                              @"current_vendor_list_link": @"http://www.mopub.com/vendors",
-                              @"current_vendor_list_version": @"4.0.0",
-                              @"current_vendor_list_iab_format": @"yyyyy",
-                              @"current_vendor_list_iab_hash": @"hash",
-                              };
-
-    // Update consent
-    MPConsentManager * manager = MPConsentManager.sharedManager;
-    BOOL success = [manager updateConsentStateWithParameters:before];
-    XCTAssertTrue(success);
-    XCTAssert(manager.currentStatus == MPConsentStatusUnknown);
-
-    // Set to consented
-    success = [manager setCurrentStatus:MPConsentStatusConsented reason:@"unit test" shouldBroadcast:YES];
-    XCTAssertTrue(success);
-    XCTAssert(manager.currentStatus == MPConsentStatusConsented);
-
-    // Force explicit no via ad configuration
-    NSDictionary * headers = @{kForceExplicitNoKey: @"1", kConsentChangedReasonKey: @"unit test"};
-    MPAdConfiguration * config = [[MPAdConfiguration alloc] initWithHeaders:headers data:nil];
-    XCTAssertNotNil(config);
-
-    // Assert that the consent status is denied
-    XCTAssert(manager.currentStatus == MPConsentStatusDenied);
-    XCTAssertNil(manager.consentedIabVendorList);
-    XCTAssertNil(manager.consentedPrivacyPolicyVersion);
-    XCTAssertNil(manager.consentedVendorListVersion);
+    XCTAssert(config.impressionTrackingURLs.count == 3);
+    XCTAssert([config.impressionTrackingURLs containsObject:[NSURL URLWithString:@"https://google.com"]]);
+    XCTAssert([config.impressionTrackingURLs containsObject:[NSURL URLWithString:@"https://mopub.com"]]);
+    XCTAssert([config.impressionTrackingURLs containsObject:[NSURL URLWithString:@"https://twitter.com"]]);
 }
 
-- (void)testConsentForceInvalidateConsentHeader {
-    // Reset consent manager state
-    [[MPConsentManager sharedManager] setUpConsentManagerForTesting];
+- (void)testSingleImpressionTrackingURLIsFunctional {
+    NSDictionary * headers = @{ kImpressionTrackerMetadataKey: @"https://twitter.com" };
+    MPAdConfiguration * config = [[MPAdConfiguration alloc] initWithMetadata:headers data:nil];
 
-    NSDictionary * before = @{
-                              @"is_whitelisted": @"1",
-                              @"is_gdpr_region": @"1",
-                              @"call_again_after_secs": @"10",
-                              @"current_privacy_policy_link": @"http://www.mopub.com/privacy",
-                              @"current_privacy_policy_version": @"3.0.0",
-                              @"current_vendor_list_link": @"http://www.mopub.com/vendors",
-                              @"current_vendor_list_version": @"4.0.0",
-                              @"current_vendor_list_iab_format": @"yyyyy",
-                              @"current_vendor_list_iab_hash": @"hash",
-                              };
-
-    // Update consent
-    MPConsentManager * manager = MPConsentManager.sharedManager;
-    BOOL success = [manager updateConsentStateWithParameters:before];
-    XCTAssertTrue(success);
-    XCTAssert(manager.currentStatus == MPConsentStatusUnknown);
-
-    // Set to denied
-    success = [manager setCurrentStatus:MPConsentStatusDenied reason:@"unit test" shouldBroadcast:YES];
-    XCTAssertTrue(success);
-    XCTAssert(manager.currentStatus == MPConsentStatusDenied);
-
-    // Force reacquire consent via ad configuration
-    NSDictionary * headers = @{kInvalidateConsentKey: @"1", kConsentChangedReasonKey: @"unit test"};
-    MPAdConfiguration * config = [[MPAdConfiguration alloc] initWithHeaders:headers data:nil];
-    XCTAssertNotNil(config);
-
-    // Assert that the consent status is unknown
-    XCTAssert(manager.currentStatus == MPConsentStatusUnknown);
-    XCTAssertNil(manager.consentedIabVendorList);
-    XCTAssertNil(manager.consentedPrivacyPolicyVersion);
-    XCTAssertNil(manager.consentedVendorListVersion);
+    XCTAssert(config.impressionTrackingURLs.count == 1);
+    XCTAssert([config.impressionTrackingURLs containsObject:[NSURL URLWithString:@"https://twitter.com"]]);
 }
 
-- (void)testConsentForceExplicitNoHeaderTakesPriorityOverInvalidateConsentHeader {
-    // Reset consent manager state
-    [[MPConsentManager sharedManager] setUpConsentManagerForTesting];
+- (void)testMultipleImpressionTrackingURLsTakesPriorityOverSingleURL {
+    NSDictionary * headers = @{
+                               kImpressionTrackersMetadataKey: @[@"https://google.com", @"https://mopub.com"],
+                               kImpressionTrackerMetadataKey: @"https://twitter.com"
+                               };
+    MPAdConfiguration * config = [[MPAdConfiguration alloc] initWithMetadata:headers data:nil];
 
-    NSDictionary * before = @{
-                              @"is_whitelisted": @"0",
-                              @"is_gdpr_region": @"1",
-                              @"call_again_after_secs": @"10",
-                              @"current_privacy_policy_link": @"http://www.mopub.com/privacy",
-                              @"current_privacy_policy_version": @"3.0.0",
-                              @"current_vendor_list_link": @"http://www.mopub.com/vendors",
-                              @"current_vendor_list_version": @"4.0.0",
-                              @"current_vendor_list_iab_format": @"yyyyy",
-                              @"current_vendor_list_iab_hash": @"hash",
-                              };
-
-    // Update consent
-    MPConsentManager * manager = MPConsentManager.sharedManager;
-    BOOL success = [manager updateConsentStateWithParameters:before];
-    XCTAssertTrue(success);
-    XCTAssert(manager.currentStatus == MPConsentStatusUnknown);
-
-    // Set to consented
-    success = [manager setCurrentStatus:MPConsentStatusConsented reason:@"unit test" shouldBroadcast:YES];
-    XCTAssertTrue(success);
-    XCTAssert(manager.currentStatus == MPConsentStatusConsented);
-
-    // Force explicit no AND reacquire consent via ad configuration
-    NSDictionary * headers = @{kInvalidateConsentKey: @"1", kForceExplicitNoKey: @"1", kConsentChangedReasonKey: @"unit test"};
-    MPAdConfiguration * config = [[MPAdConfiguration alloc] initWithHeaders:headers data:nil];
-    XCTAssertNotNil(config);
-
-    // Assert that the consent status is denied
-    XCTAssert(manager.currentStatus == MPConsentStatusDenied);
-    XCTAssertNil(manager.consentedIabVendorList);
-    XCTAssertNil(manager.consentedPrivacyPolicyVersion);
-    XCTAssertNil(manager.consentedVendorListVersion);
+    XCTAssert(config.impressionTrackingURLs.count == 2);
+    XCTAssert([config.impressionTrackingURLs containsObject:[NSURL URLWithString:@"https://google.com"]]);
+    XCTAssert([config.impressionTrackingURLs containsObject:[NSURL URLWithString:@"https://mopub.com"]]);
+    XCTAssertFalse([config.impressionTrackingURLs containsObject:[NSURL URLWithString:@"https://twitter.com"]]);
 }
 
-- (void)testConsentForceExplicitNoHeaderDoesNothingWhenMalformed {
-    // Reset consent manager state
-    [[MPConsentManager sharedManager] setUpConsentManagerForTesting];
+- (void)testLackOfImpressionTrackingURLResultsInNilArray {
+    NSDictionary * headers = @{};
+    MPAdConfiguration * config = [[MPAdConfiguration alloc] initWithMetadata:headers data:nil];
 
-    NSDictionary * before = @{
-                              @"is_whitelisted": @"0",
-                              @"is_gdpr_region": @"1",
-                              @"call_again_after_secs": @"10",
-                              @"current_privacy_policy_link": @"http://www.mopub.com/privacy",
-                              @"current_privacy_policy_version": @"3.0.0",
-                              @"current_vendor_list_link": @"http://www.mopub.com/vendors",
-                              @"current_vendor_list_version": @"4.0.0",
-                              @"current_vendor_list_iab_format": @"yyyyy",
-                              @"current_vendor_list_iab_hash": @"hash",
-                              };
-
-    // Update consent
-    MPConsentManager * manager = MPConsentManager.sharedManager;
-    BOOL success = [manager updateConsentStateWithParameters:before];
-    XCTAssertTrue(success);
-    XCTAssert(manager.currentStatus == MPConsentStatusUnknown);
-
-    // Set to consented
-    success = [manager setCurrentStatus:MPConsentStatusConsented reason:@"unit test" shouldBroadcast:YES];
-    XCTAssertTrue(success);
-    XCTAssert(manager.currentStatus == MPConsentStatusConsented);
-
-    // Give malformed value to force explicit no header
-    NSDictionary * headers = @{kForceExplicitNoKey: @"asdfasdflj", kConsentChangedReasonKey: @"unit test"};
-    MPAdConfiguration * config = [[MPAdConfiguration alloc] initWithHeaders:headers data:nil];
-    XCTAssertNotNil(config);
-
-    // Assert that the consent status is denied
-    XCTAssert(manager.currentStatus == MPConsentStatusConsented);
-    XCTAssertNotNil(manager.consentedIabVendorList);
-    XCTAssertNotNil(manager.consentedPrivacyPolicyVersion);
-    XCTAssertNotNil(manager.consentedVendorListVersion);
+    XCTAssertNil(config.impressionTrackingURLs);
 }
 
-- (void)testConsentInvalidateConsentHeaderDoesNothingWhenMalformed {
-    // Reset consent manager state
-    [[MPConsentManager sharedManager] setUpConsentManagerForTesting];
-
-    NSDictionary * before = @{
-                              @"is_whitelisted": @"0",
-                              @"is_gdpr_region": @"1",
-                              @"call_again_after_secs": @"10",
-                              @"current_privacy_policy_link": @"http://www.mopub.com/privacy",
-                              @"current_privacy_policy_version": @"3.0.0",
-                              @"current_vendor_list_link": @"http://www.mopub.com/vendors",
-                              @"current_vendor_list_version": @"4.0.0",
-                              @"current_vendor_list_iab_format": @"yyyyy",
-                              @"current_vendor_list_iab_hash": @"hash",
-                              };
-
-    // Update consent
-    MPConsentManager * manager = MPConsentManager.sharedManager;
-    BOOL success = [manager updateConsentStateWithParameters:before];
-    XCTAssertTrue(success);
-    XCTAssert(manager.currentStatus == MPConsentStatusUnknown);
-
-    // Set to consented
-    success = [manager setCurrentStatus:MPConsentStatusConsented reason:@"unit test" shouldBroadcast:YES];
-    XCTAssertTrue(success);
-    XCTAssert(manager.currentStatus == MPConsentStatusConsented);
-
-    // Give malformed value to force explicit no header
-    NSDictionary * headers = @{kInvalidateConsentKey: @"asdfasdflj", kConsentChangedReasonKey: @"unit test"};
-    MPAdConfiguration * config = [[MPAdConfiguration alloc] initWithHeaders:headers data:nil];
-    XCTAssertNotNil(config);
-
-    // Assert that the consent status is denied
-    XCTAssert(manager.currentStatus == MPConsentStatusConsented);
-    XCTAssertNotNil(manager.consentedIabVendorList);
-    XCTAssertNotNil(manager.consentedPrivacyPolicyVersion);
-    XCTAssertNotNil(manager.consentedVendorListVersion);
+- (void)testMalformedURLsAreNotIncludedInAdConfiguration {
+    NSDictionary * headers = @{
+                               kImpressionTrackersMetadataKey: @[@"https://google.com", @"https://mopub.com", @"https://mopub.com/%%FAKEMACRO%%", @"absolutely not a URL"],
+                               };
+    MPAdConfiguration * config = [[MPAdConfiguration alloc] initWithMetadata:headers data:nil];
+    XCTAssert(config.impressionTrackingURLs.count == 2);
+    XCTAssert([config.impressionTrackingURLs containsObject:[NSURL URLWithString:@"https://google.com"]]);
+    XCTAssert([config.impressionTrackingURLs containsObject:[NSURL URLWithString:@"https://mopub.com"]]);
 }
 
 @end

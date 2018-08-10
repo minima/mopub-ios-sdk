@@ -7,10 +7,11 @@
 
 #import <UIKit/UIKit.h>
 #import "MPInterstitialAdController.h"
+#import "MPViewController.h"
 
 @class MPAdInfo;
 
-@interface MPInterstitialAdDetailViewController : UIViewController <MPInterstitialAdControllerDelegate>
+@interface MPInterstitialAdDetailViewController : MPViewController <MPInterstitialAdControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *IDLabel;

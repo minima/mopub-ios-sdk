@@ -296,15 +296,7 @@ const NSTimeInterval kMPLocationUpdateInterval = 10.0 * 60.0;
     }
 }
 
-#pragma mark - <CLLocationManagerDelegate> (iOS < 6.0)
-
-- (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation
-{
-    if ([self isLocation:newLocation betterThanLocation:self.lastKnownLocation]) {
-        self.lastKnownLocation = newLocation;
-        MPLogDebug(@"Updated last known user location.");
-    }
-}
+#pragma mark - Consent
 
 - (void)consentStateChanged:(NSNotification *)notification
 {

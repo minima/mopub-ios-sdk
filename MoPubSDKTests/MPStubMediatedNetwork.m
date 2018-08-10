@@ -14,3 +14,11 @@
 }
 
 @end
+
+@implementation MPStubMediatedNetworkTwo
+
+- (void)initializeSdkWithParameters:(NSDictionary * _Nullable)parameters {
+
+}
+
+@end

@@ -11,7 +11,7 @@
 
 @interface MPAnalyticsTracker : NSObject
 
-+ (MPAnalyticsTracker *)tracker;
++ (MPAnalyticsTracker *)sharedTracker;
 
 - (void)trackImpressionForConfiguration:(MPAdConfiguration *)configuration;
 - (void)trackClickForConfiguration:(MPAdConfiguration *)configuration;

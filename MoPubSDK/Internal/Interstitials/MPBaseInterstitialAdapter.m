@@ -11,6 +11,7 @@
 #import "MPGlobal.h"
 #import "MPAnalyticsTracker.h"
 #import "MPCoreInstanceProvider.h"
+#import "MPError.h"
 #import "MPTimer.h"
 #import "MPConstants.h"
 
@@ -89,7 +90,9 @@
 
 - (void)timeout
 {
-    [self.delegate adapter:self didFailToLoadAdWithError:nil];
+    NSError * error = [MOPUBError errorWithCode:MOPUBErrorAdRequestTimedOut localizedDescription:@"Interstitial ad request timed out"];
+    [self.delegate adapter:self didFailToLoadAdWithError:error];
+    self.delegate = nil;
 }
 
 #pragma mark - Presentation
@@ -103,12 +106,12 @@
 
 - (void)trackImpression
 {
-    [[[MPCoreInstanceProvider sharedProvider] sharedMPAnalyticsTracker] trackImpressionForConfiguration:self.configuration];
+    [[MPAnalyticsTracker sharedTracker] trackImpressionForConfiguration:self.configuration];
 }
 
 - (void)trackClick
 {
-    [[[MPCoreInstanceProvider sharedProvider] sharedMPAnalyticsTracker] trackClickForConfiguration:self.configuration];
+    [[MPAnalyticsTracker sharedTracker] trackClickForConfiguration:self.configuration];
 }
 
 @end
